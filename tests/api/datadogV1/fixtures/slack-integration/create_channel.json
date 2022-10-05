@@ -1,9 +1,0 @@
-{
-  "name":"#test-channel",
-  "display":{
-    "notified":true,
-    "message":false,
-    "snapshot":true,
-    "tags":false
-  }
-}
