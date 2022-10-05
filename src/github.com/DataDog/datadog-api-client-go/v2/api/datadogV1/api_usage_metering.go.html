@@ -5224,8 +5224,8 @@
 <span id="L5167" class="ln">  5167  </span>	return req, nil
 <span id="L5168" class="ln">  5168  </span>}
 <span id="L5169" class="ln">  5169  </span>
-<span id="L5170" class="ln">  5170  </span><span class="comment">// GetUsageSummary Get usage across your multi-org account.</span>
-<span id="L5171" class="ln">  5171  </span><span class="comment">// Get usage across your multi-org account. You must have the multi-org feature enabled.</span>
+<span id="L5170" class="ln">  5170  </span><span class="comment">// GetUsageSummary Get usage across your account.</span>
+<span id="L5171" class="ln">  5171  </span><span class="comment">// Get all usage across your account.</span>
 <span id="L5172" class="ln">  5172  </span>func (a *UsageMeteringApi) GetUsageSummary(ctx _context.Context, startMonth time.Time, o ...GetUsageSummaryOptionalParameters) (UsageSummaryResponse, *_nethttp.Response, error) {
 <span id="L5173" class="ln">  5173  </span>	req, err := a.buildGetUsageSummaryRequest(ctx, startMonth, o...)
 <span id="L5174" class="ln">  5174  </span>	if err != nil {
