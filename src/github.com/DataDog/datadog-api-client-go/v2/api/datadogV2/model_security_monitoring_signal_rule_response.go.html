@@ -92,7 +92,7 @@
 <span id="L35" class="ln">    35  </span>	<span class="comment">// Options on rules.</span>
 <span id="L36" class="ln">    36  </span>	Options *SecurityMonitoringRuleOptions `json:&#34;options,omitempty&#34;`
 <span id="L37" class="ln">    37  </span>	<span class="comment">// Queries for selecting logs which are part of the rule.</span>
-<span id="L38" class="ln">    38  </span>	Queries []SecurityMonitoringSignalRuleQuery `json:&#34;queries,omitempty&#34;`
+<span id="L38" class="ln">    38  </span>	Queries []SecurityMonitoringSignalRuleResponseQuery `json:&#34;queries,omitempty&#34;`
 <span id="L39" class="ln">    39  </span>	<span class="comment">// Tags for generated signals.</span>
 <span id="L40" class="ln">    40  </span>	Tags []string `json:&#34;tags,omitempty&#34;`
 <span id="L41" class="ln">    41  </span>	<span class="comment">// The rule type.</span>
@@ -460,9 +460,9 @@
 <span id="L403" class="ln">   403  </span>}
 <span id="L404" class="ln">   404  </span>
 <span id="L405" class="ln">   405  </span><span class="comment">// GetQueries returns the Queries field value if set, zero value otherwise.</span>
-<span id="L406" class="ln">   406  </span>func (o *SecurityMonitoringSignalRuleResponse) GetQueries() []SecurityMonitoringSignalRuleQuery {
+<span id="L406" class="ln">   406  </span>func (o *SecurityMonitoringSignalRuleResponse) GetQueries() []SecurityMonitoringSignalRuleResponseQuery {
 <span id="L407" class="ln">   407  </span>	if o == nil || o.Queries == nil {
-<span id="L408" class="ln">   408  </span>		var ret []SecurityMonitoringSignalRuleQuery
+<span id="L408" class="ln">   408  </span>		var ret []SecurityMonitoringSignalRuleResponseQuery
 <span id="L409" class="ln">   409  </span>		return ret
 <span id="L410" class="ln">   410  </span>	}
 <span id="L411" class="ln">   411  </span>	return o.Queries
@@ -470,7 +470,7 @@
 <span id="L413" class="ln">   413  </span>
 <span id="L414" class="ln">   414  </span><span class="comment">// GetQueriesOk returns a tuple with the Queries field value if set, nil otherwise</span>
 <span id="L415" class="ln">   415  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L416" class="ln">   416  </span>func (o *SecurityMonitoringSignalRuleResponse) GetQueriesOk() (*[]SecurityMonitoringSignalRuleQuery, bool) {
+<span id="L416" class="ln">   416  </span>func (o *SecurityMonitoringSignalRuleResponse) GetQueriesOk() (*[]SecurityMonitoringSignalRuleResponseQuery, bool) {
 <span id="L417" class="ln">   417  </span>	if o == nil || o.Queries == nil {
 <span id="L418" class="ln">   418  </span>		return nil, false
 <span id="L419" class="ln">   419  </span>	}
@@ -482,8 +482,8 @@
 <span id="L425" class="ln">   425  </span>	return o != nil &amp;&amp; o.Queries != nil
 <span id="L426" class="ln">   426  </span>}
 <span id="L427" class="ln">   427  </span>
-<span id="L428" class="ln">   428  </span><span class="comment">// SetQueries gets a reference to the given []SecurityMonitoringSignalRuleQuery and assigns it to the Queries field.</span>
-<span id="L429" class="ln">   429  </span>func (o *SecurityMonitoringSignalRuleResponse) SetQueries(v []SecurityMonitoringSignalRuleQuery) {
+<span id="L428" class="ln">   428  </span><span class="comment">// SetQueries gets a reference to the given []SecurityMonitoringSignalRuleResponseQuery and assigns it to the Queries field.</span>
+<span id="L429" class="ln">   429  </span>func (o *SecurityMonitoringSignalRuleResponse) SetQueries(v []SecurityMonitoringSignalRuleResponseQuery) {
 <span id="L430" class="ln">   430  </span>	o.Queries = v
 <span id="L431" class="ln">   431  </span>}
 <span id="L432" class="ln">   432  </span>
@@ -667,23 +667,23 @@
 <span id="L610" class="ln">   610  </span>func (o *SecurityMonitoringSignalRuleResponse) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L611" class="ln">   611  </span>	raw := map[string]interface{}{}
 <span id="L612" class="ln">   612  </span>	all := struct {
-<span id="L613" class="ln">   613  </span>		Cases            []SecurityMonitoringRuleCase        `json:&#34;cases,omitempty&#34;`
-<span id="L614" class="ln">   614  </span>		CreatedAt        *int64                              `json:&#34;createdAt,omitempty&#34;`
-<span id="L615" class="ln">   615  </span>		CreationAuthorId *int64                              `json:&#34;creationAuthorId,omitempty&#34;`
-<span id="L616" class="ln">   616  </span>		Filters          []SecurityMonitoringFilter          `json:&#34;filters,omitempty&#34;`
-<span id="L617" class="ln">   617  </span>		HasExtendedTitle *bool                               `json:&#34;hasExtendedTitle,omitempty&#34;`
-<span id="L618" class="ln">   618  </span>		Id               *string                             `json:&#34;id,omitempty&#34;`
-<span id="L619" class="ln">   619  </span>		IsDefault        *bool                               `json:&#34;isDefault,omitempty&#34;`
-<span id="L620" class="ln">   620  </span>		IsDeleted        *bool                               `json:&#34;isDeleted,omitempty&#34;`
-<span id="L621" class="ln">   621  </span>		IsEnabled        *bool                               `json:&#34;isEnabled,omitempty&#34;`
-<span id="L622" class="ln">   622  </span>		Message          *string                             `json:&#34;message,omitempty&#34;`
-<span id="L623" class="ln">   623  </span>		Name             *string                             `json:&#34;name,omitempty&#34;`
-<span id="L624" class="ln">   624  </span>		Options          *SecurityMonitoringRuleOptions      `json:&#34;options,omitempty&#34;`
-<span id="L625" class="ln">   625  </span>		Queries          []SecurityMonitoringSignalRuleQuery `json:&#34;queries,omitempty&#34;`
-<span id="L626" class="ln">   626  </span>		Tags             []string                            `json:&#34;tags,omitempty&#34;`
-<span id="L627" class="ln">   627  </span>		Type             *SecurityMonitoringSignalRuleType   `json:&#34;type,omitempty&#34;`
-<span id="L628" class="ln">   628  </span>		UpdateAuthorId   *int64                              `json:&#34;updateAuthorId,omitempty&#34;`
-<span id="L629" class="ln">   629  </span>		Version          *int64                              `json:&#34;version,omitempty&#34;`
+<span id="L613" class="ln">   613  </span>		Cases            []SecurityMonitoringRuleCase                `json:&#34;cases,omitempty&#34;`
+<span id="L614" class="ln">   614  </span>		CreatedAt        *int64                                      `json:&#34;createdAt,omitempty&#34;`
+<span id="L615" class="ln">   615  </span>		CreationAuthorId *int64                                      `json:&#34;creationAuthorId,omitempty&#34;`
+<span id="L616" class="ln">   616  </span>		Filters          []SecurityMonitoringFilter                  `json:&#34;filters,omitempty&#34;`
+<span id="L617" class="ln">   617  </span>		HasExtendedTitle *bool                                       `json:&#34;hasExtendedTitle,omitempty&#34;`
+<span id="L618" class="ln">   618  </span>		Id               *string                                     `json:&#34;id,omitempty&#34;`
+<span id="L619" class="ln">   619  </span>		IsDefault        *bool                                       `json:&#34;isDefault,omitempty&#34;`
+<span id="L620" class="ln">   620  </span>		IsDeleted        *bool                                       `json:&#34;isDeleted,omitempty&#34;`
+<span id="L621" class="ln">   621  </span>		IsEnabled        *bool                                       `json:&#34;isEnabled,omitempty&#34;`
+<span id="L622" class="ln">   622  </span>		Message          *string                                     `json:&#34;message,omitempty&#34;`
+<span id="L623" class="ln">   623  </span>		Name             *string                                     `json:&#34;name,omitempty&#34;`
+<span id="L624" class="ln">   624  </span>		Options          *SecurityMonitoringRuleOptions              `json:&#34;options,omitempty&#34;`
+<span id="L625" class="ln">   625  </span>		Queries          []SecurityMonitoringSignalRuleResponseQuery `json:&#34;queries,omitempty&#34;`
+<span id="L626" class="ln">   626  </span>		Tags             []string                                    `json:&#34;tags,omitempty&#34;`
+<span id="L627" class="ln">   627  </span>		Type             *SecurityMonitoringSignalRuleType           `json:&#34;type,omitempty&#34;`
+<span id="L628" class="ln">   628  </span>		UpdateAuthorId   *int64                                      `json:&#34;updateAuthorId,omitempty&#34;`
+<span id="L629" class="ln">   629  </span>		Version          *int64                                      `json:&#34;version,omitempty&#34;`
 <span id="L630" class="ln">   630  </span>	}{}
 <span id="L631" class="ln">   631  </span>	err = json.Unmarshal(bytes, &amp;all)
 <span id="L632" class="ln">   632  </span>	if err != nil {
