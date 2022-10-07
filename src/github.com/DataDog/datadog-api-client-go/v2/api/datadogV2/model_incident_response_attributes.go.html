@@ -94,7 +94,7 @@
 <span id="L37" class="ln">    37  </span>	NotificationHandles []IncidentNotificationHandle `json:&#34;notification_handles,omitempty&#34;`
 <span id="L38" class="ln">    38  </span>	<span class="comment">// The monotonically increasing integer ID for the incident.</span>
 <span id="L39" class="ln">    39  </span>	PublicId *int64 `json:&#34;public_id,omitempty&#34;`
-<span id="L40" class="ln">    40  </span>	<span class="comment">// Timestamp when the incident&#39;s state was set to resolved.</span>
+<span id="L40" class="ln">    40  </span>	<span class="comment">// Timestamp when the incident&#39;s state was last changed from active or stable to resolved or completed.</span>
 <span id="L41" class="ln">    41  </span>	Resolved datadog.NullableTime `json:&#34;resolved,omitempty&#34;`
 <span id="L42" class="ln">    42  </span>	<span class="comment">// The amount of time in seconds to detect the incident.</span>
 <span id="L43" class="ln">    43  </span>	<span class="comment">// Equals the difference between `customer_impact_start` and `detected`.</span>
