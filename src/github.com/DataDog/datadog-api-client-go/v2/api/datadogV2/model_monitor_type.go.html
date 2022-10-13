@@ -74,11 +74,11 @@
 <span id="L17" class="ln">    17  </span>	<span class="comment">// Groups to which the monitor belongs.</span>
 <span id="L18" class="ln">    18  </span>	Groups []string `json:&#34;groups,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// The monitor ID.</span>
-<span id="L20" class="ln">    20  </span>	Id *int32 `json:&#34;id,omitempty&#34;`
+<span id="L20" class="ln">    20  </span>	Id *int64 `json:&#34;id,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// The monitor message.</span>
 <span id="L22" class="ln">    22  </span>	Message *string `json:&#34;message,omitempty&#34;`
 <span id="L23" class="ln">    23  </span>	<span class="comment">// The monitor&#39;s last-modified timestamp.</span>
-<span id="L24" class="ln">    24  </span>	Modified *int32 `json:&#34;modified,omitempty&#34;`
+<span id="L24" class="ln">    24  </span>	Modified *int64 `json:&#34;modified,omitempty&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// The monitor name.</span>
 <span id="L26" class="ln">    26  </span>	Name *string `json:&#34;name,omitempty&#34;`
 <span id="L27" class="ln">    27  </span>	<span class="comment">// The query that triggers the alert.</span>
@@ -196,9 +196,9 @@
 <span id="L139" class="ln">   139  </span>}
 <span id="L140" class="ln">   140  </span>
 <span id="L141" class="ln">   141  </span><span class="comment">// GetId returns the Id field value if set, zero value otherwise.</span>
-<span id="L142" class="ln">   142  </span>func (o *MonitorType) GetId() int32 {
+<span id="L142" class="ln">   142  </span>func (o *MonitorType) GetId() int64 {
 <span id="L143" class="ln">   143  </span>	if o == nil || o.Id == nil {
-<span id="L144" class="ln">   144  </span>		var ret int32
+<span id="L144" class="ln">   144  </span>		var ret int64
 <span id="L145" class="ln">   145  </span>		return ret
 <span id="L146" class="ln">   146  </span>	}
 <span id="L147" class="ln">   147  </span>	return *o.Id
@@ -206,7 +206,7 @@
 <span id="L149" class="ln">   149  </span>
 <span id="L150" class="ln">   150  </span><span class="comment">// GetIdOk returns a tuple with the Id field value if set, nil otherwise</span>
 <span id="L151" class="ln">   151  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L152" class="ln">   152  </span>func (o *MonitorType) GetIdOk() (*int32, bool) {
+<span id="L152" class="ln">   152  </span>func (o *MonitorType) GetIdOk() (*int64, bool) {
 <span id="L153" class="ln">   153  </span>	if o == nil || o.Id == nil {
 <span id="L154" class="ln">   154  </span>		return nil, false
 <span id="L155" class="ln">   155  </span>	}
@@ -218,8 +218,8 @@
 <span id="L161" class="ln">   161  </span>	return o != nil &amp;&amp; o.Id != nil
 <span id="L162" class="ln">   162  </span>}
 <span id="L163" class="ln">   163  </span>
-<span id="L164" class="ln">   164  </span><span class="comment">// SetId gets a reference to the given int32 and assigns it to the Id field.</span>
-<span id="L165" class="ln">   165  </span>func (o *MonitorType) SetId(v int32) {
+<span id="L164" class="ln">   164  </span><span class="comment">// SetId gets a reference to the given int64 and assigns it to the Id field.</span>
+<span id="L165" class="ln">   165  </span>func (o *MonitorType) SetId(v int64) {
 <span id="L166" class="ln">   166  </span>	o.Id = &amp;v
 <span id="L167" class="ln">   167  </span>}
 <span id="L168" class="ln">   168  </span>
@@ -252,9 +252,9 @@
 <span id="L195" class="ln">   195  </span>}
 <span id="L196" class="ln">   196  </span>
 <span id="L197" class="ln">   197  </span><span class="comment">// GetModified returns the Modified field value if set, zero value otherwise.</span>
-<span id="L198" class="ln">   198  </span>func (o *MonitorType) GetModified() int32 {
+<span id="L198" class="ln">   198  </span>func (o *MonitorType) GetModified() int64 {
 <span id="L199" class="ln">   199  </span>	if o == nil || o.Modified == nil {
-<span id="L200" class="ln">   200  </span>		var ret int32
+<span id="L200" class="ln">   200  </span>		var ret int64
 <span id="L201" class="ln">   201  </span>		return ret
 <span id="L202" class="ln">   202  </span>	}
 <span id="L203" class="ln">   203  </span>	return *o.Modified
@@ -262,7 +262,7 @@
 <span id="L205" class="ln">   205  </span>
 <span id="L206" class="ln">   206  </span><span class="comment">// GetModifiedOk returns a tuple with the Modified field value if set, nil otherwise</span>
 <span id="L207" class="ln">   207  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L208" class="ln">   208  </span>func (o *MonitorType) GetModifiedOk() (*int32, bool) {
+<span id="L208" class="ln">   208  </span>func (o *MonitorType) GetModifiedOk() (*int64, bool) {
 <span id="L209" class="ln">   209  </span>	if o == nil || o.Modified == nil {
 <span id="L210" class="ln">   210  </span>		return nil, false
 <span id="L211" class="ln">   211  </span>	}
@@ -274,8 +274,8 @@
 <span id="L217" class="ln">   217  </span>	return o != nil &amp;&amp; o.Modified != nil
 <span id="L218" class="ln">   218  </span>}
 <span id="L219" class="ln">   219  </span>
-<span id="L220" class="ln">   220  </span><span class="comment">// SetModified gets a reference to the given int32 and assigns it to the Modified field.</span>
-<span id="L221" class="ln">   221  </span>func (o *MonitorType) SetModified(v int32) {
+<span id="L220" class="ln">   220  </span><span class="comment">// SetModified gets a reference to the given int64 and assigns it to the Modified field.</span>
+<span id="L221" class="ln">   221  </span>func (o *MonitorType) SetModified(v int64) {
 <span id="L222" class="ln">   222  </span>	o.Modified = &amp;v
 <span id="L223" class="ln">   223  </span>}
 <span id="L224" class="ln">   224  </span>
@@ -472,9 +472,9 @@
 <span id="L415" class="ln">   415  </span>		CreatedAt     *int64   `json:&#34;created_at,omitempty&#34;`
 <span id="L416" class="ln">   416  </span>		GroupStatus   *int32   `json:&#34;group_status,omitempty&#34;`
 <span id="L417" class="ln">   417  </span>		Groups        []string `json:&#34;groups,omitempty&#34;`
-<span id="L418" class="ln">   418  </span>		Id            *int32   `json:&#34;id,omitempty&#34;`
+<span id="L418" class="ln">   418  </span>		Id            *int64   `json:&#34;id,omitempty&#34;`
 <span id="L419" class="ln">   419  </span>		Message       *string  `json:&#34;message,omitempty&#34;`
-<span id="L420" class="ln">   420  </span>		Modified      *int32   `json:&#34;modified,omitempty&#34;`
+<span id="L420" class="ln">   420  </span>		Modified      *int64   `json:&#34;modified,omitempty&#34;`
 <span id="L421" class="ln">   421  </span>		Name          *string  `json:&#34;name,omitempty&#34;`
 <span id="L422" class="ln">   422  </span>		Query         *string  `json:&#34;query,omitempty&#34;`
 <span id="L423" class="ln">   423  </span>		Tags          []string `json:&#34;tags,omitempty&#34;`

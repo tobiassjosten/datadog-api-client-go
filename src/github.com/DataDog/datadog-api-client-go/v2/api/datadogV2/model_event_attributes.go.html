@@ -90,11 +90,11 @@
 <span id="L33" class="ln">    33  </span>	<span class="comment">// List of groups referred to in the event.</span>
 <span id="L34" class="ln">    34  </span>	MonitorGroups []string `json:&#34;monitor_groups,omitempty&#34;`
 <span id="L35" class="ln">    35  </span>	<span class="comment">// ID of the monitor that triggered the event. When an event isn&#39;t related to a monitor, this field is empty.</span>
-<span id="L36" class="ln">    36  </span>	MonitorId datadog.NullableInt32 `json:&#34;monitor_id,omitempty&#34;`
+<span id="L36" class="ln">    36  </span>	MonitorId datadog.NullableInt64 `json:&#34;monitor_id,omitempty&#34;`
 <span id="L37" class="ln">    37  </span>	<span class="comment">// The priority of the event&#39;s monitor. For example, `normal` or `low`.</span>
 <span id="L38" class="ln">    38  </span>	Priority NullableEventPriority `json:&#34;priority,omitempty&#34;`
 <span id="L39" class="ln">    39  </span>	<span class="comment">// Related event ID.</span>
-<span id="L40" class="ln">    40  </span>	RelatedEventId *int32 `json:&#34;related_event_id,omitempty&#34;`
+<span id="L40" class="ln">    40  </span>	RelatedEventId *int64 `json:&#34;related_event_id,omitempty&#34;`
 <span id="L41" class="ln">    41  </span>	<span class="comment">// Service that triggered the event.</span>
 <span id="L42" class="ln">    42  </span>	Service *string `json:&#34;service,omitempty&#34;`
 <span id="L43" class="ln">    43  </span>	<span class="comment">// The type of event being posted.</span>
@@ -400,9 +400,9 @@
 <span id="L343" class="ln">   343  </span>}
 <span id="L344" class="ln">   344  </span>
 <span id="L345" class="ln">   345  </span><span class="comment">// GetMonitorId returns the MonitorId field value if set, zero value otherwise (both if not set or set to explicit null).</span>
-<span id="L346" class="ln">   346  </span>func (o *EventAttributes) GetMonitorId() int32 {
+<span id="L346" class="ln">   346  </span>func (o *EventAttributes) GetMonitorId() int64 {
 <span id="L347" class="ln">   347  </span>	if o == nil || o.MonitorId.Get() == nil {
-<span id="L348" class="ln">   348  </span>		var ret int32
+<span id="L348" class="ln">   348  </span>		var ret int64
 <span id="L349" class="ln">   349  </span>		return ret
 <span id="L350" class="ln">   350  </span>	}
 <span id="L351" class="ln">   351  </span>	return *o.MonitorId.Get()
@@ -411,7 +411,7 @@
 <span id="L354" class="ln">   354  </span><span class="comment">// GetMonitorIdOk returns a tuple with the MonitorId field value if set, nil otherwise</span>
 <span id="L355" class="ln">   355  </span><span class="comment">// and a boolean to check if the value has been set.</span>
 <span id="L356" class="ln">   356  </span><span class="comment">// NOTE: If the value is an explicit nil, `nil, true` will be returned.</span>
-<span id="L357" class="ln">   357  </span>func (o *EventAttributes) GetMonitorIdOk() (*int32, bool) {
+<span id="L357" class="ln">   357  </span>func (o *EventAttributes) GetMonitorIdOk() (*int64, bool) {
 <span id="L358" class="ln">   358  </span>	if o == nil {
 <span id="L359" class="ln">   359  </span>		return nil, false
 <span id="L360" class="ln">   360  </span>	}
@@ -423,8 +423,8 @@
 <span id="L366" class="ln">   366  </span>	return o != nil &amp;&amp; o.MonitorId.IsSet()
 <span id="L367" class="ln">   367  </span>}
 <span id="L368" class="ln">   368  </span>
-<span id="L369" class="ln">   369  </span><span class="comment">// SetMonitorId gets a reference to the given datadog.NullableInt32 and assigns it to the MonitorId field.</span>
-<span id="L370" class="ln">   370  </span>func (o *EventAttributes) SetMonitorId(v int32) {
+<span id="L369" class="ln">   369  </span><span class="comment">// SetMonitorId gets a reference to the given datadog.NullableInt64 and assigns it to the MonitorId field.</span>
+<span id="L370" class="ln">   370  </span>func (o *EventAttributes) SetMonitorId(v int64) {
 <span id="L371" class="ln">   371  </span>	o.MonitorId.Set(&amp;v)
 <span id="L372" class="ln">   372  </span>}
 <span id="L373" class="ln">   373  </span>
@@ -478,9 +478,9 @@
 <span id="L421" class="ln">   421  </span>}
 <span id="L422" class="ln">   422  </span>
 <span id="L423" class="ln">   423  </span><span class="comment">// GetRelatedEventId returns the RelatedEventId field value if set, zero value otherwise.</span>
-<span id="L424" class="ln">   424  </span>func (o *EventAttributes) GetRelatedEventId() int32 {
+<span id="L424" class="ln">   424  </span>func (o *EventAttributes) GetRelatedEventId() int64 {
 <span id="L425" class="ln">   425  </span>	if o == nil || o.RelatedEventId == nil {
-<span id="L426" class="ln">   426  </span>		var ret int32
+<span id="L426" class="ln">   426  </span>		var ret int64
 <span id="L427" class="ln">   427  </span>		return ret
 <span id="L428" class="ln">   428  </span>	}
 <span id="L429" class="ln">   429  </span>	return *o.RelatedEventId
@@ -488,7 +488,7 @@
 <span id="L431" class="ln">   431  </span>
 <span id="L432" class="ln">   432  </span><span class="comment">// GetRelatedEventIdOk returns a tuple with the RelatedEventId field value if set, nil otherwise</span>
 <span id="L433" class="ln">   433  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L434" class="ln">   434  </span>func (o *EventAttributes) GetRelatedEventIdOk() (*int32, bool) {
+<span id="L434" class="ln">   434  </span>func (o *EventAttributes) GetRelatedEventIdOk() (*int64, bool) {
 <span id="L435" class="ln">   435  </span>	if o == nil || o.RelatedEventId == nil {
 <span id="L436" class="ln">   436  </span>		return nil, false
 <span id="L437" class="ln">   437  </span>	}
@@ -500,8 +500,8 @@
 <span id="L443" class="ln">   443  </span>	return o != nil &amp;&amp; o.RelatedEventId != nil
 <span id="L444" class="ln">   444  </span>}
 <span id="L445" class="ln">   445  </span>
-<span id="L446" class="ln">   446  </span><span class="comment">// SetRelatedEventId gets a reference to the given int32 and assigns it to the RelatedEventId field.</span>
-<span id="L447" class="ln">   447  </span>func (o *EventAttributes) SetRelatedEventId(v int32) {
+<span id="L446" class="ln">   446  </span><span class="comment">// SetRelatedEventId gets a reference to the given int64 and assigns it to the RelatedEventId field.</span>
+<span id="L447" class="ln">   447  </span>func (o *EventAttributes) SetRelatedEventId(v int64) {
 <span id="L448" class="ln">   448  </span>	o.RelatedEventId = &amp;v
 <span id="L449" class="ln">   449  </span>}
 <span id="L450" class="ln">   450  </span>
@@ -784,9 +784,9 @@
 <span id="L727" class="ln">   727  </span>		Hostname       *string               `json:&#34;hostname,omitempty&#34;`
 <span id="L728" class="ln">   728  </span>		Monitor        NullableMonitorType   `json:&#34;monitor,omitempty&#34;`
 <span id="L729" class="ln">   729  </span>		MonitorGroups  []string              `json:&#34;monitor_groups,omitempty&#34;`
-<span id="L730" class="ln">   730  </span>		MonitorId      datadog.NullableInt32 `json:&#34;monitor_id,omitempty&#34;`
+<span id="L730" class="ln">   730  </span>		MonitorId      datadog.NullableInt64 `json:&#34;monitor_id,omitempty&#34;`
 <span id="L731" class="ln">   731  </span>		Priority       NullableEventPriority `json:&#34;priority,omitempty&#34;`
-<span id="L732" class="ln">   732  </span>		RelatedEventId *int32                `json:&#34;related_event_id,omitempty&#34;`
+<span id="L732" class="ln">   732  </span>		RelatedEventId *int64                `json:&#34;related_event_id,omitempty&#34;`
 <span id="L733" class="ln">   733  </span>		Service        *string               `json:&#34;service,omitempty&#34;`
 <span id="L734" class="ln">   734  </span>		SourceTypeName *string               `json:&#34;source_type_name,omitempty&#34;`
 <span id="L735" class="ln">   735  </span>		Sourcecategory *string               `json:&#34;sourcecategory,omitempty&#34;`
