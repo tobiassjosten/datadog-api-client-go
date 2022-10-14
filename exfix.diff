@@ -1,0 +1,47 @@
+diff --git a/.generator/src/generator/formatter.py b/.generator/src/generator/formatter.py
+index a57eca41..cd24e091 100644
+--- a/.generator/src/generator/formatter.py
++++ b/.generator/src/generator/formatter.py
+@@ -512,9 +512,9 @@ def format_data_with_schema_list(
+                 print(f"{e}")
+ 
+         if matched == 0:
+-            raise ValueError(f"[{matched}] {data} is not valid for schema {name}")
++            raise ValueError(f"[{matched}] {data} is not valid for schema {schema}")
+         elif matched > 1:
+-            warnings.warn(f"[{matched}] {data} is not valid for schema {name}")
++            warnings.warn(f"[{matched}] {data} is not valid for schema {schema}")
+ 
+         one_of_schema_name = simple_type(one_of_schema) or f"{schema_name(one_of_schema)}"
+         reference = "" if one_of_schema.get("required", False) else "&"
+@@ -684,7 +684,14 @@ def format_data_with_schema_dict(
+         return f"{reference}{name_prefix}{name}{{\n{one_of_schema_name}: {parameters}}}"
+ 
+     if schema.get("type") == "object" and "properties" not in schema:
+-        return "new(interface{})"
++        if schema.get("additionalProperties") == {}:
++            name_prefix = ""
++            name = "map[string]interface{}"
++            reference = ""
++            for k, v in data.items():
++                parameters += f'"{k}": "{v}",\n'
++        else:
++            return "new(interface{})"
+ 
+     if not name:
+         warnings.warn(f"Unnamed schema {schema} for {data}")
+diff --git a/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go b/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go
+index acd2a7dc..d7f170e5 100644
+--- a/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go
++++ b/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go
+@@ -32,7 +32,9 @@ func main() {
+ 					Url:      "https://gdrive/mydoc",
+ 				},
+ 			},
+-			Extensions: new(interface{}),
++			Extensions: map[string]interface{}{
++				"myorg/extension": "extensionValue",
++			},
+ 			Integrations: &datadogV2.ServiceDefinitionV2Integrations{
+ 				Opsgenie: &datadogV2.ServiceDefinitionV2Opsgenie{
+ 					Region:    datadogV2.SERVICEDEFINITIONV2OPSGENIEREGION_US.Ptr(),

@@ -1,0 +1,102 @@
+diff --git a/.generator/src/generator/formatter.py b/.generator/src/generator/formatter.py
+index a57eca41..df182a49 100644
+--- a/.generator/src/generator/formatter.py
++++ b/.generator/src/generator/formatter.py
+@@ -610,7 +610,7 @@ def format_data_with_schema_dict(
+             )
+             parameters += f"{camel_case(k)}: {value},\n"
+ 
+-    if schema.get("additionalProperties"):
++    if schema.get("additionalProperties") not in (None, False):
+         saved_parameters = ""
+         if schema.get("properties"):
+             saved_parameters = parameters
+@@ -621,6 +621,8 @@ def format_data_with_schema_dict(
+             nested_schema_name = schema_name(nested_schema)
+             if nested_schema_name:
+                 nested_schema_name = name_prefix + nested_schema_name
++            else:
++                nested_schema_name = "string"
+ 
+         has_properties = schema.get("properties")
+ 
+@@ -629,7 +631,7 @@ def format_data_with_schema_dict(
+                 continue
+             value = format_data_with_schema(
+                 v,
+-                schema["additionalProperties"],
++                schema["additionalProperties"] or {"type": "string"},
+                 name_prefix=name_prefix,
+                 replace_values=replace_values,
+                 required=True,
+@@ -684,7 +686,9 @@ def format_data_with_schema_dict(
+         return f"{reference}{name_prefix}{name}{{\n{one_of_schema_name}: {parameters}}}"
+ 
+     if schema.get("type") == "object" and "properties" not in schema:
+-        return "new(interface{})"
++        parameters = data
++        name_prefix = ""
++        name = "map[string]string"
+ 
+     if not name:
+         warnings.warn(f"Unnamed schema {schema} for {data}")
+diff --git a/examples/v1/service-level-objectives/DeleteSLOTimeframeInBulk.go b/examples/v1/service-level-objectives/DeleteSLOTimeframeInBulk.go
+index 3aadd9f7..55162732 100644
+--- a/examples/v1/service-level-objectives/DeleteSLOTimeframeInBulk.go
++++ b/examples/v1/service-level-objectives/DeleteSLOTimeframeInBulk.go
+@@ -13,7 +13,7 @@ import (
+ )
+ 
+ func main() {
+-	body := map[string][]datadogV1.SLOTimeframe{
++	body := map[string]string{
+ 		"id1": []datadogV1.SLOTimeframe{
+ 			datadogV1.SLOTIMEFRAME_SEVEN_DAYS,
+ 			datadogV1.SLOTIMEFRAME_THIRTY_DAYS,
+diff --git a/examples/v1/synthetics/CreateSyntheticsBrowserTest.go b/examples/v1/synthetics/CreateSyntheticsBrowserTest.go
+index c23b8f12..0f2430be 100644
+--- a/examples/v1/synthetics/CreateSyntheticsBrowserTest.go
++++ b/examples/v1/synthetics/CreateSyntheticsBrowserTest.go
+@@ -61,8 +61,9 @@ func main() {
+ 				AllowFailure: datadog.PtrBool(false),
+ 				IsCritical:   datadog.PtrBool(true),
+ 				Name:         datadog.PtrString("Refresh page"),
+-				Params:       new(interface{}),
+-				Type:         datadogV1.SYNTHETICSSTEPTYPE_REFRESH.Ptr(),
++				Params: &map[string]string{
++					{}},
++				Type: datadogV1.SYNTHETICSSTEPTYPE_REFRESH.Ptr(),
+ 			},
+ 		},
+ 	}
+diff --git a/examples/v1/synthetics/CreateSyntheticsBrowserTest_2932742688.go b/examples/v1/synthetics/CreateSyntheticsBrowserTest_2932742688.go
+index c8c9dead..7c421914 100644
+--- a/examples/v1/synthetics/CreateSyntheticsBrowserTest_2932742688.go
++++ b/examples/v1/synthetics/CreateSyntheticsBrowserTest_2932742688.go
+@@ -75,8 +75,9 @@ func main() {
+ 				AllowFailure: datadog.PtrBool(false),
+ 				IsCritical:   datadog.PtrBool(true),
+ 				Name:         datadog.PtrString("Refresh page"),
+-				Params:       new(interface{}),
+-				Type:         datadogV1.SYNTHETICSSTEPTYPE_REFRESH.Ptr(),
++				Params: &map[string]string{
++					{}},
++				Type: datadogV1.SYNTHETICSSTEPTYPE_REFRESH.Ptr(),
+ 			},
+ 		},
+ 	}
+diff --git a/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go b/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go
+index acd2a7dc..cf22c3d9 100644
+--- a/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go
++++ b/examples/v2/service-definition/CreateOrUpdateServiceDefinitions.go
+@@ -32,7 +32,9 @@ func main() {
+ 					Url:      "https://gdrive/mydoc",
+ 				},
+ 			},
+-			Extensions: new(interface{}),
++			Extensions: map[string]string{
++				"myorg/extension": "extensionValue",
++			},
+ 			Integrations: &datadogV2.ServiceDefinitionV2Integrations{
+ 				Opsgenie: &datadogV2.ServiceDefinitionV2Opsgenie{
+ 					Region:    datadogV2.SERVICEDEFINITIONV2OPSGENIEREGION_US.Ptr(),
