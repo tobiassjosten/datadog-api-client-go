@@ -15,7 +15,7 @@
 
 
 
-<script>var goVersion = "go1.18.6";</script>
+<script>var goVersion = "go1.18.7";</script>
 <script src="https://datadoghq.dev/datadog-api-client-go/lib/godoc/godocs.js" defer></script>
 
 </head>
@@ -91,7 +91,185 @@
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				
+				<p>
+Package datadog-api-client-go.
+</p>
+<p>
+This repository contains a Go API client for the Datadog API (<a href="https://docs.datadoghq.com/api/">https://docs.datadoghq.com/api/</a>).
+</p>
+<h3 id="hdr-Requirements">Requirements</h3>
+<p>
+• Go 1.17+
+</p>
+<h3 id="hdr-Layout">Layout</h3>
+<p>
+This repository contains per-major-version API client packages. Right
+now, Datadog has two API versions,
+v1, v2 and the common package.
+</p>
+<h3 id="hdr-The_API_v1_Client">The API v1 Client</h3>
+<p>
+The client library for Datadog API v1 is located in the api/datadogV1 directory. Import it with
+</p>
+<pre>import &#34;github.com/DataDog/datadog-api-client-go/v2/api/datadogV1&#34;
+</pre>
+<h3 id="hdr-The_API_v2_Client">The API v2 Client</h3>
+<p>
+The client library for Datadog API v2 is located in the api/datadogV2 directory. Import it with
+</p>
+<pre>import &#34;github.com/DataDog/datadog-api-client-go/v2/api/datadogV2&#34;
+</pre>
+<h3 id="hdr-The_Datadog_Package">The Datadog Package</h3>
+<p>
+The datadog package for Datadog API is located in the api/datadog directory. Import it with
+</p>
+<pre>import &#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
+</pre>
+<h3 id="hdr-Getting_Started">Getting Started</h3>
+<p>
+Here&#39;s an example creating a user:
+</p>
+<pre>package main
+
+import (
+    &#34;context&#34;
+    &#34;fmt&#34;
+    &#34;os&#34;
+
+    &#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
+    &#34;github.com/DataDog/datadog-api-client-go/v2/api/datadogV2&#34;
+)
+
+func main() {
+    ctx := context.WithValue(
+        context.Background(),
+        datadog.ContextAPIKeys,
+        map[string]datadog.APIKey{
+            &#34;apiKeyAuth&#34;: {
+                Key: os.Getenv(&#34;DD_CLIENT_API_KEY&#34;),
+            },
+            &#34;appKeyAuth&#34;: {
+                Key: os.Getenv(&#34;DD_CLIENT_APP_KEY&#34;),
+            },
+        },
+    )
+
+    body := *datadogV2.NewUserCreateRequest(*datadogV2.NewUserCreateData(*datadogV2.NewUserCreateAttributes(&#34;jane.doe@example.com&#34;), datadogV2.UsersType(&#34;users&#34;)))
+
+    configuration := datadog.NewConfiguration()
+    apiClient := datadog.NewAPIClient(configuration)
+    usersApi := datadogV2.NewUsersApi(apiClient)
+
+    resp, r, err := usersApi.CreateUser(ctx, body)
+    if err != nil {
+        fmt.Fprintf(os.Stderr, &#34;Error creating user: %v\n&#34;, err)
+        fmt.Fprintf(os.Stderr, &#34;Full HTTP response: %v\n&#34;, r)
+    }
+    responseData := resp.GetData()
+    fmt.Fprintf(os.Stdout, &#34;User ID: %s&#34;, responseData.GetId())
+}
+</pre>
+<p>
+Save it to example.go, then run go get github.com/DataDog/datadog-api-client-go/v2.
+Set the
+DD_CLIENT_API_KEY and DD_CLIENT_APP_KEY to your Datadog
+credentials, and then run
+go run example.go.
+</p>
+<h3 id="hdr-Unstable_Endpoints">Unstable Endpoints</h3>
+<p>
+This client includes access to Datadog API endpoints while they are in an unstable state and may undergo breaking changes. An extra configuration step is required to enable these endpoints:
+</p>
+<pre>configuration.SetUnstableOperationEnabled(&#34;&lt;APIVersion&gt;.&lt;OperationName&gt;&#34;, true)
+</pre>
+<p>
+where &lt;OperationName&gt; is the name of the method used to interact with that endpoint. For example: GetLogsIndex, or UpdateLogsIndex
+</p>
+<h3 id="hdr-Changing_Server">Changing Server</h3>
+<p>
+When talking to a different server, like the eu instance, change the ContextServerVariables:
+</p>
+<pre>ctx = context.WithValue(ctx,
+    common.ContextServerVariables,
+    map[string]string{
+        &#34;site&#34;: &#34;datadoghq.eu&#34;,
+})
+</pre>
+<h3 id="hdr-Disable_compressed_payloads">Disable compressed payloads</h3>
+<p>
+If you want to disable GZIP compressed responses, set the compress flag
+on your configuration object:
+</p>
+<pre>configuration.Compress = false
+</pre>
+<h3 id="hdr-Enable_requests_logging">Enable requests logging</h3>
+<p>
+If you want to enable requests logging, set the debug flag on your configuration object:
+</p>
+<pre>configuration.Debug = true
+</pre>
+<h3 id="hdr-Configure_proxy">Configure proxy</h3>
+<p>
+If you want to configure proxy, set env var HTTP_PROXY, and HTTPS_PROXY or set custom
+HTTPClient with proxy configured on configuration object:
+</p>
+<pre>proxyUrl, _ := url.Parse(&#34;<a href="http://127.0.0.1:80">http://127.0.0.1:80</a>&#34;)
+configuration.HTTPClient = &amp;http.Client{
+    Transport: &amp;http.Transport{Proxy: http.ProxyURL(proxyUrl)}
+}
+</pre>
+<h3 id="hdr-Pagination">Pagination</h3>
+<p>
+Several listing operations have a pagination method to help consume all the items available.
+For example, to retrieve all your incidents:
+</p>
+<pre>package main
+
+import (
+	&#34;context&#34;
+	&#34;fmt&#34;
+	&#34;os&#34;
+
+	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
+	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadogV2&#34;
+)
+
+func main() {
+	ctx := datadog.NewDefaultContext(context.Background())
+	configuration := datadog.NewConfiguration()
+	configuration.SetUnstableOperationEnabled(&#34;v2.ListIncidents&#34;, true)
+	apiClient := datadog.NewAPIClient(configuration)
+	incidentsApi := datadogV2.NewIncidentsApi(apiClient)
+
+	resp, _, err := incidentsApi.ListIncidentsWithPagination(ctx, *datadog.NewListIncidentsOptionalParameters())
+	if err != nil {
+		fmt.Fprintf(os.Stderr, &#34;Error when calling `IncidentsApi.ListIncidents`: %v\n&#34;, err)
+	}
+
+        for incident := range resp {
+		fmt.Fprintf(os.Stdout, &#34;Got incident %s\n&#34;, incident.GetId())
+	}
+
+}
+</pre>
+<h3 id="hdr-Documentation">Documentation</h3>
+<p>
+Developer documentation for API endpoints and models is available on Github pages (<a href="https://datadoghq.dev/datadog-api-client-go/pkg/github.com/DataDog/datadog-api-client-go/v2/">https://datadoghq.dev/datadog-api-client-go/pkg/github.com/DataDog/datadog-api-client-go/v2/</a>).
+Released versions are available on
+pkg.go.dev (<a href="https://pkg.go.dev/github.com/DataDog/datadog-api-client-go/v2">https://pkg.go.dev/github.com/DataDog/datadog-api-client-go/v2</a>).
+</p>
+<h3 id="hdr-Contributing">Contributing</h3>
+<p>
+As most of the code in this repository is generated, we will only accept PRs for files
+that are not modified by our code-generation machinery (changes to the generated files
+would get overwritten). We happily accept contributions to files that are not autogenerated,
+such as tests and development tooling.
+</p>
+<h3 id="hdr-Author">Author</h3>
+<p>
+support@datadoghq.com
+</p>
+
 				
 			</div>
 		</div>
@@ -122,6 +300,8 @@
 			<h3>Package files</h3>
 			<p>
 			<span style="font-size:90%">
+			
+				<a href="https://github.com/DataDog/datadog-api-client-go/blob/master/doc.go">doc.go</a>
 			
 				<a href="https://github.com/DataDog/datadog-api-client-go/blob/master/version.go">version.go</a>
 			
@@ -222,7 +402,7 @@ Version used in User-Agent header.
 
 
 <div id="footer">
-Build version go1.18.6.<br>
+Build version go1.18.7.<br>
 </div>
 
 </div><!-- .container -->
