@@ -322,7 +322,7 @@
 <span id="L265" class="ln">   265  </span><span class="comment">// DownloadCloudWorkloadPolicyFile Get the latest Cloud Workload Security policy.</span>
 <span id="L266" class="ln">   266  </span><span class="comment">// The download endpoint generates a Cloud Workload Security policy file from your currently active</span>
 <span id="L267" class="ln">   267  </span><span class="comment">// Cloud Workload Security rules, and downloads them as a .policy file. This file can then be deployed to</span>
-<span id="L268" class="ln">   268  </span><span class="comment">// your agents to update the policy running in your environment.</span>
+<span id="L268" class="ln">   268  </span><span class="comment">// your Agents to update the policy running in your environment.</span>
 <span id="L269" class="ln">   269  </span>func (a *CloudWorkloadSecurityApi) DownloadCloudWorkloadPolicyFile(ctx _context.Context) (*os.File, *_nethttp.Response, error) {
 <span id="L270" class="ln">   270  </span>	req, err := a.buildDownloadCloudWorkloadPolicyFileRequest(ctx)
 <span id="L271" class="ln">   271  </span>	if err != nil {
