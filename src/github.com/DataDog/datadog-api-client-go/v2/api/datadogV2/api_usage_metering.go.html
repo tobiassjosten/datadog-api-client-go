@@ -669,7 +669,7 @@
 <span id="L612" class="ln">   612  </span>}
 <span id="L613" class="ln">   613  </span>
 <span id="L614" class="ln">   614  </span><span class="comment">// GetHourlyUsage Get hourly usage by product family.</span>
-<span id="L615" class="ln">   615  </span><span class="comment">// Get hourly usage by product family</span>
+<span id="L615" class="ln">   615  </span><span class="comment">// Get hourly usage by product family.</span>
 <span id="L616" class="ln">   616  </span>func (a *UsageMeteringApi) GetHourlyUsage(ctx _context.Context, filterTimestampStart time.Time, filterProductFamilies string, o ...GetHourlyUsageOptionalParameters) (HourlyUsageResponse, *_nethttp.Response, error) {
 <span id="L617" class="ln">   617  </span>	req, err := a.buildGetHourlyUsageRequest(ctx, filterTimestampStart, filterProductFamilies, o...)
 <span id="L618" class="ln">   618  </span>	if err != nil {
