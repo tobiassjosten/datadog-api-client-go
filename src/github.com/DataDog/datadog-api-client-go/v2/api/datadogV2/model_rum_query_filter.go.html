@@ -67,11 +67,11 @@
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// RUMQueryFilter The search and filter query settings.</span>
 <span id="L12" class="ln">    12  </span>type RUMQueryFilter struct {
-<span id="L13" class="ln">    13  </span>	<span class="comment">// The minimum time for the requested events; supports date, math, and regular timestamps (in milliseconds).</span>
+<span id="L13" class="ln">    13  </span>	<span class="comment">// The minimum time for the requested events; supports date (in [ISO 8601](https://www.w3.org/TR/NOTE-datetime) format with full date, hours, minutes, and the `Z` UTC indicator - seconds and fractional seconds are optional), math, and regular timestamps (in milliseconds).</span>
 <span id="L14" class="ln">    14  </span>	From *string `json:&#34;from,omitempty&#34;`
 <span id="L15" class="ln">    15  </span>	<span class="comment">// The search query following the RUM search syntax.</span>
 <span id="L16" class="ln">    16  </span>	Query *string `json:&#34;query,omitempty&#34;`
-<span id="L17" class="ln">    17  </span>	<span class="comment">// The maximum time for the requested events; supports date, math, and regular timestamps (in milliseconds).</span>
+<span id="L17" class="ln">    17  </span>	<span class="comment">// The maximum time for the requested events; supports date (in [ISO 8601](https://www.w3.org/TR/NOTE-datetime) format with full date, hours, minutes, and the `Z` UTC indicator - seconds and fractional seconds are optional), math, and regular timestamps (in milliseconds).</span>
 <span id="L18" class="ln">    18  </span>	To *string `json:&#34;to,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L20" class="ln">    20  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
