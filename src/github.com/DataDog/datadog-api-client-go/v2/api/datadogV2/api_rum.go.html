@@ -767,7 +767,7 @@
 <span id="L710" class="ln">   710  </span>}
 <span id="L711" class="ln">   711  </span>
 <span id="L712" class="ln">   712  </span><span class="comment">// ListRUMEventsWithPagination provides a paginated version of ListRUMEvents returning a channel with all items.</span>
-<span id="L713" class="ln">   713  </span>func (a *RUMApi) ListRUMEventsWithPagination(ctx _context.Context, o ...ListRUMEventsOptionalParameters) (&lt;-chan RUMEvent, func(), error) {
+<span id="L713" class="ln">   713  </span>func (a *RUMApi) ListRUMEventsWithPagination(ctx _context.Context, o ...ListRUMEventsOptionalParameters) (&lt;-chan datadog.PaginationResult[RUMEvent], func()) {
 <span id="L714" class="ln">   714  </span>	ctx, cancel := _context.WithCancel(ctx)
 <span id="L715" class="ln">   715  </span>	pageSize_ := int32(10)
 <span id="L716" class="ln">   716  </span>	if len(o) == 0 {
@@ -778,492 +778,500 @@
 <span id="L721" class="ln">   721  </span>	}
 <span id="L722" class="ln">   722  </span>	o[0].PageLimit = &amp;pageSize_
 <span id="L723" class="ln">   723  </span>
-<span id="L724" class="ln">   724  </span>	items := make(chan RUMEvent, pageSize_)
+<span id="L724" class="ln">   724  </span>	items := make(chan datadog.PaginationResult[RUMEvent], pageSize_)
 <span id="L725" class="ln">   725  </span>	go func() {
 <span id="L726" class="ln">   726  </span>		for {
 <span id="L727" class="ln">   727  </span>			req, err := a.buildListRUMEventsRequest(ctx, o...)
 <span id="L728" class="ln">   728  </span>			if err != nil {
-<span id="L729" class="ln">   729  </span>				break
-<span id="L730" class="ln">   730  </span>			}
-<span id="L731" class="ln">   731  </span>
-<span id="L732" class="ln">   732  </span>			resp, _, err := a.listRUMEventsExecute(req)
-<span id="L733" class="ln">   733  </span>			if err != nil {
-<span id="L734" class="ln">   734  </span>				break
-<span id="L735" class="ln">   735  </span>			}
-<span id="L736" class="ln">   736  </span>			respData, ok := resp.GetDataOk()
-<span id="L737" class="ln">   737  </span>			if !ok {
+<span id="L729" class="ln">   729  </span>				var returnItem RUMEvent
+<span id="L730" class="ln">   730  </span>				items &lt;- datadog.PaginationResult[RUMEvent]{returnItem, err}
+<span id="L731" class="ln">   731  </span>				break
+<span id="L732" class="ln">   732  </span>			}
+<span id="L733" class="ln">   733  </span>
+<span id="L734" class="ln">   734  </span>			resp, _, err := a.listRUMEventsExecute(req)
+<span id="L735" class="ln">   735  </span>			if err != nil {
+<span id="L736" class="ln">   736  </span>				var returnItem RUMEvent
+<span id="L737" class="ln">   737  </span>				items &lt;- datadog.PaginationResult[RUMEvent]{returnItem, err}
 <span id="L738" class="ln">   738  </span>				break
 <span id="L739" class="ln">   739  </span>			}
-<span id="L740" class="ln">   740  </span>			results := *respData
-<span id="L741" class="ln">   741  </span>
-<span id="L742" class="ln">   742  </span>			for _, item := range results {
-<span id="L743" class="ln">   743  </span>				select {
-<span id="L744" class="ln">   744  </span>				case items &lt;- item:
-<span id="L745" class="ln">   745  </span>				case &lt;-ctx.Done():
-<span id="L746" class="ln">   746  </span>					close(items)
-<span id="L747" class="ln">   747  </span>					return
-<span id="L748" class="ln">   748  </span>				}
-<span id="L749" class="ln">   749  </span>			}
-<span id="L750" class="ln">   750  </span>			if len(results) &lt; int(pageSize_) {
-<span id="L751" class="ln">   751  </span>				break
-<span id="L752" class="ln">   752  </span>			}
-<span id="L753" class="ln">   753  </span>			cursorMeta, ok := resp.GetMetaOk()
-<span id="L754" class="ln">   754  </span>			if !ok {
+<span id="L740" class="ln">   740  </span>			respData, ok := resp.GetDataOk()
+<span id="L741" class="ln">   741  </span>			if !ok {
+<span id="L742" class="ln">   742  </span>				break
+<span id="L743" class="ln">   743  </span>			}
+<span id="L744" class="ln">   744  </span>			results := *respData
+<span id="L745" class="ln">   745  </span>
+<span id="L746" class="ln">   746  </span>			for _, item := range results {
+<span id="L747" class="ln">   747  </span>				select {
+<span id="L748" class="ln">   748  </span>				case items &lt;- datadog.PaginationResult[RUMEvent]{item, nil}:
+<span id="L749" class="ln">   749  </span>				case &lt;-ctx.Done():
+<span id="L750" class="ln">   750  </span>					close(items)
+<span id="L751" class="ln">   751  </span>					return
+<span id="L752" class="ln">   752  </span>				}
+<span id="L753" class="ln">   753  </span>			}
+<span id="L754" class="ln">   754  </span>			if len(results) &lt; int(pageSize_) {
 <span id="L755" class="ln">   755  </span>				break
 <span id="L756" class="ln">   756  </span>			}
-<span id="L757" class="ln">   757  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
+<span id="L757" class="ln">   757  </span>			cursorMeta, ok := resp.GetMetaOk()
 <span id="L758" class="ln">   758  </span>			if !ok {
 <span id="L759" class="ln">   759  </span>				break
 <span id="L760" class="ln">   760  </span>			}
-<span id="L761" class="ln">   761  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+<span id="L761" class="ln">   761  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
 <span id="L762" class="ln">   762  </span>			if !ok {
 <span id="L763" class="ln">   763  </span>				break
 <span id="L764" class="ln">   764  </span>			}
-<span id="L765" class="ln">   765  </span>
-<span id="L766" class="ln">   766  </span>			o[0].PageCursor = cursorMetaPageAfter
-<span id="L767" class="ln">   767  </span>		}
-<span id="L768" class="ln">   768  </span>		close(items)
-<span id="L769" class="ln">   769  </span>	}()
-<span id="L770" class="ln">   770  </span>	return items, cancel, nil
-<span id="L771" class="ln">   771  </span>}
-<span id="L772" class="ln">   772  </span>
-<span id="L773" class="ln">   773  </span><span class="comment">// listRUMEventsExecute executes the request.</span>
-<span id="L774" class="ln">   774  </span>func (a *RUMApi) listRUMEventsExecute(r apiListRUMEventsRequest) (RUMEventsResponse, *_nethttp.Response, error) {
-<span id="L775" class="ln">   775  </span>	var (
-<span id="L776" class="ln">   776  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L777" class="ln">   777  </span>		localVarPostBody    interface{}
-<span id="L778" class="ln">   778  </span>		localVarReturnValue RUMEventsResponse
-<span id="L779" class="ln">   779  </span>	)
-<span id="L780" class="ln">   780  </span>
-<span id="L781" class="ln">   781  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.RUMApi.ListRUMEvents&#34;)
-<span id="L782" class="ln">   782  </span>	if err != nil {
-<span id="L783" class="ln">   783  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L784" class="ln">   784  </span>	}
-<span id="L785" class="ln">   785  </span>
-<span id="L786" class="ln">   786  </span>	localVarPath := localBasePath + &#34;/api/v2/rum/events&#34;
-<span id="L787" class="ln">   787  </span>
-<span id="L788" class="ln">   788  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L789" class="ln">   789  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L790" class="ln">   790  </span>	localVarFormParams := _neturl.Values{}
-<span id="L791" class="ln">   791  </span>	if r.filterQuery != nil {
-<span id="L792" class="ln">   792  </span>		localVarQueryParams.Add(&#34;filter[query]&#34;, datadog.ParameterToString(*r.filterQuery, &#34;&#34;))
-<span id="L793" class="ln">   793  </span>	}
-<span id="L794" class="ln">   794  </span>	if r.filterFrom != nil {
-<span id="L795" class="ln">   795  </span>		localVarQueryParams.Add(&#34;filter[from]&#34;, datadog.ParameterToString(*r.filterFrom, &#34;&#34;))
-<span id="L796" class="ln">   796  </span>	}
-<span id="L797" class="ln">   797  </span>	if r.filterTo != nil {
-<span id="L798" class="ln">   798  </span>		localVarQueryParams.Add(&#34;filter[to]&#34;, datadog.ParameterToString(*r.filterTo, &#34;&#34;))
-<span id="L799" class="ln">   799  </span>	}
-<span id="L800" class="ln">   800  </span>	if r.sort != nil {
-<span id="L801" class="ln">   801  </span>		localVarQueryParams.Add(&#34;sort&#34;, datadog.ParameterToString(*r.sort, &#34;&#34;))
-<span id="L802" class="ln">   802  </span>	}
-<span id="L803" class="ln">   803  </span>	if r.pageCursor != nil {
-<span id="L804" class="ln">   804  </span>		localVarQueryParams.Add(&#34;page[cursor]&#34;, datadog.ParameterToString(*r.pageCursor, &#34;&#34;))
-<span id="L805" class="ln">   805  </span>	}
-<span id="L806" class="ln">   806  </span>	if r.pageLimit != nil {
-<span id="L807" class="ln">   807  </span>		localVarQueryParams.Add(&#34;page[limit]&#34;, datadog.ParameterToString(*r.pageLimit, &#34;&#34;))
-<span id="L808" class="ln">   808  </span>	}
-<span id="L809" class="ln">   809  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L810" class="ln">   810  </span>
-<span id="L811" class="ln">   811  </span>	if r.ctx != nil {
-<span id="L812" class="ln">   812  </span>		<span class="comment">// API Key Authentication</span>
-<span id="L813" class="ln">   813  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-<span id="L814" class="ln">   814  </span>			if apiKey, ok := auth[&#34;apiKeyAuth&#34;]; ok {
-<span id="L815" class="ln">   815  </span>				var key string
-<span id="L816" class="ln">   816  </span>				if apiKey.Prefix != &#34;&#34; {
-<span id="L817" class="ln">   817  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
-<span id="L818" class="ln">   818  </span>				} else {
-<span id="L819" class="ln">   819  </span>					key = apiKey.Key
-<span id="L820" class="ln">   820  </span>				}
-<span id="L821" class="ln">   821  </span>				localVarHeaderParams[&#34;DD-API-KEY&#34;] = key
-<span id="L822" class="ln">   822  </span>			}
-<span id="L823" class="ln">   823  </span>		}
-<span id="L824" class="ln">   824  </span>	}
-<span id="L825" class="ln">   825  </span>	if r.ctx != nil {
-<span id="L826" class="ln">   826  </span>		<span class="comment">// API Key Authentication</span>
-<span id="L827" class="ln">   827  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-<span id="L828" class="ln">   828  </span>			if apiKey, ok := auth[&#34;appKeyAuth&#34;]; ok {
-<span id="L829" class="ln">   829  </span>				var key string
-<span id="L830" class="ln">   830  </span>				if apiKey.Prefix != &#34;&#34; {
-<span id="L831" class="ln">   831  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
-<span id="L832" class="ln">   832  </span>				} else {
-<span id="L833" class="ln">   833  </span>					key = apiKey.Key
-<span id="L834" class="ln">   834  </span>				}
-<span id="L835" class="ln">   835  </span>				localVarHeaderParams[&#34;DD-APPLICATION-KEY&#34;] = key
-<span id="L836" class="ln">   836  </span>			}
-<span id="L837" class="ln">   837  </span>		}
-<span id="L838" class="ln">   838  </span>	}
-<span id="L839" class="ln">   839  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L840" class="ln">   840  </span>	if err != nil {
-<span id="L841" class="ln">   841  </span>		return localVarReturnValue, nil, err
+<span id="L765" class="ln">   765  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+<span id="L766" class="ln">   766  </span>			if !ok {
+<span id="L767" class="ln">   767  </span>				break
+<span id="L768" class="ln">   768  </span>			}
+<span id="L769" class="ln">   769  </span>
+<span id="L770" class="ln">   770  </span>			o[0].PageCursor = cursorMetaPageAfter
+<span id="L771" class="ln">   771  </span>		}
+<span id="L772" class="ln">   772  </span>		close(items)
+<span id="L773" class="ln">   773  </span>	}()
+<span id="L774" class="ln">   774  </span>	return items, cancel
+<span id="L775" class="ln">   775  </span>}
+<span id="L776" class="ln">   776  </span>
+<span id="L777" class="ln">   777  </span><span class="comment">// listRUMEventsExecute executes the request.</span>
+<span id="L778" class="ln">   778  </span>func (a *RUMApi) listRUMEventsExecute(r apiListRUMEventsRequest) (RUMEventsResponse, *_nethttp.Response, error) {
+<span id="L779" class="ln">   779  </span>	var (
+<span id="L780" class="ln">   780  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L781" class="ln">   781  </span>		localVarPostBody    interface{}
+<span id="L782" class="ln">   782  </span>		localVarReturnValue RUMEventsResponse
+<span id="L783" class="ln">   783  </span>	)
+<span id="L784" class="ln">   784  </span>
+<span id="L785" class="ln">   785  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.RUMApi.ListRUMEvents&#34;)
+<span id="L786" class="ln">   786  </span>	if err != nil {
+<span id="L787" class="ln">   787  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L788" class="ln">   788  </span>	}
+<span id="L789" class="ln">   789  </span>
+<span id="L790" class="ln">   790  </span>	localVarPath := localBasePath + &#34;/api/v2/rum/events&#34;
+<span id="L791" class="ln">   791  </span>
+<span id="L792" class="ln">   792  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L793" class="ln">   793  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L794" class="ln">   794  </span>	localVarFormParams := _neturl.Values{}
+<span id="L795" class="ln">   795  </span>	if r.filterQuery != nil {
+<span id="L796" class="ln">   796  </span>		localVarQueryParams.Add(&#34;filter[query]&#34;, datadog.ParameterToString(*r.filterQuery, &#34;&#34;))
+<span id="L797" class="ln">   797  </span>	}
+<span id="L798" class="ln">   798  </span>	if r.filterFrom != nil {
+<span id="L799" class="ln">   799  </span>		localVarQueryParams.Add(&#34;filter[from]&#34;, datadog.ParameterToString(*r.filterFrom, &#34;&#34;))
+<span id="L800" class="ln">   800  </span>	}
+<span id="L801" class="ln">   801  </span>	if r.filterTo != nil {
+<span id="L802" class="ln">   802  </span>		localVarQueryParams.Add(&#34;filter[to]&#34;, datadog.ParameterToString(*r.filterTo, &#34;&#34;))
+<span id="L803" class="ln">   803  </span>	}
+<span id="L804" class="ln">   804  </span>	if r.sort != nil {
+<span id="L805" class="ln">   805  </span>		localVarQueryParams.Add(&#34;sort&#34;, datadog.ParameterToString(*r.sort, &#34;&#34;))
+<span id="L806" class="ln">   806  </span>	}
+<span id="L807" class="ln">   807  </span>	if r.pageCursor != nil {
+<span id="L808" class="ln">   808  </span>		localVarQueryParams.Add(&#34;page[cursor]&#34;, datadog.ParameterToString(*r.pageCursor, &#34;&#34;))
+<span id="L809" class="ln">   809  </span>	}
+<span id="L810" class="ln">   810  </span>	if r.pageLimit != nil {
+<span id="L811" class="ln">   811  </span>		localVarQueryParams.Add(&#34;page[limit]&#34;, datadog.ParameterToString(*r.pageLimit, &#34;&#34;))
+<span id="L812" class="ln">   812  </span>	}
+<span id="L813" class="ln">   813  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L814" class="ln">   814  </span>
+<span id="L815" class="ln">   815  </span>	if r.ctx != nil {
+<span id="L816" class="ln">   816  </span>		<span class="comment">// API Key Authentication</span>
+<span id="L817" class="ln">   817  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
+<span id="L818" class="ln">   818  </span>			if apiKey, ok := auth[&#34;apiKeyAuth&#34;]; ok {
+<span id="L819" class="ln">   819  </span>				var key string
+<span id="L820" class="ln">   820  </span>				if apiKey.Prefix != &#34;&#34; {
+<span id="L821" class="ln">   821  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
+<span id="L822" class="ln">   822  </span>				} else {
+<span id="L823" class="ln">   823  </span>					key = apiKey.Key
+<span id="L824" class="ln">   824  </span>				}
+<span id="L825" class="ln">   825  </span>				localVarHeaderParams[&#34;DD-API-KEY&#34;] = key
+<span id="L826" class="ln">   826  </span>			}
+<span id="L827" class="ln">   827  </span>		}
+<span id="L828" class="ln">   828  </span>	}
+<span id="L829" class="ln">   829  </span>	if r.ctx != nil {
+<span id="L830" class="ln">   830  </span>		<span class="comment">// API Key Authentication</span>
+<span id="L831" class="ln">   831  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
+<span id="L832" class="ln">   832  </span>			if apiKey, ok := auth[&#34;appKeyAuth&#34;]; ok {
+<span id="L833" class="ln">   833  </span>				var key string
+<span id="L834" class="ln">   834  </span>				if apiKey.Prefix != &#34;&#34; {
+<span id="L835" class="ln">   835  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
+<span id="L836" class="ln">   836  </span>				} else {
+<span id="L837" class="ln">   837  </span>					key = apiKey.Key
+<span id="L838" class="ln">   838  </span>				}
+<span id="L839" class="ln">   839  </span>				localVarHeaderParams[&#34;DD-APPLICATION-KEY&#34;] = key
+<span id="L840" class="ln">   840  </span>			}
+<span id="L841" class="ln">   841  </span>		}
 <span id="L842" class="ln">   842  </span>	}
-<span id="L843" class="ln">   843  </span>
-<span id="L844" class="ln">   844  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L845" class="ln">   845  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L846" class="ln">   846  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L847" class="ln">   847  </span>	}
-<span id="L848" class="ln">   848  </span>
-<span id="L849" class="ln">   849  </span>	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-<span id="L850" class="ln">   850  </span>	localVarHTTPResponse.Body.Close()
-<span id="L851" class="ln">   851  </span>	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
-<span id="L852" class="ln">   852  </span>	if err != nil {
-<span id="L853" class="ln">   853  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L854" class="ln">   854  </span>	}
-<span id="L855" class="ln">   855  </span>
-<span id="L856" class="ln">   856  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L857" class="ln">   857  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L858" class="ln">   858  </span>			ErrorBody:    localVarBody,
-<span id="L859" class="ln">   859  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L860" class="ln">   860  </span>		}
-<span id="L861" class="ln">   861  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L862" class="ln">   862  </span>			var v APIErrorResponse
-<span id="L863" class="ln">   863  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L864" class="ln">   864  </span>			if err != nil {
-<span id="L865" class="ln">   865  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L866" class="ln">   866  </span>			}
-<span id="L867" class="ln">   867  </span>			newErr.ErrorModel = v
-<span id="L868" class="ln">   868  </span>		}
-<span id="L869" class="ln">   869  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L870" class="ln">   870  </span>	}
-<span id="L871" class="ln">   871  </span>
-<span id="L872" class="ln">   872  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L873" class="ln">   873  </span>	if err != nil {
-<span id="L874" class="ln">   874  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L875" class="ln">   875  </span>			ErrorBody:    localVarBody,
-<span id="L876" class="ln">   876  </span>			ErrorMessage: err.Error(),
-<span id="L877" class="ln">   877  </span>		}
-<span id="L878" class="ln">   878  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L879" class="ln">   879  </span>	}
-<span id="L880" class="ln">   880  </span>
-<span id="L881" class="ln">   881  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L882" class="ln">   882  </span>}
-<span id="L883" class="ln">   883  </span>
-<span id="L884" class="ln">   884  </span>type apiSearchRUMEventsRequest struct {
-<span id="L885" class="ln">   885  </span>	ctx  _context.Context
-<span id="L886" class="ln">   886  </span>	body *RUMSearchEventsRequest
-<span id="L887" class="ln">   887  </span>}
-<span id="L888" class="ln">   888  </span>
-<span id="L889" class="ln">   889  </span>func (a *RUMApi) buildSearchRUMEventsRequest(ctx _context.Context, body RUMSearchEventsRequest) (apiSearchRUMEventsRequest, error) {
-<span id="L890" class="ln">   890  </span>	req := apiSearchRUMEventsRequest{
-<span id="L891" class="ln">   891  </span>		ctx:  ctx,
-<span id="L892" class="ln">   892  </span>		body: &amp;body,
-<span id="L893" class="ln">   893  </span>	}
-<span id="L894" class="ln">   894  </span>	return req, nil
-<span id="L895" class="ln">   895  </span>}
-<span id="L896" class="ln">   896  </span>
-<span id="L897" class="ln">   897  </span><span class="comment">// SearchRUMEvents Search RUM events.</span>
-<span id="L898" class="ln">   898  </span><span class="comment">// List endpoint returns RUM events that match a RUM search query.</span>
-<span id="L899" class="ln">   899  </span><span class="comment">// [Results are paginated][1].</span>
-<span id="L900" class="ln">   900  </span><span class="comment">//</span>
-<span id="L901" class="ln">   901  </span><span class="comment">// Use this endpoint to build complex RUM events filtering and search.</span>
-<span id="L902" class="ln">   902  </span><span class="comment">//</span>
-<span id="L903" class="ln">   903  </span><span class="comment">// [1]: https://docs.datadoghq.com/logs/guide/collect-multiple-logs-with-pagination</span>
-<span id="L904" class="ln">   904  </span>func (a *RUMApi) SearchRUMEvents(ctx _context.Context, body RUMSearchEventsRequest) (RUMEventsResponse, *_nethttp.Response, error) {
-<span id="L905" class="ln">   905  </span>	req, err := a.buildSearchRUMEventsRequest(ctx, body)
-<span id="L906" class="ln">   906  </span>	if err != nil {
-<span id="L907" class="ln">   907  </span>		var localVarReturnValue RUMEventsResponse
-<span id="L908" class="ln">   908  </span>		return localVarReturnValue, nil, err
-<span id="L909" class="ln">   909  </span>	}
-<span id="L910" class="ln">   910  </span>
-<span id="L911" class="ln">   911  </span>	return a.searchRUMEventsExecute(req)
-<span id="L912" class="ln">   912  </span>}
-<span id="L913" class="ln">   913  </span>
-<span id="L914" class="ln">   914  </span><span class="comment">// SearchRUMEventsWithPagination provides a paginated version of SearchRUMEvents returning a channel with all items.</span>
-<span id="L915" class="ln">   915  </span>func (a *RUMApi) SearchRUMEventsWithPagination(ctx _context.Context, body RUMSearchEventsRequest) (&lt;-chan RUMEvent, func(), error) {
-<span id="L916" class="ln">   916  </span>	ctx, cancel := _context.WithCancel(ctx)
-<span id="L917" class="ln">   917  </span>	pageSize_ := int32(10)
-<span id="L918" class="ln">   918  </span>	if body.Page == nil {
-<span id="L919" class="ln">   919  </span>		body.Page = NewRUMQueryPageOptions()
-<span id="L920" class="ln">   920  </span>	}
-<span id="L921" class="ln">   921  </span>	if body.Page.Limit == nil {
-<span id="L922" class="ln">   922  </span>		<span class="comment">// int32</span>
-<span id="L923" class="ln">   923  </span>		body.Page.Limit = &amp;pageSize_
-<span id="L924" class="ln">   924  </span>	} else {
-<span id="L925" class="ln">   925  </span>		pageSize_ = *body.Page.Limit
-<span id="L926" class="ln">   926  </span>	}
-<span id="L927" class="ln">   927  </span>
-<span id="L928" class="ln">   928  </span>	items := make(chan RUMEvent, pageSize_)
-<span id="L929" class="ln">   929  </span>	go func() {
-<span id="L930" class="ln">   930  </span>		for {
-<span id="L931" class="ln">   931  </span>			req, err := a.buildSearchRUMEventsRequest(ctx, body)
-<span id="L932" class="ln">   932  </span>			if err != nil {
-<span id="L933" class="ln">   933  </span>				break
-<span id="L934" class="ln">   934  </span>			}
-<span id="L935" class="ln">   935  </span>
-<span id="L936" class="ln">   936  </span>			resp, _, err := a.searchRUMEventsExecute(req)
-<span id="L937" class="ln">   937  </span>			if err != nil {
-<span id="L938" class="ln">   938  </span>				break
-<span id="L939" class="ln">   939  </span>			}
-<span id="L940" class="ln">   940  </span>			respData, ok := resp.GetDataOk()
-<span id="L941" class="ln">   941  </span>			if !ok {
-<span id="L942" class="ln">   942  </span>				break
-<span id="L943" class="ln">   943  </span>			}
-<span id="L944" class="ln">   944  </span>			results := *respData
-<span id="L945" class="ln">   945  </span>
-<span id="L946" class="ln">   946  </span>			for _, item := range results {
-<span id="L947" class="ln">   947  </span>				select {
-<span id="L948" class="ln">   948  </span>				case items &lt;- item:
-<span id="L949" class="ln">   949  </span>				case &lt;-ctx.Done():
-<span id="L950" class="ln">   950  </span>					close(items)
-<span id="L951" class="ln">   951  </span>					return
-<span id="L952" class="ln">   952  </span>				}
-<span id="L953" class="ln">   953  </span>			}
-<span id="L954" class="ln">   954  </span>			if len(results) &lt; int(pageSize_) {
-<span id="L955" class="ln">   955  </span>				break
-<span id="L956" class="ln">   956  </span>			}
-<span id="L957" class="ln">   957  </span>			cursorMeta, ok := resp.GetMetaOk()
-<span id="L958" class="ln">   958  </span>			if !ok {
-<span id="L959" class="ln">   959  </span>				break
-<span id="L960" class="ln">   960  </span>			}
-<span id="L961" class="ln">   961  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
-<span id="L962" class="ln">   962  </span>			if !ok {
+<span id="L843" class="ln">   843  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L844" class="ln">   844  </span>	if err != nil {
+<span id="L845" class="ln">   845  </span>		return localVarReturnValue, nil, err
+<span id="L846" class="ln">   846  </span>	}
+<span id="L847" class="ln">   847  </span>
+<span id="L848" class="ln">   848  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L849" class="ln">   849  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L850" class="ln">   850  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L851" class="ln">   851  </span>	}
+<span id="L852" class="ln">   852  </span>
+<span id="L853" class="ln">   853  </span>	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
+<span id="L854" class="ln">   854  </span>	localVarHTTPResponse.Body.Close()
+<span id="L855" class="ln">   855  </span>	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+<span id="L856" class="ln">   856  </span>	if err != nil {
+<span id="L857" class="ln">   857  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L858" class="ln">   858  </span>	}
+<span id="L859" class="ln">   859  </span>
+<span id="L860" class="ln">   860  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L861" class="ln">   861  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L862" class="ln">   862  </span>			ErrorBody:    localVarBody,
+<span id="L863" class="ln">   863  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L864" class="ln">   864  </span>		}
+<span id="L865" class="ln">   865  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L866" class="ln">   866  </span>			var v APIErrorResponse
+<span id="L867" class="ln">   867  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L868" class="ln">   868  </span>			if err != nil {
+<span id="L869" class="ln">   869  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L870" class="ln">   870  </span>			}
+<span id="L871" class="ln">   871  </span>			newErr.ErrorModel = v
+<span id="L872" class="ln">   872  </span>		}
+<span id="L873" class="ln">   873  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L874" class="ln">   874  </span>	}
+<span id="L875" class="ln">   875  </span>
+<span id="L876" class="ln">   876  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L877" class="ln">   877  </span>	if err != nil {
+<span id="L878" class="ln">   878  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L879" class="ln">   879  </span>			ErrorBody:    localVarBody,
+<span id="L880" class="ln">   880  </span>			ErrorMessage: err.Error(),
+<span id="L881" class="ln">   881  </span>		}
+<span id="L882" class="ln">   882  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L883" class="ln">   883  </span>	}
+<span id="L884" class="ln">   884  </span>
+<span id="L885" class="ln">   885  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L886" class="ln">   886  </span>}
+<span id="L887" class="ln">   887  </span>
+<span id="L888" class="ln">   888  </span>type apiSearchRUMEventsRequest struct {
+<span id="L889" class="ln">   889  </span>	ctx  _context.Context
+<span id="L890" class="ln">   890  </span>	body *RUMSearchEventsRequest
+<span id="L891" class="ln">   891  </span>}
+<span id="L892" class="ln">   892  </span>
+<span id="L893" class="ln">   893  </span>func (a *RUMApi) buildSearchRUMEventsRequest(ctx _context.Context, body RUMSearchEventsRequest) (apiSearchRUMEventsRequest, error) {
+<span id="L894" class="ln">   894  </span>	req := apiSearchRUMEventsRequest{
+<span id="L895" class="ln">   895  </span>		ctx:  ctx,
+<span id="L896" class="ln">   896  </span>		body: &amp;body,
+<span id="L897" class="ln">   897  </span>	}
+<span id="L898" class="ln">   898  </span>	return req, nil
+<span id="L899" class="ln">   899  </span>}
+<span id="L900" class="ln">   900  </span>
+<span id="L901" class="ln">   901  </span><span class="comment">// SearchRUMEvents Search RUM events.</span>
+<span id="L902" class="ln">   902  </span><span class="comment">// List endpoint returns RUM events that match a RUM search query.</span>
+<span id="L903" class="ln">   903  </span><span class="comment">// [Results are paginated][1].</span>
+<span id="L904" class="ln">   904  </span><span class="comment">//</span>
+<span id="L905" class="ln">   905  </span><span class="comment">// Use this endpoint to build complex RUM events filtering and search.</span>
+<span id="L906" class="ln">   906  </span><span class="comment">//</span>
+<span id="L907" class="ln">   907  </span><span class="comment">// [1]: https://docs.datadoghq.com/logs/guide/collect-multiple-logs-with-pagination</span>
+<span id="L908" class="ln">   908  </span>func (a *RUMApi) SearchRUMEvents(ctx _context.Context, body RUMSearchEventsRequest) (RUMEventsResponse, *_nethttp.Response, error) {
+<span id="L909" class="ln">   909  </span>	req, err := a.buildSearchRUMEventsRequest(ctx, body)
+<span id="L910" class="ln">   910  </span>	if err != nil {
+<span id="L911" class="ln">   911  </span>		var localVarReturnValue RUMEventsResponse
+<span id="L912" class="ln">   912  </span>		return localVarReturnValue, nil, err
+<span id="L913" class="ln">   913  </span>	}
+<span id="L914" class="ln">   914  </span>
+<span id="L915" class="ln">   915  </span>	return a.searchRUMEventsExecute(req)
+<span id="L916" class="ln">   916  </span>}
+<span id="L917" class="ln">   917  </span>
+<span id="L918" class="ln">   918  </span><span class="comment">// SearchRUMEventsWithPagination provides a paginated version of SearchRUMEvents returning a channel with all items.</span>
+<span id="L919" class="ln">   919  </span>func (a *RUMApi) SearchRUMEventsWithPagination(ctx _context.Context, body RUMSearchEventsRequest) (&lt;-chan datadog.PaginationResult[RUMEvent], func()) {
+<span id="L920" class="ln">   920  </span>	ctx, cancel := _context.WithCancel(ctx)
+<span id="L921" class="ln">   921  </span>	pageSize_ := int32(10)
+<span id="L922" class="ln">   922  </span>	if body.Page == nil {
+<span id="L923" class="ln">   923  </span>		body.Page = NewRUMQueryPageOptions()
+<span id="L924" class="ln">   924  </span>	}
+<span id="L925" class="ln">   925  </span>	if body.Page.Limit == nil {
+<span id="L926" class="ln">   926  </span>		<span class="comment">// int32</span>
+<span id="L927" class="ln">   927  </span>		body.Page.Limit = &amp;pageSize_
+<span id="L928" class="ln">   928  </span>	} else {
+<span id="L929" class="ln">   929  </span>		pageSize_ = *body.Page.Limit
+<span id="L930" class="ln">   930  </span>	}
+<span id="L931" class="ln">   931  </span>
+<span id="L932" class="ln">   932  </span>	items := make(chan datadog.PaginationResult[RUMEvent], pageSize_)
+<span id="L933" class="ln">   933  </span>	go func() {
+<span id="L934" class="ln">   934  </span>		for {
+<span id="L935" class="ln">   935  </span>			req, err := a.buildSearchRUMEventsRequest(ctx, body)
+<span id="L936" class="ln">   936  </span>			if err != nil {
+<span id="L937" class="ln">   937  </span>				var returnItem RUMEvent
+<span id="L938" class="ln">   938  </span>				items &lt;- datadog.PaginationResult[RUMEvent]{returnItem, err}
+<span id="L939" class="ln">   939  </span>				break
+<span id="L940" class="ln">   940  </span>			}
+<span id="L941" class="ln">   941  </span>
+<span id="L942" class="ln">   942  </span>			resp, _, err := a.searchRUMEventsExecute(req)
+<span id="L943" class="ln">   943  </span>			if err != nil {
+<span id="L944" class="ln">   944  </span>				var returnItem RUMEvent
+<span id="L945" class="ln">   945  </span>				items &lt;- datadog.PaginationResult[RUMEvent]{returnItem, err}
+<span id="L946" class="ln">   946  </span>				break
+<span id="L947" class="ln">   947  </span>			}
+<span id="L948" class="ln">   948  </span>			respData, ok := resp.GetDataOk()
+<span id="L949" class="ln">   949  </span>			if !ok {
+<span id="L950" class="ln">   950  </span>				break
+<span id="L951" class="ln">   951  </span>			}
+<span id="L952" class="ln">   952  </span>			results := *respData
+<span id="L953" class="ln">   953  </span>
+<span id="L954" class="ln">   954  </span>			for _, item := range results {
+<span id="L955" class="ln">   955  </span>				select {
+<span id="L956" class="ln">   956  </span>				case items &lt;- datadog.PaginationResult[RUMEvent]{item, nil}:
+<span id="L957" class="ln">   957  </span>				case &lt;-ctx.Done():
+<span id="L958" class="ln">   958  </span>					close(items)
+<span id="L959" class="ln">   959  </span>					return
+<span id="L960" class="ln">   960  </span>				}
+<span id="L961" class="ln">   961  </span>			}
+<span id="L962" class="ln">   962  </span>			if len(results) &lt; int(pageSize_) {
 <span id="L963" class="ln">   963  </span>				break
 <span id="L964" class="ln">   964  </span>			}
-<span id="L965" class="ln">   965  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+<span id="L965" class="ln">   965  </span>			cursorMeta, ok := resp.GetMetaOk()
 <span id="L966" class="ln">   966  </span>			if !ok {
 <span id="L967" class="ln">   967  </span>				break
 <span id="L968" class="ln">   968  </span>			}
-<span id="L969" class="ln">   969  </span>
-<span id="L970" class="ln">   970  </span>			body.Page.Cursor = cursorMetaPageAfter
-<span id="L971" class="ln">   971  </span>		}
-<span id="L972" class="ln">   972  </span>		close(items)
-<span id="L973" class="ln">   973  </span>	}()
-<span id="L974" class="ln">   974  </span>	return items, cancel, nil
-<span id="L975" class="ln">   975  </span>}
-<span id="L976" class="ln">   976  </span>
-<span id="L977" class="ln">   977  </span><span class="comment">// searchRUMEventsExecute executes the request.</span>
-<span id="L978" class="ln">   978  </span>func (a *RUMApi) searchRUMEventsExecute(r apiSearchRUMEventsRequest) (RUMEventsResponse, *_nethttp.Response, error) {
-<span id="L979" class="ln">   979  </span>	var (
-<span id="L980" class="ln">   980  </span>		localVarHTTPMethod  = _nethttp.MethodPost
-<span id="L981" class="ln">   981  </span>		localVarPostBody    interface{}
-<span id="L982" class="ln">   982  </span>		localVarReturnValue RUMEventsResponse
-<span id="L983" class="ln">   983  </span>	)
+<span id="L969" class="ln">   969  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
+<span id="L970" class="ln">   970  </span>			if !ok {
+<span id="L971" class="ln">   971  </span>				break
+<span id="L972" class="ln">   972  </span>			}
+<span id="L973" class="ln">   973  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+<span id="L974" class="ln">   974  </span>			if !ok {
+<span id="L975" class="ln">   975  </span>				break
+<span id="L976" class="ln">   976  </span>			}
+<span id="L977" class="ln">   977  </span>
+<span id="L978" class="ln">   978  </span>			body.Page.Cursor = cursorMetaPageAfter
+<span id="L979" class="ln">   979  </span>		}
+<span id="L980" class="ln">   980  </span>		close(items)
+<span id="L981" class="ln">   981  </span>	}()
+<span id="L982" class="ln">   982  </span>	return items, cancel
+<span id="L983" class="ln">   983  </span>}
 <span id="L984" class="ln">   984  </span>
-<span id="L985" class="ln">   985  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.RUMApi.SearchRUMEvents&#34;)
-<span id="L986" class="ln">   986  </span>	if err != nil {
-<span id="L987" class="ln">   987  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L988" class="ln">   988  </span>	}
-<span id="L989" class="ln">   989  </span>
-<span id="L990" class="ln">   990  </span>	localVarPath := localBasePath + &#34;/api/v2/rum/events/search&#34;
-<span id="L991" class="ln">   991  </span>
-<span id="L992" class="ln">   992  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L993" class="ln">   993  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L994" class="ln">   994  </span>	localVarFormParams := _neturl.Values{}
-<span id="L995" class="ln">   995  </span>	if r.body == nil {
-<span id="L996" class="ln">   996  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;body is required and must be specified&#34;)
-<span id="L997" class="ln">   997  </span>	}
-<span id="L998" class="ln">   998  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L999" class="ln">   999  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1000" class="ln">  1000  </span>
-<span id="L1001" class="ln">  1001  </span>	<span class="comment">// body params</span>
-<span id="L1002" class="ln">  1002  </span>	localVarPostBody = r.body
-<span id="L1003" class="ln">  1003  </span>	if r.ctx != nil {
-<span id="L1004" class="ln">  1004  </span>		<span class="comment">// API Key Authentication</span>
-<span id="L1005" class="ln">  1005  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-<span id="L1006" class="ln">  1006  </span>			if apiKey, ok := auth[&#34;apiKeyAuth&#34;]; ok {
-<span id="L1007" class="ln">  1007  </span>				var key string
-<span id="L1008" class="ln">  1008  </span>				if apiKey.Prefix != &#34;&#34; {
-<span id="L1009" class="ln">  1009  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
-<span id="L1010" class="ln">  1010  </span>				} else {
-<span id="L1011" class="ln">  1011  </span>					key = apiKey.Key
-<span id="L1012" class="ln">  1012  </span>				}
-<span id="L1013" class="ln">  1013  </span>				localVarHeaderParams[&#34;DD-API-KEY&#34;] = key
-<span id="L1014" class="ln">  1014  </span>			}
-<span id="L1015" class="ln">  1015  </span>		}
-<span id="L1016" class="ln">  1016  </span>	}
-<span id="L1017" class="ln">  1017  </span>	if r.ctx != nil {
-<span id="L1018" class="ln">  1018  </span>		<span class="comment">// API Key Authentication</span>
-<span id="L1019" class="ln">  1019  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-<span id="L1020" class="ln">  1020  </span>			if apiKey, ok := auth[&#34;appKeyAuth&#34;]; ok {
-<span id="L1021" class="ln">  1021  </span>				var key string
-<span id="L1022" class="ln">  1022  </span>				if apiKey.Prefix != &#34;&#34; {
-<span id="L1023" class="ln">  1023  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
-<span id="L1024" class="ln">  1024  </span>				} else {
-<span id="L1025" class="ln">  1025  </span>					key = apiKey.Key
-<span id="L1026" class="ln">  1026  </span>				}
-<span id="L1027" class="ln">  1027  </span>				localVarHeaderParams[&#34;DD-APPLICATION-KEY&#34;] = key
-<span id="L1028" class="ln">  1028  </span>			}
-<span id="L1029" class="ln">  1029  </span>		}
-<span id="L1030" class="ln">  1030  </span>	}
-<span id="L1031" class="ln">  1031  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1032" class="ln">  1032  </span>	if err != nil {
-<span id="L1033" class="ln">  1033  </span>		return localVarReturnValue, nil, err
-<span id="L1034" class="ln">  1034  </span>	}
-<span id="L1035" class="ln">  1035  </span>
-<span id="L1036" class="ln">  1036  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1037" class="ln">  1037  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1038" class="ln">  1038  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1039" class="ln">  1039  </span>	}
-<span id="L1040" class="ln">  1040  </span>
-<span id="L1041" class="ln">  1041  </span>	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-<span id="L1042" class="ln">  1042  </span>	localVarHTTPResponse.Body.Close()
-<span id="L1043" class="ln">  1043  </span>	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
-<span id="L1044" class="ln">  1044  </span>	if err != nil {
-<span id="L1045" class="ln">  1045  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1046" class="ln">  1046  </span>	}
-<span id="L1047" class="ln">  1047  </span>
-<span id="L1048" class="ln">  1048  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1049" class="ln">  1049  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1050" class="ln">  1050  </span>			ErrorBody:    localVarBody,
-<span id="L1051" class="ln">  1051  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1052" class="ln">  1052  </span>		}
-<span id="L1053" class="ln">  1053  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1054" class="ln">  1054  </span>			var v APIErrorResponse
-<span id="L1055" class="ln">  1055  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1056" class="ln">  1056  </span>			if err != nil {
-<span id="L1057" class="ln">  1057  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1058" class="ln">  1058  </span>			}
-<span id="L1059" class="ln">  1059  </span>			newErr.ErrorModel = v
+<span id="L985" class="ln">   985  </span><span class="comment">// searchRUMEventsExecute executes the request.</span>
+<span id="L986" class="ln">   986  </span>func (a *RUMApi) searchRUMEventsExecute(r apiSearchRUMEventsRequest) (RUMEventsResponse, *_nethttp.Response, error) {
+<span id="L987" class="ln">   987  </span>	var (
+<span id="L988" class="ln">   988  </span>		localVarHTTPMethod  = _nethttp.MethodPost
+<span id="L989" class="ln">   989  </span>		localVarPostBody    interface{}
+<span id="L990" class="ln">   990  </span>		localVarReturnValue RUMEventsResponse
+<span id="L991" class="ln">   991  </span>	)
+<span id="L992" class="ln">   992  </span>
+<span id="L993" class="ln">   993  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.RUMApi.SearchRUMEvents&#34;)
+<span id="L994" class="ln">   994  </span>	if err != nil {
+<span id="L995" class="ln">   995  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L996" class="ln">   996  </span>	}
+<span id="L997" class="ln">   997  </span>
+<span id="L998" class="ln">   998  </span>	localVarPath := localBasePath + &#34;/api/v2/rum/events/search&#34;
+<span id="L999" class="ln">   999  </span>
+<span id="L1000" class="ln">  1000  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1001" class="ln">  1001  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1002" class="ln">  1002  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1003" class="ln">  1003  </span>	if r.body == nil {
+<span id="L1004" class="ln">  1004  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;body is required and must be specified&#34;)
+<span id="L1005" class="ln">  1005  </span>	}
+<span id="L1006" class="ln">  1006  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1007" class="ln">  1007  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1008" class="ln">  1008  </span>
+<span id="L1009" class="ln">  1009  </span>	<span class="comment">// body params</span>
+<span id="L1010" class="ln">  1010  </span>	localVarPostBody = r.body
+<span id="L1011" class="ln">  1011  </span>	if r.ctx != nil {
+<span id="L1012" class="ln">  1012  </span>		<span class="comment">// API Key Authentication</span>
+<span id="L1013" class="ln">  1013  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
+<span id="L1014" class="ln">  1014  </span>			if apiKey, ok := auth[&#34;apiKeyAuth&#34;]; ok {
+<span id="L1015" class="ln">  1015  </span>				var key string
+<span id="L1016" class="ln">  1016  </span>				if apiKey.Prefix != &#34;&#34; {
+<span id="L1017" class="ln">  1017  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
+<span id="L1018" class="ln">  1018  </span>				} else {
+<span id="L1019" class="ln">  1019  </span>					key = apiKey.Key
+<span id="L1020" class="ln">  1020  </span>				}
+<span id="L1021" class="ln">  1021  </span>				localVarHeaderParams[&#34;DD-API-KEY&#34;] = key
+<span id="L1022" class="ln">  1022  </span>			}
+<span id="L1023" class="ln">  1023  </span>		}
+<span id="L1024" class="ln">  1024  </span>	}
+<span id="L1025" class="ln">  1025  </span>	if r.ctx != nil {
+<span id="L1026" class="ln">  1026  </span>		<span class="comment">// API Key Authentication</span>
+<span id="L1027" class="ln">  1027  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
+<span id="L1028" class="ln">  1028  </span>			if apiKey, ok := auth[&#34;appKeyAuth&#34;]; ok {
+<span id="L1029" class="ln">  1029  </span>				var key string
+<span id="L1030" class="ln">  1030  </span>				if apiKey.Prefix != &#34;&#34; {
+<span id="L1031" class="ln">  1031  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
+<span id="L1032" class="ln">  1032  </span>				} else {
+<span id="L1033" class="ln">  1033  </span>					key = apiKey.Key
+<span id="L1034" class="ln">  1034  </span>				}
+<span id="L1035" class="ln">  1035  </span>				localVarHeaderParams[&#34;DD-APPLICATION-KEY&#34;] = key
+<span id="L1036" class="ln">  1036  </span>			}
+<span id="L1037" class="ln">  1037  </span>		}
+<span id="L1038" class="ln">  1038  </span>	}
+<span id="L1039" class="ln">  1039  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1040" class="ln">  1040  </span>	if err != nil {
+<span id="L1041" class="ln">  1041  </span>		return localVarReturnValue, nil, err
+<span id="L1042" class="ln">  1042  </span>	}
+<span id="L1043" class="ln">  1043  </span>
+<span id="L1044" class="ln">  1044  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1045" class="ln">  1045  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1046" class="ln">  1046  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1047" class="ln">  1047  </span>	}
+<span id="L1048" class="ln">  1048  </span>
+<span id="L1049" class="ln">  1049  </span>	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
+<span id="L1050" class="ln">  1050  </span>	localVarHTTPResponse.Body.Close()
+<span id="L1051" class="ln">  1051  </span>	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+<span id="L1052" class="ln">  1052  </span>	if err != nil {
+<span id="L1053" class="ln">  1053  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1054" class="ln">  1054  </span>	}
+<span id="L1055" class="ln">  1055  </span>
+<span id="L1056" class="ln">  1056  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1057" class="ln">  1057  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1058" class="ln">  1058  </span>			ErrorBody:    localVarBody,
+<span id="L1059" class="ln">  1059  </span>			ErrorMessage: localVarHTTPResponse.Status,
 <span id="L1060" class="ln">  1060  </span>		}
-<span id="L1061" class="ln">  1061  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1062" class="ln">  1062  </span>	}
-<span id="L1063" class="ln">  1063  </span>
-<span id="L1064" class="ln">  1064  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1065" class="ln">  1065  </span>	if err != nil {
-<span id="L1066" class="ln">  1066  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1067" class="ln">  1067  </span>			ErrorBody:    localVarBody,
-<span id="L1068" class="ln">  1068  </span>			ErrorMessage: err.Error(),
-<span id="L1069" class="ln">  1069  </span>		}
-<span id="L1070" class="ln">  1070  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1071" class="ln">  1071  </span>	}
-<span id="L1072" class="ln">  1072  </span>
-<span id="L1073" class="ln">  1073  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1074" class="ln">  1074  </span>}
-<span id="L1075" class="ln">  1075  </span>
-<span id="L1076" class="ln">  1076  </span>type apiUpdateRUMApplicationRequest struct {
-<span id="L1077" class="ln">  1077  </span>	ctx  _context.Context
-<span id="L1078" class="ln">  1078  </span>	id   string
-<span id="L1079" class="ln">  1079  </span>	body *RUMApplicationUpdateRequest
-<span id="L1080" class="ln">  1080  </span>}
-<span id="L1081" class="ln">  1081  </span>
-<span id="L1082" class="ln">  1082  </span>func (a *RUMApi) buildUpdateRUMApplicationRequest(ctx _context.Context, id string, body RUMApplicationUpdateRequest) (apiUpdateRUMApplicationRequest, error) {
-<span id="L1083" class="ln">  1083  </span>	req := apiUpdateRUMApplicationRequest{
-<span id="L1084" class="ln">  1084  </span>		ctx:  ctx,
-<span id="L1085" class="ln">  1085  </span>		id:   id,
-<span id="L1086" class="ln">  1086  </span>		body: &amp;body,
-<span id="L1087" class="ln">  1087  </span>	}
-<span id="L1088" class="ln">  1088  </span>	return req, nil
-<span id="L1089" class="ln">  1089  </span>}
-<span id="L1090" class="ln">  1090  </span>
-<span id="L1091" class="ln">  1091  </span><span class="comment">// UpdateRUMApplication Update a RUM application.</span>
-<span id="L1092" class="ln">  1092  </span><span class="comment">// Update the RUM application with given ID in your organization.</span>
-<span id="L1093" class="ln">  1093  </span>func (a *RUMApi) UpdateRUMApplication(ctx _context.Context, id string, body RUMApplicationUpdateRequest) (RUMApplicationResponse, *_nethttp.Response, error) {
-<span id="L1094" class="ln">  1094  </span>	req, err := a.buildUpdateRUMApplicationRequest(ctx, id, body)
-<span id="L1095" class="ln">  1095  </span>	if err != nil {
-<span id="L1096" class="ln">  1096  </span>		var localVarReturnValue RUMApplicationResponse
-<span id="L1097" class="ln">  1097  </span>		return localVarReturnValue, nil, err
-<span id="L1098" class="ln">  1098  </span>	}
-<span id="L1099" class="ln">  1099  </span>
-<span id="L1100" class="ln">  1100  </span>	return a.updateRUMApplicationExecute(req)
-<span id="L1101" class="ln">  1101  </span>}
-<span id="L1102" class="ln">  1102  </span>
-<span id="L1103" class="ln">  1103  </span><span class="comment">// updateRUMApplicationExecute executes the request.</span>
-<span id="L1104" class="ln">  1104  </span>func (a *RUMApi) updateRUMApplicationExecute(r apiUpdateRUMApplicationRequest) (RUMApplicationResponse, *_nethttp.Response, error) {
-<span id="L1105" class="ln">  1105  </span>	var (
-<span id="L1106" class="ln">  1106  </span>		localVarHTTPMethod  = _nethttp.MethodPatch
-<span id="L1107" class="ln">  1107  </span>		localVarPostBody    interface{}
-<span id="L1108" class="ln">  1108  </span>		localVarReturnValue RUMApplicationResponse
-<span id="L1109" class="ln">  1109  </span>	)
+<span id="L1061" class="ln">  1061  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1062" class="ln">  1062  </span>			var v APIErrorResponse
+<span id="L1063" class="ln">  1063  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1064" class="ln">  1064  </span>			if err != nil {
+<span id="L1065" class="ln">  1065  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1066" class="ln">  1066  </span>			}
+<span id="L1067" class="ln">  1067  </span>			newErr.ErrorModel = v
+<span id="L1068" class="ln">  1068  </span>		}
+<span id="L1069" class="ln">  1069  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1070" class="ln">  1070  </span>	}
+<span id="L1071" class="ln">  1071  </span>
+<span id="L1072" class="ln">  1072  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1073" class="ln">  1073  </span>	if err != nil {
+<span id="L1074" class="ln">  1074  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1075" class="ln">  1075  </span>			ErrorBody:    localVarBody,
+<span id="L1076" class="ln">  1076  </span>			ErrorMessage: err.Error(),
+<span id="L1077" class="ln">  1077  </span>		}
+<span id="L1078" class="ln">  1078  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1079" class="ln">  1079  </span>	}
+<span id="L1080" class="ln">  1080  </span>
+<span id="L1081" class="ln">  1081  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1082" class="ln">  1082  </span>}
+<span id="L1083" class="ln">  1083  </span>
+<span id="L1084" class="ln">  1084  </span>type apiUpdateRUMApplicationRequest struct {
+<span id="L1085" class="ln">  1085  </span>	ctx  _context.Context
+<span id="L1086" class="ln">  1086  </span>	id   string
+<span id="L1087" class="ln">  1087  </span>	body *RUMApplicationUpdateRequest
+<span id="L1088" class="ln">  1088  </span>}
+<span id="L1089" class="ln">  1089  </span>
+<span id="L1090" class="ln">  1090  </span>func (a *RUMApi) buildUpdateRUMApplicationRequest(ctx _context.Context, id string, body RUMApplicationUpdateRequest) (apiUpdateRUMApplicationRequest, error) {
+<span id="L1091" class="ln">  1091  </span>	req := apiUpdateRUMApplicationRequest{
+<span id="L1092" class="ln">  1092  </span>		ctx:  ctx,
+<span id="L1093" class="ln">  1093  </span>		id:   id,
+<span id="L1094" class="ln">  1094  </span>		body: &amp;body,
+<span id="L1095" class="ln">  1095  </span>	}
+<span id="L1096" class="ln">  1096  </span>	return req, nil
+<span id="L1097" class="ln">  1097  </span>}
+<span id="L1098" class="ln">  1098  </span>
+<span id="L1099" class="ln">  1099  </span><span class="comment">// UpdateRUMApplication Update a RUM application.</span>
+<span id="L1100" class="ln">  1100  </span><span class="comment">// Update the RUM application with given ID in your organization.</span>
+<span id="L1101" class="ln">  1101  </span>func (a *RUMApi) UpdateRUMApplication(ctx _context.Context, id string, body RUMApplicationUpdateRequest) (RUMApplicationResponse, *_nethttp.Response, error) {
+<span id="L1102" class="ln">  1102  </span>	req, err := a.buildUpdateRUMApplicationRequest(ctx, id, body)
+<span id="L1103" class="ln">  1103  </span>	if err != nil {
+<span id="L1104" class="ln">  1104  </span>		var localVarReturnValue RUMApplicationResponse
+<span id="L1105" class="ln">  1105  </span>		return localVarReturnValue, nil, err
+<span id="L1106" class="ln">  1106  </span>	}
+<span id="L1107" class="ln">  1107  </span>
+<span id="L1108" class="ln">  1108  </span>	return a.updateRUMApplicationExecute(req)
+<span id="L1109" class="ln">  1109  </span>}
 <span id="L1110" class="ln">  1110  </span>
-<span id="L1111" class="ln">  1111  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.RUMApi.UpdateRUMApplication&#34;)
-<span id="L1112" class="ln">  1112  </span>	if err != nil {
-<span id="L1113" class="ln">  1113  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1114" class="ln">  1114  </span>	}
-<span id="L1115" class="ln">  1115  </span>
-<span id="L1116" class="ln">  1116  </span>	localVarPath := localBasePath + &#34;/api/v2/rum/applications/{id}&#34;
-<span id="L1117" class="ln">  1117  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(r.id, &#34;&#34;)), -1)
+<span id="L1111" class="ln">  1111  </span><span class="comment">// updateRUMApplicationExecute executes the request.</span>
+<span id="L1112" class="ln">  1112  </span>func (a *RUMApi) updateRUMApplicationExecute(r apiUpdateRUMApplicationRequest) (RUMApplicationResponse, *_nethttp.Response, error) {
+<span id="L1113" class="ln">  1113  </span>	var (
+<span id="L1114" class="ln">  1114  </span>		localVarHTTPMethod  = _nethttp.MethodPatch
+<span id="L1115" class="ln">  1115  </span>		localVarPostBody    interface{}
+<span id="L1116" class="ln">  1116  </span>		localVarReturnValue RUMApplicationResponse
+<span id="L1117" class="ln">  1117  </span>	)
 <span id="L1118" class="ln">  1118  </span>
-<span id="L1119" class="ln">  1119  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1120" class="ln">  1120  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1121" class="ln">  1121  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1122" class="ln">  1122  </span>	if r.body == nil {
-<span id="L1123" class="ln">  1123  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;body is required and must be specified&#34;)
-<span id="L1124" class="ln">  1124  </span>	}
-<span id="L1125" class="ln">  1125  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L1126" class="ln">  1126  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1127" class="ln">  1127  </span>
-<span id="L1128" class="ln">  1128  </span>	<span class="comment">// body params</span>
-<span id="L1129" class="ln">  1129  </span>	localVarPostBody = r.body
-<span id="L1130" class="ln">  1130  </span>	if r.ctx != nil {
-<span id="L1131" class="ln">  1131  </span>		<span class="comment">// API Key Authentication</span>
-<span id="L1132" class="ln">  1132  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-<span id="L1133" class="ln">  1133  </span>			if apiKey, ok := auth[&#34;apiKeyAuth&#34;]; ok {
-<span id="L1134" class="ln">  1134  </span>				var key string
-<span id="L1135" class="ln">  1135  </span>				if apiKey.Prefix != &#34;&#34; {
-<span id="L1136" class="ln">  1136  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
-<span id="L1137" class="ln">  1137  </span>				} else {
-<span id="L1138" class="ln">  1138  </span>					key = apiKey.Key
-<span id="L1139" class="ln">  1139  </span>				}
-<span id="L1140" class="ln">  1140  </span>				localVarHeaderParams[&#34;DD-API-KEY&#34;] = key
-<span id="L1141" class="ln">  1141  </span>			}
-<span id="L1142" class="ln">  1142  </span>		}
-<span id="L1143" class="ln">  1143  </span>	}
-<span id="L1144" class="ln">  1144  </span>	if r.ctx != nil {
-<span id="L1145" class="ln">  1145  </span>		<span class="comment">// API Key Authentication</span>
-<span id="L1146" class="ln">  1146  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-<span id="L1147" class="ln">  1147  </span>			if apiKey, ok := auth[&#34;appKeyAuth&#34;]; ok {
-<span id="L1148" class="ln">  1148  </span>				var key string
-<span id="L1149" class="ln">  1149  </span>				if apiKey.Prefix != &#34;&#34; {
-<span id="L1150" class="ln">  1150  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
-<span id="L1151" class="ln">  1151  </span>				} else {
-<span id="L1152" class="ln">  1152  </span>					key = apiKey.Key
-<span id="L1153" class="ln">  1153  </span>				}
-<span id="L1154" class="ln">  1154  </span>				localVarHeaderParams[&#34;DD-APPLICATION-KEY&#34;] = key
-<span id="L1155" class="ln">  1155  </span>			}
-<span id="L1156" class="ln">  1156  </span>		}
-<span id="L1157" class="ln">  1157  </span>	}
-<span id="L1158" class="ln">  1158  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1159" class="ln">  1159  </span>	if err != nil {
-<span id="L1160" class="ln">  1160  </span>		return localVarReturnValue, nil, err
-<span id="L1161" class="ln">  1161  </span>	}
-<span id="L1162" class="ln">  1162  </span>
-<span id="L1163" class="ln">  1163  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1164" class="ln">  1164  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1165" class="ln">  1165  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1166" class="ln">  1166  </span>	}
-<span id="L1167" class="ln">  1167  </span>
-<span id="L1168" class="ln">  1168  </span>	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-<span id="L1169" class="ln">  1169  </span>	localVarHTTPResponse.Body.Close()
-<span id="L1170" class="ln">  1170  </span>	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
-<span id="L1171" class="ln">  1171  </span>	if err != nil {
-<span id="L1172" class="ln">  1172  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1173" class="ln">  1173  </span>	}
-<span id="L1174" class="ln">  1174  </span>
-<span id="L1175" class="ln">  1175  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1176" class="ln">  1176  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1177" class="ln">  1177  </span>			ErrorBody:    localVarBody,
-<span id="L1178" class="ln">  1178  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1179" class="ln">  1179  </span>		}
-<span id="L1180" class="ln">  1180  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 422 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1181" class="ln">  1181  </span>			var v APIErrorResponse
-<span id="L1182" class="ln">  1182  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1183" class="ln">  1183  </span>			if err != nil {
-<span id="L1184" class="ln">  1184  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1185" class="ln">  1185  </span>			}
-<span id="L1186" class="ln">  1186  </span>			newErr.ErrorModel = v
+<span id="L1119" class="ln">  1119  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.RUMApi.UpdateRUMApplication&#34;)
+<span id="L1120" class="ln">  1120  </span>	if err != nil {
+<span id="L1121" class="ln">  1121  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1122" class="ln">  1122  </span>	}
+<span id="L1123" class="ln">  1123  </span>
+<span id="L1124" class="ln">  1124  </span>	localVarPath := localBasePath + &#34;/api/v2/rum/applications/{id}&#34;
+<span id="L1125" class="ln">  1125  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(r.id, &#34;&#34;)), -1)
+<span id="L1126" class="ln">  1126  </span>
+<span id="L1127" class="ln">  1127  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1128" class="ln">  1128  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1129" class="ln">  1129  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1130" class="ln">  1130  </span>	if r.body == nil {
+<span id="L1131" class="ln">  1131  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;body is required and must be specified&#34;)
+<span id="L1132" class="ln">  1132  </span>	}
+<span id="L1133" class="ln">  1133  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1134" class="ln">  1134  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1135" class="ln">  1135  </span>
+<span id="L1136" class="ln">  1136  </span>	<span class="comment">// body params</span>
+<span id="L1137" class="ln">  1137  </span>	localVarPostBody = r.body
+<span id="L1138" class="ln">  1138  </span>	if r.ctx != nil {
+<span id="L1139" class="ln">  1139  </span>		<span class="comment">// API Key Authentication</span>
+<span id="L1140" class="ln">  1140  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
+<span id="L1141" class="ln">  1141  </span>			if apiKey, ok := auth[&#34;apiKeyAuth&#34;]; ok {
+<span id="L1142" class="ln">  1142  </span>				var key string
+<span id="L1143" class="ln">  1143  </span>				if apiKey.Prefix != &#34;&#34; {
+<span id="L1144" class="ln">  1144  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
+<span id="L1145" class="ln">  1145  </span>				} else {
+<span id="L1146" class="ln">  1146  </span>					key = apiKey.Key
+<span id="L1147" class="ln">  1147  </span>				}
+<span id="L1148" class="ln">  1148  </span>				localVarHeaderParams[&#34;DD-API-KEY&#34;] = key
+<span id="L1149" class="ln">  1149  </span>			}
+<span id="L1150" class="ln">  1150  </span>		}
+<span id="L1151" class="ln">  1151  </span>	}
+<span id="L1152" class="ln">  1152  </span>	if r.ctx != nil {
+<span id="L1153" class="ln">  1153  </span>		<span class="comment">// API Key Authentication</span>
+<span id="L1154" class="ln">  1154  </span>		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
+<span id="L1155" class="ln">  1155  </span>			if apiKey, ok := auth[&#34;appKeyAuth&#34;]; ok {
+<span id="L1156" class="ln">  1156  </span>				var key string
+<span id="L1157" class="ln">  1157  </span>				if apiKey.Prefix != &#34;&#34; {
+<span id="L1158" class="ln">  1158  </span>					key = apiKey.Prefix + &#34; &#34; + apiKey.Key
+<span id="L1159" class="ln">  1159  </span>				} else {
+<span id="L1160" class="ln">  1160  </span>					key = apiKey.Key
+<span id="L1161" class="ln">  1161  </span>				}
+<span id="L1162" class="ln">  1162  </span>				localVarHeaderParams[&#34;DD-APPLICATION-KEY&#34;] = key
+<span id="L1163" class="ln">  1163  </span>			}
+<span id="L1164" class="ln">  1164  </span>		}
+<span id="L1165" class="ln">  1165  </span>	}
+<span id="L1166" class="ln">  1166  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1167" class="ln">  1167  </span>	if err != nil {
+<span id="L1168" class="ln">  1168  </span>		return localVarReturnValue, nil, err
+<span id="L1169" class="ln">  1169  </span>	}
+<span id="L1170" class="ln">  1170  </span>
+<span id="L1171" class="ln">  1171  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1172" class="ln">  1172  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1173" class="ln">  1173  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1174" class="ln">  1174  </span>	}
+<span id="L1175" class="ln">  1175  </span>
+<span id="L1176" class="ln">  1176  </span>	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
+<span id="L1177" class="ln">  1177  </span>	localVarHTTPResponse.Body.Close()
+<span id="L1178" class="ln">  1178  </span>	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+<span id="L1179" class="ln">  1179  </span>	if err != nil {
+<span id="L1180" class="ln">  1180  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1181" class="ln">  1181  </span>	}
+<span id="L1182" class="ln">  1182  </span>
+<span id="L1183" class="ln">  1183  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1184" class="ln">  1184  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1185" class="ln">  1185  </span>			ErrorBody:    localVarBody,
+<span id="L1186" class="ln">  1186  </span>			ErrorMessage: localVarHTTPResponse.Status,
 <span id="L1187" class="ln">  1187  </span>		}
-<span id="L1188" class="ln">  1188  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1189" class="ln">  1189  </span>	}
-<span id="L1190" class="ln">  1190  </span>
-<span id="L1191" class="ln">  1191  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1192" class="ln">  1192  </span>	if err != nil {
-<span id="L1193" class="ln">  1193  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1194" class="ln">  1194  </span>			ErrorBody:    localVarBody,
-<span id="L1195" class="ln">  1195  </span>			ErrorMessage: err.Error(),
-<span id="L1196" class="ln">  1196  </span>		}
-<span id="L1197" class="ln">  1197  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1198" class="ln">  1198  </span>	}
-<span id="L1199" class="ln">  1199  </span>
-<span id="L1200" class="ln">  1200  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1201" class="ln">  1201  </span>}
-<span id="L1202" class="ln">  1202  </span>
-<span id="L1203" class="ln">  1203  </span><span class="comment">// NewRUMApi Returns NewRUMApi.</span>
-<span id="L1204" class="ln">  1204  </span>func NewRUMApi(client *datadog.APIClient) *RUMApi {
-<span id="L1205" class="ln">  1205  </span>	return &amp;RUMApi{
-<span id="L1206" class="ln">  1206  </span>		Client: client,
-<span id="L1207" class="ln">  1207  </span>	}
-<span id="L1208" class="ln">  1208  </span>}
-<span id="L1209" class="ln">  1209  </span>
+<span id="L1188" class="ln">  1188  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 422 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1189" class="ln">  1189  </span>			var v APIErrorResponse
+<span id="L1190" class="ln">  1190  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1191" class="ln">  1191  </span>			if err != nil {
+<span id="L1192" class="ln">  1192  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1193" class="ln">  1193  </span>			}
+<span id="L1194" class="ln">  1194  </span>			newErr.ErrorModel = v
+<span id="L1195" class="ln">  1195  </span>		}
+<span id="L1196" class="ln">  1196  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1197" class="ln">  1197  </span>	}
+<span id="L1198" class="ln">  1198  </span>
+<span id="L1199" class="ln">  1199  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1200" class="ln">  1200  </span>	if err != nil {
+<span id="L1201" class="ln">  1201  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1202" class="ln">  1202  </span>			ErrorBody:    localVarBody,
+<span id="L1203" class="ln">  1203  </span>			ErrorMessage: err.Error(),
+<span id="L1204" class="ln">  1204  </span>		}
+<span id="L1205" class="ln">  1205  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1206" class="ln">  1206  </span>	}
+<span id="L1207" class="ln">  1207  </span>
+<span id="L1208" class="ln">  1208  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1209" class="ln">  1209  </span>}
+<span id="L1210" class="ln">  1210  </span>
+<span id="L1211" class="ln">  1211  </span><span class="comment">// NewRUMApi Returns NewRUMApi.</span>
+<span id="L1212" class="ln">  1212  </span>func NewRUMApi(client *datadog.APIClient) *RUMApi {
+<span id="L1213" class="ln">  1213  </span>	return &amp;RUMApi{
+<span id="L1214" class="ln">  1214  </span>		Client: client,
+<span id="L1215" class="ln">  1215  </span>	}
+<span id="L1216" class="ln">  1216  </span>}
+<span id="L1217" class="ln">  1217  </span>
 </pre><p></p>
 
 <div id="footer">
