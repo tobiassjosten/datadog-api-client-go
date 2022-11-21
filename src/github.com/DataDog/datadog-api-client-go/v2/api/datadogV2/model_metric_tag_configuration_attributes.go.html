@@ -87,7 +87,7 @@
 <span id="L30" class="ln">    30  </span>	Aggregations []MetricCustomAggregation `json:&#34;aggregations,omitempty&#34;`
 <span id="L31" class="ln">    31  </span>	<span class="comment">// Timestamp when the tag configuration was created.</span>
 <span id="L32" class="ln">    32  </span>	CreatedAt *time.Time `json:&#34;created_at,omitempty&#34;`
-<span id="L33" class="ln">    33  </span>	<span class="comment">// Toggle to turn on/off percentile aggregations for distribution metrics.</span>
+<span id="L33" class="ln">    33  </span>	<span class="comment">// Toggle to include or exclude percentile aggregations for distribution metrics.</span>
 <span id="L34" class="ln">    34  </span>	<span class="comment">// Only present when the `metric_type` is `distribution`.</span>
 <span id="L35" class="ln">    35  </span>	IncludePercentiles *bool `json:&#34;include_percentiles,omitempty&#34;`
 <span id="L36" class="ln">    36  </span>	<span class="comment">// The metric&#39;s type.</span>
