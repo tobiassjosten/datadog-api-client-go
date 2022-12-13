@@ -19,6 +19,8 @@ type MonitorOptions struct {
 	DeviceIds []MonitorDeviceID `json:"device_ids,omitempty"`
 	// Whether or not to send a log sample when the log monitor triggers.
 	EnableLogsSample *bool `json:"enable_logs_sample,omitempty"`
+	// Whether or not to send a list of samples when the monitor triggers. Currently used only with CI Test and Pipeline monitors.
+	EnableSamples *bool `json:"enable_samples,omitempty"`
 	// We recommend using the [is_renotify](https://docs.datadoghq.com/monitors/notify/?tab=is_alert#renotify),
 	// block in the original message instead.
 	// A message to include with a re-notification. Supports the `@username` notification we allow elsewhere.
@@ -250,6 +252,11 @@ func (o *MonitorOptions) HasEnableLogsSample() bool {
 // SetEnableLogsSample gets a reference to the given bool and assigns it to the EnableLogsSample field.
 func (o *MonitorOptions) SetEnableLogsSample(v bool) {
 	o.EnableLogsSample = &v
+}
+
+// SetEnableSamples gets a reference to the given bool and assigns it to the EnableSamples field.
+func (o *MonitorOptions) SetEnableSamples(v bool) {
+	o.EnableSamples = &v
 }
 
 // GetEscalationMessage returns the EscalationMessage field value if set, zero value otherwise.
