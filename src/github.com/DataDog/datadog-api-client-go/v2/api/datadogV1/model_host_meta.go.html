@@ -74,17 +74,17 @@
 <span id="L17" class="ln">    17  </span>	<span class="comment">// The number of cores.</span>
 <span id="L18" class="ln">    18  </span>	CpuCores *int64 `json:&#34;cpuCores,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// An array of Mac versions.</span>
-<span id="L20" class="ln">    20  </span>	FbsdV []string `json:&#34;fbsdV,omitempty&#34;`
+<span id="L20" class="ln">    20  </span>	FbsdV []*string `json:&#34;fbsdV,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// JSON string containing system information.</span>
 <span id="L22" class="ln">    22  </span>	Gohai *string `json:&#34;gohai,omitempty&#34;`
 <span id="L23" class="ln">    23  </span>	<span class="comment">// Agent install method.</span>
 <span id="L24" class="ln">    24  </span>	InstallMethod *HostMetaInstallMethod `json:&#34;install_method,omitempty&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// An array of Mac versions.</span>
-<span id="L26" class="ln">    26  </span>	MacV []string `json:&#34;macV,omitempty&#34;`
+<span id="L26" class="ln">    26  </span>	MacV []*string `json:&#34;macV,omitempty&#34;`
 <span id="L27" class="ln">    27  </span>	<span class="comment">// The machine architecture.</span>
 <span id="L28" class="ln">    28  </span>	Machine *string `json:&#34;machine,omitempty&#34;`
 <span id="L29" class="ln">    29  </span>	<span class="comment">// Array of Unix versions.</span>
-<span id="L30" class="ln">    30  </span>	NixV []string `json:&#34;nixV,omitempty&#34;`
+<span id="L30" class="ln">    30  </span>	NixV []*string `json:&#34;nixV,omitempty&#34;`
 <span id="L31" class="ln">    31  </span>	<span class="comment">// The OS platform.</span>
 <span id="L32" class="ln">    32  </span>	Platform *string `json:&#34;platform,omitempty&#34;`
 <span id="L33" class="ln">    33  </span>	<span class="comment">// The processor.</span>
@@ -96,7 +96,7 @@
 <span id="L39" class="ln">    39  </span>	<span class="comment">// The socket hostname.</span>
 <span id="L40" class="ln">    40  </span>	SocketHostname *string `json:&#34;socket-hostname,omitempty&#34;`
 <span id="L41" class="ln">    41  </span>	<span class="comment">// An array of Windows versions.</span>
-<span id="L42" class="ln">    42  </span>	WinV []string `json:&#34;winV,omitempty&#34;`
+<span id="L42" class="ln">    42  </span>	WinV []*string `json:&#34;winV,omitempty&#34;`
 <span id="L43" class="ln">    43  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L44" class="ln">    44  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
 <span id="L45" class="ln">    45  </span>	AdditionalProperties map[string]interface{}
@@ -204,9 +204,9 @@
 <span id="L147" class="ln">   147  </span>}
 <span id="L148" class="ln">   148  </span>
 <span id="L149" class="ln">   149  </span><span class="comment">// GetFbsdV returns the FbsdV field value if set, zero value otherwise.</span>
-<span id="L150" class="ln">   150  </span>func (o *HostMeta) GetFbsdV() []string {
+<span id="L150" class="ln">   150  </span>func (o *HostMeta) GetFbsdV() []*string {
 <span id="L151" class="ln">   151  </span>	if o == nil || o.FbsdV == nil {
-<span id="L152" class="ln">   152  </span>		var ret []string
+<span id="L152" class="ln">   152  </span>		var ret []*string
 <span id="L153" class="ln">   153  </span>		return ret
 <span id="L154" class="ln">   154  </span>	}
 <span id="L155" class="ln">   155  </span>	return o.FbsdV
@@ -214,7 +214,7 @@
 <span id="L157" class="ln">   157  </span>
 <span id="L158" class="ln">   158  </span><span class="comment">// GetFbsdVOk returns a tuple with the FbsdV field value if set, nil otherwise</span>
 <span id="L159" class="ln">   159  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L160" class="ln">   160  </span>func (o *HostMeta) GetFbsdVOk() (*[]string, bool) {
+<span id="L160" class="ln">   160  </span>func (o *HostMeta) GetFbsdVOk() (*[]*string, bool) {
 <span id="L161" class="ln">   161  </span>	if o == nil || o.FbsdV == nil {
 <span id="L162" class="ln">   162  </span>		return nil, false
 <span id="L163" class="ln">   163  </span>	}
@@ -226,8 +226,8 @@
 <span id="L169" class="ln">   169  </span>	return o != nil &amp;&amp; o.FbsdV != nil
 <span id="L170" class="ln">   170  </span>}
 <span id="L171" class="ln">   171  </span>
-<span id="L172" class="ln">   172  </span><span class="comment">// SetFbsdV gets a reference to the given []string and assigns it to the FbsdV field.</span>
-<span id="L173" class="ln">   173  </span>func (o *HostMeta) SetFbsdV(v []string) {
+<span id="L172" class="ln">   172  </span><span class="comment">// SetFbsdV gets a reference to the given []*string and assigns it to the FbsdV field.</span>
+<span id="L173" class="ln">   173  </span>func (o *HostMeta) SetFbsdV(v []*string) {
 <span id="L174" class="ln">   174  </span>	o.FbsdV = v
 <span id="L175" class="ln">   175  </span>}
 <span id="L176" class="ln">   176  </span>
@@ -288,9 +288,9 @@
 <span id="L231" class="ln">   231  </span>}
 <span id="L232" class="ln">   232  </span>
 <span id="L233" class="ln">   233  </span><span class="comment">// GetMacV returns the MacV field value if set, zero value otherwise.</span>
-<span id="L234" class="ln">   234  </span>func (o *HostMeta) GetMacV() []string {
+<span id="L234" class="ln">   234  </span>func (o *HostMeta) GetMacV() []*string {
 <span id="L235" class="ln">   235  </span>	if o == nil || o.MacV == nil {
-<span id="L236" class="ln">   236  </span>		var ret []string
+<span id="L236" class="ln">   236  </span>		var ret []*string
 <span id="L237" class="ln">   237  </span>		return ret
 <span id="L238" class="ln">   238  </span>	}
 <span id="L239" class="ln">   239  </span>	return o.MacV
@@ -298,7 +298,7 @@
 <span id="L241" class="ln">   241  </span>
 <span id="L242" class="ln">   242  </span><span class="comment">// GetMacVOk returns a tuple with the MacV field value if set, nil otherwise</span>
 <span id="L243" class="ln">   243  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L244" class="ln">   244  </span>func (o *HostMeta) GetMacVOk() (*[]string, bool) {
+<span id="L244" class="ln">   244  </span>func (o *HostMeta) GetMacVOk() (*[]*string, bool) {
 <span id="L245" class="ln">   245  </span>	if o == nil || o.MacV == nil {
 <span id="L246" class="ln">   246  </span>		return nil, false
 <span id="L247" class="ln">   247  </span>	}
@@ -310,8 +310,8 @@
 <span id="L253" class="ln">   253  </span>	return o != nil &amp;&amp; o.MacV != nil
 <span id="L254" class="ln">   254  </span>}
 <span id="L255" class="ln">   255  </span>
-<span id="L256" class="ln">   256  </span><span class="comment">// SetMacV gets a reference to the given []string and assigns it to the MacV field.</span>
-<span id="L257" class="ln">   257  </span>func (o *HostMeta) SetMacV(v []string) {
+<span id="L256" class="ln">   256  </span><span class="comment">// SetMacV gets a reference to the given []*string and assigns it to the MacV field.</span>
+<span id="L257" class="ln">   257  </span>func (o *HostMeta) SetMacV(v []*string) {
 <span id="L258" class="ln">   258  </span>	o.MacV = v
 <span id="L259" class="ln">   259  </span>}
 <span id="L260" class="ln">   260  </span>
@@ -344,9 +344,9 @@
 <span id="L287" class="ln">   287  </span>}
 <span id="L288" class="ln">   288  </span>
 <span id="L289" class="ln">   289  </span><span class="comment">// GetNixV returns the NixV field value if set, zero value otherwise.</span>
-<span id="L290" class="ln">   290  </span>func (o *HostMeta) GetNixV() []string {
+<span id="L290" class="ln">   290  </span>func (o *HostMeta) GetNixV() []*string {
 <span id="L291" class="ln">   291  </span>	if o == nil || o.NixV == nil {
-<span id="L292" class="ln">   292  </span>		var ret []string
+<span id="L292" class="ln">   292  </span>		var ret []*string
 <span id="L293" class="ln">   293  </span>		return ret
 <span id="L294" class="ln">   294  </span>	}
 <span id="L295" class="ln">   295  </span>	return o.NixV
@@ -354,7 +354,7 @@
 <span id="L297" class="ln">   297  </span>
 <span id="L298" class="ln">   298  </span><span class="comment">// GetNixVOk returns a tuple with the NixV field value if set, nil otherwise</span>
 <span id="L299" class="ln">   299  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L300" class="ln">   300  </span>func (o *HostMeta) GetNixVOk() (*[]string, bool) {
+<span id="L300" class="ln">   300  </span>func (o *HostMeta) GetNixVOk() (*[]*string, bool) {
 <span id="L301" class="ln">   301  </span>	if o == nil || o.NixV == nil {
 <span id="L302" class="ln">   302  </span>		return nil, false
 <span id="L303" class="ln">   303  </span>	}
@@ -366,8 +366,8 @@
 <span id="L309" class="ln">   309  </span>	return o != nil &amp;&amp; o.NixV != nil
 <span id="L310" class="ln">   310  </span>}
 <span id="L311" class="ln">   311  </span>
-<span id="L312" class="ln">   312  </span><span class="comment">// SetNixV gets a reference to the given []string and assigns it to the NixV field.</span>
-<span id="L313" class="ln">   313  </span>func (o *HostMeta) SetNixV(v []string) {
+<span id="L312" class="ln">   312  </span><span class="comment">// SetNixV gets a reference to the given []*string and assigns it to the NixV field.</span>
+<span id="L313" class="ln">   313  </span>func (o *HostMeta) SetNixV(v []*string) {
 <span id="L314" class="ln">   314  </span>	o.NixV = v
 <span id="L315" class="ln">   315  </span>}
 <span id="L316" class="ln">   316  </span>
@@ -512,9 +512,9 @@
 <span id="L455" class="ln">   455  </span>}
 <span id="L456" class="ln">   456  </span>
 <span id="L457" class="ln">   457  </span><span class="comment">// GetWinV returns the WinV field value if set, zero value otherwise.</span>
-<span id="L458" class="ln">   458  </span>func (o *HostMeta) GetWinV() []string {
+<span id="L458" class="ln">   458  </span>func (o *HostMeta) GetWinV() []*string {
 <span id="L459" class="ln">   459  </span>	if o == nil || o.WinV == nil {
-<span id="L460" class="ln">   460  </span>		var ret []string
+<span id="L460" class="ln">   460  </span>		var ret []*string
 <span id="L461" class="ln">   461  </span>		return ret
 <span id="L462" class="ln">   462  </span>	}
 <span id="L463" class="ln">   463  </span>	return o.WinV
@@ -522,7 +522,7 @@
 <span id="L465" class="ln">   465  </span>
 <span id="L466" class="ln">   466  </span><span class="comment">// GetWinVOk returns a tuple with the WinV field value if set, nil otherwise</span>
 <span id="L467" class="ln">   467  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L468" class="ln">   468  </span>func (o *HostMeta) GetWinVOk() (*[]string, bool) {
+<span id="L468" class="ln">   468  </span>func (o *HostMeta) GetWinVOk() (*[]*string, bool) {
 <span id="L469" class="ln">   469  </span>	if o == nil || o.WinV == nil {
 <span id="L470" class="ln">   470  </span>		return nil, false
 <span id="L471" class="ln">   471  </span>	}
@@ -534,8 +534,8 @@
 <span id="L477" class="ln">   477  </span>	return o != nil &amp;&amp; o.WinV != nil
 <span id="L478" class="ln">   478  </span>}
 <span id="L479" class="ln">   479  </span>
-<span id="L480" class="ln">   480  </span><span class="comment">// SetWinV gets a reference to the given []string and assigns it to the WinV field.</span>
-<span id="L481" class="ln">   481  </span>func (o *HostMeta) SetWinV(v []string) {
+<span id="L480" class="ln">   480  </span><span class="comment">// SetWinV gets a reference to the given []*string and assigns it to the WinV field.</span>
+<span id="L481" class="ln">   481  </span>func (o *HostMeta) SetWinV(v []*string) {
 <span id="L482" class="ln">   482  </span>	o.WinV = v
 <span id="L483" class="ln">   483  </span>}
 <span id="L484" class="ln">   484  </span>
@@ -604,18 +604,18 @@
 <span id="L547" class="ln">   547  </span>		AgentChecks    [][]interface{}        `json:&#34;agent_checks,omitempty&#34;`
 <span id="L548" class="ln">   548  </span>		AgentVersion   *string                `json:&#34;agent_version,omitempty&#34;`
 <span id="L549" class="ln">   549  </span>		CpuCores       *int64                 `json:&#34;cpuCores,omitempty&#34;`
-<span id="L550" class="ln">   550  </span>		FbsdV          []string               `json:&#34;fbsdV,omitempty&#34;`
+<span id="L550" class="ln">   550  </span>		FbsdV          []*string              `json:&#34;fbsdV,omitempty&#34;`
 <span id="L551" class="ln">   551  </span>		Gohai          *string                `json:&#34;gohai,omitempty&#34;`
 <span id="L552" class="ln">   552  </span>		InstallMethod  *HostMetaInstallMethod `json:&#34;install_method,omitempty&#34;`
-<span id="L553" class="ln">   553  </span>		MacV           []string               `json:&#34;macV,omitempty&#34;`
+<span id="L553" class="ln">   553  </span>		MacV           []*string              `json:&#34;macV,omitempty&#34;`
 <span id="L554" class="ln">   554  </span>		Machine        *string                `json:&#34;machine,omitempty&#34;`
-<span id="L555" class="ln">   555  </span>		NixV           []string               `json:&#34;nixV,omitempty&#34;`
+<span id="L555" class="ln">   555  </span>		NixV           []*string              `json:&#34;nixV,omitempty&#34;`
 <span id="L556" class="ln">   556  </span>		Platform       *string                `json:&#34;platform,omitempty&#34;`
 <span id="L557" class="ln">   557  </span>		Processor      *string                `json:&#34;processor,omitempty&#34;`
 <span id="L558" class="ln">   558  </span>		PythonV        *string                `json:&#34;pythonV,omitempty&#34;`
 <span id="L559" class="ln">   559  </span>		SocketFqdn     *string                `json:&#34;socket-fqdn,omitempty&#34;`
 <span id="L560" class="ln">   560  </span>		SocketHostname *string                `json:&#34;socket-hostname,omitempty&#34;`
-<span id="L561" class="ln">   561  </span>		WinV           []string               `json:&#34;winV,omitempty&#34;`
+<span id="L561" class="ln">   561  </span>		WinV           []*string              `json:&#34;winV,omitempty&#34;`
 <span id="L562" class="ln">   562  </span>	}{}
 <span id="L563" class="ln">   563  </span>	err = json.Unmarshal(bytes, &amp;all)
 <span id="L564" class="ln">   564  </span>	if err != nil {
