@@ -74,7 +74,7 @@
 <span id="L17" class="ln">    17  </span>	HostName string `json:&#34;host_name&#34;`
 <span id="L18" class="ln">    18  </span>	<span class="comment">// Message containing check status.</span>
 <span id="L19" class="ln">    19  </span>	Message *string `json:&#34;message,omitempty&#34;`
-<span id="L20" class="ln">    20  </span>	<span class="comment">// The status of a service check.</span>
+<span id="L20" class="ln">    20  </span>	<span class="comment">// The status of a service check. Set to `0` for OK, `1` for warning, `2` for critical, and `3` for unknown.</span>
 <span id="L21" class="ln">    21  </span>	Status ServiceCheckStatus `json:&#34;status&#34;`
 <span id="L22" class="ln">    22  </span>	<span class="comment">// Tags related to a check.</span>
 <span id="L23" class="ln">    23  </span>	Tags []string `json:&#34;tags&#34;`
