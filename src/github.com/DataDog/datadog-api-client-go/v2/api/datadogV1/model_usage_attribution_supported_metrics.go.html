@@ -71,186 +71,190 @@
 <span id="L14" class="ln">    14  </span>
 <span id="L15" class="ln">    15  </span><span class="comment">// List of UsageAttributionSupportedMetrics.</span>
 <span id="L16" class="ln">    16  </span>const (
-<span id="L17" class="ln">    17  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_USAGE             UsageAttributionSupportedMetrics = &#34;custom_timeseries_usage&#34;
-<span id="L18" class="ln">    18  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_USAGE                     UsageAttributionSupportedMetrics = &#34;container_usage&#34;
-<span id="L19" class="ln">    19  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_PERCENTAGE                     UsageAttributionSupportedMetrics = &#34;snmp_percentage&#34;
-<span id="L20" class="ln">    20  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_USAGE                      UsageAttributionSupportedMetrics = &#34;apm_host_usage&#34;
-<span id="L21" class="ln">    21  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_USAGE                       UsageAttributionSupportedMetrics = &#34;browser_usage&#34;
-<span id="L22" class="ln">    22  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_PERCENTAGE                 UsageAttributionSupportedMetrics = &#34;npm_host_percentage&#34;
-<span id="L23" class="ln">    23  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_USAGE                    UsageAttributionSupportedMetrics = &#34;infra_host_usage&#34;
-<span id="L24" class="ln">    24  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_PERCENTAGE        UsageAttributionSupportedMetrics = &#34;custom_timeseries_percentage&#34;
-<span id="L25" class="ln">    25  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_PERCENTAGE                UsageAttributionSupportedMetrics = &#34;container_percentage&#34;
-<span id="L26" class="ln">    26  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_USAGE                           UsageAttributionSupportedMetrics = &#34;api_usage&#34;
-<span id="L27" class="ln">    27  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_PERCENTAGE                 UsageAttributionSupportedMetrics = &#34;apm_host_percentage&#34;
-<span id="L28" class="ln">    28  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_PERCENTAGE               UsageAttributionSupportedMetrics = &#34;infra_host_percentage&#34;
-<span id="L29" class="ln">    29  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_USAGE                          UsageAttributionSupportedMetrics = &#34;snmp_usage&#34;
-<span id="L30" class="ln">    30  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_PERCENTAGE                  UsageAttributionSupportedMetrics = &#34;browser_percentage&#34;
-<span id="L31" class="ln">    31  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_PERCENTAGE                      UsageAttributionSupportedMetrics = &#34;api_percentage&#34;
-<span id="L32" class="ln">    32  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_USAGE                      UsageAttributionSupportedMetrics = &#34;npm_host_usage&#34;
-<span id="L33" class="ln">    33  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_USAGE              UsageAttributionSupportedMetrics = &#34;lambda_functions_usage&#34;
-<span id="L34" class="ln">    34  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_PERCENTAGE         UsageAttributionSupportedMetrics = &#34;lambda_functions_percentage&#34;
-<span id="L35" class="ln">    35  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_USAGE            UsageAttributionSupportedMetrics = &#34;lambda_invocations_usage&#34;
-<span id="L36" class="ln">    36  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_PERCENTAGE       UsageAttributionSupportedMetrics = &#34;lambda_invocations_percentage&#34;
-<span id="L37" class="ln">    37  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_USAGE                       UsageAttributionSupportedMetrics = &#34;fargate_usage&#34;
-<span id="L38" class="ln">    38  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_PERCENTAGE                  UsageAttributionSupportedMetrics = &#34;fargate_percentage&#34;
-<span id="L39" class="ln">    39  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_USAGE                 UsageAttributionSupportedMetrics = &#34;profiled_host_usage&#34;
-<span id="L40" class="ln">    40  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_PERCENTAGE            UsageAttributionSupportedMetrics = &#34;profiled_host_percentage&#34;
-<span id="L41" class="ln">    41  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_USAGE            UsageAttributionSupportedMetrics = &#34;profiled_container_usage&#34;
-<span id="L42" class="ln">    42  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_PERCENTAGE       UsageAttributionSupportedMetrics = &#34;profiled_container_percentage&#34;
-<span id="L43" class="ln">    43  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_USAGE                     UsageAttributionSupportedMetrics = &#34;dbm_hosts_usage&#34;
-<span id="L44" class="ln">    44  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_PERCENTAGE                UsageAttributionSupportedMetrics = &#34;dbm_hosts_percentage&#34;
-<span id="L45" class="ln">    45  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_USAGE                   UsageAttributionSupportedMetrics = &#34;dbm_queries_usage&#34;
-<span id="L46" class="ln">    46  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_PERCENTAGE              UsageAttributionSupportedMetrics = &#34;dbm_queries_percentage&#34;
-<span id="L47" class="ln">    47  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_USAGE        UsageAttributionSupportedMetrics = &#34;estimated_indexed_logs_usage&#34;
-<span id="L48" class="ln">    48  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_PERCENTAGE   UsageAttributionSupportedMetrics = &#34;estimated_indexed_logs_percentage&#34;
-<span id="L49" class="ln">    49  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_USAGE       UsageAttributionSupportedMetrics = &#34;estimated_ingested_logs_usage&#34;
-<span id="L50" class="ln">    50  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_PERCENTAGE  UsageAttributionSupportedMetrics = &#34;estimated_ingested_logs_percentage&#34;
-<span id="L51" class="ln">    51  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_USAGE                        UsageAttributionSupportedMetrics = &#34;appsec_usage&#34;
-<span id="L52" class="ln">    52  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_PERCENTAGE                   UsageAttributionSupportedMetrics = &#34;appsec_percentage&#34;
-<span id="L53" class="ln">    53  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_USAGE       UsageAttributionSupportedMetrics = &#34;estimated_indexed_spans_usage&#34;
-<span id="L54" class="ln">    54  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_PERCENTAGE  UsageAttributionSupportedMetrics = &#34;estimated_indexed_spans_percentage&#34;
-<span id="L55" class="ln">    55  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_USAGE      UsageAttributionSupportedMetrics = &#34;estimated_ingested_spans_usage&#34;
-<span id="L56" class="ln">    56  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_PERCENTAGE UsageAttributionSupportedMetrics = &#34;estimated_ingested_spans_percentage&#34;
-<span id="L57" class="ln">    57  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_USAGE                   UsageAttributionSupportedMetrics = &#34;apm_fargate_usage&#34;
-<span id="L58" class="ln">    58  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_PERCENTAGE              UsageAttributionSupportedMetrics = &#34;apm_fargate_percentage&#34;
-<span id="L59" class="ln">    59  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_USAGE                UsageAttributionSupportedMetrics = &#34;appsec_fargate_usage&#34;
-<span id="L60" class="ln">    60  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_PERCENTAGE           UsageAttributionSupportedMetrics = &#34;appsec_fargate_percentage&#34;
-<span id="L61" class="ln">    61  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ALL                                 UsageAttributionSupportedMetrics = &#34;*&#34;
-<span id="L62" class="ln">    62  </span>)
-<span id="L63" class="ln">    63  </span>
-<span id="L64" class="ln">    64  </span>var allowedUsageAttributionSupportedMetricsEnumValues = []UsageAttributionSupportedMetrics{
-<span id="L65" class="ln">    65  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_USAGE,
-<span id="L66" class="ln">    66  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_USAGE,
-<span id="L67" class="ln">    67  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_PERCENTAGE,
-<span id="L68" class="ln">    68  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_USAGE,
-<span id="L69" class="ln">    69  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_USAGE,
-<span id="L70" class="ln">    70  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_PERCENTAGE,
-<span id="L71" class="ln">    71  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_USAGE,
-<span id="L72" class="ln">    72  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_PERCENTAGE,
-<span id="L73" class="ln">    73  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_PERCENTAGE,
-<span id="L74" class="ln">    74  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_USAGE,
-<span id="L75" class="ln">    75  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_PERCENTAGE,
-<span id="L76" class="ln">    76  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_PERCENTAGE,
-<span id="L77" class="ln">    77  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_USAGE,
-<span id="L78" class="ln">    78  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_PERCENTAGE,
-<span id="L79" class="ln">    79  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_PERCENTAGE,
-<span id="L80" class="ln">    80  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_USAGE,
-<span id="L81" class="ln">    81  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_USAGE,
-<span id="L82" class="ln">    82  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_PERCENTAGE,
-<span id="L83" class="ln">    83  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_USAGE,
-<span id="L84" class="ln">    84  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_PERCENTAGE,
-<span id="L85" class="ln">    85  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_USAGE,
-<span id="L86" class="ln">    86  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_PERCENTAGE,
-<span id="L87" class="ln">    87  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_USAGE,
-<span id="L88" class="ln">    88  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_PERCENTAGE,
-<span id="L89" class="ln">    89  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_USAGE,
-<span id="L90" class="ln">    90  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_PERCENTAGE,
-<span id="L91" class="ln">    91  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_USAGE,
-<span id="L92" class="ln">    92  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_PERCENTAGE,
-<span id="L93" class="ln">    93  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_USAGE,
-<span id="L94" class="ln">    94  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_PERCENTAGE,
-<span id="L95" class="ln">    95  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_USAGE,
-<span id="L96" class="ln">    96  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_PERCENTAGE,
-<span id="L97" class="ln">    97  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_USAGE,
-<span id="L98" class="ln">    98  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_PERCENTAGE,
-<span id="L99" class="ln">    99  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_USAGE,
-<span id="L100" class="ln">   100  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_PERCENTAGE,
-<span id="L101" class="ln">   101  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_USAGE,
-<span id="L102" class="ln">   102  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_PERCENTAGE,
-<span id="L103" class="ln">   103  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_USAGE,
-<span id="L104" class="ln">   104  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_PERCENTAGE,
-<span id="L105" class="ln">   105  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_USAGE,
-<span id="L106" class="ln">   106  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_PERCENTAGE,
-<span id="L107" class="ln">   107  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_USAGE,
-<span id="L108" class="ln">   108  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_PERCENTAGE,
-<span id="L109" class="ln">   109  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ALL,
-<span id="L110" class="ln">   110  </span>}
-<span id="L111" class="ln">   111  </span>
-<span id="L112" class="ln">   112  </span><span class="comment">// GetAllowedValues reeturns the list of possible values.</span>
-<span id="L113" class="ln">   113  </span>func (v *UsageAttributionSupportedMetrics) GetAllowedValues() []UsageAttributionSupportedMetrics {
-<span id="L114" class="ln">   114  </span>	return allowedUsageAttributionSupportedMetricsEnumValues
-<span id="L115" class="ln">   115  </span>}
-<span id="L116" class="ln">   116  </span>
-<span id="L117" class="ln">   117  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
-<span id="L118" class="ln">   118  </span>func (v *UsageAttributionSupportedMetrics) UnmarshalJSON(src []byte) error {
-<span id="L119" class="ln">   119  </span>	var value string
-<span id="L120" class="ln">   120  </span>	err := json.Unmarshal(src, &amp;value)
-<span id="L121" class="ln">   121  </span>	if err != nil {
-<span id="L122" class="ln">   122  </span>		return err
-<span id="L123" class="ln">   123  </span>	}
-<span id="L124" class="ln">   124  </span>	*v = UsageAttributionSupportedMetrics(value)
-<span id="L125" class="ln">   125  </span>	return nil
-<span id="L126" class="ln">   126  </span>}
-<span id="L127" class="ln">   127  </span>
-<span id="L128" class="ln">   128  </span><span class="comment">// NewUsageAttributionSupportedMetricsFromValue returns a pointer to a valid UsageAttributionSupportedMetrics</span>
-<span id="L129" class="ln">   129  </span><span class="comment">// for the value passed as argument, or an error if the value passed is not allowed by the enum.</span>
-<span id="L130" class="ln">   130  </span>func NewUsageAttributionSupportedMetricsFromValue(v string) (*UsageAttributionSupportedMetrics, error) {
-<span id="L131" class="ln">   131  </span>	ev := UsageAttributionSupportedMetrics(v)
-<span id="L132" class="ln">   132  </span>	if ev.IsValid() {
-<span id="L133" class="ln">   133  </span>		return &amp;ev, nil
-<span id="L134" class="ln">   134  </span>	}
-<span id="L135" class="ln">   135  </span>	return nil, fmt.Errorf(&#34;invalid value &#39;%v&#39; for UsageAttributionSupportedMetrics: valid values are %v&#34;, v, allowedUsageAttributionSupportedMetricsEnumValues)
-<span id="L136" class="ln">   136  </span>}
-<span id="L137" class="ln">   137  </span>
-<span id="L138" class="ln">   138  </span><span class="comment">// IsValid return true if the value is valid for the enum, false otherwise.</span>
-<span id="L139" class="ln">   139  </span>func (v UsageAttributionSupportedMetrics) IsValid() bool {
-<span id="L140" class="ln">   140  </span>	for _, existing := range allowedUsageAttributionSupportedMetricsEnumValues {
-<span id="L141" class="ln">   141  </span>		if existing == v {
-<span id="L142" class="ln">   142  </span>			return true
-<span id="L143" class="ln">   143  </span>		}
-<span id="L144" class="ln">   144  </span>	}
-<span id="L145" class="ln">   145  </span>	return false
-<span id="L146" class="ln">   146  </span>}
-<span id="L147" class="ln">   147  </span>
-<span id="L148" class="ln">   148  </span><span class="comment">// Ptr returns reference to UsageAttributionSupportedMetrics value.</span>
-<span id="L149" class="ln">   149  </span>func (v UsageAttributionSupportedMetrics) Ptr() *UsageAttributionSupportedMetrics {
-<span id="L150" class="ln">   150  </span>	return &amp;v
-<span id="L151" class="ln">   151  </span>}
-<span id="L152" class="ln">   152  </span>
-<span id="L153" class="ln">   153  </span><span class="comment">// NullableUsageAttributionSupportedMetrics handles when a null is used for UsageAttributionSupportedMetrics.</span>
-<span id="L154" class="ln">   154  </span>type NullableUsageAttributionSupportedMetrics struct {
-<span id="L155" class="ln">   155  </span>	value *UsageAttributionSupportedMetrics
-<span id="L156" class="ln">   156  </span>	isSet bool
-<span id="L157" class="ln">   157  </span>}
-<span id="L158" class="ln">   158  </span>
-<span id="L159" class="ln">   159  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L160" class="ln">   160  </span>func (v NullableUsageAttributionSupportedMetrics) Get() *UsageAttributionSupportedMetrics {
-<span id="L161" class="ln">   161  </span>	return v.value
-<span id="L162" class="ln">   162  </span>}
-<span id="L163" class="ln">   163  </span>
-<span id="L164" class="ln">   164  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L165" class="ln">   165  </span>func (v *NullableUsageAttributionSupportedMetrics) Set(val *UsageAttributionSupportedMetrics) {
-<span id="L166" class="ln">   166  </span>	v.value = val
-<span id="L167" class="ln">   167  </span>	v.isSet = true
-<span id="L168" class="ln">   168  </span>}
-<span id="L169" class="ln">   169  </span>
-<span id="L170" class="ln">   170  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L171" class="ln">   171  </span>func (v NullableUsageAttributionSupportedMetrics) IsSet() bool {
-<span id="L172" class="ln">   172  </span>	return v.isSet
-<span id="L173" class="ln">   173  </span>}
-<span id="L174" class="ln">   174  </span>
-<span id="L175" class="ln">   175  </span><span class="comment">// Unset sets the value to nil and resets the set flag.</span>
-<span id="L176" class="ln">   176  </span>func (v *NullableUsageAttributionSupportedMetrics) Unset() {
-<span id="L177" class="ln">   177  </span>	v.value = nil
-<span id="L178" class="ln">   178  </span>	v.isSet = false
-<span id="L179" class="ln">   179  </span>}
-<span id="L180" class="ln">   180  </span>
-<span id="L181" class="ln">   181  </span><span class="comment">// NewNullableUsageAttributionSupportedMetrics initializes the struct as if Set has been called.</span>
-<span id="L182" class="ln">   182  </span>func NewNullableUsageAttributionSupportedMetrics(val *UsageAttributionSupportedMetrics) *NullableUsageAttributionSupportedMetrics {
-<span id="L183" class="ln">   183  </span>	return &amp;NullableUsageAttributionSupportedMetrics{value: val, isSet: true}
-<span id="L184" class="ln">   184  </span>}
-<span id="L185" class="ln">   185  </span>
-<span id="L186" class="ln">   186  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L187" class="ln">   187  </span>func (v NullableUsageAttributionSupportedMetrics) MarshalJSON() ([]byte, error) {
-<span id="L188" class="ln">   188  </span>	return json.Marshal(v.value)
-<span id="L189" class="ln">   189  </span>}
-<span id="L190" class="ln">   190  </span>
-<span id="L191" class="ln">   191  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L192" class="ln">   192  </span>func (v *NullableUsageAttributionSupportedMetrics) UnmarshalJSON(src []byte) error {
-<span id="L193" class="ln">   193  </span>	v.isSet = true
-<span id="L194" class="ln">   194  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L195" class="ln">   195  </span>}
-<span id="L196" class="ln">   196  </span>
+<span id="L17" class="ln">    17  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_USAGE                    UsageAttributionSupportedMetrics = &#34;custom_timeseries_usage&#34;
+<span id="L18" class="ln">    18  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_USAGE                            UsageAttributionSupportedMetrics = &#34;container_usage&#34;
+<span id="L19" class="ln">    19  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_PERCENTAGE                            UsageAttributionSupportedMetrics = &#34;snmp_percentage&#34;
+<span id="L20" class="ln">    20  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_USAGE                             UsageAttributionSupportedMetrics = &#34;apm_host_usage&#34;
+<span id="L21" class="ln">    21  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_USAGE                              UsageAttributionSupportedMetrics = &#34;browser_usage&#34;
+<span id="L22" class="ln">    22  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_PERCENTAGE                        UsageAttributionSupportedMetrics = &#34;npm_host_percentage&#34;
+<span id="L23" class="ln">    23  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_USAGE                           UsageAttributionSupportedMetrics = &#34;infra_host_usage&#34;
+<span id="L24" class="ln">    24  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_PERCENTAGE               UsageAttributionSupportedMetrics = &#34;custom_timeseries_percentage&#34;
+<span id="L25" class="ln">    25  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_PERCENTAGE                       UsageAttributionSupportedMetrics = &#34;container_percentage&#34;
+<span id="L26" class="ln">    26  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_USAGE                                  UsageAttributionSupportedMetrics = &#34;api_usage&#34;
+<span id="L27" class="ln">    27  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_PERCENTAGE                        UsageAttributionSupportedMetrics = &#34;apm_host_percentage&#34;
+<span id="L28" class="ln">    28  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_PERCENTAGE                      UsageAttributionSupportedMetrics = &#34;infra_host_percentage&#34;
+<span id="L29" class="ln">    29  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_USAGE                                 UsageAttributionSupportedMetrics = &#34;snmp_usage&#34;
+<span id="L30" class="ln">    30  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_PERCENTAGE                         UsageAttributionSupportedMetrics = &#34;browser_percentage&#34;
+<span id="L31" class="ln">    31  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_PERCENTAGE                             UsageAttributionSupportedMetrics = &#34;api_percentage&#34;
+<span id="L32" class="ln">    32  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_USAGE                             UsageAttributionSupportedMetrics = &#34;npm_host_usage&#34;
+<span id="L33" class="ln">    33  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_USAGE                     UsageAttributionSupportedMetrics = &#34;lambda_functions_usage&#34;
+<span id="L34" class="ln">    34  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_PERCENTAGE                UsageAttributionSupportedMetrics = &#34;lambda_functions_percentage&#34;
+<span id="L35" class="ln">    35  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_USAGE                   UsageAttributionSupportedMetrics = &#34;lambda_invocations_usage&#34;
+<span id="L36" class="ln">    36  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_PERCENTAGE              UsageAttributionSupportedMetrics = &#34;lambda_invocations_percentage&#34;
+<span id="L37" class="ln">    37  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_USAGE                              UsageAttributionSupportedMetrics = &#34;fargate_usage&#34;
+<span id="L38" class="ln">    38  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_PERCENTAGE                         UsageAttributionSupportedMetrics = &#34;fargate_percentage&#34;
+<span id="L39" class="ln">    39  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_USAGE                        UsageAttributionSupportedMetrics = &#34;profiled_host_usage&#34;
+<span id="L40" class="ln">    40  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_PERCENTAGE                   UsageAttributionSupportedMetrics = &#34;profiled_host_percentage&#34;
+<span id="L41" class="ln">    41  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_USAGE                   UsageAttributionSupportedMetrics = &#34;profiled_container_usage&#34;
+<span id="L42" class="ln">    42  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_PERCENTAGE              UsageAttributionSupportedMetrics = &#34;profiled_container_percentage&#34;
+<span id="L43" class="ln">    43  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_USAGE                            UsageAttributionSupportedMetrics = &#34;dbm_hosts_usage&#34;
+<span id="L44" class="ln">    44  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_PERCENTAGE                       UsageAttributionSupportedMetrics = &#34;dbm_hosts_percentage&#34;
+<span id="L45" class="ln">    45  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_USAGE                          UsageAttributionSupportedMetrics = &#34;dbm_queries_usage&#34;
+<span id="L46" class="ln">    46  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_PERCENTAGE                     UsageAttributionSupportedMetrics = &#34;dbm_queries_percentage&#34;
+<span id="L47" class="ln">    47  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_USAGE               UsageAttributionSupportedMetrics = &#34;estimated_indexed_logs_usage&#34;
+<span id="L48" class="ln">    48  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_PERCENTAGE          UsageAttributionSupportedMetrics = &#34;estimated_indexed_logs_percentage&#34;
+<span id="L49" class="ln">    49  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_USAGE              UsageAttributionSupportedMetrics = &#34;estimated_ingested_logs_usage&#34;
+<span id="L50" class="ln">    50  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_PERCENTAGE         UsageAttributionSupportedMetrics = &#34;estimated_ingested_logs_percentage&#34;
+<span id="L51" class="ln">    51  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_USAGE                               UsageAttributionSupportedMetrics = &#34;appsec_usage&#34;
+<span id="L52" class="ln">    52  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_PERCENTAGE                          UsageAttributionSupportedMetrics = &#34;appsec_percentage&#34;
+<span id="L53" class="ln">    53  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_USAGE              UsageAttributionSupportedMetrics = &#34;estimated_indexed_spans_usage&#34;
+<span id="L54" class="ln">    54  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_PERCENTAGE         UsageAttributionSupportedMetrics = &#34;estimated_indexed_spans_percentage&#34;
+<span id="L55" class="ln">    55  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_USAGE             UsageAttributionSupportedMetrics = &#34;estimated_ingested_spans_usage&#34;
+<span id="L56" class="ln">    56  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_PERCENTAGE        UsageAttributionSupportedMetrics = &#34;estimated_ingested_spans_percentage&#34;
+<span id="L57" class="ln">    57  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_USAGE                          UsageAttributionSupportedMetrics = &#34;apm_fargate_usage&#34;
+<span id="L58" class="ln">    58  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_PERCENTAGE                     UsageAttributionSupportedMetrics = &#34;apm_fargate_percentage&#34;
+<span id="L59" class="ln">    59  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_USAGE                       UsageAttributionSupportedMetrics = &#34;appsec_fargate_usage&#34;
+<span id="L60" class="ln">    60  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_PERCENTAGE                  UsageAttributionSupportedMetrics = &#34;appsec_fargate_percentage&#34;
+<span id="L61" class="ln">    61  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_RUM_USAGE_ATTRIBUTION_USAGE      UsageAttributionSupportedMetrics = &#34;estimated_rum_usage_attribution_usage&#34;
+<span id="L62" class="ln">    62  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_RUM_USAGE_ATTRIBUTION_PERCENTAGE UsageAttributionSupportedMetrics = &#34;estimated_rum_usage_attribution_percentage&#34;
+<span id="L63" class="ln">    63  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ALL                                        UsageAttributionSupportedMetrics = &#34;*&#34;
+<span id="L64" class="ln">    64  </span>)
+<span id="L65" class="ln">    65  </span>
+<span id="L66" class="ln">    66  </span>var allowedUsageAttributionSupportedMetricsEnumValues = []UsageAttributionSupportedMetrics{
+<span id="L67" class="ln">    67  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_USAGE,
+<span id="L68" class="ln">    68  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_USAGE,
+<span id="L69" class="ln">    69  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_PERCENTAGE,
+<span id="L70" class="ln">    70  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_USAGE,
+<span id="L71" class="ln">    71  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_USAGE,
+<span id="L72" class="ln">    72  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_PERCENTAGE,
+<span id="L73" class="ln">    73  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_USAGE,
+<span id="L74" class="ln">    74  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CUSTOM_TIMESERIES_PERCENTAGE,
+<span id="L75" class="ln">    75  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_CONTAINER_PERCENTAGE,
+<span id="L76" class="ln">    76  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_USAGE,
+<span id="L77" class="ln">    77  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_HOST_PERCENTAGE,
+<span id="L78" class="ln">    78  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_INFRA_HOST_PERCENTAGE,
+<span id="L79" class="ln">    79  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_SNMP_USAGE,
+<span id="L80" class="ln">    80  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_BROWSER_PERCENTAGE,
+<span id="L81" class="ln">    81  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_API_PERCENTAGE,
+<span id="L82" class="ln">    82  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_NPM_HOST_USAGE,
+<span id="L83" class="ln">    83  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_USAGE,
+<span id="L84" class="ln">    84  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_FUNCTIONS_PERCENTAGE,
+<span id="L85" class="ln">    85  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_USAGE,
+<span id="L86" class="ln">    86  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_LAMBDA_INVOCATIONS_PERCENTAGE,
+<span id="L87" class="ln">    87  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_USAGE,
+<span id="L88" class="ln">    88  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_FARGATE_PERCENTAGE,
+<span id="L89" class="ln">    89  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_USAGE,
+<span id="L90" class="ln">    90  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_HOST_PERCENTAGE,
+<span id="L91" class="ln">    91  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_USAGE,
+<span id="L92" class="ln">    92  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_PROFILED_CONTAINER_PERCENTAGE,
+<span id="L93" class="ln">    93  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_USAGE,
+<span id="L94" class="ln">    94  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_HOSTS_PERCENTAGE,
+<span id="L95" class="ln">    95  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_USAGE,
+<span id="L96" class="ln">    96  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_DBM_QUERIES_PERCENTAGE,
+<span id="L97" class="ln">    97  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_USAGE,
+<span id="L98" class="ln">    98  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_LOGS_PERCENTAGE,
+<span id="L99" class="ln">    99  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_USAGE,
+<span id="L100" class="ln">   100  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_LOGS_PERCENTAGE,
+<span id="L101" class="ln">   101  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_USAGE,
+<span id="L102" class="ln">   102  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_PERCENTAGE,
+<span id="L103" class="ln">   103  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_USAGE,
+<span id="L104" class="ln">   104  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INDEXED_SPANS_PERCENTAGE,
+<span id="L105" class="ln">   105  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_USAGE,
+<span id="L106" class="ln">   106  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_INGESTED_SPANS_PERCENTAGE,
+<span id="L107" class="ln">   107  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_USAGE,
+<span id="L108" class="ln">   108  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APM_FARGATE_PERCENTAGE,
+<span id="L109" class="ln">   109  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_USAGE,
+<span id="L110" class="ln">   110  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_APPSEC_FARGATE_PERCENTAGE,
+<span id="L111" class="ln">   111  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_RUM_USAGE_ATTRIBUTION_USAGE,
+<span id="L112" class="ln">   112  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ESTIMATED_RUM_USAGE_ATTRIBUTION_PERCENTAGE,
+<span id="L113" class="ln">   113  </span>	USAGEATTRIBUTIONSUPPORTEDMETRICS_ALL,
+<span id="L114" class="ln">   114  </span>}
+<span id="L115" class="ln">   115  </span>
+<span id="L116" class="ln">   116  </span><span class="comment">// GetAllowedValues reeturns the list of possible values.</span>
+<span id="L117" class="ln">   117  </span>func (v *UsageAttributionSupportedMetrics) GetAllowedValues() []UsageAttributionSupportedMetrics {
+<span id="L118" class="ln">   118  </span>	return allowedUsageAttributionSupportedMetricsEnumValues
+<span id="L119" class="ln">   119  </span>}
+<span id="L120" class="ln">   120  </span>
+<span id="L121" class="ln">   121  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
+<span id="L122" class="ln">   122  </span>func (v *UsageAttributionSupportedMetrics) UnmarshalJSON(src []byte) error {
+<span id="L123" class="ln">   123  </span>	var value string
+<span id="L124" class="ln">   124  </span>	err := json.Unmarshal(src, &amp;value)
+<span id="L125" class="ln">   125  </span>	if err != nil {
+<span id="L126" class="ln">   126  </span>		return err
+<span id="L127" class="ln">   127  </span>	}
+<span id="L128" class="ln">   128  </span>	*v = UsageAttributionSupportedMetrics(value)
+<span id="L129" class="ln">   129  </span>	return nil
+<span id="L130" class="ln">   130  </span>}
+<span id="L131" class="ln">   131  </span>
+<span id="L132" class="ln">   132  </span><span class="comment">// NewUsageAttributionSupportedMetricsFromValue returns a pointer to a valid UsageAttributionSupportedMetrics</span>
+<span id="L133" class="ln">   133  </span><span class="comment">// for the value passed as argument, or an error if the value passed is not allowed by the enum.</span>
+<span id="L134" class="ln">   134  </span>func NewUsageAttributionSupportedMetricsFromValue(v string) (*UsageAttributionSupportedMetrics, error) {
+<span id="L135" class="ln">   135  </span>	ev := UsageAttributionSupportedMetrics(v)
+<span id="L136" class="ln">   136  </span>	if ev.IsValid() {
+<span id="L137" class="ln">   137  </span>		return &amp;ev, nil
+<span id="L138" class="ln">   138  </span>	}
+<span id="L139" class="ln">   139  </span>	return nil, fmt.Errorf(&#34;invalid value &#39;%v&#39; for UsageAttributionSupportedMetrics: valid values are %v&#34;, v, allowedUsageAttributionSupportedMetricsEnumValues)
+<span id="L140" class="ln">   140  </span>}
+<span id="L141" class="ln">   141  </span>
+<span id="L142" class="ln">   142  </span><span class="comment">// IsValid return true if the value is valid for the enum, false otherwise.</span>
+<span id="L143" class="ln">   143  </span>func (v UsageAttributionSupportedMetrics) IsValid() bool {
+<span id="L144" class="ln">   144  </span>	for _, existing := range allowedUsageAttributionSupportedMetricsEnumValues {
+<span id="L145" class="ln">   145  </span>		if existing == v {
+<span id="L146" class="ln">   146  </span>			return true
+<span id="L147" class="ln">   147  </span>		}
+<span id="L148" class="ln">   148  </span>	}
+<span id="L149" class="ln">   149  </span>	return false
+<span id="L150" class="ln">   150  </span>}
+<span id="L151" class="ln">   151  </span>
+<span id="L152" class="ln">   152  </span><span class="comment">// Ptr returns reference to UsageAttributionSupportedMetrics value.</span>
+<span id="L153" class="ln">   153  </span>func (v UsageAttributionSupportedMetrics) Ptr() *UsageAttributionSupportedMetrics {
+<span id="L154" class="ln">   154  </span>	return &amp;v
+<span id="L155" class="ln">   155  </span>}
+<span id="L156" class="ln">   156  </span>
+<span id="L157" class="ln">   157  </span><span class="comment">// NullableUsageAttributionSupportedMetrics handles when a null is used for UsageAttributionSupportedMetrics.</span>
+<span id="L158" class="ln">   158  </span>type NullableUsageAttributionSupportedMetrics struct {
+<span id="L159" class="ln">   159  </span>	value *UsageAttributionSupportedMetrics
+<span id="L160" class="ln">   160  </span>	isSet bool
+<span id="L161" class="ln">   161  </span>}
+<span id="L162" class="ln">   162  </span>
+<span id="L163" class="ln">   163  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L164" class="ln">   164  </span>func (v NullableUsageAttributionSupportedMetrics) Get() *UsageAttributionSupportedMetrics {
+<span id="L165" class="ln">   165  </span>	return v.value
+<span id="L166" class="ln">   166  </span>}
+<span id="L167" class="ln">   167  </span>
+<span id="L168" class="ln">   168  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L169" class="ln">   169  </span>func (v *NullableUsageAttributionSupportedMetrics) Set(val *UsageAttributionSupportedMetrics) {
+<span id="L170" class="ln">   170  </span>	v.value = val
+<span id="L171" class="ln">   171  </span>	v.isSet = true
+<span id="L172" class="ln">   172  </span>}
+<span id="L173" class="ln">   173  </span>
+<span id="L174" class="ln">   174  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L175" class="ln">   175  </span>func (v NullableUsageAttributionSupportedMetrics) IsSet() bool {
+<span id="L176" class="ln">   176  </span>	return v.isSet
+<span id="L177" class="ln">   177  </span>}
+<span id="L178" class="ln">   178  </span>
+<span id="L179" class="ln">   179  </span><span class="comment">// Unset sets the value to nil and resets the set flag.</span>
+<span id="L180" class="ln">   180  </span>func (v *NullableUsageAttributionSupportedMetrics) Unset() {
+<span id="L181" class="ln">   181  </span>	v.value = nil
+<span id="L182" class="ln">   182  </span>	v.isSet = false
+<span id="L183" class="ln">   183  </span>}
+<span id="L184" class="ln">   184  </span>
+<span id="L185" class="ln">   185  </span><span class="comment">// NewNullableUsageAttributionSupportedMetrics initializes the struct as if Set has been called.</span>
+<span id="L186" class="ln">   186  </span>func NewNullableUsageAttributionSupportedMetrics(val *UsageAttributionSupportedMetrics) *NullableUsageAttributionSupportedMetrics {
+<span id="L187" class="ln">   187  </span>	return &amp;NullableUsageAttributionSupportedMetrics{value: val, isSet: true}
+<span id="L188" class="ln">   188  </span>}
+<span id="L189" class="ln">   189  </span>
+<span id="L190" class="ln">   190  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L191" class="ln">   191  </span>func (v NullableUsageAttributionSupportedMetrics) MarshalJSON() ([]byte, error) {
+<span id="L192" class="ln">   192  </span>	return json.Marshal(v.value)
+<span id="L193" class="ln">   193  </span>}
+<span id="L194" class="ln">   194  </span>
+<span id="L195" class="ln">   195  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L196" class="ln">   196  </span>func (v *NullableUsageAttributionSupportedMetrics) UnmarshalJSON(src []byte) error {
+<span id="L197" class="ln">   197  </span>	v.isSet = true
+<span id="L198" class="ln">   198  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L199" class="ln">   199  </span>}
+<span id="L200" class="ln">   200  </span>
 </pre><p></p>
 
 <div id="footer">
