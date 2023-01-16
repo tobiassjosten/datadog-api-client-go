@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span>	<span class="comment">// Array of times, 1-1 match with individual values arrays.</span>
 <span id="L16" class="ln">    16  </span>	Times []int64 `json:&#34;times,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// Array of value-arrays. The index here corresponds to the index in the `formulas` or `queries` array from the request.</span>
-<span id="L18" class="ln">    18  </span>	Values [][]float64 `json:&#34;values,omitempty&#34;`
+<span id="L18" class="ln">    18  </span>	Values [][]*float64 `json:&#34;values,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L20" class="ln">    20  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
 <span id="L21" class="ln">    21  </span>	AdditionalProperties map[string]interface{}
@@ -152,9 +152,9 @@
 <span id="L95" class="ln">    95  </span>}
 <span id="L96" class="ln">    96  </span>
 <span id="L97" class="ln">    97  </span><span class="comment">// GetValues returns the Values field value if set, zero value otherwise.</span>
-<span id="L98" class="ln">    98  </span>func (o *TimeseriesResponseAttributes) GetValues() [][]float64 {
+<span id="L98" class="ln">    98  </span>func (o *TimeseriesResponseAttributes) GetValues() [][]*float64 {
 <span id="L99" class="ln">    99  </span>	if o == nil || o.Values == nil {
-<span id="L100" class="ln">   100  </span>		var ret [][]float64
+<span id="L100" class="ln">   100  </span>		var ret [][]*float64
 <span id="L101" class="ln">   101  </span>		return ret
 <span id="L102" class="ln">   102  </span>	}
 <span id="L103" class="ln">   103  </span>	return o.Values
@@ -162,7 +162,7 @@
 <span id="L105" class="ln">   105  </span>
 <span id="L106" class="ln">   106  </span><span class="comment">// GetValuesOk returns a tuple with the Values field value if set, nil otherwise</span>
 <span id="L107" class="ln">   107  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L108" class="ln">   108  </span>func (o *TimeseriesResponseAttributes) GetValuesOk() (*[][]float64, bool) {
+<span id="L108" class="ln">   108  </span>func (o *TimeseriesResponseAttributes) GetValuesOk() (*[][]*float64, bool) {
 <span id="L109" class="ln">   109  </span>	if o == nil || o.Values == nil {
 <span id="L110" class="ln">   110  </span>		return nil, false
 <span id="L111" class="ln">   111  </span>	}
@@ -174,8 +174,8 @@
 <span id="L117" class="ln">   117  </span>	return o != nil &amp;&amp; o.Values != nil
 <span id="L118" class="ln">   118  </span>}
 <span id="L119" class="ln">   119  </span>
-<span id="L120" class="ln">   120  </span><span class="comment">// SetValues gets a reference to the given [][]float64 and assigns it to the Values field.</span>
-<span id="L121" class="ln">   121  </span>func (o *TimeseriesResponseAttributes) SetValues(v [][]float64) {
+<span id="L120" class="ln">   120  </span><span class="comment">// SetValues gets a reference to the given [][]*float64 and assigns it to the Values field.</span>
+<span id="L121" class="ln">   121  </span>func (o *TimeseriesResponseAttributes) SetValues(v [][]*float64) {
 <span id="L122" class="ln">   122  </span>	o.Values = v
 <span id="L123" class="ln">   123  </span>}
 <span id="L124" class="ln">   124  </span>
@@ -207,7 +207,7 @@
 <span id="L150" class="ln">   150  </span>	all := struct {
 <span id="L151" class="ln">   151  </span>		Series []TimeseriesResponseSeries `json:&#34;series,omitempty&#34;`
 <span id="L152" class="ln">   152  </span>		Times  []int64                    `json:&#34;times,omitempty&#34;`
-<span id="L153" class="ln">   153  </span>		Values [][]float64                `json:&#34;values,omitempty&#34;`
+<span id="L153" class="ln">   153  </span>		Values [][]*float64               `json:&#34;values,omitempty&#34;`
 <span id="L154" class="ln">   154  </span>	}{}
 <span id="L155" class="ln">   155  </span>	err = json.Unmarshal(bytes, &amp;all)
 <span id="L156" class="ln">   156  </span>	if err != nil {
