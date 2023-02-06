@@ -80,7 +80,7 @@
 <span id="L23" class="ln">    23  </span>	<span class="comment">// Agent install method.</span>
 <span id="L24" class="ln">    24  </span>	InstallMethod *HostMetaInstallMethod `json:&#34;install_method,omitempty&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// An array of Mac versions.</span>
-<span id="L26" class="ln">    26  </span>	MacV []*string `json:&#34;macV,omitempty&#34;`
+<span id="L26" class="ln">    26  </span>	MacV []interface{} `json:&#34;macV,omitempty&#34;`
 <span id="L27" class="ln">    27  </span>	<span class="comment">// The machine architecture.</span>
 <span id="L28" class="ln">    28  </span>	Machine *string `json:&#34;machine,omitempty&#34;`
 <span id="L29" class="ln">    29  </span>	<span class="comment">// Array of Unix versions.</span>
@@ -288,9 +288,9 @@
 <span id="L231" class="ln">   231  </span>}
 <span id="L232" class="ln">   232  </span>
 <span id="L233" class="ln">   233  </span><span class="comment">// GetMacV returns the MacV field value if set, zero value otherwise.</span>
-<span id="L234" class="ln">   234  </span>func (o *HostMeta) GetMacV() []*string {
+<span id="L234" class="ln">   234  </span>func (o *HostMeta) GetMacV() []interface{} {
 <span id="L235" class="ln">   235  </span>	if o == nil || o.MacV == nil {
-<span id="L236" class="ln">   236  </span>		var ret []*string
+<span id="L236" class="ln">   236  </span>		var ret []interface{}
 <span id="L237" class="ln">   237  </span>		return ret
 <span id="L238" class="ln">   238  </span>	}
 <span id="L239" class="ln">   239  </span>	return o.MacV
@@ -298,7 +298,7 @@
 <span id="L241" class="ln">   241  </span>
 <span id="L242" class="ln">   242  </span><span class="comment">// GetMacVOk returns a tuple with the MacV field value if set, nil otherwise</span>
 <span id="L243" class="ln">   243  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L244" class="ln">   244  </span>func (o *HostMeta) GetMacVOk() (*[]*string, bool) {
+<span id="L244" class="ln">   244  </span>func (o *HostMeta) GetMacVOk() (*[]interface{}, bool) {
 <span id="L245" class="ln">   245  </span>	if o == nil || o.MacV == nil {
 <span id="L246" class="ln">   246  </span>		return nil, false
 <span id="L247" class="ln">   247  </span>	}
@@ -310,8 +310,8 @@
 <span id="L253" class="ln">   253  </span>	return o != nil &amp;&amp; o.MacV != nil
 <span id="L254" class="ln">   254  </span>}
 <span id="L255" class="ln">   255  </span>
-<span id="L256" class="ln">   256  </span><span class="comment">// SetMacV gets a reference to the given []*string and assigns it to the MacV field.</span>
-<span id="L257" class="ln">   257  </span>func (o *HostMeta) SetMacV(v []*string) {
+<span id="L256" class="ln">   256  </span><span class="comment">// SetMacV gets a reference to the given []interface{} and assigns it to the MacV field.</span>
+<span id="L257" class="ln">   257  </span>func (o *HostMeta) SetMacV(v []interface{}) {
 <span id="L258" class="ln">   258  </span>	o.MacV = v
 <span id="L259" class="ln">   259  </span>}
 <span id="L260" class="ln">   260  </span>
@@ -607,7 +607,7 @@
 <span id="L550" class="ln">   550  </span>		FbsdV          []*string              `json:&#34;fbsdV,omitempty&#34;`
 <span id="L551" class="ln">   551  </span>		Gohai          *string                `json:&#34;gohai,omitempty&#34;`
 <span id="L552" class="ln">   552  </span>		InstallMethod  *HostMetaInstallMethod `json:&#34;install_method,omitempty&#34;`
-<span id="L553" class="ln">   553  </span>		MacV           []*string              `json:&#34;macV,omitempty&#34;`
+<span id="L553" class="ln">   553  </span>		MacV           []interface{}          `json:&#34;macV,omitempty&#34;`
 <span id="L554" class="ln">   554  </span>		Machine        *string                `json:&#34;machine,omitempty&#34;`
 <span id="L555" class="ln">   555  </span>		NixV           []*string              `json:&#34;nixV,omitempty&#34;`
 <span id="L556" class="ln">   556  </span>		Platform       *string                `json:&#34;platform,omitempty&#34;`
