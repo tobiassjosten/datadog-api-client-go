@@ -92,9 +92,9 @@
 <span id="L35" class="ln">    35  </span>	<span class="comment">// The synthetic browser test usage by tag(s).</span>
 <span id="L36" class="ln">    36  </span>	BrowserUsage *float64 `json:&#34;browser_usage,omitempty&#34;`
 <span id="L37" class="ln">    37  </span>	<span class="comment">// The percentage of container usage without the Datadog Agent by tag(s).</span>
-<span id="L38" class="ln">    38  </span>	ContPercentage *float64 `json:&#34;cont_percentage,omitempty&#34;`
+<span id="L38" class="ln">    38  </span>	ContainerExclAgentPercentage *float64 `json:&#34;container_excl_agent_percentage,omitempty&#34;`
 <span id="L39" class="ln">    39  </span>	<span class="comment">// The container usage without the Datadog Agent by tag(s).</span>
-<span id="L40" class="ln">    40  </span>	ContUsage *float64 `json:&#34;cont_usage,omitempty&#34;`
+<span id="L40" class="ln">    40  </span>	ContainerExclAgentUsage *float64 `json:&#34;container_excl_agent_usage,omitempty&#34;`
 <span id="L41" class="ln">    41  </span>	<span class="comment">// The percentage of container usage by tag(s).</span>
 <span id="L42" class="ln">    42  </span>	ContainerPercentage *float64 `json:&#34;container_percentage,omitempty&#34;`
 <span id="L43" class="ln">    43  </span>	<span class="comment">// The container usage by tag(s).</span>
@@ -537,60 +537,60 @@
 <span id="L480" class="ln">   480  </span>	o.BrowserUsage = &amp;v
 <span id="L481" class="ln">   481  </span>}
 <span id="L482" class="ln">   482  </span>
-<span id="L483" class="ln">   483  </span><span class="comment">// GetContPercentage returns the ContPercentage field value if set, zero value otherwise.</span>
-<span id="L484" class="ln">   484  </span>func (o *MonthlyUsageAttributionValues) GetContPercentage() float64 {
-<span id="L485" class="ln">   485  </span>	if o == nil || o.ContPercentage == nil {
+<span id="L483" class="ln">   483  </span><span class="comment">// GetContainerExclAgentPercentage returns the ContainerExclAgentPercentage field value if set, zero value otherwise.</span>
+<span id="L484" class="ln">   484  </span>func (o *MonthlyUsageAttributionValues) GetContainerExclAgentPercentage() float64 {
+<span id="L485" class="ln">   485  </span>	if o == nil || o.ContainerExclAgentPercentage == nil {
 <span id="L486" class="ln">   486  </span>		var ret float64
 <span id="L487" class="ln">   487  </span>		return ret
 <span id="L488" class="ln">   488  </span>	}
-<span id="L489" class="ln">   489  </span>	return *o.ContPercentage
+<span id="L489" class="ln">   489  </span>	return *o.ContainerExclAgentPercentage
 <span id="L490" class="ln">   490  </span>}
 <span id="L491" class="ln">   491  </span>
-<span id="L492" class="ln">   492  </span><span class="comment">// GetContPercentageOk returns a tuple with the ContPercentage field value if set, nil otherwise</span>
+<span id="L492" class="ln">   492  </span><span class="comment">// GetContainerExclAgentPercentageOk returns a tuple with the ContainerExclAgentPercentage field value if set, nil otherwise</span>
 <span id="L493" class="ln">   493  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L494" class="ln">   494  </span>func (o *MonthlyUsageAttributionValues) GetContPercentageOk() (*float64, bool) {
-<span id="L495" class="ln">   495  </span>	if o == nil || o.ContPercentage == nil {
+<span id="L494" class="ln">   494  </span>func (o *MonthlyUsageAttributionValues) GetContainerExclAgentPercentageOk() (*float64, bool) {
+<span id="L495" class="ln">   495  </span>	if o == nil || o.ContainerExclAgentPercentage == nil {
 <span id="L496" class="ln">   496  </span>		return nil, false
 <span id="L497" class="ln">   497  </span>	}
-<span id="L498" class="ln">   498  </span>	return o.ContPercentage, true
+<span id="L498" class="ln">   498  </span>	return o.ContainerExclAgentPercentage, true
 <span id="L499" class="ln">   499  </span>}
 <span id="L500" class="ln">   500  </span>
-<span id="L501" class="ln">   501  </span><span class="comment">// HasContPercentage returns a boolean if a field has been set.</span>
-<span id="L502" class="ln">   502  </span>func (o *MonthlyUsageAttributionValues) HasContPercentage() bool {
-<span id="L503" class="ln">   503  </span>	return o != nil &amp;&amp; o.ContPercentage != nil
+<span id="L501" class="ln">   501  </span><span class="comment">// HasContainerExclAgentPercentage returns a boolean if a field has been set.</span>
+<span id="L502" class="ln">   502  </span>func (o *MonthlyUsageAttributionValues) HasContainerExclAgentPercentage() bool {
+<span id="L503" class="ln">   503  </span>	return o != nil &amp;&amp; o.ContainerExclAgentPercentage != nil
 <span id="L504" class="ln">   504  </span>}
 <span id="L505" class="ln">   505  </span>
-<span id="L506" class="ln">   506  </span><span class="comment">// SetContPercentage gets a reference to the given float64 and assigns it to the ContPercentage field.</span>
-<span id="L507" class="ln">   507  </span>func (o *MonthlyUsageAttributionValues) SetContPercentage(v float64) {
-<span id="L508" class="ln">   508  </span>	o.ContPercentage = &amp;v
+<span id="L506" class="ln">   506  </span><span class="comment">// SetContainerExclAgentPercentage gets a reference to the given float64 and assigns it to the ContainerExclAgentPercentage field.</span>
+<span id="L507" class="ln">   507  </span>func (o *MonthlyUsageAttributionValues) SetContainerExclAgentPercentage(v float64) {
+<span id="L508" class="ln">   508  </span>	o.ContainerExclAgentPercentage = &amp;v
 <span id="L509" class="ln">   509  </span>}
 <span id="L510" class="ln">   510  </span>
-<span id="L511" class="ln">   511  </span><span class="comment">// GetContUsage returns the ContUsage field value if set, zero value otherwise.</span>
-<span id="L512" class="ln">   512  </span>func (o *MonthlyUsageAttributionValues) GetContUsage() float64 {
-<span id="L513" class="ln">   513  </span>	if o == nil || o.ContUsage == nil {
+<span id="L511" class="ln">   511  </span><span class="comment">// GetContainerExclAgentUsage returns the ContainerExclAgentUsage field value if set, zero value otherwise.</span>
+<span id="L512" class="ln">   512  </span>func (o *MonthlyUsageAttributionValues) GetContainerExclAgentUsage() float64 {
+<span id="L513" class="ln">   513  </span>	if o == nil || o.ContainerExclAgentUsage == nil {
 <span id="L514" class="ln">   514  </span>		var ret float64
 <span id="L515" class="ln">   515  </span>		return ret
 <span id="L516" class="ln">   516  </span>	}
-<span id="L517" class="ln">   517  </span>	return *o.ContUsage
+<span id="L517" class="ln">   517  </span>	return *o.ContainerExclAgentUsage
 <span id="L518" class="ln">   518  </span>}
 <span id="L519" class="ln">   519  </span>
-<span id="L520" class="ln">   520  </span><span class="comment">// GetContUsageOk returns a tuple with the ContUsage field value if set, nil otherwise</span>
+<span id="L520" class="ln">   520  </span><span class="comment">// GetContainerExclAgentUsageOk returns a tuple with the ContainerExclAgentUsage field value if set, nil otherwise</span>
 <span id="L521" class="ln">   521  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L522" class="ln">   522  </span>func (o *MonthlyUsageAttributionValues) GetContUsageOk() (*float64, bool) {
-<span id="L523" class="ln">   523  </span>	if o == nil || o.ContUsage == nil {
+<span id="L522" class="ln">   522  </span>func (o *MonthlyUsageAttributionValues) GetContainerExclAgentUsageOk() (*float64, bool) {
+<span id="L523" class="ln">   523  </span>	if o == nil || o.ContainerExclAgentUsage == nil {
 <span id="L524" class="ln">   524  </span>		return nil, false
 <span id="L525" class="ln">   525  </span>	}
-<span id="L526" class="ln">   526  </span>	return o.ContUsage, true
+<span id="L526" class="ln">   526  </span>	return o.ContainerExclAgentUsage, true
 <span id="L527" class="ln">   527  </span>}
 <span id="L528" class="ln">   528  </span>
-<span id="L529" class="ln">   529  </span><span class="comment">// HasContUsage returns a boolean if a field has been set.</span>
-<span id="L530" class="ln">   530  </span>func (o *MonthlyUsageAttributionValues) HasContUsage() bool {
-<span id="L531" class="ln">   531  </span>	return o != nil &amp;&amp; o.ContUsage != nil
+<span id="L529" class="ln">   529  </span><span class="comment">// HasContainerExclAgentUsage returns a boolean if a field has been set.</span>
+<span id="L530" class="ln">   530  </span>func (o *MonthlyUsageAttributionValues) HasContainerExclAgentUsage() bool {
+<span id="L531" class="ln">   531  </span>	return o != nil &amp;&amp; o.ContainerExclAgentUsage != nil
 <span id="L532" class="ln">   532  </span>}
 <span id="L533" class="ln">   533  </span>
-<span id="L534" class="ln">   534  </span><span class="comment">// SetContUsage gets a reference to the given float64 and assigns it to the ContUsage field.</span>
-<span id="L535" class="ln">   535  </span>func (o *MonthlyUsageAttributionValues) SetContUsage(v float64) {
-<span id="L536" class="ln">   536  </span>	o.ContUsage = &amp;v
+<span id="L534" class="ln">   534  </span><span class="comment">// SetContainerExclAgentUsage gets a reference to the given float64 and assigns it to the ContainerExclAgentUsage field.</span>
+<span id="L535" class="ln">   535  </span>func (o *MonthlyUsageAttributionValues) SetContainerExclAgentUsage(v float64) {
+<span id="L536" class="ln">   536  </span>	o.ContainerExclAgentUsage = &amp;v
 <span id="L537" class="ln">   537  </span>}
 <span id="L538" class="ln">   538  </span>
 <span id="L539" class="ln">   539  </span><span class="comment">// GetContainerPercentage returns the ContainerPercentage field value if set, zero value otherwise.</span>
@@ -1811,11 +1811,11 @@
 <span id="L1754" class="ln">  1754  </span>	if o.BrowserUsage != nil {
 <span id="L1755" class="ln">  1755  </span>		toSerialize[&#34;browser_usage&#34;] = o.BrowserUsage
 <span id="L1756" class="ln">  1756  </span>	}
-<span id="L1757" class="ln">  1757  </span>	if o.ContPercentage != nil {
-<span id="L1758" class="ln">  1758  </span>		toSerialize[&#34;cont_percentage&#34;] = o.ContPercentage
+<span id="L1757" class="ln">  1757  </span>	if o.ContainerExclAgentPercentage != nil {
+<span id="L1758" class="ln">  1758  </span>		toSerialize[&#34;container_excl_agent_percentage&#34;] = o.ContainerExclAgentPercentage
 <span id="L1759" class="ln">  1759  </span>	}
-<span id="L1760" class="ln">  1760  </span>	if o.ContUsage != nil {
-<span id="L1761" class="ln">  1761  </span>		toSerialize[&#34;cont_usage&#34;] = o.ContUsage
+<span id="L1760" class="ln">  1760  </span>	if o.ContainerExclAgentUsage != nil {
+<span id="L1761" class="ln">  1761  </span>		toSerialize[&#34;container_excl_agent_usage&#34;] = o.ContainerExclAgentUsage
 <span id="L1762" class="ln">  1762  </span>	}
 <span id="L1763" class="ln">  1763  </span>	if o.ContainerPercentage != nil {
 <span id="L1764" class="ln">  1764  </span>		toSerialize[&#34;container_percentage&#34;] = o.ContainerPercentage
@@ -1966,8 +1966,8 @@
 <span id="L1909" class="ln">  1909  </span>		AppsecUsage                      *float64 `json:&#34;appsec_usage,omitempty&#34;`
 <span id="L1910" class="ln">  1910  </span>		BrowserPercentage                *float64 `json:&#34;browser_percentage,omitempty&#34;`
 <span id="L1911" class="ln">  1911  </span>		BrowserUsage                     *float64 `json:&#34;browser_usage,omitempty&#34;`
-<span id="L1912" class="ln">  1912  </span>		ContPercentage                   *float64 `json:&#34;cont_percentage,omitempty&#34;`
-<span id="L1913" class="ln">  1913  </span>		ContUsage                        *float64 `json:&#34;cont_usage,omitempty&#34;`
+<span id="L1912" class="ln">  1912  </span>		ContainerExclAgentPercentage     *float64 `json:&#34;container_excl_agent_percentage,omitempty&#34;`
+<span id="L1913" class="ln">  1913  </span>		ContainerExclAgentUsage          *float64 `json:&#34;container_excl_agent_usage,omitempty&#34;`
 <span id="L1914" class="ln">  1914  </span>		ContainerPercentage              *float64 `json:&#34;container_percentage,omitempty&#34;`
 <span id="L1915" class="ln">  1915  </span>		ContainerUsage                   *float64 `json:&#34;container_usage,omitempty&#34;`
 <span id="L1916" class="ln">  1916  </span>		CspmContainersPercentage         *float64 `json:&#34;cspm_containers_percentage,omitempty&#34;`
@@ -2032,8 +2032,8 @@
 <span id="L1975" class="ln">  1975  </span>	o.AppsecUsage = all.AppsecUsage
 <span id="L1976" class="ln">  1976  </span>	o.BrowserPercentage = all.BrowserPercentage
 <span id="L1977" class="ln">  1977  </span>	o.BrowserUsage = all.BrowserUsage
-<span id="L1978" class="ln">  1978  </span>	o.ContPercentage = all.ContPercentage
-<span id="L1979" class="ln">  1979  </span>	o.ContUsage = all.ContUsage
+<span id="L1978" class="ln">  1978  </span>	o.ContainerExclAgentPercentage = all.ContainerExclAgentPercentage
+<span id="L1979" class="ln">  1979  </span>	o.ContainerExclAgentUsage = all.ContainerExclAgentUsage
 <span id="L1980" class="ln">  1980  </span>	o.ContainerPercentage = all.ContainerPercentage
 <span id="L1981" class="ln">  1981  </span>	o.ContainerUsage = all.ContainerUsage
 <span id="L1982" class="ln">  1982  </span>	o.CspmContainersPercentage = all.CspmContainersPercentage
