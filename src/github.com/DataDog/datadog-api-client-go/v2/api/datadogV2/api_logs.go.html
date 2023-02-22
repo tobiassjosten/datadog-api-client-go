@@ -13,7 +13,7 @@
 
 
 
-<script>var goVersion = "go1.19.5";</script>
+<script>var goVersion = "go1.19.6";</script>
 <script src="https://datadoghq.dev/datadog-api-client-go/lib/godoc/godocs.js" defer=""></script>
 
 </head>
@@ -716,119 +716,120 @@
 <span id="L659" class="ln">   659  </span><span class="comment">//</span>
 <span id="L660" class="ln">   660  </span><span class="comment">// Datadog recommends sending your logs compressed.</span>
 <span id="L661" class="ln">   661  </span><span class="comment">// Add the `Content-Encoding: gzip` header to the request when sending compressed logs.</span>
-<span id="L662" class="ln">   662  </span><span class="comment">//</span>
-<span id="L663" class="ln">   663  </span><span class="comment">// The status codes answered by the HTTP API are:</span>
-<span id="L664" class="ln">   664  </span><span class="comment">// - 202: Accepted: the request has been accepted for processing</span>
-<span id="L665" class="ln">   665  </span><span class="comment">// - 400: Bad request (likely an issue in the payload formatting)</span>
-<span id="L666" class="ln">   666  </span><span class="comment">// - 401: Unauthorized (likely a missing API Key)</span>
-<span id="L667" class="ln">   667  </span><span class="comment">// - 403: Permission issue (likely using an invalid API Key)</span>
-<span id="L668" class="ln">   668  </span><span class="comment">// - 408: Request Timeout, request should be retried after some time</span>
-<span id="L669" class="ln">   669  </span><span class="comment">// - 413: Payload too large (batch is above 5MB uncompressed)</span>
-<span id="L670" class="ln">   670  </span><span class="comment">// - 429: Too Many Requests, request should be retried after some time</span>
-<span id="L671" class="ln">   671  </span><span class="comment">// - 500: Internal Server Error, the server encountered an unexpected condition that prevented it from fulfilling the request, request should be retried after some time</span>
-<span id="L672" class="ln">   672  </span><span class="comment">// - 503: Service Unavailable, the server is not ready to handle the request probably because it is overloaded, request should be retried after some time</span>
-<span id="L673" class="ln">   673  </span>func (a *LogsApi) SubmitLog(ctx _context.Context, body []HTTPLogItem, o ...SubmitLogOptionalParameters) (interface{}, *_nethttp.Response, error) {
-<span id="L674" class="ln">   674  </span>	req, err := a.buildSubmitLogRequest(ctx, body, o...)
-<span id="L675" class="ln">   675  </span>	if err != nil {
-<span id="L676" class="ln">   676  </span>		var localVarReturnValue interface{}
-<span id="L677" class="ln">   677  </span>		return localVarReturnValue, nil, err
-<span id="L678" class="ln">   678  </span>	}
-<span id="L679" class="ln">   679  </span>
-<span id="L680" class="ln">   680  </span>	return a.submitLogExecute(req)
-<span id="L681" class="ln">   681  </span>}
-<span id="L682" class="ln">   682  </span>
-<span id="L683" class="ln">   683  </span><span class="comment">// submitLogExecute executes the request.</span>
-<span id="L684" class="ln">   684  </span>func (a *LogsApi) submitLogExecute(r apiSubmitLogRequest) (interface{}, *_nethttp.Response, error) {
-<span id="L685" class="ln">   685  </span>	var (
-<span id="L686" class="ln">   686  </span>		localVarHTTPMethod  = _nethttp.MethodPost
-<span id="L687" class="ln">   687  </span>		localVarPostBody    interface{}
-<span id="L688" class="ln">   688  </span>		localVarReturnValue interface{}
-<span id="L689" class="ln">   689  </span>	)
-<span id="L690" class="ln">   690  </span>
-<span id="L691" class="ln">   691  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.LogsApi.SubmitLog&#34;)
-<span id="L692" class="ln">   692  </span>	if err != nil {
-<span id="L693" class="ln">   693  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L694" class="ln">   694  </span>	}
-<span id="L695" class="ln">   695  </span>
-<span id="L696" class="ln">   696  </span>	localVarPath := localBasePath + &#34;/api/v2/logs&#34;
-<span id="L697" class="ln">   697  </span>
-<span id="L698" class="ln">   698  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L699" class="ln">   699  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L700" class="ln">   700  </span>	localVarFormParams := _neturl.Values{}
-<span id="L701" class="ln">   701  </span>	if r.body == nil {
-<span id="L702" class="ln">   702  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;body is required and must be specified&#34;)
-<span id="L703" class="ln">   703  </span>	}
-<span id="L704" class="ln">   704  </span>	if r.ddtags != nil {
-<span id="L705" class="ln">   705  </span>		localVarQueryParams.Add(&#34;ddtags&#34;, datadog.ParameterToString(*r.ddtags, &#34;&#34;))
-<span id="L706" class="ln">   706  </span>	}
-<span id="L707" class="ln">   707  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L708" class="ln">   708  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L709" class="ln">   709  </span>
-<span id="L710" class="ln">   710  </span>	if r.contentEncoding != nil {
-<span id="L711" class="ln">   711  </span>		localVarHeaderParams[&#34;Content-Encoding&#34;] = datadog.ParameterToString(*r.contentEncoding, &#34;&#34;)
-<span id="L712" class="ln">   712  </span>	}
-<span id="L713" class="ln">   713  </span>
-<span id="L714" class="ln">   714  </span>	<span class="comment">// body params</span>
-<span id="L715" class="ln">   715  </span>	localVarPostBody = r.body
-<span id="L716" class="ln">   716  </span>	datadog.SetAuthKeys(
-<span id="L717" class="ln">   717  </span>		r.ctx,
-<span id="L718" class="ln">   718  </span>		&amp;localVarHeaderParams,
-<span id="L719" class="ln">   719  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L720" class="ln">   720  </span>	)
-<span id="L721" class="ln">   721  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L722" class="ln">   722  </span>	if err != nil {
-<span id="L723" class="ln">   723  </span>		return localVarReturnValue, nil, err
-<span id="L724" class="ln">   724  </span>	}
-<span id="L725" class="ln">   725  </span>
-<span id="L726" class="ln">   726  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L727" class="ln">   727  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L728" class="ln">   728  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L729" class="ln">   729  </span>	}
-<span id="L730" class="ln">   730  </span>
-<span id="L731" class="ln">   731  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L732" class="ln">   732  </span>	if err != nil {
-<span id="L733" class="ln">   733  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L734" class="ln">   734  </span>	}
-<span id="L735" class="ln">   735  </span>
-<span id="L736" class="ln">   736  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L737" class="ln">   737  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L738" class="ln">   738  </span>			ErrorBody:    localVarBody,
-<span id="L739" class="ln">   739  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L740" class="ln">   740  </span>		}
-<span id="L741" class="ln">   741  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 401 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 408 || localVarHTTPResponse.StatusCode == 413 || localVarHTTPResponse.StatusCode == 429 || localVarHTTPResponse.StatusCode == 500 || localVarHTTPResponse.StatusCode == 503 {
-<span id="L742" class="ln">   742  </span>			var v HTTPLogErrors
-<span id="L743" class="ln">   743  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L744" class="ln">   744  </span>			if err != nil {
-<span id="L745" class="ln">   745  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L746" class="ln">   746  </span>			}
-<span id="L747" class="ln">   747  </span>			newErr.ErrorModel = v
-<span id="L748" class="ln">   748  </span>		}
-<span id="L749" class="ln">   749  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L750" class="ln">   750  </span>	}
-<span id="L751" class="ln">   751  </span>
-<span id="L752" class="ln">   752  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L753" class="ln">   753  </span>	if err != nil {
-<span id="L754" class="ln">   754  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L755" class="ln">   755  </span>			ErrorBody:    localVarBody,
-<span id="L756" class="ln">   756  </span>			ErrorMessage: err.Error(),
-<span id="L757" class="ln">   757  </span>		}
-<span id="L758" class="ln">   758  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L759" class="ln">   759  </span>	}
-<span id="L760" class="ln">   760  </span>
-<span id="L761" class="ln">   761  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L762" class="ln">   762  </span>}
-<span id="L763" class="ln">   763  </span>
-<span id="L764" class="ln">   764  </span><span class="comment">// NewLogsApi Returns NewLogsApi.</span>
-<span id="L765" class="ln">   765  </span>func NewLogsApi(client *datadog.APIClient) *LogsApi {
-<span id="L766" class="ln">   766  </span>	return &amp;LogsApi{
-<span id="L767" class="ln">   767  </span>		Client: client,
-<span id="L768" class="ln">   768  </span>	}
-<span id="L769" class="ln">   769  </span>}
-<span id="L770" class="ln">   770  </span>
+<span id="L662" class="ln">   662  </span><span class="comment">// Log events can be submitted up to 18 hours in the past and 2 hours in the future.</span>
+<span id="L663" class="ln">   663  </span><span class="comment">//</span>
+<span id="L664" class="ln">   664  </span><span class="comment">// The status codes answered by the HTTP API are:</span>
+<span id="L665" class="ln">   665  </span><span class="comment">// - 202: Accepted: the request has been accepted for processing</span>
+<span id="L666" class="ln">   666  </span><span class="comment">// - 400: Bad request (likely an issue in the payload formatting)</span>
+<span id="L667" class="ln">   667  </span><span class="comment">// - 401: Unauthorized (likely a missing API Key)</span>
+<span id="L668" class="ln">   668  </span><span class="comment">// - 403: Permission issue (likely using an invalid API Key)</span>
+<span id="L669" class="ln">   669  </span><span class="comment">// - 408: Request Timeout, request should be retried after some time</span>
+<span id="L670" class="ln">   670  </span><span class="comment">// - 413: Payload too large (batch is above 5MB uncompressed)</span>
+<span id="L671" class="ln">   671  </span><span class="comment">// - 429: Too Many Requests, request should be retried after some time</span>
+<span id="L672" class="ln">   672  </span><span class="comment">// - 500: Internal Server Error, the server encountered an unexpected condition that prevented it from fulfilling the request, request should be retried after some time</span>
+<span id="L673" class="ln">   673  </span><span class="comment">// - 503: Service Unavailable, the server is not ready to handle the request probably because it is overloaded, request should be retried after some time</span>
+<span id="L674" class="ln">   674  </span>func (a *LogsApi) SubmitLog(ctx _context.Context, body []HTTPLogItem, o ...SubmitLogOptionalParameters) (interface{}, *_nethttp.Response, error) {
+<span id="L675" class="ln">   675  </span>	req, err := a.buildSubmitLogRequest(ctx, body, o...)
+<span id="L676" class="ln">   676  </span>	if err != nil {
+<span id="L677" class="ln">   677  </span>		var localVarReturnValue interface{}
+<span id="L678" class="ln">   678  </span>		return localVarReturnValue, nil, err
+<span id="L679" class="ln">   679  </span>	}
+<span id="L680" class="ln">   680  </span>
+<span id="L681" class="ln">   681  </span>	return a.submitLogExecute(req)
+<span id="L682" class="ln">   682  </span>}
+<span id="L683" class="ln">   683  </span>
+<span id="L684" class="ln">   684  </span><span class="comment">// submitLogExecute executes the request.</span>
+<span id="L685" class="ln">   685  </span>func (a *LogsApi) submitLogExecute(r apiSubmitLogRequest) (interface{}, *_nethttp.Response, error) {
+<span id="L686" class="ln">   686  </span>	var (
+<span id="L687" class="ln">   687  </span>		localVarHTTPMethod  = _nethttp.MethodPost
+<span id="L688" class="ln">   688  </span>		localVarPostBody    interface{}
+<span id="L689" class="ln">   689  </span>		localVarReturnValue interface{}
+<span id="L690" class="ln">   690  </span>	)
+<span id="L691" class="ln">   691  </span>
+<span id="L692" class="ln">   692  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v2.LogsApi.SubmitLog&#34;)
+<span id="L693" class="ln">   693  </span>	if err != nil {
+<span id="L694" class="ln">   694  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L695" class="ln">   695  </span>	}
+<span id="L696" class="ln">   696  </span>
+<span id="L697" class="ln">   697  </span>	localVarPath := localBasePath + &#34;/api/v2/logs&#34;
+<span id="L698" class="ln">   698  </span>
+<span id="L699" class="ln">   699  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L700" class="ln">   700  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L701" class="ln">   701  </span>	localVarFormParams := _neturl.Values{}
+<span id="L702" class="ln">   702  </span>	if r.body == nil {
+<span id="L703" class="ln">   703  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;body is required and must be specified&#34;)
+<span id="L704" class="ln">   704  </span>	}
+<span id="L705" class="ln">   705  </span>	if r.ddtags != nil {
+<span id="L706" class="ln">   706  </span>		localVarQueryParams.Add(&#34;ddtags&#34;, datadog.ParameterToString(*r.ddtags, &#34;&#34;))
+<span id="L707" class="ln">   707  </span>	}
+<span id="L708" class="ln">   708  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L709" class="ln">   709  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L710" class="ln">   710  </span>
+<span id="L711" class="ln">   711  </span>	if r.contentEncoding != nil {
+<span id="L712" class="ln">   712  </span>		localVarHeaderParams[&#34;Content-Encoding&#34;] = datadog.ParameterToString(*r.contentEncoding, &#34;&#34;)
+<span id="L713" class="ln">   713  </span>	}
+<span id="L714" class="ln">   714  </span>
+<span id="L715" class="ln">   715  </span>	<span class="comment">// body params</span>
+<span id="L716" class="ln">   716  </span>	localVarPostBody = r.body
+<span id="L717" class="ln">   717  </span>	datadog.SetAuthKeys(
+<span id="L718" class="ln">   718  </span>		r.ctx,
+<span id="L719" class="ln">   719  </span>		&amp;localVarHeaderParams,
+<span id="L720" class="ln">   720  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L721" class="ln">   721  </span>	)
+<span id="L722" class="ln">   722  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L723" class="ln">   723  </span>	if err != nil {
+<span id="L724" class="ln">   724  </span>		return localVarReturnValue, nil, err
+<span id="L725" class="ln">   725  </span>	}
+<span id="L726" class="ln">   726  </span>
+<span id="L727" class="ln">   727  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L728" class="ln">   728  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L729" class="ln">   729  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L730" class="ln">   730  </span>	}
+<span id="L731" class="ln">   731  </span>
+<span id="L732" class="ln">   732  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L733" class="ln">   733  </span>	if err != nil {
+<span id="L734" class="ln">   734  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L735" class="ln">   735  </span>	}
+<span id="L736" class="ln">   736  </span>
+<span id="L737" class="ln">   737  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L738" class="ln">   738  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L739" class="ln">   739  </span>			ErrorBody:    localVarBody,
+<span id="L740" class="ln">   740  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L741" class="ln">   741  </span>		}
+<span id="L742" class="ln">   742  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 401 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 408 || localVarHTTPResponse.StatusCode == 413 || localVarHTTPResponse.StatusCode == 429 || localVarHTTPResponse.StatusCode == 500 || localVarHTTPResponse.StatusCode == 503 {
+<span id="L743" class="ln">   743  </span>			var v HTTPLogErrors
+<span id="L744" class="ln">   744  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L745" class="ln">   745  </span>			if err != nil {
+<span id="L746" class="ln">   746  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L747" class="ln">   747  </span>			}
+<span id="L748" class="ln">   748  </span>			newErr.ErrorModel = v
+<span id="L749" class="ln">   749  </span>		}
+<span id="L750" class="ln">   750  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L751" class="ln">   751  </span>	}
+<span id="L752" class="ln">   752  </span>
+<span id="L753" class="ln">   753  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L754" class="ln">   754  </span>	if err != nil {
+<span id="L755" class="ln">   755  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L756" class="ln">   756  </span>			ErrorBody:    localVarBody,
+<span id="L757" class="ln">   757  </span>			ErrorMessage: err.Error(),
+<span id="L758" class="ln">   758  </span>		}
+<span id="L759" class="ln">   759  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L760" class="ln">   760  </span>	}
+<span id="L761" class="ln">   761  </span>
+<span id="L762" class="ln">   762  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L763" class="ln">   763  </span>}
+<span id="L764" class="ln">   764  </span>
+<span id="L765" class="ln">   765  </span><span class="comment">// NewLogsApi Returns NewLogsApi.</span>
+<span id="L766" class="ln">   766  </span>func NewLogsApi(client *datadog.APIClient) *LogsApi {
+<span id="L767" class="ln">   767  </span>	return &amp;LogsApi{
+<span id="L768" class="ln">   768  </span>		Client: client,
+<span id="L769" class="ln">   769  </span>	}
+<span id="L770" class="ln">   770  </span>}
+<span id="L771" class="ln">   771  </span>
 </pre><p></p>
 
 <div id="footer">
-Build version go1.19.5.<br/>
+Build version go1.19.6.<br/>
 </div>
 
 </div><!-- .container -->
