@@ -72,207 +72,164 @@
 <span id="L15" class="ln">    15  </span><span class="comment">// SnapshotsApi service type</span>
 <span id="L16" class="ln">    16  </span>type SnapshotsApi datadog.Service
 <span id="L17" class="ln">    17  </span>
-<span id="L18" class="ln">    18  </span>type apiGetGraphSnapshotRequest struct {
-<span id="L19" class="ln">    19  </span>	ctx         _context.Context
-<span id="L20" class="ln">    20  </span>	start       *int64
-<span id="L21" class="ln">    21  </span>	end         *int64
-<span id="L22" class="ln">    22  </span>	metricQuery *string
-<span id="L23" class="ln">    23  </span>	eventQuery  *string
-<span id="L24" class="ln">    24  </span>	graphDef    *string
-<span id="L25" class="ln">    25  </span>	title       *string
-<span id="L26" class="ln">    26  </span>	height      *int64
-<span id="L27" class="ln">    27  </span>	width       *int64
-<span id="L28" class="ln">    28  </span>}
-<span id="L29" class="ln">    29  </span>
-<span id="L30" class="ln">    30  </span><span class="comment">// GetGraphSnapshotOptionalParameters holds optional parameters for GetGraphSnapshot.</span>
-<span id="L31" class="ln">    31  </span>type GetGraphSnapshotOptionalParameters struct {
-<span id="L32" class="ln">    32  </span>	MetricQuery *string
-<span id="L33" class="ln">    33  </span>	EventQuery  *string
-<span id="L34" class="ln">    34  </span>	GraphDef    *string
-<span id="L35" class="ln">    35  </span>	Title       *string
-<span id="L36" class="ln">    36  </span>	Height      *int64
-<span id="L37" class="ln">    37  </span>	Width       *int64
+<span id="L18" class="ln">    18  </span><span class="comment">// GetGraphSnapshotOptionalParameters holds optional parameters for GetGraphSnapshot.</span>
+<span id="L19" class="ln">    19  </span>type GetGraphSnapshotOptionalParameters struct {
+<span id="L20" class="ln">    20  </span>	MetricQuery *string
+<span id="L21" class="ln">    21  </span>	EventQuery  *string
+<span id="L22" class="ln">    22  </span>	GraphDef    *string
+<span id="L23" class="ln">    23  </span>	Title       *string
+<span id="L24" class="ln">    24  </span>	Height      *int64
+<span id="L25" class="ln">    25  </span>	Width       *int64
+<span id="L26" class="ln">    26  </span>}
+<span id="L27" class="ln">    27  </span>
+<span id="L28" class="ln">    28  </span><span class="comment">// NewGetGraphSnapshotOptionalParameters creates an empty struct for parameters.</span>
+<span id="L29" class="ln">    29  </span>func NewGetGraphSnapshotOptionalParameters() *GetGraphSnapshotOptionalParameters {
+<span id="L30" class="ln">    30  </span>	this := GetGraphSnapshotOptionalParameters{}
+<span id="L31" class="ln">    31  </span>	return &amp;this
+<span id="L32" class="ln">    32  </span>}
+<span id="L33" class="ln">    33  </span>
+<span id="L34" class="ln">    34  </span><span class="comment">// WithMetricQuery sets the corresponding parameter name and returns the struct.</span>
+<span id="L35" class="ln">    35  </span>func (r *GetGraphSnapshotOptionalParameters) WithMetricQuery(metricQuery string) *GetGraphSnapshotOptionalParameters {
+<span id="L36" class="ln">    36  </span>	r.MetricQuery = &amp;metricQuery
+<span id="L37" class="ln">    37  </span>	return r
 <span id="L38" class="ln">    38  </span>}
 <span id="L39" class="ln">    39  </span>
-<span id="L40" class="ln">    40  </span><span class="comment">// NewGetGraphSnapshotOptionalParameters creates an empty struct for parameters.</span>
-<span id="L41" class="ln">    41  </span>func NewGetGraphSnapshotOptionalParameters() *GetGraphSnapshotOptionalParameters {
-<span id="L42" class="ln">    42  </span>	this := GetGraphSnapshotOptionalParameters{}
-<span id="L43" class="ln">    43  </span>	return &amp;this
+<span id="L40" class="ln">    40  </span><span class="comment">// WithEventQuery sets the corresponding parameter name and returns the struct.</span>
+<span id="L41" class="ln">    41  </span>func (r *GetGraphSnapshotOptionalParameters) WithEventQuery(eventQuery string) *GetGraphSnapshotOptionalParameters {
+<span id="L42" class="ln">    42  </span>	r.EventQuery = &amp;eventQuery
+<span id="L43" class="ln">    43  </span>	return r
 <span id="L44" class="ln">    44  </span>}
 <span id="L45" class="ln">    45  </span>
-<span id="L46" class="ln">    46  </span><span class="comment">// WithMetricQuery sets the corresponding parameter name and returns the struct.</span>
-<span id="L47" class="ln">    47  </span>func (r *GetGraphSnapshotOptionalParameters) WithMetricQuery(metricQuery string) *GetGraphSnapshotOptionalParameters {
-<span id="L48" class="ln">    48  </span>	r.MetricQuery = &amp;metricQuery
+<span id="L46" class="ln">    46  </span><span class="comment">// WithGraphDef sets the corresponding parameter name and returns the struct.</span>
+<span id="L47" class="ln">    47  </span>func (r *GetGraphSnapshotOptionalParameters) WithGraphDef(graphDef string) *GetGraphSnapshotOptionalParameters {
+<span id="L48" class="ln">    48  </span>	r.GraphDef = &amp;graphDef
 <span id="L49" class="ln">    49  </span>	return r
 <span id="L50" class="ln">    50  </span>}
 <span id="L51" class="ln">    51  </span>
-<span id="L52" class="ln">    52  </span><span class="comment">// WithEventQuery sets the corresponding parameter name and returns the struct.</span>
-<span id="L53" class="ln">    53  </span>func (r *GetGraphSnapshotOptionalParameters) WithEventQuery(eventQuery string) *GetGraphSnapshotOptionalParameters {
-<span id="L54" class="ln">    54  </span>	r.EventQuery = &amp;eventQuery
+<span id="L52" class="ln">    52  </span><span class="comment">// WithTitle sets the corresponding parameter name and returns the struct.</span>
+<span id="L53" class="ln">    53  </span>func (r *GetGraphSnapshotOptionalParameters) WithTitle(title string) *GetGraphSnapshotOptionalParameters {
+<span id="L54" class="ln">    54  </span>	r.Title = &amp;title
 <span id="L55" class="ln">    55  </span>	return r
 <span id="L56" class="ln">    56  </span>}
 <span id="L57" class="ln">    57  </span>
-<span id="L58" class="ln">    58  </span><span class="comment">// WithGraphDef sets the corresponding parameter name and returns the struct.</span>
-<span id="L59" class="ln">    59  </span>func (r *GetGraphSnapshotOptionalParameters) WithGraphDef(graphDef string) *GetGraphSnapshotOptionalParameters {
-<span id="L60" class="ln">    60  </span>	r.GraphDef = &amp;graphDef
+<span id="L58" class="ln">    58  </span><span class="comment">// WithHeight sets the corresponding parameter name and returns the struct.</span>
+<span id="L59" class="ln">    59  </span>func (r *GetGraphSnapshotOptionalParameters) WithHeight(height int64) *GetGraphSnapshotOptionalParameters {
+<span id="L60" class="ln">    60  </span>	r.Height = &amp;height
 <span id="L61" class="ln">    61  </span>	return r
 <span id="L62" class="ln">    62  </span>}
 <span id="L63" class="ln">    63  </span>
-<span id="L64" class="ln">    64  </span><span class="comment">// WithTitle sets the corresponding parameter name and returns the struct.</span>
-<span id="L65" class="ln">    65  </span>func (r *GetGraphSnapshotOptionalParameters) WithTitle(title string) *GetGraphSnapshotOptionalParameters {
-<span id="L66" class="ln">    66  </span>	r.Title = &amp;title
+<span id="L64" class="ln">    64  </span><span class="comment">// WithWidth sets the corresponding parameter name and returns the struct.</span>
+<span id="L65" class="ln">    65  </span>func (r *GetGraphSnapshotOptionalParameters) WithWidth(width int64) *GetGraphSnapshotOptionalParameters {
+<span id="L66" class="ln">    66  </span>	r.Width = &amp;width
 <span id="L67" class="ln">    67  </span>	return r
 <span id="L68" class="ln">    68  </span>}
 <span id="L69" class="ln">    69  </span>
-<span id="L70" class="ln">    70  </span><span class="comment">// WithHeight sets the corresponding parameter name and returns the struct.</span>
-<span id="L71" class="ln">    71  </span>func (r *GetGraphSnapshotOptionalParameters) WithHeight(height int64) *GetGraphSnapshotOptionalParameters {
-<span id="L72" class="ln">    72  </span>	r.Height = &amp;height
-<span id="L73" class="ln">    73  </span>	return r
-<span id="L74" class="ln">    74  </span>}
-<span id="L75" class="ln">    75  </span>
-<span id="L76" class="ln">    76  </span><span class="comment">// WithWidth sets the corresponding parameter name and returns the struct.</span>
-<span id="L77" class="ln">    77  </span>func (r *GetGraphSnapshotOptionalParameters) WithWidth(width int64) *GetGraphSnapshotOptionalParameters {
-<span id="L78" class="ln">    78  </span>	r.Width = &amp;width
-<span id="L79" class="ln">    79  </span>	return r
-<span id="L80" class="ln">    80  </span>}
-<span id="L81" class="ln">    81  </span>
-<span id="L82" class="ln">    82  </span>func (a *SnapshotsApi) buildGetGraphSnapshotRequest(ctx _context.Context, start int64, end int64, o ...GetGraphSnapshotOptionalParameters) (apiGetGraphSnapshotRequest, error) {
-<span id="L83" class="ln">    83  </span>	req := apiGetGraphSnapshotRequest{
-<span id="L84" class="ln">    84  </span>		ctx:   ctx,
-<span id="L85" class="ln">    85  </span>		start: &amp;start,
-<span id="L86" class="ln">    86  </span>		end:   &amp;end,
-<span id="L87" class="ln">    87  </span>	}
-<span id="L88" class="ln">    88  </span>
-<span id="L89" class="ln">    89  </span>	if len(o) &gt; 1 {
-<span id="L90" class="ln">    90  </span>		return req, datadog.ReportError(&#34;only one argument of type GetGraphSnapshotOptionalParameters is allowed&#34;)
+<span id="L70" class="ln">    70  </span><span class="comment">// GetGraphSnapshot Take graph snapshots.</span>
+<span id="L71" class="ln">    71  </span><span class="comment">// Take graph snapshots.</span>
+<span id="L72" class="ln">    72  </span><span class="comment">// **Note**: When a snapshot is created, there is some delay before it is available.</span>
+<span id="L73" class="ln">    73  </span>func (a *SnapshotsApi) GetGraphSnapshot(ctx _context.Context, start int64, end int64, o ...GetGraphSnapshotOptionalParameters) (GraphSnapshot, *_nethttp.Response, error) {
+<span id="L74" class="ln">    74  </span>	var (
+<span id="L75" class="ln">    75  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L76" class="ln">    76  </span>		localVarPostBody    interface{}
+<span id="L77" class="ln">    77  </span>		localVarReturnValue GraphSnapshot
+<span id="L78" class="ln">    78  </span>		optionalParams      GetGraphSnapshotOptionalParameters
+<span id="L79" class="ln">    79  </span>	)
+<span id="L80" class="ln">    80  </span>
+<span id="L81" class="ln">    81  </span>	if len(o) &gt; 1 {
+<span id="L82" class="ln">    82  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetGraphSnapshotOptionalParameters is allowed&#34;)
+<span id="L83" class="ln">    83  </span>	}
+<span id="L84" class="ln">    84  </span>	if len(o) == 1 {
+<span id="L85" class="ln">    85  </span>		optionalParams = o[0]
+<span id="L86" class="ln">    86  </span>	}
+<span id="L87" class="ln">    87  </span>
+<span id="L88" class="ln">    88  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SnapshotsApi.GetGraphSnapshot&#34;)
+<span id="L89" class="ln">    89  </span>	if err != nil {
+<span id="L90" class="ln">    90  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L91" class="ln">    91  </span>	}
 <span id="L92" class="ln">    92  </span>
-<span id="L93" class="ln">    93  </span>	if o != nil {
-<span id="L94" class="ln">    94  </span>		req.metricQuery = o[0].MetricQuery
-<span id="L95" class="ln">    95  </span>		req.eventQuery = o[0].EventQuery
-<span id="L96" class="ln">    96  </span>		req.graphDef = o[0].GraphDef
-<span id="L97" class="ln">    97  </span>		req.title = o[0].Title
-<span id="L98" class="ln">    98  </span>		req.height = o[0].Height
-<span id="L99" class="ln">    99  </span>		req.width = o[0].Width
-<span id="L100" class="ln">   100  </span>	}
-<span id="L101" class="ln">   101  </span>	return req, nil
-<span id="L102" class="ln">   102  </span>}
-<span id="L103" class="ln">   103  </span>
-<span id="L104" class="ln">   104  </span><span class="comment">// GetGraphSnapshot Take graph snapshots.</span>
-<span id="L105" class="ln">   105  </span><span class="comment">// Take graph snapshots.</span>
-<span id="L106" class="ln">   106  </span><span class="comment">// **Note**: When a snapshot is created, there is some delay before it is available.</span>
-<span id="L107" class="ln">   107  </span>func (a *SnapshotsApi) GetGraphSnapshot(ctx _context.Context, start int64, end int64, o ...GetGraphSnapshotOptionalParameters) (GraphSnapshot, *_nethttp.Response, error) {
-<span id="L108" class="ln">   108  </span>	req, err := a.buildGetGraphSnapshotRequest(ctx, start, end, o...)
-<span id="L109" class="ln">   109  </span>	if err != nil {
-<span id="L110" class="ln">   110  </span>		var localVarReturnValue GraphSnapshot
-<span id="L111" class="ln">   111  </span>		return localVarReturnValue, nil, err
-<span id="L112" class="ln">   112  </span>	}
-<span id="L113" class="ln">   113  </span>
-<span id="L114" class="ln">   114  </span>	return a.getGraphSnapshotExecute(req)
-<span id="L115" class="ln">   115  </span>}
-<span id="L116" class="ln">   116  </span>
-<span id="L117" class="ln">   117  </span><span class="comment">// getGraphSnapshotExecute executes the request.</span>
-<span id="L118" class="ln">   118  </span>func (a *SnapshotsApi) getGraphSnapshotExecute(r apiGetGraphSnapshotRequest) (GraphSnapshot, *_nethttp.Response, error) {
-<span id="L119" class="ln">   119  </span>	var (
-<span id="L120" class="ln">   120  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L121" class="ln">   121  </span>		localVarPostBody    interface{}
-<span id="L122" class="ln">   122  </span>		localVarReturnValue GraphSnapshot
-<span id="L123" class="ln">   123  </span>	)
-<span id="L124" class="ln">   124  </span>
-<span id="L125" class="ln">   125  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, &#34;v1.SnapshotsApi.GetGraphSnapshot&#34;)
-<span id="L126" class="ln">   126  </span>	if err != nil {
-<span id="L127" class="ln">   127  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L128" class="ln">   128  </span>	}
-<span id="L129" class="ln">   129  </span>
-<span id="L130" class="ln">   130  </span>	localVarPath := localBasePath + &#34;/api/v1/graph/snapshot&#34;
-<span id="L131" class="ln">   131  </span>
-<span id="L132" class="ln">   132  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L133" class="ln">   133  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L134" class="ln">   134  </span>	localVarFormParams := _neturl.Values{}
-<span id="L135" class="ln">   135  </span>	if r.start == nil {
-<span id="L136" class="ln">   136  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;start is required and must be specified&#34;)
-<span id="L137" class="ln">   137  </span>	}
-<span id="L138" class="ln">   138  </span>	if r.end == nil {
-<span id="L139" class="ln">   139  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;end is required and must be specified&#34;)
-<span id="L140" class="ln">   140  </span>	}
-<span id="L141" class="ln">   141  </span>	localVarQueryParams.Add(&#34;start&#34;, datadog.ParameterToString(*r.start, &#34;&#34;))
-<span id="L142" class="ln">   142  </span>	localVarQueryParams.Add(&#34;end&#34;, datadog.ParameterToString(*r.end, &#34;&#34;))
-<span id="L143" class="ln">   143  </span>	if r.metricQuery != nil {
-<span id="L144" class="ln">   144  </span>		localVarQueryParams.Add(&#34;metric_query&#34;, datadog.ParameterToString(*r.metricQuery, &#34;&#34;))
-<span id="L145" class="ln">   145  </span>	}
-<span id="L146" class="ln">   146  </span>	if r.eventQuery != nil {
-<span id="L147" class="ln">   147  </span>		localVarQueryParams.Add(&#34;event_query&#34;, datadog.ParameterToString(*r.eventQuery, &#34;&#34;))
-<span id="L148" class="ln">   148  </span>	}
-<span id="L149" class="ln">   149  </span>	if r.graphDef != nil {
-<span id="L150" class="ln">   150  </span>		localVarQueryParams.Add(&#34;graph_def&#34;, datadog.ParameterToString(*r.graphDef, &#34;&#34;))
-<span id="L151" class="ln">   151  </span>	}
-<span id="L152" class="ln">   152  </span>	if r.title != nil {
-<span id="L153" class="ln">   153  </span>		localVarQueryParams.Add(&#34;title&#34;, datadog.ParameterToString(*r.title, &#34;&#34;))
-<span id="L154" class="ln">   154  </span>	}
-<span id="L155" class="ln">   155  </span>	if r.height != nil {
-<span id="L156" class="ln">   156  </span>		localVarQueryParams.Add(&#34;height&#34;, datadog.ParameterToString(*r.height, &#34;&#34;))
-<span id="L157" class="ln">   157  </span>	}
-<span id="L158" class="ln">   158  </span>	if r.width != nil {
-<span id="L159" class="ln">   159  </span>		localVarQueryParams.Add(&#34;width&#34;, datadog.ParameterToString(*r.width, &#34;&#34;))
-<span id="L160" class="ln">   160  </span>	}
-<span id="L161" class="ln">   161  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L162" class="ln">   162  </span>
-<span id="L163" class="ln">   163  </span>	datadog.SetAuthKeys(
-<span id="L164" class="ln">   164  </span>		r.ctx,
-<span id="L165" class="ln">   165  </span>		&amp;localVarHeaderParams,
-<span id="L166" class="ln">   166  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L167" class="ln">   167  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L168" class="ln">   168  </span>	)
-<span id="L169" class="ln">   169  </span>	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L170" class="ln">   170  </span>	if err != nil {
-<span id="L171" class="ln">   171  </span>		return localVarReturnValue, nil, err
-<span id="L172" class="ln">   172  </span>	}
-<span id="L173" class="ln">   173  </span>
-<span id="L174" class="ln">   174  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L175" class="ln">   175  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L176" class="ln">   176  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L177" class="ln">   177  </span>	}
-<span id="L178" class="ln">   178  </span>
-<span id="L179" class="ln">   179  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L180" class="ln">   180  </span>	if err != nil {
-<span id="L181" class="ln">   181  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L182" class="ln">   182  </span>	}
-<span id="L183" class="ln">   183  </span>
-<span id="L184" class="ln">   184  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L185" class="ln">   185  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L186" class="ln">   186  </span>			ErrorBody:    localVarBody,
-<span id="L187" class="ln">   187  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L188" class="ln">   188  </span>		}
-<span id="L189" class="ln">   189  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L190" class="ln">   190  </span>			var v APIErrorResponse
-<span id="L191" class="ln">   191  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L192" class="ln">   192  </span>			if err != nil {
-<span id="L193" class="ln">   193  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L194" class="ln">   194  </span>			}
-<span id="L195" class="ln">   195  </span>			newErr.ErrorModel = v
-<span id="L196" class="ln">   196  </span>		}
-<span id="L197" class="ln">   197  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L198" class="ln">   198  </span>	}
-<span id="L199" class="ln">   199  </span>
-<span id="L200" class="ln">   200  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L201" class="ln">   201  </span>	if err != nil {
-<span id="L202" class="ln">   202  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L203" class="ln">   203  </span>			ErrorBody:    localVarBody,
-<span id="L204" class="ln">   204  </span>			ErrorMessage: err.Error(),
-<span id="L205" class="ln">   205  </span>		}
-<span id="L206" class="ln">   206  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L207" class="ln">   207  </span>	}
-<span id="L208" class="ln">   208  </span>
-<span id="L209" class="ln">   209  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L210" class="ln">   210  </span>}
-<span id="L211" class="ln">   211  </span>
-<span id="L212" class="ln">   212  </span><span class="comment">// NewSnapshotsApi Returns NewSnapshotsApi.</span>
-<span id="L213" class="ln">   213  </span>func NewSnapshotsApi(client *datadog.APIClient) *SnapshotsApi {
-<span id="L214" class="ln">   214  </span>	return &amp;SnapshotsApi{
-<span id="L215" class="ln">   215  </span>		Client: client,
-<span id="L216" class="ln">   216  </span>	}
-<span id="L217" class="ln">   217  </span>}
-<span id="L218" class="ln">   218  </span>
+<span id="L93" class="ln">    93  </span>	localVarPath := localBasePath + &#34;/api/v1/graph/snapshot&#34;
+<span id="L94" class="ln">    94  </span>
+<span id="L95" class="ln">    95  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L96" class="ln">    96  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L97" class="ln">    97  </span>	localVarFormParams := _neturl.Values{}
+<span id="L98" class="ln">    98  </span>	localVarQueryParams.Add(&#34;start&#34;, datadog.ParameterToString(start, &#34;&#34;))
+<span id="L99" class="ln">    99  </span>	localVarQueryParams.Add(&#34;end&#34;, datadog.ParameterToString(end, &#34;&#34;))
+<span id="L100" class="ln">   100  </span>	if optionalParams.MetricQuery != nil {
+<span id="L101" class="ln">   101  </span>		localVarQueryParams.Add(&#34;metric_query&#34;, datadog.ParameterToString(*optionalParams.MetricQuery, &#34;&#34;))
+<span id="L102" class="ln">   102  </span>	}
+<span id="L103" class="ln">   103  </span>	if optionalParams.EventQuery != nil {
+<span id="L104" class="ln">   104  </span>		localVarQueryParams.Add(&#34;event_query&#34;, datadog.ParameterToString(*optionalParams.EventQuery, &#34;&#34;))
+<span id="L105" class="ln">   105  </span>	}
+<span id="L106" class="ln">   106  </span>	if optionalParams.GraphDef != nil {
+<span id="L107" class="ln">   107  </span>		localVarQueryParams.Add(&#34;graph_def&#34;, datadog.ParameterToString(*optionalParams.GraphDef, &#34;&#34;))
+<span id="L108" class="ln">   108  </span>	}
+<span id="L109" class="ln">   109  </span>	if optionalParams.Title != nil {
+<span id="L110" class="ln">   110  </span>		localVarQueryParams.Add(&#34;title&#34;, datadog.ParameterToString(*optionalParams.Title, &#34;&#34;))
+<span id="L111" class="ln">   111  </span>	}
+<span id="L112" class="ln">   112  </span>	if optionalParams.Height != nil {
+<span id="L113" class="ln">   113  </span>		localVarQueryParams.Add(&#34;height&#34;, datadog.ParameterToString(*optionalParams.Height, &#34;&#34;))
+<span id="L114" class="ln">   114  </span>	}
+<span id="L115" class="ln">   115  </span>	if optionalParams.Width != nil {
+<span id="L116" class="ln">   116  </span>		localVarQueryParams.Add(&#34;width&#34;, datadog.ParameterToString(*optionalParams.Width, &#34;&#34;))
+<span id="L117" class="ln">   117  </span>	}
+<span id="L118" class="ln">   118  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L119" class="ln">   119  </span>
+<span id="L120" class="ln">   120  </span>	datadog.SetAuthKeys(
+<span id="L121" class="ln">   121  </span>		ctx,
+<span id="L122" class="ln">   122  </span>		&amp;localVarHeaderParams,
+<span id="L123" class="ln">   123  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L124" class="ln">   124  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L125" class="ln">   125  </span>	)
+<span id="L126" class="ln">   126  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L127" class="ln">   127  </span>	if err != nil {
+<span id="L128" class="ln">   128  </span>		return localVarReturnValue, nil, err
+<span id="L129" class="ln">   129  </span>	}
+<span id="L130" class="ln">   130  </span>
+<span id="L131" class="ln">   131  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L132" class="ln">   132  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L133" class="ln">   133  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L134" class="ln">   134  </span>	}
+<span id="L135" class="ln">   135  </span>
+<span id="L136" class="ln">   136  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L137" class="ln">   137  </span>	if err != nil {
+<span id="L138" class="ln">   138  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L139" class="ln">   139  </span>	}
+<span id="L140" class="ln">   140  </span>
+<span id="L141" class="ln">   141  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L142" class="ln">   142  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L143" class="ln">   143  </span>			ErrorBody:    localVarBody,
+<span id="L144" class="ln">   144  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L145" class="ln">   145  </span>		}
+<span id="L146" class="ln">   146  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L147" class="ln">   147  </span>			var v APIErrorResponse
+<span id="L148" class="ln">   148  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L149" class="ln">   149  </span>			if err != nil {
+<span id="L150" class="ln">   150  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L151" class="ln">   151  </span>			}
+<span id="L152" class="ln">   152  </span>			newErr.ErrorModel = v
+<span id="L153" class="ln">   153  </span>		}
+<span id="L154" class="ln">   154  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L155" class="ln">   155  </span>	}
+<span id="L156" class="ln">   156  </span>
+<span id="L157" class="ln">   157  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L158" class="ln">   158  </span>	if err != nil {
+<span id="L159" class="ln">   159  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L160" class="ln">   160  </span>			ErrorBody:    localVarBody,
+<span id="L161" class="ln">   161  </span>			ErrorMessage: err.Error(),
+<span id="L162" class="ln">   162  </span>		}
+<span id="L163" class="ln">   163  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L164" class="ln">   164  </span>	}
+<span id="L165" class="ln">   165  </span>
+<span id="L166" class="ln">   166  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L167" class="ln">   167  </span>}
+<span id="L168" class="ln">   168  </span>
+<span id="L169" class="ln">   169  </span><span class="comment">// NewSnapshotsApi Returns NewSnapshotsApi.</span>
+<span id="L170" class="ln">   170  </span>func NewSnapshotsApi(client *datadog.APIClient) *SnapshotsApi {
+<span id="L171" class="ln">   171  </span>	return &amp;SnapshotsApi{
+<span id="L172" class="ln">   172  </span>		Client: client,
+<span id="L173" class="ln">   173  </span>	}
+<span id="L174" class="ln">   174  </span>}
+<span id="L175" class="ln">   175  </span>
 </pre><p></p>
 
 <div id="footer">
