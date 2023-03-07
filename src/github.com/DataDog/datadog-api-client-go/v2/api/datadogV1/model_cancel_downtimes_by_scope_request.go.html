@@ -68,7 +68,7 @@
 <span id="L11" class="ln">    11  </span>
 <span id="L12" class="ln">    12  </span><span class="comment">// CancelDowntimesByScopeRequest Cancel downtimes according to scope.</span>
 <span id="L13" class="ln">    13  </span>type CancelDowntimesByScopeRequest struct {
-<span id="L14" class="ln">    14  </span>	<span class="comment">// The scope(s) to which the downtime applies. For example, `host:app2`.</span>
+<span id="L14" class="ln">    14  </span>	<span class="comment">// The scope(s) to which the downtime applies and must be in `key:value` format. For example, `host:app2`.</span>
 <span id="L15" class="ln">    15  </span>	<span class="comment">// Provide multiple scopes as a comma-separated list like `env:dev,env:prod`.</span>
 <span id="L16" class="ln">    16  </span>	<span class="comment">// The resulting downtime applies to sources that matches ALL provided scopes (`env:dev` **AND** `env:prod`).</span>
 <span id="L17" class="ln">    17  </span>	Scope string `json:&#34;scope&#34;`

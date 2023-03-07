@@ -109,7 +109,7 @@
 <span id="L52" class="ln">    52  </span>	ParentId datadog.NullableInt64 `json:&#34;parent_id,omitempty&#34;`
 <span id="L53" class="ln">    53  </span>	<span class="comment">// An object defining the recurrence of the downtime.</span>
 <span id="L54" class="ln">    54  </span>	Recurrence NullableDowntimeRecurrence `json:&#34;recurrence,omitempty&#34;`
-<span id="L55" class="ln">    55  </span>	<span class="comment">// The scope(s) to which the downtime applies. For example, `host:app2`.</span>
+<span id="L55" class="ln">    55  </span>	<span class="comment">// The scope(s) to which the downtime applies and must be in `key:value` format. For example, `host:app2`.</span>
 <span id="L56" class="ln">    56  </span>	<span class="comment">// Provide multiple scopes as a comma-separated list like `env:dev,env:prod`.</span>
 <span id="L57" class="ln">    57  </span>	<span class="comment">// The resulting downtime applies to sources that matches ALL provided scopes (`env:dev` **AND** `env:prod`).</span>
 <span id="L58" class="ln">    58  </span>	Scope []string `json:&#34;scope,omitempty&#34;`
