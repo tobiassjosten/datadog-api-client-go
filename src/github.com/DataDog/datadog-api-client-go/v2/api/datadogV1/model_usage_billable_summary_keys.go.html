@@ -13,7 +13,7 @@
 
 
 
-<script>var goVersion = "go1.19.6";</script>
+<script>var goVersion = "go1.19.7";</script>
 <script src="https://datadoghq.dev/datadog-api-client-go/lib/godoc/godocs.js" defer=""></script>
 
 </head>
@@ -86,7 +86,7 @@
 <span id="L29" class="ln">    29  </span>	<span class="comment">// Response with properties for each aggregated usage type.</span>
 <span id="L30" class="ln">    30  </span>	ApplicationSecurityHostSum *UsageBillableSummaryBody `json:&#34;application_security_host_sum,omitempty&#34;`
 <span id="L31" class="ln">    31  </span>	<span class="comment">// Response with properties for each aggregated usage type.</span>
-<span id="L32" class="ln">    32  </span>	ApplicationSecurityHostTop99 *UsageBillableSummaryBody `json:&#34;application_security_host_top99,omitempty&#34;`
+<span id="L32" class="ln">    32  </span>	ApplicationSecurityHostTop99p *UsageBillableSummaryBody `json:&#34;application_security_host_top99p,omitempty&#34;`
 <span id="L33" class="ln">    33  </span>	<span class="comment">// Response with properties for each aggregated usage type.</span>
 <span id="L34" class="ln">    34  </span>	CiPipelineIndexedSpansSum *UsageBillableSummaryBody `json:&#34;ci_pipeline_indexed_spans_sum,omitempty&#34;`
 <span id="L35" class="ln">    35  </span>	<span class="comment">// Response with properties for each aggregated usage type.</span>
@@ -517,32 +517,32 @@
 <span id="L460" class="ln">   460  </span>	o.ApplicationSecurityHostSum = &amp;v
 <span id="L461" class="ln">   461  </span>}
 <span id="L462" class="ln">   462  </span>
-<span id="L463" class="ln">   463  </span><span class="comment">// GetApplicationSecurityHostTop99 returns the ApplicationSecurityHostTop99 field value if set, zero value otherwise.</span>
-<span id="L464" class="ln">   464  </span>func (o *UsageBillableSummaryKeys) GetApplicationSecurityHostTop99() UsageBillableSummaryBody {
-<span id="L465" class="ln">   465  </span>	if o == nil || o.ApplicationSecurityHostTop99 == nil {
+<span id="L463" class="ln">   463  </span><span class="comment">// GetApplicationSecurityHostTop99p returns the ApplicationSecurityHostTop99p field value if set, zero value otherwise.</span>
+<span id="L464" class="ln">   464  </span>func (o *UsageBillableSummaryKeys) GetApplicationSecurityHostTop99p() UsageBillableSummaryBody {
+<span id="L465" class="ln">   465  </span>	if o == nil || o.ApplicationSecurityHostTop99p == nil {
 <span id="L466" class="ln">   466  </span>		var ret UsageBillableSummaryBody
 <span id="L467" class="ln">   467  </span>		return ret
 <span id="L468" class="ln">   468  </span>	}
-<span id="L469" class="ln">   469  </span>	return *o.ApplicationSecurityHostTop99
+<span id="L469" class="ln">   469  </span>	return *o.ApplicationSecurityHostTop99p
 <span id="L470" class="ln">   470  </span>}
 <span id="L471" class="ln">   471  </span>
-<span id="L472" class="ln">   472  </span><span class="comment">// GetApplicationSecurityHostTop99Ok returns a tuple with the ApplicationSecurityHostTop99 field value if set, nil otherwise</span>
+<span id="L472" class="ln">   472  </span><span class="comment">// GetApplicationSecurityHostTop99pOk returns a tuple with the ApplicationSecurityHostTop99p field value if set, nil otherwise</span>
 <span id="L473" class="ln">   473  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L474" class="ln">   474  </span>func (o *UsageBillableSummaryKeys) GetApplicationSecurityHostTop99Ok() (*UsageBillableSummaryBody, bool) {
-<span id="L475" class="ln">   475  </span>	if o == nil || o.ApplicationSecurityHostTop99 == nil {
+<span id="L474" class="ln">   474  </span>func (o *UsageBillableSummaryKeys) GetApplicationSecurityHostTop99pOk() (*UsageBillableSummaryBody, bool) {
+<span id="L475" class="ln">   475  </span>	if o == nil || o.ApplicationSecurityHostTop99p == nil {
 <span id="L476" class="ln">   476  </span>		return nil, false
 <span id="L477" class="ln">   477  </span>	}
-<span id="L478" class="ln">   478  </span>	return o.ApplicationSecurityHostTop99, true
+<span id="L478" class="ln">   478  </span>	return o.ApplicationSecurityHostTop99p, true
 <span id="L479" class="ln">   479  </span>}
 <span id="L480" class="ln">   480  </span>
-<span id="L481" class="ln">   481  </span><span class="comment">// HasApplicationSecurityHostTop99 returns a boolean if a field has been set.</span>
-<span id="L482" class="ln">   482  </span>func (o *UsageBillableSummaryKeys) HasApplicationSecurityHostTop99() bool {
-<span id="L483" class="ln">   483  </span>	return o != nil &amp;&amp; o.ApplicationSecurityHostTop99 != nil
+<span id="L481" class="ln">   481  </span><span class="comment">// HasApplicationSecurityHostTop99p returns a boolean if a field has been set.</span>
+<span id="L482" class="ln">   482  </span>func (o *UsageBillableSummaryKeys) HasApplicationSecurityHostTop99p() bool {
+<span id="L483" class="ln">   483  </span>	return o != nil &amp;&amp; o.ApplicationSecurityHostTop99p != nil
 <span id="L484" class="ln">   484  </span>}
 <span id="L485" class="ln">   485  </span>
-<span id="L486" class="ln">   486  </span><span class="comment">// SetApplicationSecurityHostTop99 gets a reference to the given UsageBillableSummaryBody and assigns it to the ApplicationSecurityHostTop99 field.</span>
-<span id="L487" class="ln">   487  </span>func (o *UsageBillableSummaryKeys) SetApplicationSecurityHostTop99(v UsageBillableSummaryBody) {
-<span id="L488" class="ln">   488  </span>	o.ApplicationSecurityHostTop99 = &amp;v
+<span id="L486" class="ln">   486  </span><span class="comment">// SetApplicationSecurityHostTop99p gets a reference to the given UsageBillableSummaryBody and assigns it to the ApplicationSecurityHostTop99p field.</span>
+<span id="L487" class="ln">   487  </span>func (o *UsageBillableSummaryKeys) SetApplicationSecurityHostTop99p(v UsageBillableSummaryBody) {
+<span id="L488" class="ln">   488  </span>	o.ApplicationSecurityHostTop99p = &amp;v
 <span id="L489" class="ln">   489  </span>}
 <span id="L490" class="ln">   490  </span>
 <span id="L491" class="ln">   491  </span><span class="comment">// GetCiPipelineIndexedSpansSum returns the CiPipelineIndexedSpansSum field value if set, zero value otherwise.</span>
@@ -2762,8 +2762,8 @@
 <span id="L2705" class="ln">  2705  </span>	if o.ApplicationSecurityHostSum != nil {
 <span id="L2706" class="ln">  2706  </span>		toSerialize[&#34;application_security_host_sum&#34;] = o.ApplicationSecurityHostSum
 <span id="L2707" class="ln">  2707  </span>	}
-<span id="L2708" class="ln">  2708  </span>	if o.ApplicationSecurityHostTop99 != nil {
-<span id="L2709" class="ln">  2709  </span>		toSerialize[&#34;application_security_host_top99&#34;] = o.ApplicationSecurityHostTop99
+<span id="L2708" class="ln">  2708  </span>	if o.ApplicationSecurityHostTop99p != nil {
+<span id="L2709" class="ln">  2709  </span>		toSerialize[&#34;application_security_host_top99p&#34;] = o.ApplicationSecurityHostTop99p
 <span id="L2710" class="ln">  2710  </span>	}
 <span id="L2711" class="ln">  2711  </span>	if o.CiPipelineIndexedSpansSum != nil {
 <span id="L2712" class="ln">  2712  </span>		toSerialize[&#34;ci_pipeline_indexed_spans_sum&#34;] = o.CiPipelineIndexedSpansSum
@@ -3019,7 +3019,7 @@
 <span id="L2962" class="ln">  2962  </span>		ApmTraceSearchSum                     *UsageBillableSummaryBody `json:&#34;apm_trace_search_sum,omitempty&#34;`
 <span id="L2963" class="ln">  2963  </span>		ApplicationSecurityFargateAverage     *UsageBillableSummaryBody `json:&#34;application_security_fargate_average,omitempty&#34;`
 <span id="L2964" class="ln">  2964  </span>		ApplicationSecurityHostSum            *UsageBillableSummaryBody `json:&#34;application_security_host_sum,omitempty&#34;`
-<span id="L2965" class="ln">  2965  </span>		ApplicationSecurityHostTop99          *UsageBillableSummaryBody `json:&#34;application_security_host_top99,omitempty&#34;`
+<span id="L2965" class="ln">  2965  </span>		ApplicationSecurityHostTop99p         *UsageBillableSummaryBody `json:&#34;application_security_host_top99p,omitempty&#34;`
 <span id="L2966" class="ln">  2966  </span>		CiPipelineIndexedSpansSum             *UsageBillableSummaryBody `json:&#34;ci_pipeline_indexed_spans_sum,omitempty&#34;`
 <span id="L2967" class="ln">  2967  </span>		CiPipelineMaximum                     *UsageBillableSummaryBody `json:&#34;ci_pipeline_maximum,omitempty&#34;`
 <span id="L2968" class="ln">  2968  </span>		CiPipelineSum                         *UsageBillableSummaryBody `json:&#34;ci_pipeline_sum,omitempty&#34;`
@@ -3180,14 +3180,14 @@
 <span id="L3123" class="ln">  3123  </span>		o.UnparsedObject = raw
 <span id="L3124" class="ln">  3124  </span>	}
 <span id="L3125" class="ln">  3125  </span>	o.ApplicationSecurityHostSum = all.ApplicationSecurityHostSum
-<span id="L3126" class="ln">  3126  </span>	if all.ApplicationSecurityHostTop99 != nil &amp;&amp; all.ApplicationSecurityHostTop99.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L3126" class="ln">  3126  </span>	if all.ApplicationSecurityHostTop99p != nil &amp;&amp; all.ApplicationSecurityHostTop99p.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L3127" class="ln">  3127  </span>		err = json.Unmarshal(bytes, &amp;raw)
 <span id="L3128" class="ln">  3128  </span>		if err != nil {
 <span id="L3129" class="ln">  3129  </span>			return err
 <span id="L3130" class="ln">  3130  </span>		}
 <span id="L3131" class="ln">  3131  </span>		o.UnparsedObject = raw
 <span id="L3132" class="ln">  3132  </span>	}
-<span id="L3133" class="ln">  3133  </span>	o.ApplicationSecurityHostTop99 = all.ApplicationSecurityHostTop99
+<span id="L3133" class="ln">  3133  </span>	o.ApplicationSecurityHostTop99p = all.ApplicationSecurityHostTop99p
 <span id="L3134" class="ln">  3134  </span>	if all.CiPipelineIndexedSpansSum != nil &amp;&amp; all.CiPipelineIndexedSpansSum.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L3135" class="ln">  3135  </span>		err = json.Unmarshal(bytes, &amp;raw)
 <span id="L3136" class="ln">  3136  </span>		if err != nil {
@@ -3818,7 +3818,7 @@
 </pre><p></p>
 
 <div id="footer">
-Build version go1.19.6.<br/>
+Build version go1.19.7.<br/>
 </div>
 
 </div><!-- .container -->
