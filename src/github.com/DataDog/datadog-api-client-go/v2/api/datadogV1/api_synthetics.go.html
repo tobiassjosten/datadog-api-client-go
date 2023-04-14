@@ -739,7 +739,7 @@
 <span id="L682" class="ln">   682  </span>}
 <span id="L683" class="ln">   683  </span>
 <span id="L684" class="ln">   684  </span><span class="comment">// GetAPITestLatestResults Get an API test&#39;s latest results summaries.</span>
-<span id="L685" class="ln">   685  </span><span class="comment">// Get the last 50 test results summaries for a given Synthetics API test.</span>
+<span id="L685" class="ln">   685  </span><span class="comment">// Get the last 150 test results summaries for a given Synthetics API test.</span>
 <span id="L686" class="ln">   686  </span>func (a *SyntheticsApi) GetAPITestLatestResults(ctx _context.Context, publicId string, o ...GetAPITestLatestResultsOptionalParameters) (SyntheticsGetAPITestLatestResultsResponse, *_nethttp.Response, error) {
 <span id="L687" class="ln">   687  </span>	var (
 <span id="L688" class="ln">   688  </span>		localVarHTTPMethod  = _nethttp.MethodGet
@@ -1010,7 +1010,7 @@
 <span id="L953" class="ln">   953  </span>}
 <span id="L954" class="ln">   954  </span>
 <span id="L955" class="ln">   955  </span><span class="comment">// GetBrowserTestLatestResults Get a browser test&#39;s latest results summaries.</span>
-<span id="L956" class="ln">   956  </span><span class="comment">// Get the last 50 test results summaries for a given Synthetics Browser test.</span>
+<span id="L956" class="ln">   956  </span><span class="comment">// Get the last 150 test results summaries for a given Synthetics Browser test.</span>
 <span id="L957" class="ln">   957  </span>func (a *SyntheticsApi) GetBrowserTestLatestResults(ctx _context.Context, publicId string, o ...GetBrowserTestLatestResultsOptionalParameters) (SyntheticsGetBrowserTestLatestResultsResponse, *_nethttp.Response, error) {
 <span id="L958" class="ln">   958  </span>	var (
 <span id="L959" class="ln">   959  </span>		localVarHTTPMethod  = _nethttp.MethodGet
