@@ -220,9 +220,9 @@
 <span id="L163" class="ln">   163  </span>	o.TagConfigSource = &amp;v
 <span id="L164" class="ln">   164  </span>}
 <span id="L165" class="ln">   165  </span>
-<span id="L166" class="ln">   166  </span><span class="comment">// GetTags returns the Tags field value if set, zero value otherwise.</span>
+<span id="L166" class="ln">   166  </span><span class="comment">// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).</span>
 <span id="L167" class="ln">   167  </span>func (o *UsageAttributionBody) GetTags() map[string][]string {
-<span id="L168" class="ln">   168  </span>	if o == nil || o.Tags == nil {
+<span id="L168" class="ln">   168  </span>	if o == nil {
 <span id="L169" class="ln">   169  </span>		var ret map[string][]string
 <span id="L170" class="ln">   170  </span>		return ret
 <span id="L171" class="ln">   171  </span>	}
@@ -231,155 +231,156 @@
 <span id="L174" class="ln">   174  </span>
 <span id="L175" class="ln">   175  </span><span class="comment">// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise</span>
 <span id="L176" class="ln">   176  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L177" class="ln">   177  </span>func (o *UsageAttributionBody) GetTagsOk() (*map[string][]string, bool) {
-<span id="L178" class="ln">   178  </span>	if o == nil || o.Tags == nil {
-<span id="L179" class="ln">   179  </span>		return nil, false
-<span id="L180" class="ln">   180  </span>	}
-<span id="L181" class="ln">   181  </span>	return &amp;o.Tags, true
-<span id="L182" class="ln">   182  </span>}
-<span id="L183" class="ln">   183  </span>
-<span id="L184" class="ln">   184  </span><span class="comment">// HasTags returns a boolean if a field has been set.</span>
-<span id="L185" class="ln">   185  </span>func (o *UsageAttributionBody) HasTags() bool {
-<span id="L186" class="ln">   186  </span>	return o != nil &amp;&amp; o.Tags != nil
-<span id="L187" class="ln">   187  </span>}
-<span id="L188" class="ln">   188  </span>
-<span id="L189" class="ln">   189  </span><span class="comment">// SetTags gets a reference to the given map[string][]string and assigns it to the Tags field.</span>
-<span id="L190" class="ln">   190  </span>func (o *UsageAttributionBody) SetTags(v map[string][]string) {
-<span id="L191" class="ln">   191  </span>	o.Tags = v
-<span id="L192" class="ln">   192  </span>}
-<span id="L193" class="ln">   193  </span>
-<span id="L194" class="ln">   194  </span><span class="comment">// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.</span>
-<span id="L195" class="ln">   195  </span>func (o *UsageAttributionBody) GetUpdatedAt() string {
-<span id="L196" class="ln">   196  </span>	if o == nil || o.UpdatedAt == nil {
-<span id="L197" class="ln">   197  </span>		var ret string
-<span id="L198" class="ln">   198  </span>		return ret
-<span id="L199" class="ln">   199  </span>	}
-<span id="L200" class="ln">   200  </span>	return *o.UpdatedAt
-<span id="L201" class="ln">   201  </span>}
-<span id="L202" class="ln">   202  </span>
-<span id="L203" class="ln">   203  </span><span class="comment">// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise</span>
-<span id="L204" class="ln">   204  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L205" class="ln">   205  </span>func (o *UsageAttributionBody) GetUpdatedAtOk() (*string, bool) {
-<span id="L206" class="ln">   206  </span>	if o == nil || o.UpdatedAt == nil {
-<span id="L207" class="ln">   207  </span>		return nil, false
-<span id="L208" class="ln">   208  </span>	}
-<span id="L209" class="ln">   209  </span>	return o.UpdatedAt, true
-<span id="L210" class="ln">   210  </span>}
-<span id="L211" class="ln">   211  </span>
-<span id="L212" class="ln">   212  </span><span class="comment">// HasUpdatedAt returns a boolean if a field has been set.</span>
-<span id="L213" class="ln">   213  </span>func (o *UsageAttributionBody) HasUpdatedAt() bool {
-<span id="L214" class="ln">   214  </span>	return o != nil &amp;&amp; o.UpdatedAt != nil
-<span id="L215" class="ln">   215  </span>}
-<span id="L216" class="ln">   216  </span>
-<span id="L217" class="ln">   217  </span><span class="comment">// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.</span>
-<span id="L218" class="ln">   218  </span>func (o *UsageAttributionBody) SetUpdatedAt(v string) {
-<span id="L219" class="ln">   219  </span>	o.UpdatedAt = &amp;v
-<span id="L220" class="ln">   220  </span>}
-<span id="L221" class="ln">   221  </span>
-<span id="L222" class="ln">   222  </span><span class="comment">// GetValues returns the Values field value if set, zero value otherwise.</span>
-<span id="L223" class="ln">   223  </span>func (o *UsageAttributionBody) GetValues() UsageAttributionValues {
-<span id="L224" class="ln">   224  </span>	if o == nil || o.Values == nil {
-<span id="L225" class="ln">   225  </span>		var ret UsageAttributionValues
-<span id="L226" class="ln">   226  </span>		return ret
-<span id="L227" class="ln">   227  </span>	}
-<span id="L228" class="ln">   228  </span>	return *o.Values
-<span id="L229" class="ln">   229  </span>}
-<span id="L230" class="ln">   230  </span>
-<span id="L231" class="ln">   231  </span><span class="comment">// GetValuesOk returns a tuple with the Values field value if set, nil otherwise</span>
-<span id="L232" class="ln">   232  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L233" class="ln">   233  </span>func (o *UsageAttributionBody) GetValuesOk() (*UsageAttributionValues, bool) {
-<span id="L234" class="ln">   234  </span>	if o == nil || o.Values == nil {
-<span id="L235" class="ln">   235  </span>		return nil, false
-<span id="L236" class="ln">   236  </span>	}
-<span id="L237" class="ln">   237  </span>	return o.Values, true
-<span id="L238" class="ln">   238  </span>}
-<span id="L239" class="ln">   239  </span>
-<span id="L240" class="ln">   240  </span><span class="comment">// HasValues returns a boolean if a field has been set.</span>
-<span id="L241" class="ln">   241  </span>func (o *UsageAttributionBody) HasValues() bool {
-<span id="L242" class="ln">   242  </span>	return o != nil &amp;&amp; o.Values != nil
-<span id="L243" class="ln">   243  </span>}
-<span id="L244" class="ln">   244  </span>
-<span id="L245" class="ln">   245  </span><span class="comment">// SetValues gets a reference to the given UsageAttributionValues and assigns it to the Values field.</span>
-<span id="L246" class="ln">   246  </span>func (o *UsageAttributionBody) SetValues(v UsageAttributionValues) {
-<span id="L247" class="ln">   247  </span>	o.Values = &amp;v
-<span id="L248" class="ln">   248  </span>}
-<span id="L249" class="ln">   249  </span>
-<span id="L250" class="ln">   250  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
-<span id="L251" class="ln">   251  </span>func (o UsageAttributionBody) MarshalJSON() ([]byte, error) {
-<span id="L252" class="ln">   252  </span>	toSerialize := map[string]interface{}{}
-<span id="L253" class="ln">   253  </span>	if o.UnparsedObject != nil {
-<span id="L254" class="ln">   254  </span>		return json.Marshal(o.UnparsedObject)
-<span id="L255" class="ln">   255  </span>	}
-<span id="L256" class="ln">   256  </span>	if o.Month != nil {
-<span id="L257" class="ln">   257  </span>		if o.Month.Nanosecond() == 0 {
-<span id="L258" class="ln">   258  </span>			toSerialize[&#34;month&#34;] = o.Month.Format(&#34;2006-01-02T15:04:05Z07:00&#34;)
-<span id="L259" class="ln">   259  </span>		} else {
-<span id="L260" class="ln">   260  </span>			toSerialize[&#34;month&#34;] = o.Month.Format(&#34;2006-01-02T15:04:05.000Z07:00&#34;)
-<span id="L261" class="ln">   261  </span>		}
-<span id="L262" class="ln">   262  </span>	}
-<span id="L263" class="ln">   263  </span>	if o.OrgName != nil {
-<span id="L264" class="ln">   264  </span>		toSerialize[&#34;org_name&#34;] = o.OrgName
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	if o.PublicId != nil {
-<span id="L267" class="ln">   267  </span>		toSerialize[&#34;public_id&#34;] = o.PublicId
-<span id="L268" class="ln">   268  </span>	}
-<span id="L269" class="ln">   269  </span>	if o.TagConfigSource != nil {
-<span id="L270" class="ln">   270  </span>		toSerialize[&#34;tag_config_source&#34;] = o.TagConfigSource
-<span id="L271" class="ln">   271  </span>	}
-<span id="L272" class="ln">   272  </span>	if o.Tags != nil {
-<span id="L273" class="ln">   273  </span>		toSerialize[&#34;tags&#34;] = o.Tags
-<span id="L274" class="ln">   274  </span>	}
-<span id="L275" class="ln">   275  </span>	if o.UpdatedAt != nil {
-<span id="L276" class="ln">   276  </span>		toSerialize[&#34;updated_at&#34;] = o.UpdatedAt
-<span id="L277" class="ln">   277  </span>	}
-<span id="L278" class="ln">   278  </span>	if o.Values != nil {
-<span id="L279" class="ln">   279  </span>		toSerialize[&#34;values&#34;] = o.Values
-<span id="L280" class="ln">   280  </span>	}
-<span id="L281" class="ln">   281  </span>
-<span id="L282" class="ln">   282  </span>	for key, value := range o.AdditionalProperties {
-<span id="L283" class="ln">   283  </span>		toSerialize[key] = value
-<span id="L284" class="ln">   284  </span>	}
-<span id="L285" class="ln">   285  </span>	return json.Marshal(toSerialize)
-<span id="L286" class="ln">   286  </span>}
-<span id="L287" class="ln">   287  </span>
-<span id="L288" class="ln">   288  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
-<span id="L289" class="ln">   289  </span>func (o *UsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L290" class="ln">   290  </span>	raw := map[string]interface{}{}
-<span id="L291" class="ln">   291  </span>	all := struct {
-<span id="L292" class="ln">   292  </span>		Month           *time.Time              `json:&#34;month,omitempty&#34;`
-<span id="L293" class="ln">   293  </span>		OrgName         *string                 `json:&#34;org_name,omitempty&#34;`
-<span id="L294" class="ln">   294  </span>		PublicId        *string                 `json:&#34;public_id,omitempty&#34;`
-<span id="L295" class="ln">   295  </span>		TagConfigSource *string                 `json:&#34;tag_config_source,omitempty&#34;`
-<span id="L296" class="ln">   296  </span>		Tags            map[string][]string     `json:&#34;tags,omitempty&#34;`
-<span id="L297" class="ln">   297  </span>		UpdatedAt       *string                 `json:&#34;updated_at,omitempty&#34;`
-<span id="L298" class="ln">   298  </span>		Values          *UsageAttributionValues `json:&#34;values,omitempty&#34;`
-<span id="L299" class="ln">   299  </span>	}{}
-<span id="L300" class="ln">   300  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L301" class="ln">   301  </span>	if err != nil {
-<span id="L302" class="ln">   302  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L303" class="ln">   303  </span>		if err != nil {
-<span id="L304" class="ln">   304  </span>			return err
-<span id="L305" class="ln">   305  </span>		}
-<span id="L306" class="ln">   306  </span>		o.UnparsedObject = raw
-<span id="L307" class="ln">   307  </span>		return nil
-<span id="L308" class="ln">   308  </span>	}
-<span id="L309" class="ln">   309  </span>	o.Month = all.Month
-<span id="L310" class="ln">   310  </span>	o.OrgName = all.OrgName
-<span id="L311" class="ln">   311  </span>	o.PublicId = all.PublicId
-<span id="L312" class="ln">   312  </span>	o.TagConfigSource = all.TagConfigSource
-<span id="L313" class="ln">   313  </span>	o.Tags = all.Tags
-<span id="L314" class="ln">   314  </span>	o.UpdatedAt = all.UpdatedAt
-<span id="L315" class="ln">   315  </span>	if all.Values != nil &amp;&amp; all.Values.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L316" class="ln">   316  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L317" class="ln">   317  </span>		if err != nil {
-<span id="L318" class="ln">   318  </span>			return err
-<span id="L319" class="ln">   319  </span>		}
-<span id="L320" class="ln">   320  </span>		o.UnparsedObject = raw
-<span id="L321" class="ln">   321  </span>	}
-<span id="L322" class="ln">   322  </span>	o.Values = all.Values
-<span id="L323" class="ln">   323  </span>	return nil
-<span id="L324" class="ln">   324  </span>}
-<span id="L325" class="ln">   325  </span>
+<span id="L177" class="ln">   177  </span><span class="comment">// NOTE: If the value is an explicit nil, `nil, true` will be returned.</span>
+<span id="L178" class="ln">   178  </span>func (o *UsageAttributionBody) GetTagsOk() (*map[string][]string, bool) {
+<span id="L179" class="ln">   179  </span>	if o == nil || o.Tags == nil {
+<span id="L180" class="ln">   180  </span>		return nil, false
+<span id="L181" class="ln">   181  </span>	}
+<span id="L182" class="ln">   182  </span>	return &amp;o.Tags, true
+<span id="L183" class="ln">   183  </span>}
+<span id="L184" class="ln">   184  </span>
+<span id="L185" class="ln">   185  </span><span class="comment">// HasTags returns a boolean if a field has been set.</span>
+<span id="L186" class="ln">   186  </span>func (o *UsageAttributionBody) HasTags() bool {
+<span id="L187" class="ln">   187  </span>	return o != nil &amp;&amp; o.Tags != nil
+<span id="L188" class="ln">   188  </span>}
+<span id="L189" class="ln">   189  </span>
+<span id="L190" class="ln">   190  </span><span class="comment">// SetTags gets a reference to the given map[string][]string and assigns it to the Tags field.</span>
+<span id="L191" class="ln">   191  </span>func (o *UsageAttributionBody) SetTags(v map[string][]string) {
+<span id="L192" class="ln">   192  </span>	o.Tags = v
+<span id="L193" class="ln">   193  </span>}
+<span id="L194" class="ln">   194  </span>
+<span id="L195" class="ln">   195  </span><span class="comment">// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.</span>
+<span id="L196" class="ln">   196  </span>func (o *UsageAttributionBody) GetUpdatedAt() string {
+<span id="L197" class="ln">   197  </span>	if o == nil || o.UpdatedAt == nil {
+<span id="L198" class="ln">   198  </span>		var ret string
+<span id="L199" class="ln">   199  </span>		return ret
+<span id="L200" class="ln">   200  </span>	}
+<span id="L201" class="ln">   201  </span>	return *o.UpdatedAt
+<span id="L202" class="ln">   202  </span>}
+<span id="L203" class="ln">   203  </span>
+<span id="L204" class="ln">   204  </span><span class="comment">// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise</span>
+<span id="L205" class="ln">   205  </span><span class="comment">// and a boolean to check if the value has been set.</span>
+<span id="L206" class="ln">   206  </span>func (o *UsageAttributionBody) GetUpdatedAtOk() (*string, bool) {
+<span id="L207" class="ln">   207  </span>	if o == nil || o.UpdatedAt == nil {
+<span id="L208" class="ln">   208  </span>		return nil, false
+<span id="L209" class="ln">   209  </span>	}
+<span id="L210" class="ln">   210  </span>	return o.UpdatedAt, true
+<span id="L211" class="ln">   211  </span>}
+<span id="L212" class="ln">   212  </span>
+<span id="L213" class="ln">   213  </span><span class="comment">// HasUpdatedAt returns a boolean if a field has been set.</span>
+<span id="L214" class="ln">   214  </span>func (o *UsageAttributionBody) HasUpdatedAt() bool {
+<span id="L215" class="ln">   215  </span>	return o != nil &amp;&amp; o.UpdatedAt != nil
+<span id="L216" class="ln">   216  </span>}
+<span id="L217" class="ln">   217  </span>
+<span id="L218" class="ln">   218  </span><span class="comment">// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.</span>
+<span id="L219" class="ln">   219  </span>func (o *UsageAttributionBody) SetUpdatedAt(v string) {
+<span id="L220" class="ln">   220  </span>	o.UpdatedAt = &amp;v
+<span id="L221" class="ln">   221  </span>}
+<span id="L222" class="ln">   222  </span>
+<span id="L223" class="ln">   223  </span><span class="comment">// GetValues returns the Values field value if set, zero value otherwise.</span>
+<span id="L224" class="ln">   224  </span>func (o *UsageAttributionBody) GetValues() UsageAttributionValues {
+<span id="L225" class="ln">   225  </span>	if o == nil || o.Values == nil {
+<span id="L226" class="ln">   226  </span>		var ret UsageAttributionValues
+<span id="L227" class="ln">   227  </span>		return ret
+<span id="L228" class="ln">   228  </span>	}
+<span id="L229" class="ln">   229  </span>	return *o.Values
+<span id="L230" class="ln">   230  </span>}
+<span id="L231" class="ln">   231  </span>
+<span id="L232" class="ln">   232  </span><span class="comment">// GetValuesOk returns a tuple with the Values field value if set, nil otherwise</span>
+<span id="L233" class="ln">   233  </span><span class="comment">// and a boolean to check if the value has been set.</span>
+<span id="L234" class="ln">   234  </span>func (o *UsageAttributionBody) GetValuesOk() (*UsageAttributionValues, bool) {
+<span id="L235" class="ln">   235  </span>	if o == nil || o.Values == nil {
+<span id="L236" class="ln">   236  </span>		return nil, false
+<span id="L237" class="ln">   237  </span>	}
+<span id="L238" class="ln">   238  </span>	return o.Values, true
+<span id="L239" class="ln">   239  </span>}
+<span id="L240" class="ln">   240  </span>
+<span id="L241" class="ln">   241  </span><span class="comment">// HasValues returns a boolean if a field has been set.</span>
+<span id="L242" class="ln">   242  </span>func (o *UsageAttributionBody) HasValues() bool {
+<span id="L243" class="ln">   243  </span>	return o != nil &amp;&amp; o.Values != nil
+<span id="L244" class="ln">   244  </span>}
+<span id="L245" class="ln">   245  </span>
+<span id="L246" class="ln">   246  </span><span class="comment">// SetValues gets a reference to the given UsageAttributionValues and assigns it to the Values field.</span>
+<span id="L247" class="ln">   247  </span>func (o *UsageAttributionBody) SetValues(v UsageAttributionValues) {
+<span id="L248" class="ln">   248  </span>	o.Values = &amp;v
+<span id="L249" class="ln">   249  </span>}
+<span id="L250" class="ln">   250  </span>
+<span id="L251" class="ln">   251  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
+<span id="L252" class="ln">   252  </span>func (o UsageAttributionBody) MarshalJSON() ([]byte, error) {
+<span id="L253" class="ln">   253  </span>	toSerialize := map[string]interface{}{}
+<span id="L254" class="ln">   254  </span>	if o.UnparsedObject != nil {
+<span id="L255" class="ln">   255  </span>		return json.Marshal(o.UnparsedObject)
+<span id="L256" class="ln">   256  </span>	}
+<span id="L257" class="ln">   257  </span>	if o.Month != nil {
+<span id="L258" class="ln">   258  </span>		if o.Month.Nanosecond() == 0 {
+<span id="L259" class="ln">   259  </span>			toSerialize[&#34;month&#34;] = o.Month.Format(&#34;2006-01-02T15:04:05Z07:00&#34;)
+<span id="L260" class="ln">   260  </span>		} else {
+<span id="L261" class="ln">   261  </span>			toSerialize[&#34;month&#34;] = o.Month.Format(&#34;2006-01-02T15:04:05.000Z07:00&#34;)
+<span id="L262" class="ln">   262  </span>		}
+<span id="L263" class="ln">   263  </span>	}
+<span id="L264" class="ln">   264  </span>	if o.OrgName != nil {
+<span id="L265" class="ln">   265  </span>		toSerialize[&#34;org_name&#34;] = o.OrgName
+<span id="L266" class="ln">   266  </span>	}
+<span id="L267" class="ln">   267  </span>	if o.PublicId != nil {
+<span id="L268" class="ln">   268  </span>		toSerialize[&#34;public_id&#34;] = o.PublicId
+<span id="L269" class="ln">   269  </span>	}
+<span id="L270" class="ln">   270  </span>	if o.TagConfigSource != nil {
+<span id="L271" class="ln">   271  </span>		toSerialize[&#34;tag_config_source&#34;] = o.TagConfigSource
+<span id="L272" class="ln">   272  </span>	}
+<span id="L273" class="ln">   273  </span>	if o.Tags != nil {
+<span id="L274" class="ln">   274  </span>		toSerialize[&#34;tags&#34;] = o.Tags
+<span id="L275" class="ln">   275  </span>	}
+<span id="L276" class="ln">   276  </span>	if o.UpdatedAt != nil {
+<span id="L277" class="ln">   277  </span>		toSerialize[&#34;updated_at&#34;] = o.UpdatedAt
+<span id="L278" class="ln">   278  </span>	}
+<span id="L279" class="ln">   279  </span>	if o.Values != nil {
+<span id="L280" class="ln">   280  </span>		toSerialize[&#34;values&#34;] = o.Values
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>
+<span id="L283" class="ln">   283  </span>	for key, value := range o.AdditionalProperties {
+<span id="L284" class="ln">   284  </span>		toSerialize[key] = value
+<span id="L285" class="ln">   285  </span>	}
+<span id="L286" class="ln">   286  </span>	return json.Marshal(toSerialize)
+<span id="L287" class="ln">   287  </span>}
+<span id="L288" class="ln">   288  </span>
+<span id="L289" class="ln">   289  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
+<span id="L290" class="ln">   290  </span>func (o *UsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
+<span id="L291" class="ln">   291  </span>	raw := map[string]interface{}{}
+<span id="L292" class="ln">   292  </span>	all := struct {
+<span id="L293" class="ln">   293  </span>		Month           *time.Time              `json:&#34;month,omitempty&#34;`
+<span id="L294" class="ln">   294  </span>		OrgName         *string                 `json:&#34;org_name,omitempty&#34;`
+<span id="L295" class="ln">   295  </span>		PublicId        *string                 `json:&#34;public_id,omitempty&#34;`
+<span id="L296" class="ln">   296  </span>		TagConfigSource *string                 `json:&#34;tag_config_source,omitempty&#34;`
+<span id="L297" class="ln">   297  </span>		Tags            map[string][]string     `json:&#34;tags,omitempty&#34;`
+<span id="L298" class="ln">   298  </span>		UpdatedAt       *string                 `json:&#34;updated_at,omitempty&#34;`
+<span id="L299" class="ln">   299  </span>		Values          *UsageAttributionValues `json:&#34;values,omitempty&#34;`
+<span id="L300" class="ln">   300  </span>	}{}
+<span id="L301" class="ln">   301  </span>	err = json.Unmarshal(bytes, &amp;all)
+<span id="L302" class="ln">   302  </span>	if err != nil {
+<span id="L303" class="ln">   303  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L304" class="ln">   304  </span>		if err != nil {
+<span id="L305" class="ln">   305  </span>			return err
+<span id="L306" class="ln">   306  </span>		}
+<span id="L307" class="ln">   307  </span>		o.UnparsedObject = raw
+<span id="L308" class="ln">   308  </span>		return nil
+<span id="L309" class="ln">   309  </span>	}
+<span id="L310" class="ln">   310  </span>	o.Month = all.Month
+<span id="L311" class="ln">   311  </span>	o.OrgName = all.OrgName
+<span id="L312" class="ln">   312  </span>	o.PublicId = all.PublicId
+<span id="L313" class="ln">   313  </span>	o.TagConfigSource = all.TagConfigSource
+<span id="L314" class="ln">   314  </span>	o.Tags = all.Tags
+<span id="L315" class="ln">   315  </span>	o.UpdatedAt = all.UpdatedAt
+<span id="L316" class="ln">   316  </span>	if all.Values != nil &amp;&amp; all.Values.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L317" class="ln">   317  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L318" class="ln">   318  </span>		if err != nil {
+<span id="L319" class="ln">   319  </span>			return err
+<span id="L320" class="ln">   320  </span>		}
+<span id="L321" class="ln">   321  </span>		o.UnparsedObject = raw
+<span id="L322" class="ln">   322  </span>	}
+<span id="L323" class="ln">   323  </span>	o.Values = all.Values
+<span id="L324" class="ln">   324  </span>	return nil
+<span id="L325" class="ln">   325  </span>}
+<span id="L326" class="ln">   326  </span>
 </pre><p></p>
 
 <div id="footer">
