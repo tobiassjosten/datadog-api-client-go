@@ -77,13 +77,13 @@
 <span id="L20" class="ln">    20  </span>	End *int64 `json:&#34;end,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// Metric expression.</span>
 <span id="L22" class="ln">    22  </span>	Expression *string `json:&#34;expression,omitempty&#34;`
-<span id="L23" class="ln">    23  </span>	<span class="comment">// Number of seconds between data samples.</span>
+<span id="L23" class="ln">    23  </span>	<span class="comment">// Number of milliseconds between data samples.</span>
 <span id="L24" class="ln">    24  </span>	Interval *int64 `json:&#34;interval,omitempty&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// Number of data samples.</span>
 <span id="L26" class="ln">    26  </span>	Length *int64 `json:&#34;length,omitempty&#34;`
 <span id="L27" class="ln">    27  </span>	<span class="comment">// Metric name.</span>
 <span id="L28" class="ln">    28  </span>	Metric *string `json:&#34;metric,omitempty&#34;`
-<span id="L29" class="ln">    29  </span>	<span class="comment">// List of points of the time series.</span>
+<span id="L29" class="ln">    29  </span>	<span class="comment">// List of points of the time series in milliseconds.</span>
 <span id="L30" class="ln">    30  </span>	Pointlist [][]*float64 `json:&#34;pointlist,omitempty&#34;`
 <span id="L31" class="ln">    31  </span>	<span class="comment">// The index of the series&#39; query within the request.</span>
 <span id="L32" class="ln">    32  </span>	QueryIndex *int64 `json:&#34;query_index,omitempty&#34;`
