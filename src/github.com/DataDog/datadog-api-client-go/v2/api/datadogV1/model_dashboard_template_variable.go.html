@@ -320,14 +320,24 @@
 <span id="L263" class="ln">   263  </span>		o.UnparsedObject = raw
 <span id="L264" class="ln">   264  </span>		return nil
 <span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	o.AvailableValues = all.AvailableValues
-<span id="L267" class="ln">   267  </span>	o.Default = all.Default
-<span id="L268" class="ln">   268  </span>	o.Defaults = all.Defaults
-<span id="L269" class="ln">   269  </span>	o.Name = all.Name
-<span id="L270" class="ln">   270  </span>	o.Prefix = all.Prefix
-<span id="L271" class="ln">   271  </span>	return nil
-<span id="L272" class="ln">   272  </span>}
-<span id="L273" class="ln">   273  </span>
+<span id="L266" class="ln">   266  </span>	additionalProperties := make(map[string]interface{})
+<span id="L267" class="ln">   267  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L268" class="ln">   268  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;available_values&#34;, &#34;default&#34;, &#34;defaults&#34;, &#34;name&#34;, &#34;prefix&#34;})
+<span id="L269" class="ln">   269  </span>	} else {
+<span id="L270" class="ln">   270  </span>		return err
+<span id="L271" class="ln">   271  </span>	}
+<span id="L272" class="ln">   272  </span>	o.AvailableValues = all.AvailableValues
+<span id="L273" class="ln">   273  </span>	o.Default = all.Default
+<span id="L274" class="ln">   274  </span>	o.Defaults = all.Defaults
+<span id="L275" class="ln">   275  </span>	o.Name = all.Name
+<span id="L276" class="ln">   276  </span>	o.Prefix = all.Prefix
+<span id="L277" class="ln">   277  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L278" class="ln">   278  </span>		o.AdditionalProperties = additionalProperties
+<span id="L279" class="ln">   279  </span>	}
+<span id="L280" class="ln">   280  </span>
+<span id="L281" class="ln">   281  </span>	return nil
+<span id="L282" class="ln">   282  </span>}
+<span id="L283" class="ln">   283  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -524,50 +524,60 @@
 <span id="L467" class="ln">   467  </span>		o.UnparsedObject = raw
 <span id="L468" class="ln">   468  </span>		return nil
 <span id="L469" class="ln">   469  </span>	}
-<span id="L470" class="ln">   470  </span>	if v := all.DashboardType; !v.IsValid() {
-<span id="L471" class="ln">   471  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L472" class="ln">   472  </span>		if err != nil {
-<span id="L473" class="ln">   473  </span>			return err
-<span id="L474" class="ln">   474  </span>		}
-<span id="L475" class="ln">   475  </span>		o.UnparsedObject = raw
-<span id="L476" class="ln">   476  </span>		return nil
-<span id="L477" class="ln">   477  </span>	}
-<span id="L478" class="ln">   478  </span>	if v := all.ShareType; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L479" class="ln">   479  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L480" class="ln">   480  </span>		if err != nil {
-<span id="L481" class="ln">   481  </span>			return err
-<span id="L482" class="ln">   482  </span>		}
-<span id="L483" class="ln">   483  </span>		o.UnparsedObject = raw
-<span id="L484" class="ln">   484  </span>		return nil
-<span id="L485" class="ln">   485  </span>	}
-<span id="L486" class="ln">   486  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L487" class="ln">   487  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L488" class="ln">   488  </span>		if err != nil {
-<span id="L489" class="ln">   489  </span>			return err
-<span id="L490" class="ln">   490  </span>		}
-<span id="L491" class="ln">   491  </span>		o.UnparsedObject = raw
-<span id="L492" class="ln">   492  </span>	}
-<span id="L493" class="ln">   493  </span>	o.Author = all.Author
-<span id="L494" class="ln">   494  </span>	o.CreatedAt = all.CreatedAt
-<span id="L495" class="ln">   495  </span>	o.DashboardId = all.DashboardId
-<span id="L496" class="ln">   496  </span>	o.DashboardType = all.DashboardType
-<span id="L497" class="ln">   497  </span>	if all.GlobalTime != nil &amp;&amp; all.GlobalTime.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L498" class="ln">   498  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L499" class="ln">   499  </span>		if err != nil {
-<span id="L500" class="ln">   500  </span>			return err
-<span id="L501" class="ln">   501  </span>		}
-<span id="L502" class="ln">   502  </span>		o.UnparsedObject = raw
-<span id="L503" class="ln">   503  </span>	}
-<span id="L504" class="ln">   504  </span>	o.GlobalTime = all.GlobalTime
-<span id="L505" class="ln">   505  </span>	o.GlobalTimeSelectableEnabled = all.GlobalTimeSelectableEnabled
-<span id="L506" class="ln">   506  </span>	o.PublicUrl = all.PublicUrl
-<span id="L507" class="ln">   507  </span>	o.SelectableTemplateVars = all.SelectableTemplateVars
-<span id="L508" class="ln">   508  </span>	o.ShareList = all.ShareList
-<span id="L509" class="ln">   509  </span>	o.ShareType = all.ShareType
-<span id="L510" class="ln">   510  </span>	o.Token = all.Token
-<span id="L511" class="ln">   511  </span>	return nil
-<span id="L512" class="ln">   512  </span>}
-<span id="L513" class="ln">   513  </span>
+<span id="L470" class="ln">   470  </span>	additionalProperties := make(map[string]interface{})
+<span id="L471" class="ln">   471  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L472" class="ln">   472  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author&#34;, &#34;created_at&#34;, &#34;dashboard_id&#34;, &#34;dashboard_type&#34;, &#34;global_time&#34;, &#34;global_time_selectable_enabled&#34;, &#34;public_url&#34;, &#34;selectable_template_vars&#34;, &#34;share_list&#34;, &#34;share_type&#34;, &#34;token&#34;})
+<span id="L473" class="ln">   473  </span>	} else {
+<span id="L474" class="ln">   474  </span>		return err
+<span id="L475" class="ln">   475  </span>	}
+<span id="L476" class="ln">   476  </span>	if v := all.DashboardType; !v.IsValid() {
+<span id="L477" class="ln">   477  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L478" class="ln">   478  </span>		if err != nil {
+<span id="L479" class="ln">   479  </span>			return err
+<span id="L480" class="ln">   480  </span>		}
+<span id="L481" class="ln">   481  </span>		o.UnparsedObject = raw
+<span id="L482" class="ln">   482  </span>		return nil
+<span id="L483" class="ln">   483  </span>	}
+<span id="L484" class="ln">   484  </span>	if v := all.ShareType; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
+<span id="L485" class="ln">   485  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L486" class="ln">   486  </span>		if err != nil {
+<span id="L487" class="ln">   487  </span>			return err
+<span id="L488" class="ln">   488  </span>		}
+<span id="L489" class="ln">   489  </span>		o.UnparsedObject = raw
+<span id="L490" class="ln">   490  </span>		return nil
+<span id="L491" class="ln">   491  </span>	}
+<span id="L492" class="ln">   492  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L493" class="ln">   493  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L494" class="ln">   494  </span>		if err != nil {
+<span id="L495" class="ln">   495  </span>			return err
+<span id="L496" class="ln">   496  </span>		}
+<span id="L497" class="ln">   497  </span>		o.UnparsedObject = raw
+<span id="L498" class="ln">   498  </span>	}
+<span id="L499" class="ln">   499  </span>	o.Author = all.Author
+<span id="L500" class="ln">   500  </span>	o.CreatedAt = all.CreatedAt
+<span id="L501" class="ln">   501  </span>	o.DashboardId = all.DashboardId
+<span id="L502" class="ln">   502  </span>	o.DashboardType = all.DashboardType
+<span id="L503" class="ln">   503  </span>	if all.GlobalTime != nil &amp;&amp; all.GlobalTime.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L504" class="ln">   504  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L505" class="ln">   505  </span>		if err != nil {
+<span id="L506" class="ln">   506  </span>			return err
+<span id="L507" class="ln">   507  </span>		}
+<span id="L508" class="ln">   508  </span>		o.UnparsedObject = raw
+<span id="L509" class="ln">   509  </span>	}
+<span id="L510" class="ln">   510  </span>	o.GlobalTime = all.GlobalTime
+<span id="L511" class="ln">   511  </span>	o.GlobalTimeSelectableEnabled = all.GlobalTimeSelectableEnabled
+<span id="L512" class="ln">   512  </span>	o.PublicUrl = all.PublicUrl
+<span id="L513" class="ln">   513  </span>	o.SelectableTemplateVars = all.SelectableTemplateVars
+<span id="L514" class="ln">   514  </span>	o.ShareList = all.ShareList
+<span id="L515" class="ln">   515  </span>	o.ShareType = all.ShareType
+<span id="L516" class="ln">   516  </span>	o.Token = all.Token
+<span id="L517" class="ln">   517  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L518" class="ln">   518  </span>		o.AdditionalProperties = additionalProperties
+<span id="L519" class="ln">   519  </span>	}
+<span id="L520" class="ln">   520  </span>
+<span id="L521" class="ln">   521  </span>	return nil
+<span id="L522" class="ln">   522  </span>}
+<span id="L523" class="ln">   523  </span>
 </pre><p></p>
 
 <div id="footer">

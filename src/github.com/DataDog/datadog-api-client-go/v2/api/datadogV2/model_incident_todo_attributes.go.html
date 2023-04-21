@@ -313,14 +313,24 @@
 <span id="L256" class="ln">   256  </span>		o.UnparsedObject = raw
 <span id="L257" class="ln">   257  </span>		return nil
 <span id="L258" class="ln">   258  </span>	}
-<span id="L259" class="ln">   259  </span>	o.Assignees = all.Assignees
-<span id="L260" class="ln">   260  </span>	o.Completed = all.Completed
-<span id="L261" class="ln">   261  </span>	o.Content = all.Content
-<span id="L262" class="ln">   262  </span>	o.DueDate = all.DueDate
-<span id="L263" class="ln">   263  </span>	o.IncidentId = all.IncidentId
-<span id="L264" class="ln">   264  </span>	return nil
-<span id="L265" class="ln">   265  </span>}
-<span id="L266" class="ln">   266  </span>
+<span id="L259" class="ln">   259  </span>	additionalProperties := make(map[string]interface{})
+<span id="L260" class="ln">   260  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L261" class="ln">   261  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;assignees&#34;, &#34;completed&#34;, &#34;content&#34;, &#34;due_date&#34;, &#34;incident_id&#34;})
+<span id="L262" class="ln">   262  </span>	} else {
+<span id="L263" class="ln">   263  </span>		return err
+<span id="L264" class="ln">   264  </span>	}
+<span id="L265" class="ln">   265  </span>	o.Assignees = all.Assignees
+<span id="L266" class="ln">   266  </span>	o.Completed = all.Completed
+<span id="L267" class="ln">   267  </span>	o.Content = all.Content
+<span id="L268" class="ln">   268  </span>	o.DueDate = all.DueDate
+<span id="L269" class="ln">   269  </span>	o.IncidentId = all.IncidentId
+<span id="L270" class="ln">   270  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L271" class="ln">   271  </span>		o.AdditionalProperties = additionalProperties
+<span id="L272" class="ln">   272  </span>	}
+<span id="L273" class="ln">   273  </span>
+<span id="L274" class="ln">   274  </span>	return nil
+<span id="L275" class="ln">   275  </span>}
+<span id="L276" class="ln">   276  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -424,17 +424,27 @@
 <span id="L367" class="ln">   367  </span>		o.UnparsedObject = raw
 <span id="L368" class="ln">   368  </span>		return nil
 <span id="L369" class="ln">   369  </span>	}
-<span id="L370" class="ln">   370  </span>	o.CreatedAt = all.CreatedAt
-<span id="L371" class="ln">   371  </span>	o.Description = all.Description
-<span id="L372" class="ln">   372  </span>	o.Handle = all.Handle
-<span id="L373" class="ln">   373  </span>	o.LinkCount = all.LinkCount
-<span id="L374" class="ln">   374  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L375" class="ln">   375  </span>	o.Name = all.Name
-<span id="L376" class="ln">   376  </span>	o.Summary = all.Summary
-<span id="L377" class="ln">   377  </span>	o.UserCount = all.UserCount
-<span id="L378" class="ln">   378  </span>	return nil
-<span id="L379" class="ln">   379  </span>}
-<span id="L380" class="ln">   380  </span>
+<span id="L370" class="ln">   370  </span>	additionalProperties := make(map[string]interface{})
+<span id="L371" class="ln">   371  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L372" class="ln">   372  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;description&#34;, &#34;handle&#34;, &#34;link_count&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;summary&#34;, &#34;user_count&#34;})
+<span id="L373" class="ln">   373  </span>	} else {
+<span id="L374" class="ln">   374  </span>		return err
+<span id="L375" class="ln">   375  </span>	}
+<span id="L376" class="ln">   376  </span>	o.CreatedAt = all.CreatedAt
+<span id="L377" class="ln">   377  </span>	o.Description = all.Description
+<span id="L378" class="ln">   378  </span>	o.Handle = all.Handle
+<span id="L379" class="ln">   379  </span>	o.LinkCount = all.LinkCount
+<span id="L380" class="ln">   380  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L381" class="ln">   381  </span>	o.Name = all.Name
+<span id="L382" class="ln">   382  </span>	o.Summary = all.Summary
+<span id="L383" class="ln">   383  </span>	o.UserCount = all.UserCount
+<span id="L384" class="ln">   384  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L385" class="ln">   385  </span>		o.AdditionalProperties = additionalProperties
+<span id="L386" class="ln">   386  </span>	}
+<span id="L387" class="ln">   387  </span>
+<span id="L388" class="ln">   388  </span>	return nil
+<span id="L389" class="ln">   389  </span>}
+<span id="L390" class="ln">   390  </span>
 </pre><p></p>
 
 <div id="footer">

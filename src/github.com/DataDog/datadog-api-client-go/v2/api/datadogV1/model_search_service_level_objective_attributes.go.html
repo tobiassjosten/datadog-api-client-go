@@ -711,40 +711,50 @@
 <span id="L654" class="ln">   654  </span>		o.UnparsedObject = raw
 <span id="L655" class="ln">   655  </span>		return nil
 <span id="L656" class="ln">   656  </span>	}
-<span id="L657" class="ln">   657  </span>	if v := all.SloType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L658" class="ln">   658  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L659" class="ln">   659  </span>		if err != nil {
-<span id="L660" class="ln">   660  </span>			return err
-<span id="L661" class="ln">   661  </span>		}
-<span id="L662" class="ln">   662  </span>		o.UnparsedObject = raw
-<span id="L663" class="ln">   663  </span>		return nil
-<span id="L664" class="ln">   664  </span>	}
-<span id="L665" class="ln">   665  </span>	o.AllTags = all.AllTags
-<span id="L666" class="ln">   666  </span>	o.CreatedAt = all.CreatedAt
-<span id="L667" class="ln">   667  </span>	o.Creator = all.Creator
-<span id="L668" class="ln">   668  </span>	o.Description = all.Description
-<span id="L669" class="ln">   669  </span>	o.EnvTags = all.EnvTags
-<span id="L670" class="ln">   670  </span>	o.Groups = all.Groups
-<span id="L671" class="ln">   671  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L672" class="ln">   672  </span>	o.MonitorIds = all.MonitorIds
-<span id="L673" class="ln">   673  </span>	o.Name = all.Name
-<span id="L674" class="ln">   674  </span>	o.OverallStatus = all.OverallStatus
-<span id="L675" class="ln">   675  </span>	o.Query = all.Query
-<span id="L676" class="ln">   676  </span>	o.ServiceTags = all.ServiceTags
-<span id="L677" class="ln">   677  </span>	o.SloType = all.SloType
-<span id="L678" class="ln">   678  </span>	if all.Status != nil &amp;&amp; all.Status.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L679" class="ln">   679  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L680" class="ln">   680  </span>		if err != nil {
-<span id="L681" class="ln">   681  </span>			return err
-<span id="L682" class="ln">   682  </span>		}
-<span id="L683" class="ln">   683  </span>		o.UnparsedObject = raw
-<span id="L684" class="ln">   684  </span>	}
-<span id="L685" class="ln">   685  </span>	o.Status = all.Status
-<span id="L686" class="ln">   686  </span>	o.TeamTags = all.TeamTags
-<span id="L687" class="ln">   687  </span>	o.Thresholds = all.Thresholds
-<span id="L688" class="ln">   688  </span>	return nil
-<span id="L689" class="ln">   689  </span>}
-<span id="L690" class="ln">   690  </span>
+<span id="L657" class="ln">   657  </span>	additionalProperties := make(map[string]interface{})
+<span id="L658" class="ln">   658  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L659" class="ln">   659  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;all_tags&#34;, &#34;created_at&#34;, &#34;creator&#34;, &#34;description&#34;, &#34;env_tags&#34;, &#34;groups&#34;, &#34;modified_at&#34;, &#34;monitor_ids&#34;, &#34;name&#34;, &#34;overall_status&#34;, &#34;query&#34;, &#34;service_tags&#34;, &#34;slo_type&#34;, &#34;status&#34;, &#34;team_tags&#34;, &#34;thresholds&#34;})
+<span id="L660" class="ln">   660  </span>	} else {
+<span id="L661" class="ln">   661  </span>		return err
+<span id="L662" class="ln">   662  </span>	}
+<span id="L663" class="ln">   663  </span>	if v := all.SloType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L664" class="ln">   664  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L665" class="ln">   665  </span>		if err != nil {
+<span id="L666" class="ln">   666  </span>			return err
+<span id="L667" class="ln">   667  </span>		}
+<span id="L668" class="ln">   668  </span>		o.UnparsedObject = raw
+<span id="L669" class="ln">   669  </span>		return nil
+<span id="L670" class="ln">   670  </span>	}
+<span id="L671" class="ln">   671  </span>	o.AllTags = all.AllTags
+<span id="L672" class="ln">   672  </span>	o.CreatedAt = all.CreatedAt
+<span id="L673" class="ln">   673  </span>	o.Creator = all.Creator
+<span id="L674" class="ln">   674  </span>	o.Description = all.Description
+<span id="L675" class="ln">   675  </span>	o.EnvTags = all.EnvTags
+<span id="L676" class="ln">   676  </span>	o.Groups = all.Groups
+<span id="L677" class="ln">   677  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L678" class="ln">   678  </span>	o.MonitorIds = all.MonitorIds
+<span id="L679" class="ln">   679  </span>	o.Name = all.Name
+<span id="L680" class="ln">   680  </span>	o.OverallStatus = all.OverallStatus
+<span id="L681" class="ln">   681  </span>	o.Query = all.Query
+<span id="L682" class="ln">   682  </span>	o.ServiceTags = all.ServiceTags
+<span id="L683" class="ln">   683  </span>	o.SloType = all.SloType
+<span id="L684" class="ln">   684  </span>	if all.Status != nil &amp;&amp; all.Status.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L685" class="ln">   685  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L686" class="ln">   686  </span>		if err != nil {
+<span id="L687" class="ln">   687  </span>			return err
+<span id="L688" class="ln">   688  </span>		}
+<span id="L689" class="ln">   689  </span>		o.UnparsedObject = raw
+<span id="L690" class="ln">   690  </span>	}
+<span id="L691" class="ln">   691  </span>	o.Status = all.Status
+<span id="L692" class="ln">   692  </span>	o.TeamTags = all.TeamTags
+<span id="L693" class="ln">   693  </span>	o.Thresholds = all.Thresholds
+<span id="L694" class="ln">   694  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L695" class="ln">   695  </span>		o.AdditionalProperties = additionalProperties
+<span id="L696" class="ln">   696  </span>	}
+<span id="L697" class="ln">   697  </span>
+<span id="L698" class="ln">   698  </span>	return nil
+<span id="L699" class="ln">   699  </span>}
+<span id="L700" class="ln">   700  </span>
 </pre><p></p>
 
 <div id="footer">

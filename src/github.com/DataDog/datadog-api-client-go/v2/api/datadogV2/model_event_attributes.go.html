@@ -804,51 +804,61 @@
 <span id="L747" class="ln">   747  </span>		o.UnparsedObject = raw
 <span id="L748" class="ln">   748  </span>		return nil
 <span id="L749" class="ln">   749  </span>	}
-<span id="L750" class="ln">   750  </span>	if v := all.Priority; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L751" class="ln">   751  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L752" class="ln">   752  </span>		if err != nil {
-<span id="L753" class="ln">   753  </span>			return err
-<span id="L754" class="ln">   754  </span>		}
-<span id="L755" class="ln">   755  </span>		o.UnparsedObject = raw
-<span id="L756" class="ln">   756  </span>		return nil
-<span id="L757" class="ln">   757  </span>	}
-<span id="L758" class="ln">   758  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L759" class="ln">   759  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L760" class="ln">   760  </span>		if err != nil {
-<span id="L761" class="ln">   761  </span>			return err
-<span id="L762" class="ln">   762  </span>		}
-<span id="L763" class="ln">   763  </span>		o.UnparsedObject = raw
-<span id="L764" class="ln">   764  </span>		return nil
-<span id="L765" class="ln">   765  </span>	}
-<span id="L766" class="ln">   766  </span>	o.AggregationKey = all.AggregationKey
-<span id="L767" class="ln">   767  </span>	o.DateHappened = all.DateHappened
-<span id="L768" class="ln">   768  </span>	o.DeviceName = all.DeviceName
-<span id="L769" class="ln">   769  </span>	o.Duration = all.Duration
-<span id="L770" class="ln">   770  </span>	o.EventObject = all.EventObject
-<span id="L771" class="ln">   771  </span>	if all.Evt != nil &amp;&amp; all.Evt.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L772" class="ln">   772  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L773" class="ln">   773  </span>		if err != nil {
-<span id="L774" class="ln">   774  </span>			return err
-<span id="L775" class="ln">   775  </span>		}
-<span id="L776" class="ln">   776  </span>		o.UnparsedObject = raw
-<span id="L777" class="ln">   777  </span>	}
-<span id="L778" class="ln">   778  </span>	o.Evt = all.Evt
-<span id="L779" class="ln">   779  </span>	o.Hostname = all.Hostname
-<span id="L780" class="ln">   780  </span>	o.Monitor = all.Monitor
-<span id="L781" class="ln">   781  </span>	o.MonitorGroups = all.MonitorGroups
-<span id="L782" class="ln">   782  </span>	o.MonitorId = all.MonitorId
-<span id="L783" class="ln">   783  </span>	o.Priority = all.Priority
-<span id="L784" class="ln">   784  </span>	o.RelatedEventId = all.RelatedEventId
-<span id="L785" class="ln">   785  </span>	o.Service = all.Service
-<span id="L786" class="ln">   786  </span>	o.SourceTypeName = all.SourceTypeName
-<span id="L787" class="ln">   787  </span>	o.Sourcecategory = all.Sourcecategory
-<span id="L788" class="ln">   788  </span>	o.Status = all.Status
-<span id="L789" class="ln">   789  </span>	o.Tags = all.Tags
-<span id="L790" class="ln">   790  </span>	o.Timestamp = all.Timestamp
-<span id="L791" class="ln">   791  </span>	o.Title = all.Title
-<span id="L792" class="ln">   792  </span>	return nil
-<span id="L793" class="ln">   793  </span>}
-<span id="L794" class="ln">   794  </span>
+<span id="L750" class="ln">   750  </span>	additionalProperties := make(map[string]interface{})
+<span id="L751" class="ln">   751  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L752" class="ln">   752  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregation_key&#34;, &#34;date_happened&#34;, &#34;device_name&#34;, &#34;duration&#34;, &#34;event_object&#34;, &#34;evt&#34;, &#34;hostname&#34;, &#34;monitor&#34;, &#34;monitor_groups&#34;, &#34;monitor_id&#34;, &#34;priority&#34;, &#34;related_event_id&#34;, &#34;service&#34;, &#34;source_type_name&#34;, &#34;sourcecategory&#34;, &#34;status&#34;, &#34;tags&#34;, &#34;timestamp&#34;, &#34;title&#34;})
+<span id="L753" class="ln">   753  </span>	} else {
+<span id="L754" class="ln">   754  </span>		return err
+<span id="L755" class="ln">   755  </span>	}
+<span id="L756" class="ln">   756  </span>	if v := all.Priority; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
+<span id="L757" class="ln">   757  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L758" class="ln">   758  </span>		if err != nil {
+<span id="L759" class="ln">   759  </span>			return err
+<span id="L760" class="ln">   760  </span>		}
+<span id="L761" class="ln">   761  </span>		o.UnparsedObject = raw
+<span id="L762" class="ln">   762  </span>		return nil
+<span id="L763" class="ln">   763  </span>	}
+<span id="L764" class="ln">   764  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L765" class="ln">   765  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L766" class="ln">   766  </span>		if err != nil {
+<span id="L767" class="ln">   767  </span>			return err
+<span id="L768" class="ln">   768  </span>		}
+<span id="L769" class="ln">   769  </span>		o.UnparsedObject = raw
+<span id="L770" class="ln">   770  </span>		return nil
+<span id="L771" class="ln">   771  </span>	}
+<span id="L772" class="ln">   772  </span>	o.AggregationKey = all.AggregationKey
+<span id="L773" class="ln">   773  </span>	o.DateHappened = all.DateHappened
+<span id="L774" class="ln">   774  </span>	o.DeviceName = all.DeviceName
+<span id="L775" class="ln">   775  </span>	o.Duration = all.Duration
+<span id="L776" class="ln">   776  </span>	o.EventObject = all.EventObject
+<span id="L777" class="ln">   777  </span>	if all.Evt != nil &amp;&amp; all.Evt.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L778" class="ln">   778  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L779" class="ln">   779  </span>		if err != nil {
+<span id="L780" class="ln">   780  </span>			return err
+<span id="L781" class="ln">   781  </span>		}
+<span id="L782" class="ln">   782  </span>		o.UnparsedObject = raw
+<span id="L783" class="ln">   783  </span>	}
+<span id="L784" class="ln">   784  </span>	o.Evt = all.Evt
+<span id="L785" class="ln">   785  </span>	o.Hostname = all.Hostname
+<span id="L786" class="ln">   786  </span>	o.Monitor = all.Monitor
+<span id="L787" class="ln">   787  </span>	o.MonitorGroups = all.MonitorGroups
+<span id="L788" class="ln">   788  </span>	o.MonitorId = all.MonitorId
+<span id="L789" class="ln">   789  </span>	o.Priority = all.Priority
+<span id="L790" class="ln">   790  </span>	o.RelatedEventId = all.RelatedEventId
+<span id="L791" class="ln">   791  </span>	o.Service = all.Service
+<span id="L792" class="ln">   792  </span>	o.SourceTypeName = all.SourceTypeName
+<span id="L793" class="ln">   793  </span>	o.Sourcecategory = all.Sourcecategory
+<span id="L794" class="ln">   794  </span>	o.Status = all.Status
+<span id="L795" class="ln">   795  </span>	o.Tags = all.Tags
+<span id="L796" class="ln">   796  </span>	o.Timestamp = all.Timestamp
+<span id="L797" class="ln">   797  </span>	o.Title = all.Title
+<span id="L798" class="ln">   798  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L799" class="ln">   799  </span>		o.AdditionalProperties = additionalProperties
+<span id="L800" class="ln">   800  </span>	}
+<span id="L801" class="ln">   801  </span>
+<span id="L802" class="ln">   802  </span>	return nil
+<span id="L803" class="ln">   803  </span>}
+<span id="L804" class="ln">   804  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -343,15 +343,25 @@
 <span id="L286" class="ln">   286  </span>		o.UnparsedObject = raw
 <span id="L287" class="ln">   287  </span>		return nil
 <span id="L288" class="ln">   288  </span>	}
-<span id="L289" class="ln">   289  </span>	o.Host = all.Host
-<span id="L290" class="ln">   290  </span>	o.Interval = all.Interval
-<span id="L291" class="ln">   291  </span>	o.Metric = all.Metric
-<span id="L292" class="ln">   292  </span>	o.Points = all.Points
-<span id="L293" class="ln">   293  </span>	o.Tags = all.Tags
-<span id="L294" class="ln">   294  </span>	o.Type = all.Type
-<span id="L295" class="ln">   295  </span>	return nil
-<span id="L296" class="ln">   296  </span>}
-<span id="L297" class="ln">   297  </span>
+<span id="L289" class="ln">   289  </span>	additionalProperties := make(map[string]interface{})
+<span id="L290" class="ln">   290  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L291" class="ln">   291  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;host&#34;, &#34;interval&#34;, &#34;metric&#34;, &#34;points&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L292" class="ln">   292  </span>	} else {
+<span id="L293" class="ln">   293  </span>		return err
+<span id="L294" class="ln">   294  </span>	}
+<span id="L295" class="ln">   295  </span>	o.Host = all.Host
+<span id="L296" class="ln">   296  </span>	o.Interval = all.Interval
+<span id="L297" class="ln">   297  </span>	o.Metric = all.Metric
+<span id="L298" class="ln">   298  </span>	o.Points = all.Points
+<span id="L299" class="ln">   299  </span>	o.Tags = all.Tags
+<span id="L300" class="ln">   300  </span>	o.Type = all.Type
+<span id="L301" class="ln">   301  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L302" class="ln">   302  </span>		o.AdditionalProperties = additionalProperties
+<span id="L303" class="ln">   303  </span>	}
+<span id="L304" class="ln">   304  </span>
+<span id="L305" class="ln">   305  </span>	return nil
+<span id="L306" class="ln">   306  </span>}
+<span id="L307" class="ln">   307  </span>
 </pre><p></p>
 
 <div id="footer">

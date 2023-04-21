@@ -339,15 +339,25 @@
 <span id="L282" class="ln">   282  </span>		o.UnparsedObject = raw
 <span id="L283" class="ln">   283  </span>		return nil
 <span id="L284" class="ln">   284  </span>	}
-<span id="L285" class="ln">   285  </span>	o.Destination = all.Destination
-<span id="L286" class="ln">   286  </span>	o.IncludeTags = all.IncludeTags
-<span id="L287" class="ln">   287  </span>	o.Name = all.Name
-<span id="L288" class="ln">   288  </span>	o.Query = all.Query
-<span id="L289" class="ln">   289  </span>	o.RehydrationMaxScanSizeInGb = all.RehydrationMaxScanSizeInGb
-<span id="L290" class="ln">   290  </span>	o.RehydrationTags = all.RehydrationTags
-<span id="L291" class="ln">   291  </span>	return nil
-<span id="L292" class="ln">   292  </span>}
-<span id="L293" class="ln">   293  </span>
+<span id="L285" class="ln">   285  </span>	additionalProperties := make(map[string]interface{})
+<span id="L286" class="ln">   286  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L287" class="ln">   287  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;destination&#34;, &#34;include_tags&#34;, &#34;name&#34;, &#34;query&#34;, &#34;rehydration_max_scan_size_in_gb&#34;, &#34;rehydration_tags&#34;})
+<span id="L288" class="ln">   288  </span>	} else {
+<span id="L289" class="ln">   289  </span>		return err
+<span id="L290" class="ln">   290  </span>	}
+<span id="L291" class="ln">   291  </span>	o.Destination = all.Destination
+<span id="L292" class="ln">   292  </span>	o.IncludeTags = all.IncludeTags
+<span id="L293" class="ln">   293  </span>	o.Name = all.Name
+<span id="L294" class="ln">   294  </span>	o.Query = all.Query
+<span id="L295" class="ln">   295  </span>	o.RehydrationMaxScanSizeInGb = all.RehydrationMaxScanSizeInGb
+<span id="L296" class="ln">   296  </span>	o.RehydrationTags = all.RehydrationTags
+<span id="L297" class="ln">   297  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L298" class="ln">   298  </span>		o.AdditionalProperties = additionalProperties
+<span id="L299" class="ln">   299  </span>	}
+<span id="L300" class="ln">   300  </span>
+<span id="L301" class="ln">   301  </span>	return nil
+<span id="L302" class="ln">   302  </span>}
+<span id="L303" class="ln">   303  </span>
 </pre><p></p>
 
 <div id="footer">

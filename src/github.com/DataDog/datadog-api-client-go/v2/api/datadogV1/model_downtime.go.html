@@ -833,27 +833,37 @@
 <span id="L776" class="ln">   776  </span>		o.UnparsedObject = raw
 <span id="L777" class="ln">   777  </span>		return nil
 <span id="L778" class="ln">   778  </span>	}
-<span id="L779" class="ln">   779  </span>	o.Active = all.Active
-<span id="L780" class="ln">   780  </span>	o.ActiveChild = all.ActiveChild
-<span id="L781" class="ln">   781  </span>	o.Canceled = all.Canceled
-<span id="L782" class="ln">   782  </span>	o.CreatorId = all.CreatorId
-<span id="L783" class="ln">   783  </span>	o.Disabled = all.Disabled
-<span id="L784" class="ln">   784  </span>	o.DowntimeType = all.DowntimeType
-<span id="L785" class="ln">   785  </span>	o.End = all.End
-<span id="L786" class="ln">   786  </span>	o.Id = all.Id
-<span id="L787" class="ln">   787  </span>	o.Message = all.Message
-<span id="L788" class="ln">   788  </span>	o.MonitorId = all.MonitorId
-<span id="L789" class="ln">   789  </span>	o.MonitorTags = all.MonitorTags
-<span id="L790" class="ln">   790  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
-<span id="L791" class="ln">   791  </span>	o.ParentId = all.ParentId
-<span id="L792" class="ln">   792  </span>	o.Recurrence = all.Recurrence
-<span id="L793" class="ln">   793  </span>	o.Scope = all.Scope
-<span id="L794" class="ln">   794  </span>	o.Start = all.Start
-<span id="L795" class="ln">   795  </span>	o.Timezone = all.Timezone
-<span id="L796" class="ln">   796  </span>	o.UpdaterId = all.UpdaterId
-<span id="L797" class="ln">   797  </span>	return nil
-<span id="L798" class="ln">   798  </span>}
-<span id="L799" class="ln">   799  </span>
+<span id="L779" class="ln">   779  </span>	additionalProperties := make(map[string]interface{})
+<span id="L780" class="ln">   780  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L781" class="ln">   781  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;active&#34;, &#34;active_child&#34;, &#34;canceled&#34;, &#34;creator_id&#34;, &#34;disabled&#34;, &#34;downtime_type&#34;, &#34;end&#34;, &#34;id&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;monitor_tags&#34;, &#34;mute_first_recovery_notification&#34;, &#34;parent_id&#34;, &#34;recurrence&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;timezone&#34;, &#34;updater_id&#34;})
+<span id="L782" class="ln">   782  </span>	} else {
+<span id="L783" class="ln">   783  </span>		return err
+<span id="L784" class="ln">   784  </span>	}
+<span id="L785" class="ln">   785  </span>	o.Active = all.Active
+<span id="L786" class="ln">   786  </span>	o.ActiveChild = all.ActiveChild
+<span id="L787" class="ln">   787  </span>	o.Canceled = all.Canceled
+<span id="L788" class="ln">   788  </span>	o.CreatorId = all.CreatorId
+<span id="L789" class="ln">   789  </span>	o.Disabled = all.Disabled
+<span id="L790" class="ln">   790  </span>	o.DowntimeType = all.DowntimeType
+<span id="L791" class="ln">   791  </span>	o.End = all.End
+<span id="L792" class="ln">   792  </span>	o.Id = all.Id
+<span id="L793" class="ln">   793  </span>	o.Message = all.Message
+<span id="L794" class="ln">   794  </span>	o.MonitorId = all.MonitorId
+<span id="L795" class="ln">   795  </span>	o.MonitorTags = all.MonitorTags
+<span id="L796" class="ln">   796  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
+<span id="L797" class="ln">   797  </span>	o.ParentId = all.ParentId
+<span id="L798" class="ln">   798  </span>	o.Recurrence = all.Recurrence
+<span id="L799" class="ln">   799  </span>	o.Scope = all.Scope
+<span id="L800" class="ln">   800  </span>	o.Start = all.Start
+<span id="L801" class="ln">   801  </span>	o.Timezone = all.Timezone
+<span id="L802" class="ln">   802  </span>	o.UpdaterId = all.UpdaterId
+<span id="L803" class="ln">   803  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L804" class="ln">   804  </span>		o.AdditionalProperties = additionalProperties
+<span id="L805" class="ln">   805  </span>	}
+<span id="L806" class="ln">   806  </span>
+<span id="L807" class="ln">   807  </span>	return nil
+<span id="L808" class="ln">   808  </span>}
+<span id="L809" class="ln">   809  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -743,42 +743,52 @@
 <span id="L686" class="ln">   686  </span>		o.UnparsedObject = raw
 <span id="L687" class="ln">   687  </span>		return nil
 <span id="L688" class="ln">   688  </span>	}
-<span id="L689" class="ln">   689  </span>	if v := all.LayoutType; !v.IsValid() {
-<span id="L690" class="ln">   690  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L691" class="ln">   691  </span>		if err != nil {
-<span id="L692" class="ln">   692  </span>			return err
-<span id="L693" class="ln">   693  </span>		}
-<span id="L694" class="ln">   694  </span>		o.UnparsedObject = raw
-<span id="L695" class="ln">   695  </span>		return nil
-<span id="L696" class="ln">   696  </span>	}
-<span id="L697" class="ln">   697  </span>	if v := all.ReflowType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L698" class="ln">   698  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L699" class="ln">   699  </span>		if err != nil {
-<span id="L700" class="ln">   700  </span>			return err
-<span id="L701" class="ln">   701  </span>		}
-<span id="L702" class="ln">   702  </span>		o.UnparsedObject = raw
-<span id="L703" class="ln">   703  </span>		return nil
-<span id="L704" class="ln">   704  </span>	}
-<span id="L705" class="ln">   705  </span>	o.AuthorHandle = all.AuthorHandle
-<span id="L706" class="ln">   706  </span>	o.AuthorName = all.AuthorName
-<span id="L707" class="ln">   707  </span>	o.CreatedAt = all.CreatedAt
-<span id="L708" class="ln">   708  </span>	o.Description = all.Description
-<span id="L709" class="ln">   709  </span>	o.Id = all.Id
-<span id="L710" class="ln">   710  </span>	o.IsReadOnly = all.IsReadOnly
-<span id="L711" class="ln">   711  </span>	o.LayoutType = all.LayoutType
-<span id="L712" class="ln">   712  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L713" class="ln">   713  </span>	o.NotifyList = all.NotifyList
-<span id="L714" class="ln">   714  </span>	o.ReflowType = all.ReflowType
-<span id="L715" class="ln">   715  </span>	o.RestrictedRoles = all.RestrictedRoles
-<span id="L716" class="ln">   716  </span>	o.Tags = all.Tags
-<span id="L717" class="ln">   717  </span>	o.TemplateVariablePresets = all.TemplateVariablePresets
-<span id="L718" class="ln">   718  </span>	o.TemplateVariables = all.TemplateVariables
-<span id="L719" class="ln">   719  </span>	o.Title = all.Title
-<span id="L720" class="ln">   720  </span>	o.Url = all.Url
-<span id="L721" class="ln">   721  </span>	o.Widgets = all.Widgets
-<span id="L722" class="ln">   722  </span>	return nil
-<span id="L723" class="ln">   723  </span>}
-<span id="L724" class="ln">   724  </span>
+<span id="L689" class="ln">   689  </span>	additionalProperties := make(map[string]interface{})
+<span id="L690" class="ln">   690  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L691" class="ln">   691  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author_handle&#34;, &#34;author_name&#34;, &#34;created_at&#34;, &#34;description&#34;, &#34;id&#34;, &#34;is_read_only&#34;, &#34;layout_type&#34;, &#34;modified_at&#34;, &#34;notify_list&#34;, &#34;reflow_type&#34;, &#34;restricted_roles&#34;, &#34;tags&#34;, &#34;template_variable_presets&#34;, &#34;template_variables&#34;, &#34;title&#34;, &#34;url&#34;, &#34;widgets&#34;})
+<span id="L692" class="ln">   692  </span>	} else {
+<span id="L693" class="ln">   693  </span>		return err
+<span id="L694" class="ln">   694  </span>	}
+<span id="L695" class="ln">   695  </span>	if v := all.LayoutType; !v.IsValid() {
+<span id="L696" class="ln">   696  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L697" class="ln">   697  </span>		if err != nil {
+<span id="L698" class="ln">   698  </span>			return err
+<span id="L699" class="ln">   699  </span>		}
+<span id="L700" class="ln">   700  </span>		o.UnparsedObject = raw
+<span id="L701" class="ln">   701  </span>		return nil
+<span id="L702" class="ln">   702  </span>	}
+<span id="L703" class="ln">   703  </span>	if v := all.ReflowType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L704" class="ln">   704  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L705" class="ln">   705  </span>		if err != nil {
+<span id="L706" class="ln">   706  </span>			return err
+<span id="L707" class="ln">   707  </span>		}
+<span id="L708" class="ln">   708  </span>		o.UnparsedObject = raw
+<span id="L709" class="ln">   709  </span>		return nil
+<span id="L710" class="ln">   710  </span>	}
+<span id="L711" class="ln">   711  </span>	o.AuthorHandle = all.AuthorHandle
+<span id="L712" class="ln">   712  </span>	o.AuthorName = all.AuthorName
+<span id="L713" class="ln">   713  </span>	o.CreatedAt = all.CreatedAt
+<span id="L714" class="ln">   714  </span>	o.Description = all.Description
+<span id="L715" class="ln">   715  </span>	o.Id = all.Id
+<span id="L716" class="ln">   716  </span>	o.IsReadOnly = all.IsReadOnly
+<span id="L717" class="ln">   717  </span>	o.LayoutType = all.LayoutType
+<span id="L718" class="ln">   718  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L719" class="ln">   719  </span>	o.NotifyList = all.NotifyList
+<span id="L720" class="ln">   720  </span>	o.ReflowType = all.ReflowType
+<span id="L721" class="ln">   721  </span>	o.RestrictedRoles = all.RestrictedRoles
+<span id="L722" class="ln">   722  </span>	o.Tags = all.Tags
+<span id="L723" class="ln">   723  </span>	o.TemplateVariablePresets = all.TemplateVariablePresets
+<span id="L724" class="ln">   724  </span>	o.TemplateVariables = all.TemplateVariables
+<span id="L725" class="ln">   725  </span>	o.Title = all.Title
+<span id="L726" class="ln">   726  </span>	o.Url = all.Url
+<span id="L727" class="ln">   727  </span>	o.Widgets = all.Widgets
+<span id="L728" class="ln">   728  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L729" class="ln">   729  </span>		o.AdditionalProperties = additionalProperties
+<span id="L730" class="ln">   730  </span>	}
+<span id="L731" class="ln">   731  </span>
+<span id="L732" class="ln">   732  </span>	return nil
+<span id="L733" class="ln">   733  </span>}
+<span id="L734" class="ln">   734  </span>
 </pre><p></p>
 
 <div id="footer">

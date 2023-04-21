@@ -484,18 +484,28 @@
 <span id="L427" class="ln">   427  </span>		o.UnparsedObject = raw
 <span id="L428" class="ln">   428  </span>		return nil
 <span id="L429" class="ln">   429  </span>	}
-<span id="L430" class="ln">   430  </span>	o.Hour = all.Hour
-<span id="L431" class="ln">   431  </span>	o.OrgName = all.OrgName
-<span id="L432" class="ln">   432  </span>	o.PublicId = all.PublicId
-<span id="L433" class="ln">   433  </span>	o.ReplaySessionCount = all.ReplaySessionCount
-<span id="L434" class="ln">   434  </span>	o.SessionCount = all.SessionCount
-<span id="L435" class="ln">   435  </span>	o.SessionCountAndroid = all.SessionCountAndroid
-<span id="L436" class="ln">   436  </span>	o.SessionCountFlutter = all.SessionCountFlutter
-<span id="L437" class="ln">   437  </span>	o.SessionCountIos = all.SessionCountIos
-<span id="L438" class="ln">   438  </span>	o.SessionCountReactnative = all.SessionCountReactnative
-<span id="L439" class="ln">   439  </span>	return nil
-<span id="L440" class="ln">   440  </span>}
-<span id="L441" class="ln">   441  </span>
+<span id="L430" class="ln">   430  </span>	additionalProperties := make(map[string]interface{})
+<span id="L431" class="ln">   431  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L432" class="ln">   432  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;hour&#34;, &#34;org_name&#34;, &#34;public_id&#34;, &#34;replay_session_count&#34;, &#34;session_count&#34;, &#34;session_count_android&#34;, &#34;session_count_flutter&#34;, &#34;session_count_ios&#34;, &#34;session_count_reactnative&#34;})
+<span id="L433" class="ln">   433  </span>	} else {
+<span id="L434" class="ln">   434  </span>		return err
+<span id="L435" class="ln">   435  </span>	}
+<span id="L436" class="ln">   436  </span>	o.Hour = all.Hour
+<span id="L437" class="ln">   437  </span>	o.OrgName = all.OrgName
+<span id="L438" class="ln">   438  </span>	o.PublicId = all.PublicId
+<span id="L439" class="ln">   439  </span>	o.ReplaySessionCount = all.ReplaySessionCount
+<span id="L440" class="ln">   440  </span>	o.SessionCount = all.SessionCount
+<span id="L441" class="ln">   441  </span>	o.SessionCountAndroid = all.SessionCountAndroid
+<span id="L442" class="ln">   442  </span>	o.SessionCountFlutter = all.SessionCountFlutter
+<span id="L443" class="ln">   443  </span>	o.SessionCountIos = all.SessionCountIos
+<span id="L444" class="ln">   444  </span>	o.SessionCountReactnative = all.SessionCountReactnative
+<span id="L445" class="ln">   445  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L446" class="ln">   446  </span>		o.AdditionalProperties = additionalProperties
+<span id="L447" class="ln">   447  </span>	}
+<span id="L448" class="ln">   448  </span>
+<span id="L449" class="ln">   449  </span>	return nil
+<span id="L450" class="ln">   450  </span>}
+<span id="L451" class="ln">   451  </span>
 </pre><p></p>
 
 <div id="footer">

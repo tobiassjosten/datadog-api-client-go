@@ -574,45 +574,55 @@
 <span id="L517" class="ln">   517  </span>		o.UnparsedObject = raw
 <span id="L518" class="ln">   518  </span>		return nil
 <span id="L519" class="ln">   519  </span>	}
-<span id="L520" class="ln">   520  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L521" class="ln">   521  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L522" class="ln">   522  </span>		if err != nil {
-<span id="L523" class="ln">   523  </span>			return err
-<span id="L524" class="ln">   524  </span>		}
-<span id="L525" class="ln">   525  </span>		o.UnparsedObject = raw
-<span id="L526" class="ln">   526  </span>		return nil
-<span id="L527" class="ln">   527  </span>	}
-<span id="L528" class="ln">   528  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L529" class="ln">   529  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L530" class="ln">   530  </span>		if err != nil {
-<span id="L531" class="ln">   531  </span>			return err
-<span id="L532" class="ln">   532  </span>		}
-<span id="L533" class="ln">   533  </span>		o.UnparsedObject = raw
-<span id="L534" class="ln">   534  </span>		return nil
-<span id="L535" class="ln">   535  </span>	}
-<span id="L536" class="ln">   536  </span>	o.Classification = all.Classification
-<span id="L537" class="ln">   537  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L538" class="ln">   538  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L539" class="ln">   539  </span>		if err != nil {
-<span id="L540" class="ln">   540  </span>			return err
-<span id="L541" class="ln">   541  </span>		}
-<span id="L542" class="ln">   542  </span>		o.UnparsedObject = raw
-<span id="L543" class="ln">   543  </span>	}
-<span id="L544" class="ln">   544  </span>	o.Creator = all.Creator
-<span id="L545" class="ln">   545  </span>	o.Id = all.Id
-<span id="L546" class="ln">   546  </span>	o.LastTriggeredTs = all.LastTriggeredTs
-<span id="L547" class="ln">   547  </span>	o.Metrics = all.Metrics
-<span id="L548" class="ln">   548  </span>	o.Name = all.Name
-<span id="L549" class="ln">   549  </span>	o.Notifications = all.Notifications
-<span id="L550" class="ln">   550  </span>	o.OrgId = all.OrgId
-<span id="L551" class="ln">   551  </span>	o.Query = all.Query
-<span id="L552" class="ln">   552  </span>	o.Scopes = all.Scopes
-<span id="L553" class="ln">   553  </span>	o.Status = all.Status
-<span id="L554" class="ln">   554  </span>	o.Tags = all.Tags
-<span id="L555" class="ln">   555  </span>	o.Type = all.Type
-<span id="L556" class="ln">   556  </span>	return nil
-<span id="L557" class="ln">   557  </span>}
-<span id="L558" class="ln">   558  </span>
+<span id="L520" class="ln">   520  </span>	additionalProperties := make(map[string]interface{})
+<span id="L521" class="ln">   521  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L522" class="ln">   522  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;classification&#34;, &#34;creator&#34;, &#34;id&#34;, &#34;last_triggered_ts&#34;, &#34;metrics&#34;, &#34;name&#34;, &#34;notifications&#34;, &#34;org_id&#34;, &#34;query&#34;, &#34;scopes&#34;, &#34;status&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L523" class="ln">   523  </span>	} else {
+<span id="L524" class="ln">   524  </span>		return err
+<span id="L525" class="ln">   525  </span>	}
+<span id="L526" class="ln">   526  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L527" class="ln">   527  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L528" class="ln">   528  </span>		if err != nil {
+<span id="L529" class="ln">   529  </span>			return err
+<span id="L530" class="ln">   530  </span>		}
+<span id="L531" class="ln">   531  </span>		o.UnparsedObject = raw
+<span id="L532" class="ln">   532  </span>		return nil
+<span id="L533" class="ln">   533  </span>	}
+<span id="L534" class="ln">   534  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L535" class="ln">   535  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L536" class="ln">   536  </span>		if err != nil {
+<span id="L537" class="ln">   537  </span>			return err
+<span id="L538" class="ln">   538  </span>		}
+<span id="L539" class="ln">   539  </span>		o.UnparsedObject = raw
+<span id="L540" class="ln">   540  </span>		return nil
+<span id="L541" class="ln">   541  </span>	}
+<span id="L542" class="ln">   542  </span>	o.Classification = all.Classification
+<span id="L543" class="ln">   543  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L544" class="ln">   544  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L545" class="ln">   545  </span>		if err != nil {
+<span id="L546" class="ln">   546  </span>			return err
+<span id="L547" class="ln">   547  </span>		}
+<span id="L548" class="ln">   548  </span>		o.UnparsedObject = raw
+<span id="L549" class="ln">   549  </span>	}
+<span id="L550" class="ln">   550  </span>	o.Creator = all.Creator
+<span id="L551" class="ln">   551  </span>	o.Id = all.Id
+<span id="L552" class="ln">   552  </span>	o.LastTriggeredTs = all.LastTriggeredTs
+<span id="L553" class="ln">   553  </span>	o.Metrics = all.Metrics
+<span id="L554" class="ln">   554  </span>	o.Name = all.Name
+<span id="L555" class="ln">   555  </span>	o.Notifications = all.Notifications
+<span id="L556" class="ln">   556  </span>	o.OrgId = all.OrgId
+<span id="L557" class="ln">   557  </span>	o.Query = all.Query
+<span id="L558" class="ln">   558  </span>	o.Scopes = all.Scopes
+<span id="L559" class="ln">   559  </span>	o.Status = all.Status
+<span id="L560" class="ln">   560  </span>	o.Tags = all.Tags
+<span id="L561" class="ln">   561  </span>	o.Type = all.Type
+<span id="L562" class="ln">   562  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L563" class="ln">   563  </span>		o.AdditionalProperties = additionalProperties
+<span id="L564" class="ln">   564  </span>	}
+<span id="L565" class="ln">   565  </span>
+<span id="L566" class="ln">   566  </span>	return nil
+<span id="L567" class="ln">   567  </span>}
+<span id="L568" class="ln">   568  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -768,26 +768,36 @@
 <span id="L711" class="ln">   711  </span>		o.UnparsedObject = raw
 <span id="L712" class="ln">   712  </span>		return nil
 <span id="L713" class="ln">   713  </span>	}
-<span id="L714" class="ln">   714  </span>	o.Created = all.Created
-<span id="L715" class="ln">   715  </span>	o.CustomerImpactDuration = all.CustomerImpactDuration
-<span id="L716" class="ln">   716  </span>	o.CustomerImpactEnd = all.CustomerImpactEnd
-<span id="L717" class="ln">   717  </span>	o.CustomerImpactScope = all.CustomerImpactScope
-<span id="L718" class="ln">   718  </span>	o.CustomerImpactStart = all.CustomerImpactStart
-<span id="L719" class="ln">   719  </span>	o.CustomerImpacted = all.CustomerImpacted
-<span id="L720" class="ln">   720  </span>	o.Detected = all.Detected
-<span id="L721" class="ln">   721  </span>	o.Fields = all.Fields
-<span id="L722" class="ln">   722  </span>	o.Modified = all.Modified
-<span id="L723" class="ln">   723  </span>	o.NotificationHandles = all.NotificationHandles
-<span id="L724" class="ln">   724  </span>	o.PublicId = all.PublicId
-<span id="L725" class="ln">   725  </span>	o.Resolved = all.Resolved
-<span id="L726" class="ln">   726  </span>	o.TimeToDetect = all.TimeToDetect
-<span id="L727" class="ln">   727  </span>	o.TimeToInternalResponse = all.TimeToInternalResponse
-<span id="L728" class="ln">   728  </span>	o.TimeToRepair = all.TimeToRepair
-<span id="L729" class="ln">   729  </span>	o.TimeToResolve = all.TimeToResolve
-<span id="L730" class="ln">   730  </span>	o.Title = all.Title
-<span id="L731" class="ln">   731  </span>	return nil
-<span id="L732" class="ln">   732  </span>}
-<span id="L733" class="ln">   733  </span>
+<span id="L714" class="ln">   714  </span>	additionalProperties := make(map[string]interface{})
+<span id="L715" class="ln">   715  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L716" class="ln">   716  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;customer_impact_duration&#34;, &#34;customer_impact_end&#34;, &#34;customer_impact_scope&#34;, &#34;customer_impact_start&#34;, &#34;customer_impacted&#34;, &#34;detected&#34;, &#34;fields&#34;, &#34;modified&#34;, &#34;notification_handles&#34;, &#34;public_id&#34;, &#34;resolved&#34;, &#34;time_to_detect&#34;, &#34;time_to_internal_response&#34;, &#34;time_to_repair&#34;, &#34;time_to_resolve&#34;, &#34;title&#34;})
+<span id="L717" class="ln">   717  </span>	} else {
+<span id="L718" class="ln">   718  </span>		return err
+<span id="L719" class="ln">   719  </span>	}
+<span id="L720" class="ln">   720  </span>	o.Created = all.Created
+<span id="L721" class="ln">   721  </span>	o.CustomerImpactDuration = all.CustomerImpactDuration
+<span id="L722" class="ln">   722  </span>	o.CustomerImpactEnd = all.CustomerImpactEnd
+<span id="L723" class="ln">   723  </span>	o.CustomerImpactScope = all.CustomerImpactScope
+<span id="L724" class="ln">   724  </span>	o.CustomerImpactStart = all.CustomerImpactStart
+<span id="L725" class="ln">   725  </span>	o.CustomerImpacted = all.CustomerImpacted
+<span id="L726" class="ln">   726  </span>	o.Detected = all.Detected
+<span id="L727" class="ln">   727  </span>	o.Fields = all.Fields
+<span id="L728" class="ln">   728  </span>	o.Modified = all.Modified
+<span id="L729" class="ln">   729  </span>	o.NotificationHandles = all.NotificationHandles
+<span id="L730" class="ln">   730  </span>	o.PublicId = all.PublicId
+<span id="L731" class="ln">   731  </span>	o.Resolved = all.Resolved
+<span id="L732" class="ln">   732  </span>	o.TimeToDetect = all.TimeToDetect
+<span id="L733" class="ln">   733  </span>	o.TimeToInternalResponse = all.TimeToInternalResponse
+<span id="L734" class="ln">   734  </span>	o.TimeToRepair = all.TimeToRepair
+<span id="L735" class="ln">   735  </span>	o.TimeToResolve = all.TimeToResolve
+<span id="L736" class="ln">   736  </span>	o.Title = all.Title
+<span id="L737" class="ln">   737  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L738" class="ln">   738  </span>		o.AdditionalProperties = additionalProperties
+<span id="L739" class="ln">   739  </span>	}
+<span id="L740" class="ln">   740  </span>
+<span id="L741" class="ln">   741  </span>	return nil
+<span id="L742" class="ln">   742  </span>}
+<span id="L743" class="ln">   743  </span>
 </pre><p></p>
 
 <div id="footer">

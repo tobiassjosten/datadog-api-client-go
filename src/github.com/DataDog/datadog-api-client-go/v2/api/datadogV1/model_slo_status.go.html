@@ -412,24 +412,34 @@
 <span id="L355" class="ln">   355  </span>		o.UnparsedObject = raw
 <span id="L356" class="ln">   356  </span>		return nil
 <span id="L357" class="ln">   357  </span>	}
-<span id="L358" class="ln">   358  </span>	if v := all.State; v != nil &amp;&amp; !v.IsValid() {
-<span id="L359" class="ln">   359  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L360" class="ln">   360  </span>		if err != nil {
-<span id="L361" class="ln">   361  </span>			return err
-<span id="L362" class="ln">   362  </span>		}
-<span id="L363" class="ln">   363  </span>		o.UnparsedObject = raw
-<span id="L364" class="ln">   364  </span>		return nil
-<span id="L365" class="ln">   365  </span>	}
-<span id="L366" class="ln">   366  </span>	o.CalculationError = all.CalculationError
-<span id="L367" class="ln">   367  </span>	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
-<span id="L368" class="ln">   368  </span>	o.IndexedAt = all.IndexedAt
-<span id="L369" class="ln">   369  </span>	o.RawErrorBudgetRemaining = all.RawErrorBudgetRemaining
-<span id="L370" class="ln">   370  </span>	o.Sli = all.Sli
-<span id="L371" class="ln">   371  </span>	o.SpanPrecision = all.SpanPrecision
-<span id="L372" class="ln">   372  </span>	o.State = all.State
-<span id="L373" class="ln">   373  </span>	return nil
-<span id="L374" class="ln">   374  </span>}
-<span id="L375" class="ln">   375  </span>
+<span id="L358" class="ln">   358  </span>	additionalProperties := make(map[string]interface{})
+<span id="L359" class="ln">   359  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L360" class="ln">   360  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;calculation_error&#34;, &#34;error_budget_remaining&#34;, &#34;indexed_at&#34;, &#34;raw_error_budget_remaining&#34;, &#34;sli&#34;, &#34;span_precision&#34;, &#34;state&#34;})
+<span id="L361" class="ln">   361  </span>	} else {
+<span id="L362" class="ln">   362  </span>		return err
+<span id="L363" class="ln">   363  </span>	}
+<span id="L364" class="ln">   364  </span>	if v := all.State; v != nil &amp;&amp; !v.IsValid() {
+<span id="L365" class="ln">   365  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L366" class="ln">   366  </span>		if err != nil {
+<span id="L367" class="ln">   367  </span>			return err
+<span id="L368" class="ln">   368  </span>		}
+<span id="L369" class="ln">   369  </span>		o.UnparsedObject = raw
+<span id="L370" class="ln">   370  </span>		return nil
+<span id="L371" class="ln">   371  </span>	}
+<span id="L372" class="ln">   372  </span>	o.CalculationError = all.CalculationError
+<span id="L373" class="ln">   373  </span>	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
+<span id="L374" class="ln">   374  </span>	o.IndexedAt = all.IndexedAt
+<span id="L375" class="ln">   375  </span>	o.RawErrorBudgetRemaining = all.RawErrorBudgetRemaining
+<span id="L376" class="ln">   376  </span>	o.Sli = all.Sli
+<span id="L377" class="ln">   377  </span>	o.SpanPrecision = all.SpanPrecision
+<span id="L378" class="ln">   378  </span>	o.State = all.State
+<span id="L379" class="ln">   379  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L380" class="ln">   380  </span>		o.AdditionalProperties = additionalProperties
+<span id="L381" class="ln">   381  </span>	}
+<span id="L382" class="ln">   382  </span>
+<span id="L383" class="ln">   383  </span>	return nil
+<span id="L384" class="ln">   384  </span>}
+<span id="L385" class="ln">   385  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -265,13 +265,23 @@
 <span id="L208" class="ln">   208  </span>		o.UnparsedObject = raw
 <span id="L209" class="ln">   209  </span>		return nil
 <span id="L210" class="ln">   210  </span>	}
-<span id="L211" class="ln">   211  </span>	o.BatchId = all.BatchId
-<span id="L212" class="ln">   212  </span>	o.Locations = all.Locations
-<span id="L213" class="ln">   213  </span>	o.Results = all.Results
-<span id="L214" class="ln">   214  </span>	o.TriggeredCheckIds = all.TriggeredCheckIds
-<span id="L215" class="ln">   215  </span>	return nil
-<span id="L216" class="ln">   216  </span>}
-<span id="L217" class="ln">   217  </span>
+<span id="L211" class="ln">   211  </span>	additionalProperties := make(map[string]interface{})
+<span id="L212" class="ln">   212  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L213" class="ln">   213  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;batch_id&#34;, &#34;locations&#34;, &#34;results&#34;, &#34;triggered_check_ids&#34;})
+<span id="L214" class="ln">   214  </span>	} else {
+<span id="L215" class="ln">   215  </span>		return err
+<span id="L216" class="ln">   216  </span>	}
+<span id="L217" class="ln">   217  </span>	o.BatchId = all.BatchId
+<span id="L218" class="ln">   218  </span>	o.Locations = all.Locations
+<span id="L219" class="ln">   219  </span>	o.Results = all.Results
+<span id="L220" class="ln">   220  </span>	o.TriggeredCheckIds = all.TriggeredCheckIds
+<span id="L221" class="ln">   221  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L222" class="ln">   222  </span>		o.AdditionalProperties = additionalProperties
+<span id="L223" class="ln">   223  </span>	}
+<span id="L224" class="ln">   224  </span>
+<span id="L225" class="ln">   225  </span>	return nil
+<span id="L226" class="ln">   226  </span>}
+<span id="L227" class="ln">   227  </span>
 </pre><p></p>
 
 <div id="footer">

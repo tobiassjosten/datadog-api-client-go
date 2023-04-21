@@ -682,62 +682,72 @@
 <span id="L625" class="ln">   625  </span>		o.UnparsedObject = raw
 <span id="L626" class="ln">   626  </span>		return nil
 <span id="L627" class="ln">   627  </span>	}
-<span id="L628" class="ln">   628  </span>	if v := all.OverallState; v != nil &amp;&amp; !v.IsValid() {
-<span id="L629" class="ln">   629  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L630" class="ln">   630  </span>		if err != nil {
-<span id="L631" class="ln">   631  </span>			return err
-<span id="L632" class="ln">   632  </span>		}
-<span id="L633" class="ln">   633  </span>		o.UnparsedObject = raw
-<span id="L634" class="ln">   634  </span>		return nil
-<span id="L635" class="ln">   635  </span>	}
-<span id="L636" class="ln">   636  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L637" class="ln">   637  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L638" class="ln">   638  </span>		if err != nil {
-<span id="L639" class="ln">   639  </span>			return err
-<span id="L640" class="ln">   640  </span>		}
-<span id="L641" class="ln">   641  </span>		o.UnparsedObject = raw
-<span id="L642" class="ln">   642  </span>		return nil
-<span id="L643" class="ln">   643  </span>	}
-<span id="L644" class="ln">   644  </span>	o.Created = all.Created
-<span id="L645" class="ln">   645  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L646" class="ln">   646  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L647" class="ln">   647  </span>		if err != nil {
-<span id="L648" class="ln">   648  </span>			return err
-<span id="L649" class="ln">   649  </span>		}
-<span id="L650" class="ln">   650  </span>		o.UnparsedObject = raw
-<span id="L651" class="ln">   651  </span>	}
-<span id="L652" class="ln">   652  </span>	o.Creator = all.Creator
-<span id="L653" class="ln">   653  </span>	o.Deleted = all.Deleted
-<span id="L654" class="ln">   654  </span>	o.Id = all.Id
-<span id="L655" class="ln">   655  </span>	o.Message = all.Message
-<span id="L656" class="ln">   656  </span>	o.Modified = all.Modified
-<span id="L657" class="ln">   657  </span>	o.Multi = all.Multi
-<span id="L658" class="ln">   658  </span>	o.Name = all.Name
-<span id="L659" class="ln">   659  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L660" class="ln">   660  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L661" class="ln">   661  </span>		if err != nil {
-<span id="L662" class="ln">   662  </span>			return err
-<span id="L663" class="ln">   663  </span>		}
-<span id="L664" class="ln">   664  </span>		o.UnparsedObject = raw
-<span id="L665" class="ln">   665  </span>	}
-<span id="L666" class="ln">   666  </span>	o.Options = all.Options
-<span id="L667" class="ln">   667  </span>	o.OverallState = all.OverallState
-<span id="L668" class="ln">   668  </span>	o.Priority = all.Priority
-<span id="L669" class="ln">   669  </span>	o.Query = all.Query
-<span id="L670" class="ln">   670  </span>	o.RestrictedRoles = all.RestrictedRoles
-<span id="L671" class="ln">   671  </span>	if all.State != nil &amp;&amp; all.State.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L672" class="ln">   672  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L673" class="ln">   673  </span>		if err != nil {
-<span id="L674" class="ln">   674  </span>			return err
-<span id="L675" class="ln">   675  </span>		}
-<span id="L676" class="ln">   676  </span>		o.UnparsedObject = raw
-<span id="L677" class="ln">   677  </span>	}
-<span id="L678" class="ln">   678  </span>	o.State = all.State
-<span id="L679" class="ln">   679  </span>	o.Tags = all.Tags
-<span id="L680" class="ln">   680  </span>	o.Type = all.Type
-<span id="L681" class="ln">   681  </span>	return nil
-<span id="L682" class="ln">   682  </span>}
-<span id="L683" class="ln">   683  </span>
+<span id="L628" class="ln">   628  </span>	additionalProperties := make(map[string]interface{})
+<span id="L629" class="ln">   629  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L630" class="ln">   630  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;creator&#34;, &#34;deleted&#34;, &#34;id&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;multi&#34;, &#34;name&#34;, &#34;options&#34;, &#34;overall_state&#34;, &#34;priority&#34;, &#34;query&#34;, &#34;restricted_roles&#34;, &#34;state&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L631" class="ln">   631  </span>	} else {
+<span id="L632" class="ln">   632  </span>		return err
+<span id="L633" class="ln">   633  </span>	}
+<span id="L634" class="ln">   634  </span>	if v := all.OverallState; v != nil &amp;&amp; !v.IsValid() {
+<span id="L635" class="ln">   635  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L636" class="ln">   636  </span>		if err != nil {
+<span id="L637" class="ln">   637  </span>			return err
+<span id="L638" class="ln">   638  </span>		}
+<span id="L639" class="ln">   639  </span>		o.UnparsedObject = raw
+<span id="L640" class="ln">   640  </span>		return nil
+<span id="L641" class="ln">   641  </span>	}
+<span id="L642" class="ln">   642  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L643" class="ln">   643  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L644" class="ln">   644  </span>		if err != nil {
+<span id="L645" class="ln">   645  </span>			return err
+<span id="L646" class="ln">   646  </span>		}
+<span id="L647" class="ln">   647  </span>		o.UnparsedObject = raw
+<span id="L648" class="ln">   648  </span>		return nil
+<span id="L649" class="ln">   649  </span>	}
+<span id="L650" class="ln">   650  </span>	o.Created = all.Created
+<span id="L651" class="ln">   651  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L652" class="ln">   652  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L653" class="ln">   653  </span>		if err != nil {
+<span id="L654" class="ln">   654  </span>			return err
+<span id="L655" class="ln">   655  </span>		}
+<span id="L656" class="ln">   656  </span>		o.UnparsedObject = raw
+<span id="L657" class="ln">   657  </span>	}
+<span id="L658" class="ln">   658  </span>	o.Creator = all.Creator
+<span id="L659" class="ln">   659  </span>	o.Deleted = all.Deleted
+<span id="L660" class="ln">   660  </span>	o.Id = all.Id
+<span id="L661" class="ln">   661  </span>	o.Message = all.Message
+<span id="L662" class="ln">   662  </span>	o.Modified = all.Modified
+<span id="L663" class="ln">   663  </span>	o.Multi = all.Multi
+<span id="L664" class="ln">   664  </span>	o.Name = all.Name
+<span id="L665" class="ln">   665  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L666" class="ln">   666  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L667" class="ln">   667  </span>		if err != nil {
+<span id="L668" class="ln">   668  </span>			return err
+<span id="L669" class="ln">   669  </span>		}
+<span id="L670" class="ln">   670  </span>		o.UnparsedObject = raw
+<span id="L671" class="ln">   671  </span>	}
+<span id="L672" class="ln">   672  </span>	o.Options = all.Options
+<span id="L673" class="ln">   673  </span>	o.OverallState = all.OverallState
+<span id="L674" class="ln">   674  </span>	o.Priority = all.Priority
+<span id="L675" class="ln">   675  </span>	o.Query = all.Query
+<span id="L676" class="ln">   676  </span>	o.RestrictedRoles = all.RestrictedRoles
+<span id="L677" class="ln">   677  </span>	if all.State != nil &amp;&amp; all.State.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L678" class="ln">   678  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L679" class="ln">   679  </span>		if err != nil {
+<span id="L680" class="ln">   680  </span>			return err
+<span id="L681" class="ln">   681  </span>		}
+<span id="L682" class="ln">   682  </span>		o.UnparsedObject = raw
+<span id="L683" class="ln">   683  </span>	}
+<span id="L684" class="ln">   684  </span>	o.State = all.State
+<span id="L685" class="ln">   685  </span>	o.Tags = all.Tags
+<span id="L686" class="ln">   686  </span>	o.Type = all.Type
+<span id="L687" class="ln">   687  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L688" class="ln">   688  </span>		o.AdditionalProperties = additionalProperties
+<span id="L689" class="ln">   689  </span>	}
+<span id="L690" class="ln">   690  </span>
+<span id="L691" class="ln">   691  </span>	return nil
+<span id="L692" class="ln">   692  </span>}
+<span id="L693" class="ln">   693  </span>
 </pre><p></p>
 
 <div id="footer">

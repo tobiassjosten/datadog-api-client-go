@@ -593,36 +593,46 @@
 <span id="L536" class="ln">   536  </span>		o.UnparsedObject = raw
 <span id="L537" class="ln">   537  </span>		return nil
 <span id="L538" class="ln">   538  </span>	}
-<span id="L539" class="ln">   539  </span>	if v := all.Category; v != nil &amp;&amp; !v.IsValid() {
-<span id="L540" class="ln">   540  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L541" class="ln">   541  </span>		if err != nil {
-<span id="L542" class="ln">   542  </span>			return err
-<span id="L543" class="ln">   543  </span>		}
-<span id="L544" class="ln">   544  </span>		o.UnparsedObject = raw
-<span id="L545" class="ln">   545  </span>		return nil
-<span id="L546" class="ln">   546  </span>	}
-<span id="L547" class="ln">   547  </span>	o.Category = all.Category
-<span id="L548" class="ln">   548  </span>	o.CreatedAt = all.CreatedAt
-<span id="L549" class="ln">   549  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L550" class="ln">   550  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L551" class="ln">   551  </span>		if err != nil {
-<span id="L552" class="ln">   552  </span>			return err
-<span id="L553" class="ln">   553  </span>		}
-<span id="L554" class="ln">   554  </span>		o.UnparsedObject = raw
-<span id="L555" class="ln">   555  </span>	}
-<span id="L556" class="ln">   556  </span>	o.Creator = all.Creator
-<span id="L557" class="ln">   557  </span>	o.Description = all.Description
-<span id="L558" class="ln">   558  </span>	o.Duration = all.Duration
-<span id="L559" class="ln">   559  </span>	o.End = all.End
-<span id="L560" class="ln">   560  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L561" class="ln">   561  </span>	o.Modifier = all.Modifier
-<span id="L562" class="ln">   562  </span>	o.Rrule = all.Rrule
-<span id="L563" class="ln">   563  </span>	o.SloId = all.SloId
-<span id="L564" class="ln">   564  </span>	o.Start = all.Start
-<span id="L565" class="ln">   565  </span>	o.Timezone = all.Timezone
-<span id="L566" class="ln">   566  </span>	return nil
-<span id="L567" class="ln">   567  </span>}
-<span id="L568" class="ln">   568  </span>
+<span id="L539" class="ln">   539  </span>	additionalProperties := make(map[string]interface{})
+<span id="L540" class="ln">   540  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L541" class="ln">   541  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;category&#34;, &#34;created_at&#34;, &#34;creator&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;end&#34;, &#34;modified_at&#34;, &#34;modifier&#34;, &#34;rrule&#34;, &#34;slo_id&#34;, &#34;start&#34;, &#34;timezone&#34;})
+<span id="L542" class="ln">   542  </span>	} else {
+<span id="L543" class="ln">   543  </span>		return err
+<span id="L544" class="ln">   544  </span>	}
+<span id="L545" class="ln">   545  </span>	if v := all.Category; v != nil &amp;&amp; !v.IsValid() {
+<span id="L546" class="ln">   546  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L547" class="ln">   547  </span>		if err != nil {
+<span id="L548" class="ln">   548  </span>			return err
+<span id="L549" class="ln">   549  </span>		}
+<span id="L550" class="ln">   550  </span>		o.UnparsedObject = raw
+<span id="L551" class="ln">   551  </span>		return nil
+<span id="L552" class="ln">   552  </span>	}
+<span id="L553" class="ln">   553  </span>	o.Category = all.Category
+<span id="L554" class="ln">   554  </span>	o.CreatedAt = all.CreatedAt
+<span id="L555" class="ln">   555  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L556" class="ln">   556  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L557" class="ln">   557  </span>		if err != nil {
+<span id="L558" class="ln">   558  </span>			return err
+<span id="L559" class="ln">   559  </span>		}
+<span id="L560" class="ln">   560  </span>		o.UnparsedObject = raw
+<span id="L561" class="ln">   561  </span>	}
+<span id="L562" class="ln">   562  </span>	o.Creator = all.Creator
+<span id="L563" class="ln">   563  </span>	o.Description = all.Description
+<span id="L564" class="ln">   564  </span>	o.Duration = all.Duration
+<span id="L565" class="ln">   565  </span>	o.End = all.End
+<span id="L566" class="ln">   566  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L567" class="ln">   567  </span>	o.Modifier = all.Modifier
+<span id="L568" class="ln">   568  </span>	o.Rrule = all.Rrule
+<span id="L569" class="ln">   569  </span>	o.SloId = all.SloId
+<span id="L570" class="ln">   570  </span>	o.Start = all.Start
+<span id="L571" class="ln">   571  </span>	o.Timezone = all.Timezone
+<span id="L572" class="ln">   572  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L573" class="ln">   573  </span>		o.AdditionalProperties = additionalProperties
+<span id="L574" class="ln">   574  </span>	}
+<span id="L575" class="ln">   575  </span>
+<span id="L576" class="ln">   576  </span>	return nil
+<span id="L577" class="ln">   577  </span>}
+<span id="L578" class="ln">   578  </span>
 </pre><p></p>
 
 <div id="footer">

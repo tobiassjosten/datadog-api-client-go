@@ -405,16 +405,26 @@
 <span id="L348" class="ln">   348  </span>		o.UnparsedObject = raw
 <span id="L349" class="ln">   349  </span>		return nil
 <span id="L350" class="ln">   350  </span>	}
-<span id="L351" class="ln">   351  </span>	o.ApmFargateCount = all.ApmFargateCount
-<span id="L352" class="ln">   352  </span>	o.AppsecFargateCount = all.AppsecFargateCount
-<span id="L353" class="ln">   353  </span>	o.AvgProfiledFargateTasks = all.AvgProfiledFargateTasks
-<span id="L354" class="ln">   354  </span>	o.Hour = all.Hour
-<span id="L355" class="ln">   355  </span>	o.OrgName = all.OrgName
-<span id="L356" class="ln">   356  </span>	o.PublicId = all.PublicId
-<span id="L357" class="ln">   357  </span>	o.TasksCount = all.TasksCount
-<span id="L358" class="ln">   358  </span>	return nil
-<span id="L359" class="ln">   359  </span>}
-<span id="L360" class="ln">   360  </span>
+<span id="L351" class="ln">   351  </span>	additionalProperties := make(map[string]interface{})
+<span id="L352" class="ln">   352  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L353" class="ln">   353  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;apm_fargate_count&#34;, &#34;appsec_fargate_count&#34;, &#34;avg_profiled_fargate_tasks&#34;, &#34;hour&#34;, &#34;org_name&#34;, &#34;public_id&#34;, &#34;tasks_count&#34;})
+<span id="L354" class="ln">   354  </span>	} else {
+<span id="L355" class="ln">   355  </span>		return err
+<span id="L356" class="ln">   356  </span>	}
+<span id="L357" class="ln">   357  </span>	o.ApmFargateCount = all.ApmFargateCount
+<span id="L358" class="ln">   358  </span>	o.AppsecFargateCount = all.AppsecFargateCount
+<span id="L359" class="ln">   359  </span>	o.AvgProfiledFargateTasks = all.AvgProfiledFargateTasks
+<span id="L360" class="ln">   360  </span>	o.Hour = all.Hour
+<span id="L361" class="ln">   361  </span>	o.OrgName = all.OrgName
+<span id="L362" class="ln">   362  </span>	o.PublicId = all.PublicId
+<span id="L363" class="ln">   363  </span>	o.TasksCount = all.TasksCount
+<span id="L364" class="ln">   364  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L365" class="ln">   365  </span>		o.AdditionalProperties = additionalProperties
+<span id="L366" class="ln">   366  </span>	}
+<span id="L367" class="ln">   367  </span>
+<span id="L368" class="ln">   368  </span>	return nil
+<span id="L369" class="ln">   369  </span>}
+<span id="L370" class="ln">   370  </span>
 </pre><p></p>
 
 <div id="footer">

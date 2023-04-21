@@ -451,18 +451,28 @@
 <span id="L394" class="ln">   394  </span>		o.UnparsedObject = raw
 <span id="L395" class="ln">   395  </span>		return nil
 <span id="L396" class="ln">   396  </span>	}
-<span id="L397" class="ln">   397  </span>	o.CreatedAt = all.CreatedAt
-<span id="L398" class="ln">   398  </span>	o.Disabled = all.Disabled
-<span id="L399" class="ln">   399  </span>	o.Email = all.Email
-<span id="L400" class="ln">   400  </span>	o.Handle = all.Handle
-<span id="L401" class="ln">   401  </span>	o.Icon = all.Icon
-<span id="L402" class="ln">   402  </span>	o.Name = all.Name
-<span id="L403" class="ln">   403  </span>	o.Status = all.Status
-<span id="L404" class="ln">   404  </span>	o.Title = all.Title
-<span id="L405" class="ln">   405  </span>	o.Verified = all.Verified
-<span id="L406" class="ln">   406  </span>	return nil
-<span id="L407" class="ln">   407  </span>}
-<span id="L408" class="ln">   408  </span>
+<span id="L397" class="ln">   397  </span>	additionalProperties := make(map[string]interface{})
+<span id="L398" class="ln">   398  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L399" class="ln">   399  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;disabled&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;icon&#34;, &#34;name&#34;, &#34;status&#34;, &#34;title&#34;, &#34;verified&#34;})
+<span id="L400" class="ln">   400  </span>	} else {
+<span id="L401" class="ln">   401  </span>		return err
+<span id="L402" class="ln">   402  </span>	}
+<span id="L403" class="ln">   403  </span>	o.CreatedAt = all.CreatedAt
+<span id="L404" class="ln">   404  </span>	o.Disabled = all.Disabled
+<span id="L405" class="ln">   405  </span>	o.Email = all.Email
+<span id="L406" class="ln">   406  </span>	o.Handle = all.Handle
+<span id="L407" class="ln">   407  </span>	o.Icon = all.Icon
+<span id="L408" class="ln">   408  </span>	o.Name = all.Name
+<span id="L409" class="ln">   409  </span>	o.Status = all.Status
+<span id="L410" class="ln">   410  </span>	o.Title = all.Title
+<span id="L411" class="ln">   411  </span>	o.Verified = all.Verified
+<span id="L412" class="ln">   412  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L413" class="ln">   413  </span>		o.AdditionalProperties = additionalProperties
+<span id="L414" class="ln">   414  </span>	}
+<span id="L415" class="ln">   415  </span>
+<span id="L416" class="ln">   416  </span>	return nil
+<span id="L417" class="ln">   417  </span>}
+<span id="L418" class="ln">   418  </span>
 </pre><p></p>
 
 <div id="footer">

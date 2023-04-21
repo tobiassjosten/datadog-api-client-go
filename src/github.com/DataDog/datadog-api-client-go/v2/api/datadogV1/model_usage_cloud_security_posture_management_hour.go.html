@@ -540,19 +540,29 @@
 <span id="L483" class="ln">   483  </span>		o.UnparsedObject = raw
 <span id="L484" class="ln">   484  </span>		return nil
 <span id="L485" class="ln">   485  </span>	}
-<span id="L486" class="ln">   486  </span>	o.AasHostCount = all.AasHostCount
-<span id="L487" class="ln">   487  </span>	o.AwsHostCount = all.AwsHostCount
-<span id="L488" class="ln">   488  </span>	o.AzureHostCount = all.AzureHostCount
-<span id="L489" class="ln">   489  </span>	o.ComplianceHostCount = all.ComplianceHostCount
-<span id="L490" class="ln">   490  </span>	o.ContainerCount = all.ContainerCount
-<span id="L491" class="ln">   491  </span>	o.GcpHostCount = all.GcpHostCount
-<span id="L492" class="ln">   492  </span>	o.HostCount = all.HostCount
-<span id="L493" class="ln">   493  </span>	o.Hour = all.Hour
-<span id="L494" class="ln">   494  </span>	o.OrgName = all.OrgName
-<span id="L495" class="ln">   495  </span>	o.PublicId = all.PublicId
-<span id="L496" class="ln">   496  </span>	return nil
-<span id="L497" class="ln">   497  </span>}
-<span id="L498" class="ln">   498  </span>
+<span id="L486" class="ln">   486  </span>	additionalProperties := make(map[string]interface{})
+<span id="L487" class="ln">   487  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L488" class="ln">   488  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aas_host_count&#34;, &#34;aws_host_count&#34;, &#34;azure_host_count&#34;, &#34;compliance_host_count&#34;, &#34;container_count&#34;, &#34;gcp_host_count&#34;, &#34;host_count&#34;, &#34;hour&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
+<span id="L489" class="ln">   489  </span>	} else {
+<span id="L490" class="ln">   490  </span>		return err
+<span id="L491" class="ln">   491  </span>	}
+<span id="L492" class="ln">   492  </span>	o.AasHostCount = all.AasHostCount
+<span id="L493" class="ln">   493  </span>	o.AwsHostCount = all.AwsHostCount
+<span id="L494" class="ln">   494  </span>	o.AzureHostCount = all.AzureHostCount
+<span id="L495" class="ln">   495  </span>	o.ComplianceHostCount = all.ComplianceHostCount
+<span id="L496" class="ln">   496  </span>	o.ContainerCount = all.ContainerCount
+<span id="L497" class="ln">   497  </span>	o.GcpHostCount = all.GcpHostCount
+<span id="L498" class="ln">   498  </span>	o.HostCount = all.HostCount
+<span id="L499" class="ln">   499  </span>	o.Hour = all.Hour
+<span id="L500" class="ln">   500  </span>	o.OrgName = all.OrgName
+<span id="L501" class="ln">   501  </span>	o.PublicId = all.PublicId
+<span id="L502" class="ln">   502  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L503" class="ln">   503  </span>		o.AdditionalProperties = additionalProperties
+<span id="L504" class="ln">   504  </span>	}
+<span id="L505" class="ln">   505  </span>
+<span id="L506" class="ln">   506  </span>	return nil
+<span id="L507" class="ln">   507  </span>}
+<span id="L508" class="ln">   508  </span>
 </pre><p></p>
 
 <div id="footer">
