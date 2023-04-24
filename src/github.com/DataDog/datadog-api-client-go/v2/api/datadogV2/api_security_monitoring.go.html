@@ -865,7 +865,7 @@
 <span id="L808" class="ln">   808  </span>
 <span id="L809" class="ln">   809  </span><span class="comment">// ListFindingsOptionalParameters holds optional parameters for ListFindings.</span>
 <span id="L810" class="ln">   810  </span>type ListFindingsOptionalParameters struct {
-<span id="L811" class="ln">   811  </span>	Limit                     *int64
+<span id="L811" class="ln">   811  </span>	PageLimit                 *int64
 <span id="L812" class="ln">   812  </span>	SnapshotTimestamp         *int64
 <span id="L813" class="ln">   813  </span>	PageCursor                *string
 <span id="L814" class="ln">   814  </span>	FilterTags                *string
@@ -885,9 +885,9 @@
 <span id="L828" class="ln">   828  </span>	return &amp;this
 <span id="L829" class="ln">   829  </span>}
 <span id="L830" class="ln">   830  </span>
-<span id="L831" class="ln">   831  </span><span class="comment">// WithLimit sets the corresponding parameter name and returns the struct.</span>
-<span id="L832" class="ln">   832  </span>func (r *ListFindingsOptionalParameters) WithLimit(limit int64) *ListFindingsOptionalParameters {
-<span id="L833" class="ln">   833  </span>	r.Limit = &amp;limit
+<span id="L831" class="ln">   831  </span><span class="comment">// WithPageLimit sets the corresponding parameter name and returns the struct.</span>
+<span id="L832" class="ln">   832  </span>func (r *ListFindingsOptionalParameters) WithPageLimit(pageLimit int64) *ListFindingsOptionalParameters {
+<span id="L833" class="ln">   833  </span>	r.PageLimit = &amp;pageLimit
 <span id="L834" class="ln">   834  </span>	return r
 <span id="L835" class="ln">   835  </span>}
 <span id="L836" class="ln">   836  </span>
@@ -959,833 +959,919 @@
 <span id="L902" class="ln">   902  </span>
 <span id="L903" class="ln">   903  </span><span class="comment">// ListFindings List findings.</span>
 <span id="L904" class="ln">   904  </span><span class="comment">// Get a list of CSPM findings.</span>
-<span id="L905" class="ln">   905  </span>func (a *SecurityMonitoringApi) ListFindings(ctx _context.Context, o ...ListFindingsOptionalParameters) (ListFindingsResponse, *_nethttp.Response, error) {
-<span id="L906" class="ln">   906  </span>	var (
-<span id="L907" class="ln">   907  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L908" class="ln">   908  </span>		localVarPostBody    interface{}
-<span id="L909" class="ln">   909  </span>		localVarReturnValue ListFindingsResponse
-<span id="L910" class="ln">   910  </span>		optionalParams      ListFindingsOptionalParameters
-<span id="L911" class="ln">   911  </span>	)
-<span id="L912" class="ln">   912  </span>
-<span id="L913" class="ln">   913  </span>	if len(o) &gt; 1 {
-<span id="L914" class="ln">   914  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type ListFindingsOptionalParameters is allowed&#34;)
-<span id="L915" class="ln">   915  </span>	}
-<span id="L916" class="ln">   916  </span>	if len(o) == 1 {
-<span id="L917" class="ln">   917  </span>		optionalParams = o[0]
-<span id="L918" class="ln">   918  </span>	}
-<span id="L919" class="ln">   919  </span>
-<span id="L920" class="ln">   920  </span>	operationId := &#34;v2.ListFindings&#34;
-<span id="L921" class="ln">   921  </span>	if a.Client.Cfg.IsUnstableOperationEnabled(operationId) {
-<span id="L922" class="ln">   922  </span>		_log.Printf(&#34;WARNING: Using unstable operation &#39;%s&#39;&#34;, operationId)
-<span id="L923" class="ln">   923  </span>	} else {
-<span id="L924" class="ln">   924  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf(&#34;Unstable operation &#39;%s&#39; is disabled&#34;, operationId)}
-<span id="L925" class="ln">   925  </span>	}
-<span id="L926" class="ln">   926  </span>
-<span id="L927" class="ln">   927  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListFindings&#34;)
-<span id="L928" class="ln">   928  </span>	if err != nil {
-<span id="L929" class="ln">   929  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L930" class="ln">   930  </span>	}
-<span id="L931" class="ln">   931  </span>
-<span id="L932" class="ln">   932  </span>	localVarPath := localBasePath + &#34;/api/v2/posture_management/findings&#34;
-<span id="L933" class="ln">   933  </span>
-<span id="L934" class="ln">   934  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L935" class="ln">   935  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L936" class="ln">   936  </span>	localVarFormParams := _neturl.Values{}
-<span id="L937" class="ln">   937  </span>	if optionalParams.Limit != nil {
-<span id="L938" class="ln">   938  </span>		localVarQueryParams.Add(&#34;limit&#34;, datadog.ParameterToString(*optionalParams.Limit, &#34;&#34;))
-<span id="L939" class="ln">   939  </span>	}
-<span id="L940" class="ln">   940  </span>	if optionalParams.SnapshotTimestamp != nil {
-<span id="L941" class="ln">   941  </span>		localVarQueryParams.Add(&#34;snapshot_timestamp&#34;, datadog.ParameterToString(*optionalParams.SnapshotTimestamp, &#34;&#34;))
-<span id="L942" class="ln">   942  </span>	}
-<span id="L943" class="ln">   943  </span>	if optionalParams.PageCursor != nil {
-<span id="L944" class="ln">   944  </span>		localVarQueryParams.Add(&#34;page[cursor]&#34;, datadog.ParameterToString(*optionalParams.PageCursor, &#34;&#34;))
-<span id="L945" class="ln">   945  </span>	}
-<span id="L946" class="ln">   946  </span>	if optionalParams.FilterTags != nil {
-<span id="L947" class="ln">   947  </span>		localVarQueryParams.Add(&#34;filter[tags]&#34;, datadog.ParameterToString(*optionalParams.FilterTags, &#34;&#34;))
-<span id="L948" class="ln">   948  </span>	}
-<span id="L949" class="ln">   949  </span>	if optionalParams.FilterEvaluationChangedAt != nil {
-<span id="L950" class="ln">   950  </span>		localVarQueryParams.Add(&#34;filter[evaluation_changed_at]&#34;, datadog.ParameterToString(*optionalParams.FilterEvaluationChangedAt, &#34;&#34;))
-<span id="L951" class="ln">   951  </span>	}
-<span id="L952" class="ln">   952  </span>	if optionalParams.FilterMuted != nil {
-<span id="L953" class="ln">   953  </span>		localVarQueryParams.Add(&#34;filter[muted]&#34;, datadog.ParameterToString(*optionalParams.FilterMuted, &#34;&#34;))
-<span id="L954" class="ln">   954  </span>	}
-<span id="L955" class="ln">   955  </span>	if optionalParams.FilterRuleId != nil {
-<span id="L956" class="ln">   956  </span>		localVarQueryParams.Add(&#34;filter[rule_id]&#34;, datadog.ParameterToString(*optionalParams.FilterRuleId, &#34;&#34;))
-<span id="L957" class="ln">   957  </span>	}
-<span id="L958" class="ln">   958  </span>	if optionalParams.FilterRuleName != nil {
-<span id="L959" class="ln">   959  </span>		localVarQueryParams.Add(&#34;filter[rule_name]&#34;, datadog.ParameterToString(*optionalParams.FilterRuleName, &#34;&#34;))
-<span id="L960" class="ln">   960  </span>	}
-<span id="L961" class="ln">   961  </span>	if optionalParams.FilterResourceType != nil {
-<span id="L962" class="ln">   962  </span>		localVarQueryParams.Add(&#34;filter[resource_type]&#34;, datadog.ParameterToString(*optionalParams.FilterResourceType, &#34;&#34;))
-<span id="L963" class="ln">   963  </span>	}
-<span id="L964" class="ln">   964  </span>	if optionalParams.FilterDiscoveryTimestamp != nil {
-<span id="L965" class="ln">   965  </span>		localVarQueryParams.Add(&#34;filter[discovery_timestamp]&#34;, datadog.ParameterToString(*optionalParams.FilterDiscoveryTimestamp, &#34;&#34;))
-<span id="L966" class="ln">   966  </span>	}
-<span id="L967" class="ln">   967  </span>	if optionalParams.FilterEvaluation != nil {
-<span id="L968" class="ln">   968  </span>		localVarQueryParams.Add(&#34;filter[evaluation]&#34;, datadog.ParameterToString(*optionalParams.FilterEvaluation, &#34;&#34;))
-<span id="L969" class="ln">   969  </span>	}
-<span id="L970" class="ln">   970  </span>	if optionalParams.FilterStatus != nil {
-<span id="L971" class="ln">   971  </span>		localVarQueryParams.Add(&#34;filter[status]&#34;, datadog.ParameterToString(*optionalParams.FilterStatus, &#34;&#34;))
-<span id="L972" class="ln">   972  </span>	}
-<span id="L973" class="ln">   973  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L974" class="ln">   974  </span>
-<span id="L975" class="ln">   975  </span>	datadog.SetAuthKeys(
-<span id="L976" class="ln">   976  </span>		ctx,
-<span id="L977" class="ln">   977  </span>		&amp;localVarHeaderParams,
-<span id="L978" class="ln">   978  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L979" class="ln">   979  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L980" class="ln">   980  </span>	)
-<span id="L981" class="ln">   981  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L982" class="ln">   982  </span>	if err != nil {
-<span id="L983" class="ln">   983  </span>		return localVarReturnValue, nil, err
-<span id="L984" class="ln">   984  </span>	}
-<span id="L985" class="ln">   985  </span>
-<span id="L986" class="ln">   986  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L987" class="ln">   987  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L988" class="ln">   988  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L989" class="ln">   989  </span>	}
-<span id="L990" class="ln">   990  </span>
-<span id="L991" class="ln">   991  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L992" class="ln">   992  </span>	if err != nil {
-<span id="L993" class="ln">   993  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L905" class="ln">   905  </span><span class="comment">//</span>
+<span id="L906" class="ln">   906  </span><span class="comment">// ### Filtering</span>
+<span id="L907" class="ln">   907  </span><span class="comment">//</span>
+<span id="L908" class="ln">   908  </span><span class="comment">// Filters can be applied by appending query parameters to the URL.</span>
+<span id="L909" class="ln">   909  </span><span class="comment">//</span>
+<span id="L910" class="ln">   910  </span><span class="comment">//   - Using a single filter: `?filter[attribute_key]=attribute_value`</span>
+<span id="L911" class="ln">   911  </span><span class="comment">//   - Chaining filters: `?filter[attribute_key]=attribute_value&amp;filter[attribute_key]=attribute_value...`</span>
+<span id="L912" class="ln">   912  </span><span class="comment">//   - Filtering on tags: `?filter[tags]=tag_key:tag_value&amp;filter[tags]=tag_key_2:tag_value_2`</span>
+<span id="L913" class="ln">   913  </span><span class="comment">//</span>
+<span id="L914" class="ln">   914  </span><span class="comment">// Here, `attribute_key` can be any of the filter keys described further below.</span>
+<span id="L915" class="ln">   915  </span><span class="comment">//</span>
+<span id="L916" class="ln">   916  </span><span class="comment">// Query parameters of type `integer` support comparison operators (`&gt;`, `&gt;=`, `&lt;`, `&lt;=`). This is particularly useful when filtering by `evaluation_changed_at` or `resource_discovery_timestamp`. For example: `?filter[evaluation_changed_at]=&gt;20123123121`.</span>
+<span id="L917" class="ln">   917  </span><span class="comment">//</span>
+<span id="L918" class="ln">   918  </span><span class="comment">// You can also use the negation operator on strings. For example, use `filter[resource_type]=-aws*` to filter for any non-AWS resources.</span>
+<span id="L919" class="ln">   919  </span><span class="comment">//</span>
+<span id="L920" class="ln">   920  </span><span class="comment">// The operator must come after the equal sign. For example, to filter with the `&gt;=` operator, add the operator after the equal sign: `filter[evaluation_changed_at]=&gt;=1678809373257`.</span>
+<span id="L921" class="ln">   921  </span><span class="comment">//</span>
+<span id="L922" class="ln">   922  </span><span class="comment">// ### Response</span>
+<span id="L923" class="ln">   923  </span><span class="comment">//</span>
+<span id="L924" class="ln">   924  </span><span class="comment">// The response includes an array of finding objects, pagination metadata, and a count of items that match the query.</span>
+<span id="L925" class="ln">   925  </span><span class="comment">//</span>
+<span id="L926" class="ln">   926  </span><span class="comment">// Each finding object contains the following:</span>
+<span id="L927" class="ln">   927  </span><span class="comment">//</span>
+<span id="L928" class="ln">   928  </span><span class="comment">// - The finding ID that can be used in a `GetFinding` request to retrieve the full finding details.</span>
+<span id="L929" class="ln">   929  </span><span class="comment">// - Core attributes, including status, evaluation, high-level resource details, muted state, and rule details.</span>
+<span id="L930" class="ln">   930  </span><span class="comment">// - `evaluation_changed_at` and `resource_discovery_date` time stamps.</span>
+<span id="L931" class="ln">   931  </span><span class="comment">// - An array of associated tags.</span>
+<span id="L932" class="ln">   932  </span><span class="comment">//</span>
+<span id="L933" class="ln">   933  </span>func (a *SecurityMonitoringApi) ListFindings(ctx _context.Context, o ...ListFindingsOptionalParameters) (ListFindingsResponse, *_nethttp.Response, error) {
+<span id="L934" class="ln">   934  </span>	var (
+<span id="L935" class="ln">   935  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L936" class="ln">   936  </span>		localVarPostBody    interface{}
+<span id="L937" class="ln">   937  </span>		localVarReturnValue ListFindingsResponse
+<span id="L938" class="ln">   938  </span>		optionalParams      ListFindingsOptionalParameters
+<span id="L939" class="ln">   939  </span>	)
+<span id="L940" class="ln">   940  </span>
+<span id="L941" class="ln">   941  </span>	if len(o) &gt; 1 {
+<span id="L942" class="ln">   942  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type ListFindingsOptionalParameters is allowed&#34;)
+<span id="L943" class="ln">   943  </span>	}
+<span id="L944" class="ln">   944  </span>	if len(o) == 1 {
+<span id="L945" class="ln">   945  </span>		optionalParams = o[0]
+<span id="L946" class="ln">   946  </span>	}
+<span id="L947" class="ln">   947  </span>
+<span id="L948" class="ln">   948  </span>	operationId := &#34;v2.ListFindings&#34;
+<span id="L949" class="ln">   949  </span>	if a.Client.Cfg.IsUnstableOperationEnabled(operationId) {
+<span id="L950" class="ln">   950  </span>		_log.Printf(&#34;WARNING: Using unstable operation &#39;%s&#39;&#34;, operationId)
+<span id="L951" class="ln">   951  </span>	} else {
+<span id="L952" class="ln">   952  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf(&#34;Unstable operation &#39;%s&#39; is disabled&#34;, operationId)}
+<span id="L953" class="ln">   953  </span>	}
+<span id="L954" class="ln">   954  </span>
+<span id="L955" class="ln">   955  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListFindings&#34;)
+<span id="L956" class="ln">   956  </span>	if err != nil {
+<span id="L957" class="ln">   957  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L958" class="ln">   958  </span>	}
+<span id="L959" class="ln">   959  </span>
+<span id="L960" class="ln">   960  </span>	localVarPath := localBasePath + &#34;/api/v2/posture_management/findings&#34;
+<span id="L961" class="ln">   961  </span>
+<span id="L962" class="ln">   962  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L963" class="ln">   963  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L964" class="ln">   964  </span>	localVarFormParams := _neturl.Values{}
+<span id="L965" class="ln">   965  </span>	if optionalParams.PageLimit != nil {
+<span id="L966" class="ln">   966  </span>		localVarQueryParams.Add(&#34;page[limit]&#34;, datadog.ParameterToString(*optionalParams.PageLimit, &#34;&#34;))
+<span id="L967" class="ln">   967  </span>	}
+<span id="L968" class="ln">   968  </span>	if optionalParams.SnapshotTimestamp != nil {
+<span id="L969" class="ln">   969  </span>		localVarQueryParams.Add(&#34;snapshot_timestamp&#34;, datadog.ParameterToString(*optionalParams.SnapshotTimestamp, &#34;&#34;))
+<span id="L970" class="ln">   970  </span>	}
+<span id="L971" class="ln">   971  </span>	if optionalParams.PageCursor != nil {
+<span id="L972" class="ln">   972  </span>		localVarQueryParams.Add(&#34;page[cursor]&#34;, datadog.ParameterToString(*optionalParams.PageCursor, &#34;&#34;))
+<span id="L973" class="ln">   973  </span>	}
+<span id="L974" class="ln">   974  </span>	if optionalParams.FilterTags != nil {
+<span id="L975" class="ln">   975  </span>		localVarQueryParams.Add(&#34;filter[tags]&#34;, datadog.ParameterToString(*optionalParams.FilterTags, &#34;&#34;))
+<span id="L976" class="ln">   976  </span>	}
+<span id="L977" class="ln">   977  </span>	if optionalParams.FilterEvaluationChangedAt != nil {
+<span id="L978" class="ln">   978  </span>		localVarQueryParams.Add(&#34;filter[evaluation_changed_at]&#34;, datadog.ParameterToString(*optionalParams.FilterEvaluationChangedAt, &#34;&#34;))
+<span id="L979" class="ln">   979  </span>	}
+<span id="L980" class="ln">   980  </span>	if optionalParams.FilterMuted != nil {
+<span id="L981" class="ln">   981  </span>		localVarQueryParams.Add(&#34;filter[muted]&#34;, datadog.ParameterToString(*optionalParams.FilterMuted, &#34;&#34;))
+<span id="L982" class="ln">   982  </span>	}
+<span id="L983" class="ln">   983  </span>	if optionalParams.FilterRuleId != nil {
+<span id="L984" class="ln">   984  </span>		localVarQueryParams.Add(&#34;filter[rule_id]&#34;, datadog.ParameterToString(*optionalParams.FilterRuleId, &#34;&#34;))
+<span id="L985" class="ln">   985  </span>	}
+<span id="L986" class="ln">   986  </span>	if optionalParams.FilterRuleName != nil {
+<span id="L987" class="ln">   987  </span>		localVarQueryParams.Add(&#34;filter[rule_name]&#34;, datadog.ParameterToString(*optionalParams.FilterRuleName, &#34;&#34;))
+<span id="L988" class="ln">   988  </span>	}
+<span id="L989" class="ln">   989  </span>	if optionalParams.FilterResourceType != nil {
+<span id="L990" class="ln">   990  </span>		localVarQueryParams.Add(&#34;filter[resource_type]&#34;, datadog.ParameterToString(*optionalParams.FilterResourceType, &#34;&#34;))
+<span id="L991" class="ln">   991  </span>	}
+<span id="L992" class="ln">   992  </span>	if optionalParams.FilterDiscoveryTimestamp != nil {
+<span id="L993" class="ln">   993  </span>		localVarQueryParams.Add(&#34;filter[discovery_timestamp]&#34;, datadog.ParameterToString(*optionalParams.FilterDiscoveryTimestamp, &#34;&#34;))
 <span id="L994" class="ln">   994  </span>	}
-<span id="L995" class="ln">   995  </span>
-<span id="L996" class="ln">   996  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L997" class="ln">   997  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L998" class="ln">   998  </span>			ErrorBody:    localVarBody,
-<span id="L999" class="ln">   999  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1000" class="ln">  1000  </span>		}
-<span id="L1001" class="ln">  1001  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1002" class="ln">  1002  </span>			var v APIErrorResponse
-<span id="L1003" class="ln">  1003  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1004" class="ln">  1004  </span>			if err != nil {
-<span id="L1005" class="ln">  1005  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1006" class="ln">  1006  </span>			}
-<span id="L1007" class="ln">  1007  </span>			newErr.ErrorModel = v
-<span id="L1008" class="ln">  1008  </span>		}
-<span id="L1009" class="ln">  1009  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1010" class="ln">  1010  </span>	}
-<span id="L1011" class="ln">  1011  </span>
-<span id="L1012" class="ln">  1012  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1013" class="ln">  1013  </span>	if err != nil {
-<span id="L1014" class="ln">  1014  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1015" class="ln">  1015  </span>			ErrorBody:    localVarBody,
-<span id="L1016" class="ln">  1016  </span>			ErrorMessage: err.Error(),
-<span id="L1017" class="ln">  1017  </span>		}
-<span id="L1018" class="ln">  1018  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1019" class="ln">  1019  </span>	}
-<span id="L1020" class="ln">  1020  </span>
-<span id="L1021" class="ln">  1021  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1022" class="ln">  1022  </span>}
+<span id="L995" class="ln">   995  </span>	if optionalParams.FilterEvaluation != nil {
+<span id="L996" class="ln">   996  </span>		localVarQueryParams.Add(&#34;filter[evaluation]&#34;, datadog.ParameterToString(*optionalParams.FilterEvaluation, &#34;&#34;))
+<span id="L997" class="ln">   997  </span>	}
+<span id="L998" class="ln">   998  </span>	if optionalParams.FilterStatus != nil {
+<span id="L999" class="ln">   999  </span>		localVarQueryParams.Add(&#34;filter[status]&#34;, datadog.ParameterToString(*optionalParams.FilterStatus, &#34;&#34;))
+<span id="L1000" class="ln">  1000  </span>	}
+<span id="L1001" class="ln">  1001  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1002" class="ln">  1002  </span>
+<span id="L1003" class="ln">  1003  </span>	datadog.SetAuthKeys(
+<span id="L1004" class="ln">  1004  </span>		ctx,
+<span id="L1005" class="ln">  1005  </span>		&amp;localVarHeaderParams,
+<span id="L1006" class="ln">  1006  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1007" class="ln">  1007  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1008" class="ln">  1008  </span>	)
+<span id="L1009" class="ln">  1009  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1010" class="ln">  1010  </span>	if err != nil {
+<span id="L1011" class="ln">  1011  </span>		return localVarReturnValue, nil, err
+<span id="L1012" class="ln">  1012  </span>	}
+<span id="L1013" class="ln">  1013  </span>
+<span id="L1014" class="ln">  1014  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1015" class="ln">  1015  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1016" class="ln">  1016  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1017" class="ln">  1017  </span>	}
+<span id="L1018" class="ln">  1018  </span>
+<span id="L1019" class="ln">  1019  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1020" class="ln">  1020  </span>	if err != nil {
+<span id="L1021" class="ln">  1021  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1022" class="ln">  1022  </span>	}
 <span id="L1023" class="ln">  1023  </span>
-<span id="L1024" class="ln">  1024  </span><span class="comment">// ListSecurityFilters Get all security filters.</span>
-<span id="L1025" class="ln">  1025  </span><span class="comment">// Get the list of configured security filters with their definitions.</span>
-<span id="L1026" class="ln">  1026  </span>func (a *SecurityMonitoringApi) ListSecurityFilters(ctx _context.Context) (SecurityFiltersResponse, *_nethttp.Response, error) {
-<span id="L1027" class="ln">  1027  </span>	var (
-<span id="L1028" class="ln">  1028  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L1029" class="ln">  1029  </span>		localVarPostBody    interface{}
-<span id="L1030" class="ln">  1030  </span>		localVarReturnValue SecurityFiltersResponse
-<span id="L1031" class="ln">  1031  </span>	)
-<span id="L1032" class="ln">  1032  </span>
-<span id="L1033" class="ln">  1033  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListSecurityFilters&#34;)
-<span id="L1034" class="ln">  1034  </span>	if err != nil {
-<span id="L1035" class="ln">  1035  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1036" class="ln">  1036  </span>	}
-<span id="L1037" class="ln">  1037  </span>
-<span id="L1038" class="ln">  1038  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/configuration/security_filters&#34;
+<span id="L1024" class="ln">  1024  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1025" class="ln">  1025  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1026" class="ln">  1026  </span>			ErrorBody:    localVarBody,
+<span id="L1027" class="ln">  1027  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1028" class="ln">  1028  </span>		}
+<span id="L1029" class="ln">  1029  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1030" class="ln">  1030  </span>			var v APIErrorResponse
+<span id="L1031" class="ln">  1031  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1032" class="ln">  1032  </span>			if err != nil {
+<span id="L1033" class="ln">  1033  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1034" class="ln">  1034  </span>			}
+<span id="L1035" class="ln">  1035  </span>			newErr.ErrorModel = v
+<span id="L1036" class="ln">  1036  </span>		}
+<span id="L1037" class="ln">  1037  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1038" class="ln">  1038  </span>	}
 <span id="L1039" class="ln">  1039  </span>
-<span id="L1040" class="ln">  1040  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1041" class="ln">  1041  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1042" class="ln">  1042  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1043" class="ln">  1043  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1044" class="ln">  1044  </span>
-<span id="L1045" class="ln">  1045  </span>	datadog.SetAuthKeys(
-<span id="L1046" class="ln">  1046  </span>		ctx,
-<span id="L1047" class="ln">  1047  </span>		&amp;localVarHeaderParams,
-<span id="L1048" class="ln">  1048  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1049" class="ln">  1049  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1050" class="ln">  1050  </span>	)
-<span id="L1051" class="ln">  1051  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1052" class="ln">  1052  </span>	if err != nil {
-<span id="L1053" class="ln">  1053  </span>		return localVarReturnValue, nil, err
-<span id="L1054" class="ln">  1054  </span>	}
-<span id="L1055" class="ln">  1055  </span>
-<span id="L1056" class="ln">  1056  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1057" class="ln">  1057  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1058" class="ln">  1058  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1059" class="ln">  1059  </span>	}
-<span id="L1060" class="ln">  1060  </span>
-<span id="L1061" class="ln">  1061  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1062" class="ln">  1062  </span>	if err != nil {
-<span id="L1063" class="ln">  1063  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1064" class="ln">  1064  </span>	}
-<span id="L1065" class="ln">  1065  </span>
-<span id="L1066" class="ln">  1066  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1067" class="ln">  1067  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1068" class="ln">  1068  </span>			ErrorBody:    localVarBody,
-<span id="L1069" class="ln">  1069  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1070" class="ln">  1070  </span>		}
-<span id="L1071" class="ln">  1071  </span>		if localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1072" class="ln">  1072  </span>			var v APIErrorResponse
-<span id="L1073" class="ln">  1073  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1074" class="ln">  1074  </span>			if err != nil {
-<span id="L1075" class="ln">  1075  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1040" class="ln">  1040  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1041" class="ln">  1041  </span>	if err != nil {
+<span id="L1042" class="ln">  1042  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1043" class="ln">  1043  </span>			ErrorBody:    localVarBody,
+<span id="L1044" class="ln">  1044  </span>			ErrorMessage: err.Error(),
+<span id="L1045" class="ln">  1045  </span>		}
+<span id="L1046" class="ln">  1046  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1047" class="ln">  1047  </span>	}
+<span id="L1048" class="ln">  1048  </span>
+<span id="L1049" class="ln">  1049  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1050" class="ln">  1050  </span>}
+<span id="L1051" class="ln">  1051  </span>
+<span id="L1052" class="ln">  1052  </span><span class="comment">// ListFindingsWithPagination provides a paginated version of ListFindings returning a channel with all items.</span>
+<span id="L1053" class="ln">  1053  </span>func (a *SecurityMonitoringApi) ListFindingsWithPagination(ctx _context.Context, o ...ListFindingsOptionalParameters) (&lt;-chan datadog.PaginationResult[Finding], func()) {
+<span id="L1054" class="ln">  1054  </span>	ctx, cancel := _context.WithCancel(ctx)
+<span id="L1055" class="ln">  1055  </span>	pageSize_ := int64(100)
+<span id="L1056" class="ln">  1056  </span>	if len(o) == 0 {
+<span id="L1057" class="ln">  1057  </span>		o = append(o, ListFindingsOptionalParameters{})
+<span id="L1058" class="ln">  1058  </span>	}
+<span id="L1059" class="ln">  1059  </span>	if o[0].PageLimit != nil {
+<span id="L1060" class="ln">  1060  </span>		pageSize_ = *o[0].PageLimit
+<span id="L1061" class="ln">  1061  </span>	}
+<span id="L1062" class="ln">  1062  </span>	o[0].PageLimit = &amp;pageSize_
+<span id="L1063" class="ln">  1063  </span>
+<span id="L1064" class="ln">  1064  </span>	items := make(chan datadog.PaginationResult[Finding], pageSize_)
+<span id="L1065" class="ln">  1065  </span>	go func() {
+<span id="L1066" class="ln">  1066  </span>		for {
+<span id="L1067" class="ln">  1067  </span>			resp, _, err := a.ListFindings(ctx, o...)
+<span id="L1068" class="ln">  1068  </span>			if err != nil {
+<span id="L1069" class="ln">  1069  </span>				var returnItem Finding
+<span id="L1070" class="ln">  1070  </span>				items &lt;- datadog.PaginationResult[Finding]{returnItem, err}
+<span id="L1071" class="ln">  1071  </span>				break
+<span id="L1072" class="ln">  1072  </span>			}
+<span id="L1073" class="ln">  1073  </span>			respData, ok := resp.GetDataOk()
+<span id="L1074" class="ln">  1074  </span>			if !ok {
+<span id="L1075" class="ln">  1075  </span>				break
 <span id="L1076" class="ln">  1076  </span>			}
-<span id="L1077" class="ln">  1077  </span>			newErr.ErrorModel = v
-<span id="L1078" class="ln">  1078  </span>		}
-<span id="L1079" class="ln">  1079  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1080" class="ln">  1080  </span>	}
-<span id="L1081" class="ln">  1081  </span>
-<span id="L1082" class="ln">  1082  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1083" class="ln">  1083  </span>	if err != nil {
-<span id="L1084" class="ln">  1084  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1085" class="ln">  1085  </span>			ErrorBody:    localVarBody,
-<span id="L1086" class="ln">  1086  </span>			ErrorMessage: err.Error(),
-<span id="L1087" class="ln">  1087  </span>		}
-<span id="L1088" class="ln">  1088  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1089" class="ln">  1089  </span>	}
-<span id="L1090" class="ln">  1090  </span>
-<span id="L1091" class="ln">  1091  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1092" class="ln">  1092  </span>}
-<span id="L1093" class="ln">  1093  </span>
-<span id="L1094" class="ln">  1094  </span><span class="comment">// ListSecurityMonitoringRulesOptionalParameters holds optional parameters for ListSecurityMonitoringRules.</span>
-<span id="L1095" class="ln">  1095  </span>type ListSecurityMonitoringRulesOptionalParameters struct {
-<span id="L1096" class="ln">  1096  </span>	PageSize   *int64
-<span id="L1097" class="ln">  1097  </span>	PageNumber *int64
-<span id="L1098" class="ln">  1098  </span>}
-<span id="L1099" class="ln">  1099  </span>
-<span id="L1100" class="ln">  1100  </span><span class="comment">// NewListSecurityMonitoringRulesOptionalParameters creates an empty struct for parameters.</span>
-<span id="L1101" class="ln">  1101  </span>func NewListSecurityMonitoringRulesOptionalParameters() *ListSecurityMonitoringRulesOptionalParameters {
-<span id="L1102" class="ln">  1102  </span>	this := ListSecurityMonitoringRulesOptionalParameters{}
-<span id="L1103" class="ln">  1103  </span>	return &amp;this
-<span id="L1104" class="ln">  1104  </span>}
-<span id="L1105" class="ln">  1105  </span>
-<span id="L1106" class="ln">  1106  </span><span class="comment">// WithPageSize sets the corresponding parameter name and returns the struct.</span>
-<span id="L1107" class="ln">  1107  </span>func (r *ListSecurityMonitoringRulesOptionalParameters) WithPageSize(pageSize int64) *ListSecurityMonitoringRulesOptionalParameters {
-<span id="L1108" class="ln">  1108  </span>	r.PageSize = &amp;pageSize
-<span id="L1109" class="ln">  1109  </span>	return r
-<span id="L1110" class="ln">  1110  </span>}
-<span id="L1111" class="ln">  1111  </span>
-<span id="L1112" class="ln">  1112  </span><span class="comment">// WithPageNumber sets the corresponding parameter name and returns the struct.</span>
-<span id="L1113" class="ln">  1113  </span>func (r *ListSecurityMonitoringRulesOptionalParameters) WithPageNumber(pageNumber int64) *ListSecurityMonitoringRulesOptionalParameters {
-<span id="L1114" class="ln">  1114  </span>	r.PageNumber = &amp;pageNumber
-<span id="L1115" class="ln">  1115  </span>	return r
-<span id="L1116" class="ln">  1116  </span>}
-<span id="L1117" class="ln">  1117  </span>
-<span id="L1118" class="ln">  1118  </span><span class="comment">// ListSecurityMonitoringRules List rules.</span>
-<span id="L1119" class="ln">  1119  </span><span class="comment">// List rules.</span>
-<span id="L1120" class="ln">  1120  </span>func (a *SecurityMonitoringApi) ListSecurityMonitoringRules(ctx _context.Context, o ...ListSecurityMonitoringRulesOptionalParameters) (SecurityMonitoringListRulesResponse, *_nethttp.Response, error) {
-<span id="L1121" class="ln">  1121  </span>	var (
-<span id="L1122" class="ln">  1122  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L1123" class="ln">  1123  </span>		localVarPostBody    interface{}
-<span id="L1124" class="ln">  1124  </span>		localVarReturnValue SecurityMonitoringListRulesResponse
-<span id="L1125" class="ln">  1125  </span>		optionalParams      ListSecurityMonitoringRulesOptionalParameters
-<span id="L1126" class="ln">  1126  </span>	)
-<span id="L1127" class="ln">  1127  </span>
-<span id="L1128" class="ln">  1128  </span>	if len(o) &gt; 1 {
-<span id="L1129" class="ln">  1129  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type ListSecurityMonitoringRulesOptionalParameters is allowed&#34;)
-<span id="L1130" class="ln">  1130  </span>	}
-<span id="L1131" class="ln">  1131  </span>	if len(o) == 1 {
-<span id="L1132" class="ln">  1132  </span>		optionalParams = o[0]
-<span id="L1133" class="ln">  1133  </span>	}
-<span id="L1134" class="ln">  1134  </span>
-<span id="L1135" class="ln">  1135  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListSecurityMonitoringRules&#34;)
-<span id="L1136" class="ln">  1136  </span>	if err != nil {
-<span id="L1137" class="ln">  1137  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1138" class="ln">  1138  </span>	}
-<span id="L1139" class="ln">  1139  </span>
-<span id="L1140" class="ln">  1140  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/rules&#34;
+<span id="L1077" class="ln">  1077  </span>			results := *respData
+<span id="L1078" class="ln">  1078  </span>
+<span id="L1079" class="ln">  1079  </span>			for _, item := range results {
+<span id="L1080" class="ln">  1080  </span>				select {
+<span id="L1081" class="ln">  1081  </span>				case items &lt;- datadog.PaginationResult[Finding]{item, nil}:
+<span id="L1082" class="ln">  1082  </span>				case &lt;-ctx.Done():
+<span id="L1083" class="ln">  1083  </span>					close(items)
+<span id="L1084" class="ln">  1084  </span>					return
+<span id="L1085" class="ln">  1085  </span>				}
+<span id="L1086" class="ln">  1086  </span>			}
+<span id="L1087" class="ln">  1087  </span>			if len(results) &lt; int(pageSize_) {
+<span id="L1088" class="ln">  1088  </span>				break
+<span id="L1089" class="ln">  1089  </span>			}
+<span id="L1090" class="ln">  1090  </span>			cursorMeta, ok := resp.GetMetaOk()
+<span id="L1091" class="ln">  1091  </span>			if !ok {
+<span id="L1092" class="ln">  1092  </span>				break
+<span id="L1093" class="ln">  1093  </span>			}
+<span id="L1094" class="ln">  1094  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
+<span id="L1095" class="ln">  1095  </span>			if !ok {
+<span id="L1096" class="ln">  1096  </span>				break
+<span id="L1097" class="ln">  1097  </span>			}
+<span id="L1098" class="ln">  1098  </span>			cursorMetaPageCursor, ok := cursorMetaPage.GetCursorOk()
+<span id="L1099" class="ln">  1099  </span>			if !ok {
+<span id="L1100" class="ln">  1100  </span>				break
+<span id="L1101" class="ln">  1101  </span>			}
+<span id="L1102" class="ln">  1102  </span>
+<span id="L1103" class="ln">  1103  </span>			o[0].PageCursor = cursorMetaPageCursor
+<span id="L1104" class="ln">  1104  </span>		}
+<span id="L1105" class="ln">  1105  </span>		close(items)
+<span id="L1106" class="ln">  1106  </span>	}()
+<span id="L1107" class="ln">  1107  </span>	return items, cancel
+<span id="L1108" class="ln">  1108  </span>}
+<span id="L1109" class="ln">  1109  </span>
+<span id="L1110" class="ln">  1110  </span><span class="comment">// ListSecurityFilters Get all security filters.</span>
+<span id="L1111" class="ln">  1111  </span><span class="comment">// Get the list of configured security filters with their definitions.</span>
+<span id="L1112" class="ln">  1112  </span>func (a *SecurityMonitoringApi) ListSecurityFilters(ctx _context.Context) (SecurityFiltersResponse, *_nethttp.Response, error) {
+<span id="L1113" class="ln">  1113  </span>	var (
+<span id="L1114" class="ln">  1114  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L1115" class="ln">  1115  </span>		localVarPostBody    interface{}
+<span id="L1116" class="ln">  1116  </span>		localVarReturnValue SecurityFiltersResponse
+<span id="L1117" class="ln">  1117  </span>	)
+<span id="L1118" class="ln">  1118  </span>
+<span id="L1119" class="ln">  1119  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListSecurityFilters&#34;)
+<span id="L1120" class="ln">  1120  </span>	if err != nil {
+<span id="L1121" class="ln">  1121  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1122" class="ln">  1122  </span>	}
+<span id="L1123" class="ln">  1123  </span>
+<span id="L1124" class="ln">  1124  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/configuration/security_filters&#34;
+<span id="L1125" class="ln">  1125  </span>
+<span id="L1126" class="ln">  1126  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1127" class="ln">  1127  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1128" class="ln">  1128  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1129" class="ln">  1129  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1130" class="ln">  1130  </span>
+<span id="L1131" class="ln">  1131  </span>	datadog.SetAuthKeys(
+<span id="L1132" class="ln">  1132  </span>		ctx,
+<span id="L1133" class="ln">  1133  </span>		&amp;localVarHeaderParams,
+<span id="L1134" class="ln">  1134  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1135" class="ln">  1135  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1136" class="ln">  1136  </span>	)
+<span id="L1137" class="ln">  1137  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1138" class="ln">  1138  </span>	if err != nil {
+<span id="L1139" class="ln">  1139  </span>		return localVarReturnValue, nil, err
+<span id="L1140" class="ln">  1140  </span>	}
 <span id="L1141" class="ln">  1141  </span>
-<span id="L1142" class="ln">  1142  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1143" class="ln">  1143  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1144" class="ln">  1144  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1145" class="ln">  1145  </span>	if optionalParams.PageSize != nil {
-<span id="L1146" class="ln">  1146  </span>		localVarQueryParams.Add(&#34;page[size]&#34;, datadog.ParameterToString(*optionalParams.PageSize, &#34;&#34;))
-<span id="L1147" class="ln">  1147  </span>	}
-<span id="L1148" class="ln">  1148  </span>	if optionalParams.PageNumber != nil {
-<span id="L1149" class="ln">  1149  </span>		localVarQueryParams.Add(&#34;page[number]&#34;, datadog.ParameterToString(*optionalParams.PageNumber, &#34;&#34;))
+<span id="L1142" class="ln">  1142  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1143" class="ln">  1143  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1144" class="ln">  1144  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1145" class="ln">  1145  </span>	}
+<span id="L1146" class="ln">  1146  </span>
+<span id="L1147" class="ln">  1147  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1148" class="ln">  1148  </span>	if err != nil {
+<span id="L1149" class="ln">  1149  </span>		return localVarReturnValue, localVarHTTPResponse, err
 <span id="L1150" class="ln">  1150  </span>	}
-<span id="L1151" class="ln">  1151  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1152" class="ln">  1152  </span>
-<span id="L1153" class="ln">  1153  </span>	datadog.SetAuthKeys(
-<span id="L1154" class="ln">  1154  </span>		ctx,
-<span id="L1155" class="ln">  1155  </span>		&amp;localVarHeaderParams,
-<span id="L1156" class="ln">  1156  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1157" class="ln">  1157  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1158" class="ln">  1158  </span>	)
-<span id="L1159" class="ln">  1159  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1160" class="ln">  1160  </span>	if err != nil {
-<span id="L1161" class="ln">  1161  </span>		return localVarReturnValue, nil, err
-<span id="L1162" class="ln">  1162  </span>	}
-<span id="L1163" class="ln">  1163  </span>
-<span id="L1164" class="ln">  1164  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1165" class="ln">  1165  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1166" class="ln">  1166  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1167" class="ln">  1167  </span>	}
-<span id="L1168" class="ln">  1168  </span>
-<span id="L1169" class="ln">  1169  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1170" class="ln">  1170  </span>	if err != nil {
-<span id="L1171" class="ln">  1171  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1172" class="ln">  1172  </span>	}
-<span id="L1173" class="ln">  1173  </span>
-<span id="L1174" class="ln">  1174  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1175" class="ln">  1175  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1176" class="ln">  1176  </span>			ErrorBody:    localVarBody,
-<span id="L1177" class="ln">  1177  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1178" class="ln">  1178  </span>		}
-<span id="L1179" class="ln">  1179  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1180" class="ln">  1180  </span>			var v APIErrorResponse
-<span id="L1181" class="ln">  1181  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1182" class="ln">  1182  </span>			if err != nil {
-<span id="L1183" class="ln">  1183  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1184" class="ln">  1184  </span>			}
-<span id="L1185" class="ln">  1185  </span>			newErr.ErrorModel = v
-<span id="L1186" class="ln">  1186  </span>		}
-<span id="L1187" class="ln">  1187  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1188" class="ln">  1188  </span>	}
-<span id="L1189" class="ln">  1189  </span>
-<span id="L1190" class="ln">  1190  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1191" class="ln">  1191  </span>	if err != nil {
-<span id="L1192" class="ln">  1192  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1193" class="ln">  1193  </span>			ErrorBody:    localVarBody,
-<span id="L1194" class="ln">  1194  </span>			ErrorMessage: err.Error(),
-<span id="L1195" class="ln">  1195  </span>		}
-<span id="L1196" class="ln">  1196  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1197" class="ln">  1197  </span>	}
-<span id="L1198" class="ln">  1198  </span>
-<span id="L1199" class="ln">  1199  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1200" class="ln">  1200  </span>}
-<span id="L1201" class="ln">  1201  </span>
-<span id="L1202" class="ln">  1202  </span><span class="comment">// ListSecurityMonitoringSignalsOptionalParameters holds optional parameters for ListSecurityMonitoringSignals.</span>
-<span id="L1203" class="ln">  1203  </span>type ListSecurityMonitoringSignalsOptionalParameters struct {
-<span id="L1204" class="ln">  1204  </span>	FilterQuery *string
-<span id="L1205" class="ln">  1205  </span>	FilterFrom  *time.Time
-<span id="L1206" class="ln">  1206  </span>	FilterTo    *time.Time
-<span id="L1207" class="ln">  1207  </span>	Sort        *SecurityMonitoringSignalsSort
-<span id="L1208" class="ln">  1208  </span>	PageCursor  *string
-<span id="L1209" class="ln">  1209  </span>	PageLimit   *int32
-<span id="L1210" class="ln">  1210  </span>}
-<span id="L1211" class="ln">  1211  </span>
-<span id="L1212" class="ln">  1212  </span><span class="comment">// NewListSecurityMonitoringSignalsOptionalParameters creates an empty struct for parameters.</span>
-<span id="L1213" class="ln">  1213  </span>func NewListSecurityMonitoringSignalsOptionalParameters() *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1214" class="ln">  1214  </span>	this := ListSecurityMonitoringSignalsOptionalParameters{}
-<span id="L1215" class="ln">  1215  </span>	return &amp;this
-<span id="L1216" class="ln">  1216  </span>}
-<span id="L1217" class="ln">  1217  </span>
-<span id="L1218" class="ln">  1218  </span><span class="comment">// WithFilterQuery sets the corresponding parameter name and returns the struct.</span>
-<span id="L1219" class="ln">  1219  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithFilterQuery(filterQuery string) *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1220" class="ln">  1220  </span>	r.FilterQuery = &amp;filterQuery
-<span id="L1221" class="ln">  1221  </span>	return r
-<span id="L1222" class="ln">  1222  </span>}
-<span id="L1223" class="ln">  1223  </span>
-<span id="L1224" class="ln">  1224  </span><span class="comment">// WithFilterFrom sets the corresponding parameter name and returns the struct.</span>
-<span id="L1225" class="ln">  1225  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithFilterFrom(filterFrom time.Time) *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1226" class="ln">  1226  </span>	r.FilterFrom = &amp;filterFrom
-<span id="L1227" class="ln">  1227  </span>	return r
-<span id="L1228" class="ln">  1228  </span>}
-<span id="L1229" class="ln">  1229  </span>
-<span id="L1230" class="ln">  1230  </span><span class="comment">// WithFilterTo sets the corresponding parameter name and returns the struct.</span>
-<span id="L1231" class="ln">  1231  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithFilterTo(filterTo time.Time) *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1232" class="ln">  1232  </span>	r.FilterTo = &amp;filterTo
-<span id="L1233" class="ln">  1233  </span>	return r
-<span id="L1234" class="ln">  1234  </span>}
-<span id="L1235" class="ln">  1235  </span>
-<span id="L1236" class="ln">  1236  </span><span class="comment">// WithSort sets the corresponding parameter name and returns the struct.</span>
-<span id="L1237" class="ln">  1237  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithSort(sort SecurityMonitoringSignalsSort) *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1238" class="ln">  1238  </span>	r.Sort = &amp;sort
-<span id="L1239" class="ln">  1239  </span>	return r
-<span id="L1240" class="ln">  1240  </span>}
-<span id="L1241" class="ln">  1241  </span>
-<span id="L1242" class="ln">  1242  </span><span class="comment">// WithPageCursor sets the corresponding parameter name and returns the struct.</span>
-<span id="L1243" class="ln">  1243  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithPageCursor(pageCursor string) *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1244" class="ln">  1244  </span>	r.PageCursor = &amp;pageCursor
-<span id="L1245" class="ln">  1245  </span>	return r
-<span id="L1246" class="ln">  1246  </span>}
-<span id="L1247" class="ln">  1247  </span>
-<span id="L1248" class="ln">  1248  </span><span class="comment">// WithPageLimit sets the corresponding parameter name and returns the struct.</span>
-<span id="L1249" class="ln">  1249  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithPageLimit(pageLimit int32) *ListSecurityMonitoringSignalsOptionalParameters {
-<span id="L1250" class="ln">  1250  </span>	r.PageLimit = &amp;pageLimit
-<span id="L1251" class="ln">  1251  </span>	return r
-<span id="L1252" class="ln">  1252  </span>}
-<span id="L1253" class="ln">  1253  </span>
-<span id="L1254" class="ln">  1254  </span><span class="comment">// ListSecurityMonitoringSignals Get a quick list of security signals.</span>
-<span id="L1255" class="ln">  1255  </span><span class="comment">// The list endpoint returns security signals that match a search query.</span>
-<span id="L1256" class="ln">  1256  </span><span class="comment">// Both this endpoint and the POST endpoint can be used interchangeably when listing</span>
-<span id="L1257" class="ln">  1257  </span><span class="comment">// security signals.</span>
-<span id="L1258" class="ln">  1258  </span>func (a *SecurityMonitoringApi) ListSecurityMonitoringSignals(ctx _context.Context, o ...ListSecurityMonitoringSignalsOptionalParameters) (SecurityMonitoringSignalsListResponse, *_nethttp.Response, error) {
-<span id="L1259" class="ln">  1259  </span>	var (
-<span id="L1260" class="ln">  1260  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L1261" class="ln">  1261  </span>		localVarPostBody    interface{}
-<span id="L1262" class="ln">  1262  </span>		localVarReturnValue SecurityMonitoringSignalsListResponse
-<span id="L1263" class="ln">  1263  </span>		optionalParams      ListSecurityMonitoringSignalsOptionalParameters
-<span id="L1264" class="ln">  1264  </span>	)
-<span id="L1265" class="ln">  1265  </span>
-<span id="L1266" class="ln">  1266  </span>	if len(o) &gt; 1 {
-<span id="L1267" class="ln">  1267  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type ListSecurityMonitoringSignalsOptionalParameters is allowed&#34;)
-<span id="L1268" class="ln">  1268  </span>	}
-<span id="L1269" class="ln">  1269  </span>	if len(o) == 1 {
-<span id="L1270" class="ln">  1270  </span>		optionalParams = o[0]
-<span id="L1271" class="ln">  1271  </span>	}
-<span id="L1272" class="ln">  1272  </span>
-<span id="L1273" class="ln">  1273  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListSecurityMonitoringSignals&#34;)
-<span id="L1274" class="ln">  1274  </span>	if err != nil {
-<span id="L1275" class="ln">  1275  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1276" class="ln">  1276  </span>	}
-<span id="L1277" class="ln">  1277  </span>
-<span id="L1278" class="ln">  1278  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/signals&#34;
-<span id="L1279" class="ln">  1279  </span>
-<span id="L1280" class="ln">  1280  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1281" class="ln">  1281  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1282" class="ln">  1282  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1283" class="ln">  1283  </span>	if optionalParams.FilterQuery != nil {
-<span id="L1284" class="ln">  1284  </span>		localVarQueryParams.Add(&#34;filter[query]&#34;, datadog.ParameterToString(*optionalParams.FilterQuery, &#34;&#34;))
-<span id="L1285" class="ln">  1285  </span>	}
-<span id="L1286" class="ln">  1286  </span>	if optionalParams.FilterFrom != nil {
-<span id="L1287" class="ln">  1287  </span>		localVarQueryParams.Add(&#34;filter[from]&#34;, datadog.ParameterToString(*optionalParams.FilterFrom, &#34;&#34;))
-<span id="L1288" class="ln">  1288  </span>	}
-<span id="L1289" class="ln">  1289  </span>	if optionalParams.FilterTo != nil {
-<span id="L1290" class="ln">  1290  </span>		localVarQueryParams.Add(&#34;filter[to]&#34;, datadog.ParameterToString(*optionalParams.FilterTo, &#34;&#34;))
-<span id="L1291" class="ln">  1291  </span>	}
-<span id="L1292" class="ln">  1292  </span>	if optionalParams.Sort != nil {
-<span id="L1293" class="ln">  1293  </span>		localVarQueryParams.Add(&#34;sort&#34;, datadog.ParameterToString(*optionalParams.Sort, &#34;&#34;))
-<span id="L1294" class="ln">  1294  </span>	}
-<span id="L1295" class="ln">  1295  </span>	if optionalParams.PageCursor != nil {
-<span id="L1296" class="ln">  1296  </span>		localVarQueryParams.Add(&#34;page[cursor]&#34;, datadog.ParameterToString(*optionalParams.PageCursor, &#34;&#34;))
-<span id="L1297" class="ln">  1297  </span>	}
-<span id="L1298" class="ln">  1298  </span>	if optionalParams.PageLimit != nil {
-<span id="L1299" class="ln">  1299  </span>		localVarQueryParams.Add(&#34;page[limit]&#34;, datadog.ParameterToString(*optionalParams.PageLimit, &#34;&#34;))
-<span id="L1300" class="ln">  1300  </span>	}
-<span id="L1301" class="ln">  1301  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1302" class="ln">  1302  </span>
-<span id="L1303" class="ln">  1303  </span>	datadog.SetAuthKeys(
-<span id="L1304" class="ln">  1304  </span>		ctx,
-<span id="L1305" class="ln">  1305  </span>		&amp;localVarHeaderParams,
-<span id="L1306" class="ln">  1306  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1307" class="ln">  1307  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1308" class="ln">  1308  </span>	)
-<span id="L1309" class="ln">  1309  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1310" class="ln">  1310  </span>	if err != nil {
-<span id="L1311" class="ln">  1311  </span>		return localVarReturnValue, nil, err
-<span id="L1312" class="ln">  1312  </span>	}
-<span id="L1313" class="ln">  1313  </span>
-<span id="L1314" class="ln">  1314  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1315" class="ln">  1315  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1316" class="ln">  1316  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1317" class="ln">  1317  </span>	}
-<span id="L1318" class="ln">  1318  </span>
-<span id="L1319" class="ln">  1319  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1320" class="ln">  1320  </span>	if err != nil {
-<span id="L1321" class="ln">  1321  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1322" class="ln">  1322  </span>	}
-<span id="L1323" class="ln">  1323  </span>
-<span id="L1324" class="ln">  1324  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1325" class="ln">  1325  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1326" class="ln">  1326  </span>			ErrorBody:    localVarBody,
-<span id="L1327" class="ln">  1327  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1328" class="ln">  1328  </span>		}
-<span id="L1329" class="ln">  1329  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1330" class="ln">  1330  </span>			var v APIErrorResponse
-<span id="L1331" class="ln">  1331  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1332" class="ln">  1332  </span>			if err != nil {
-<span id="L1333" class="ln">  1333  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1334" class="ln">  1334  </span>			}
-<span id="L1335" class="ln">  1335  </span>			newErr.ErrorModel = v
-<span id="L1336" class="ln">  1336  </span>		}
-<span id="L1337" class="ln">  1337  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1338" class="ln">  1338  </span>	}
+<span id="L1151" class="ln">  1151  </span>
+<span id="L1152" class="ln">  1152  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1153" class="ln">  1153  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1154" class="ln">  1154  </span>			ErrorBody:    localVarBody,
+<span id="L1155" class="ln">  1155  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1156" class="ln">  1156  </span>		}
+<span id="L1157" class="ln">  1157  </span>		if localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1158" class="ln">  1158  </span>			var v APIErrorResponse
+<span id="L1159" class="ln">  1159  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1160" class="ln">  1160  </span>			if err != nil {
+<span id="L1161" class="ln">  1161  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1162" class="ln">  1162  </span>			}
+<span id="L1163" class="ln">  1163  </span>			newErr.ErrorModel = v
+<span id="L1164" class="ln">  1164  </span>		}
+<span id="L1165" class="ln">  1165  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1166" class="ln">  1166  </span>	}
+<span id="L1167" class="ln">  1167  </span>
+<span id="L1168" class="ln">  1168  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1169" class="ln">  1169  </span>	if err != nil {
+<span id="L1170" class="ln">  1170  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1171" class="ln">  1171  </span>			ErrorBody:    localVarBody,
+<span id="L1172" class="ln">  1172  </span>			ErrorMessage: err.Error(),
+<span id="L1173" class="ln">  1173  </span>		}
+<span id="L1174" class="ln">  1174  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1175" class="ln">  1175  </span>	}
+<span id="L1176" class="ln">  1176  </span>
+<span id="L1177" class="ln">  1177  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1178" class="ln">  1178  </span>}
+<span id="L1179" class="ln">  1179  </span>
+<span id="L1180" class="ln">  1180  </span><span class="comment">// ListSecurityMonitoringRulesOptionalParameters holds optional parameters for ListSecurityMonitoringRules.</span>
+<span id="L1181" class="ln">  1181  </span>type ListSecurityMonitoringRulesOptionalParameters struct {
+<span id="L1182" class="ln">  1182  </span>	PageSize   *int64
+<span id="L1183" class="ln">  1183  </span>	PageNumber *int64
+<span id="L1184" class="ln">  1184  </span>}
+<span id="L1185" class="ln">  1185  </span>
+<span id="L1186" class="ln">  1186  </span><span class="comment">// NewListSecurityMonitoringRulesOptionalParameters creates an empty struct for parameters.</span>
+<span id="L1187" class="ln">  1187  </span>func NewListSecurityMonitoringRulesOptionalParameters() *ListSecurityMonitoringRulesOptionalParameters {
+<span id="L1188" class="ln">  1188  </span>	this := ListSecurityMonitoringRulesOptionalParameters{}
+<span id="L1189" class="ln">  1189  </span>	return &amp;this
+<span id="L1190" class="ln">  1190  </span>}
+<span id="L1191" class="ln">  1191  </span>
+<span id="L1192" class="ln">  1192  </span><span class="comment">// WithPageSize sets the corresponding parameter name and returns the struct.</span>
+<span id="L1193" class="ln">  1193  </span>func (r *ListSecurityMonitoringRulesOptionalParameters) WithPageSize(pageSize int64) *ListSecurityMonitoringRulesOptionalParameters {
+<span id="L1194" class="ln">  1194  </span>	r.PageSize = &amp;pageSize
+<span id="L1195" class="ln">  1195  </span>	return r
+<span id="L1196" class="ln">  1196  </span>}
+<span id="L1197" class="ln">  1197  </span>
+<span id="L1198" class="ln">  1198  </span><span class="comment">// WithPageNumber sets the corresponding parameter name and returns the struct.</span>
+<span id="L1199" class="ln">  1199  </span>func (r *ListSecurityMonitoringRulesOptionalParameters) WithPageNumber(pageNumber int64) *ListSecurityMonitoringRulesOptionalParameters {
+<span id="L1200" class="ln">  1200  </span>	r.PageNumber = &amp;pageNumber
+<span id="L1201" class="ln">  1201  </span>	return r
+<span id="L1202" class="ln">  1202  </span>}
+<span id="L1203" class="ln">  1203  </span>
+<span id="L1204" class="ln">  1204  </span><span class="comment">// ListSecurityMonitoringRules List rules.</span>
+<span id="L1205" class="ln">  1205  </span><span class="comment">// List rules.</span>
+<span id="L1206" class="ln">  1206  </span>func (a *SecurityMonitoringApi) ListSecurityMonitoringRules(ctx _context.Context, o ...ListSecurityMonitoringRulesOptionalParameters) (SecurityMonitoringListRulesResponse, *_nethttp.Response, error) {
+<span id="L1207" class="ln">  1207  </span>	var (
+<span id="L1208" class="ln">  1208  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L1209" class="ln">  1209  </span>		localVarPostBody    interface{}
+<span id="L1210" class="ln">  1210  </span>		localVarReturnValue SecurityMonitoringListRulesResponse
+<span id="L1211" class="ln">  1211  </span>		optionalParams      ListSecurityMonitoringRulesOptionalParameters
+<span id="L1212" class="ln">  1212  </span>	)
+<span id="L1213" class="ln">  1213  </span>
+<span id="L1214" class="ln">  1214  </span>	if len(o) &gt; 1 {
+<span id="L1215" class="ln">  1215  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type ListSecurityMonitoringRulesOptionalParameters is allowed&#34;)
+<span id="L1216" class="ln">  1216  </span>	}
+<span id="L1217" class="ln">  1217  </span>	if len(o) == 1 {
+<span id="L1218" class="ln">  1218  </span>		optionalParams = o[0]
+<span id="L1219" class="ln">  1219  </span>	}
+<span id="L1220" class="ln">  1220  </span>
+<span id="L1221" class="ln">  1221  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListSecurityMonitoringRules&#34;)
+<span id="L1222" class="ln">  1222  </span>	if err != nil {
+<span id="L1223" class="ln">  1223  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1224" class="ln">  1224  </span>	}
+<span id="L1225" class="ln">  1225  </span>
+<span id="L1226" class="ln">  1226  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/rules&#34;
+<span id="L1227" class="ln">  1227  </span>
+<span id="L1228" class="ln">  1228  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1229" class="ln">  1229  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1230" class="ln">  1230  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1231" class="ln">  1231  </span>	if optionalParams.PageSize != nil {
+<span id="L1232" class="ln">  1232  </span>		localVarQueryParams.Add(&#34;page[size]&#34;, datadog.ParameterToString(*optionalParams.PageSize, &#34;&#34;))
+<span id="L1233" class="ln">  1233  </span>	}
+<span id="L1234" class="ln">  1234  </span>	if optionalParams.PageNumber != nil {
+<span id="L1235" class="ln">  1235  </span>		localVarQueryParams.Add(&#34;page[number]&#34;, datadog.ParameterToString(*optionalParams.PageNumber, &#34;&#34;))
+<span id="L1236" class="ln">  1236  </span>	}
+<span id="L1237" class="ln">  1237  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1238" class="ln">  1238  </span>
+<span id="L1239" class="ln">  1239  </span>	datadog.SetAuthKeys(
+<span id="L1240" class="ln">  1240  </span>		ctx,
+<span id="L1241" class="ln">  1241  </span>		&amp;localVarHeaderParams,
+<span id="L1242" class="ln">  1242  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1243" class="ln">  1243  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1244" class="ln">  1244  </span>	)
+<span id="L1245" class="ln">  1245  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1246" class="ln">  1246  </span>	if err != nil {
+<span id="L1247" class="ln">  1247  </span>		return localVarReturnValue, nil, err
+<span id="L1248" class="ln">  1248  </span>	}
+<span id="L1249" class="ln">  1249  </span>
+<span id="L1250" class="ln">  1250  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1251" class="ln">  1251  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1252" class="ln">  1252  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1253" class="ln">  1253  </span>	}
+<span id="L1254" class="ln">  1254  </span>
+<span id="L1255" class="ln">  1255  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1256" class="ln">  1256  </span>	if err != nil {
+<span id="L1257" class="ln">  1257  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1258" class="ln">  1258  </span>	}
+<span id="L1259" class="ln">  1259  </span>
+<span id="L1260" class="ln">  1260  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1261" class="ln">  1261  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1262" class="ln">  1262  </span>			ErrorBody:    localVarBody,
+<span id="L1263" class="ln">  1263  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1264" class="ln">  1264  </span>		}
+<span id="L1265" class="ln">  1265  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1266" class="ln">  1266  </span>			var v APIErrorResponse
+<span id="L1267" class="ln">  1267  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1268" class="ln">  1268  </span>			if err != nil {
+<span id="L1269" class="ln">  1269  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1270" class="ln">  1270  </span>			}
+<span id="L1271" class="ln">  1271  </span>			newErr.ErrorModel = v
+<span id="L1272" class="ln">  1272  </span>		}
+<span id="L1273" class="ln">  1273  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1274" class="ln">  1274  </span>	}
+<span id="L1275" class="ln">  1275  </span>
+<span id="L1276" class="ln">  1276  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1277" class="ln">  1277  </span>	if err != nil {
+<span id="L1278" class="ln">  1278  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1279" class="ln">  1279  </span>			ErrorBody:    localVarBody,
+<span id="L1280" class="ln">  1280  </span>			ErrorMessage: err.Error(),
+<span id="L1281" class="ln">  1281  </span>		}
+<span id="L1282" class="ln">  1282  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1283" class="ln">  1283  </span>	}
+<span id="L1284" class="ln">  1284  </span>
+<span id="L1285" class="ln">  1285  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1286" class="ln">  1286  </span>}
+<span id="L1287" class="ln">  1287  </span>
+<span id="L1288" class="ln">  1288  </span><span class="comment">// ListSecurityMonitoringSignalsOptionalParameters holds optional parameters for ListSecurityMonitoringSignals.</span>
+<span id="L1289" class="ln">  1289  </span>type ListSecurityMonitoringSignalsOptionalParameters struct {
+<span id="L1290" class="ln">  1290  </span>	FilterQuery *string
+<span id="L1291" class="ln">  1291  </span>	FilterFrom  *time.Time
+<span id="L1292" class="ln">  1292  </span>	FilterTo    *time.Time
+<span id="L1293" class="ln">  1293  </span>	Sort        *SecurityMonitoringSignalsSort
+<span id="L1294" class="ln">  1294  </span>	PageCursor  *string
+<span id="L1295" class="ln">  1295  </span>	PageLimit   *int32
+<span id="L1296" class="ln">  1296  </span>}
+<span id="L1297" class="ln">  1297  </span>
+<span id="L1298" class="ln">  1298  </span><span class="comment">// NewListSecurityMonitoringSignalsOptionalParameters creates an empty struct for parameters.</span>
+<span id="L1299" class="ln">  1299  </span>func NewListSecurityMonitoringSignalsOptionalParameters() *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1300" class="ln">  1300  </span>	this := ListSecurityMonitoringSignalsOptionalParameters{}
+<span id="L1301" class="ln">  1301  </span>	return &amp;this
+<span id="L1302" class="ln">  1302  </span>}
+<span id="L1303" class="ln">  1303  </span>
+<span id="L1304" class="ln">  1304  </span><span class="comment">// WithFilterQuery sets the corresponding parameter name and returns the struct.</span>
+<span id="L1305" class="ln">  1305  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithFilterQuery(filterQuery string) *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1306" class="ln">  1306  </span>	r.FilterQuery = &amp;filterQuery
+<span id="L1307" class="ln">  1307  </span>	return r
+<span id="L1308" class="ln">  1308  </span>}
+<span id="L1309" class="ln">  1309  </span>
+<span id="L1310" class="ln">  1310  </span><span class="comment">// WithFilterFrom sets the corresponding parameter name and returns the struct.</span>
+<span id="L1311" class="ln">  1311  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithFilterFrom(filterFrom time.Time) *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1312" class="ln">  1312  </span>	r.FilterFrom = &amp;filterFrom
+<span id="L1313" class="ln">  1313  </span>	return r
+<span id="L1314" class="ln">  1314  </span>}
+<span id="L1315" class="ln">  1315  </span>
+<span id="L1316" class="ln">  1316  </span><span class="comment">// WithFilterTo sets the corresponding parameter name and returns the struct.</span>
+<span id="L1317" class="ln">  1317  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithFilterTo(filterTo time.Time) *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1318" class="ln">  1318  </span>	r.FilterTo = &amp;filterTo
+<span id="L1319" class="ln">  1319  </span>	return r
+<span id="L1320" class="ln">  1320  </span>}
+<span id="L1321" class="ln">  1321  </span>
+<span id="L1322" class="ln">  1322  </span><span class="comment">// WithSort sets the corresponding parameter name and returns the struct.</span>
+<span id="L1323" class="ln">  1323  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithSort(sort SecurityMonitoringSignalsSort) *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1324" class="ln">  1324  </span>	r.Sort = &amp;sort
+<span id="L1325" class="ln">  1325  </span>	return r
+<span id="L1326" class="ln">  1326  </span>}
+<span id="L1327" class="ln">  1327  </span>
+<span id="L1328" class="ln">  1328  </span><span class="comment">// WithPageCursor sets the corresponding parameter name and returns the struct.</span>
+<span id="L1329" class="ln">  1329  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithPageCursor(pageCursor string) *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1330" class="ln">  1330  </span>	r.PageCursor = &amp;pageCursor
+<span id="L1331" class="ln">  1331  </span>	return r
+<span id="L1332" class="ln">  1332  </span>}
+<span id="L1333" class="ln">  1333  </span>
+<span id="L1334" class="ln">  1334  </span><span class="comment">// WithPageLimit sets the corresponding parameter name and returns the struct.</span>
+<span id="L1335" class="ln">  1335  </span>func (r *ListSecurityMonitoringSignalsOptionalParameters) WithPageLimit(pageLimit int32) *ListSecurityMonitoringSignalsOptionalParameters {
+<span id="L1336" class="ln">  1336  </span>	r.PageLimit = &amp;pageLimit
+<span id="L1337" class="ln">  1337  </span>	return r
+<span id="L1338" class="ln">  1338  </span>}
 <span id="L1339" class="ln">  1339  </span>
-<span id="L1340" class="ln">  1340  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1341" class="ln">  1341  </span>	if err != nil {
-<span id="L1342" class="ln">  1342  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1343" class="ln">  1343  </span>			ErrorBody:    localVarBody,
-<span id="L1344" class="ln">  1344  </span>			ErrorMessage: err.Error(),
-<span id="L1345" class="ln">  1345  </span>		}
-<span id="L1346" class="ln">  1346  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1347" class="ln">  1347  </span>	}
-<span id="L1348" class="ln">  1348  </span>
-<span id="L1349" class="ln">  1349  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1350" class="ln">  1350  </span>}
+<span id="L1340" class="ln">  1340  </span><span class="comment">// ListSecurityMonitoringSignals Get a quick list of security signals.</span>
+<span id="L1341" class="ln">  1341  </span><span class="comment">// The list endpoint returns security signals that match a search query.</span>
+<span id="L1342" class="ln">  1342  </span><span class="comment">// Both this endpoint and the POST endpoint can be used interchangeably when listing</span>
+<span id="L1343" class="ln">  1343  </span><span class="comment">// security signals.</span>
+<span id="L1344" class="ln">  1344  </span>func (a *SecurityMonitoringApi) ListSecurityMonitoringSignals(ctx _context.Context, o ...ListSecurityMonitoringSignalsOptionalParameters) (SecurityMonitoringSignalsListResponse, *_nethttp.Response, error) {
+<span id="L1345" class="ln">  1345  </span>	var (
+<span id="L1346" class="ln">  1346  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L1347" class="ln">  1347  </span>		localVarPostBody    interface{}
+<span id="L1348" class="ln">  1348  </span>		localVarReturnValue SecurityMonitoringSignalsListResponse
+<span id="L1349" class="ln">  1349  </span>		optionalParams      ListSecurityMonitoringSignalsOptionalParameters
+<span id="L1350" class="ln">  1350  </span>	)
 <span id="L1351" class="ln">  1351  </span>
-<span id="L1352" class="ln">  1352  </span><span class="comment">// ListSecurityMonitoringSignalsWithPagination provides a paginated version of ListSecurityMonitoringSignals returning a channel with all items.</span>
-<span id="L1353" class="ln">  1353  </span>func (a *SecurityMonitoringApi) ListSecurityMonitoringSignalsWithPagination(ctx _context.Context, o ...ListSecurityMonitoringSignalsOptionalParameters) (&lt;-chan datadog.PaginationResult[SecurityMonitoringSignal], func()) {
-<span id="L1354" class="ln">  1354  </span>	ctx, cancel := _context.WithCancel(ctx)
-<span id="L1355" class="ln">  1355  </span>	pageSize_ := int32(10)
-<span id="L1356" class="ln">  1356  </span>	if len(o) == 0 {
-<span id="L1357" class="ln">  1357  </span>		o = append(o, ListSecurityMonitoringSignalsOptionalParameters{})
-<span id="L1358" class="ln">  1358  </span>	}
-<span id="L1359" class="ln">  1359  </span>	if o[0].PageLimit != nil {
-<span id="L1360" class="ln">  1360  </span>		pageSize_ = *o[0].PageLimit
-<span id="L1361" class="ln">  1361  </span>	}
-<span id="L1362" class="ln">  1362  </span>	o[0].PageLimit = &amp;pageSize_
+<span id="L1352" class="ln">  1352  </span>	if len(o) &gt; 1 {
+<span id="L1353" class="ln">  1353  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type ListSecurityMonitoringSignalsOptionalParameters is allowed&#34;)
+<span id="L1354" class="ln">  1354  </span>	}
+<span id="L1355" class="ln">  1355  </span>	if len(o) == 1 {
+<span id="L1356" class="ln">  1356  </span>		optionalParams = o[0]
+<span id="L1357" class="ln">  1357  </span>	}
+<span id="L1358" class="ln">  1358  </span>
+<span id="L1359" class="ln">  1359  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ListSecurityMonitoringSignals&#34;)
+<span id="L1360" class="ln">  1360  </span>	if err != nil {
+<span id="L1361" class="ln">  1361  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1362" class="ln">  1362  </span>	}
 <span id="L1363" class="ln">  1363  </span>
-<span id="L1364" class="ln">  1364  </span>	items := make(chan datadog.PaginationResult[SecurityMonitoringSignal], pageSize_)
-<span id="L1365" class="ln">  1365  </span>	go func() {
-<span id="L1366" class="ln">  1366  </span>		for {
-<span id="L1367" class="ln">  1367  </span>			resp, _, err := a.ListSecurityMonitoringSignals(ctx, o...)
-<span id="L1368" class="ln">  1368  </span>			if err != nil {
-<span id="L1369" class="ln">  1369  </span>				var returnItem SecurityMonitoringSignal
-<span id="L1370" class="ln">  1370  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{returnItem, err}
-<span id="L1371" class="ln">  1371  </span>				break
-<span id="L1372" class="ln">  1372  </span>			}
-<span id="L1373" class="ln">  1373  </span>			respData, ok := resp.GetDataOk()
-<span id="L1374" class="ln">  1374  </span>			if !ok {
-<span id="L1375" class="ln">  1375  </span>				break
-<span id="L1376" class="ln">  1376  </span>			}
-<span id="L1377" class="ln">  1377  </span>			results := *respData
-<span id="L1378" class="ln">  1378  </span>
-<span id="L1379" class="ln">  1379  </span>			for _, item := range results {
-<span id="L1380" class="ln">  1380  </span>				select {
-<span id="L1381" class="ln">  1381  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{item, nil}:
-<span id="L1382" class="ln">  1382  </span>				case &lt;-ctx.Done():
-<span id="L1383" class="ln">  1383  </span>					close(items)
-<span id="L1384" class="ln">  1384  </span>					return
-<span id="L1385" class="ln">  1385  </span>				}
-<span id="L1386" class="ln">  1386  </span>			}
-<span id="L1387" class="ln">  1387  </span>			if len(results) &lt; int(pageSize_) {
-<span id="L1388" class="ln">  1388  </span>				break
-<span id="L1389" class="ln">  1389  </span>			}
-<span id="L1390" class="ln">  1390  </span>			cursorMeta, ok := resp.GetMetaOk()
-<span id="L1391" class="ln">  1391  </span>			if !ok {
-<span id="L1392" class="ln">  1392  </span>				break
-<span id="L1393" class="ln">  1393  </span>			}
-<span id="L1394" class="ln">  1394  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
-<span id="L1395" class="ln">  1395  </span>			if !ok {
-<span id="L1396" class="ln">  1396  </span>				break
-<span id="L1397" class="ln">  1397  </span>			}
-<span id="L1398" class="ln">  1398  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
-<span id="L1399" class="ln">  1399  </span>			if !ok {
-<span id="L1400" class="ln">  1400  </span>				break
-<span id="L1401" class="ln">  1401  </span>			}
-<span id="L1402" class="ln">  1402  </span>
-<span id="L1403" class="ln">  1403  </span>			o[0].PageCursor = cursorMetaPageAfter
-<span id="L1404" class="ln">  1404  </span>		}
-<span id="L1405" class="ln">  1405  </span>		close(items)
-<span id="L1406" class="ln">  1406  </span>	}()
-<span id="L1407" class="ln">  1407  </span>	return items, cancel
-<span id="L1408" class="ln">  1408  </span>}
+<span id="L1364" class="ln">  1364  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/signals&#34;
+<span id="L1365" class="ln">  1365  </span>
+<span id="L1366" class="ln">  1366  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1367" class="ln">  1367  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1368" class="ln">  1368  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1369" class="ln">  1369  </span>	if optionalParams.FilterQuery != nil {
+<span id="L1370" class="ln">  1370  </span>		localVarQueryParams.Add(&#34;filter[query]&#34;, datadog.ParameterToString(*optionalParams.FilterQuery, &#34;&#34;))
+<span id="L1371" class="ln">  1371  </span>	}
+<span id="L1372" class="ln">  1372  </span>	if optionalParams.FilterFrom != nil {
+<span id="L1373" class="ln">  1373  </span>		localVarQueryParams.Add(&#34;filter[from]&#34;, datadog.ParameterToString(*optionalParams.FilterFrom, &#34;&#34;))
+<span id="L1374" class="ln">  1374  </span>	}
+<span id="L1375" class="ln">  1375  </span>	if optionalParams.FilterTo != nil {
+<span id="L1376" class="ln">  1376  </span>		localVarQueryParams.Add(&#34;filter[to]&#34;, datadog.ParameterToString(*optionalParams.FilterTo, &#34;&#34;))
+<span id="L1377" class="ln">  1377  </span>	}
+<span id="L1378" class="ln">  1378  </span>	if optionalParams.Sort != nil {
+<span id="L1379" class="ln">  1379  </span>		localVarQueryParams.Add(&#34;sort&#34;, datadog.ParameterToString(*optionalParams.Sort, &#34;&#34;))
+<span id="L1380" class="ln">  1380  </span>	}
+<span id="L1381" class="ln">  1381  </span>	if optionalParams.PageCursor != nil {
+<span id="L1382" class="ln">  1382  </span>		localVarQueryParams.Add(&#34;page[cursor]&#34;, datadog.ParameterToString(*optionalParams.PageCursor, &#34;&#34;))
+<span id="L1383" class="ln">  1383  </span>	}
+<span id="L1384" class="ln">  1384  </span>	if optionalParams.PageLimit != nil {
+<span id="L1385" class="ln">  1385  </span>		localVarQueryParams.Add(&#34;page[limit]&#34;, datadog.ParameterToString(*optionalParams.PageLimit, &#34;&#34;))
+<span id="L1386" class="ln">  1386  </span>	}
+<span id="L1387" class="ln">  1387  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1388" class="ln">  1388  </span>
+<span id="L1389" class="ln">  1389  </span>	datadog.SetAuthKeys(
+<span id="L1390" class="ln">  1390  </span>		ctx,
+<span id="L1391" class="ln">  1391  </span>		&amp;localVarHeaderParams,
+<span id="L1392" class="ln">  1392  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1393" class="ln">  1393  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1394" class="ln">  1394  </span>	)
+<span id="L1395" class="ln">  1395  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1396" class="ln">  1396  </span>	if err != nil {
+<span id="L1397" class="ln">  1397  </span>		return localVarReturnValue, nil, err
+<span id="L1398" class="ln">  1398  </span>	}
+<span id="L1399" class="ln">  1399  </span>
+<span id="L1400" class="ln">  1400  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1401" class="ln">  1401  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1402" class="ln">  1402  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1403" class="ln">  1403  </span>	}
+<span id="L1404" class="ln">  1404  </span>
+<span id="L1405" class="ln">  1405  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1406" class="ln">  1406  </span>	if err != nil {
+<span id="L1407" class="ln">  1407  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1408" class="ln">  1408  </span>	}
 <span id="L1409" class="ln">  1409  </span>
-<span id="L1410" class="ln">  1410  </span><span class="comment">// SearchSecurityMonitoringSignalsOptionalParameters holds optional parameters for SearchSecurityMonitoringSignals.</span>
-<span id="L1411" class="ln">  1411  </span>type SearchSecurityMonitoringSignalsOptionalParameters struct {
-<span id="L1412" class="ln">  1412  </span>	Body *SecurityMonitoringSignalListRequest
-<span id="L1413" class="ln">  1413  </span>}
-<span id="L1414" class="ln">  1414  </span>
-<span id="L1415" class="ln">  1415  </span><span class="comment">// NewSearchSecurityMonitoringSignalsOptionalParameters creates an empty struct for parameters.</span>
-<span id="L1416" class="ln">  1416  </span>func NewSearchSecurityMonitoringSignalsOptionalParameters() *SearchSecurityMonitoringSignalsOptionalParameters {
-<span id="L1417" class="ln">  1417  </span>	this := SearchSecurityMonitoringSignalsOptionalParameters{}
-<span id="L1418" class="ln">  1418  </span>	return &amp;this
-<span id="L1419" class="ln">  1419  </span>}
-<span id="L1420" class="ln">  1420  </span>
-<span id="L1421" class="ln">  1421  </span><span class="comment">// WithBody sets the corresponding parameter name and returns the struct.</span>
-<span id="L1422" class="ln">  1422  </span>func (r *SearchSecurityMonitoringSignalsOptionalParameters) WithBody(body SecurityMonitoringSignalListRequest) *SearchSecurityMonitoringSignalsOptionalParameters {
-<span id="L1423" class="ln">  1423  </span>	r.Body = &amp;body
-<span id="L1424" class="ln">  1424  </span>	return r
-<span id="L1425" class="ln">  1425  </span>}
-<span id="L1426" class="ln">  1426  </span>
-<span id="L1427" class="ln">  1427  </span><span class="comment">// SearchSecurityMonitoringSignals Get a list of security signals.</span>
-<span id="L1428" class="ln">  1428  </span><span class="comment">// Returns security signals that match a search query.</span>
-<span id="L1429" class="ln">  1429  </span><span class="comment">// Both this endpoint and the GET endpoint can be used interchangeably for listing</span>
-<span id="L1430" class="ln">  1430  </span><span class="comment">// security signals.</span>
-<span id="L1431" class="ln">  1431  </span>func (a *SecurityMonitoringApi) SearchSecurityMonitoringSignals(ctx _context.Context, o ...SearchSecurityMonitoringSignalsOptionalParameters) (SecurityMonitoringSignalsListResponse, *_nethttp.Response, error) {
-<span id="L1432" class="ln">  1432  </span>	var (
-<span id="L1433" class="ln">  1433  </span>		localVarHTTPMethod  = _nethttp.MethodPost
-<span id="L1434" class="ln">  1434  </span>		localVarPostBody    interface{}
-<span id="L1435" class="ln">  1435  </span>		localVarReturnValue SecurityMonitoringSignalsListResponse
-<span id="L1436" class="ln">  1436  </span>		optionalParams      SearchSecurityMonitoringSignalsOptionalParameters
-<span id="L1437" class="ln">  1437  </span>	)
-<span id="L1438" class="ln">  1438  </span>
-<span id="L1439" class="ln">  1439  </span>	if len(o) &gt; 1 {
-<span id="L1440" class="ln">  1440  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type SearchSecurityMonitoringSignalsOptionalParameters is allowed&#34;)
-<span id="L1441" class="ln">  1441  </span>	}
-<span id="L1442" class="ln">  1442  </span>	if len(o) == 1 {
-<span id="L1443" class="ln">  1443  </span>		optionalParams = o[0]
+<span id="L1410" class="ln">  1410  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1411" class="ln">  1411  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1412" class="ln">  1412  </span>			ErrorBody:    localVarBody,
+<span id="L1413" class="ln">  1413  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1414" class="ln">  1414  </span>		}
+<span id="L1415" class="ln">  1415  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1416" class="ln">  1416  </span>			var v APIErrorResponse
+<span id="L1417" class="ln">  1417  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1418" class="ln">  1418  </span>			if err != nil {
+<span id="L1419" class="ln">  1419  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1420" class="ln">  1420  </span>			}
+<span id="L1421" class="ln">  1421  </span>			newErr.ErrorModel = v
+<span id="L1422" class="ln">  1422  </span>		}
+<span id="L1423" class="ln">  1423  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1424" class="ln">  1424  </span>	}
+<span id="L1425" class="ln">  1425  </span>
+<span id="L1426" class="ln">  1426  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1427" class="ln">  1427  </span>	if err != nil {
+<span id="L1428" class="ln">  1428  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1429" class="ln">  1429  </span>			ErrorBody:    localVarBody,
+<span id="L1430" class="ln">  1430  </span>			ErrorMessage: err.Error(),
+<span id="L1431" class="ln">  1431  </span>		}
+<span id="L1432" class="ln">  1432  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1433" class="ln">  1433  </span>	}
+<span id="L1434" class="ln">  1434  </span>
+<span id="L1435" class="ln">  1435  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1436" class="ln">  1436  </span>}
+<span id="L1437" class="ln">  1437  </span>
+<span id="L1438" class="ln">  1438  </span><span class="comment">// ListSecurityMonitoringSignalsWithPagination provides a paginated version of ListSecurityMonitoringSignals returning a channel with all items.</span>
+<span id="L1439" class="ln">  1439  </span>func (a *SecurityMonitoringApi) ListSecurityMonitoringSignalsWithPagination(ctx _context.Context, o ...ListSecurityMonitoringSignalsOptionalParameters) (&lt;-chan datadog.PaginationResult[SecurityMonitoringSignal], func()) {
+<span id="L1440" class="ln">  1440  </span>	ctx, cancel := _context.WithCancel(ctx)
+<span id="L1441" class="ln">  1441  </span>	pageSize_ := int32(10)
+<span id="L1442" class="ln">  1442  </span>	if len(o) == 0 {
+<span id="L1443" class="ln">  1443  </span>		o = append(o, ListSecurityMonitoringSignalsOptionalParameters{})
 <span id="L1444" class="ln">  1444  </span>	}
-<span id="L1445" class="ln">  1445  </span>
-<span id="L1446" class="ln">  1446  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.SearchSecurityMonitoringSignals&#34;)
-<span id="L1447" class="ln">  1447  </span>	if err != nil {
-<span id="L1448" class="ln">  1448  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1449" class="ln">  1449  </span>	}
-<span id="L1450" class="ln">  1450  </span>
-<span id="L1451" class="ln">  1451  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/signals/search&#34;
-<span id="L1452" class="ln">  1452  </span>
-<span id="L1453" class="ln">  1453  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1454" class="ln">  1454  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1455" class="ln">  1455  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1456" class="ln">  1456  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L1457" class="ln">  1457  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1458" class="ln">  1458  </span>
-<span id="L1459" class="ln">  1459  </span>	<span class="comment">// body params</span>
-<span id="L1460" class="ln">  1460  </span>	localVarPostBody = &amp;optionalParams.Body
-<span id="L1461" class="ln">  1461  </span>	datadog.SetAuthKeys(
-<span id="L1462" class="ln">  1462  </span>		ctx,
-<span id="L1463" class="ln">  1463  </span>		&amp;localVarHeaderParams,
-<span id="L1464" class="ln">  1464  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1465" class="ln">  1465  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1466" class="ln">  1466  </span>	)
-<span id="L1467" class="ln">  1467  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1468" class="ln">  1468  </span>	if err != nil {
-<span id="L1469" class="ln">  1469  </span>		return localVarReturnValue, nil, err
-<span id="L1470" class="ln">  1470  </span>	}
-<span id="L1471" class="ln">  1471  </span>
-<span id="L1472" class="ln">  1472  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1473" class="ln">  1473  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1474" class="ln">  1474  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1475" class="ln">  1475  </span>	}
-<span id="L1476" class="ln">  1476  </span>
-<span id="L1477" class="ln">  1477  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1478" class="ln">  1478  </span>	if err != nil {
-<span id="L1479" class="ln">  1479  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1480" class="ln">  1480  </span>	}
-<span id="L1481" class="ln">  1481  </span>
-<span id="L1482" class="ln">  1482  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1483" class="ln">  1483  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1484" class="ln">  1484  </span>			ErrorBody:    localVarBody,
-<span id="L1485" class="ln">  1485  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1486" class="ln">  1486  </span>		}
-<span id="L1487" class="ln">  1487  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1488" class="ln">  1488  </span>			var v APIErrorResponse
-<span id="L1489" class="ln">  1489  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1490" class="ln">  1490  </span>			if err != nil {
-<span id="L1491" class="ln">  1491  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1492" class="ln">  1492  </span>			}
-<span id="L1493" class="ln">  1493  </span>			newErr.ErrorModel = v
-<span id="L1494" class="ln">  1494  </span>		}
-<span id="L1495" class="ln">  1495  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1496" class="ln">  1496  </span>	}
-<span id="L1497" class="ln">  1497  </span>
-<span id="L1498" class="ln">  1498  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1499" class="ln">  1499  </span>	if err != nil {
-<span id="L1500" class="ln">  1500  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1501" class="ln">  1501  </span>			ErrorBody:    localVarBody,
-<span id="L1502" class="ln">  1502  </span>			ErrorMessage: err.Error(),
-<span id="L1503" class="ln">  1503  </span>		}
-<span id="L1504" class="ln">  1504  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1505" class="ln">  1505  </span>	}
+<span id="L1445" class="ln">  1445  </span>	if o[0].PageLimit != nil {
+<span id="L1446" class="ln">  1446  </span>		pageSize_ = *o[0].PageLimit
+<span id="L1447" class="ln">  1447  </span>	}
+<span id="L1448" class="ln">  1448  </span>	o[0].PageLimit = &amp;pageSize_
+<span id="L1449" class="ln">  1449  </span>
+<span id="L1450" class="ln">  1450  </span>	items := make(chan datadog.PaginationResult[SecurityMonitoringSignal], pageSize_)
+<span id="L1451" class="ln">  1451  </span>	go func() {
+<span id="L1452" class="ln">  1452  </span>		for {
+<span id="L1453" class="ln">  1453  </span>			resp, _, err := a.ListSecurityMonitoringSignals(ctx, o...)
+<span id="L1454" class="ln">  1454  </span>			if err != nil {
+<span id="L1455" class="ln">  1455  </span>				var returnItem SecurityMonitoringSignal
+<span id="L1456" class="ln">  1456  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{returnItem, err}
+<span id="L1457" class="ln">  1457  </span>				break
+<span id="L1458" class="ln">  1458  </span>			}
+<span id="L1459" class="ln">  1459  </span>			respData, ok := resp.GetDataOk()
+<span id="L1460" class="ln">  1460  </span>			if !ok {
+<span id="L1461" class="ln">  1461  </span>				break
+<span id="L1462" class="ln">  1462  </span>			}
+<span id="L1463" class="ln">  1463  </span>			results := *respData
+<span id="L1464" class="ln">  1464  </span>
+<span id="L1465" class="ln">  1465  </span>			for _, item := range results {
+<span id="L1466" class="ln">  1466  </span>				select {
+<span id="L1467" class="ln">  1467  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{item, nil}:
+<span id="L1468" class="ln">  1468  </span>				case &lt;-ctx.Done():
+<span id="L1469" class="ln">  1469  </span>					close(items)
+<span id="L1470" class="ln">  1470  </span>					return
+<span id="L1471" class="ln">  1471  </span>				}
+<span id="L1472" class="ln">  1472  </span>			}
+<span id="L1473" class="ln">  1473  </span>			if len(results) &lt; int(pageSize_) {
+<span id="L1474" class="ln">  1474  </span>				break
+<span id="L1475" class="ln">  1475  </span>			}
+<span id="L1476" class="ln">  1476  </span>			cursorMeta, ok := resp.GetMetaOk()
+<span id="L1477" class="ln">  1477  </span>			if !ok {
+<span id="L1478" class="ln">  1478  </span>				break
+<span id="L1479" class="ln">  1479  </span>			}
+<span id="L1480" class="ln">  1480  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
+<span id="L1481" class="ln">  1481  </span>			if !ok {
+<span id="L1482" class="ln">  1482  </span>				break
+<span id="L1483" class="ln">  1483  </span>			}
+<span id="L1484" class="ln">  1484  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+<span id="L1485" class="ln">  1485  </span>			if !ok {
+<span id="L1486" class="ln">  1486  </span>				break
+<span id="L1487" class="ln">  1487  </span>			}
+<span id="L1488" class="ln">  1488  </span>
+<span id="L1489" class="ln">  1489  </span>			o[0].PageCursor = cursorMetaPageAfter
+<span id="L1490" class="ln">  1490  </span>		}
+<span id="L1491" class="ln">  1491  </span>		close(items)
+<span id="L1492" class="ln">  1492  </span>	}()
+<span id="L1493" class="ln">  1493  </span>	return items, cancel
+<span id="L1494" class="ln">  1494  </span>}
+<span id="L1495" class="ln">  1495  </span>
+<span id="L1496" class="ln">  1496  </span><span class="comment">// SearchSecurityMonitoringSignalsOptionalParameters holds optional parameters for SearchSecurityMonitoringSignals.</span>
+<span id="L1497" class="ln">  1497  </span>type SearchSecurityMonitoringSignalsOptionalParameters struct {
+<span id="L1498" class="ln">  1498  </span>	Body *SecurityMonitoringSignalListRequest
+<span id="L1499" class="ln">  1499  </span>}
+<span id="L1500" class="ln">  1500  </span>
+<span id="L1501" class="ln">  1501  </span><span class="comment">// NewSearchSecurityMonitoringSignalsOptionalParameters creates an empty struct for parameters.</span>
+<span id="L1502" class="ln">  1502  </span>func NewSearchSecurityMonitoringSignalsOptionalParameters() *SearchSecurityMonitoringSignalsOptionalParameters {
+<span id="L1503" class="ln">  1503  </span>	this := SearchSecurityMonitoringSignalsOptionalParameters{}
+<span id="L1504" class="ln">  1504  </span>	return &amp;this
+<span id="L1505" class="ln">  1505  </span>}
 <span id="L1506" class="ln">  1506  </span>
-<span id="L1507" class="ln">  1507  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1508" class="ln">  1508  </span>}
-<span id="L1509" class="ln">  1509  </span>
-<span id="L1510" class="ln">  1510  </span><span class="comment">// SearchSecurityMonitoringSignalsWithPagination provides a paginated version of SearchSecurityMonitoringSignals returning a channel with all items.</span>
-<span id="L1511" class="ln">  1511  </span>func (a *SecurityMonitoringApi) SearchSecurityMonitoringSignalsWithPagination(ctx _context.Context, o ...SearchSecurityMonitoringSignalsOptionalParameters) (&lt;-chan datadog.PaginationResult[SecurityMonitoringSignal], func()) {
-<span id="L1512" class="ln">  1512  </span>	ctx, cancel := _context.WithCancel(ctx)
-<span id="L1513" class="ln">  1513  </span>	pageSize_ := int32(10)
-<span id="L1514" class="ln">  1514  </span>	if len(o) == 0 {
-<span id="L1515" class="ln">  1515  </span>		o = append(o, SearchSecurityMonitoringSignalsOptionalParameters{})
-<span id="L1516" class="ln">  1516  </span>	}
-<span id="L1517" class="ln">  1517  </span>	if o[0].Body == nil {
-<span id="L1518" class="ln">  1518  </span>		o[0].Body = NewSecurityMonitoringSignalListRequest()
-<span id="L1519" class="ln">  1519  </span>	}
-<span id="L1520" class="ln">  1520  </span>	if o[0].Body.Page == nil {
-<span id="L1521" class="ln">  1521  </span>		o[0].Body.Page = NewSecurityMonitoringSignalListRequestPage()
-<span id="L1522" class="ln">  1522  </span>	}
-<span id="L1523" class="ln">  1523  </span>	if o[0].Body.Page.Limit != nil {
-<span id="L1524" class="ln">  1524  </span>		pageSize_ = *o[0].Body.Page.Limit
-<span id="L1525" class="ln">  1525  </span>	}
-<span id="L1526" class="ln">  1526  </span>	o[0].Body.Page.Limit = &amp;pageSize_
-<span id="L1527" class="ln">  1527  </span>
-<span id="L1528" class="ln">  1528  </span>	items := make(chan datadog.PaginationResult[SecurityMonitoringSignal], pageSize_)
-<span id="L1529" class="ln">  1529  </span>	go func() {
-<span id="L1530" class="ln">  1530  </span>		for {
-<span id="L1531" class="ln">  1531  </span>			resp, _, err := a.SearchSecurityMonitoringSignals(ctx, o...)
-<span id="L1532" class="ln">  1532  </span>			if err != nil {
-<span id="L1533" class="ln">  1533  </span>				var returnItem SecurityMonitoringSignal
-<span id="L1534" class="ln">  1534  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{returnItem, err}
-<span id="L1535" class="ln">  1535  </span>				break
-<span id="L1536" class="ln">  1536  </span>			}
-<span id="L1537" class="ln">  1537  </span>			respData, ok := resp.GetDataOk()
-<span id="L1538" class="ln">  1538  </span>			if !ok {
-<span id="L1539" class="ln">  1539  </span>				break
-<span id="L1540" class="ln">  1540  </span>			}
-<span id="L1541" class="ln">  1541  </span>			results := *respData
-<span id="L1542" class="ln">  1542  </span>
-<span id="L1543" class="ln">  1543  </span>			for _, item := range results {
-<span id="L1544" class="ln">  1544  </span>				select {
-<span id="L1545" class="ln">  1545  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{item, nil}:
-<span id="L1546" class="ln">  1546  </span>				case &lt;-ctx.Done():
-<span id="L1547" class="ln">  1547  </span>					close(items)
-<span id="L1548" class="ln">  1548  </span>					return
-<span id="L1549" class="ln">  1549  </span>				}
-<span id="L1550" class="ln">  1550  </span>			}
-<span id="L1551" class="ln">  1551  </span>			if len(results) &lt; int(pageSize_) {
-<span id="L1552" class="ln">  1552  </span>				break
-<span id="L1553" class="ln">  1553  </span>			}
-<span id="L1554" class="ln">  1554  </span>			cursorMeta, ok := resp.GetMetaOk()
-<span id="L1555" class="ln">  1555  </span>			if !ok {
-<span id="L1556" class="ln">  1556  </span>				break
-<span id="L1557" class="ln">  1557  </span>			}
-<span id="L1558" class="ln">  1558  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
-<span id="L1559" class="ln">  1559  </span>			if !ok {
-<span id="L1560" class="ln">  1560  </span>				break
-<span id="L1561" class="ln">  1561  </span>			}
-<span id="L1562" class="ln">  1562  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
-<span id="L1563" class="ln">  1563  </span>			if !ok {
-<span id="L1564" class="ln">  1564  </span>				break
-<span id="L1565" class="ln">  1565  </span>			}
-<span id="L1566" class="ln">  1566  </span>
-<span id="L1567" class="ln">  1567  </span>			o[0].Body.Page.Cursor = cursorMetaPageAfter
-<span id="L1568" class="ln">  1568  </span>		}
-<span id="L1569" class="ln">  1569  </span>		close(items)
-<span id="L1570" class="ln">  1570  </span>	}()
-<span id="L1571" class="ln">  1571  </span>	return items, cancel
-<span id="L1572" class="ln">  1572  </span>}
-<span id="L1573" class="ln">  1573  </span>
-<span id="L1574" class="ln">  1574  </span><span class="comment">// UpdateSecurityFilter Update a security filter.</span>
-<span id="L1575" class="ln">  1575  </span><span class="comment">// Update a specific security filter.</span>
-<span id="L1576" class="ln">  1576  </span><span class="comment">// Returns the security filter object when the request is successful.</span>
-<span id="L1577" class="ln">  1577  </span>func (a *SecurityMonitoringApi) UpdateSecurityFilter(ctx _context.Context, securityFilterId string, body SecurityFilterUpdateRequest) (SecurityFilterResponse, *_nethttp.Response, error) {
-<span id="L1578" class="ln">  1578  </span>	var (
-<span id="L1579" class="ln">  1579  </span>		localVarHTTPMethod  = _nethttp.MethodPatch
-<span id="L1580" class="ln">  1580  </span>		localVarPostBody    interface{}
-<span id="L1581" class="ln">  1581  </span>		localVarReturnValue SecurityFilterResponse
-<span id="L1582" class="ln">  1582  </span>	)
+<span id="L1507" class="ln">  1507  </span><span class="comment">// WithBody sets the corresponding parameter name and returns the struct.</span>
+<span id="L1508" class="ln">  1508  </span>func (r *SearchSecurityMonitoringSignalsOptionalParameters) WithBody(body SecurityMonitoringSignalListRequest) *SearchSecurityMonitoringSignalsOptionalParameters {
+<span id="L1509" class="ln">  1509  </span>	r.Body = &amp;body
+<span id="L1510" class="ln">  1510  </span>	return r
+<span id="L1511" class="ln">  1511  </span>}
+<span id="L1512" class="ln">  1512  </span>
+<span id="L1513" class="ln">  1513  </span><span class="comment">// SearchSecurityMonitoringSignals Get a list of security signals.</span>
+<span id="L1514" class="ln">  1514  </span><span class="comment">// Returns security signals that match a search query.</span>
+<span id="L1515" class="ln">  1515  </span><span class="comment">// Both this endpoint and the GET endpoint can be used interchangeably for listing</span>
+<span id="L1516" class="ln">  1516  </span><span class="comment">// security signals.</span>
+<span id="L1517" class="ln">  1517  </span>func (a *SecurityMonitoringApi) SearchSecurityMonitoringSignals(ctx _context.Context, o ...SearchSecurityMonitoringSignalsOptionalParameters) (SecurityMonitoringSignalsListResponse, *_nethttp.Response, error) {
+<span id="L1518" class="ln">  1518  </span>	var (
+<span id="L1519" class="ln">  1519  </span>		localVarHTTPMethod  = _nethttp.MethodPost
+<span id="L1520" class="ln">  1520  </span>		localVarPostBody    interface{}
+<span id="L1521" class="ln">  1521  </span>		localVarReturnValue SecurityMonitoringSignalsListResponse
+<span id="L1522" class="ln">  1522  </span>		optionalParams      SearchSecurityMonitoringSignalsOptionalParameters
+<span id="L1523" class="ln">  1523  </span>	)
+<span id="L1524" class="ln">  1524  </span>
+<span id="L1525" class="ln">  1525  </span>	if len(o) &gt; 1 {
+<span id="L1526" class="ln">  1526  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type SearchSecurityMonitoringSignalsOptionalParameters is allowed&#34;)
+<span id="L1527" class="ln">  1527  </span>	}
+<span id="L1528" class="ln">  1528  </span>	if len(o) == 1 {
+<span id="L1529" class="ln">  1529  </span>		optionalParams = o[0]
+<span id="L1530" class="ln">  1530  </span>	}
+<span id="L1531" class="ln">  1531  </span>
+<span id="L1532" class="ln">  1532  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.SearchSecurityMonitoringSignals&#34;)
+<span id="L1533" class="ln">  1533  </span>	if err != nil {
+<span id="L1534" class="ln">  1534  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1535" class="ln">  1535  </span>	}
+<span id="L1536" class="ln">  1536  </span>
+<span id="L1537" class="ln">  1537  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/signals/search&#34;
+<span id="L1538" class="ln">  1538  </span>
+<span id="L1539" class="ln">  1539  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1540" class="ln">  1540  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1541" class="ln">  1541  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1542" class="ln">  1542  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1543" class="ln">  1543  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1544" class="ln">  1544  </span>
+<span id="L1545" class="ln">  1545  </span>	<span class="comment">// body params</span>
+<span id="L1546" class="ln">  1546  </span>	localVarPostBody = &amp;optionalParams.Body
+<span id="L1547" class="ln">  1547  </span>	datadog.SetAuthKeys(
+<span id="L1548" class="ln">  1548  </span>		ctx,
+<span id="L1549" class="ln">  1549  </span>		&amp;localVarHeaderParams,
+<span id="L1550" class="ln">  1550  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1551" class="ln">  1551  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1552" class="ln">  1552  </span>	)
+<span id="L1553" class="ln">  1553  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1554" class="ln">  1554  </span>	if err != nil {
+<span id="L1555" class="ln">  1555  </span>		return localVarReturnValue, nil, err
+<span id="L1556" class="ln">  1556  </span>	}
+<span id="L1557" class="ln">  1557  </span>
+<span id="L1558" class="ln">  1558  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1559" class="ln">  1559  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1560" class="ln">  1560  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1561" class="ln">  1561  </span>	}
+<span id="L1562" class="ln">  1562  </span>
+<span id="L1563" class="ln">  1563  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1564" class="ln">  1564  </span>	if err != nil {
+<span id="L1565" class="ln">  1565  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1566" class="ln">  1566  </span>	}
+<span id="L1567" class="ln">  1567  </span>
+<span id="L1568" class="ln">  1568  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1569" class="ln">  1569  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1570" class="ln">  1570  </span>			ErrorBody:    localVarBody,
+<span id="L1571" class="ln">  1571  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1572" class="ln">  1572  </span>		}
+<span id="L1573" class="ln">  1573  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1574" class="ln">  1574  </span>			var v APIErrorResponse
+<span id="L1575" class="ln">  1575  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1576" class="ln">  1576  </span>			if err != nil {
+<span id="L1577" class="ln">  1577  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1578" class="ln">  1578  </span>			}
+<span id="L1579" class="ln">  1579  </span>			newErr.ErrorModel = v
+<span id="L1580" class="ln">  1580  </span>		}
+<span id="L1581" class="ln">  1581  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1582" class="ln">  1582  </span>	}
 <span id="L1583" class="ln">  1583  </span>
-<span id="L1584" class="ln">  1584  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.UpdateSecurityFilter&#34;)
+<span id="L1584" class="ln">  1584  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
 <span id="L1585" class="ln">  1585  </span>	if err != nil {
-<span id="L1586" class="ln">  1586  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1587" class="ln">  1587  </span>	}
-<span id="L1588" class="ln">  1588  </span>
-<span id="L1589" class="ln">  1589  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/configuration/security_filters/{security_filter_id}&#34;
-<span id="L1590" class="ln">  1590  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;security_filter_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(securityFilterId, &#34;&#34;)), -1)
-<span id="L1591" class="ln">  1591  </span>
-<span id="L1592" class="ln">  1592  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1593" class="ln">  1593  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1594" class="ln">  1594  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1595" class="ln">  1595  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L1596" class="ln">  1596  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1597" class="ln">  1597  </span>
-<span id="L1598" class="ln">  1598  </span>	<span class="comment">// body params</span>
-<span id="L1599" class="ln">  1599  </span>	localVarPostBody = &amp;body
-<span id="L1600" class="ln">  1600  </span>	datadog.SetAuthKeys(
-<span id="L1601" class="ln">  1601  </span>		ctx,
-<span id="L1602" class="ln">  1602  </span>		&amp;localVarHeaderParams,
-<span id="L1603" class="ln">  1603  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1604" class="ln">  1604  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1605" class="ln">  1605  </span>	)
-<span id="L1606" class="ln">  1606  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1607" class="ln">  1607  </span>	if err != nil {
-<span id="L1608" class="ln">  1608  </span>		return localVarReturnValue, nil, err
-<span id="L1609" class="ln">  1609  </span>	}
-<span id="L1610" class="ln">  1610  </span>
-<span id="L1611" class="ln">  1611  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1612" class="ln">  1612  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1613" class="ln">  1613  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1614" class="ln">  1614  </span>	}
-<span id="L1615" class="ln">  1615  </span>
-<span id="L1616" class="ln">  1616  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1617" class="ln">  1617  </span>	if err != nil {
-<span id="L1618" class="ln">  1618  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1619" class="ln">  1619  </span>	}
-<span id="L1620" class="ln">  1620  </span>
-<span id="L1621" class="ln">  1621  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1622" class="ln">  1622  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1623" class="ln">  1623  </span>			ErrorBody:    localVarBody,
-<span id="L1624" class="ln">  1624  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1625" class="ln">  1625  </span>		}
-<span id="L1626" class="ln">  1626  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 409 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1627" class="ln">  1627  </span>			var v APIErrorResponse
-<span id="L1628" class="ln">  1628  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1629" class="ln">  1629  </span>			if err != nil {
-<span id="L1630" class="ln">  1630  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1631" class="ln">  1631  </span>			}
-<span id="L1632" class="ln">  1632  </span>			newErr.ErrorModel = v
-<span id="L1633" class="ln">  1633  </span>		}
-<span id="L1634" class="ln">  1634  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1635" class="ln">  1635  </span>	}
-<span id="L1636" class="ln">  1636  </span>
-<span id="L1637" class="ln">  1637  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1638" class="ln">  1638  </span>	if err != nil {
-<span id="L1639" class="ln">  1639  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1640" class="ln">  1640  </span>			ErrorBody:    localVarBody,
-<span id="L1641" class="ln">  1641  </span>			ErrorMessage: err.Error(),
-<span id="L1642" class="ln">  1642  </span>		}
-<span id="L1643" class="ln">  1643  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1644" class="ln">  1644  </span>	}
-<span id="L1645" class="ln">  1645  </span>
-<span id="L1646" class="ln">  1646  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1647" class="ln">  1647  </span>}
-<span id="L1648" class="ln">  1648  </span>
-<span id="L1649" class="ln">  1649  </span><span class="comment">// UpdateSecurityMonitoringRule Update an existing rule.</span>
-<span id="L1650" class="ln">  1650  </span><span class="comment">// Update an existing rule. When updating `cases`, `queries` or `options`, the whole field</span>
-<span id="L1651" class="ln">  1651  </span><span class="comment">// must be included. For example, when modifying a query all queries must be included.</span>
-<span id="L1652" class="ln">  1652  </span><span class="comment">// Default rules can only be updated to be enabled and to change notifications.</span>
-<span id="L1653" class="ln">  1653  </span>func (a *SecurityMonitoringApi) UpdateSecurityMonitoringRule(ctx _context.Context, ruleId string, body SecurityMonitoringRuleUpdatePayload) (SecurityMonitoringRuleResponse, *_nethttp.Response, error) {
-<span id="L1654" class="ln">  1654  </span>	var (
-<span id="L1655" class="ln">  1655  </span>		localVarHTTPMethod  = _nethttp.MethodPut
-<span id="L1656" class="ln">  1656  </span>		localVarPostBody    interface{}
-<span id="L1657" class="ln">  1657  </span>		localVarReturnValue SecurityMonitoringRuleResponse
-<span id="L1658" class="ln">  1658  </span>	)
+<span id="L1586" class="ln">  1586  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1587" class="ln">  1587  </span>			ErrorBody:    localVarBody,
+<span id="L1588" class="ln">  1588  </span>			ErrorMessage: err.Error(),
+<span id="L1589" class="ln">  1589  </span>		}
+<span id="L1590" class="ln">  1590  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1591" class="ln">  1591  </span>	}
+<span id="L1592" class="ln">  1592  </span>
+<span id="L1593" class="ln">  1593  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1594" class="ln">  1594  </span>}
+<span id="L1595" class="ln">  1595  </span>
+<span id="L1596" class="ln">  1596  </span><span class="comment">// SearchSecurityMonitoringSignalsWithPagination provides a paginated version of SearchSecurityMonitoringSignals returning a channel with all items.</span>
+<span id="L1597" class="ln">  1597  </span>func (a *SecurityMonitoringApi) SearchSecurityMonitoringSignalsWithPagination(ctx _context.Context, o ...SearchSecurityMonitoringSignalsOptionalParameters) (&lt;-chan datadog.PaginationResult[SecurityMonitoringSignal], func()) {
+<span id="L1598" class="ln">  1598  </span>	ctx, cancel := _context.WithCancel(ctx)
+<span id="L1599" class="ln">  1599  </span>	pageSize_ := int32(10)
+<span id="L1600" class="ln">  1600  </span>	if len(o) == 0 {
+<span id="L1601" class="ln">  1601  </span>		o = append(o, SearchSecurityMonitoringSignalsOptionalParameters{})
+<span id="L1602" class="ln">  1602  </span>	}
+<span id="L1603" class="ln">  1603  </span>	if o[0].Body == nil {
+<span id="L1604" class="ln">  1604  </span>		o[0].Body = NewSecurityMonitoringSignalListRequest()
+<span id="L1605" class="ln">  1605  </span>	}
+<span id="L1606" class="ln">  1606  </span>	if o[0].Body.Page == nil {
+<span id="L1607" class="ln">  1607  </span>		o[0].Body.Page = NewSecurityMonitoringSignalListRequestPage()
+<span id="L1608" class="ln">  1608  </span>	}
+<span id="L1609" class="ln">  1609  </span>	if o[0].Body.Page.Limit != nil {
+<span id="L1610" class="ln">  1610  </span>		pageSize_ = *o[0].Body.Page.Limit
+<span id="L1611" class="ln">  1611  </span>	}
+<span id="L1612" class="ln">  1612  </span>	o[0].Body.Page.Limit = &amp;pageSize_
+<span id="L1613" class="ln">  1613  </span>
+<span id="L1614" class="ln">  1614  </span>	items := make(chan datadog.PaginationResult[SecurityMonitoringSignal], pageSize_)
+<span id="L1615" class="ln">  1615  </span>	go func() {
+<span id="L1616" class="ln">  1616  </span>		for {
+<span id="L1617" class="ln">  1617  </span>			resp, _, err := a.SearchSecurityMonitoringSignals(ctx, o...)
+<span id="L1618" class="ln">  1618  </span>			if err != nil {
+<span id="L1619" class="ln">  1619  </span>				var returnItem SecurityMonitoringSignal
+<span id="L1620" class="ln">  1620  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{returnItem, err}
+<span id="L1621" class="ln">  1621  </span>				break
+<span id="L1622" class="ln">  1622  </span>			}
+<span id="L1623" class="ln">  1623  </span>			respData, ok := resp.GetDataOk()
+<span id="L1624" class="ln">  1624  </span>			if !ok {
+<span id="L1625" class="ln">  1625  </span>				break
+<span id="L1626" class="ln">  1626  </span>			}
+<span id="L1627" class="ln">  1627  </span>			results := *respData
+<span id="L1628" class="ln">  1628  </span>
+<span id="L1629" class="ln">  1629  </span>			for _, item := range results {
+<span id="L1630" class="ln">  1630  </span>				select {
+<span id="L1631" class="ln">  1631  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{item, nil}:
+<span id="L1632" class="ln">  1632  </span>				case &lt;-ctx.Done():
+<span id="L1633" class="ln">  1633  </span>					close(items)
+<span id="L1634" class="ln">  1634  </span>					return
+<span id="L1635" class="ln">  1635  </span>				}
+<span id="L1636" class="ln">  1636  </span>			}
+<span id="L1637" class="ln">  1637  </span>			if len(results) &lt; int(pageSize_) {
+<span id="L1638" class="ln">  1638  </span>				break
+<span id="L1639" class="ln">  1639  </span>			}
+<span id="L1640" class="ln">  1640  </span>			cursorMeta, ok := resp.GetMetaOk()
+<span id="L1641" class="ln">  1641  </span>			if !ok {
+<span id="L1642" class="ln">  1642  </span>				break
+<span id="L1643" class="ln">  1643  </span>			}
+<span id="L1644" class="ln">  1644  </span>			cursorMetaPage, ok := cursorMeta.GetPageOk()
+<span id="L1645" class="ln">  1645  </span>			if !ok {
+<span id="L1646" class="ln">  1646  </span>				break
+<span id="L1647" class="ln">  1647  </span>			}
+<span id="L1648" class="ln">  1648  </span>			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+<span id="L1649" class="ln">  1649  </span>			if !ok {
+<span id="L1650" class="ln">  1650  </span>				break
+<span id="L1651" class="ln">  1651  </span>			}
+<span id="L1652" class="ln">  1652  </span>
+<span id="L1653" class="ln">  1653  </span>			o[0].Body.Page.Cursor = cursorMetaPageAfter
+<span id="L1654" class="ln">  1654  </span>		}
+<span id="L1655" class="ln">  1655  </span>		close(items)
+<span id="L1656" class="ln">  1656  </span>	}()
+<span id="L1657" class="ln">  1657  </span>	return items, cancel
+<span id="L1658" class="ln">  1658  </span>}
 <span id="L1659" class="ln">  1659  </span>
-<span id="L1660" class="ln">  1660  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.UpdateSecurityMonitoringRule&#34;)
-<span id="L1661" class="ln">  1661  </span>	if err != nil {
-<span id="L1662" class="ln">  1662  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1663" class="ln">  1663  </span>	}
-<span id="L1664" class="ln">  1664  </span>
-<span id="L1665" class="ln">  1665  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/rules/{rule_id}&#34;
-<span id="L1666" class="ln">  1666  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;rule_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(ruleId, &#34;&#34;)), -1)
-<span id="L1667" class="ln">  1667  </span>
-<span id="L1668" class="ln">  1668  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1669" class="ln">  1669  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1670" class="ln">  1670  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1671" class="ln">  1671  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L1672" class="ln">  1672  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1673" class="ln">  1673  </span>
-<span id="L1674" class="ln">  1674  </span>	<span class="comment">// body params</span>
-<span id="L1675" class="ln">  1675  </span>	localVarPostBody = &amp;body
-<span id="L1676" class="ln">  1676  </span>	datadog.SetAuthKeys(
-<span id="L1677" class="ln">  1677  </span>		ctx,
-<span id="L1678" class="ln">  1678  </span>		&amp;localVarHeaderParams,
-<span id="L1679" class="ln">  1679  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1680" class="ln">  1680  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1681" class="ln">  1681  </span>	)
-<span id="L1682" class="ln">  1682  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1683" class="ln">  1683  </span>	if err != nil {
-<span id="L1684" class="ln">  1684  </span>		return localVarReturnValue, nil, err
-<span id="L1685" class="ln">  1685  </span>	}
-<span id="L1686" class="ln">  1686  </span>
-<span id="L1687" class="ln">  1687  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1688" class="ln">  1688  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1689" class="ln">  1689  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1690" class="ln">  1690  </span>	}
-<span id="L1691" class="ln">  1691  </span>
-<span id="L1692" class="ln">  1692  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1660" class="ln">  1660  </span><span class="comment">// UpdateSecurityFilter Update a security filter.</span>
+<span id="L1661" class="ln">  1661  </span><span class="comment">// Update a specific security filter.</span>
+<span id="L1662" class="ln">  1662  </span><span class="comment">// Returns the security filter object when the request is successful.</span>
+<span id="L1663" class="ln">  1663  </span>func (a *SecurityMonitoringApi) UpdateSecurityFilter(ctx _context.Context, securityFilterId string, body SecurityFilterUpdateRequest) (SecurityFilterResponse, *_nethttp.Response, error) {
+<span id="L1664" class="ln">  1664  </span>	var (
+<span id="L1665" class="ln">  1665  </span>		localVarHTTPMethod  = _nethttp.MethodPatch
+<span id="L1666" class="ln">  1666  </span>		localVarPostBody    interface{}
+<span id="L1667" class="ln">  1667  </span>		localVarReturnValue SecurityFilterResponse
+<span id="L1668" class="ln">  1668  </span>	)
+<span id="L1669" class="ln">  1669  </span>
+<span id="L1670" class="ln">  1670  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.UpdateSecurityFilter&#34;)
+<span id="L1671" class="ln">  1671  </span>	if err != nil {
+<span id="L1672" class="ln">  1672  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1673" class="ln">  1673  </span>	}
+<span id="L1674" class="ln">  1674  </span>
+<span id="L1675" class="ln">  1675  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/configuration/security_filters/{security_filter_id}&#34;
+<span id="L1676" class="ln">  1676  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;security_filter_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(securityFilterId, &#34;&#34;)), -1)
+<span id="L1677" class="ln">  1677  </span>
+<span id="L1678" class="ln">  1678  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1679" class="ln">  1679  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1680" class="ln">  1680  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1681" class="ln">  1681  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1682" class="ln">  1682  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1683" class="ln">  1683  </span>
+<span id="L1684" class="ln">  1684  </span>	<span class="comment">// body params</span>
+<span id="L1685" class="ln">  1685  </span>	localVarPostBody = &amp;body
+<span id="L1686" class="ln">  1686  </span>	datadog.SetAuthKeys(
+<span id="L1687" class="ln">  1687  </span>		ctx,
+<span id="L1688" class="ln">  1688  </span>		&amp;localVarHeaderParams,
+<span id="L1689" class="ln">  1689  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1690" class="ln">  1690  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1691" class="ln">  1691  </span>	)
+<span id="L1692" class="ln">  1692  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 <span id="L1693" class="ln">  1693  </span>	if err != nil {
-<span id="L1694" class="ln">  1694  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1694" class="ln">  1694  </span>		return localVarReturnValue, nil, err
 <span id="L1695" class="ln">  1695  </span>	}
 <span id="L1696" class="ln">  1696  </span>
-<span id="L1697" class="ln">  1697  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1698" class="ln">  1698  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1699" class="ln">  1699  </span>			ErrorBody:    localVarBody,
-<span id="L1700" class="ln">  1700  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1701" class="ln">  1701  </span>		}
-<span id="L1702" class="ln">  1702  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 401 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1703" class="ln">  1703  </span>			var v APIErrorResponse
-<span id="L1704" class="ln">  1704  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1705" class="ln">  1705  </span>			if err != nil {
-<span id="L1706" class="ln">  1706  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1707" class="ln">  1707  </span>			}
-<span id="L1708" class="ln">  1708  </span>			newErr.ErrorModel = v
-<span id="L1709" class="ln">  1709  </span>		}
-<span id="L1710" class="ln">  1710  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1711" class="ln">  1711  </span>	}
-<span id="L1712" class="ln">  1712  </span>
-<span id="L1713" class="ln">  1713  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1714" class="ln">  1714  </span>	if err != nil {
-<span id="L1715" class="ln">  1715  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1716" class="ln">  1716  </span>			ErrorBody:    localVarBody,
-<span id="L1717" class="ln">  1717  </span>			ErrorMessage: err.Error(),
-<span id="L1718" class="ln">  1718  </span>		}
-<span id="L1719" class="ln">  1719  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1720" class="ln">  1720  </span>	}
-<span id="L1721" class="ln">  1721  </span>
-<span id="L1722" class="ln">  1722  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1723" class="ln">  1723  </span>}
-<span id="L1724" class="ln">  1724  </span>
-<span id="L1725" class="ln">  1725  </span><span class="comment">// NewSecurityMonitoringApi Returns NewSecurityMonitoringApi.</span>
-<span id="L1726" class="ln">  1726  </span>func NewSecurityMonitoringApi(client *datadog.APIClient) *SecurityMonitoringApi {
-<span id="L1727" class="ln">  1727  </span>	return &amp;SecurityMonitoringApi{
-<span id="L1728" class="ln">  1728  </span>		Client: client,
-<span id="L1729" class="ln">  1729  </span>	}
-<span id="L1730" class="ln">  1730  </span>}
+<span id="L1697" class="ln">  1697  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1698" class="ln">  1698  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1699" class="ln">  1699  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1700" class="ln">  1700  </span>	}
+<span id="L1701" class="ln">  1701  </span>
+<span id="L1702" class="ln">  1702  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1703" class="ln">  1703  </span>	if err != nil {
+<span id="L1704" class="ln">  1704  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1705" class="ln">  1705  </span>	}
+<span id="L1706" class="ln">  1706  </span>
+<span id="L1707" class="ln">  1707  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1708" class="ln">  1708  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1709" class="ln">  1709  </span>			ErrorBody:    localVarBody,
+<span id="L1710" class="ln">  1710  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1711" class="ln">  1711  </span>		}
+<span id="L1712" class="ln">  1712  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 409 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1713" class="ln">  1713  </span>			var v APIErrorResponse
+<span id="L1714" class="ln">  1714  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1715" class="ln">  1715  </span>			if err != nil {
+<span id="L1716" class="ln">  1716  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1717" class="ln">  1717  </span>			}
+<span id="L1718" class="ln">  1718  </span>			newErr.ErrorModel = v
+<span id="L1719" class="ln">  1719  </span>		}
+<span id="L1720" class="ln">  1720  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1721" class="ln">  1721  </span>	}
+<span id="L1722" class="ln">  1722  </span>
+<span id="L1723" class="ln">  1723  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1724" class="ln">  1724  </span>	if err != nil {
+<span id="L1725" class="ln">  1725  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1726" class="ln">  1726  </span>			ErrorBody:    localVarBody,
+<span id="L1727" class="ln">  1727  </span>			ErrorMessage: err.Error(),
+<span id="L1728" class="ln">  1728  </span>		}
+<span id="L1729" class="ln">  1729  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1730" class="ln">  1730  </span>	}
 <span id="L1731" class="ln">  1731  </span>
+<span id="L1732" class="ln">  1732  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1733" class="ln">  1733  </span>}
+<span id="L1734" class="ln">  1734  </span>
+<span id="L1735" class="ln">  1735  </span><span class="comment">// UpdateSecurityMonitoringRule Update an existing rule.</span>
+<span id="L1736" class="ln">  1736  </span><span class="comment">// Update an existing rule. When updating `cases`, `queries` or `options`, the whole field</span>
+<span id="L1737" class="ln">  1737  </span><span class="comment">// must be included. For example, when modifying a query all queries must be included.</span>
+<span id="L1738" class="ln">  1738  </span><span class="comment">// Default rules can only be updated to be enabled and to change notifications.</span>
+<span id="L1739" class="ln">  1739  </span>func (a *SecurityMonitoringApi) UpdateSecurityMonitoringRule(ctx _context.Context, ruleId string, body SecurityMonitoringRuleUpdatePayload) (SecurityMonitoringRuleResponse, *_nethttp.Response, error) {
+<span id="L1740" class="ln">  1740  </span>	var (
+<span id="L1741" class="ln">  1741  </span>		localVarHTTPMethod  = _nethttp.MethodPut
+<span id="L1742" class="ln">  1742  </span>		localVarPostBody    interface{}
+<span id="L1743" class="ln">  1743  </span>		localVarReturnValue SecurityMonitoringRuleResponse
+<span id="L1744" class="ln">  1744  </span>	)
+<span id="L1745" class="ln">  1745  </span>
+<span id="L1746" class="ln">  1746  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.UpdateSecurityMonitoringRule&#34;)
+<span id="L1747" class="ln">  1747  </span>	if err != nil {
+<span id="L1748" class="ln">  1748  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1749" class="ln">  1749  </span>	}
+<span id="L1750" class="ln">  1750  </span>
+<span id="L1751" class="ln">  1751  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/rules/{rule_id}&#34;
+<span id="L1752" class="ln">  1752  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;rule_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(ruleId, &#34;&#34;)), -1)
+<span id="L1753" class="ln">  1753  </span>
+<span id="L1754" class="ln">  1754  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1755" class="ln">  1755  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1756" class="ln">  1756  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1757" class="ln">  1757  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1758" class="ln">  1758  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1759" class="ln">  1759  </span>
+<span id="L1760" class="ln">  1760  </span>	<span class="comment">// body params</span>
+<span id="L1761" class="ln">  1761  </span>	localVarPostBody = &amp;body
+<span id="L1762" class="ln">  1762  </span>	datadog.SetAuthKeys(
+<span id="L1763" class="ln">  1763  </span>		ctx,
+<span id="L1764" class="ln">  1764  </span>		&amp;localVarHeaderParams,
+<span id="L1765" class="ln">  1765  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1766" class="ln">  1766  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1767" class="ln">  1767  </span>	)
+<span id="L1768" class="ln">  1768  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1769" class="ln">  1769  </span>	if err != nil {
+<span id="L1770" class="ln">  1770  </span>		return localVarReturnValue, nil, err
+<span id="L1771" class="ln">  1771  </span>	}
+<span id="L1772" class="ln">  1772  </span>
+<span id="L1773" class="ln">  1773  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1774" class="ln">  1774  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1775" class="ln">  1775  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1776" class="ln">  1776  </span>	}
+<span id="L1777" class="ln">  1777  </span>
+<span id="L1778" class="ln">  1778  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1779" class="ln">  1779  </span>	if err != nil {
+<span id="L1780" class="ln">  1780  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1781" class="ln">  1781  </span>	}
+<span id="L1782" class="ln">  1782  </span>
+<span id="L1783" class="ln">  1783  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1784" class="ln">  1784  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1785" class="ln">  1785  </span>			ErrorBody:    localVarBody,
+<span id="L1786" class="ln">  1786  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1787" class="ln">  1787  </span>		}
+<span id="L1788" class="ln">  1788  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 401 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1789" class="ln">  1789  </span>			var v APIErrorResponse
+<span id="L1790" class="ln">  1790  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1791" class="ln">  1791  </span>			if err != nil {
+<span id="L1792" class="ln">  1792  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1793" class="ln">  1793  </span>			}
+<span id="L1794" class="ln">  1794  </span>			newErr.ErrorModel = v
+<span id="L1795" class="ln">  1795  </span>		}
+<span id="L1796" class="ln">  1796  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1797" class="ln">  1797  </span>	}
+<span id="L1798" class="ln">  1798  </span>
+<span id="L1799" class="ln">  1799  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1800" class="ln">  1800  </span>	if err != nil {
+<span id="L1801" class="ln">  1801  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1802" class="ln">  1802  </span>			ErrorBody:    localVarBody,
+<span id="L1803" class="ln">  1803  </span>			ErrorMessage: err.Error(),
+<span id="L1804" class="ln">  1804  </span>		}
+<span id="L1805" class="ln">  1805  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1806" class="ln">  1806  </span>	}
+<span id="L1807" class="ln">  1807  </span>
+<span id="L1808" class="ln">  1808  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1809" class="ln">  1809  </span>}
+<span id="L1810" class="ln">  1810  </span>
+<span id="L1811" class="ln">  1811  </span><span class="comment">// NewSecurityMonitoringApi Returns NewSecurityMonitoringApi.</span>
+<span id="L1812" class="ln">  1812  </span>func NewSecurityMonitoringApi(client *datadog.APIClient) *SecurityMonitoringApi {
+<span id="L1813" class="ln">  1813  </span>	return &amp;SecurityMonitoringApi{
+<span id="L1814" class="ln">  1814  </span>		Client: client,
+<span id="L1815" class="ln">  1815  </span>	}
+<span id="L1816" class="ln">  1816  </span>}
+<span id="L1817" class="ln">  1817  </span>
 </pre><p></p>
 
 <div id="footer">
