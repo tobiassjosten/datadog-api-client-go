@@ -185,7 +185,7 @@
 <span id="L128" class="ln">   128  </span><span class="comment">//</span>
 <span id="L129" class="ln">   129  </span><span class="comment">// #### Query Types</span>
 <span id="L130" class="ln">   130  </span><span class="comment">//</span>
-<span id="L131" class="ln">   131  </span><span class="comment">// **Metric Alert Query**</span>
+<span id="L131" class="ln">   131  </span><span class="comment">// ##### Metric Alert Query</span>
 <span id="L132" class="ln">   132  </span><span class="comment">//</span>
 <span id="L133" class="ln">   133  </span><span class="comment">// Example: `time_aggr(time_window):space_aggr:metric{tags} [by {key}] operator #`</span>
 <span id="L134" class="ln">   134  </span><span class="comment">//</span>
@@ -208,7 +208,7 @@
 <span id="L151" class="ln">   151  </span><span class="comment">// Use this to create an outlier monitor using the following query:</span>
 <span id="L152" class="ln">   152  </span><span class="comment">// `avg(last_30m):outliers(avg:system.cpu.user{role:es-events-data} by {host}, &#39;dbscan&#39;, 7) &gt; 0`</span>
 <span id="L153" class="ln">   153  </span><span class="comment">//</span>
-<span id="L154" class="ln">   154  </span><span class="comment">// **Service Check Query**</span>
+<span id="L154" class="ln">   154  </span><span class="comment">// ##### Service Check Query</span>
 <span id="L155" class="ln">   155  </span><span class="comment">//</span>
 <span id="L156" class="ln">   156  </span><span class="comment">// Example: `&#34;check&#34;.over(tags).last(count).by(group).count_by_status()`</span>
 <span id="L157" class="ln">   157  </span><span class="comment">//</span>
@@ -219,7 +219,7 @@
 <span id="L162" class="ln">   162  </span><span class="comment">// - `group` must be specified for check monitors. Per-check grouping is already explicitly known for some service checks.</span>
 <span id="L163" class="ln">   163  </span><span class="comment">// For example, Postgres integration monitors are tagged by `db`, `host`, and `port`, and Network monitors by `host`, `instance`, and `url`. See [Service Checks](https://docs.datadoghq.com/api/latest/service-checks/) documentation for more information.</span>
 <span id="L164" class="ln">   164  </span><span class="comment">//</span>
-<span id="L165" class="ln">   165  </span><span class="comment">// **Event Alert Query**</span>
+<span id="L165" class="ln">   165  </span><span class="comment">// ##### Event Alert Query</span>
 <span id="L166" class="ln">   166  </span><span class="comment">//</span>
 <span id="L167" class="ln">   167  </span><span class="comment">// Example: `events(&#39;sources:nagios status:error,warning priority:normal tags: &#34;string query&#34;&#39;).rollup(&#34;count&#34;).last(&#34;1h&#34;)&#34;`</span>
 <span id="L168" class="ln">   168  </span><span class="comment">//</span>
@@ -236,7 +236,7 @@
 <span id="L179" class="ln">   179  </span><span class="comment">//</span>
 <span id="L180" class="ln">   180  </span><span class="comment">// **NOTE** The Event Alert Query is being deprecated and replaced by the Event V2 Alert Query. For more information, see the [Event Migration guide](https://docs.datadoghq.com/events/guides/migrating_to_new_events_features/).</span>
 <span id="L181" class="ln">   181  </span><span class="comment">//</span>
-<span id="L182" class="ln">   182  </span><span class="comment">// **Event V2 Alert Query**</span>
+<span id="L182" class="ln">   182  </span><span class="comment">// ##### Event V2 Alert Query</span>
 <span id="L183" class="ln">   183  </span><span class="comment">//</span>
 <span id="L184" class="ln">   184  </span><span class="comment">// Example: `events(query).rollup(rollup_method[, measure]).last(time_window) operator #`</span>
 <span id="L185" class="ln">   185  </span><span class="comment">//</span>
@@ -247,7 +247,7 @@
 <span id="L190" class="ln">   190  </span><span class="comment">// - `operator` `&lt;`, `&lt;=`, `&gt;`, `&gt;=`, `==`, or `!=`.</span>
 <span id="L191" class="ln">   191  </span><span class="comment">// - `#` an integer or decimal number used to set the threshold.</span>
 <span id="L192" class="ln">   192  </span><span class="comment">//</span>
-<span id="L193" class="ln">   193  </span><span class="comment">// **Process Alert Query**</span>
+<span id="L193" class="ln">   193  </span><span class="comment">// ##### Process Alert Query</span>
 <span id="L194" class="ln">   194  </span><span class="comment">//</span>
 <span id="L195" class="ln">   195  </span><span class="comment">// Example: `processes(search).over(tags).rollup(&#39;count&#39;).last(timeframe) operator #`</span>
 <span id="L196" class="ln">   196  </span><span class="comment">//</span>
@@ -270,7 +270,7 @@
 <span id="L213" class="ln">   213  </span><span class="comment">// - `operator` `&lt;`, `&lt;=`, `&gt;`, `&gt;=`, `==`, or `!=`.</span>
 <span id="L214" class="ln">   214  </span><span class="comment">// - `#` an integer or decimal number used to set the threshold.</span>
 <span id="L215" class="ln">   215  </span><span class="comment">//</span>
-<span id="L216" class="ln">   216  </span><span class="comment">// **Composite Query**</span>
+<span id="L216" class="ln">   216  </span><span class="comment">// ##### Composite Query</span>
 <span id="L217" class="ln">   217  </span><span class="comment">//</span>
 <span id="L218" class="ln">   218  </span><span class="comment">// Example: `12345 &amp;&amp; 67890`, where `12345` and `67890` are the IDs of non-composite monitors</span>
 <span id="L219" class="ln">   219  </span><span class="comment">//</span>
@@ -281,7 +281,7 @@
 <span id="L224" class="ln">   224  </span><span class="comment">// When getting all monitor details via the API, use the `monitor_tags` argument to filter results by these tags.</span>
 <span id="L225" class="ln">   225  </span><span class="comment">// It is only available via the API and isn&#39;t visible or editable in the Datadog UI.</span>
 <span id="L226" class="ln">   226  </span><span class="comment">//</span>
-<span id="L227" class="ln">   227  </span><span class="comment">// **SLO Alert Query**</span>
+<span id="L227" class="ln">   227  </span><span class="comment">// ##### SLO Alert Query</span>
 <span id="L228" class="ln">   228  </span><span class="comment">//</span>
 <span id="L229" class="ln">   229  </span><span class="comment">// Example: `error_budget(&#34;slo_id&#34;).over(&#34;time_window&#34;) operator #`</span>
 <span id="L230" class="ln">   230  </span><span class="comment">//</span>
@@ -289,7 +289,7 @@
 <span id="L232" class="ln">   232  </span><span class="comment">// - `time_window`: The time window of the SLO target you wish to alert on. Valid options: `7d`, `30d`, `90d`.</span>
 <span id="L233" class="ln">   233  </span><span class="comment">// - `operator`: `&gt;=` or `&gt;`</span>
 <span id="L234" class="ln">   234  </span><span class="comment">//</span>
-<span id="L235" class="ln">   235  </span><span class="comment">// **Audit Alert Query**</span>
+<span id="L235" class="ln">   235  </span><span class="comment">// ##### Audit Alert Query</span>
 <span id="L236" class="ln">   236  </span><span class="comment">//</span>
 <span id="L237" class="ln">   237  </span><span class="comment">// Example: `audits(query).rollup(rollup_method[, measure]).last(time_window) operator #`</span>
 <span id="L238" class="ln">   238  </span><span class="comment">//</span>
@@ -302,7 +302,7 @@
 <span id="L245" class="ln">   245  </span><span class="comment">//</span>
 <span id="L246" class="ln">   246  </span><span class="comment">// **NOTE** Only available on US1-FED and in closed beta on US1, EU, AP1, US3, and US5.</span>
 <span id="L247" class="ln">   247  </span><span class="comment">//</span>
-<span id="L248" class="ln">   248  </span><span class="comment">// **CI Pipelines Alert Query**</span>
+<span id="L248" class="ln">   248  </span><span class="comment">// ##### CI Pipelines Alert Query</span>
 <span id="L249" class="ln">   249  </span><span class="comment">//</span>
 <span id="L250" class="ln">   250  </span><span class="comment">// Example: `ci-pipelines(query).rollup(rollup_method[, measure]).last(time_window) operator #`</span>
 <span id="L251" class="ln">   251  </span><span class="comment">//</span>
@@ -315,7 +315,7 @@
 <span id="L258" class="ln">   258  </span><span class="comment">//</span>
 <span id="L259" class="ln">   259  </span><span class="comment">// **NOTE** CI Pipeline monitors are in alpha on US1, EU, AP1, US3, and US5.</span>
 <span id="L260" class="ln">   260  </span><span class="comment">//</span>
-<span id="L261" class="ln">   261  </span><span class="comment">// **CI Tests Alert Query**</span>
+<span id="L261" class="ln">   261  </span><span class="comment">// ##### CI Tests Alert Query</span>
 <span id="L262" class="ln">   262  </span><span class="comment">//</span>
 <span id="L263" class="ln">   263  </span><span class="comment">// Example: `ci-tests(query).rollup(rollup_method[, measure]).last(time_window) operator #`</span>
 <span id="L264" class="ln">   264  </span><span class="comment">//</span>
@@ -328,7 +328,7 @@
 <span id="L271" class="ln">   271  </span><span class="comment">//</span>
 <span id="L272" class="ln">   272  </span><span class="comment">// **NOTE** CI Test monitors are available only in closed beta on US1, EU, AP1, US3, and US5.</span>
 <span id="L273" class="ln">   273  </span><span class="comment">//</span>
-<span id="L274" class="ln">   274  </span><span class="comment">// **Error Tracking Alert Query**</span>
+<span id="L274" class="ln">   274  </span><span class="comment">// ##### Error Tracking Alert Query</span>
 <span id="L275" class="ln">   275  </span><span class="comment">//</span>
 <span id="L276" class="ln">   276  </span><span class="comment">// Example(RUM): `error-tracking-rum(query).rollup(rollup_method[, measure]).last(time_window) operator #`</span>
 <span id="L277" class="ln">   277  </span><span class="comment">// Example(APM Traces): `error-tracking-traces(query).rollup(rollup_method[, measure]).last(time_window) operator #`</span>
