@@ -12,6 +12,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"time"
 
 	client "github.com/DataDog/datadog-api-client-go/v2"
 )
@@ -96,6 +97,16 @@ type Configuration struct {
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
 	unstableOperations map[string]bool
+	RetryConfiguration RetryConfiguration
+}
+
+// RetryConfiguration stores the configuration of the retry behavior of the api client
+type RetryConfiguration struct {
+	EnableRetry       bool
+	BackOffMultiplier float64
+	BackOffBase       float64
+	HTTPRetryTimeout  time.Duration
+	MaxRetries        int
 }
 
 // NewConfiguration returns a new Configuration object.
@@ -117,6 +128,7 @@ func NewConfiguration() *Configuration {
 							"datadoghq.com",
 							"us3.datadoghq.com",
 							"us5.datadoghq.com",
+							"ap1.datadoghq.com",
 							"datadoghq.eu",
 							"ddog-gov.com",
 						},
@@ -169,6 +181,7 @@ func NewConfiguration() *Configuration {
 								"datadoghq.com",
 								"us3.datadoghq.com",
 								"us5.datadoghq.com",
+								"ap1.datadoghq.com",
 								"datadoghq.eu",
 								"ddog-gov.com",
 							},
@@ -217,6 +230,7 @@ func NewConfiguration() *Configuration {
 								"datadoghq.eu",
 								"us3.datadoghq.com",
 								"us5.datadoghq.com",
+								"ap1.datadoghq.com",
 								"ddog-gov.com",
 							},
 						},
@@ -267,6 +281,7 @@ func NewConfiguration() *Configuration {
 								"datadoghq.com",
 								"us3.datadoghq.com",
 								"us5.datadoghq.com",
+								"ap1.datadoghq.com",
 								"datadoghq.eu",
 								"ddog-gov.com",
 							},
@@ -318,6 +333,7 @@ func NewConfiguration() *Configuration {
 								"datadoghq.com",
 								"us3.datadoghq.com",
 								"us5.datadoghq.com",
+								"ap1.datadoghq.com",
 								"datadoghq.eu",
 								"ddog-gov.com",
 							},
@@ -359,16 +375,30 @@ func NewConfiguration() *Configuration {
 			},
 		},
 		unstableOperations: map[string]bool{
-			"v1.SearchSLO":                 false,
 			"v2.ListEvents":                false,
 			"v2.SearchEvents":              false,
 			"v2.CreateIncident":            false,
+			"v2.CreateIncidentIntegration": false,
+			"v2.CreateIncidentTodo":        false,
 			"v2.DeleteIncident":            false,
+			"v2.DeleteIncidentIntegration": false,
+			"v2.DeleteIncidentTodo":        false,
 			"v2.GetIncident":               false,
+			"v2.GetIncidentIntegration":    false,
+			"v2.GetIncidentTodo":           false,
 			"v2.ListIncidentAttachments":   false,
+			"v2.ListIncidentIntegrations":  false,
 			"v2.ListIncidents":             false,
+			"v2.ListIncidentTodos":         false,
+			"v2.SearchIncidents":           false,
 			"v2.UpdateIncident":            false,
 			"v2.UpdateIncidentAttachments": false,
+			"v2.UpdateIncidentIntegration": false,
+			"v2.UpdateIncidentTodo":        false,
+			"v2.QueryScalarData":           false,
+			"v2.QueryTimeseriesData":       false,
+			"v2.GetFinding":                false,
+			"v2.ListFindings":              false,
 			"v2.CreateIncidentService":     false,
 			"v2.DeleteIncidentService":     false,
 			"v2.GetIncidentService":        false,
@@ -379,6 +409,13 @@ func NewConfiguration() *Configuration {
 			"v2.GetIncidentTeam":           false,
 			"v2.ListIncidentTeams":         false,
 			"v2.UpdateIncidentTeam":        false,
+		},
+		RetryConfiguration: RetryConfiguration{
+			EnableRetry:       false,
+			BackOffMultiplier: 2,
+			BackOffBase:       2,
+			HTTPRetryTimeout:  60 * time.Second,
+			MaxRetries:        3,
 		},
 	}
 	return cfg

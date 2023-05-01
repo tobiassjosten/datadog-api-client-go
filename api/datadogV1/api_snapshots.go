@@ -5,9 +5,7 @@
 package datadogV1
 
 import (
-	"bytes"
 	_context "context"
-	_io "io"
 	_nethttp "net/http"
 	_neturl "net/url"
 
@@ -16,18 +14,6 @@ import (
 
 // SnapshotsApi service type
 type SnapshotsApi datadog.Service
-
-type apiGetGraphSnapshotRequest struct {
-	ctx         _context.Context
-	start       *int64
-	end         *int64
-	metricQuery *string
-	eventQuery  *string
-	graphDef    *string
-	title       *string
-	height      *int64
-	width       *int64
-}
 
 // GetGraphSnapshotOptionalParameters holds optional parameters for GetGraphSnapshot.
 type GetGraphSnapshotOptionalParameters struct {
@@ -81,50 +67,25 @@ func (r *GetGraphSnapshotOptionalParameters) WithWidth(width int64) *GetGraphSna
 	return r
 }
 
-func (a *SnapshotsApi) buildGetGraphSnapshotRequest(ctx _context.Context, start int64, end int64, o ...GetGraphSnapshotOptionalParameters) (apiGetGraphSnapshotRequest, error) {
-	req := apiGetGraphSnapshotRequest{
-		ctx:   ctx,
-		start: &start,
-		end:   &end,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type GetGraphSnapshotOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.metricQuery = o[0].MetricQuery
-		req.eventQuery = o[0].EventQuery
-		req.graphDef = o[0].GraphDef
-		req.title = o[0].Title
-		req.height = o[0].Height
-		req.width = o[0].Width
-	}
-	return req, nil
-}
-
 // GetGraphSnapshot Take graph snapshots.
 // Take graph snapshots.
 // **Note**: When a snapshot is created, there is some delay before it is available.
 func (a *SnapshotsApi) GetGraphSnapshot(ctx _context.Context, start int64, end int64, o ...GetGraphSnapshotOptionalParameters) (GraphSnapshot, *_nethttp.Response, error) {
-	req, err := a.buildGetGraphSnapshotRequest(ctx, start, end, o...)
-	if err != nil {
-		var localVarReturnValue GraphSnapshot
-		return localVarReturnValue, nil, err
-	}
-
-	return a.getGraphSnapshotExecute(req)
-}
-
-// getGraphSnapshotExecute executes the request.
-func (a *SnapshotsApi) getGraphSnapshotExecute(r apiGetGraphSnapshotRequest) (GraphSnapshot, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue GraphSnapshot
+		optionalParams      GetGraphSnapshotOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.SnapshotsApi.GetGraphSnapshot")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type GetGraphSnapshotOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.SnapshotsApi.GetGraphSnapshot")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -134,63 +95,35 @@ func (a *SnapshotsApi) getGraphSnapshotExecute(r apiGetGraphSnapshotRequest) (Gr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.start == nil {
-		return localVarReturnValue, nil, datadog.ReportError("start is required and must be specified")
+	localVarQueryParams.Add("start", datadog.ParameterToString(start, ""))
+	localVarQueryParams.Add("end", datadog.ParameterToString(end, ""))
+	if optionalParams.MetricQuery != nil {
+		localVarQueryParams.Add("metric_query", datadog.ParameterToString(*optionalParams.MetricQuery, ""))
 	}
-	if r.end == nil {
-		return localVarReturnValue, nil, datadog.ReportError("end is required and must be specified")
+	if optionalParams.EventQuery != nil {
+		localVarQueryParams.Add("event_query", datadog.ParameterToString(*optionalParams.EventQuery, ""))
 	}
-	localVarQueryParams.Add("start", datadog.ParameterToString(*r.start, ""))
-	localVarQueryParams.Add("end", datadog.ParameterToString(*r.end, ""))
-	if r.metricQuery != nil {
-		localVarQueryParams.Add("metric_query", datadog.ParameterToString(*r.metricQuery, ""))
+	if optionalParams.GraphDef != nil {
+		localVarQueryParams.Add("graph_def", datadog.ParameterToString(*optionalParams.GraphDef, ""))
 	}
-	if r.eventQuery != nil {
-		localVarQueryParams.Add("event_query", datadog.ParameterToString(*r.eventQuery, ""))
+	if optionalParams.Title != nil {
+		localVarQueryParams.Add("title", datadog.ParameterToString(*optionalParams.Title, ""))
 	}
-	if r.graphDef != nil {
-		localVarQueryParams.Add("graph_def", datadog.ParameterToString(*r.graphDef, ""))
+	if optionalParams.Height != nil {
+		localVarQueryParams.Add("height", datadog.ParameterToString(*optionalParams.Height, ""))
 	}
-	if r.title != nil {
-		localVarQueryParams.Add("title", datadog.ParameterToString(*r.title, ""))
-	}
-	if r.height != nil {
-		localVarQueryParams.Add("height", datadog.ParameterToString(*r.height, ""))
-	}
-	if r.width != nil {
-		localVarQueryParams.Add("width", datadog.ParameterToString(*r.width, ""))
+	if optionalParams.Width != nil {
+		localVarQueryParams.Add("width", datadog.ParameterToString(*optionalParams.Width, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -200,9 +133,7 @@ func (a *SnapshotsApi) getGraphSnapshotExecute(r apiGetGraphSnapshotRequest) (Gr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

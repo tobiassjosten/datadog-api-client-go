@@ -6,6 +6,8 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // CIAppPipelineEventsResponse Response object with all pipeline events matching the request and pagination information.
@@ -15,7 +17,7 @@ type CIAppPipelineEventsResponse struct {
 	// Links attributes.
 	Links *CIAppResponseLinks `json:"links,omitempty"`
 	// The metadata associated with a request.
-	Meta *CIAppResponseMetadata `json:"meta,omitempty"`
+	Meta *CIAppResponseMetadataWithPagination `json:"meta,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject       map[string]interface{} `json:"-"`
 	AdditionalProperties map[string]interface{}
@@ -95,9 +97,9 @@ func (o *CIAppPipelineEventsResponse) SetLinks(v CIAppResponseLinks) {
 }
 
 // GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *CIAppPipelineEventsResponse) GetMeta() CIAppResponseMetadata {
+func (o *CIAppPipelineEventsResponse) GetMeta() CIAppResponseMetadataWithPagination {
 	if o == nil || o.Meta == nil {
-		var ret CIAppResponseMetadata
+		var ret CIAppResponseMetadataWithPagination
 		return ret
 	}
 	return *o.Meta
@@ -105,7 +107,7 @@ func (o *CIAppPipelineEventsResponse) GetMeta() CIAppResponseMetadata {
 
 // GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CIAppPipelineEventsResponse) GetMetaOk() (*CIAppResponseMetadata, bool) {
+func (o *CIAppPipelineEventsResponse) GetMetaOk() (*CIAppResponseMetadataWithPagination, bool) {
 	if o == nil || o.Meta == nil {
 		return nil, false
 	}
@@ -117,8 +119,8 @@ func (o *CIAppPipelineEventsResponse) HasMeta() bool {
 	return o != nil && o.Meta != nil
 }
 
-// SetMeta gets a reference to the given CIAppResponseMetadata and assigns it to the Meta field.
-func (o *CIAppPipelineEventsResponse) SetMeta(v CIAppResponseMetadata) {
+// SetMeta gets a reference to the given CIAppResponseMetadataWithPagination and assigns it to the Meta field.
+func (o *CIAppPipelineEventsResponse) SetMeta(v CIAppResponseMetadataWithPagination) {
 	o.Meta = &v
 }
 
@@ -148,9 +150,9 @@ func (o CIAppPipelineEventsResponse) MarshalJSON() ([]byte, error) {
 func (o *CIAppPipelineEventsResponse) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		Data  []CIAppPipelineEvent   `json:"data,omitempty"`
-		Links *CIAppResponseLinks    `json:"links,omitempty"`
-		Meta  *CIAppResponseMetadata `json:"meta,omitempty"`
+		Data  []CIAppPipelineEvent                 `json:"data,omitempty"`
+		Links *CIAppResponseLinks                  `json:"links,omitempty"`
+		Meta  *CIAppResponseMetadataWithPagination `json:"meta,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {
@@ -160,6 +162,12 @@ func (o *CIAppPipelineEventsResponse) UnmarshalJSON(bytes []byte) (err error) {
 		}
 		o.UnparsedObject = raw
 		return nil
+	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"data", "links", "meta"})
+	} else {
+		return err
 	}
 	o.Data = all.Data
 	if all.Links != nil && all.Links.UnparsedObject != nil && o.UnparsedObject == nil {
@@ -178,5 +186,9 @@ func (o *CIAppPipelineEventsResponse) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 	}
 	o.Meta = all.Meta
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

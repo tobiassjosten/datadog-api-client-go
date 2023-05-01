@@ -21,7 +21,7 @@ func main() {
 			"role:mysql",
 		},
 		MonitorIds: []int64{},
-		Name:       "Example-Create_an_SLO_object_returns_OK_response",
+		Name:       "Example-Service-Level-Objective",
 		Query: &datadogV1.ServiceLevelObjectiveQuery{
 			Denominator: "sum:httpservice.hits{!code:3xx}.as_count()",
 			Numerator:   "sum:httpservice.hits{code:2xx}.as_count()",
@@ -32,13 +32,16 @@ func main() {
 		},
 		Thresholds: []datadogV1.SLOThreshold{
 			{
-				Target:         95.0,
-				TargetDisplay:  datadog.PtrString("95.0"),
+				Target:         97.0,
+				TargetDisplay:  datadog.PtrString("97.0"),
 				Timeframe:      datadogV1.SLOTIMEFRAME_SEVEN_DAYS,
 				Warning:        datadog.PtrFloat64(98),
 				WarningDisplay: datadog.PtrString("98.0"),
 			},
 		},
+		Timeframe:        datadogV1.SLOTIMEFRAME_SEVEN_DAYS.Ptr(),
+		TargetThreshold:  datadog.PtrFloat64(97.0),
+		WarningThreshold: datadog.PtrFloat64(98),
 	}
 	ctx := datadog.NewDefaultContext(context.Background())
 	configuration := datadog.NewConfiguration()

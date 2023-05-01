@@ -7,6 +7,8 @@ package datadogV1
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // WidgetFormula Formula to be used in a widget query.
@@ -21,6 +23,8 @@ type WidgetFormula struct {
 	Formula string `json:"formula"`
 	// Options for limiting results returned.
 	Limit *WidgetFormulaLimit `json:"limit,omitempty"`
+	// Styling options for widget formulas.
+	Style *WidgetFormulaStyle `json:"style,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject       map[string]interface{} `json:"-"`
 	AdditionalProperties map[string]interface{}
@@ -179,6 +183,34 @@ func (o *WidgetFormula) SetLimit(v WidgetFormulaLimit) {
 	o.Limit = &v
 }
 
+// GetStyle returns the Style field value if set, zero value otherwise.
+func (o *WidgetFormula) GetStyle() WidgetFormulaStyle {
+	if o == nil || o.Style == nil {
+		var ret WidgetFormulaStyle
+		return ret
+	}
+	return *o.Style
+}
+
+// GetStyleOk returns a tuple with the Style field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WidgetFormula) GetStyleOk() (*WidgetFormulaStyle, bool) {
+	if o == nil || o.Style == nil {
+		return nil, false
+	}
+	return o.Style, true
+}
+
+// HasStyle returns a boolean if a field has been set.
+func (o *WidgetFormula) HasStyle() bool {
+	return o != nil && o.Style != nil
+}
+
+// SetStyle gets a reference to the given WidgetFormulaStyle and assigns it to the Style field.
+func (o *WidgetFormula) SetStyle(v WidgetFormulaStyle) {
+	o.Style = &v
+}
+
 // MarshalJSON serializes the struct using spec logic.
 func (o WidgetFormula) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
@@ -197,6 +229,9 @@ func (o WidgetFormula) MarshalJSON() ([]byte, error) {
 	toSerialize["formula"] = o.Formula
 	if o.Limit != nil {
 		toSerialize["limit"] = o.Limit
+	}
+	if o.Style != nil {
+		toSerialize["style"] = o.Style
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -217,6 +252,7 @@ func (o *WidgetFormula) UnmarshalJSON(bytes []byte) (err error) {
 		ConditionalFormats []WidgetConditionalFormat   `json:"conditional_formats,omitempty"`
 		Formula            string                      `json:"formula"`
 		Limit              *WidgetFormulaLimit         `json:"limit,omitempty"`
+		Style              *WidgetFormulaStyle         `json:"style,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &required)
 	if err != nil {
@@ -233,6 +269,12 @@ func (o *WidgetFormula) UnmarshalJSON(bytes []byte) (err error) {
 		}
 		o.UnparsedObject = raw
 		return nil
+	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"alias", "cell_display_mode", "conditional_formats", "formula", "limit", "style"})
+	} else {
+		return err
 	}
 	if v := all.CellDisplayMode; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
@@ -254,5 +296,17 @@ func (o *WidgetFormula) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 	}
 	o.Limit = all.Limit
+	if all.Style != nil && all.Style.UnparsedObject != nil && o.UnparsedObject == nil {
+		err = json.Unmarshal(bytes, &raw)
+		if err != nil {
+			return err
+		}
+		o.UnparsedObject = raw
+	}
+	o.Style = all.Style
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

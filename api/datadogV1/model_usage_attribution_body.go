@@ -7,6 +7,8 @@ package datadogV1
 import (
 	"encoding/json"
 	"time"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // UsageAttributionBody Usage Summary by tag for a given organization.
@@ -163,9 +165,9 @@ func (o *UsageAttributionBody) SetTagConfigSource(v string) {
 	o.TagConfigSource = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageAttributionBody) GetTags() map[string][]string {
-	if o == nil || o.Tags == nil {
+	if o == nil {
 		var ret map[string][]string
 		return ret
 	}
@@ -174,6 +176,7 @@ func (o *UsageAttributionBody) GetTags() map[string][]string {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *UsageAttributionBody) GetTagsOk() (*map[string][]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
@@ -306,6 +309,12 @@ func (o *UsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"month", "org_name", "public_id", "tag_config_source", "tags", "updated_at", "values"})
+	} else {
+		return err
+	}
 	o.Month = all.Month
 	o.OrgName = all.OrgName
 	o.PublicId = all.PublicId
@@ -320,5 +329,9 @@ func (o *UsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 	}
 	o.Values = all.Values
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

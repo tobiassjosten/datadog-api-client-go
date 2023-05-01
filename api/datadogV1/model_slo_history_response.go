@@ -6,6 +6,8 @@ package datadogV1
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // SLOHistoryResponse A service level objective history response.
@@ -64,9 +66,9 @@ func (o *SLOHistoryResponse) SetData(v SLOHistoryResponseData) {
 	o.Data = &v
 }
 
-// GetErrors returns the Errors field value if set, zero value otherwise.
+// GetErrors returns the Errors field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SLOHistoryResponse) GetErrors() []SLOHistoryResponseError {
-	if o == nil || o.Errors == nil {
+	if o == nil {
 		var ret []SLOHistoryResponseError
 		return ret
 	}
@@ -75,6 +77,7 @@ func (o *SLOHistoryResponse) GetErrors() []SLOHistoryResponseError {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *SLOHistoryResponse) GetErrorsOk() (*[]SLOHistoryResponseError, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
@@ -127,6 +130,12 @@ func (o *SLOHistoryResponse) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"data", "errors"})
+	} else {
+		return err
+	}
 	if all.Data != nil && all.Data.UnparsedObject != nil && o.UnparsedObject == nil {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -136,5 +145,9 @@ func (o *SLOHistoryResponse) UnmarshalJSON(bytes []byte) (err error) {
 	}
 	o.Data = all.Data
 	o.Errors = all.Errors
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

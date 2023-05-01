@@ -6,12 +6,14 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // CIAppPipelinesBucketResponse Bucket values.
 type CIAppPipelinesBucketResponse struct {
 	// The key-value pairs for each group-by.
-	By map[string]string `json:"by,omitempty"`
+	By map[string]interface{} `json:"by,omitempty"`
 	// A map of the metric name to value for regular compute, or a list of values for a timeseries.
 	Computes map[string]CIAppAggregateBucketValue `json:"computes,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
@@ -37,9 +39,9 @@ func NewCIAppPipelinesBucketResponseWithDefaults() *CIAppPipelinesBucketResponse
 }
 
 // GetBy returns the By field value if set, zero value otherwise.
-func (o *CIAppPipelinesBucketResponse) GetBy() map[string]string {
+func (o *CIAppPipelinesBucketResponse) GetBy() map[string]interface{} {
 	if o == nil || o.By == nil {
-		var ret map[string]string
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.By
@@ -47,7 +49,7 @@ func (o *CIAppPipelinesBucketResponse) GetBy() map[string]string {
 
 // GetByOk returns a tuple with the By field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CIAppPipelinesBucketResponse) GetByOk() (*map[string]string, bool) {
+func (o *CIAppPipelinesBucketResponse) GetByOk() (*map[string]interface{}, bool) {
 	if o == nil || o.By == nil {
 		return nil, false
 	}
@@ -59,8 +61,8 @@ func (o *CIAppPipelinesBucketResponse) HasBy() bool {
 	return o != nil && o.By != nil
 }
 
-// SetBy gets a reference to the given map[string]string and assigns it to the By field.
-func (o *CIAppPipelinesBucketResponse) SetBy(v map[string]string) {
+// SetBy gets a reference to the given map[string]interface{} and assigns it to the By field.
+func (o *CIAppPipelinesBucketResponse) SetBy(v map[string]interface{}) {
 	o.By = v
 }
 
@@ -115,7 +117,7 @@ func (o CIAppPipelinesBucketResponse) MarshalJSON() ([]byte, error) {
 func (o *CIAppPipelinesBucketResponse) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		By       map[string]string                    `json:"by,omitempty"`
+		By       map[string]interface{}               `json:"by,omitempty"`
 		Computes map[string]CIAppAggregateBucketValue `json:"computes,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
@@ -127,7 +129,17 @@ func (o *CIAppPipelinesBucketResponse) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"by", "computes"})
+	} else {
+		return err
+	}
 	o.By = all.By
 	o.Computes = all.Computes
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

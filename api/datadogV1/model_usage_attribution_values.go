@@ -6,6 +6,8 @@ package datadogV1
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // UsageAttributionValues Fields in Usage Summary by tag(s).
@@ -66,22 +68,26 @@ type UsageAttributionValues struct {
 	DbmQueriesPercentage *float64 `json:"dbm_queries_percentage,omitempty"`
 	// The Database Monitoring normalized queries usage by tag(s).
 	DbmQueriesUsage *float64 `json:"dbm_queries_usage,omitempty"`
-	// The percentage of estimated live indexed logs usage by tag(s). Note this field is in private beta.
+	// The percentage of estimated live indexed logs usage by tag(s).
 	EstimatedIndexedLogsPercentage *float64 `json:"estimated_indexed_logs_percentage,omitempty"`
-	// The estimated live indexed logs usage by tag(s). Note this field is in private beta.
+	// The estimated live indexed logs usage by tag(s).
 	EstimatedIndexedLogsUsage *float64 `json:"estimated_indexed_logs_usage,omitempty"`
-	// The percentage of estimated indexed spans usage by tag(s). Note this field is in private beta.
+	// The percentage of estimated indexed spans usage by tag(s).
 	EstimatedIndexedSpansPercentage *float64 `json:"estimated_indexed_spans_percentage,omitempty"`
-	// The estimated indexed spans usage by tag(s). Note this field is in private beta.
+	// The estimated indexed spans usage by tag(s).
 	EstimatedIndexedSpansUsage *float64 `json:"estimated_indexed_spans_usage,omitempty"`
-	// The percentage of estimated live ingested logs usage by tag(s). Note this field is in private beta.
+	// The percentage of estimated live ingested logs usage by tag(s).
 	EstimatedIngestedLogsPercentage *float64 `json:"estimated_ingested_logs_percentage,omitempty"`
-	// The estimated live ingested logs usage by tag(s). Note this field is in private beta.
+	// The estimated live ingested logs usage by tag(s).
 	EstimatedIngestedLogsUsage *float64 `json:"estimated_ingested_logs_usage,omitempty"`
-	// The percentage of estimated ingested spans usage by tag(s). Note this field is in private beta.
+	// The percentage of estimated ingested spans usage by tag(s).
 	EstimatedIngestedSpansPercentage *float64 `json:"estimated_ingested_spans_percentage,omitempty"`
-	// The estimated ingested spans usage by tag(s). Note this field is in private beta.
+	// The estimated ingested spans usage by tag(s).
 	EstimatedIngestedSpansUsage *float64 `json:"estimated_ingested_spans_usage,omitempty"`
+	// The percentage of estimated rum sessions usage by tag(s).
+	EstimatedRumSessionsPercentage *float64 `json:"estimated_rum_sessions_percentage,omitempty"`
+	// The estimated rum sessions usage by tag(s).
+	EstimatedRumSessionsUsage *float64 `json:"estimated_rum_sessions_usage,omitempty"`
 	// The percentage of infrastructure host usage by tag(s).
 	InfraHostPercentage *float64 `json:"infra_host_percentage,omitempty"`
 	// The infrastructure host usage by tag(s).
@@ -1140,6 +1146,62 @@ func (o *UsageAttributionValues) SetEstimatedIngestedSpansUsage(v float64) {
 	o.EstimatedIngestedSpansUsage = &v
 }
 
+// GetEstimatedRumSessionsPercentage returns the EstimatedRumSessionsPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetEstimatedRumSessionsPercentage() float64 {
+	if o == nil || o.EstimatedRumSessionsPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.EstimatedRumSessionsPercentage
+}
+
+// GetEstimatedRumSessionsPercentageOk returns a tuple with the EstimatedRumSessionsPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetEstimatedRumSessionsPercentageOk() (*float64, bool) {
+	if o == nil || o.EstimatedRumSessionsPercentage == nil {
+		return nil, false
+	}
+	return o.EstimatedRumSessionsPercentage, true
+}
+
+// HasEstimatedRumSessionsPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasEstimatedRumSessionsPercentage() bool {
+	return o != nil && o.EstimatedRumSessionsPercentage != nil
+}
+
+// SetEstimatedRumSessionsPercentage gets a reference to the given float64 and assigns it to the EstimatedRumSessionsPercentage field.
+func (o *UsageAttributionValues) SetEstimatedRumSessionsPercentage(v float64) {
+	o.EstimatedRumSessionsPercentage = &v
+}
+
+// GetEstimatedRumSessionsUsage returns the EstimatedRumSessionsUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetEstimatedRumSessionsUsage() float64 {
+	if o == nil || o.EstimatedRumSessionsUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.EstimatedRumSessionsUsage
+}
+
+// GetEstimatedRumSessionsUsageOk returns a tuple with the EstimatedRumSessionsUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetEstimatedRumSessionsUsageOk() (*float64, bool) {
+	if o == nil || o.EstimatedRumSessionsUsage == nil {
+		return nil, false
+	}
+	return o.EstimatedRumSessionsUsage, true
+}
+
+// HasEstimatedRumSessionsUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasEstimatedRumSessionsUsage() bool {
+	return o != nil && o.EstimatedRumSessionsUsage != nil
+}
+
+// SetEstimatedRumSessionsUsage gets a reference to the given float64 and assigns it to the EstimatedRumSessionsUsage field.
+func (o *UsageAttributionValues) SetEstimatedRumSessionsUsage(v float64) {
+	o.EstimatedRumSessionsUsage = &v
+}
+
 // GetInfraHostPercentage returns the InfraHostPercentage field value if set, zero value otherwise.
 func (o *UsageAttributionValues) GetInfraHostPercentage() float64 {
 	if o == nil || o.InfraHostPercentage == nil {
@@ -1646,6 +1708,12 @@ func (o UsageAttributionValues) MarshalJSON() ([]byte, error) {
 	if o.EstimatedIngestedSpansUsage != nil {
 		toSerialize["estimated_ingested_spans_usage"] = o.EstimatedIngestedSpansUsage
 	}
+	if o.EstimatedRumSessionsPercentage != nil {
+		toSerialize["estimated_rum_sessions_percentage"] = o.EstimatedRumSessionsPercentage
+	}
+	if o.EstimatedRumSessionsUsage != nil {
+		toSerialize["estimated_rum_sessions_usage"] = o.EstimatedRumSessionsUsage
+	}
 	if o.InfraHostPercentage != nil {
 		toSerialize["infra_host_percentage"] = o.InfraHostPercentage
 	}
@@ -1735,6 +1803,8 @@ func (o *UsageAttributionValues) UnmarshalJSON(bytes []byte) (err error) {
 		EstimatedIngestedLogsUsage       *float64 `json:"estimated_ingested_logs_usage,omitempty"`
 		EstimatedIngestedSpansPercentage *float64 `json:"estimated_ingested_spans_percentage,omitempty"`
 		EstimatedIngestedSpansUsage      *float64 `json:"estimated_ingested_spans_usage,omitempty"`
+		EstimatedRumSessionsPercentage   *float64 `json:"estimated_rum_sessions_percentage,omitempty"`
+		EstimatedRumSessionsUsage        *float64 `json:"estimated_rum_sessions_usage,omitempty"`
 		InfraHostPercentage              *float64 `json:"infra_host_percentage,omitempty"`
 		InfraHostUsage                   *float64 `json:"infra_host_usage,omitempty"`
 		LambdaFunctionsPercentage        *float64 `json:"lambda_functions_percentage,omitempty"`
@@ -1758,6 +1828,12 @@ func (o *UsageAttributionValues) UnmarshalJSON(bytes []byte) (err error) {
 		}
 		o.UnparsedObject = raw
 		return nil
+	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"api_percentage", "api_usage", "apm_fargate_percentage", "apm_fargate_usage", "apm_host_percentage", "apm_host_usage", "appsec_fargate_percentage", "appsec_fargate_usage", "appsec_percentage", "appsec_usage", "browser_percentage", "browser_usage", "container_percentage", "container_usage", "cspm_container_percentage", "cspm_container_usage", "cspm_host_percentage", "cspm_host_usage", "custom_timeseries_percentage", "custom_timeseries_usage", "cws_container_percentage", "cws_container_usage", "cws_host_percentage", "cws_host_usage", "dbm_hosts_percentage", "dbm_hosts_usage", "dbm_queries_percentage", "dbm_queries_usage", "estimated_indexed_logs_percentage", "estimated_indexed_logs_usage", "estimated_indexed_spans_percentage", "estimated_indexed_spans_usage", "estimated_ingested_logs_percentage", "estimated_ingested_logs_usage", "estimated_ingested_spans_percentage", "estimated_ingested_spans_usage", "estimated_rum_sessions_percentage", "estimated_rum_sessions_usage", "infra_host_percentage", "infra_host_usage", "lambda_functions_percentage", "lambda_functions_usage", "lambda_invocations_percentage", "lambda_invocations_usage", "npm_host_percentage", "npm_host_usage", "profiled_container_percentage", "profiled_container_usage", "profiled_hosts_percentage", "profiled_hosts_usage", "snmp_percentage", "snmp_usage"})
+	} else {
+		return err
 	}
 	o.ApiPercentage = all.ApiPercentage
 	o.ApiUsage = all.ApiUsage
@@ -1795,6 +1871,8 @@ func (o *UsageAttributionValues) UnmarshalJSON(bytes []byte) (err error) {
 	o.EstimatedIngestedLogsUsage = all.EstimatedIngestedLogsUsage
 	o.EstimatedIngestedSpansPercentage = all.EstimatedIngestedSpansPercentage
 	o.EstimatedIngestedSpansUsage = all.EstimatedIngestedSpansUsage
+	o.EstimatedRumSessionsPercentage = all.EstimatedRumSessionsPercentage
+	o.EstimatedRumSessionsUsage = all.EstimatedRumSessionsUsage
 	o.InfraHostPercentage = all.InfraHostPercentage
 	o.InfraHostUsage = all.InfraHostUsage
 	o.LambdaFunctionsPercentage = all.LambdaFunctionsPercentage
@@ -1809,5 +1887,9 @@ func (o *UsageAttributionValues) UnmarshalJSON(bytes []byte) (err error) {
 	o.ProfiledHostsUsage = all.ProfiledHostsUsage
 	o.SnmpPercentage = all.SnmpPercentage
 	o.SnmpUsage = all.SnmpUsage
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

@@ -7,6 +7,8 @@ package datadogV2
 import (
 	"encoding/json"
 	"time"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // MetricTagConfigurationAttributes Object containing the definition of a metric tag configuration attributes.
@@ -30,7 +32,7 @@ type MetricTagConfigurationAttributes struct {
 	Aggregations []MetricCustomAggregation `json:"aggregations,omitempty"`
 	// Timestamp when the tag configuration was created.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// Toggle to turn on/off percentile aggregations for distribution metrics.
+	// Toggle to include or exclude percentile aggregations for distribution metrics.
 	// Only present when the `metric_type` is `distribution`.
 	IncludePercentiles *bool `json:"include_percentiles,omitempty"`
 	// The metric's type.
@@ -292,6 +294,12 @@ func (o *MetricTagConfigurationAttributes) UnmarshalJSON(bytes []byte) (err erro
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"aggregations", "created_at", "include_percentiles", "metric_type", "modified_at", "tags"})
+	} else {
+		return err
+	}
 	if v := all.MetricType; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -306,5 +314,9 @@ func (o *MetricTagConfigurationAttributes) UnmarshalJSON(bytes []byte) (err erro
 	o.MetricType = all.MetricType
 	o.ModifiedAt = all.ModifiedAt
 	o.Tags = all.Tags
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

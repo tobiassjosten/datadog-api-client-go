@@ -23,7 +23,7 @@ func main() {
 		},
 		Filter: &datadogV2.CIAppPipelinesQueryFilter{
 			From:  datadog.PtrString("now-15m"),
-			Query: datadog.PtrString("@ci.provider.name:github AND @ci.provider.instance:github-actions"),
+			Query: datadog.PtrString("@ci.provider.name:(gitlab OR github)"),
 			To:    datadog.PtrString("now"),
 		},
 		GroupBy: []datadogV2.CIAppPipelinesGroupBy{
@@ -36,9 +36,6 @@ func main() {
 		},
 		Options: &datadogV2.CIAppQueryOptions{
 			Timezone: datadog.PtrString("GMT"),
-		},
-		Page: &datadogV2.CIAppQueryPageOptions{
-			Limit: datadog.PtrInt32(25),
 		},
 	}
 	ctx := datadog.NewDefaultContext(context.Background())

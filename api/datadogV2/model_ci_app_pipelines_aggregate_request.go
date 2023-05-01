@@ -6,6 +6,8 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // CIAppPipelinesAggregateRequest The object sent with the request to retrieve aggregation buckets of pipeline events from your organization.
@@ -19,8 +21,6 @@ type CIAppPipelinesAggregateRequest struct {
 	// Global query options that are used during the query.
 	// Only supply timezone or time offset, not both. Otherwise, the query fails.
 	Options *CIAppQueryOptions `json:"options,omitempty"`
-	// Paging attributes for listing events.
-	Page *CIAppQueryPageOptions `json:"page,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject       map[string]interface{} `json:"-"`
 	AdditionalProperties map[string]interface{}
@@ -155,34 +155,6 @@ func (o *CIAppPipelinesAggregateRequest) SetOptions(v CIAppQueryOptions) {
 	o.Options = &v
 }
 
-// GetPage returns the Page field value if set, zero value otherwise.
-func (o *CIAppPipelinesAggregateRequest) GetPage() CIAppQueryPageOptions {
-	if o == nil || o.Page == nil {
-		var ret CIAppQueryPageOptions
-		return ret
-	}
-	return *o.Page
-}
-
-// GetPageOk returns a tuple with the Page field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CIAppPipelinesAggregateRequest) GetPageOk() (*CIAppQueryPageOptions, bool) {
-	if o == nil || o.Page == nil {
-		return nil, false
-	}
-	return o.Page, true
-}
-
-// HasPage returns a boolean if a field has been set.
-func (o *CIAppPipelinesAggregateRequest) HasPage() bool {
-	return o != nil && o.Page != nil
-}
-
-// SetPage gets a reference to the given CIAppQueryPageOptions and assigns it to the Page field.
-func (o *CIAppPipelinesAggregateRequest) SetPage(v CIAppQueryPageOptions) {
-	o.Page = &v
-}
-
 // MarshalJSON serializes the struct using spec logic.
 func (o CIAppPipelinesAggregateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
@@ -201,9 +173,6 @@ func (o CIAppPipelinesAggregateRequest) MarshalJSON() ([]byte, error) {
 	if o.Options != nil {
 		toSerialize["options"] = o.Options
 	}
-	if o.Page != nil {
-		toSerialize["page"] = o.Page
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -219,7 +188,6 @@ func (o *CIAppPipelinesAggregateRequest) UnmarshalJSON(bytes []byte) (err error)
 		Filter  *CIAppPipelinesQueryFilter `json:"filter,omitempty"`
 		GroupBy []CIAppPipelinesGroupBy    `json:"group_by,omitempty"`
 		Options *CIAppQueryOptions         `json:"options,omitempty"`
-		Page    *CIAppQueryPageOptions     `json:"page,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {
@@ -229,6 +197,12 @@ func (o *CIAppPipelinesAggregateRequest) UnmarshalJSON(bytes []byte) (err error)
 		}
 		o.UnparsedObject = raw
 		return nil
+	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"compute", "filter", "group_by", "options"})
+	} else {
+		return err
 	}
 	o.Compute = all.Compute
 	if all.Filter != nil && all.Filter.UnparsedObject != nil && o.UnparsedObject == nil {
@@ -248,13 +222,9 @@ func (o *CIAppPipelinesAggregateRequest) UnmarshalJSON(bytes []byte) (err error)
 		o.UnparsedObject = raw
 	}
 	o.Options = all.Options
-	if all.Page != nil && all.Page.UnparsedObject != nil && o.UnparsedObject == nil {
-		err = json.Unmarshal(bytes, &raw)
-		if err != nil {
-			return err
-		}
-		o.UnparsedObject = raw
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
 	}
-	o.Page = all.Page
+
 	return nil
 }

@@ -14,54 +14,46 @@ import (
 
 func main() {
 	body := datadogV2.ServiceDefinitionsCreateRequest{
-		ServiceDefinitionV2: &datadogV2.ServiceDefinitionV2{
-			Contacts: []datadogV2.ServiceDefinitionV2Contact{
-				datadogV2.ServiceDefinitionV2Contact{
-					ServiceDefinitionV2Email: &datadogV2.ServiceDefinitionV2Email{
+		ServiceDefinitionV2Dot1: &datadogV2.ServiceDefinitionV2Dot1{
+			Application: datadog.PtrString("my-app"),
+			Contacts: []datadogV2.ServiceDefinitionV2Dot1Contact{
+				datadogV2.ServiceDefinitionV2Dot1Contact{
+					ServiceDefinitionV2Dot1Email: &datadogV2.ServiceDefinitionV2Dot1Email{
 						Contact: "contact@datadoghq.com",
 						Name:    datadog.PtrString("Team Email"),
-						Type:    datadogV2.SERVICEDEFINITIONV2EMAILTYPE_EMAIL,
+						Type:    datadogV2.SERVICEDEFINITIONV2DOT1EMAILTYPE_EMAIL,
 					}},
 			},
-			DdService: "service-Example-Create_or_update_service_definition_returns_CREATED_response",
-			DdTeam:    datadog.PtrString("my-team"),
-			Docs: []datadogV2.ServiceDefinitionV2Doc{
-				{
-					Name:     "Architecture",
-					Provider: datadog.PtrString("google drive"),
-					Url:      "https://gdrive/mydoc",
-				},
-			},
+			DdService:   "my-service",
+			Description: datadog.PtrString("My service description"),
 			Extensions: map[string]interface{}{
-				"myorgextension": "extensionvalue",
+				"myorg/extension": "extensionValue",
 			},
-			Integrations: &datadogV2.ServiceDefinitionV2Integrations{
-				Opsgenie: &datadogV2.ServiceDefinitionV2Opsgenie{
-					Region:     datadogV2.SERVICEDEFINITIONV2OPSGENIEREGION_US.Ptr(),
+			Integrations: &datadogV2.ServiceDefinitionV2Dot1Integrations{
+				Opsgenie: &datadogV2.ServiceDefinitionV2Dot1Opsgenie{
+					Region:     datadogV2.SERVICEDEFINITIONV2DOT1OPSGENIEREGION_US.Ptr(),
 					ServiceUrl: "https://my-org.opsgenie.com/service/123e4567-e89b-12d3-a456-426614174000",
 				},
-				Pagerduty: datadog.PtrString("https://my-org.pagerduty.com/service-directory/PMyService"),
-			},
-			Links: []datadogV2.ServiceDefinitionV2Link{
-				{
-					Name: "Runbook",
-					Type: datadogV2.SERVICEDEFINITIONV2LINKTYPE_RUNBOOK,
-					Url:  "https://my-runbook",
+				Pagerduty: &datadogV2.ServiceDefinitionV2Dot1Pagerduty{
+					ServiceUrl: datadog.PtrString("https://my-org.pagerduty.com/service-directory/PMyService"),
 				},
 			},
-			Repos: []datadogV2.ServiceDefinitionV2Repo{
+			Lifecycle: datadog.PtrString("sandbox"),
+			Links: []datadogV2.ServiceDefinitionV2Dot1Link{
 				{
-					Name:     "Source Code",
-					Provider: datadog.PtrString("GitHub"),
-					Url:      "https://github.com/DataDog/schema",
+					Name:     "Runbook",
+					Provider: datadog.PtrString("Github"),
+					Type:     datadogV2.SERVICEDEFINITIONV2DOT1LINKTYPE_RUNBOOK,
+					Url:      "https://my-runbook",
 				},
 			},
-			SchemaVersion: datadogV2.SERVICEDEFINITIONV2VERSION_V2,
+			SchemaVersion: datadogV2.SERVICEDEFINITIONV2DOT1VERSION_V2_1,
 			Tags: []string{
 				"my:tag",
 				"service:tag",
 			},
 			Team: datadog.PtrString("my-team"),
+			Tier: datadog.PtrString("High"),
 		}}
 	ctx := datadog.NewDefaultContext(context.Background())
 	configuration := datadog.NewConfiguration()

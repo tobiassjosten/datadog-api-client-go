@@ -18,11 +18,17 @@ func main() {
 
 	body := datadogV1.SyntheticsGlobalVariable{
 		Description: "",
-		Name:        "GLOBAL_VARIABLE_PAYLOAD_EXAMPLECREATEAGLOBALVARIABLEFROMTESTRETURNSOKRESPONSE",
+		Name:        "GLOBAL_VARIABLE_PAYLOAD_EXAMPLESYNTHETIC",
 		Tags:        []string{},
 		Value: datadogV1.SyntheticsGlobalVariableValue{
 			Secure: datadog.PtrBool(false),
 			Value:  datadog.PtrString(""),
+			Options: &datadogV1.SyntheticsGlobalVariableOptions{
+				TotpParameters: &datadogV1.SyntheticsGlobalVariableTOTPParameters{
+					Digits:          datadog.PtrInt32(6),
+					RefreshInterval: datadog.PtrInt32(30),
+				},
+			},
 		},
 		ParseTestPublicId: datadog.PtrString(SyntheticsAPITestMultiStepPublicID),
 		ParseTestOptions: &datadogV1.SyntheticsGlobalVariableParseTestOptions{

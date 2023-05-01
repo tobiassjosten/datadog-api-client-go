@@ -22,10 +22,11 @@ func main() {
 					Name:    "PROPERTY",
 					Pattern: datadog.PtrString("content-type"),
 					Type:    datadogV1.SYNTHETICSCONFIGVARIABLETYPE_TEXT,
+					Secure:  datadog.PtrBool(true),
 				},
 			},
 			Request: datadogV1.SyntheticsTestRequest{
-				Method: datadogV1.HTTPMETHOD_GET.Ptr(),
+				Method: datadog.PtrString("GET"),
 				Url:    datadog.PtrString("https://datadoghq.com"),
 			},
 			SetCookie: datadog.PtrString("name:test"),
@@ -34,7 +35,7 @@ func main() {
 			"aws:us-east-2",
 		},
 		Message: "Test message",
-		Name:    "Example-Create_a_browser_test_returns_OK_Returns_the_created_test_details_response",
+		Name:    "Example-Synthetic",
 		Options: datadogV1.SyntheticsTestOptions{
 			AcceptSelfSigned: datadog.PtrBool(false),
 			AllowInsecure:    datadog.PtrBool(true),

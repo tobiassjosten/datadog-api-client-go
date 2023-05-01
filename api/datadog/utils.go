@@ -5,10 +5,14 @@
 package datadog
 
 import (
+	"bytes"
 	"encoding/json"
+	"io"
+	"net/http"
 	"reflect"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 // PtrBool is a helper routine that returns a pointer to given boolean value.
@@ -34,6 +38,12 @@ func PtrString(v string) *string { return &v }
 
 // PtrTime is helper routine that returns a pointer to given Time value.
 func PtrTime(v time.Time) *time.Time { return &v }
+
+// PaginationResult pagination item helper struct
+type PaginationResult[T any] struct {
+	Item  T
+	Error error
+}
 
 // NullableBool is a struct to hold a nullable boolean value.
 type NullableBool struct {
@@ -387,6 +397,13 @@ func (v *NullableTime) UnmarshalJSON(src []byte) error {
 	return json.Unmarshal(src, &v.value)
 }
 
+// DeleteKeys helper method to delete keys from a map
+func DeleteKeys[V any](obj map[string]V, keysToDelete *[]string) {
+	for _, s := range *keysToDelete {
+		delete(obj, s)
+	}
+}
+
 // ContainsUnparsedObject returns true if the given data contains an unparsed object from the API.
 func ContainsUnparsedObject(i interface{}) (bool, interface{}) {
 	v := reflect.ValueOf(i)
@@ -434,4 +451,20 @@ func ContainsUnparsedObject(i interface{}) (bool, interface{}) {
 		}
 	}
 	return false, nil
+}
+
+// Strlen returns number of runes in string
+func Strlen(s string) int {
+	return utf8.RuneCountInString(s)
+}
+
+// Copy the original request so it doesn't get lost when retrying
+func copyRequest(r *http.Request, rawBody *[]byte) *http.Request {
+	newRequest := *r
+
+	if r.Body == nil || r.Body == http.NoBody {
+		return &newRequest
+	}
+	newRequest.Body = io.NopCloser(bytes.NewBuffer(*rawBody))
+	return &newRequest
 }

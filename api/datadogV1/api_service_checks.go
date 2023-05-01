@@ -5,9 +5,7 @@
 package datadogV1
 
 import (
-	"bytes"
 	_context "context"
-	_io "io"
 	_nethttp "net/http"
 	_neturl "net/url"
 
@@ -17,19 +15,6 @@ import (
 // ServiceChecksApi service type
 type ServiceChecksApi datadog.Service
 
-type apiSubmitServiceCheckRequest struct {
-	ctx  _context.Context
-	body *[]ServiceCheck
-}
-
-func (a *ServiceChecksApi) buildSubmitServiceCheckRequest(ctx _context.Context, body []ServiceCheck) (apiSubmitServiceCheckRequest, error) {
-	req := apiSubmitServiceCheckRequest{
-		ctx:  ctx,
-		body: &body,
-	}
-	return req, nil
-}
-
 // SubmitServiceCheck Submit a Service Check.
 // Submit a list of Service Checks.
 //
@@ -37,24 +22,13 @@ func (a *ServiceChecksApi) buildSubmitServiceCheckRequest(ctx _context.Context, 
 // - A valid API key is required.
 // - Service checks can be submitted up to 10 minutes in the past.
 func (a *ServiceChecksApi) SubmitServiceCheck(ctx _context.Context, body []ServiceCheck) (IntakePayloadAccepted, *_nethttp.Response, error) {
-	req, err := a.buildSubmitServiceCheckRequest(ctx, body)
-	if err != nil {
-		var localVarReturnValue IntakePayloadAccepted
-		return localVarReturnValue, nil, err
-	}
-
-	return a.submitServiceCheckExecute(req)
-}
-
-// submitServiceCheckExecute executes the request.
-func (a *ServiceChecksApi) submitServiceCheckExecute(r apiSubmitServiceCheckRequest) (IntakePayloadAccepted, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPost
 		localVarPostBody    interface{}
 		localVarReturnValue IntakePayloadAccepted
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.ServiceChecksApi.SubmitServiceCheck")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.ServiceChecksApi.SubmitServiceCheck")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -64,29 +38,17 @@ func (a *ServiceChecksApi) submitServiceCheckExecute(r apiSubmitServiceCheckRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -96,9 +58,7 @@ func (a *ServiceChecksApi) submitServiceCheckExecute(r apiSubmitServiceCheckRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

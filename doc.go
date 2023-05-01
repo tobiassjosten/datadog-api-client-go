@@ -112,6 +112,16 @@
 //
 //       configuration.Debug = true
 //
+// Enable retry
+//
+// If you want to enable retry when getting status code 429 rate-limited, set EnableRetry to true
+//
+//       configuration.RetryConfiguration.EnableRetry = true
+//
+// The default max retry is 3, you can change it with MaxRetries
+//
+//       configuration.RetryConfiguration.MaxRetries = 3
+//
 // Configure proxy
 //
 // If you want to configure proxy, set env var HTTP_PROXY, and HTTPS_PROXY or set custom
@@ -146,13 +156,13 @@
 //   	apiClient := datadog.NewAPIClient(configuration)
 //   	incidentsApi := datadogV2.NewIncidentsApi(apiClient)
 //
-//   	resp, _, err := incidentsApi.ListIncidentsWithPagination(ctx, *datadog.NewListIncidentsOptionalParameters())
-//   	if err != nil {
-//   		fmt.Fprintf(os.Stderr, "Error when calling `IncidentsApi.ListIncidents`: %v\n", err)
-//   	}
-//
-//           for incident := range resp {
-//   		fmt.Fprintf(os.Stdout, "Got incident %s\n", incident.GetId())
+//   	resp, _ := incidentsApi.ListIncidentsWithPagination(ctx, *datadog.NewListIncidentsOptionalParameters())
+//   	for paginationResult := range resp {
+//   		if paginationResult.Error != nil {
+//   			fmt.Fprintf(os.Stderr, "Error when calling `IncidentsApi.ListIncidentsWithPagination`: %v\n", paginationResult.Error)
+//   		}
+//   		responseContent, _ := json.MarshalIndent(paginationResult.Item, "", "  ")
+//   		fmt.Fprintf(os.Stdout, "%s\n", responseContent)
 //   	}
 //
 //   }

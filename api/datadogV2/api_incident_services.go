@@ -5,10 +5,8 @@
 package datadogV2
 
 import (
-	"bytes"
 	_context "context"
 	_fmt "fmt"
-	_io "io"
 	_log "log"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -20,33 +18,9 @@ import (
 // IncidentServicesApi service type
 type IncidentServicesApi datadog.Service
 
-type apiCreateIncidentServiceRequest struct {
-	ctx  _context.Context
-	body *IncidentServiceCreateRequest
-}
-
-func (a *IncidentServicesApi) buildCreateIncidentServiceRequest(ctx _context.Context, body IncidentServiceCreateRequest) (apiCreateIncidentServiceRequest, error) {
-	req := apiCreateIncidentServiceRequest{
-		ctx:  ctx,
-		body: &body,
-	}
-	return req, nil
-}
-
 // CreateIncidentService Create a new incident service.
 // Creates a new incident service.
 func (a *IncidentServicesApi) CreateIncidentService(ctx _context.Context, body IncidentServiceCreateRequest) (IncidentServiceResponse, *_nethttp.Response, error) {
-	req, err := a.buildCreateIncidentServiceRequest(ctx, body)
-	if err != nil {
-		var localVarReturnValue IncidentServiceResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.createIncidentServiceExecute(req)
-}
-
-// createIncidentServiceExecute executes the request.
-func (a *IncidentServicesApi) createIncidentServiceExecute(r apiCreateIncidentServiceRequest) (IncidentServiceResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPost
 		localVarPostBody    interface{}
@@ -60,7 +34,7 @@ func (a *IncidentServicesApi) createIncidentServiceExecute(r apiCreateIncidentSe
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf("Unstable operation '%s' is disabled", operationId)}
 	}
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v2.IncidentServicesApi.CreateIncidentService")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v2.IncidentServicesApi.CreateIncidentService")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -70,43 +44,18 @@ func (a *IncidentServicesApi) createIncidentServiceExecute(r apiCreateIncidentSe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -116,9 +65,7 @@ func (a *IncidentServicesApi) createIncidentServiceExecute(r apiCreateIncidentSe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -151,32 +98,9 @@ func (a *IncidentServicesApi) createIncidentServiceExecute(r apiCreateIncidentSe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiDeleteIncidentServiceRequest struct {
-	ctx       _context.Context
-	serviceId string
-}
-
-func (a *IncidentServicesApi) buildDeleteIncidentServiceRequest(ctx _context.Context, serviceId string) (apiDeleteIncidentServiceRequest, error) {
-	req := apiDeleteIncidentServiceRequest{
-		ctx:       ctx,
-		serviceId: serviceId,
-	}
-	return req, nil
-}
-
 // DeleteIncidentService Delete an existing incident service.
 // Deletes an existing incident service.
 func (a *IncidentServicesApi) DeleteIncidentService(ctx _context.Context, serviceId string) (*_nethttp.Response, error) {
-	req, err := a.buildDeleteIncidentServiceRequest(ctx, serviceId)
-	if err != nil {
-		return nil, err
-	}
-
-	return a.deleteIncidentServiceExecute(req)
-}
-
-// deleteIncidentServiceExecute executes the request.
-func (a *IncidentServicesApi) deleteIncidentServiceExecute(r apiDeleteIncidentServiceRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod = _nethttp.MethodDelete
 		localVarPostBody   interface{}
@@ -189,48 +113,26 @@ func (a *IncidentServicesApi) deleteIncidentServiceExecute(r apiDeleteIncidentSe
 		return nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf("Unstable operation '%s' is disabled", operationId)}
 	}
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v2.IncidentServicesApi.DeleteIncidentService")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v2.IncidentServicesApi.DeleteIncidentService")
 	if err != nil {
 		return nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/services/{service_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.serviceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_id"+"}", _neturl.PathEscape(datadog.ParameterToString(serviceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	localVarHeaderParams["Accept"] = "*/*"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -240,9 +142,7 @@ func (a *IncidentServicesApi) deleteIncidentServiceExecute(r apiDeleteIncidentSe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -266,12 +166,6 @@ func (a *IncidentServicesApi) deleteIncidentServiceExecute(r apiDeleteIncidentSe
 	return localVarHTTPResponse, nil
 }
 
-type apiGetIncidentServiceRequest struct {
-	ctx       _context.Context
-	serviceId string
-	include   *IncidentRelatedObject
-}
-
 // GetIncidentServiceOptionalParameters holds optional parameters for GetIncidentService.
 type GetIncidentServiceOptionalParameters struct {
 	Include *IncidentRelatedObject
@@ -289,42 +183,23 @@ func (r *GetIncidentServiceOptionalParameters) WithInclude(include IncidentRelat
 	return r
 }
 
-func (a *IncidentServicesApi) buildGetIncidentServiceRequest(ctx _context.Context, serviceId string, o ...GetIncidentServiceOptionalParameters) (apiGetIncidentServiceRequest, error) {
-	req := apiGetIncidentServiceRequest{
-		ctx:       ctx,
-		serviceId: serviceId,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type GetIncidentServiceOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.include = o[0].Include
-	}
-	return req, nil
-}
-
 // GetIncidentService Get details of an incident service.
 // Get details of an incident service. If the `include[users]` query parameter is provided,
 // the included attribute will contain the users related to these incident services.
 func (a *IncidentServicesApi) GetIncidentService(ctx _context.Context, serviceId string, o ...GetIncidentServiceOptionalParameters) (IncidentServiceResponse, *_nethttp.Response, error) {
-	req, err := a.buildGetIncidentServiceRequest(ctx, serviceId, o...)
-	if err != nil {
-		var localVarReturnValue IncidentServiceResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.getIncidentServiceExecute(req)
-}
-
-// getIncidentServiceExecute executes the request.
-func (a *IncidentServicesApi) getIncidentServiceExecute(r apiGetIncidentServiceRequest) (IncidentServiceResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue IncidentServiceResponse
+		optionalParams      GetIncidentServiceOptionalParameters
 	)
+
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type GetIncidentServiceOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
 
 	operationId := "v2.GetIncidentService"
 	if a.Client.Cfg.IsUnstableOperationEnabled(operationId) {
@@ -333,51 +208,29 @@ func (a *IncidentServicesApi) getIncidentServiceExecute(r apiGetIncidentServiceR
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf("Unstable operation '%s' is disabled", operationId)}
 	}
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v2.IncidentServicesApi.GetIncidentService")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v2.IncidentServicesApi.GetIncidentService")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/services/{service_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.serviceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_id"+"}", _neturl.PathEscape(datadog.ParameterToString(serviceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.include != nil {
-		localVarQueryParams.Add("include", datadog.ParameterToString(*r.include, ""))
+	if optionalParams.Include != nil {
+		localVarQueryParams.Add("include", datadog.ParameterToString(*optionalParams.Include, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -387,9 +240,7 @@ func (a *IncidentServicesApi) getIncidentServiceExecute(r apiGetIncidentServiceR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -420,14 +271,6 @@ func (a *IncidentServicesApi) getIncidentServiceExecute(r apiGetIncidentServiceR
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type apiListIncidentServicesRequest struct {
-	ctx        _context.Context
-	include    *IncidentRelatedObject
-	pageSize   *int64
-	pageOffset *int64
-	filter     *string
 }
 
 // ListIncidentServicesOptionalParameters holds optional parameters for ListIncidentServices.
@@ -468,43 +311,22 @@ func (r *ListIncidentServicesOptionalParameters) WithFilter(filter string) *List
 	return r
 }
 
-func (a *IncidentServicesApi) buildListIncidentServicesRequest(ctx _context.Context, o ...ListIncidentServicesOptionalParameters) (apiListIncidentServicesRequest, error) {
-	req := apiListIncidentServicesRequest{
-		ctx: ctx,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type ListIncidentServicesOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.include = o[0].Include
-		req.pageSize = o[0].PageSize
-		req.pageOffset = o[0].PageOffset
-		req.filter = o[0].Filter
-	}
-	return req, nil
-}
-
 // ListIncidentServices Get a list of all incident services.
 // Get all incident services uploaded for the requesting user's organization. If the `include[users]` query parameter is provided, the included attribute will contain the users related to these incident services.
 func (a *IncidentServicesApi) ListIncidentServices(ctx _context.Context, o ...ListIncidentServicesOptionalParameters) (IncidentServicesResponse, *_nethttp.Response, error) {
-	req, err := a.buildListIncidentServicesRequest(ctx, o...)
-	if err != nil {
-		var localVarReturnValue IncidentServicesResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.listIncidentServicesExecute(req)
-}
-
-// listIncidentServicesExecute executes the request.
-func (a *IncidentServicesApi) listIncidentServicesExecute(r apiListIncidentServicesRequest) (IncidentServicesResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue IncidentServicesResponse
+		optionalParams      ListIncidentServicesOptionalParameters
 	)
+
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type ListIncidentServicesOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
 
 	operationId := "v2.ListIncidentServices"
 	if a.Client.Cfg.IsUnstableOperationEnabled(operationId) {
@@ -513,7 +335,7 @@ func (a *IncidentServicesApi) listIncidentServicesExecute(r apiListIncidentServi
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf("Unstable operation '%s' is disabled", operationId)}
 	}
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v2.IncidentServicesApi.ListIncidentServices")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v2.IncidentServicesApi.ListIncidentServices")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -523,49 +345,27 @@ func (a *IncidentServicesApi) listIncidentServicesExecute(r apiListIncidentServi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.include != nil {
-		localVarQueryParams.Add("include", datadog.ParameterToString(*r.include, ""))
+	if optionalParams.Include != nil {
+		localVarQueryParams.Add("include", datadog.ParameterToString(*optionalParams.Include, ""))
 	}
-	if r.pageSize != nil {
-		localVarQueryParams.Add("page[size]", datadog.ParameterToString(*r.pageSize, ""))
+	if optionalParams.PageSize != nil {
+		localVarQueryParams.Add("page[size]", datadog.ParameterToString(*optionalParams.PageSize, ""))
 	}
-	if r.pageOffset != nil {
-		localVarQueryParams.Add("page[offset]", datadog.ParameterToString(*r.pageOffset, ""))
+	if optionalParams.PageOffset != nil {
+		localVarQueryParams.Add("page[offset]", datadog.ParameterToString(*optionalParams.PageOffset, ""))
 	}
-	if r.filter != nil {
-		localVarQueryParams.Add("filter", datadog.ParameterToString(*r.filter, ""))
+	if optionalParams.Filter != nil {
+		localVarQueryParams.Add("filter", datadog.ParameterToString(*optionalParams.Filter, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -575,9 +375,7 @@ func (a *IncidentServicesApi) listIncidentServicesExecute(r apiListIncidentServi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -610,35 +408,9 @@ func (a *IncidentServicesApi) listIncidentServicesExecute(r apiListIncidentServi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiUpdateIncidentServiceRequest struct {
-	ctx       _context.Context
-	serviceId string
-	body      *IncidentServiceUpdateRequest
-}
-
-func (a *IncidentServicesApi) buildUpdateIncidentServiceRequest(ctx _context.Context, serviceId string, body IncidentServiceUpdateRequest) (apiUpdateIncidentServiceRequest, error) {
-	req := apiUpdateIncidentServiceRequest{
-		ctx:       ctx,
-		serviceId: serviceId,
-		body:      &body,
-	}
-	return req, nil
-}
-
 // UpdateIncidentService Update an existing incident service.
 // Updates an existing incident service. Only provide the attributes which should be updated as this request is a partial update.
 func (a *IncidentServicesApi) UpdateIncidentService(ctx _context.Context, serviceId string, body IncidentServiceUpdateRequest) (IncidentServiceResponse, *_nethttp.Response, error) {
-	req, err := a.buildUpdateIncidentServiceRequest(ctx, serviceId, body)
-	if err != nil {
-		var localVarReturnValue IncidentServiceResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.updateIncidentServiceExecute(req)
-}
-
-// updateIncidentServiceExecute executes the request.
-func (a *IncidentServicesApi) updateIncidentServiceExecute(r apiUpdateIncidentServiceRequest) (IncidentServiceResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPatch
 		localVarPostBody    interface{}
@@ -652,54 +424,29 @@ func (a *IncidentServicesApi) updateIncidentServiceExecute(r apiUpdateIncidentSe
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: _fmt.Sprintf("Unstable operation '%s' is disabled", operationId)}
 	}
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v2.IncidentServicesApi.UpdateIncidentService")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v2.IncidentServicesApi.UpdateIncidentService")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/services/{service_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.serviceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_id"+"}", _neturl.PathEscape(datadog.ParameterToString(serviceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -709,9 +456,7 @@ func (a *IncidentServicesApi) updateIncidentServiceExecute(r apiUpdateIncidentSe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -6,12 +6,14 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // RUMApplicationsResponse RUM applications response.
 type RUMApplicationsResponse struct {
 	// RUM applications array response.
-	Data []RUMApplication `json:"data,omitempty"`
+	Data []RUMApplicationList `json:"data,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject       map[string]interface{} `json:"-"`
 	AdditionalProperties map[string]interface{}
@@ -35,9 +37,9 @@ func NewRUMApplicationsResponseWithDefaults() *RUMApplicationsResponse {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *RUMApplicationsResponse) GetData() []RUMApplication {
+func (o *RUMApplicationsResponse) GetData() []RUMApplicationList {
 	if o == nil || o.Data == nil {
-		var ret []RUMApplication
+		var ret []RUMApplicationList
 		return ret
 	}
 	return o.Data
@@ -45,7 +47,7 @@ func (o *RUMApplicationsResponse) GetData() []RUMApplication {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RUMApplicationsResponse) GetDataOk() (*[]RUMApplication, bool) {
+func (o *RUMApplicationsResponse) GetDataOk() (*[]RUMApplicationList, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -57,8 +59,8 @@ func (o *RUMApplicationsResponse) HasData() bool {
 	return o != nil && o.Data != nil
 }
 
-// SetData gets a reference to the given []RUMApplication and assigns it to the Data field.
-func (o *RUMApplicationsResponse) SetData(v []RUMApplication) {
+// SetData gets a reference to the given []RUMApplicationList and assigns it to the Data field.
+func (o *RUMApplicationsResponse) SetData(v []RUMApplicationList) {
 	o.Data = v
 }
 
@@ -82,7 +84,7 @@ func (o RUMApplicationsResponse) MarshalJSON() ([]byte, error) {
 func (o *RUMApplicationsResponse) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		Data []RUMApplication `json:"data,omitempty"`
+		Data []RUMApplicationList `json:"data,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {
@@ -93,6 +95,16 @@ func (o *RUMApplicationsResponse) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"data"})
+	} else {
+		return err
+	}
 	o.Data = all.Data
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

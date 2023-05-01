@@ -19,6 +19,8 @@ type MonitorOptions struct {
 	DeviceIds []MonitorDeviceID `json:"device_ids,omitempty"`
 	// Whether or not to send a log sample when the log monitor triggers.
 	EnableLogsSample *bool `json:"enable_logs_sample,omitempty"`
+	// Whether or not to send a list of samples when the monitor triggers. This is only used by CI Test and Pipeline monitors.
+	EnableSamples *bool `json:"enable_samples,omitempty"`
 	// We recommend using the [is_renotify](https://docs.datadoghq.com/monitors/notify/?tab=is_alert#renotify),
 	// block in the original message instead.
 	// A message to include with a re-notification. Supports the `@username` notification we allow elsewhere.
@@ -67,6 +69,8 @@ type MonitorOptions struct {
 	// Datadog recommends at least 2x the monitor timeframe for query alerts or 2 minutes for service checks.
 	// If omitted, 2x the evaluation timeframe is used for query alerts, and 24 hours is used for service checks.
 	NoDataTimeframe datadog.NullableInt64 `json:"no_data_timeframe,omitempty"`
+	// Toggles the display of additional content sent in the monitor notification.
+	NotificationPresetName *MonitorOptionsNotificationPresets `json:"notification_preset_name,omitempty"`
 	// A Boolean indicating whether tagged users is notified on changes to this monitor.
 	NotifyAudit *bool `json:"notify_audit,omitempty"`
 	// Controls what granularity a monitor alerts on. Only available for monitors with groupings.
@@ -132,6 +136,8 @@ func NewMonitorOptions() *MonitorOptions {
 	this.MinLocationFailed = *datadog.NewNullableInt64(&minLocationFailed)
 	var newHostDelay int64 = 300
 	this.NewHostDelay = *datadog.NewNullableInt64(&newHostDelay)
+	var notificationPresetName MonitorOptionsNotificationPresets = MONITOROPTIONSNOTIFICATIONPRESETS_SHOW_ALL
+	this.NotificationPresetName = &notificationPresetName
 	var notifyAudit bool = false
 	this.NotifyAudit = &notifyAudit
 	var notifyNoData bool = false
@@ -156,6 +162,8 @@ func NewMonitorOptionsWithDefaults() *MonitorOptions {
 	this.MinLocationFailed = *datadog.NewNullableInt64(&minLocationFailed)
 	var newHostDelay int64 = 300
 	this.NewHostDelay = *datadog.NewNullableInt64(&newHostDelay)
+	var notificationPresetName MonitorOptionsNotificationPresets = MONITOROPTIONSNOTIFICATIONPRESETS_SHOW_ALL
+	this.NotificationPresetName = &notificationPresetName
 	var notifyAudit bool = false
 	this.NotifyAudit = &notifyAudit
 	var notifyNoData bool = false
@@ -250,6 +258,34 @@ func (o *MonitorOptions) HasEnableLogsSample() bool {
 // SetEnableLogsSample gets a reference to the given bool and assigns it to the EnableLogsSample field.
 func (o *MonitorOptions) SetEnableLogsSample(v bool) {
 	o.EnableLogsSample = &v
+}
+
+// GetEnableSamples returns the EnableSamples field value if set, zero value otherwise.
+func (o *MonitorOptions) GetEnableSamples() bool {
+	if o == nil || o.EnableSamples == nil {
+		var ret bool
+		return ret
+	}
+	return *o.EnableSamples
+}
+
+// GetEnableSamplesOk returns a tuple with the EnableSamples field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorOptions) GetEnableSamplesOk() (*bool, bool) {
+	if o == nil || o.EnableSamples == nil {
+		return nil, false
+	}
+	return o.EnableSamples, true
+}
+
+// HasEnableSamples returns a boolean if a field has been set.
+func (o *MonitorOptions) HasEnableSamples() bool {
+	return o != nil && o.EnableSamples != nil
+}
+
+// SetEnableSamples gets a reference to the given bool and assigns it to the EnableSamples field.
+func (o *MonitorOptions) SetEnableSamples(v bool) {
+	o.EnableSamples = &v
 }
 
 // GetEscalationMessage returns the EscalationMessage field value if set, zero value otherwise.
@@ -630,6 +666,34 @@ func (o *MonitorOptions) SetNoDataTimeframeNil() {
 // UnsetNoDataTimeframe ensures that no value is present for NoDataTimeframe, not even an explicit nil.
 func (o *MonitorOptions) UnsetNoDataTimeframe() {
 	o.NoDataTimeframe.Unset()
+}
+
+// GetNotificationPresetName returns the NotificationPresetName field value if set, zero value otherwise.
+func (o *MonitorOptions) GetNotificationPresetName() MonitorOptionsNotificationPresets {
+	if o == nil || o.NotificationPresetName == nil {
+		var ret MonitorOptionsNotificationPresets
+		return ret
+	}
+	return *o.NotificationPresetName
+}
+
+// GetNotificationPresetNameOk returns a tuple with the NotificationPresetName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonitorOptions) GetNotificationPresetNameOk() (*MonitorOptionsNotificationPresets, bool) {
+	if o == nil || o.NotificationPresetName == nil {
+		return nil, false
+	}
+	return o.NotificationPresetName, true
+}
+
+// HasNotificationPresetName returns a boolean if a field has been set.
+func (o *MonitorOptions) HasNotificationPresetName() bool {
+	return o != nil && o.NotificationPresetName != nil
+}
+
+// SetNotificationPresetName gets a reference to the given MonitorOptionsNotificationPresets and assigns it to the NotificationPresetName field.
+func (o *MonitorOptions) SetNotificationPresetName(v MonitorOptionsNotificationPresets) {
+	o.NotificationPresetName = &v
 }
 
 // GetNotifyAudit returns the NotifyAudit field value if set, zero value otherwise.
@@ -1118,6 +1182,9 @@ func (o MonitorOptions) MarshalJSON() ([]byte, error) {
 	if o.EnableLogsSample != nil {
 		toSerialize["enable_logs_sample"] = o.EnableLogsSample
 	}
+	if o.EnableSamples != nil {
+		toSerialize["enable_samples"] = o.EnableSamples
+	}
 	if o.EscalationMessage != nil {
 		toSerialize["escalation_message"] = o.EscalationMessage
 	}
@@ -1150,6 +1217,9 @@ func (o MonitorOptions) MarshalJSON() ([]byte, error) {
 	}
 	if o.NoDataTimeframe.IsSet() {
 		toSerialize["no_data_timeframe"] = o.NoDataTimeframe.Get()
+	}
+	if o.NotificationPresetName != nil {
+		toSerialize["notification_preset_name"] = o.NotificationPresetName
 	}
 	if o.NotifyAudit != nil {
 		toSerialize["notify_audit"] = o.NotifyAudit
@@ -1210,6 +1280,7 @@ func (o *MonitorOptions) UnmarshalJSON(bytes []byte) (err error) {
 		Aggregation            *MonitorOptionsAggregation                 `json:"aggregation,omitempty"`
 		DeviceIds              []MonitorDeviceID                          `json:"device_ids,omitempty"`
 		EnableLogsSample       *bool                                      `json:"enable_logs_sample,omitempty"`
+		EnableSamples          *bool                                      `json:"enable_samples,omitempty"`
 		EscalationMessage      *string                                    `json:"escalation_message,omitempty"`
 		EvaluationDelay        datadog.NullableInt64                      `json:"evaluation_delay,omitempty"`
 		GroupRetentionDuration *string                                    `json:"group_retention_duration,omitempty"`
@@ -1221,6 +1292,7 @@ func (o *MonitorOptions) UnmarshalJSON(bytes []byte) (err error) {
 		NewGroupDelay          datadog.NullableInt64                      `json:"new_group_delay,omitempty"`
 		NewHostDelay           datadog.NullableInt64                      `json:"new_host_delay,omitempty"`
 		NoDataTimeframe        datadog.NullableInt64                      `json:"no_data_timeframe,omitempty"`
+		NotificationPresetName *MonitorOptionsNotificationPresets         `json:"notification_preset_name,omitempty"`
 		NotifyAudit            *bool                                      `json:"notify_audit,omitempty"`
 		NotifyBy               []string                                   `json:"notify_by,omitempty"`
 		NotifyNoData           *bool                                      `json:"notify_no_data,omitempty"`
@@ -1246,6 +1318,20 @@ func (o *MonitorOptions) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"aggregation", "device_ids", "enable_logs_sample", "enable_samples", "escalation_message", "evaluation_delay", "group_retention_duration", "groupby_simple_monitor", "include_tags", "locked", "min_failure_duration", "min_location_failed", "new_group_delay", "new_host_delay", "no_data_timeframe", "notification_preset_name", "notify_audit", "notify_by", "notify_no_data", "on_missing_data", "renotify_interval", "renotify_occurrences", "renotify_statuses", "require_full_window", "scheduling_options", "silenced", "synthetics_check_id", "threshold_windows", "thresholds", "timeout_h", "variables"})
+	} else {
+		return err
+	}
+	if v := all.NotificationPresetName; v != nil && !v.IsValid() {
+		err = json.Unmarshal(bytes, &raw)
+		if err != nil {
+			return err
+		}
+		o.UnparsedObject = raw
+		return nil
+	}
 	if v := all.OnMissingData; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -1264,6 +1350,7 @@ func (o *MonitorOptions) UnmarshalJSON(bytes []byte) (err error) {
 	o.Aggregation = all.Aggregation
 	o.DeviceIds = all.DeviceIds
 	o.EnableLogsSample = all.EnableLogsSample
+	o.EnableSamples = all.EnableSamples
 	o.EscalationMessage = all.EscalationMessage
 	o.EvaluationDelay = all.EvaluationDelay
 	o.GroupRetentionDuration = all.GroupRetentionDuration
@@ -1275,6 +1362,7 @@ func (o *MonitorOptions) UnmarshalJSON(bytes []byte) (err error) {
 	o.NewGroupDelay = all.NewGroupDelay
 	o.NewHostDelay = all.NewHostDelay
 	o.NoDataTimeframe = all.NoDataTimeframe
+	o.NotificationPresetName = all.NotificationPresetName
 	o.NotifyAudit = all.NotifyAudit
 	o.NotifyBy = all.NotifyBy
 	o.NotifyNoData = all.NotifyNoData
@@ -1311,5 +1399,9 @@ func (o *MonitorOptions) UnmarshalJSON(bytes []byte) (err error) {
 	o.Thresholds = all.Thresholds
 	o.TimeoutH = all.TimeoutH
 	o.Variables = all.Variables
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

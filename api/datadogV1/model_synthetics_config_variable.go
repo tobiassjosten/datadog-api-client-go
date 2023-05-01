@@ -7,6 +7,8 @@ package datadogV1
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // SyntheticsConfigVariable Object defining a variable that can be used in your test configuration.
@@ -19,6 +21,8 @@ type SyntheticsConfigVariable struct {
 	Name string `json:"name"`
 	// Pattern of the variable.
 	Pattern *string `json:"pattern,omitempty"`
+	// Whether the value of this variable will be obfuscated in test results. Only for config variables of type `text`.
+	Secure *bool `json:"secure,omitempty"`
 	// Type of the configuration variable.
 	Type SyntheticsConfigVariableType `json:"type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
@@ -152,6 +156,34 @@ func (o *SyntheticsConfigVariable) SetPattern(v string) {
 	o.Pattern = &v
 }
 
+// GetSecure returns the Secure field value if set, zero value otherwise.
+func (o *SyntheticsConfigVariable) GetSecure() bool {
+	if o == nil || o.Secure == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Secure
+}
+
+// GetSecureOk returns a tuple with the Secure field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SyntheticsConfigVariable) GetSecureOk() (*bool, bool) {
+	if o == nil || o.Secure == nil {
+		return nil, false
+	}
+	return o.Secure, true
+}
+
+// HasSecure returns a boolean if a field has been set.
+func (o *SyntheticsConfigVariable) HasSecure() bool {
+	return o != nil && o.Secure != nil
+}
+
+// SetSecure gets a reference to the given bool and assigns it to the Secure field.
+func (o *SyntheticsConfigVariable) SetSecure(v bool) {
+	o.Secure = &v
+}
+
 // GetType returns the Type field value.
 func (o *SyntheticsConfigVariable) GetType() SyntheticsConfigVariableType {
 	if o == nil {
@@ -191,6 +223,9 @@ func (o SyntheticsConfigVariable) MarshalJSON() ([]byte, error) {
 	if o.Pattern != nil {
 		toSerialize["pattern"] = o.Pattern
 	}
+	if o.Secure != nil {
+		toSerialize["secure"] = o.Secure
+	}
 	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
@@ -211,6 +246,7 @@ func (o *SyntheticsConfigVariable) UnmarshalJSON(bytes []byte) (err error) {
 		Id      *string                      `json:"id,omitempty"`
 		Name    string                       `json:"name"`
 		Pattern *string                      `json:"pattern,omitempty"`
+		Secure  *bool                        `json:"secure,omitempty"`
 		Type    SyntheticsConfigVariableType `json:"type"`
 	}{}
 	err = json.Unmarshal(bytes, &required)
@@ -232,6 +268,12 @@ func (o *SyntheticsConfigVariable) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"example", "id", "name", "pattern", "secure", "type"})
+	} else {
+		return err
+	}
 	if v := all.Type; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -244,6 +286,11 @@ func (o *SyntheticsConfigVariable) UnmarshalJSON(bytes []byte) (err error) {
 	o.Id = all.Id
 	o.Name = all.Name
 	o.Pattern = all.Pattern
+	o.Secure = all.Secure
 	o.Type = all.Type
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

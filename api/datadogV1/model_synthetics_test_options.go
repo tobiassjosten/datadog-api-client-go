@@ -6,6 +6,8 @@ package datadogV1
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // SyntheticsTestOptions Object describing the extra options for a Synthetic test.
@@ -27,6 +29,8 @@ type SyntheticsTestOptions struct {
 	DisableCsp *bool `json:"disableCsp,omitempty"`
 	// For API HTTP test, whether or not the test should follow redirects.
 	FollowRedirects *bool `json:"follow_redirects,omitempty"`
+	// HTTP version to use for a Synthetic test.
+	HttpVersion *SyntheticsTestOptionsHTTPVersion `json:"httpVersion,omitempty"`
 	// Ignore server certificate error for browser tests.
 	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty"`
 	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
@@ -61,6 +65,8 @@ type SyntheticsTestOptions struct {
 	// `{ isEnabled: true, applicationId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", clientTokenId: 12345 }`
 	// RUM data is collected using the specified application.
 	RumSettings *SyntheticsBrowserTestRumSettings `json:"rumSettings,omitempty"`
+	// Object containing timeframes and timezone used for advanced scheduling.
+	Scheduling *SyntheticsTestOptionsScheduling `json:"scheduling,omitempty"`
 	// The frequency at which to run the Synthetic test (in seconds).
 	TickEvery *int64 `json:"tick_every,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
@@ -307,6 +313,34 @@ func (o *SyntheticsTestOptions) HasFollowRedirects() bool {
 // SetFollowRedirects gets a reference to the given bool and assigns it to the FollowRedirects field.
 func (o *SyntheticsTestOptions) SetFollowRedirects(v bool) {
 	o.FollowRedirects = &v
+}
+
+// GetHttpVersion returns the HttpVersion field value if set, zero value otherwise.
+func (o *SyntheticsTestOptions) GetHttpVersion() SyntheticsTestOptionsHTTPVersion {
+	if o == nil || o.HttpVersion == nil {
+		var ret SyntheticsTestOptionsHTTPVersion
+		return ret
+	}
+	return *o.HttpVersion
+}
+
+// GetHttpVersionOk returns a tuple with the HttpVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SyntheticsTestOptions) GetHttpVersionOk() (*SyntheticsTestOptionsHTTPVersion, bool) {
+	if o == nil || o.HttpVersion == nil {
+		return nil, false
+	}
+	return o.HttpVersion, true
+}
+
+// HasHttpVersion returns a boolean if a field has been set.
+func (o *SyntheticsTestOptions) HasHttpVersion() bool {
+	return o != nil && o.HttpVersion != nil
+}
+
+// SetHttpVersion gets a reference to the given SyntheticsTestOptionsHTTPVersion and assigns it to the HttpVersion field.
+func (o *SyntheticsTestOptions) SetHttpVersion(v SyntheticsTestOptionsHTTPVersion) {
+	o.HttpVersion = &v
 }
 
 // GetIgnoreServerCertificateError returns the IgnoreServerCertificateError field value if set, zero value otherwise.
@@ -617,6 +651,34 @@ func (o *SyntheticsTestOptions) SetRumSettings(v SyntheticsBrowserTestRumSetting
 	o.RumSettings = &v
 }
 
+// GetScheduling returns the Scheduling field value if set, zero value otherwise.
+func (o *SyntheticsTestOptions) GetScheduling() SyntheticsTestOptionsScheduling {
+	if o == nil || o.Scheduling == nil {
+		var ret SyntheticsTestOptionsScheduling
+		return ret
+	}
+	return *o.Scheduling
+}
+
+// GetSchedulingOk returns a tuple with the Scheduling field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SyntheticsTestOptions) GetSchedulingOk() (*SyntheticsTestOptionsScheduling, bool) {
+	if o == nil || o.Scheduling == nil {
+		return nil, false
+	}
+	return o.Scheduling, true
+}
+
+// HasScheduling returns a boolean if a field has been set.
+func (o *SyntheticsTestOptions) HasScheduling() bool {
+	return o != nil && o.Scheduling != nil
+}
+
+// SetScheduling gets a reference to the given SyntheticsTestOptionsScheduling and assigns it to the Scheduling field.
+func (o *SyntheticsTestOptions) SetScheduling(v SyntheticsTestOptionsScheduling) {
+	o.Scheduling = &v
+}
+
 // GetTickEvery returns the TickEvery field value if set, zero value otherwise.
 func (o *SyntheticsTestOptions) GetTickEvery() int64 {
 	if o == nil || o.TickEvery == nil {
@@ -675,6 +737,9 @@ func (o SyntheticsTestOptions) MarshalJSON() ([]byte, error) {
 	if o.FollowRedirects != nil {
 		toSerialize["follow_redirects"] = o.FollowRedirects
 	}
+	if o.HttpVersion != nil {
+		toSerialize["httpVersion"] = o.HttpVersion
+	}
 	if o.IgnoreServerCertificateError != nil {
 		toSerialize["ignoreServerCertificateError"] = o.IgnoreServerCertificateError
 	}
@@ -708,6 +773,9 @@ func (o SyntheticsTestOptions) MarshalJSON() ([]byte, error) {
 	if o.RumSettings != nil {
 		toSerialize["rumSettings"] = o.RumSettings
 	}
+	if o.Scheduling != nil {
+		toSerialize["scheduling"] = o.Scheduling
+	}
 	if o.TickEvery != nil {
 		toSerialize["tick_every"] = o.TickEvery
 	}
@@ -730,6 +798,7 @@ func (o *SyntheticsTestOptions) UnmarshalJSON(bytes []byte) (err error) {
 		DisableCors                  *bool                                `json:"disableCors,omitempty"`
 		DisableCsp                   *bool                                `json:"disableCsp,omitempty"`
 		FollowRedirects              *bool                                `json:"follow_redirects,omitempty"`
+		HttpVersion                  *SyntheticsTestOptionsHTTPVersion    `json:"httpVersion,omitempty"`
 		IgnoreServerCertificateError *bool                                `json:"ignoreServerCertificateError,omitempty"`
 		InitialNavigationTimeout     *int64                               `json:"initialNavigationTimeout,omitempty"`
 		MinFailureDuration           *int64                               `json:"min_failure_duration,omitempty"`
@@ -741,10 +810,25 @@ func (o *SyntheticsTestOptions) UnmarshalJSON(bytes []byte) (err error) {
 		RestrictedRoles              []string                             `json:"restricted_roles,omitempty"`
 		Retry                        *SyntheticsTestOptionsRetry          `json:"retry,omitempty"`
 		RumSettings                  *SyntheticsBrowserTestRumSettings    `json:"rumSettings,omitempty"`
+		Scheduling                   *SyntheticsTestOptionsScheduling     `json:"scheduling,omitempty"`
 		TickEvery                    *int64                               `json:"tick_every,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {
+		err = json.Unmarshal(bytes, &raw)
+		if err != nil {
+			return err
+		}
+		o.UnparsedObject = raw
+		return nil
+	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"accept_self_signed", "allow_insecure", "checkCertificateRevocation", "ci", "device_ids", "disableCors", "disableCsp", "follow_redirects", "httpVersion", "ignoreServerCertificateError", "initialNavigationTimeout", "min_failure_duration", "min_location_failed", "monitor_name", "monitor_options", "monitor_priority", "noScreenshot", "restricted_roles", "retry", "rumSettings", "scheduling", "tick_every"})
+	} else {
+		return err
+	}
+	if v := all.HttpVersion; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
@@ -767,6 +851,7 @@ func (o *SyntheticsTestOptions) UnmarshalJSON(bytes []byte) (err error) {
 	o.DisableCors = all.DisableCors
 	o.DisableCsp = all.DisableCsp
 	o.FollowRedirects = all.FollowRedirects
+	o.HttpVersion = all.HttpVersion
 	o.IgnoreServerCertificateError = all.IgnoreServerCertificateError
 	o.InitialNavigationTimeout = all.InitialNavigationTimeout
 	o.MinFailureDuration = all.MinFailureDuration
@@ -799,6 +884,18 @@ func (o *SyntheticsTestOptions) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 	}
 	o.RumSettings = all.RumSettings
+	if all.Scheduling != nil && all.Scheduling.UnparsedObject != nil && o.UnparsedObject == nil {
+		err = json.Unmarshal(bytes, &raw)
+		if err != nil {
+			return err
+		}
+		o.UnparsedObject = raw
+	}
+	o.Scheduling = all.Scheduling
 	o.TickEvery = all.TickEvery
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

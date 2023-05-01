@@ -7,6 +7,8 @@ package datadogV2
 import (
 	"encoding/json"
 	"time"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // CostByOrgAttributes Cost attributes data.
@@ -19,6 +21,8 @@ type CostByOrgAttributes struct {
 	OrgName *string `json:"org_name,omitempty"`
 	// The organization public ID.
 	PublicId *string `json:"public_id,omitempty"`
+	// The region of the Datadog instance that the organization belongs to.
+	Region *string `json:"region,omitempty"`
 	// The total cost of products for the month.
 	TotalCost *float64 `json:"total_cost,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
@@ -155,6 +159,34 @@ func (o *CostByOrgAttributes) SetPublicId(v string) {
 	o.PublicId = &v
 }
 
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *CostByOrgAttributes) GetRegion() string {
+	if o == nil || o.Region == nil {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CostByOrgAttributes) GetRegionOk() (*string, bool) {
+	if o == nil || o.Region == nil {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *CostByOrgAttributes) HasRegion() bool {
+	return o != nil && o.Region != nil
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *CostByOrgAttributes) SetRegion(v string) {
+	o.Region = &v
+}
+
 // GetTotalCost returns the TotalCost field value if set, zero value otherwise.
 func (o *CostByOrgAttributes) GetTotalCost() float64 {
 	if o == nil || o.TotalCost == nil {
@@ -205,6 +237,9 @@ func (o CostByOrgAttributes) MarshalJSON() ([]byte, error) {
 	if o.PublicId != nil {
 		toSerialize["public_id"] = o.PublicId
 	}
+	if o.Region != nil {
+		toSerialize["region"] = o.Region
+	}
 	if o.TotalCost != nil {
 		toSerialize["total_cost"] = o.TotalCost
 	}
@@ -223,6 +258,7 @@ func (o *CostByOrgAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		Date      *time.Time            `json:"date,omitempty"`
 		OrgName   *string               `json:"org_name,omitempty"`
 		PublicId  *string               `json:"public_id,omitempty"`
+		Region    *string               `json:"region,omitempty"`
 		TotalCost *float64              `json:"total_cost,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
@@ -234,10 +270,21 @@ func (o *CostByOrgAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"charges", "date", "org_name", "public_id", "region", "total_cost"})
+	} else {
+		return err
+	}
 	o.Charges = all.Charges
 	o.Date = all.Date
 	o.OrgName = all.OrgName
 	o.PublicId = all.PublicId
+	o.Region = all.Region
 	o.TotalCost = all.TotalCost
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

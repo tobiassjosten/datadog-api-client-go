@@ -420,10 +420,10 @@ def format_data_with_schema(
         enum_varnames = schema["x-enum-varnames"][index]
         parameters = f"{name_prefix}{name.upper()}_{enum_varnames}"
         if not required:
+            if nullable:
+                return f"*{name_prefix}NewNullable{name}({parameters}.Ptr())"
             parameters = f"{parameters}.Ptr()"
         return parameters
-        # TODO handle nullable enums if necessary
-        # return f"{name_prefix}{name}({parameters}){'.Ptr()' if not required else ''}"
 
     if in_list and nullable:
         schema = schema.copy()
@@ -520,7 +520,8 @@ def format_data_with_schema_list(
 
         one_of_schema_name = simple_type(one_of_schema) or f"{schema_name(one_of_schema)}"
         reference = "" if one_of_schema.get("required", False) else "&"
-        return f"{{{one_of_schema_name}: {reference}{parameters}}}"
+        prefix = f"{name_prefix}{schema_name(schema)}" if schema_name(schema) else ""
+        return f"{prefix}{{{one_of_schema_name}: {reference}{parameters}}}"
 
     parameters = ""
     # collect nested array types until you find a non-array type

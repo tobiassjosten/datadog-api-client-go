@@ -7,6 +7,8 @@ package datadogV1
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // CheckCanDeleteMonitorResponse Response of monitor IDs that can or can't be safely deleted.
@@ -61,9 +63,9 @@ func (o *CheckCanDeleteMonitorResponse) SetData(v CheckCanDeleteMonitorResponseD
 	o.Data = v
 }
 
-// GetErrors returns the Errors field value if set, zero value otherwise.
+// GetErrors returns the Errors field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CheckCanDeleteMonitorResponse) GetErrors() map[string][]string {
-	if o == nil || o.Errors == nil {
+	if o == nil {
 		var ret map[string][]string
 		return ret
 	}
@@ -72,6 +74,7 @@ func (o *CheckCanDeleteMonitorResponse) GetErrors() map[string][]string {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *CheckCanDeleteMonitorResponse) GetErrorsOk() (*map[string][]string, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
@@ -132,6 +135,12 @@ func (o *CheckCanDeleteMonitorResponse) UnmarshalJSON(bytes []byte) (err error) 
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"data", "errors"})
+	} else {
+		return err
+	}
 	if all.Data.UnparsedObject != nil && o.UnparsedObject == nil {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -141,5 +150,9 @@ func (o *CheckCanDeleteMonitorResponse) UnmarshalJSON(bytes []byte) (err error) 
 	}
 	o.Data = all.Data
 	o.Errors = all.Errors
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

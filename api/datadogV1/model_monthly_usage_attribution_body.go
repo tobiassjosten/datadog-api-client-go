@@ -7,6 +7,8 @@ package datadogV1
 import (
 	"encoding/json"
 	"time"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // MonthlyUsageAttributionBody Usage Summary by tag for a given organization.
@@ -17,6 +19,8 @@ type MonthlyUsageAttributionBody struct {
 	OrgName *string `json:"org_name,omitempty"`
 	// The organization public ID.
 	PublicId *string `json:"public_id,omitempty"`
+	// The region of the Datadog instance that the organization belongs to.
+	Region *string `json:"region,omitempty"`
 	// The source of the usage attribution tag configuration and the selected tags in the format `<source_org_name>:::<selected tag 1>///<selected tag 2>///<selected tag 3>`.
 	TagConfigSource *string `json:"tag_config_source,omitempty"`
 	// Tag keys and values.
@@ -135,6 +139,34 @@ func (o *MonthlyUsageAttributionBody) SetPublicId(v string) {
 	o.PublicId = &v
 }
 
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *MonthlyUsageAttributionBody) GetRegion() string {
+	if o == nil || o.Region == nil {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MonthlyUsageAttributionBody) GetRegionOk() (*string, bool) {
+	if o == nil || o.Region == nil {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *MonthlyUsageAttributionBody) HasRegion() bool {
+	return o != nil && o.Region != nil
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *MonthlyUsageAttributionBody) SetRegion(v string) {
+	o.Region = &v
+}
+
 // GetTagConfigSource returns the TagConfigSource field value if set, zero value otherwise.
 func (o *MonthlyUsageAttributionBody) GetTagConfigSource() string {
 	if o == nil || o.TagConfigSource == nil {
@@ -163,9 +195,9 @@ func (o *MonthlyUsageAttributionBody) SetTagConfigSource(v string) {
 	o.TagConfigSource = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MonthlyUsageAttributionBody) GetTags() map[string][]string {
-	if o == nil || o.Tags == nil {
+	if o == nil {
 		var ret map[string][]string
 		return ret
 	}
@@ -174,6 +206,7 @@ func (o *MonthlyUsageAttributionBody) GetTags() map[string][]string {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *MonthlyUsageAttributionBody) GetTagsOk() (*map[string][]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
@@ -266,6 +299,9 @@ func (o MonthlyUsageAttributionBody) MarshalJSON() ([]byte, error) {
 	if o.PublicId != nil {
 		toSerialize["public_id"] = o.PublicId
 	}
+	if o.Region != nil {
+		toSerialize["region"] = o.Region
+	}
 	if o.TagConfigSource != nil {
 		toSerialize["tag_config_source"] = o.TagConfigSource
 	}
@@ -296,6 +332,7 @@ func (o *MonthlyUsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		Month           *time.Time                     `json:"month,omitempty"`
 		OrgName         *string                        `json:"org_name,omitempty"`
 		PublicId        *string                        `json:"public_id,omitempty"`
+		Region          *string                        `json:"region,omitempty"`
 		TagConfigSource *string                        `json:"tag_config_source,omitempty"`
 		Tags            map[string][]string            `json:"tags,omitempty"`
 		UpdatedAt       *time.Time                     `json:"updated_at,omitempty"`
@@ -310,9 +347,16 @@ func (o *MonthlyUsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"month", "org_name", "public_id", "region", "tag_config_source", "tags", "updated_at", "values"})
+	} else {
+		return err
+	}
 	o.Month = all.Month
 	o.OrgName = all.OrgName
 	o.PublicId = all.PublicId
+	o.Region = all.Region
 	o.TagConfigSource = all.TagConfigSource
 	o.Tags = all.Tags
 	o.UpdatedAt = all.UpdatedAt
@@ -324,5 +368,9 @@ func (o *MonthlyUsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 	}
 	o.Values = all.Values
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

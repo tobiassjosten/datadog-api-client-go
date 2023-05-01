@@ -24,7 +24,7 @@ func main() {
 					}},
 			},
 			Request: &datadogV1.SyntheticsTestRequest{
-				Method: datadogV1.HTTPMETHOD_GET.Ptr(),
+				Method: datadog.PtrString("GET"),
 				Url:    datadog.PtrString("https://example.com"),
 			},
 		},
@@ -40,6 +40,7 @@ func main() {
 			DeviceIds: []datadogV1.SyntheticsDeviceID{
 				datadogV1.SYNTHETICSDEVICEID_LAPTOP_LARGE,
 			},
+			HttpVersion:    datadogV1.SYNTHETICSTESTOPTIONSHTTPVERSION_HTTP1.Ptr(),
 			MonitorOptions: &datadogV1.SyntheticsTestOptionsMonitorOptions{},
 			RestrictedRoles: []string{
 				"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -49,6 +50,21 @@ func main() {
 				ApplicationId: datadog.PtrString("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"),
 				ClientTokenId: datadog.PtrInt64(12345),
 				IsEnabled:     true,
+			},
+			Scheduling: &datadogV1.SyntheticsTestOptionsScheduling{
+				Timeframes: []datadogV1.SyntheticsTestOptionsSchedulingTimeframe{
+					{
+						Day:  datadog.PtrInt32(1),
+						From: datadog.PtrString("07:00"),
+						To:   datadog.PtrString("16:00"),
+					},
+					{
+						Day:  datadog.PtrInt32(3),
+						From: datadog.PtrString("07:00"),
+						To:   datadog.PtrString("16:00"),
+					},
+				},
+				Timezone: datadog.PtrString("America/New_York"),
 			},
 		},
 		Status:  datadogV1.SYNTHETICSTESTPAUSESTATUS_LIVE.Ptr(),

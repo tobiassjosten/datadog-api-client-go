@@ -5,9 +5,7 @@
 package datadogV2
 
 import (
-	"bytes"
 	_context "context"
-	_io "io"
 	_nethttp "net/http"
 	_neturl "net/url"
 
@@ -16,16 +14,6 @@ import (
 
 // ProcessesApi service type
 type ProcessesApi datadog.Service
-
-type apiListProcessesRequest struct {
-	ctx        _context.Context
-	search     *string
-	tags       *string
-	from       *int64
-	to         *int64
-	pageLimit  *int32
-	pageCursor *string
-}
 
 // ListProcessesOptionalParameters holds optional parameters for ListProcesses.
 type ListProcessesOptionalParameters struct {
@@ -79,108 +67,24 @@ func (r *ListProcessesOptionalParameters) WithPageCursor(pageCursor string) *Lis
 	return r
 }
 
-func (a *ProcessesApi) buildListProcessesRequest(ctx _context.Context, o ...ListProcessesOptionalParameters) (apiListProcessesRequest, error) {
-	req := apiListProcessesRequest{
-		ctx: ctx,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type ListProcessesOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.search = o[0].Search
-		req.tags = o[0].Tags
-		req.from = o[0].From
-		req.to = o[0].To
-		req.pageLimit = o[0].PageLimit
-		req.pageCursor = o[0].PageCursor
-	}
-	return req, nil
-}
-
 // ListProcesses Get all processes.
 // Get all processes for your organization.
 func (a *ProcessesApi) ListProcesses(ctx _context.Context, o ...ListProcessesOptionalParameters) (ProcessSummariesResponse, *_nethttp.Response, error) {
-	req, err := a.buildListProcessesRequest(ctx, o...)
-	if err != nil {
-		var localVarReturnValue ProcessSummariesResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.listProcessesExecute(req)
-}
-
-// ListProcessesWithPagination provides a paginated version of ListProcesses returning a channel with all items.
-func (a *ProcessesApi) ListProcessesWithPagination(ctx _context.Context, o ...ListProcessesOptionalParameters) (<-chan ProcessSummary, func(), error) {
-	ctx, cancel := _context.WithCancel(ctx)
-	pageSize_ := int32(1000)
-	if len(o) == 0 {
-		o = append(o, ListProcessesOptionalParameters{})
-	}
-	if o[0].PageLimit != nil {
-		pageSize_ = *o[0].PageLimit
-	}
-	o[0].PageLimit = &pageSize_
-
-	items := make(chan ProcessSummary, pageSize_)
-	go func() {
-		for {
-			req, err := a.buildListProcessesRequest(ctx, o...)
-			if err != nil {
-				break
-			}
-
-			resp, _, err := a.listProcessesExecute(req)
-			if err != nil {
-				break
-			}
-			respData, ok := resp.GetDataOk()
-			if !ok {
-				break
-			}
-			results := *respData
-
-			for _, item := range results {
-				select {
-				case items <- item:
-				case <-ctx.Done():
-					close(items)
-					return
-				}
-			}
-			if len(results) < int(pageSize_) {
-				break
-			}
-			cursorMeta, ok := resp.GetMetaOk()
-			if !ok {
-				break
-			}
-			cursorMetaPage, ok := cursorMeta.GetPageOk()
-			if !ok {
-				break
-			}
-			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
-			if !ok {
-				break
-			}
-
-			o[0].PageCursor = cursorMetaPageAfter
-		}
-		close(items)
-	}()
-	return items, cancel, nil
-}
-
-// listProcessesExecute executes the request.
-func (a *ProcessesApi) listProcessesExecute(r apiListProcessesRequest) (ProcessSummariesResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue ProcessSummariesResponse
+		optionalParams      ListProcessesOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v2.ProcessesApi.ListProcesses")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type ListProcessesOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v2.ProcessesApi.ListProcesses")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -190,55 +94,33 @@ func (a *ProcessesApi) listProcessesExecute(r apiListProcessesRequest) (ProcessS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.search != nil {
-		localVarQueryParams.Add("search", datadog.ParameterToString(*r.search, ""))
+	if optionalParams.Search != nil {
+		localVarQueryParams.Add("search", datadog.ParameterToString(*optionalParams.Search, ""))
 	}
-	if r.tags != nil {
-		localVarQueryParams.Add("tags", datadog.ParameterToString(*r.tags, ""))
+	if optionalParams.Tags != nil {
+		localVarQueryParams.Add("tags", datadog.ParameterToString(*optionalParams.Tags, ""))
 	}
-	if r.from != nil {
-		localVarQueryParams.Add("from", datadog.ParameterToString(*r.from, ""))
+	if optionalParams.From != nil {
+		localVarQueryParams.Add("from", datadog.ParameterToString(*optionalParams.From, ""))
 	}
-	if r.to != nil {
-		localVarQueryParams.Add("to", datadog.ParameterToString(*r.to, ""))
+	if optionalParams.To != nil {
+		localVarQueryParams.Add("to", datadog.ParameterToString(*optionalParams.To, ""))
 	}
-	if r.pageLimit != nil {
-		localVarQueryParams.Add("page[limit]", datadog.ParameterToString(*r.pageLimit, ""))
+	if optionalParams.PageLimit != nil {
+		localVarQueryParams.Add("page[limit]", datadog.ParameterToString(*optionalParams.PageLimit, ""))
 	}
-	if r.pageCursor != nil {
-		localVarQueryParams.Add("page[cursor]", datadog.ParameterToString(*r.pageCursor, ""))
+	if optionalParams.PageCursor != nil {
+		localVarQueryParams.Add("page[cursor]", datadog.ParameterToString(*optionalParams.PageCursor, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -248,9 +130,7 @@ func (a *ProcessesApi) listProcessesExecute(r apiListProcessesRequest) (ProcessS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -281,6 +161,64 @@ func (a *ProcessesApi) listProcessesExecute(r apiListProcessesRequest) (ProcessS
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// ListProcessesWithPagination provides a paginated version of ListProcesses returning a channel with all items.
+func (a *ProcessesApi) ListProcessesWithPagination(ctx _context.Context, o ...ListProcessesOptionalParameters) (<-chan datadog.PaginationResult[ProcessSummary], func()) {
+	ctx, cancel := _context.WithCancel(ctx)
+	pageSize_ := int32(1000)
+	if len(o) == 0 {
+		o = append(o, ListProcessesOptionalParameters{})
+	}
+	if o[0].PageLimit != nil {
+		pageSize_ = *o[0].PageLimit
+	}
+	o[0].PageLimit = &pageSize_
+
+	items := make(chan datadog.PaginationResult[ProcessSummary], pageSize_)
+	go func() {
+		for {
+			resp, _, err := a.ListProcesses(ctx, o...)
+			if err != nil {
+				var returnItem ProcessSummary
+				items <- datadog.PaginationResult[ProcessSummary]{returnItem, err}
+				break
+			}
+			respData, ok := resp.GetDataOk()
+			if !ok {
+				break
+			}
+			results := *respData
+
+			for _, item := range results {
+				select {
+				case items <- datadog.PaginationResult[ProcessSummary]{item, nil}:
+				case <-ctx.Done():
+					close(items)
+					return
+				}
+			}
+			if len(results) < int(pageSize_) {
+				break
+			}
+			cursorMeta, ok := resp.GetMetaOk()
+			if !ok {
+				break
+			}
+			cursorMetaPage, ok := cursorMeta.GetPageOk()
+			if !ok {
+				break
+			}
+			cursorMetaPageAfter, ok := cursorMetaPage.GetAfterOk()
+			if !ok {
+				break
+			}
+
+			o[0].PageCursor = cursorMetaPageAfter
+		}
+		close(items)
+	}()
+	return items, cancel
 }
 
 // NewProcessesApi Returns NewProcessesApi.

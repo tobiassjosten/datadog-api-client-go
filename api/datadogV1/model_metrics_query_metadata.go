@@ -20,13 +20,13 @@ type MetricsQueryMetadata struct {
 	End *int64 `json:"end,omitempty"`
 	// Metric expression.
 	Expression *string `json:"expression,omitempty"`
-	// Number of seconds between data samples.
+	// Number of milliseconds between data samples.
 	Interval *int64 `json:"interval,omitempty"`
 	// Number of data samples.
 	Length *int64 `json:"length,omitempty"`
 	// Metric name.
 	Metric *string `json:"metric,omitempty"`
-	// List of points of the time series.
+	// List of points of the time series in milliseconds.
 	Pointlist [][]*float64 `json:"pointlist,omitempty"`
 	// The index of the series' query within the request.
 	QueryIndex *int64 `json:"query_index,omitempty"`
@@ -37,8 +37,9 @@ type MetricsQueryMetadata struct {
 	// Unique tags identifying this series.
 	TagSet []string `json:"tag_set,omitempty"`
 	// Detailed information about the metric unit.
-	// First element describes the "primary unit" (for example, `bytes` in `bytes per second`),
-	// second describes the "per unit" (for example, `second` in `bytes per second`).
+	// The first element describes the "primary unit" (for example, `bytes` in `bytes per second`).
+	// The second element describes the "per unit" (for example, `second` in `bytes per second`).
+	// If the second element is not present, the API returns null.
 	Unit []MetricsQueryUnit `json:"unit,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject       map[string]interface{} `json:"-"`
@@ -516,6 +517,12 @@ func (o *MetricsQueryMetadata) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"aggr", "display_name", "end", "expression", "interval", "length", "metric", "pointlist", "query_index", "scope", "start", "tag_set", "unit"})
+	} else {
+		return err
+	}
 	o.Aggr = all.Aggr
 	o.DisplayName = all.DisplayName
 	o.End = all.End
@@ -529,5 +536,9 @@ func (o *MetricsQueryMetadata) UnmarshalJSON(bytes []byte) (err error) {
 	o.Start = all.Start
 	o.TagSet = all.TagSet
 	o.Unit = all.Unit
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

@@ -7,18 +7,24 @@ package datadogV2
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // RUMApplicationAttributes RUM application attributes.
 type RUMApplicationAttributes struct {
 	// ID of the RUM application.
 	ApplicationId string `json:"application_id"`
+	// Client token of the RUM application.
+	ClientToken string `json:"client_token"`
 	// Timestamp in ms of the creation date.
 	CreatedAt int64 `json:"created_at"`
 	// Handle of the creator user.
 	CreatedByHandle string `json:"created_by_handle"`
-	// Client token of the RUM application.
+	// Hash of the RUM application. Optional.
 	Hash *string `json:"hash,omitempty"`
+	// Indicates if the RUM application is active.
+	IsActive *bool `json:"is_active,omitempty"`
 	// Name of the RUM application.
 	Name string `json:"name"`
 	// Org ID of the RUM application.
@@ -38,9 +44,10 @@ type RUMApplicationAttributes struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRUMApplicationAttributes(applicationId string, createdAt int64, createdByHandle string, name string, orgId int32, typeVar string, updatedAt int64, updatedByHandle string) *RUMApplicationAttributes {
+func NewRUMApplicationAttributes(applicationId string, clientToken string, createdAt int64, createdByHandle string, name string, orgId int32, typeVar string, updatedAt int64, updatedByHandle string) *RUMApplicationAttributes {
 	this := RUMApplicationAttributes{}
 	this.ApplicationId = applicationId
+	this.ClientToken = clientToken
 	this.CreatedAt = createdAt
 	this.CreatedByHandle = createdByHandle
 	this.Name = name
@@ -80,6 +87,29 @@ func (o *RUMApplicationAttributes) GetApplicationIdOk() (*string, bool) {
 // SetApplicationId sets field value.
 func (o *RUMApplicationAttributes) SetApplicationId(v string) {
 	o.ApplicationId = v
+}
+
+// GetClientToken returns the ClientToken field value.
+func (o *RUMApplicationAttributes) GetClientToken() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+	return o.ClientToken
+}
+
+// GetClientTokenOk returns a tuple with the ClientToken field value
+// and a boolean to check if the value has been set.
+func (o *RUMApplicationAttributes) GetClientTokenOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ClientToken, true
+}
+
+// SetClientToken sets field value.
+func (o *RUMApplicationAttributes) SetClientToken(v string) {
+	o.ClientToken = v
 }
 
 // GetCreatedAt returns the CreatedAt field value.
@@ -154,6 +184,34 @@ func (o *RUMApplicationAttributes) HasHash() bool {
 // SetHash gets a reference to the given string and assigns it to the Hash field.
 func (o *RUMApplicationAttributes) SetHash(v string) {
 	o.Hash = &v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *RUMApplicationAttributes) GetIsActive() bool {
+	if o == nil || o.IsActive == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RUMApplicationAttributes) GetIsActiveOk() (*bool, bool) {
+	if o == nil || o.IsActive == nil {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *RUMApplicationAttributes) HasIsActive() bool {
+	return o != nil && o.IsActive != nil
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *RUMApplicationAttributes) SetIsActive(v bool) {
+	o.IsActive = &v
 }
 
 // GetName returns the Name field value.
@@ -278,10 +336,14 @@ func (o RUMApplicationAttributes) MarshalJSON() ([]byte, error) {
 		return json.Marshal(o.UnparsedObject)
 	}
 	toSerialize["application_id"] = o.ApplicationId
+	toSerialize["client_token"] = o.ClientToken
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["created_by_handle"] = o.CreatedByHandle
 	if o.Hash != nil {
 		toSerialize["hash"] = o.Hash
+	}
+	if o.IsActive != nil {
+		toSerialize["is_active"] = o.IsActive
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["org_id"] = o.OrgId
@@ -300,6 +362,7 @@ func (o *RUMApplicationAttributes) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	required := struct {
 		ApplicationId   *string `json:"application_id"`
+		ClientToken     *string `json:"client_token"`
 		CreatedAt       *int64  `json:"created_at"`
 		CreatedByHandle *string `json:"created_by_handle"`
 		Name            *string `json:"name"`
@@ -310,9 +373,11 @@ func (o *RUMApplicationAttributes) UnmarshalJSON(bytes []byte) (err error) {
 	}{}
 	all := struct {
 		ApplicationId   string  `json:"application_id"`
+		ClientToken     string  `json:"client_token"`
 		CreatedAt       int64   `json:"created_at"`
 		CreatedByHandle string  `json:"created_by_handle"`
 		Hash            *string `json:"hash,omitempty"`
+		IsActive        *bool   `json:"is_active,omitempty"`
 		Name            string  `json:"name"`
 		OrgId           int32   `json:"org_id"`
 		Type            string  `json:"type"`
@@ -325,6 +390,9 @@ func (o *RUMApplicationAttributes) UnmarshalJSON(bytes []byte) (err error) {
 	}
 	if required.ApplicationId == nil {
 		return fmt.Errorf("required field application_id missing")
+	}
+	if required.ClientToken == nil {
+		return fmt.Errorf("required field client_token missing")
 	}
 	if required.CreatedAt == nil {
 		return fmt.Errorf("required field created_at missing")
@@ -356,14 +424,26 @@ func (o *RUMApplicationAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"application_id", "client_token", "created_at", "created_by_handle", "hash", "is_active", "name", "org_id", "type", "updated_at", "updated_by_handle"})
+	} else {
+		return err
+	}
 	o.ApplicationId = all.ApplicationId
+	o.ClientToken = all.ClientToken
 	o.CreatedAt = all.CreatedAt
 	o.CreatedByHandle = all.CreatedByHandle
 	o.Hash = all.Hash
+	o.IsActive = all.IsActive
 	o.Name = all.Name
 	o.OrgId = all.OrgId
 	o.Type = all.Type
 	o.UpdatedAt = all.UpdatedAt
 	o.UpdatedByHandle = all.UpdatedByHandle
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

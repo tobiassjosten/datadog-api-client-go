@@ -6,16 +6,22 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // SecurityMonitoringStandardRuleResponse Rule.
 type SecurityMonitoringStandardRuleResponse struct {
 	// Cases for generating signals.
 	Cases []SecurityMonitoringRuleCase `json:"cases,omitempty"`
+	// How to generate compliance signals. Useful for cloud_configuration rules only.
+	ComplianceSignalOptions *CloudConfigurationRuleComplianceSignalOptions `json:"complianceSignalOptions,omitempty"`
 	// When the rule was created, timestamp in milliseconds.
 	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// User ID of the user who created the rule.
 	CreationAuthorId *int64 `json:"creationAuthorId,omitempty"`
+	// When the rule will be deprecated, timestamp in milliseconds.
+	DeprecationDate *int64 `json:"deprecationDate,omitempty"`
 	// Additional queries to filter matched events before they are processed.
 	Filters []SecurityMonitoringFilter `json:"filters,omitempty"`
 	// Whether the notifications include the triggering group-by values in their title.
@@ -94,6 +100,34 @@ func (o *SecurityMonitoringStandardRuleResponse) SetCases(v []SecurityMonitoring
 	o.Cases = v
 }
 
+// GetComplianceSignalOptions returns the ComplianceSignalOptions field value if set, zero value otherwise.
+func (o *SecurityMonitoringStandardRuleResponse) GetComplianceSignalOptions() CloudConfigurationRuleComplianceSignalOptions {
+	if o == nil || o.ComplianceSignalOptions == nil {
+		var ret CloudConfigurationRuleComplianceSignalOptions
+		return ret
+	}
+	return *o.ComplianceSignalOptions
+}
+
+// GetComplianceSignalOptionsOk returns a tuple with the ComplianceSignalOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityMonitoringStandardRuleResponse) GetComplianceSignalOptionsOk() (*CloudConfigurationRuleComplianceSignalOptions, bool) {
+	if o == nil || o.ComplianceSignalOptions == nil {
+		return nil, false
+	}
+	return o.ComplianceSignalOptions, true
+}
+
+// HasComplianceSignalOptions returns a boolean if a field has been set.
+func (o *SecurityMonitoringStandardRuleResponse) HasComplianceSignalOptions() bool {
+	return o != nil && o.ComplianceSignalOptions != nil
+}
+
+// SetComplianceSignalOptions gets a reference to the given CloudConfigurationRuleComplianceSignalOptions and assigns it to the ComplianceSignalOptions field.
+func (o *SecurityMonitoringStandardRuleResponse) SetComplianceSignalOptions(v CloudConfigurationRuleComplianceSignalOptions) {
+	o.ComplianceSignalOptions = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *SecurityMonitoringStandardRuleResponse) GetCreatedAt() int64 {
 	if o == nil || o.CreatedAt == nil {
@@ -148,6 +182,34 @@ func (o *SecurityMonitoringStandardRuleResponse) HasCreationAuthorId() bool {
 // SetCreationAuthorId gets a reference to the given int64 and assigns it to the CreationAuthorId field.
 func (o *SecurityMonitoringStandardRuleResponse) SetCreationAuthorId(v int64) {
 	o.CreationAuthorId = &v
+}
+
+// GetDeprecationDate returns the DeprecationDate field value if set, zero value otherwise.
+func (o *SecurityMonitoringStandardRuleResponse) GetDeprecationDate() int64 {
+	if o == nil || o.DeprecationDate == nil {
+		var ret int64
+		return ret
+	}
+	return *o.DeprecationDate
+}
+
+// GetDeprecationDateOk returns a tuple with the DeprecationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityMonitoringStandardRuleResponse) GetDeprecationDateOk() (*int64, bool) {
+	if o == nil || o.DeprecationDate == nil {
+		return nil, false
+	}
+	return o.DeprecationDate, true
+}
+
+// HasDeprecationDate returns a boolean if a field has been set.
+func (o *SecurityMonitoringStandardRuleResponse) HasDeprecationDate() bool {
+	return o != nil && o.DeprecationDate != nil
+}
+
+// SetDeprecationDate gets a reference to the given int64 and assigns it to the DeprecationDate field.
+func (o *SecurityMonitoringStandardRuleResponse) SetDeprecationDate(v int64) {
+	o.DeprecationDate = &v
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -551,11 +613,17 @@ func (o SecurityMonitoringStandardRuleResponse) MarshalJSON() ([]byte, error) {
 	if o.Cases != nil {
 		toSerialize["cases"] = o.Cases
 	}
+	if o.ComplianceSignalOptions != nil {
+		toSerialize["complianceSignalOptions"] = o.ComplianceSignalOptions
+	}
 	if o.CreatedAt != nil {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if o.CreationAuthorId != nil {
 		toSerialize["creationAuthorId"] = o.CreationAuthorId
+	}
+	if o.DeprecationDate != nil {
+		toSerialize["deprecationDate"] = o.DeprecationDate
 	}
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
@@ -610,23 +678,25 @@ func (o SecurityMonitoringStandardRuleResponse) MarshalJSON() ([]byte, error) {
 func (o *SecurityMonitoringStandardRuleResponse) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		Cases            []SecurityMonitoringRuleCase          `json:"cases,omitempty"`
-		CreatedAt        *int64                                `json:"createdAt,omitempty"`
-		CreationAuthorId *int64                                `json:"creationAuthorId,omitempty"`
-		Filters          []SecurityMonitoringFilter            `json:"filters,omitempty"`
-		HasExtendedTitle *bool                                 `json:"hasExtendedTitle,omitempty"`
-		Id               *string                               `json:"id,omitempty"`
-		IsDefault        *bool                                 `json:"isDefault,omitempty"`
-		IsDeleted        *bool                                 `json:"isDeleted,omitempty"`
-		IsEnabled        *bool                                 `json:"isEnabled,omitempty"`
-		Message          *string                               `json:"message,omitempty"`
-		Name             *string                               `json:"name,omitempty"`
-		Options          *SecurityMonitoringRuleOptions        `json:"options,omitempty"`
-		Queries          []SecurityMonitoringStandardRuleQuery `json:"queries,omitempty"`
-		Tags             []string                              `json:"tags,omitempty"`
-		Type             *SecurityMonitoringRuleTypeRead       `json:"type,omitempty"`
-		UpdateAuthorId   *int64                                `json:"updateAuthorId,omitempty"`
-		Version          *int64                                `json:"version,omitempty"`
+		Cases                   []SecurityMonitoringRuleCase                   `json:"cases,omitempty"`
+		ComplianceSignalOptions *CloudConfigurationRuleComplianceSignalOptions `json:"complianceSignalOptions,omitempty"`
+		CreatedAt               *int64                                         `json:"createdAt,omitempty"`
+		CreationAuthorId        *int64                                         `json:"creationAuthorId,omitempty"`
+		DeprecationDate         *int64                                         `json:"deprecationDate,omitempty"`
+		Filters                 []SecurityMonitoringFilter                     `json:"filters,omitempty"`
+		HasExtendedTitle        *bool                                          `json:"hasExtendedTitle,omitempty"`
+		Id                      *string                                        `json:"id,omitempty"`
+		IsDefault               *bool                                          `json:"isDefault,omitempty"`
+		IsDeleted               *bool                                          `json:"isDeleted,omitempty"`
+		IsEnabled               *bool                                          `json:"isEnabled,omitempty"`
+		Message                 *string                                        `json:"message,omitempty"`
+		Name                    *string                                        `json:"name,omitempty"`
+		Options                 *SecurityMonitoringRuleOptions                 `json:"options,omitempty"`
+		Queries                 []SecurityMonitoringStandardRuleQuery          `json:"queries,omitempty"`
+		Tags                    []string                                       `json:"tags,omitempty"`
+		Type                    *SecurityMonitoringRuleTypeRead                `json:"type,omitempty"`
+		UpdateAuthorId          *int64                                         `json:"updateAuthorId,omitempty"`
+		Version                 *int64                                         `json:"version,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {
@@ -637,6 +707,12 @@ func (o *SecurityMonitoringStandardRuleResponse) UnmarshalJSON(bytes []byte) (er
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"cases", "complianceSignalOptions", "createdAt", "creationAuthorId", "deprecationDate", "filters", "hasExtendedTitle", "id", "isDefault", "isDeleted", "isEnabled", "message", "name", "options", "queries", "tags", "type", "updateAuthorId", "version"})
+	} else {
+		return err
+	}
 	if v := all.Type; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -646,8 +722,17 @@ func (o *SecurityMonitoringStandardRuleResponse) UnmarshalJSON(bytes []byte) (er
 		return nil
 	}
 	o.Cases = all.Cases
+	if all.ComplianceSignalOptions != nil && all.ComplianceSignalOptions.UnparsedObject != nil && o.UnparsedObject == nil {
+		err = json.Unmarshal(bytes, &raw)
+		if err != nil {
+			return err
+		}
+		o.UnparsedObject = raw
+	}
+	o.ComplianceSignalOptions = all.ComplianceSignalOptions
 	o.CreatedAt = all.CreatedAt
 	o.CreationAuthorId = all.CreationAuthorId
+	o.DeprecationDate = all.DeprecationDate
 	o.Filters = all.Filters
 	o.HasExtendedTitle = all.HasExtendedTitle
 	o.Id = all.Id
@@ -669,5 +754,9 @@ func (o *SecurityMonitoringStandardRuleResponse) UnmarshalJSON(bytes []byte) (er
 	o.Type = all.Type
 	o.UpdateAuthorId = all.UpdateAuthorId
 	o.Version = all.Version
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

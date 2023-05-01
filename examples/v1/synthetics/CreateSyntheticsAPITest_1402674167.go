@@ -22,12 +22,25 @@ func main() {
 						Target:   1,
 						Type:     datadogV1.SYNTHETICSASSERTIONTYPE_GRPC_HEALTHCHECK_STATUS,
 					}},
+				datadogV1.SyntheticsAssertion{
+					SyntheticsAssertionTarget: &datadogV1.SyntheticsAssertionTarget{
+						Operator: datadogV1.SYNTHETICSASSERTIONOPERATOR_IS,
+						Target:   "proto target",
+						Type:     datadogV1.SYNTHETICSASSERTIONTYPE_GRPC_PROTO,
+					}},
+				datadogV1.SyntheticsAssertion{
+					SyntheticsAssertionTarget: &datadogV1.SyntheticsAssertionTarget{
+						Operator: datadogV1.SYNTHETICSASSERTIONOPERATOR_IS,
+						Target:   "123",
+						Property: datadog.PtrString("property"),
+						Type:     datadogV1.SYNTHETICSASSERTIONTYPE_GRPC_METADATA,
+					}},
 			},
 			Request: &datadogV1.SyntheticsTestRequest{
 				Host:     datadog.PtrString("localhost"),
 				Port:     datadog.PtrInt64(50051),
 				Service:  datadog.PtrString("Hello"),
-				Method:   datadogV1.HTTPMETHOD_GET.Ptr(),
+				Method:   datadog.PtrString("GET"),
 				Message:  datadog.PtrString(""),
 				Metadata: map[string]string{},
 			},
@@ -36,14 +49,14 @@ func main() {
 			"aws:us-east-2",
 		},
 		Message: "BDD test payload: synthetics_api_grpc_test_payload.json",
-		Name:    "Example-Create_an_API_GRPC_test_returns_OK_Returns_the_created_test_details_response",
+		Name:    "Example-Synthetic",
 		Options: datadogV1.SyntheticsTestOptions{
 			MinFailureDuration: datadog.PtrInt64(0),
 			MinLocationFailed:  datadog.PtrInt64(1),
 			MonitorOptions: &datadogV1.SyntheticsTestOptionsMonitorOptions{
 				RenotifyInterval: datadog.PtrInt64(0),
 			},
-			MonitorName: datadog.PtrString("Example-Create_an_API_GRPC_test_returns_OK_Returns_the_created_test_details_response"),
+			MonitorName: datadog.PtrString("Example-Synthetic"),
 			TickEvery:   datadog.PtrInt64(60),
 		},
 		Subtype: datadogV1.SYNTHETICSTESTDETAILSSUBTYPE_GRPC.Ptr(),

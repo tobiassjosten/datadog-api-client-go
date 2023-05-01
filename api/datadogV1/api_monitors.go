@@ -5,9 +5,7 @@
 package datadogV1
 
 import (
-	"bytes"
 	_context "context"
-	_io "io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -18,40 +16,16 @@ import (
 // MonitorsApi service type
 type MonitorsApi datadog.Service
 
-type apiCheckCanDeleteMonitorRequest struct {
-	ctx        _context.Context
-	monitorIds *[]int64
-}
-
-func (a *MonitorsApi) buildCheckCanDeleteMonitorRequest(ctx _context.Context, monitorIds []int64) (apiCheckCanDeleteMonitorRequest, error) {
-	req := apiCheckCanDeleteMonitorRequest{
-		ctx:        ctx,
-		monitorIds: &monitorIds,
-	}
-	return req, nil
-}
-
 // CheckCanDeleteMonitor Check if a monitor can be deleted.
 // Check if the given monitors can be deleted.
 func (a *MonitorsApi) CheckCanDeleteMonitor(ctx _context.Context, monitorIds []int64) (CheckCanDeleteMonitorResponse, *_nethttp.Response, error) {
-	req, err := a.buildCheckCanDeleteMonitorRequest(ctx, monitorIds)
-	if err != nil {
-		var localVarReturnValue CheckCanDeleteMonitorResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.checkCanDeleteMonitorExecute(req)
-}
-
-// checkCanDeleteMonitorExecute executes the request.
-func (a *MonitorsApi) checkCanDeleteMonitorExecute(r apiCheckCanDeleteMonitorRequest) (CheckCanDeleteMonitorResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue CheckCanDeleteMonitorResponse
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.CheckCanDeleteMonitor")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.CheckCanDeleteMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -61,41 +35,16 @@ func (a *MonitorsApi) checkCanDeleteMonitorExecute(r apiCheckCanDeleteMonitorReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.monitorIds == nil {
-		return localVarReturnValue, nil, datadog.ReportError("monitorIds is required and must be specified")
-	}
-	localVarQueryParams.Add("monitor_ids", datadog.ParameterToString(*r.monitorIds, "csv"))
+	localVarQueryParams.Add("monitor_ids", datadog.ParameterToString(monitorIds, "csv"))
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -105,9 +54,7 @@ func (a *MonitorsApi) checkCanDeleteMonitorExecute(r apiCheckCanDeleteMonitorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -149,19 +96,6 @@ func (a *MonitorsApi) checkCanDeleteMonitorExecute(r apiCheckCanDeleteMonitorReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiCreateMonitorRequest struct {
-	ctx  _context.Context
-	body *Monitor
-}
-
-func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monitor) (apiCreateMonitorRequest, error) {
-	req := apiCreateMonitorRequest{
-		ctx:  ctx,
-		body: &body,
-	}
-	return req, nil
-}
-
 // CreateMonitor Create a monitor.
 // Create a monitor using the specified options.
 //
@@ -190,9 +124,11 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - audit: `audit alert`
 // - error-tracking: `error-tracking alert`
 //
+// **Note**: Synthetic monitors are created through the Synthetics API. See the [Synthetics API] (https://docs.datadoghq.com/api/latest/synthetics/) documentation for more information.
+//
 // #### Query Types
 //
-// **Metric Alert Query**
+// ##### Metric Alert Query
 //
 // Example: `time_aggr(time_window):space_aggr:metric{tags} [by {key}] operator #`
 //
@@ -215,7 +151,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // Use this to create an outlier monitor using the following query:
 // `avg(last_30m):outliers(avg:system.cpu.user{role:es-events-data} by {host}, 'dbscan', 7) > 0`
 //
-// **Service Check Query**
+// ##### Service Check Query
 //
 // Example: `"check".over(tags).last(count).by(group).count_by_status()`
 //
@@ -226,7 +162,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `group` must be specified for check monitors. Per-check grouping is already explicitly known for some service checks.
 // For example, Postgres integration monitors are tagged by `db`, `host`, and `port`, and Network monitors by `host`, `instance`, and `url`. See [Service Checks](https://docs.datadoghq.com/api/latest/service-checks/) documentation for more information.
 //
-// **Event Alert Query**
+// ##### Event Alert Query
 //
 // Example: `events('sources:nagios status:error,warning priority:normal tags: "string query"').rollup("count").last("1h")"`
 //
@@ -243,7 +179,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 //
 // **NOTE** The Event Alert Query is being deprecated and replaced by the Event V2 Alert Query. For more information, see the [Event Migration guide](https://docs.datadoghq.com/events/guides/migrating_to_new_events_features/).
 //
-// **Event V2 Alert Query**
+// ##### Event V2 Alert Query
 //
 // Example: `events(query).rollup(rollup_method[, measure]).last(time_window) operator #`
 //
@@ -254,7 +190,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `operator` `<`, `<=`, `>`, `>=`, `==`, or `!=`.
 // - `#` an integer or decimal number used to set the threshold.
 //
-// **Process Alert Query**
+// ##### Process Alert Query
 //
 // Example: `processes(search).over(tags).rollup('count').last(timeframe) operator #`
 //
@@ -277,7 +213,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `operator` `<`, `<=`, `>`, `>=`, `==`, or `!=`.
 // - `#` an integer or decimal number used to set the threshold.
 //
-// **Composite Query**
+// ##### Composite Query
 //
 // Example: `12345 && 67890`, where `12345` and `67890` are the IDs of non-composite monitors
 //
@@ -288,7 +224,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // When getting all monitor details via the API, use the `monitor_tags` argument to filter results by these tags.
 // It is only available via the API and isn't visible or editable in the Datadog UI.
 //
-// **SLO Alert Query**
+// ##### SLO Alert Query
 //
 // Example: `error_budget("slo_id").over("time_window") operator #`
 //
@@ -296,7 +232,7 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `time_window`: The time window of the SLO target you wish to alert on. Valid options: `7d`, `30d`, `90d`.
 // - `operator`: `>=` or `>`
 //
-// **Audit Alert Query**
+// ##### Audit Alert Query
 //
 // Example: `audits(query).rollup(rollup_method[, measure]).last(time_window) operator #`
 //
@@ -307,9 +243,9 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `operator` `<`, `<=`, `>`, `>=`, `==`, or `!=`.
 // - `#` an integer or decimal number used to set the threshold.
 //
-// **NOTE** Only available on US1-FED and in closed beta on US1, EU, US3, and US5.
+// **NOTE** Only available on US1-FED and in closed beta on US1, EU, AP1, US3, and US5.
 //
-// **CI Pipelines Alert Query**
+// ##### CI Pipelines Alert Query
 //
 // Example: `ci-pipelines(query).rollup(rollup_method[, measure]).last(time_window) operator #`
 //
@@ -320,9 +256,9 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `operator` `<`, `<=`, `>`, `>=`, `==`, or `!=`.
 // - `#` an integer or decimal number used to set the threshold.
 //
-// **NOTE** CI Pipeline monitors are in alpha on US1, EU, US3 and US5.
+// **NOTE** CI Pipeline monitors are in alpha on US1, EU, AP1, US3, and US5.
 //
-// **CI Tests Alert Query**
+// ##### CI Tests Alert Query
 //
 // Example: `ci-tests(query).rollup(rollup_method[, measure]).last(time_window) operator #`
 //
@@ -333,9 +269,9 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `operator` `<`, `<=`, `>`, `>=`, `==`, or `!=`.
 // - `#` an integer or decimal number used to set the threshold.
 //
-// **NOTE** CI Test monitors are available only in closed beta on US1, EU, US3 and US5.
+// **NOTE** CI Test monitors are available only in closed beta on US1, EU, AP1, US3, and US5.
 //
-// **Error Tracking Alert Query**
+// ##### Error Tracking Alert Query
 //
 // Example(RUM): `error-tracking-rum(query).rollup(rollup_method[, measure]).last(time_window) operator #`
 // Example(APM Traces): `error-tracking-traces(query).rollup(rollup_method[, measure]).last(time_window) operator #`
@@ -347,24 +283,13 @@ func (a *MonitorsApi) buildCreateMonitorRequest(ctx _context.Context, body Monit
 // - `operator` `<`, `<=`, `>`, `>=`, `==`, or `!=`.
 // - `#` an integer or decimal number used to set the threshold.
 func (a *MonitorsApi) CreateMonitor(ctx _context.Context, body Monitor) (Monitor, *_nethttp.Response, error) {
-	req, err := a.buildCreateMonitorRequest(ctx, body)
-	if err != nil {
-		var localVarReturnValue Monitor
-		return localVarReturnValue, nil, err
-	}
-
-	return a.createMonitorExecute(req)
-}
-
-// createMonitorExecute executes the request.
-func (a *MonitorsApi) createMonitorExecute(r apiCreateMonitorRequest) (Monitor, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPost
 		localVarPostBody    interface{}
 		localVarReturnValue Monitor
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.CreateMonitor")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.CreateMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -374,43 +299,18 @@ func (a *MonitorsApi) createMonitorExecute(r apiCreateMonitorRequest) (Monitor, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -420,9 +320,7 @@ func (a *MonitorsApi) createMonitorExecute(r apiCreateMonitorRequest) (Monitor, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -455,12 +353,6 @@ func (a *MonitorsApi) createMonitorExecute(r apiCreateMonitorRequest) (Monitor, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiDeleteMonitorRequest struct {
-	ctx       _context.Context
-	monitorId int64
-	force     *string
-}
-
 // DeleteMonitorOptionalParameters holds optional parameters for DeleteMonitor.
 type DeleteMonitorOptionalParameters struct {
 	Force *string
@@ -478,87 +370,46 @@ func (r *DeleteMonitorOptionalParameters) WithForce(force string) *DeleteMonitor
 	return r
 }
 
-func (a *MonitorsApi) buildDeleteMonitorRequest(ctx _context.Context, monitorId int64, o ...DeleteMonitorOptionalParameters) (apiDeleteMonitorRequest, error) {
-	req := apiDeleteMonitorRequest{
-		ctx:       ctx,
-		monitorId: monitorId,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type DeleteMonitorOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.force = o[0].Force
-	}
-	return req, nil
-}
-
 // DeleteMonitor Delete a monitor.
 // Delete the specified monitor
 func (a *MonitorsApi) DeleteMonitor(ctx _context.Context, monitorId int64, o ...DeleteMonitorOptionalParameters) (DeletedMonitor, *_nethttp.Response, error) {
-	req, err := a.buildDeleteMonitorRequest(ctx, monitorId, o...)
-	if err != nil {
-		var localVarReturnValue DeletedMonitor
-		return localVarReturnValue, nil, err
-	}
-
-	return a.deleteMonitorExecute(req)
-}
-
-// deleteMonitorExecute executes the request.
-func (a *MonitorsApi) deleteMonitorExecute(r apiDeleteMonitorRequest) (DeletedMonitor, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodDelete
 		localVarPostBody    interface{}
 		localVarReturnValue DeletedMonitor
+		optionalParams      DeleteMonitorOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.DeleteMonitor")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type DeleteMonitorOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.DeleteMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/monitor/{monitor_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.monitorId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(monitorId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.force != nil {
-		localVarQueryParams.Add("force", datadog.ParameterToString(*r.force, ""))
+	if optionalParams.Force != nil {
+		localVarQueryParams.Add("force", datadog.ParameterToString(*optionalParams.Force, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -568,9 +419,7 @@ func (a *MonitorsApi) deleteMonitorExecute(r apiDeleteMonitorRequest) (DeletedMo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -603,12 +452,6 @@ func (a *MonitorsApi) deleteMonitorExecute(r apiDeleteMonitorRequest) (DeletedMo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiGetMonitorRequest struct {
-	ctx         _context.Context
-	monitorId   int64
-	groupStates *string
-}
-
 // GetMonitorOptionalParameters holds optional parameters for GetMonitor.
 type GetMonitorOptionalParameters struct {
 	GroupStates *string
@@ -626,87 +469,46 @@ func (r *GetMonitorOptionalParameters) WithGroupStates(groupStates string) *GetM
 	return r
 }
 
-func (a *MonitorsApi) buildGetMonitorRequest(ctx _context.Context, monitorId int64, o ...GetMonitorOptionalParameters) (apiGetMonitorRequest, error) {
-	req := apiGetMonitorRequest{
-		ctx:       ctx,
-		monitorId: monitorId,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type GetMonitorOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.groupStates = o[0].GroupStates
-	}
-	return req, nil
-}
-
 // GetMonitor Get a monitor's details.
 // Get details about the specified monitor from your organization.
 func (a *MonitorsApi) GetMonitor(ctx _context.Context, monitorId int64, o ...GetMonitorOptionalParameters) (Monitor, *_nethttp.Response, error) {
-	req, err := a.buildGetMonitorRequest(ctx, monitorId, o...)
-	if err != nil {
-		var localVarReturnValue Monitor
-		return localVarReturnValue, nil, err
-	}
-
-	return a.getMonitorExecute(req)
-}
-
-// getMonitorExecute executes the request.
-func (a *MonitorsApi) getMonitorExecute(r apiGetMonitorRequest) (Monitor, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue Monitor
+		optionalParams      GetMonitorOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.GetMonitor")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type GetMonitorOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.GetMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/monitor/{monitor_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.monitorId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(monitorId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.groupStates != nil {
-		localVarQueryParams.Add("group_states", datadog.ParameterToString(*r.groupStates, ""))
+	if optionalParams.GroupStates != nil {
+		localVarQueryParams.Add("group_states", datadog.ParameterToString(*optionalParams.GroupStates, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -716,9 +518,7 @@ func (a *MonitorsApi) getMonitorExecute(r apiGetMonitorRequest) (Monitor, *_neth
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -749,18 +549,6 @@ func (a *MonitorsApi) getMonitorExecute(r apiGetMonitorRequest) (Monitor, *_neth
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type apiListMonitorsRequest struct {
-	ctx           _context.Context
-	groupStates   *string
-	name          *string
-	tags          *string
-	monitorTags   *string
-	withDowntimes *bool
-	idOffset      *int64
-	page          *int64
-	pageSize      *int32
 }
 
 // ListMonitorsOptionalParameters holds optional parameters for ListMonitors.
@@ -829,49 +617,24 @@ func (r *ListMonitorsOptionalParameters) WithPageSize(pageSize int32) *ListMonit
 	return r
 }
 
-func (a *MonitorsApi) buildListMonitorsRequest(ctx _context.Context, o ...ListMonitorsOptionalParameters) (apiListMonitorsRequest, error) {
-	req := apiListMonitorsRequest{
-		ctx: ctx,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type ListMonitorsOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.groupStates = o[0].GroupStates
-		req.name = o[0].Name
-		req.tags = o[0].Tags
-		req.monitorTags = o[0].MonitorTags
-		req.withDowntimes = o[0].WithDowntimes
-		req.idOffset = o[0].IdOffset
-		req.page = o[0].Page
-		req.pageSize = o[0].PageSize
-	}
-	return req, nil
-}
-
 // ListMonitors Get all monitor details.
 // Get details about the specified monitor from your organization.
 func (a *MonitorsApi) ListMonitors(ctx _context.Context, o ...ListMonitorsOptionalParameters) ([]Monitor, *_nethttp.Response, error) {
-	req, err := a.buildListMonitorsRequest(ctx, o...)
-	if err != nil {
-		var localVarReturnValue []Monitor
-		return localVarReturnValue, nil, err
-	}
-
-	return a.listMonitorsExecute(req)
-}
-
-// listMonitorsExecute executes the request.
-func (a *MonitorsApi) listMonitorsExecute(r apiListMonitorsRequest) ([]Monitor, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue []Monitor
+		optionalParams      ListMonitorsOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.ListMonitors")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type ListMonitorsOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.ListMonitors")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -881,61 +644,39 @@ func (a *MonitorsApi) listMonitorsExecute(r apiListMonitorsRequest) ([]Monitor, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.groupStates != nil {
-		localVarQueryParams.Add("group_states", datadog.ParameterToString(*r.groupStates, ""))
+	if optionalParams.GroupStates != nil {
+		localVarQueryParams.Add("group_states", datadog.ParameterToString(*optionalParams.GroupStates, ""))
 	}
-	if r.name != nil {
-		localVarQueryParams.Add("name", datadog.ParameterToString(*r.name, ""))
+	if optionalParams.Name != nil {
+		localVarQueryParams.Add("name", datadog.ParameterToString(*optionalParams.Name, ""))
 	}
-	if r.tags != nil {
-		localVarQueryParams.Add("tags", datadog.ParameterToString(*r.tags, ""))
+	if optionalParams.Tags != nil {
+		localVarQueryParams.Add("tags", datadog.ParameterToString(*optionalParams.Tags, ""))
 	}
-	if r.monitorTags != nil {
-		localVarQueryParams.Add("monitor_tags", datadog.ParameterToString(*r.monitorTags, ""))
+	if optionalParams.MonitorTags != nil {
+		localVarQueryParams.Add("monitor_tags", datadog.ParameterToString(*optionalParams.MonitorTags, ""))
 	}
-	if r.withDowntimes != nil {
-		localVarQueryParams.Add("with_downtimes", datadog.ParameterToString(*r.withDowntimes, ""))
+	if optionalParams.WithDowntimes != nil {
+		localVarQueryParams.Add("with_downtimes", datadog.ParameterToString(*optionalParams.WithDowntimes, ""))
 	}
-	if r.idOffset != nil {
-		localVarQueryParams.Add("id_offset", datadog.ParameterToString(*r.idOffset, ""))
+	if optionalParams.IdOffset != nil {
+		localVarQueryParams.Add("id_offset", datadog.ParameterToString(*optionalParams.IdOffset, ""))
 	}
-	if r.page != nil {
-		localVarQueryParams.Add("page", datadog.ParameterToString(*r.page, ""))
+	if optionalParams.Page != nil {
+		localVarQueryParams.Add("page", datadog.ParameterToString(*optionalParams.Page, ""))
 	}
-	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", datadog.ParameterToString(*r.pageSize, ""))
+	if optionalParams.PageSize != nil {
+		localVarQueryParams.Add("page_size", datadog.ParameterToString(*optionalParams.PageSize, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -945,9 +686,7 @@ func (a *MonitorsApi) listMonitorsExecute(r apiListMonitorsRequest) ([]Monitor, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -978,14 +717,6 @@ func (a *MonitorsApi) listMonitorsExecute(r apiListMonitorsRequest) ([]Monitor, 
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type apiSearchMonitorGroupsRequest struct {
-	ctx     _context.Context
-	query   *string
-	page    *int64
-	perPage *int64
-	sort    *string
 }
 
 // SearchMonitorGroupsOptionalParameters holds optional parameters for SearchMonitorGroups.
@@ -1026,45 +757,24 @@ func (r *SearchMonitorGroupsOptionalParameters) WithSort(sort string) *SearchMon
 	return r
 }
 
-func (a *MonitorsApi) buildSearchMonitorGroupsRequest(ctx _context.Context, o ...SearchMonitorGroupsOptionalParameters) (apiSearchMonitorGroupsRequest, error) {
-	req := apiSearchMonitorGroupsRequest{
-		ctx: ctx,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type SearchMonitorGroupsOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.query = o[0].Query
-		req.page = o[0].Page
-		req.perPage = o[0].PerPage
-		req.sort = o[0].Sort
-	}
-	return req, nil
-}
-
 // SearchMonitorGroups Monitors group search.
 // Search and filter your monitor groups details.
 func (a *MonitorsApi) SearchMonitorGroups(ctx _context.Context, o ...SearchMonitorGroupsOptionalParameters) (MonitorGroupSearchResponse, *_nethttp.Response, error) {
-	req, err := a.buildSearchMonitorGroupsRequest(ctx, o...)
-	if err != nil {
-		var localVarReturnValue MonitorGroupSearchResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.searchMonitorGroupsExecute(req)
-}
-
-// searchMonitorGroupsExecute executes the request.
-func (a *MonitorsApi) searchMonitorGroupsExecute(r apiSearchMonitorGroupsRequest) (MonitorGroupSearchResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue MonitorGroupSearchResponse
+		optionalParams      SearchMonitorGroupsOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.SearchMonitorGroups")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type SearchMonitorGroupsOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.SearchMonitorGroups")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -1074,49 +784,27 @@ func (a *MonitorsApi) searchMonitorGroupsExecute(r apiSearchMonitorGroupsRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.query != nil {
-		localVarQueryParams.Add("query", datadog.ParameterToString(*r.query, ""))
+	if optionalParams.Query != nil {
+		localVarQueryParams.Add("query", datadog.ParameterToString(*optionalParams.Query, ""))
 	}
-	if r.page != nil {
-		localVarQueryParams.Add("page", datadog.ParameterToString(*r.page, ""))
+	if optionalParams.Page != nil {
+		localVarQueryParams.Add("page", datadog.ParameterToString(*optionalParams.Page, ""))
 	}
-	if r.perPage != nil {
-		localVarQueryParams.Add("per_page", datadog.ParameterToString(*r.perPage, ""))
+	if optionalParams.PerPage != nil {
+		localVarQueryParams.Add("per_page", datadog.ParameterToString(*optionalParams.PerPage, ""))
 	}
-	if r.sort != nil {
-		localVarQueryParams.Add("sort", datadog.ParameterToString(*r.sort, ""))
+	if optionalParams.Sort != nil {
+		localVarQueryParams.Add("sort", datadog.ParameterToString(*optionalParams.Sort, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1126,9 +814,7 @@ func (a *MonitorsApi) searchMonitorGroupsExecute(r apiSearchMonitorGroupsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1159,14 +845,6 @@ func (a *MonitorsApi) searchMonitorGroupsExecute(r apiSearchMonitorGroupsRequest
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type apiSearchMonitorsRequest struct {
-	ctx     _context.Context
-	query   *string
-	page    *int64
-	perPage *int64
-	sort    *string
 }
 
 // SearchMonitorsOptionalParameters holds optional parameters for SearchMonitors.
@@ -1207,45 +885,24 @@ func (r *SearchMonitorsOptionalParameters) WithSort(sort string) *SearchMonitors
 	return r
 }
 
-func (a *MonitorsApi) buildSearchMonitorsRequest(ctx _context.Context, o ...SearchMonitorsOptionalParameters) (apiSearchMonitorsRequest, error) {
-	req := apiSearchMonitorsRequest{
-		ctx: ctx,
-	}
-
-	if len(o) > 1 {
-		return req, datadog.ReportError("only one argument of type SearchMonitorsOptionalParameters is allowed")
-	}
-
-	if o != nil {
-		req.query = o[0].Query
-		req.page = o[0].Page
-		req.perPage = o[0].PerPage
-		req.sort = o[0].Sort
-	}
-	return req, nil
-}
-
 // SearchMonitors Monitors search.
 // Search and filter your monitors details.
 func (a *MonitorsApi) SearchMonitors(ctx _context.Context, o ...SearchMonitorsOptionalParameters) (MonitorSearchResponse, *_nethttp.Response, error) {
-	req, err := a.buildSearchMonitorsRequest(ctx, o...)
-	if err != nil {
-		var localVarReturnValue MonitorSearchResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.searchMonitorsExecute(req)
-}
-
-// searchMonitorsExecute executes the request.
-func (a *MonitorsApi) searchMonitorsExecute(r apiSearchMonitorsRequest) (MonitorSearchResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue MonitorSearchResponse
+		optionalParams      SearchMonitorsOptionalParameters
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.SearchMonitors")
+	if len(o) > 1 {
+		return localVarReturnValue, nil, datadog.ReportError("only one argument of type SearchMonitorsOptionalParameters is allowed")
+	}
+	if len(o) == 1 {
+		optionalParams = o[0]
+	}
+
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.SearchMonitors")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -1255,49 +912,27 @@ func (a *MonitorsApi) searchMonitorsExecute(r apiSearchMonitorsRequest) (Monitor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.query != nil {
-		localVarQueryParams.Add("query", datadog.ParameterToString(*r.query, ""))
+	if optionalParams.Query != nil {
+		localVarQueryParams.Add("query", datadog.ParameterToString(*optionalParams.Query, ""))
 	}
-	if r.page != nil {
-		localVarQueryParams.Add("page", datadog.ParameterToString(*r.page, ""))
+	if optionalParams.Page != nil {
+		localVarQueryParams.Add("page", datadog.ParameterToString(*optionalParams.Page, ""))
 	}
-	if r.perPage != nil {
-		localVarQueryParams.Add("per_page", datadog.ParameterToString(*r.perPage, ""))
+	if optionalParams.PerPage != nil {
+		localVarQueryParams.Add("per_page", datadog.ParameterToString(*optionalParams.PerPage, ""))
 	}
-	if r.sort != nil {
-		localVarQueryParams.Add("sort", datadog.ParameterToString(*r.sort, ""))
+	if optionalParams.Sort != nil {
+		localVarQueryParams.Add("sort", datadog.ParameterToString(*optionalParams.Sort, ""))
 	}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1307,9 +942,7 @@ func (a *MonitorsApi) searchMonitorsExecute(r apiSearchMonitorsRequest) (Monitor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1342,89 +975,38 @@ func (a *MonitorsApi) searchMonitorsExecute(r apiSearchMonitorsRequest) (Monitor
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiUpdateMonitorRequest struct {
-	ctx       _context.Context
-	monitorId int64
-	body      *MonitorUpdateRequest
-}
-
-func (a *MonitorsApi) buildUpdateMonitorRequest(ctx _context.Context, monitorId int64, body MonitorUpdateRequest) (apiUpdateMonitorRequest, error) {
-	req := apiUpdateMonitorRequest{
-		ctx:       ctx,
-		monitorId: monitorId,
-		body:      &body,
-	}
-	return req, nil
-}
-
 // UpdateMonitor Edit a monitor.
 // Edit the specified monitor.
 func (a *MonitorsApi) UpdateMonitor(ctx _context.Context, monitorId int64, body MonitorUpdateRequest) (Monitor, *_nethttp.Response, error) {
-	req, err := a.buildUpdateMonitorRequest(ctx, monitorId, body)
-	if err != nil {
-		var localVarReturnValue Monitor
-		return localVarReturnValue, nil, err
-	}
-
-	return a.updateMonitorExecute(req)
-}
-
-// updateMonitorExecute executes the request.
-func (a *MonitorsApi) updateMonitorExecute(r apiUpdateMonitorRequest) (Monitor, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPut
 		localVarPostBody    interface{}
 		localVarReturnValue Monitor
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.UpdateMonitor")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.UpdateMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/monitor/{monitor_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.monitorId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(monitorId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1434,9 +1016,7 @@ func (a *MonitorsApi) updateMonitorExecute(r apiUpdateMonitorRequest) (Monitor, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1469,89 +1049,38 @@ func (a *MonitorsApi) updateMonitorExecute(r apiUpdateMonitorRequest) (Monitor, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiValidateExistingMonitorRequest struct {
-	ctx       _context.Context
-	monitorId int64
-	body      *Monitor
-}
-
-func (a *MonitorsApi) buildValidateExistingMonitorRequest(ctx _context.Context, monitorId int64, body Monitor) (apiValidateExistingMonitorRequest, error) {
-	req := apiValidateExistingMonitorRequest{
-		ctx:       ctx,
-		monitorId: monitorId,
-		body:      &body,
-	}
-	return req, nil
-}
-
 // ValidateExistingMonitor Validate an existing monitor.
 // Validate the monitor provided in the request.
 func (a *MonitorsApi) ValidateExistingMonitor(ctx _context.Context, monitorId int64, body Monitor) (interface{}, *_nethttp.Response, error) {
-	req, err := a.buildValidateExistingMonitorRequest(ctx, monitorId, body)
-	if err != nil {
-		var localVarReturnValue interface{}
-		return localVarReturnValue, nil, err
-	}
-
-	return a.validateExistingMonitorExecute(req)
-}
-
-// validateExistingMonitorExecute executes the request.
-func (a *MonitorsApi) validateExistingMonitorExecute(r apiValidateExistingMonitorRequest) (interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPost
 		localVarPostBody    interface{}
 		localVarReturnValue interface{}
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.ValidateExistingMonitor")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.ValidateExistingMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/monitor/{monitor_id}/validate"
-	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(r.monitorId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(datadog.ParameterToString(monitorId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1561,9 +1090,7 @@ func (a *MonitorsApi) validateExistingMonitorExecute(r apiValidateExistingMonito
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1596,40 +1123,16 @@ func (a *MonitorsApi) validateExistingMonitorExecute(r apiValidateExistingMonito
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type apiValidateMonitorRequest struct {
-	ctx  _context.Context
-	body *Monitor
-}
-
-func (a *MonitorsApi) buildValidateMonitorRequest(ctx _context.Context, body Monitor) (apiValidateMonitorRequest, error) {
-	req := apiValidateMonitorRequest{
-		ctx:  ctx,
-		body: &body,
-	}
-	return req, nil
-}
-
 // ValidateMonitor Validate a monitor.
 // Validate the monitor provided in the request.
 func (a *MonitorsApi) ValidateMonitor(ctx _context.Context, body Monitor) (interface{}, *_nethttp.Response, error) {
-	req, err := a.buildValidateMonitorRequest(ctx, body)
-	if err != nil {
-		var localVarReturnValue interface{}
-		return localVarReturnValue, nil, err
-	}
-
-	return a.validateMonitorExecute(req)
-}
-
-// validateMonitorExecute executes the request.
-func (a *MonitorsApi) validateMonitorExecute(r apiValidateMonitorRequest) (interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodPost
 		localVarPostBody    interface{}
 		localVarReturnValue interface{}
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.MonitorsApi.ValidateMonitor")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.MonitorsApi.ValidateMonitor")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -1639,43 +1142,18 @@ func (a *MonitorsApi) validateMonitorExecute(r apiValidateMonitorRequest) (inter
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, datadog.ReportError("body is required and must be specified")
-	}
 	localVarHeaderParams["Content-Type"] = "application/json"
 	localVarHeaderParams["Accept"] = "application/json"
 
 	// body params
-	localVarPostBody = r.body
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["appKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-APPLICATION-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	localVarPostBody = &body
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+		[2]string{"appKeyAuth", "DD-APPLICATION-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1685,9 +1163,7 @@ func (a *MonitorsApi) validateMonitorExecute(r apiValidateMonitorRequest) (inter
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -130,21 +130,32 @@ func TestLogsList(t *testing.T) {
 	assert.NotEqual(firstID, secondID)
 }
 
-func TestGetLogsNilBody(t *testing.T) {
+func TestLogsListWithRetry(t *testing.T) {
+
+	if tests.GetRecording() != tests.ModeReplaying {
+		t.Skip("This test case must run from a recording")
+	}
+
 	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
 	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
-	assert := tests.Assert(ctx, t)
 	client := Client(ctx)
 	api := datadogV2.NewLogsApi(client)
+	suffix := tests.UniqueEntityName(ctx, t)
+	filter := datadogV2.NewLogsQueryFilter()
+	filter.SetQuery(*suffix)
+	filter.SetFrom("now-2h")
+	filter.SetTo("now+2h")
 
-	_, httpResp, err := api.ListLogs(ctx, *datadogV2.NewListLogsOptionalParameters())
+	request := datadogV2.NewLogsListRequestWithDefaults()
+	request.SetFilter(*filter)
+	request.SetSort(datadogV2.LOGSSORT_TIMESTAMP_ASCENDING)
+	_, _, err := api.ListLogs(ctx, *datadogV2.NewListLogsOptionalParameters().WithBody(*request))
 	if err != nil {
 		t.Fatalf("Could not list logs: %v", err)
 	}
 
-	assert.Equal(200, httpResp.StatusCode)
 }
 
 func TestLogsListGet(t *testing.T) {

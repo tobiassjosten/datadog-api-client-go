@@ -17,7 +17,7 @@ func main() {
 	SloData0ID := os.Getenv("SLO_DATA_0_ID")
 
 	body := datadogV1.Dashboard{
-		Title:       "Example-Create_a_new_dashboard_with_slo_widget",
+		Title:       "Example-Dashboard",
 		Description: *datadog.NewNullableString(datadog.PtrString("")),
 		Widgets: []datadogV1.Widget{
 			{
@@ -36,10 +36,11 @@ func main() {
 						TimeWindows: []datadogV1.WidgetTimeWindows{
 							datadogV1.WIDGETTIMEWINDOWS_SEVEN_DAYS,
 						},
-						SloId:            datadog.PtrString(SloData0ID),
-						ShowErrorBudget:  datadog.PtrBool(true),
-						ViewMode:         datadogV1.WIDGETVIEWMODE_OVERALL.Ptr(),
-						GlobalTimeTarget: datadog.PtrString("0"),
+						SloId:                  datadog.PtrString(SloData0ID),
+						ShowErrorBudget:        datadog.PtrBool(true),
+						ViewMode:               datadogV1.WIDGETVIEWMODE_OVERALL.Ptr(),
+						GlobalTimeTarget:       datadog.PtrString("0"),
+						AdditionalQueryFilters: datadog.PtrString("!host:excluded_host"),
 					}},
 			},
 		},

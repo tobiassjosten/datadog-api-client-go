@@ -5,9 +5,7 @@
 package datadogV1
 
 import (
-	"bytes"
 	_context "context"
-	_io "io"
 	_nethttp "net/http"
 	_neturl "net/url"
 
@@ -17,38 +15,16 @@ import (
 // AuthenticationApi service type
 type AuthenticationApi datadog.Service
 
-type apiValidateRequest struct {
-	ctx _context.Context
-}
-
-func (a *AuthenticationApi) buildValidateRequest(ctx _context.Context) (apiValidateRequest, error) {
-	req := apiValidateRequest{
-		ctx: ctx,
-	}
-	return req, nil
-}
-
 // Validate Validate API key.
 // Check if the API key (not the APP key) is valid. If invalid, a 403 is returned.
 func (a *AuthenticationApi) Validate(ctx _context.Context) (AuthenticationValidationResponse, *_nethttp.Response, error) {
-	req, err := a.buildValidateRequest(ctx)
-	if err != nil {
-		var localVarReturnValue AuthenticationValidationResponse
-		return localVarReturnValue, nil, err
-	}
-
-	return a.validateExecute(req)
-}
-
-// validateExecute executes the request.
-func (a *AuthenticationApi) validateExecute(r apiValidateRequest) (AuthenticationValidationResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod  = _nethttp.MethodGet
 		localVarPostBody    interface{}
 		localVarReturnValue AuthenticationValidationResponse
 	)
 
-	localBasePath, err := a.Client.Cfg.ServerURLWithContext(r.ctx, "v1.AuthenticationApi.Validate")
+	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, "v1.AuthenticationApi.Validate")
 	if err != nil {
 		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 	}
@@ -60,21 +36,12 @@ func (a *AuthenticationApi) validateExecute(r apiValidateRequest) (Authenticatio
 	localVarFormParams := _neturl.Values{}
 	localVarHeaderParams["Accept"] = "application/json"
 
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(datadog.ContextAPIKeys).(map[string]datadog.APIKey); ok {
-			if apiKey, ok := auth["apiKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["DD-API-KEY"] = key
-			}
-		}
-	}
-	req, err := a.Client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+	datadog.SetAuthKeys(
+		ctx,
+		&localVarHeaderParams,
+		[2]string{"apiKeyAuth", "DD-API-KEY"},
+	)
+	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -84,9 +51,7 @@ func (a *AuthenticationApi) validateExecute(r apiValidateRequest) (Authenticatio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

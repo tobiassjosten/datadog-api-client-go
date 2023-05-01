@@ -6,6 +6,8 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // EventsQueryOptions The global query options that are used. Either provide a timezone or a time offset but not both,
@@ -13,7 +15,7 @@ import (
 type EventsQueryOptions struct {
 	// The time offset to apply to the query in seconds.
 	TimeOffset *int64 `json:"timeOffset,omitempty"`
-	// The timezone can be specified as an offset, for example: `UTC+03:00`.
+	// The timezone can be specified as GMT, UTC, an offset from UTC (like UTC+1), or as a Timezone Database identifier (like America/New_York).
 	Timezone *string `json:"timezone,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject       map[string]interface{} `json:"-"`
@@ -132,7 +134,17 @@ func (o *EventsQueryOptions) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"timeOffset", "timezone"})
+	} else {
+		return err
+	}
 	o.TimeOffset = all.TimeOffset
 	o.Timezone = all.Timezone
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

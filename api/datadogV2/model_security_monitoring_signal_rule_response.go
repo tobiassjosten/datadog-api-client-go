@@ -6,6 +6,8 @@ package datadogV2
 
 import (
 	"encoding/json"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // SecurityMonitoringSignalRuleResponse Rule.
@@ -16,6 +18,8 @@ type SecurityMonitoringSignalRuleResponse struct {
 	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// User ID of the user who created the rule.
 	CreationAuthorId *int64 `json:"creationAuthorId,omitempty"`
+	// When the rule will be deprecated, timestamp in milliseconds.
+	DeprecationDate *int64 `json:"deprecationDate,omitempty"`
 	// Additional queries to filter matched events before they are processed.
 	Filters []SecurityMonitoringFilter `json:"filters,omitempty"`
 	// Whether the notifications include the triggering group-by values in their title.
@@ -148,6 +152,34 @@ func (o *SecurityMonitoringSignalRuleResponse) HasCreationAuthorId() bool {
 // SetCreationAuthorId gets a reference to the given int64 and assigns it to the CreationAuthorId field.
 func (o *SecurityMonitoringSignalRuleResponse) SetCreationAuthorId(v int64) {
 	o.CreationAuthorId = &v
+}
+
+// GetDeprecationDate returns the DeprecationDate field value if set, zero value otherwise.
+func (o *SecurityMonitoringSignalRuleResponse) GetDeprecationDate() int64 {
+	if o == nil || o.DeprecationDate == nil {
+		var ret int64
+		return ret
+	}
+	return *o.DeprecationDate
+}
+
+// GetDeprecationDateOk returns a tuple with the DeprecationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityMonitoringSignalRuleResponse) GetDeprecationDateOk() (*int64, bool) {
+	if o == nil || o.DeprecationDate == nil {
+		return nil, false
+	}
+	return o.DeprecationDate, true
+}
+
+// HasDeprecationDate returns a boolean if a field has been set.
+func (o *SecurityMonitoringSignalRuleResponse) HasDeprecationDate() bool {
+	return o != nil && o.DeprecationDate != nil
+}
+
+// SetDeprecationDate gets a reference to the given int64 and assigns it to the DeprecationDate field.
+func (o *SecurityMonitoringSignalRuleResponse) SetDeprecationDate(v int64) {
+	o.DeprecationDate = &v
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
@@ -557,6 +589,9 @@ func (o SecurityMonitoringSignalRuleResponse) MarshalJSON() ([]byte, error) {
 	if o.CreationAuthorId != nil {
 		toSerialize["creationAuthorId"] = o.CreationAuthorId
 	}
+	if o.DeprecationDate != nil {
+		toSerialize["deprecationDate"] = o.DeprecationDate
+	}
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
@@ -613,6 +648,7 @@ func (o *SecurityMonitoringSignalRuleResponse) UnmarshalJSON(bytes []byte) (err 
 		Cases            []SecurityMonitoringRuleCase                `json:"cases,omitempty"`
 		CreatedAt        *int64                                      `json:"createdAt,omitempty"`
 		CreationAuthorId *int64                                      `json:"creationAuthorId,omitempty"`
+		DeprecationDate  *int64                                      `json:"deprecationDate,omitempty"`
 		Filters          []SecurityMonitoringFilter                  `json:"filters,omitempty"`
 		HasExtendedTitle *bool                                       `json:"hasExtendedTitle,omitempty"`
 		Id               *string                                     `json:"id,omitempty"`
@@ -637,6 +673,12 @@ func (o *SecurityMonitoringSignalRuleResponse) UnmarshalJSON(bytes []byte) (err 
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"cases", "createdAt", "creationAuthorId", "deprecationDate", "filters", "hasExtendedTitle", "id", "isDefault", "isDeleted", "isEnabled", "message", "name", "options", "queries", "tags", "type", "updateAuthorId", "version"})
+	} else {
+		return err
+	}
 	if v := all.Type; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -648,6 +690,7 @@ func (o *SecurityMonitoringSignalRuleResponse) UnmarshalJSON(bytes []byte) (err 
 	o.Cases = all.Cases
 	o.CreatedAt = all.CreatedAt
 	o.CreationAuthorId = all.CreationAuthorId
+	o.DeprecationDate = all.DeprecationDate
 	o.Filters = all.Filters
 	o.HasExtendedTitle = all.HasExtendedTitle
 	o.Id = all.Id
@@ -669,5 +712,9 @@ func (o *SecurityMonitoringSignalRuleResponse) UnmarshalJSON(bytes []byte) (err 
 	o.Type = all.Type
 	o.UpdateAuthorId = all.UpdateAuthorId
 	o.Version = all.Version
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }

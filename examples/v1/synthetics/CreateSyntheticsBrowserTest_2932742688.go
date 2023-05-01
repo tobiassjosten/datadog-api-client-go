@@ -25,7 +25,7 @@ func main() {
 				},
 			},
 			Request: datadogV1.SyntheticsTestRequest{
-				Method: datadogV1.HTTPMETHOD_GET.Ptr(),
+				Method: datadog.PtrString("GET"),
 				Url:    datadog.PtrString("https://datadoghq.com"),
 				CertificateDomains: []string{
 					"https://datadoghq.com",
@@ -37,7 +37,7 @@ func main() {
 			"aws:us-east-2",
 		},
 		Message: "Test message",
-		Name:    "Example-Create_a_browser_test_returns_OK_Returns_saved_rumSettings_response",
+		Name:    "Example-Synthetic",
 		Options: datadogV1.SyntheticsTestOptions{
 			AcceptSelfSigned: datadog.PtrBool(false),
 			AllowInsecure:    datadog.PtrBool(true),

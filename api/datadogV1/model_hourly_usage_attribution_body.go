@@ -7,6 +7,8 @@ package datadogV1
 import (
 	"encoding/json"
 	"time"
+
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 )
 
 // HourlyUsageAttributionBody The usage for one set of tags for one hour.
@@ -17,6 +19,8 @@ type HourlyUsageAttributionBody struct {
 	OrgName *string `json:"org_name,omitempty"`
 	// The organization public ID.
 	PublicId *string `json:"public_id,omitempty"`
+	// The region of the Datadog instance that the organization belongs to.
+	Region *string `json:"region,omitempty"`
 	// The source of the usage attribution tag configuration and the selected tags in the format of `<source_org_name>:::<selected tag 1>///<selected tag 2>///<selected tag 3>`.
 	TagConfigSource *string `json:"tag_config_source,omitempty"`
 	// Tag keys and values.
@@ -137,6 +141,34 @@ func (o *HourlyUsageAttributionBody) SetPublicId(v string) {
 	o.PublicId = &v
 }
 
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *HourlyUsageAttributionBody) GetRegion() string {
+	if o == nil || o.Region == nil {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HourlyUsageAttributionBody) GetRegionOk() (*string, bool) {
+	if o == nil || o.Region == nil {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *HourlyUsageAttributionBody) HasRegion() bool {
+	return o != nil && o.Region != nil
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *HourlyUsageAttributionBody) SetRegion(v string) {
+	o.Region = &v
+}
+
 // GetTagConfigSource returns the TagConfigSource field value if set, zero value otherwise.
 func (o *HourlyUsageAttributionBody) GetTagConfigSource() string {
 	if o == nil || o.TagConfigSource == nil {
@@ -165,9 +197,9 @@ func (o *HourlyUsageAttributionBody) SetTagConfigSource(v string) {
 	o.TagConfigSource = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *HourlyUsageAttributionBody) GetTags() map[string][]string {
-	if o == nil || o.Tags == nil {
+	if o == nil {
 		var ret map[string][]string
 		return ret
 	}
@@ -176,6 +208,7 @@ func (o *HourlyUsageAttributionBody) GetTags() map[string][]string {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *HourlyUsageAttributionBody) GetTagsOk() (*map[string][]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
@@ -296,6 +329,9 @@ func (o HourlyUsageAttributionBody) MarshalJSON() ([]byte, error) {
 	if o.PublicId != nil {
 		toSerialize["public_id"] = o.PublicId
 	}
+	if o.Region != nil {
+		toSerialize["region"] = o.Region
+	}
 	if o.TagConfigSource != nil {
 		toSerialize["tag_config_source"] = o.TagConfigSource
 	}
@@ -325,6 +361,7 @@ func (o *HourlyUsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		Hour            *time.Time                       `json:"hour,omitempty"`
 		OrgName         *string                          `json:"org_name,omitempty"`
 		PublicId        *string                          `json:"public_id,omitempty"`
+		Region          *string                          `json:"region,omitempty"`
 		TagConfigSource *string                          `json:"tag_config_source,omitempty"`
 		Tags            map[string][]string              `json:"tags,omitempty"`
 		TotalUsageSum   *float64                         `json:"total_usage_sum,omitempty"`
@@ -340,6 +377,12 @@ func (o *HourlyUsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 		o.UnparsedObject = raw
 		return nil
 	}
+	additionalProperties := make(map[string]interface{})
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		datadog.DeleteKeys(additionalProperties, &[]string{"hour", "org_name", "public_id", "region", "tag_config_source", "tags", "total_usage_sum", "updated_at", "usage_type"})
+	} else {
+		return err
+	}
 	if v := all.UsageType; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
@@ -351,10 +394,15 @@ func (o *HourlyUsageAttributionBody) UnmarshalJSON(bytes []byte) (err error) {
 	o.Hour = all.Hour
 	o.OrgName = all.OrgName
 	o.PublicId = all.PublicId
+	o.Region = all.Region
 	o.TagConfigSource = all.TagConfigSource
 	o.Tags = all.Tags
 	o.TotalUsageSum = all.TotalUsageSum
 	o.UpdatedAt = all.UpdatedAt
 	o.UsageType = all.UsageType
+	if len(additionalProperties) > 0 {
+		o.AdditionalProperties = additionalProperties
+	}
+
 	return nil
 }
