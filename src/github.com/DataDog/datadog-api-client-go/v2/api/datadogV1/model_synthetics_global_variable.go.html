@@ -68,7 +68,7 @@
 <span id="L11" class="ln">    11  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L12" class="ln">    12  </span>)
 <span id="L13" class="ln">    13  </span>
-<span id="L14" class="ln">    14  </span><span class="comment">// SyntheticsGlobalVariable Synthetics global variable.</span>
+<span id="L14" class="ln">    14  </span><span class="comment">// SyntheticsGlobalVariable Synthetic global variable.</span>
 <span id="L15" class="ln">    15  </span>type SyntheticsGlobalVariable struct {
 <span id="L16" class="ln">    16  </span>	<span class="comment">// Attributes of the global variable.</span>
 <span id="L17" class="ln">    17  </span>	Attributes *SyntheticsGlobalVariableAttributes `json:&#34;attributes,omitempty&#34;`
@@ -76,9 +76,9 @@
 <span id="L19" class="ln">    19  </span>	Description string `json:&#34;description&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// Unique identifier of the global variable.</span>
 <span id="L21" class="ln">    21  </span>	Id *string `json:&#34;id,omitempty&#34;`
-<span id="L22" class="ln">    22  </span>	<span class="comment">// Name of the global variable. Unique across Synthetics global variables.</span>
+<span id="L22" class="ln">    22  </span>	<span class="comment">// Name of the global variable. Unique across Synthetic global variables.</span>
 <span id="L23" class="ln">    23  </span>	Name string `json:&#34;name&#34;`
-<span id="L24" class="ln">    24  </span>	<span class="comment">// Parser options to use for retrieving a Synthetics global variable from a Synthetics Test. Used in conjunction with `parse_test_public_id`.</span>
+<span id="L24" class="ln">    24  </span>	<span class="comment">// Parser options to use for retrieving a Synthetic global variable from a Synthetic test. Used in conjunction with `parse_test_public_id`.</span>
 <span id="L25" class="ln">    25  </span>	ParseTestOptions *SyntheticsGlobalVariableParseTestOptions `json:&#34;parse_test_options,omitempty&#34;`
 <span id="L26" class="ln">    26  </span>	<span class="comment">// A Synthetic test ID to use as a test to generate the variable value.</span>
 <span id="L27" class="ln">    27  </span>	ParseTestPublicId *string `json:&#34;parse_test_public_id,omitempty&#34;`

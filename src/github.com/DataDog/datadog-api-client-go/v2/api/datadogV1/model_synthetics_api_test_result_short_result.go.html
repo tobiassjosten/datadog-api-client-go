@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span>	<span class="comment">// Describes if the test run has passed or failed.</span>
 <span id="L16" class="ln">    16  </span>	Passed *bool `json:&#34;passed,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// Object containing all metrics and their values collected for a Synthetic API test.</span>
-<span id="L18" class="ln">    18  </span>	<span class="comment">// Learn more about those metrics in [Synthetics documentation](https://docs.datadoghq.com/synthetics/#metrics).</span>
+<span id="L18" class="ln">    18  </span>	<span class="comment">// See the [Synthetic Monitoring Metrics documentation](https://docs.datadoghq.com/synthetics/metrics/).</span>
 <span id="L19" class="ln">    19  </span>	Timings *SyntheticsTiming `json:&#34;timings,omitempty&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L21" class="ln">    21  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`

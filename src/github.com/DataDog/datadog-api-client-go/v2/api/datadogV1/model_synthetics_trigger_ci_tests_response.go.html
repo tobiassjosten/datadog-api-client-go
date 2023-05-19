@@ -71,11 +71,11 @@
 <span id="L14" class="ln">    14  </span>type SyntheticsTriggerCITestsResponse struct {
 <span id="L15" class="ln">    15  </span>	<span class="comment">// The public ID of the batch triggered.</span>
 <span id="L16" class="ln">    16  </span>	BatchId datadog.NullableString `json:&#34;batch_id,omitempty&#34;`
-<span id="L17" class="ln">    17  </span>	<span class="comment">// List of Synthetics locations.</span>
+<span id="L17" class="ln">    17  </span>	<span class="comment">// List of Synthetic locations.</span>
 <span id="L18" class="ln">    18  </span>	Locations []SyntheticsTriggerCITestLocation `json:&#34;locations,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// Information about the tests runs.</span>
 <span id="L20" class="ln">    20  </span>	Results []SyntheticsTriggerCITestRunResult `json:&#34;results,omitempty&#34;`
-<span id="L21" class="ln">    21  </span>	<span class="comment">// The public IDs of the Synthetics test triggered.</span>
+<span id="L21" class="ln">    21  </span>	<span class="comment">// The public IDs of the Synthetic test triggered.</span>
 <span id="L22" class="ln">    22  </span>	TriggeredCheckIds []string `json:&#34;triggered_check_ids,omitempty&#34;`
 <span id="L23" class="ln">    23  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L24" class="ln">    24  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`

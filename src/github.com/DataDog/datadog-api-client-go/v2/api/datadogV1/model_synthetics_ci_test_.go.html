@@ -68,7 +68,7 @@
 <span id="L11" class="ln">    11  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L12" class="ln">    12  </span>)
 <span id="L13" class="ln">    13  </span>
-<span id="L14" class="ln">    14  </span><span class="comment">// SyntheticsCITest Test configuration for Synthetics CI</span>
+<span id="L14" class="ln">    14  </span><span class="comment">// SyntheticsCITest Configuration for Continuous Testing.</span>
 <span id="L15" class="ln">    15  </span>type SyntheticsCITest struct {
 <span id="L16" class="ln">    16  </span>	<span class="comment">// Disable certificate checks in API tests.</span>
 <span id="L17" class="ln">    17  </span>	AllowInsecureCertificates *bool `json:&#34;allowInsecureCertificates,omitempty&#34;`
@@ -76,7 +76,7 @@
 <span id="L19" class="ln">    19  </span>	BasicAuth *SyntheticsBasicAuth `json:&#34;basicAuth,omitempty&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// Body to include in the test.</span>
 <span id="L21" class="ln">    21  </span>	Body *string `json:&#34;body,omitempty&#34;`
-<span id="L22" class="ln">    22  </span>	<span class="comment">// Type of the data sent in a synthetics API test.</span>
+<span id="L22" class="ln">    22  </span>	<span class="comment">// Type of the data sent in a Synthetic API test.</span>
 <span id="L23" class="ln">    23  </span>	BodyType *string `json:&#34;bodyType,omitempty&#34;`
 <span id="L24" class="ln">    24  </span>	<span class="comment">// Cookies for the request.</span>
 <span id="L25" class="ln">    25  </span>	Cookies *string `json:&#34;cookies,omitempty&#34;`
@@ -88,9 +88,9 @@
 <span id="L31" class="ln">    31  </span>	Headers map[string]string `json:&#34;headers,omitempty&#34;`
 <span id="L32" class="ln">    32  </span>	<span class="comment">// Array of locations used to run the test.</span>
 <span id="L33" class="ln">    33  </span>	Locations []string `json:&#34;locations,omitempty&#34;`
-<span id="L34" class="ln">    34  </span>	<span class="comment">// Metadata for the Synthetics tests run.</span>
+<span id="L34" class="ln">    34  </span>	<span class="comment">// Metadata for the Synthetic tests run.</span>
 <span id="L35" class="ln">    35  </span>	Metadata *SyntheticsCIBatchMetadata `json:&#34;metadata,omitempty&#34;`
-<span id="L36" class="ln">    36  </span>	<span class="comment">// The public ID of the Synthetics test to trigger.</span>
+<span id="L36" class="ln">    36  </span>	<span class="comment">// The public ID of the Synthetic test to trigger.</span>
 <span id="L37" class="ln">    37  </span>	PublicId string `json:&#34;public_id&#34;`
 <span id="L38" class="ln">    38  </span>	<span class="comment">// Object describing the retry strategy to apply to a Synthetic test.</span>
 <span id="L39" class="ln">    39  </span>	Retry *SyntheticsTestOptionsRetry `json:&#34;retry,omitempty&#34;`
