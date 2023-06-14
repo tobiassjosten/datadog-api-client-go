@@ -69,15 +69,15 @@
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// WidgetAxis Axis controls for the widget.</span>
 <span id="L14" class="ln">    14  </span>type WidgetAxis struct {
-<span id="L15" class="ln">    15  </span>	<span class="comment">// True includes zero.</span>
+<span id="L15" class="ln">    15  </span>	<span class="comment">// Set to `true` to include zero.</span>
 <span id="L16" class="ln">    16  </span>	IncludeZero *bool `json:&#34;include_zero,omitempty&#34;`
-<span id="L17" class="ln">    17  </span>	<span class="comment">// The label of the axis to display on the graph.</span>
+<span id="L17" class="ln">    17  </span>	<span class="comment">// The label of the axis to display on the graph. Only usable on Scatterplot Widgets.</span>
 <span id="L18" class="ln">    18  </span>	Label *string `json:&#34;label,omitempty&#34;`
-<span id="L19" class="ln">    19  </span>	<span class="comment">// Specifies the maximum value to show on the y-axis. It takes a number, or auto for default behavior.</span>
+<span id="L19" class="ln">    19  </span>	<span class="comment">// Specifies maximum numeric value to show on the axis. Defaults to `auto`.</span>
 <span id="L20" class="ln">    20  </span>	Max *string `json:&#34;max,omitempty&#34;`
-<span id="L21" class="ln">    21  </span>	<span class="comment">// Specifies minimum value to show on the y-axis. It takes a number, or auto for default behavior.</span>
+<span id="L21" class="ln">    21  </span>	<span class="comment">// Specifies minimum numeric value to show on the axis. Defaults to `auto`.</span>
 <span id="L22" class="ln">    22  </span>	Min *string `json:&#34;min,omitempty&#34;`
-<span id="L23" class="ln">    23  </span>	<span class="comment">// Specifies the scale type. Possible values are `linear`, `log`, `sqrt`, `pow##` (for example `pow2`, `pow0.5` etc.).</span>
+<span id="L23" class="ln">    23  </span>	<span class="comment">// Specifies the scale type. Possible values are `linear`, `log`, `sqrt`, and `pow##` (for example `pow2` or `pow0.5`).</span>
 <span id="L24" class="ln">    24  </span>	Scale *string `json:&#34;scale,omitempty&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L26" class="ln">    26  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
