@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="theme-color" content="#375EAB"/>
 
-  <title>src/github.com/DataDog/datadog-api-client-go/v2/api/datadogV2/model_findings_error_response.go - Datadog</title>
+  <title>src/github.com/DataDog/datadog-api-client-go/v2/api/datadogV2/model_jsonapi_error_response.go - Datadog</title>
 
 <link type="text/css" rel="stylesheet" href="/datadog-api-client-go/lib/godoc/style.css"/>
 
@@ -38,7 +38,7 @@
 
   <h1>
     Source file
-    <a href="/datadog-api-client-go/src">src</a>/<a href="/datadog-api-client-go/src/github.com">github.com</a>/<a href="/datadog-api-client-go/src/github.com/DataDog">DataDog</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go">datadog-api-client-go</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go/v2">v2</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go/v2/api">api</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go/v2/api/datadogV2">datadogV2</a>/<span class="text-muted">model_findings_error_response.go</span>
+    <a href="/datadog-api-client-go/src">src</a>/<a href="/datadog-api-client-go/src/github.com">github.com</a>/<a href="/datadog-api-client-go/src/github.com/DataDog">DataDog</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go">datadog-api-client-go</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go/v2">v2</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go/v2/api">api</a>/<a href="/datadog-api-client-go/src/github.com/DataDog/datadog-api-client-go/v2/api/datadogV2">datadogV2</a>/<span class="text-muted">model_jsonapi_error_response.go</span>
   </h1>
 
 
@@ -68,37 +68,37 @@
 <span id="L11" class="ln">    11  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L12" class="ln">    12  </span>)
 <span id="L13" class="ln">    13  </span>
-<span id="L14" class="ln">    14  </span><span class="comment">// FindingsErrorResponse API error response.</span>
-<span id="L15" class="ln">    15  </span>type FindingsErrorResponse struct {
+<span id="L14" class="ln">    14  </span><span class="comment">// JSONAPIErrorResponse API error response.</span>
+<span id="L15" class="ln">    15  </span>type JSONAPIErrorResponse struct {
 <span id="L16" class="ln">    16  </span>	<span class="comment">// A list of errors.</span>
-<span id="L17" class="ln">    17  </span>	Errors []FindingsErrorItem `json:&#34;errors&#34;`
+<span id="L17" class="ln">    17  </span>	Errors []JSONAPIErrorItem `json:&#34;errors&#34;`
 <span id="L18" class="ln">    18  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L19" class="ln">    19  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
 <span id="L20" class="ln">    20  </span>	AdditionalProperties map[string]interface{}
 <span id="L21" class="ln">    21  </span>}
 <span id="L22" class="ln">    22  </span>
-<span id="L23" class="ln">    23  </span><span class="comment">// NewFindingsErrorResponse instantiates a new FindingsErrorResponse object.</span>
+<span id="L23" class="ln">    23  </span><span class="comment">// NewJSONAPIErrorResponse instantiates a new JSONAPIErrorResponse object.</span>
 <span id="L24" class="ln">    24  </span><span class="comment">// This constructor will assign default values to properties that have it defined,</span>
 <span id="L25" class="ln">    25  </span><span class="comment">// and makes sure properties required by API are set, but the set of arguments</span>
 <span id="L26" class="ln">    26  </span><span class="comment">// will change when the set of required properties is changed.</span>
-<span id="L27" class="ln">    27  </span>func NewFindingsErrorResponse(errors []FindingsErrorItem) *FindingsErrorResponse {
-<span id="L28" class="ln">    28  </span>	this := FindingsErrorResponse{}
+<span id="L27" class="ln">    27  </span>func NewJSONAPIErrorResponse(errors []JSONAPIErrorItem) *JSONAPIErrorResponse {
+<span id="L28" class="ln">    28  </span>	this := JSONAPIErrorResponse{}
 <span id="L29" class="ln">    29  </span>	this.Errors = errors
 <span id="L30" class="ln">    30  </span>	return &amp;this
 <span id="L31" class="ln">    31  </span>}
 <span id="L32" class="ln">    32  </span>
-<span id="L33" class="ln">    33  </span><span class="comment">// NewFindingsErrorResponseWithDefaults instantiates a new FindingsErrorResponse object.</span>
+<span id="L33" class="ln">    33  </span><span class="comment">// NewJSONAPIErrorResponseWithDefaults instantiates a new JSONAPIErrorResponse object.</span>
 <span id="L34" class="ln">    34  </span><span class="comment">// This constructor will only assign default values to properties that have it defined,</span>
 <span id="L35" class="ln">    35  </span><span class="comment">// but it doesn&#39;t guarantee that properties required by API are set.</span>
-<span id="L36" class="ln">    36  </span>func NewFindingsErrorResponseWithDefaults() *FindingsErrorResponse {
-<span id="L37" class="ln">    37  </span>	this := FindingsErrorResponse{}
+<span id="L36" class="ln">    36  </span>func NewJSONAPIErrorResponseWithDefaults() *JSONAPIErrorResponse {
+<span id="L37" class="ln">    37  </span>	this := JSONAPIErrorResponse{}
 <span id="L38" class="ln">    38  </span>	return &amp;this
 <span id="L39" class="ln">    39  </span>}
 <span id="L40" class="ln">    40  </span>
 <span id="L41" class="ln">    41  </span><span class="comment">// GetErrors returns the Errors field value.</span>
-<span id="L42" class="ln">    42  </span>func (o *FindingsErrorResponse) GetErrors() []FindingsErrorItem {
+<span id="L42" class="ln">    42  </span>func (o *JSONAPIErrorResponse) GetErrors() []JSONAPIErrorItem {
 <span id="L43" class="ln">    43  </span>	if o == nil {
-<span id="L44" class="ln">    44  </span>		var ret []FindingsErrorItem
+<span id="L44" class="ln">    44  </span>		var ret []JSONAPIErrorItem
 <span id="L45" class="ln">    45  </span>		return ret
 <span id="L46" class="ln">    46  </span>	}
 <span id="L47" class="ln">    47  </span>	return o.Errors
@@ -106,7 +106,7 @@
 <span id="L49" class="ln">    49  </span>
 <span id="L50" class="ln">    50  </span><span class="comment">// GetErrorsOk returns a tuple with the Errors field value</span>
 <span id="L51" class="ln">    51  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L52" class="ln">    52  </span>func (o *FindingsErrorResponse) GetErrorsOk() (*[]FindingsErrorItem, bool) {
+<span id="L52" class="ln">    52  </span>func (o *JSONAPIErrorResponse) GetErrorsOk() (*[]JSONAPIErrorItem, bool) {
 <span id="L53" class="ln">    53  </span>	if o == nil {
 <span id="L54" class="ln">    54  </span>		return nil, false
 <span id="L55" class="ln">    55  </span>	}
@@ -114,12 +114,12 @@
 <span id="L57" class="ln">    57  </span>}
 <span id="L58" class="ln">    58  </span>
 <span id="L59" class="ln">    59  </span><span class="comment">// SetErrors sets field value.</span>
-<span id="L60" class="ln">    60  </span>func (o *FindingsErrorResponse) SetErrors(v []FindingsErrorItem) {
+<span id="L60" class="ln">    60  </span>func (o *JSONAPIErrorResponse) SetErrors(v []JSONAPIErrorItem) {
 <span id="L61" class="ln">    61  </span>	o.Errors = v
 <span id="L62" class="ln">    62  </span>}
 <span id="L63" class="ln">    63  </span>
 <span id="L64" class="ln">    64  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
-<span id="L65" class="ln">    65  </span>func (o FindingsErrorResponse) MarshalJSON() ([]byte, error) {
+<span id="L65" class="ln">    65  </span>func (o JSONAPIErrorResponse) MarshalJSON() ([]byte, error) {
 <span id="L66" class="ln">    66  </span>	toSerialize := map[string]interface{}{}
 <span id="L67" class="ln">    67  </span>	if o.UnparsedObject != nil {
 <span id="L68" class="ln">    68  </span>		return json.Marshal(o.UnparsedObject)
@@ -133,13 +133,13 @@
 <span id="L76" class="ln">    76  </span>}
 <span id="L77" class="ln">    77  </span>
 <span id="L78" class="ln">    78  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
-<span id="L79" class="ln">    79  </span>func (o *FindingsErrorResponse) UnmarshalJSON(bytes []byte) (err error) {
+<span id="L79" class="ln">    79  </span>func (o *JSONAPIErrorResponse) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L80" class="ln">    80  </span>	raw := map[string]interface{}{}
 <span id="L81" class="ln">    81  </span>	required := struct {
-<span id="L82" class="ln">    82  </span>		Errors *[]FindingsErrorItem `json:&#34;errors&#34;`
+<span id="L82" class="ln">    82  </span>		Errors *[]JSONAPIErrorItem `json:&#34;errors&#34;`
 <span id="L83" class="ln">    83  </span>	}{}
 <span id="L84" class="ln">    84  </span>	all := struct {
-<span id="L85" class="ln">    85  </span>		Errors []FindingsErrorItem `json:&#34;errors&#34;`
+<span id="L85" class="ln">    85  </span>		Errors []JSONAPIErrorItem `json:&#34;errors&#34;`
 <span id="L86" class="ln">    86  </span>	}{}
 <span id="L87" class="ln">    87  </span>	err = json.Unmarshal(bytes, &amp;required)
 <span id="L88" class="ln">    88  </span>	if err != nil {
