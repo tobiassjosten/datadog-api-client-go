@@ -76,7 +76,7 @@
 <span id="L19" class="ln">    19  </span>	<span class="comment">// Name of the application key.</span>
 <span id="L20" class="ln">    20  </span>	Name *string `json:&#34;name,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// Array of scopes to grant the application key. This feature is in private beta, please contact Datadog support to enable scopes for your application keys.</span>
-<span id="L22" class="ln">    22  </span>	Scopes []string `json:&#34;scopes,omitempty&#34;`
+<span id="L22" class="ln">    22  </span>	Scopes datadog.NullableList[string] `json:&#34;scopes,omitempty&#34;`
 <span id="L23" class="ln">    23  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L24" class="ln">    24  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
 <span id="L25" class="ln">    25  </span>	AdditionalProperties map[string]interface{}
@@ -185,93 +185,103 @@
 <span id="L128" class="ln">   128  </span>
 <span id="L129" class="ln">   129  </span><span class="comment">// GetScopes returns the Scopes field value if set, zero value otherwise (both if not set or set to explicit null).</span>
 <span id="L130" class="ln">   130  </span>func (o *PartialApplicationKeyAttributes) GetScopes() []string {
-<span id="L131" class="ln">   131  </span>	if o == nil {
+<span id="L131" class="ln">   131  </span>	if o == nil || o.Scopes.Get() == nil {
 <span id="L132" class="ln">   132  </span>		var ret []string
 <span id="L133" class="ln">   133  </span>		return ret
 <span id="L134" class="ln">   134  </span>	}
-<span id="L135" class="ln">   135  </span>	return o.Scopes
+<span id="L135" class="ln">   135  </span>	return *o.Scopes.Get()
 <span id="L136" class="ln">   136  </span>}
 <span id="L137" class="ln">   137  </span>
 <span id="L138" class="ln">   138  </span><span class="comment">// GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise</span>
 <span id="L139" class="ln">   139  </span><span class="comment">// and a boolean to check if the value has been set.</span>
 <span id="L140" class="ln">   140  </span><span class="comment">// NOTE: If the value is an explicit nil, `nil, true` will be returned.</span>
 <span id="L141" class="ln">   141  </span>func (o *PartialApplicationKeyAttributes) GetScopesOk() (*[]string, bool) {
-<span id="L142" class="ln">   142  </span>	if o == nil || o.Scopes == nil {
+<span id="L142" class="ln">   142  </span>	if o == nil {
 <span id="L143" class="ln">   143  </span>		return nil, false
 <span id="L144" class="ln">   144  </span>	}
-<span id="L145" class="ln">   145  </span>	return &amp;o.Scopes, true
+<span id="L145" class="ln">   145  </span>	return o.Scopes.Get(), o.Scopes.IsSet()
 <span id="L146" class="ln">   146  </span>}
 <span id="L147" class="ln">   147  </span>
 <span id="L148" class="ln">   148  </span><span class="comment">// HasScopes returns a boolean if a field has been set.</span>
 <span id="L149" class="ln">   149  </span>func (o *PartialApplicationKeyAttributes) HasScopes() bool {
-<span id="L150" class="ln">   150  </span>	return o != nil &amp;&amp; o.Scopes != nil
+<span id="L150" class="ln">   150  </span>	return o != nil &amp;&amp; o.Scopes.IsSet()
 <span id="L151" class="ln">   151  </span>}
 <span id="L152" class="ln">   152  </span>
-<span id="L153" class="ln">   153  </span><span class="comment">// SetScopes gets a reference to the given []string and assigns it to the Scopes field.</span>
+<span id="L153" class="ln">   153  </span><span class="comment">// SetScopes gets a reference to the given datadog.NullableList[string] and assigns it to the Scopes field.</span>
 <span id="L154" class="ln">   154  </span>func (o *PartialApplicationKeyAttributes) SetScopes(v []string) {
-<span id="L155" class="ln">   155  </span>	o.Scopes = v
+<span id="L155" class="ln">   155  </span>	o.Scopes.Set(&amp;v)
 <span id="L156" class="ln">   156  </span>}
 <span id="L157" class="ln">   157  </span>
-<span id="L158" class="ln">   158  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
-<span id="L159" class="ln">   159  </span>func (o PartialApplicationKeyAttributes) MarshalJSON() ([]byte, error) {
-<span id="L160" class="ln">   160  </span>	toSerialize := map[string]interface{}{}
-<span id="L161" class="ln">   161  </span>	if o.UnparsedObject != nil {
-<span id="L162" class="ln">   162  </span>		return json.Marshal(o.UnparsedObject)
-<span id="L163" class="ln">   163  </span>	}
-<span id="L164" class="ln">   164  </span>	if o.CreatedAt != nil {
-<span id="L165" class="ln">   165  </span>		toSerialize[&#34;created_at&#34;] = o.CreatedAt
-<span id="L166" class="ln">   166  </span>	}
-<span id="L167" class="ln">   167  </span>	if o.Last4 != nil {
-<span id="L168" class="ln">   168  </span>		toSerialize[&#34;last4&#34;] = o.Last4
-<span id="L169" class="ln">   169  </span>	}
-<span id="L170" class="ln">   170  </span>	if o.Name != nil {
-<span id="L171" class="ln">   171  </span>		toSerialize[&#34;name&#34;] = o.Name
-<span id="L172" class="ln">   172  </span>	}
-<span id="L173" class="ln">   173  </span>	if o.Scopes != nil {
-<span id="L174" class="ln">   174  </span>		toSerialize[&#34;scopes&#34;] = o.Scopes
-<span id="L175" class="ln">   175  </span>	}
-<span id="L176" class="ln">   176  </span>
-<span id="L177" class="ln">   177  </span>	for key, value := range o.AdditionalProperties {
-<span id="L178" class="ln">   178  </span>		toSerialize[key] = value
+<span id="L158" class="ln">   158  </span><span class="comment">// SetScopesNil sets the value for Scopes to be an explicit nil.</span>
+<span id="L159" class="ln">   159  </span>func (o *PartialApplicationKeyAttributes) SetScopesNil() {
+<span id="L160" class="ln">   160  </span>	o.Scopes.Set(nil)
+<span id="L161" class="ln">   161  </span>}
+<span id="L162" class="ln">   162  </span>
+<span id="L163" class="ln">   163  </span><span class="comment">// UnsetScopes ensures that no value is present for Scopes, not even an explicit nil.</span>
+<span id="L164" class="ln">   164  </span>func (o *PartialApplicationKeyAttributes) UnsetScopes() {
+<span id="L165" class="ln">   165  </span>	o.Scopes.Unset()
+<span id="L166" class="ln">   166  </span>}
+<span id="L167" class="ln">   167  </span>
+<span id="L168" class="ln">   168  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
+<span id="L169" class="ln">   169  </span>func (o PartialApplicationKeyAttributes) MarshalJSON() ([]byte, error) {
+<span id="L170" class="ln">   170  </span>	toSerialize := map[string]interface{}{}
+<span id="L171" class="ln">   171  </span>	if o.UnparsedObject != nil {
+<span id="L172" class="ln">   172  </span>		return json.Marshal(o.UnparsedObject)
+<span id="L173" class="ln">   173  </span>	}
+<span id="L174" class="ln">   174  </span>	if o.CreatedAt != nil {
+<span id="L175" class="ln">   175  </span>		toSerialize[&#34;created_at&#34;] = o.CreatedAt
+<span id="L176" class="ln">   176  </span>	}
+<span id="L177" class="ln">   177  </span>	if o.Last4 != nil {
+<span id="L178" class="ln">   178  </span>		toSerialize[&#34;last4&#34;] = o.Last4
 <span id="L179" class="ln">   179  </span>	}
-<span id="L180" class="ln">   180  </span>	return json.Marshal(toSerialize)
-<span id="L181" class="ln">   181  </span>}
-<span id="L182" class="ln">   182  </span>
-<span id="L183" class="ln">   183  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
-<span id="L184" class="ln">   184  </span>func (o *PartialApplicationKeyAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L185" class="ln">   185  </span>	raw := map[string]interface{}{}
-<span id="L186" class="ln">   186  </span>	all := struct {
-<span id="L187" class="ln">   187  </span>		CreatedAt *string  `json:&#34;created_at,omitempty&#34;`
-<span id="L188" class="ln">   188  </span>		Last4     *string  `json:&#34;last4,omitempty&#34;`
-<span id="L189" class="ln">   189  </span>		Name      *string  `json:&#34;name,omitempty&#34;`
-<span id="L190" class="ln">   190  </span>		Scopes    []string `json:&#34;scopes,omitempty&#34;`
-<span id="L191" class="ln">   191  </span>	}{}
-<span id="L192" class="ln">   192  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L193" class="ln">   193  </span>	if err != nil {
-<span id="L194" class="ln">   194  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L195" class="ln">   195  </span>		if err != nil {
-<span id="L196" class="ln">   196  </span>			return err
-<span id="L197" class="ln">   197  </span>		}
-<span id="L198" class="ln">   198  </span>		o.UnparsedObject = raw
-<span id="L199" class="ln">   199  </span>		return nil
-<span id="L200" class="ln">   200  </span>	}
-<span id="L201" class="ln">   201  </span>	additionalProperties := make(map[string]interface{})
-<span id="L202" class="ln">   202  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L203" class="ln">   203  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;last4&#34;, &#34;name&#34;, &#34;scopes&#34;})
-<span id="L204" class="ln">   204  </span>	} else {
-<span id="L205" class="ln">   205  </span>		return err
-<span id="L206" class="ln">   206  </span>	}
-<span id="L207" class="ln">   207  </span>	o.CreatedAt = all.CreatedAt
-<span id="L208" class="ln">   208  </span>	o.Last4 = all.Last4
-<span id="L209" class="ln">   209  </span>	o.Name = all.Name
-<span id="L210" class="ln">   210  </span>	o.Scopes = all.Scopes
-<span id="L211" class="ln">   211  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L212" class="ln">   212  </span>		o.AdditionalProperties = additionalProperties
-<span id="L213" class="ln">   213  </span>	}
-<span id="L214" class="ln">   214  </span>
-<span id="L215" class="ln">   215  </span>	return nil
-<span id="L216" class="ln">   216  </span>}
-<span id="L217" class="ln">   217  </span>
+<span id="L180" class="ln">   180  </span>	if o.Name != nil {
+<span id="L181" class="ln">   181  </span>		toSerialize[&#34;name&#34;] = o.Name
+<span id="L182" class="ln">   182  </span>	}
+<span id="L183" class="ln">   183  </span>	if o.Scopes.IsSet() {
+<span id="L184" class="ln">   184  </span>		toSerialize[&#34;scopes&#34;] = o.Scopes.Get()
+<span id="L185" class="ln">   185  </span>	}
+<span id="L186" class="ln">   186  </span>
+<span id="L187" class="ln">   187  </span>	for key, value := range o.AdditionalProperties {
+<span id="L188" class="ln">   188  </span>		toSerialize[key] = value
+<span id="L189" class="ln">   189  </span>	}
+<span id="L190" class="ln">   190  </span>	return json.Marshal(toSerialize)
+<span id="L191" class="ln">   191  </span>}
+<span id="L192" class="ln">   192  </span>
+<span id="L193" class="ln">   193  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
+<span id="L194" class="ln">   194  </span>func (o *PartialApplicationKeyAttributes) UnmarshalJSON(bytes []byte) (err error) {
+<span id="L195" class="ln">   195  </span>	raw := map[string]interface{}{}
+<span id="L196" class="ln">   196  </span>	all := struct {
+<span id="L197" class="ln">   197  </span>		CreatedAt *string                      `json:&#34;created_at,omitempty&#34;`
+<span id="L198" class="ln">   198  </span>		Last4     *string                      `json:&#34;last4,omitempty&#34;`
+<span id="L199" class="ln">   199  </span>		Name      *string                      `json:&#34;name,omitempty&#34;`
+<span id="L200" class="ln">   200  </span>		Scopes    datadog.NullableList[string] `json:&#34;scopes,omitempty&#34;`
+<span id="L201" class="ln">   201  </span>	}{}
+<span id="L202" class="ln">   202  </span>	err = json.Unmarshal(bytes, &amp;all)
+<span id="L203" class="ln">   203  </span>	if err != nil {
+<span id="L204" class="ln">   204  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L205" class="ln">   205  </span>		if err != nil {
+<span id="L206" class="ln">   206  </span>			return err
+<span id="L207" class="ln">   207  </span>		}
+<span id="L208" class="ln">   208  </span>		o.UnparsedObject = raw
+<span id="L209" class="ln">   209  </span>		return nil
+<span id="L210" class="ln">   210  </span>	}
+<span id="L211" class="ln">   211  </span>	additionalProperties := make(map[string]interface{})
+<span id="L212" class="ln">   212  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L213" class="ln">   213  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;last4&#34;, &#34;name&#34;, &#34;scopes&#34;})
+<span id="L214" class="ln">   214  </span>	} else {
+<span id="L215" class="ln">   215  </span>		return err
+<span id="L216" class="ln">   216  </span>	}
+<span id="L217" class="ln">   217  </span>	o.CreatedAt = all.CreatedAt
+<span id="L218" class="ln">   218  </span>	o.Last4 = all.Last4
+<span id="L219" class="ln">   219  </span>	o.Name = all.Name
+<span id="L220" class="ln">   220  </span>	o.Scopes = all.Scopes
+<span id="L221" class="ln">   221  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L222" class="ln">   222  </span>		o.AdditionalProperties = additionalProperties
+<span id="L223" class="ln">   223  </span>	}
+<span id="L224" class="ln">   224  </span>
+<span id="L225" class="ln">   225  </span>	return nil
+<span id="L226" class="ln">   226  </span>}
+<span id="L227" class="ln">   227  </span>
 </pre><p></p>
 
 <div id="footer">

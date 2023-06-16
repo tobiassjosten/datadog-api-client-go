@@ -454,78 +454,122 @@
 <span id="L397" class="ln">   397  </span>	return json.Unmarshal(src, &amp;v.value)
 <span id="L398" class="ln">   398  </span>}
 <span id="L399" class="ln">   399  </span>
-<span id="L400" class="ln">   400  </span><span class="comment">// DeleteKeys helper method to delete keys from a map</span>
-<span id="L401" class="ln">   401  </span>func DeleteKeys[V any](obj map[string]V, keysToDelete *[]string) {
-<span id="L402" class="ln">   402  </span>	for _, s := range *keysToDelete {
-<span id="L403" class="ln">   403  </span>		delete(obj, s)
-<span id="L404" class="ln">   404  </span>	}
-<span id="L405" class="ln">   405  </span>}
-<span id="L406" class="ln">   406  </span>
-<span id="L407" class="ln">   407  </span><span class="comment">// ContainsUnparsedObject returns true if the given data contains an unparsed object from the API.</span>
-<span id="L408" class="ln">   408  </span>func ContainsUnparsedObject(i interface{}) (bool, interface{}) {
-<span id="L409" class="ln">   409  </span>	v := reflect.ValueOf(i)
-<span id="L410" class="ln">   410  </span>	switch v.Kind() {
-<span id="L411" class="ln">   411  </span>	case reflect.Array, reflect.Slice:
-<span id="L412" class="ln">   412  </span>		for i := 0; i &lt; v.Len(); i++ {
-<span id="L413" class="ln">   413  </span>			if n, m := ContainsUnparsedObject(v.Index(i).Interface()); n {
-<span id="L414" class="ln">   414  </span>				return n, m
-<span id="L415" class="ln">   415  </span>			}
-<span id="L416" class="ln">   416  </span>		}
-<span id="L417" class="ln">   417  </span>	case reflect.Map:
-<span id="L418" class="ln">   418  </span>		for _, k := range v.MapKeys() {
-<span id="L419" class="ln">   419  </span>			if n, m := ContainsUnparsedObject(v.MapIndex(k).Interface()); n {
-<span id="L420" class="ln">   420  </span>				return n, m
-<span id="L421" class="ln">   421  </span>			}
-<span id="L422" class="ln">   422  </span>		}
-<span id="L423" class="ln">   423  </span>	case reflect.Struct:
-<span id="L424" class="ln">   424  </span>		if u := v.FieldByName(&#34;UnparsedObject&#34;); u.IsValid() &amp;&amp; !u.IsNil() {
-<span id="L425" class="ln">   425  </span>			return true, u.Interface()
-<span id="L426" class="ln">   426  </span>		}
-<span id="L427" class="ln">   427  </span>		for i := 0; i &lt; v.NumField(); i++ {
-<span id="L428" class="ln">   428  </span>			if fn := v.Type().Field(i).Name; string(fn[0]) == strings.ToUpper(string(fn[0])) &amp;&amp; fn != &#34;UnparsedObject&#34; {
-<span id="L429" class="ln">   429  </span>				if n, m := ContainsUnparsedObject(v.Field(i).Interface()); n {
-<span id="L430" class="ln">   430  </span>					return n, m
-<span id="L431" class="ln">   431  </span>				}
-<span id="L432" class="ln">   432  </span>			} else if fn == &#34;value&#34; { <span class="comment">// Special case for Nullables</span>
-<span id="L433" class="ln">   433  </span>				if get := v.MethodByName(&#34;Get&#34;); get.IsValid() {
-<span id="L434" class="ln">   434  </span>					if n, m := ContainsUnparsedObject(get.Call([]reflect.Value{})[0].Interface()); n {
-<span id="L435" class="ln">   435  </span>						return n, m
-<span id="L436" class="ln">   436  </span>					}
-<span id="L437" class="ln">   437  </span>				}
-<span id="L438" class="ln">   438  </span>			}
-<span id="L439" class="ln">   439  </span>		}
-<span id="L440" class="ln">   440  </span>	case reflect.Interface, reflect.Ptr:
-<span id="L441" class="ln">   441  </span>		if !v.IsNil() {
-<span id="L442" class="ln">   442  </span>			return ContainsUnparsedObject(v.Elem().Interface())
-<span id="L443" class="ln">   443  </span>		}
-<span id="L444" class="ln">   444  </span>	default:
-<span id="L445" class="ln">   445  </span>		if v.IsValid() {
-<span id="L446" class="ln">   446  </span>			if m := v.MethodByName(&#34;IsValid&#34;); m.IsValid() {
-<span id="L447" class="ln">   447  </span>				if !m.Call([]reflect.Value{})[0].Bool() {
-<span id="L448" class="ln">   448  </span>					return true, v.Interface()
-<span id="L449" class="ln">   449  </span>				}
-<span id="L450" class="ln">   450  </span>			}
-<span id="L451" class="ln">   451  </span>		}
-<span id="L452" class="ln">   452  </span>	}
-<span id="L453" class="ln">   453  </span>	return false, nil
-<span id="L454" class="ln">   454  </span>}
-<span id="L455" class="ln">   455  </span>
-<span id="L456" class="ln">   456  </span><span class="comment">// Strlen returns number of runes in string</span>
-<span id="L457" class="ln">   457  </span>func Strlen(s string) int {
-<span id="L458" class="ln">   458  </span>	return utf8.RuneCountInString(s)
-<span id="L459" class="ln">   459  </span>}
-<span id="L460" class="ln">   460  </span>
-<span id="L461" class="ln">   461  </span><span class="comment">// Copy the original request so it doesn&#39;t get lost when retrying</span>
-<span id="L462" class="ln">   462  </span>func copyRequest(r *http.Request, rawBody *[]byte) *http.Request {
-<span id="L463" class="ln">   463  </span>	newRequest := *r
-<span id="L464" class="ln">   464  </span>
-<span id="L465" class="ln">   465  </span>	if r.Body == nil || r.Body == http.NoBody {
-<span id="L466" class="ln">   466  </span>		return &amp;newRequest
-<span id="L467" class="ln">   467  </span>	}
-<span id="L468" class="ln">   468  </span>	newRequest.Body = io.NopCloser(bytes.NewBuffer(*rawBody))
-<span id="L469" class="ln">   469  </span>	return &amp;newRequest
-<span id="L470" class="ln">   470  </span>}
-<span id="L471" class="ln">   471  </span>
+<span id="L400" class="ln">   400  </span><span class="comment">// NullableList struct to hold nullable list value.</span>
+<span id="L401" class="ln">   401  </span>type NullableList[T any] struct {
+<span id="L402" class="ln">   402  </span>	value *[]T
+<span id="L403" class="ln">   403  </span>	isSet bool
+<span id="L404" class="ln">   404  </span>}
+<span id="L405" class="ln">   405  </span>
+<span id="L406" class="ln">   406  </span><span class="comment">// Get returns the value associated with the nullable list.</span>
+<span id="L407" class="ln">   407  </span>func (v NullableList[T]) Get() *[]T {
+<span id="L408" class="ln">   408  </span>	return v.value
+<span id="L409" class="ln">   409  </span>}
+<span id="L410" class="ln">   410  </span>
+<span id="L411" class="ln">   411  </span><span class="comment">// Set sets the value associated with the nullable list.</span>
+<span id="L412" class="ln">   412  </span>func (v *NullableList[T]) Set(val *[]T) {
+<span id="L413" class="ln">   413  </span>	v.value = val
+<span id="L414" class="ln">   414  </span>	v.isSet = true
+<span id="L415" class="ln">   415  </span>}
+<span id="L416" class="ln">   416  </span>
+<span id="L417" class="ln">   417  </span><span class="comment">// IsSet returns true if the value has been set.</span>
+<span id="L418" class="ln">   418  </span>func (v NullableList[T]) IsSet() bool {
+<span id="L419" class="ln">   419  </span>	return v.isSet
+<span id="L420" class="ln">   420  </span>}
+<span id="L421" class="ln">   421  </span>
+<span id="L422" class="ln">   422  </span><span class="comment">// Unset resets fields of the nullable list.</span>
+<span id="L423" class="ln">   423  </span>func (v *NullableList[T]) Unset() {
+<span id="L424" class="ln">   424  </span>	v.value = nil
+<span id="L425" class="ln">   425  </span>	v.isSet = false
+<span id="L426" class="ln">   426  </span>}
+<span id="L427" class="ln">   427  </span>
+<span id="L428" class="ln">   428  </span><span class="comment">// NewNullableList instantiates a new nullable list.</span>
+<span id="L429" class="ln">   429  </span>func NewNullableList[T any](val *[]T) *NullableList[T] {
+<span id="L430" class="ln">   430  </span>	return &amp;NullableList[T]{value: val, isSet: true}
+<span id="L431" class="ln">   431  </span>}
+<span id="L432" class="ln">   432  </span>
+<span id="L433" class="ln">   433  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L434" class="ln">   434  </span>func (v NullableList[T]) MarshalJSON() ([]byte, error) {
+<span id="L435" class="ln">   435  </span>	return json.Marshal(v.value)
+<span id="L436" class="ln">   436  </span>}
+<span id="L437" class="ln">   437  </span>
+<span id="L438" class="ln">   438  </span><span class="comment">// UnmarshalJSON deserializes to the associated value.</span>
+<span id="L439" class="ln">   439  </span>func (v *NullableList[T]) UnmarshalJSON(src []byte) error {
+<span id="L440" class="ln">   440  </span>	v.isSet = true
+<span id="L441" class="ln">   441  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L442" class="ln">   442  </span>}
+<span id="L443" class="ln">   443  </span>
+<span id="L444" class="ln">   444  </span><span class="comment">// DeleteKeys helper method to delete keys from a map</span>
+<span id="L445" class="ln">   445  </span>func DeleteKeys[V any](obj map[string]V, keysToDelete *[]string) {
+<span id="L446" class="ln">   446  </span>	for _, s := range *keysToDelete {
+<span id="L447" class="ln">   447  </span>		delete(obj, s)
+<span id="L448" class="ln">   448  </span>	}
+<span id="L449" class="ln">   449  </span>}
+<span id="L450" class="ln">   450  </span>
+<span id="L451" class="ln">   451  </span><span class="comment">// ContainsUnparsedObject returns true if the given data contains an unparsed object from the API.</span>
+<span id="L452" class="ln">   452  </span>func ContainsUnparsedObject(i interface{}) (bool, interface{}) {
+<span id="L453" class="ln">   453  </span>	v := reflect.ValueOf(i)
+<span id="L454" class="ln">   454  </span>	switch v.Kind() {
+<span id="L455" class="ln">   455  </span>	case reflect.Array, reflect.Slice:
+<span id="L456" class="ln">   456  </span>		for i := 0; i &lt; v.Len(); i++ {
+<span id="L457" class="ln">   457  </span>			if n, m := ContainsUnparsedObject(v.Index(i).Interface()); n {
+<span id="L458" class="ln">   458  </span>				return n, m
+<span id="L459" class="ln">   459  </span>			}
+<span id="L460" class="ln">   460  </span>		}
+<span id="L461" class="ln">   461  </span>	case reflect.Map:
+<span id="L462" class="ln">   462  </span>		for _, k := range v.MapKeys() {
+<span id="L463" class="ln">   463  </span>			if n, m := ContainsUnparsedObject(v.MapIndex(k).Interface()); n {
+<span id="L464" class="ln">   464  </span>				return n, m
+<span id="L465" class="ln">   465  </span>			}
+<span id="L466" class="ln">   466  </span>		}
+<span id="L467" class="ln">   467  </span>	case reflect.Struct:
+<span id="L468" class="ln">   468  </span>		if u := v.FieldByName(&#34;UnparsedObject&#34;); u.IsValid() &amp;&amp; !u.IsNil() {
+<span id="L469" class="ln">   469  </span>			return true, u.Interface()
+<span id="L470" class="ln">   470  </span>		}
+<span id="L471" class="ln">   471  </span>		for i := 0; i &lt; v.NumField(); i++ {
+<span id="L472" class="ln">   472  </span>			if fn := v.Type().Field(i).Name; string(fn[0]) == strings.ToUpper(string(fn[0])) &amp;&amp; fn != &#34;UnparsedObject&#34; {
+<span id="L473" class="ln">   473  </span>				if n, m := ContainsUnparsedObject(v.Field(i).Interface()); n {
+<span id="L474" class="ln">   474  </span>					return n, m
+<span id="L475" class="ln">   475  </span>				}
+<span id="L476" class="ln">   476  </span>			} else if fn == &#34;value&#34; { <span class="comment">// Special case for Nullables</span>
+<span id="L477" class="ln">   477  </span>				if get := v.MethodByName(&#34;Get&#34;); get.IsValid() {
+<span id="L478" class="ln">   478  </span>					if n, m := ContainsUnparsedObject(get.Call([]reflect.Value{})[0].Interface()); n {
+<span id="L479" class="ln">   479  </span>						return n, m
+<span id="L480" class="ln">   480  </span>					}
+<span id="L481" class="ln">   481  </span>				}
+<span id="L482" class="ln">   482  </span>			}
+<span id="L483" class="ln">   483  </span>		}
+<span id="L484" class="ln">   484  </span>	case reflect.Interface, reflect.Ptr:
+<span id="L485" class="ln">   485  </span>		if !v.IsNil() {
+<span id="L486" class="ln">   486  </span>			return ContainsUnparsedObject(v.Elem().Interface())
+<span id="L487" class="ln">   487  </span>		}
+<span id="L488" class="ln">   488  </span>	default:
+<span id="L489" class="ln">   489  </span>		if v.IsValid() {
+<span id="L490" class="ln">   490  </span>			if m := v.MethodByName(&#34;IsValid&#34;); m.IsValid() {
+<span id="L491" class="ln">   491  </span>				if !m.Call([]reflect.Value{})[0].Bool() {
+<span id="L492" class="ln">   492  </span>					return true, v.Interface()
+<span id="L493" class="ln">   493  </span>				}
+<span id="L494" class="ln">   494  </span>			}
+<span id="L495" class="ln">   495  </span>		}
+<span id="L496" class="ln">   496  </span>	}
+<span id="L497" class="ln">   497  </span>	return false, nil
+<span id="L498" class="ln">   498  </span>}
+<span id="L499" class="ln">   499  </span>
+<span id="L500" class="ln">   500  </span><span class="comment">// Strlen returns number of runes in string</span>
+<span id="L501" class="ln">   501  </span>func Strlen(s string) int {
+<span id="L502" class="ln">   502  </span>	return utf8.RuneCountInString(s)
+<span id="L503" class="ln">   503  </span>}
+<span id="L504" class="ln">   504  </span>
+<span id="L505" class="ln">   505  </span><span class="comment">// Copy the original request so it doesn&#39;t get lost when retrying</span>
+<span id="L506" class="ln">   506  </span>func copyRequest(r *http.Request, rawBody *[]byte) *http.Request {
+<span id="L507" class="ln">   507  </span>	newRequest := *r
+<span id="L508" class="ln">   508  </span>
+<span id="L509" class="ln">   509  </span>	if r.Body == nil || r.Body == http.NoBody {
+<span id="L510" class="ln">   510  </span>		return &amp;newRequest
+<span id="L511" class="ln">   511  </span>	}
+<span id="L512" class="ln">   512  </span>	newRequest.Body = io.NopCloser(bytes.NewBuffer(*rawBody))
+<span id="L513" class="ln">   513  </span>	return &amp;newRequest
+<span id="L514" class="ln">   514  </span>}
+<span id="L515" class="ln">   515  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -393,6 +393,32 @@
 				
 			
 				
+				<dd><a href="#NullableList">type NullableList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewNullableList">func NewNullableList[T any](val *[]T) *NullableList[T]</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NullableList.Get">func (v NullableList[T]) Get() *[]T</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NullableList.IsSet">func (v NullableList[T]) IsSet() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NullableList.MarshalJSON">func (v NullableList[T]) MarshalJSON() ([]byte, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NullableList.Set">func (v *NullableList[T]) Set(val *[]T)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NullableList.UnmarshalJSON">func (v *NullableList[T]) UnmarshalJSON(src []byte) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NullableList.Unset">func (v *NullableList[T]) Unset()</a></dd>
+				
+			
+				
 				<dd><a href="#NullableString">type NullableString</a></dd>
 				
 					
@@ -542,7 +568,7 @@
 		
 			
 			
-			<h2 id="ContainsUnparsedObject">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L408">ContainsUnparsedObject</a>
+			<h2 id="ContainsUnparsedObject">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L452">ContainsUnparsedObject</a>
 				<a class="permalink" href="#ContainsUnparsedObject">&#xb6;</a>
 				
 				
@@ -556,7 +582,7 @@
 		
 			
 			
-			<h2 id="DeleteKeys">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L401">DeleteKeys</a>
+			<h2 id="DeleteKeys">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L445">DeleteKeys</a>
 				<a class="permalink" href="#DeleteKeys">&#xb6;</a>
 				
 				
@@ -752,7 +778,7 @@
 		
 			
 			
-			<h2 id="Strlen">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L457">Strlen</a>
+			<h2 id="Strlen">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L501">Strlen</a>
 				<a class="permalink" href="#Strlen">&#xb6;</a>
 				
 				
@@ -1849,6 +1875,122 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				</h3>
 				<pre>func (v *<a href="#NullableInt64">NullableInt64</a>) Unset()</pre>
 				<p>Unset resets fields of the nullable int64.
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="NullableList">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L401">NullableList</a>
+				<a class="permalink" href="#NullableList">&#xb6;</a>
+				
+				
+			</h2>
+			<p>NullableList struct to hold nullable list value.
+
+			<pre>type NullableList[T <a href="https://pkg.go.dev/builtin/#any">any</a>] struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewNullableList">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L429">NewNullableList</a>
+					<a class="permalink" href="#NewNullableList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewNullableList[T <a href="https://pkg.go.dev/builtin/#any">any</a>](val *[]T) *<a href="#NullableList">NullableList</a>[T]</pre>
+				<p>NewNullableList instantiates a new nullable list.
+
+				
+				
+			
+
+			
+				
+				<h3 id="NullableList.Get">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L407">Get</a>
+					<a class="permalink" href="#NullableList.Get">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#NullableList">NullableList</a>[T]) Get() *[]T</pre>
+				<p>Get returns the value associated with the nullable list.
+
+				
+				
+				
+			
+				
+				<h3 id="NullableList.IsSet">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L418">IsSet</a>
+					<a class="permalink" href="#NullableList.IsSet">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#NullableList">NullableList</a>[T]) IsSet() <a href="https://pkg.go.dev/builtin/#bool">bool</a></pre>
+				<p>IsSet returns true if the value has been set.
+
+				
+				
+				
+			
+				
+				<h3 id="NullableList.MarshalJSON">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L434">MarshalJSON</a>
+					<a class="permalink" href="#NullableList.MarshalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#NullableList">NullableList</a>[T]) MarshalJSON() ([]<a href="https://pkg.go.dev/builtin/#byte">byte</a>, <a href="https://pkg.go.dev/builtin/#error">error</a>)</pre>
+				<p>MarshalJSON serializes the associated value.
+
+				
+				
+				
+			
+				
+				<h3 id="NullableList.Set">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L412">Set</a>
+					<a class="permalink" href="#NullableList.Set">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="#NullableList">NullableList</a>[T]) Set(val *[]T)</pre>
+				<p>Set sets the value associated with the nullable list.
+
+				
+				
+				
+			
+				
+				<h3 id="NullableList.UnmarshalJSON">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L439">UnmarshalJSON</a>
+					<a class="permalink" href="#NullableList.UnmarshalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="#NullableList">NullableList</a>[T]) UnmarshalJSON(src []<a href="https://pkg.go.dev/builtin/#byte">byte</a>) <a href="https://pkg.go.dev/builtin/#error">error</a></pre>
+				<p>UnmarshalJSON deserializes to the associated value.
+
+				
+				
+				
+			
+				
+				<h3 id="NullableList.Unset">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L423">Unset</a>
+					<a class="permalink" href="#NullableList.Unset">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="#NullableList">NullableList</a>[T]) Unset()</pre>
+				<p>Unset resets fields of the nullable list.
 
 				
 				
