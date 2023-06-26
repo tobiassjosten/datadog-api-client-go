@@ -565,41 +565,40 @@
 <span id="L508" class="ln">   508  </span>		TagSet      []string               `json:&#34;tag_set,omitempty&#34;`
 <span id="L509" class="ln">   509  </span>		Unit        []MetricsQueryUnit     `json:&#34;unit,omitempty&#34;`
 <span id="L510" class="ln">   510  </span>	}{}
-<span id="L511" class="ln">   511  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L512" class="ln">   512  </span>	if err != nil {
-<span id="L513" class="ln">   513  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L514" class="ln">   514  </span>		if err != nil {
-<span id="L515" class="ln">   515  </span>			return err
-<span id="L516" class="ln">   516  </span>		}
-<span id="L517" class="ln">   517  </span>		o.UnparsedObject = raw
-<span id="L518" class="ln">   518  </span>		return nil
-<span id="L519" class="ln">   519  </span>	}
-<span id="L520" class="ln">   520  </span>	additionalProperties := make(map[string]interface{})
-<span id="L521" class="ln">   521  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L522" class="ln">   522  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggr&#34;, &#34;display_name&#34;, &#34;end&#34;, &#34;expression&#34;, &#34;interval&#34;, &#34;length&#34;, &#34;metric&#34;, &#34;pointlist&#34;, &#34;query_index&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;tag_set&#34;, &#34;unit&#34;})
-<span id="L523" class="ln">   523  </span>	} else {
-<span id="L524" class="ln">   524  </span>		return err
-<span id="L525" class="ln">   525  </span>	}
-<span id="L526" class="ln">   526  </span>	o.Aggr = all.Aggr
-<span id="L527" class="ln">   527  </span>	o.DisplayName = all.DisplayName
-<span id="L528" class="ln">   528  </span>	o.End = all.End
-<span id="L529" class="ln">   529  </span>	o.Expression = all.Expression
-<span id="L530" class="ln">   530  </span>	o.Interval = all.Interval
-<span id="L531" class="ln">   531  </span>	o.Length = all.Length
-<span id="L532" class="ln">   532  </span>	o.Metric = all.Metric
-<span id="L533" class="ln">   533  </span>	o.Pointlist = all.Pointlist
-<span id="L534" class="ln">   534  </span>	o.QueryIndex = all.QueryIndex
-<span id="L535" class="ln">   535  </span>	o.Scope = all.Scope
-<span id="L536" class="ln">   536  </span>	o.Start = all.Start
-<span id="L537" class="ln">   537  </span>	o.TagSet = all.TagSet
-<span id="L538" class="ln">   538  </span>	o.Unit = all.Unit
-<span id="L539" class="ln">   539  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L540" class="ln">   540  </span>		o.AdditionalProperties = additionalProperties
-<span id="L541" class="ln">   541  </span>	}
-<span id="L542" class="ln">   542  </span>
-<span id="L543" class="ln">   543  </span>	return nil
-<span id="L544" class="ln">   544  </span>}
-<span id="L545" class="ln">   545  </span>
+<span id="L511" class="ln">   511  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L512" class="ln">   512  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L513" class="ln">   513  </span>		if err != nil {
+<span id="L514" class="ln">   514  </span>			return err
+<span id="L515" class="ln">   515  </span>		}
+<span id="L516" class="ln">   516  </span>		o.UnparsedObject = raw
+<span id="L517" class="ln">   517  </span>		return nil
+<span id="L518" class="ln">   518  </span>	}
+<span id="L519" class="ln">   519  </span>	additionalProperties := make(map[string]interface{})
+<span id="L520" class="ln">   520  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L521" class="ln">   521  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggr&#34;, &#34;display_name&#34;, &#34;end&#34;, &#34;expression&#34;, &#34;interval&#34;, &#34;length&#34;, &#34;metric&#34;, &#34;pointlist&#34;, &#34;query_index&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;tag_set&#34;, &#34;unit&#34;})
+<span id="L522" class="ln">   522  </span>	} else {
+<span id="L523" class="ln">   523  </span>		return err
+<span id="L524" class="ln">   524  </span>	}
+<span id="L525" class="ln">   525  </span>	o.Aggr = all.Aggr
+<span id="L526" class="ln">   526  </span>	o.DisplayName = all.DisplayName
+<span id="L527" class="ln">   527  </span>	o.End = all.End
+<span id="L528" class="ln">   528  </span>	o.Expression = all.Expression
+<span id="L529" class="ln">   529  </span>	o.Interval = all.Interval
+<span id="L530" class="ln">   530  </span>	o.Length = all.Length
+<span id="L531" class="ln">   531  </span>	o.Metric = all.Metric
+<span id="L532" class="ln">   532  </span>	o.Pointlist = all.Pointlist
+<span id="L533" class="ln">   533  </span>	o.QueryIndex = all.QueryIndex
+<span id="L534" class="ln">   534  </span>	o.Scope = all.Scope
+<span id="L535" class="ln">   535  </span>	o.Start = all.Start
+<span id="L536" class="ln">   536  </span>	o.TagSet = all.TagSet
+<span id="L537" class="ln">   537  </span>	o.Unit = all.Unit
+<span id="L538" class="ln">   538  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L539" class="ln">   539  </span>		o.AdditionalProperties = additionalProperties
+<span id="L540" class="ln">   540  </span>	}
+<span id="L541" class="ln">   541  </span>
+<span id="L542" class="ln">   542  </span>	return nil
+<span id="L543" class="ln">   543  </span>}
+<span id="L544" class="ln">   544  </span>
 </pre><p></p>
 
 <div id="footer">

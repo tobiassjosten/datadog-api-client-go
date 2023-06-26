@@ -586,122 +586,112 @@
 <span id="L529" class="ln">   529  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L530" class="ln">   530  </span>func (o *CIAppGitInfo) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L531" class="ln">   531  </span>	raw := map[string]interface{}{}
-<span id="L532" class="ln">   532  </span>	required := struct {
-<span id="L533" class="ln">   533  </span>		AuthorEmail   *string `json:&#34;author_email&#34;`
-<span id="L534" class="ln">   534  </span>		RepositoryUrl *string `json:&#34;repository_url&#34;`
-<span id="L535" class="ln">   535  </span>		Sha           *string `json:&#34;sha&#34;`
-<span id="L536" class="ln">   536  </span>	}{}
-<span id="L537" class="ln">   537  </span>	all := struct {
-<span id="L538" class="ln">   538  </span>		AuthorEmail    string                 `json:&#34;author_email&#34;`
-<span id="L539" class="ln">   539  </span>		AuthorName     datadog.NullableString `json:&#34;author_name,omitempty&#34;`
-<span id="L540" class="ln">   540  </span>		AuthorTime     datadog.NullableString `json:&#34;author_time,omitempty&#34;`
-<span id="L541" class="ln">   541  </span>		Branch         datadog.NullableString `json:&#34;branch,omitempty&#34;`
-<span id="L542" class="ln">   542  </span>		CommitTime     datadog.NullableString `json:&#34;commit_time,omitempty&#34;`
-<span id="L543" class="ln">   543  </span>		CommitterEmail datadog.NullableString `json:&#34;committer_email,omitempty&#34;`
-<span id="L544" class="ln">   544  </span>		CommitterName  datadog.NullableString `json:&#34;committer_name,omitempty&#34;`
-<span id="L545" class="ln">   545  </span>		DefaultBranch  datadog.NullableString `json:&#34;default_branch,omitempty&#34;`
-<span id="L546" class="ln">   546  </span>		Message        datadog.NullableString `json:&#34;message,omitempty&#34;`
-<span id="L547" class="ln">   547  </span>		RepositoryUrl  string                 `json:&#34;repository_url&#34;`
-<span id="L548" class="ln">   548  </span>		Sha            string                 `json:&#34;sha&#34;`
-<span id="L549" class="ln">   549  </span>		Tag            datadog.NullableString `json:&#34;tag,omitempty&#34;`
-<span id="L550" class="ln">   550  </span>	}{}
-<span id="L551" class="ln">   551  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L552" class="ln">   552  </span>	if err != nil {
-<span id="L553" class="ln">   553  </span>		return err
-<span id="L554" class="ln">   554  </span>	}
-<span id="L555" class="ln">   555  </span>	if required.AuthorEmail == nil {
-<span id="L556" class="ln">   556  </span>		return fmt.Errorf(&#34;required field author_email missing&#34;)
-<span id="L557" class="ln">   557  </span>	}
-<span id="L558" class="ln">   558  </span>	if required.RepositoryUrl == nil {
-<span id="L559" class="ln">   559  </span>		return fmt.Errorf(&#34;required field repository_url missing&#34;)
-<span id="L560" class="ln">   560  </span>	}
-<span id="L561" class="ln">   561  </span>	if required.Sha == nil {
-<span id="L562" class="ln">   562  </span>		return fmt.Errorf(&#34;required field sha missing&#34;)
-<span id="L563" class="ln">   563  </span>	}
-<span id="L564" class="ln">   564  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L565" class="ln">   565  </span>	if err != nil {
-<span id="L566" class="ln">   566  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L567" class="ln">   567  </span>		if err != nil {
-<span id="L568" class="ln">   568  </span>			return err
-<span id="L569" class="ln">   569  </span>		}
-<span id="L570" class="ln">   570  </span>		o.UnparsedObject = raw
-<span id="L571" class="ln">   571  </span>		return nil
-<span id="L572" class="ln">   572  </span>	}
-<span id="L573" class="ln">   573  </span>	additionalProperties := make(map[string]interface{})
-<span id="L574" class="ln">   574  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L575" class="ln">   575  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author_email&#34;, &#34;author_name&#34;, &#34;author_time&#34;, &#34;branch&#34;, &#34;commit_time&#34;, &#34;committer_email&#34;, &#34;committer_name&#34;, &#34;default_branch&#34;, &#34;message&#34;, &#34;repository_url&#34;, &#34;sha&#34;, &#34;tag&#34;})
-<span id="L576" class="ln">   576  </span>	} else {
-<span id="L577" class="ln">   577  </span>		return err
-<span id="L578" class="ln">   578  </span>	}
-<span id="L579" class="ln">   579  </span>	o.AuthorEmail = all.AuthorEmail
-<span id="L580" class="ln">   580  </span>	o.AuthorName = all.AuthorName
-<span id="L581" class="ln">   581  </span>	o.AuthorTime = all.AuthorTime
-<span id="L582" class="ln">   582  </span>	o.Branch = all.Branch
-<span id="L583" class="ln">   583  </span>	o.CommitTime = all.CommitTime
-<span id="L584" class="ln">   584  </span>	o.CommitterEmail = all.CommitterEmail
-<span id="L585" class="ln">   585  </span>	o.CommitterName = all.CommitterName
-<span id="L586" class="ln">   586  </span>	o.DefaultBranch = all.DefaultBranch
-<span id="L587" class="ln">   587  </span>	o.Message = all.Message
-<span id="L588" class="ln">   588  </span>	o.RepositoryUrl = all.RepositoryUrl
-<span id="L589" class="ln">   589  </span>	o.Sha = all.Sha
-<span id="L590" class="ln">   590  </span>	o.Tag = all.Tag
-<span id="L591" class="ln">   591  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L592" class="ln">   592  </span>		o.AdditionalProperties = additionalProperties
-<span id="L593" class="ln">   593  </span>	}
-<span id="L594" class="ln">   594  </span>
-<span id="L595" class="ln">   595  </span>	return nil
-<span id="L596" class="ln">   596  </span>}
-<span id="L597" class="ln">   597  </span>
-<span id="L598" class="ln">   598  </span><span class="comment">// NullableCIAppGitInfo handles when a null is used for CIAppGitInfo.</span>
-<span id="L599" class="ln">   599  </span>type NullableCIAppGitInfo struct {
-<span id="L600" class="ln">   600  </span>	value *CIAppGitInfo
-<span id="L601" class="ln">   601  </span>	isSet bool
-<span id="L602" class="ln">   602  </span>}
-<span id="L603" class="ln">   603  </span>
-<span id="L604" class="ln">   604  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L605" class="ln">   605  </span>func (v NullableCIAppGitInfo) Get() *CIAppGitInfo {
-<span id="L606" class="ln">   606  </span>	return v.value
-<span id="L607" class="ln">   607  </span>}
-<span id="L608" class="ln">   608  </span>
-<span id="L609" class="ln">   609  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L610" class="ln">   610  </span>func (v *NullableCIAppGitInfo) Set(val *CIAppGitInfo) {
-<span id="L611" class="ln">   611  </span>	v.value = val
-<span id="L612" class="ln">   612  </span>	v.isSet = true
-<span id="L613" class="ln">   613  </span>}
-<span id="L614" class="ln">   614  </span>
-<span id="L615" class="ln">   615  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L616" class="ln">   616  </span>func (v NullableCIAppGitInfo) IsSet() bool {
-<span id="L617" class="ln">   617  </span>	return v.isSet
-<span id="L618" class="ln">   618  </span>}
-<span id="L619" class="ln">   619  </span>
-<span id="L620" class="ln">   620  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L621" class="ln">   621  </span>func (v *NullableCIAppGitInfo) Unset() {
-<span id="L622" class="ln">   622  </span>	v.value = nil
-<span id="L623" class="ln">   623  </span>	v.isSet = false
+<span id="L532" class="ln">   532  </span>	all := struct {
+<span id="L533" class="ln">   533  </span>		AuthorEmail    *string                `json:&#34;author_email&#34;`
+<span id="L534" class="ln">   534  </span>		AuthorName     datadog.NullableString `json:&#34;author_name,omitempty&#34;`
+<span id="L535" class="ln">   535  </span>		AuthorTime     datadog.NullableString `json:&#34;author_time,omitempty&#34;`
+<span id="L536" class="ln">   536  </span>		Branch         datadog.NullableString `json:&#34;branch,omitempty&#34;`
+<span id="L537" class="ln">   537  </span>		CommitTime     datadog.NullableString `json:&#34;commit_time,omitempty&#34;`
+<span id="L538" class="ln">   538  </span>		CommitterEmail datadog.NullableString `json:&#34;committer_email,omitempty&#34;`
+<span id="L539" class="ln">   539  </span>		CommitterName  datadog.NullableString `json:&#34;committer_name,omitempty&#34;`
+<span id="L540" class="ln">   540  </span>		DefaultBranch  datadog.NullableString `json:&#34;default_branch,omitempty&#34;`
+<span id="L541" class="ln">   541  </span>		Message        datadog.NullableString `json:&#34;message,omitempty&#34;`
+<span id="L542" class="ln">   542  </span>		RepositoryUrl  *string                `json:&#34;repository_url&#34;`
+<span id="L543" class="ln">   543  </span>		Sha            *string                `json:&#34;sha&#34;`
+<span id="L544" class="ln">   544  </span>		Tag            datadog.NullableString `json:&#34;tag,omitempty&#34;`
+<span id="L545" class="ln">   545  </span>	}{}
+<span id="L546" class="ln">   546  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L547" class="ln">   547  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L548" class="ln">   548  </span>		if err != nil {
+<span id="L549" class="ln">   549  </span>			return err
+<span id="L550" class="ln">   550  </span>		}
+<span id="L551" class="ln">   551  </span>		o.UnparsedObject = raw
+<span id="L552" class="ln">   552  </span>		return nil
+<span id="L553" class="ln">   553  </span>	}
+<span id="L554" class="ln">   554  </span>	if all.AuthorEmail == nil {
+<span id="L555" class="ln">   555  </span>		return fmt.Errorf(&#34;required field author_email missing&#34;)
+<span id="L556" class="ln">   556  </span>	}
+<span id="L557" class="ln">   557  </span>	if all.RepositoryUrl == nil {
+<span id="L558" class="ln">   558  </span>		return fmt.Errorf(&#34;required field repository_url missing&#34;)
+<span id="L559" class="ln">   559  </span>	}
+<span id="L560" class="ln">   560  </span>	if all.Sha == nil {
+<span id="L561" class="ln">   561  </span>		return fmt.Errorf(&#34;required field sha missing&#34;)
+<span id="L562" class="ln">   562  </span>	}
+<span id="L563" class="ln">   563  </span>	additionalProperties := make(map[string]interface{})
+<span id="L564" class="ln">   564  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L565" class="ln">   565  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author_email&#34;, &#34;author_name&#34;, &#34;author_time&#34;, &#34;branch&#34;, &#34;commit_time&#34;, &#34;committer_email&#34;, &#34;committer_name&#34;, &#34;default_branch&#34;, &#34;message&#34;, &#34;repository_url&#34;, &#34;sha&#34;, &#34;tag&#34;})
+<span id="L566" class="ln">   566  </span>	} else {
+<span id="L567" class="ln">   567  </span>		return err
+<span id="L568" class="ln">   568  </span>	}
+<span id="L569" class="ln">   569  </span>	o.AuthorEmail = *all.AuthorEmail
+<span id="L570" class="ln">   570  </span>	o.AuthorName = all.AuthorName
+<span id="L571" class="ln">   571  </span>	o.AuthorTime = all.AuthorTime
+<span id="L572" class="ln">   572  </span>	o.Branch = all.Branch
+<span id="L573" class="ln">   573  </span>	o.CommitTime = all.CommitTime
+<span id="L574" class="ln">   574  </span>	o.CommitterEmail = all.CommitterEmail
+<span id="L575" class="ln">   575  </span>	o.CommitterName = all.CommitterName
+<span id="L576" class="ln">   576  </span>	o.DefaultBranch = all.DefaultBranch
+<span id="L577" class="ln">   577  </span>	o.Message = all.Message
+<span id="L578" class="ln">   578  </span>	o.RepositoryUrl = *all.RepositoryUrl
+<span id="L579" class="ln">   579  </span>	o.Sha = *all.Sha
+<span id="L580" class="ln">   580  </span>	o.Tag = all.Tag
+<span id="L581" class="ln">   581  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L582" class="ln">   582  </span>		o.AdditionalProperties = additionalProperties
+<span id="L583" class="ln">   583  </span>	}
+<span id="L584" class="ln">   584  </span>
+<span id="L585" class="ln">   585  </span>	return nil
+<span id="L586" class="ln">   586  </span>}
+<span id="L587" class="ln">   587  </span>
+<span id="L588" class="ln">   588  </span><span class="comment">// NullableCIAppGitInfo handles when a null is used for CIAppGitInfo.</span>
+<span id="L589" class="ln">   589  </span>type NullableCIAppGitInfo struct {
+<span id="L590" class="ln">   590  </span>	value *CIAppGitInfo
+<span id="L591" class="ln">   591  </span>	isSet bool
+<span id="L592" class="ln">   592  </span>}
+<span id="L593" class="ln">   593  </span>
+<span id="L594" class="ln">   594  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L595" class="ln">   595  </span>func (v NullableCIAppGitInfo) Get() *CIAppGitInfo {
+<span id="L596" class="ln">   596  </span>	return v.value
+<span id="L597" class="ln">   597  </span>}
+<span id="L598" class="ln">   598  </span>
+<span id="L599" class="ln">   599  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L600" class="ln">   600  </span>func (v *NullableCIAppGitInfo) Set(val *CIAppGitInfo) {
+<span id="L601" class="ln">   601  </span>	v.value = val
+<span id="L602" class="ln">   602  </span>	v.isSet = true
+<span id="L603" class="ln">   603  </span>}
+<span id="L604" class="ln">   604  </span>
+<span id="L605" class="ln">   605  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L606" class="ln">   606  </span>func (v NullableCIAppGitInfo) IsSet() bool {
+<span id="L607" class="ln">   607  </span>	return v.isSet
+<span id="L608" class="ln">   608  </span>}
+<span id="L609" class="ln">   609  </span>
+<span id="L610" class="ln">   610  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L611" class="ln">   611  </span>func (v *NullableCIAppGitInfo) Unset() {
+<span id="L612" class="ln">   612  </span>	v.value = nil
+<span id="L613" class="ln">   613  </span>	v.isSet = false
+<span id="L614" class="ln">   614  </span>}
+<span id="L615" class="ln">   615  </span>
+<span id="L616" class="ln">   616  </span><span class="comment">// NewNullableCIAppGitInfo initializes the struct as if Set has been called.</span>
+<span id="L617" class="ln">   617  </span>func NewNullableCIAppGitInfo(val *CIAppGitInfo) *NullableCIAppGitInfo {
+<span id="L618" class="ln">   618  </span>	return &amp;NullableCIAppGitInfo{value: val, isSet: true}
+<span id="L619" class="ln">   619  </span>}
+<span id="L620" class="ln">   620  </span>
+<span id="L621" class="ln">   621  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L622" class="ln">   622  </span>func (v NullableCIAppGitInfo) MarshalJSON() ([]byte, error) {
+<span id="L623" class="ln">   623  </span>	return json.Marshal(v.value)
 <span id="L624" class="ln">   624  </span>}
 <span id="L625" class="ln">   625  </span>
-<span id="L626" class="ln">   626  </span><span class="comment">// NewNullableCIAppGitInfo initializes the struct as if Set has been called.</span>
-<span id="L627" class="ln">   627  </span>func NewNullableCIAppGitInfo(val *CIAppGitInfo) *NullableCIAppGitInfo {
-<span id="L628" class="ln">   628  </span>	return &amp;NullableCIAppGitInfo{value: val, isSet: true}
-<span id="L629" class="ln">   629  </span>}
-<span id="L630" class="ln">   630  </span>
-<span id="L631" class="ln">   631  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L632" class="ln">   632  </span>func (v NullableCIAppGitInfo) MarshalJSON() ([]byte, error) {
-<span id="L633" class="ln">   633  </span>	return json.Marshal(v.value)
-<span id="L634" class="ln">   634  </span>}
-<span id="L635" class="ln">   635  </span>
-<span id="L636" class="ln">   636  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L637" class="ln">   637  </span>func (v *NullableCIAppGitInfo) UnmarshalJSON(src []byte) error {
-<span id="L638" class="ln">   638  </span>	v.isSet = true
-<span id="L639" class="ln">   639  </span>
-<span id="L640" class="ln">   640  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L641" class="ln">   641  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L642" class="ln">   642  </span>		return nil
-<span id="L643" class="ln">   643  </span>	}
-<span id="L644" class="ln">   644  </span>
-<span id="L645" class="ln">   645  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L646" class="ln">   646  </span>}
-<span id="L647" class="ln">   647  </span>
+<span id="L626" class="ln">   626  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L627" class="ln">   627  </span>func (v *NullableCIAppGitInfo) UnmarshalJSON(src []byte) error {
+<span id="L628" class="ln">   628  </span>	v.isSet = true
+<span id="L629" class="ln">   629  </span>
+<span id="L630" class="ln">   630  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L631" class="ln">   631  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L632" class="ln">   632  </span>		return nil
+<span id="L633" class="ln">   633  </span>	}
+<span id="L634" class="ln">   634  </span>
+<span id="L635" class="ln">   635  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L636" class="ln">   636  </span>}
+<span id="L637" class="ln">   637  </span>
 </pre><p></p>
 
 <div id="footer">

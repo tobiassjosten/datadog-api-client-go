@@ -483,53 +483,52 @@
 <span id="L426" class="ln">   426  </span>		Updater      *CloudWorkloadSecurityAgentRuleUpdaterAttributes `json:&#34;updater,omitempty&#34;`
 <span id="L427" class="ln">   427  </span>		Version      *int64                                           `json:&#34;version,omitempty&#34;`
 <span id="L428" class="ln">   428  </span>	}{}
-<span id="L429" class="ln">   429  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L430" class="ln">   430  </span>	if err != nil {
-<span id="L431" class="ln">   431  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L432" class="ln">   432  </span>		if err != nil {
-<span id="L433" class="ln">   433  </span>			return err
-<span id="L434" class="ln">   434  </span>		}
-<span id="L435" class="ln">   435  </span>		o.UnparsedObject = raw
-<span id="L436" class="ln">   436  </span>		return nil
-<span id="L437" class="ln">   437  </span>	}
-<span id="L438" class="ln">   438  </span>	additionalProperties := make(map[string]interface{})
-<span id="L439" class="ln">   439  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L440" class="ln">   440  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;category&#34;, &#34;creationDate&#34;, &#34;creator&#34;, &#34;defaultRule&#34;, &#34;description&#34;, &#34;enabled&#34;, &#34;expression&#34;, &#34;name&#34;, &#34;updatedAt&#34;, &#34;updater&#34;, &#34;version&#34;})
-<span id="L441" class="ln">   441  </span>	} else {
-<span id="L442" class="ln">   442  </span>		return err
-<span id="L443" class="ln">   443  </span>	}
-<span id="L444" class="ln">   444  </span>	o.Category = all.Category
-<span id="L445" class="ln">   445  </span>	o.CreationDate = all.CreationDate
-<span id="L446" class="ln">   446  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L447" class="ln">   447  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L448" class="ln">   448  </span>		if err != nil {
-<span id="L449" class="ln">   449  </span>			return err
-<span id="L450" class="ln">   450  </span>		}
-<span id="L451" class="ln">   451  </span>		o.UnparsedObject = raw
-<span id="L452" class="ln">   452  </span>	}
-<span id="L453" class="ln">   453  </span>	o.Creator = all.Creator
-<span id="L454" class="ln">   454  </span>	o.DefaultRule = all.DefaultRule
-<span id="L455" class="ln">   455  </span>	o.Description = all.Description
-<span id="L456" class="ln">   456  </span>	o.Enabled = all.Enabled
-<span id="L457" class="ln">   457  </span>	o.Expression = all.Expression
-<span id="L458" class="ln">   458  </span>	o.Name = all.Name
-<span id="L459" class="ln">   459  </span>	o.UpdatedAt = all.UpdatedAt
-<span id="L460" class="ln">   460  </span>	if all.Updater != nil &amp;&amp; all.Updater.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L461" class="ln">   461  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L462" class="ln">   462  </span>		if err != nil {
-<span id="L463" class="ln">   463  </span>			return err
-<span id="L464" class="ln">   464  </span>		}
-<span id="L465" class="ln">   465  </span>		o.UnparsedObject = raw
-<span id="L466" class="ln">   466  </span>	}
-<span id="L467" class="ln">   467  </span>	o.Updater = all.Updater
-<span id="L468" class="ln">   468  </span>	o.Version = all.Version
-<span id="L469" class="ln">   469  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L470" class="ln">   470  </span>		o.AdditionalProperties = additionalProperties
-<span id="L471" class="ln">   471  </span>	}
-<span id="L472" class="ln">   472  </span>
-<span id="L473" class="ln">   473  </span>	return nil
-<span id="L474" class="ln">   474  </span>}
-<span id="L475" class="ln">   475  </span>
+<span id="L429" class="ln">   429  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L431" class="ln">   431  </span>		if err != nil {
+<span id="L432" class="ln">   432  </span>			return err
+<span id="L433" class="ln">   433  </span>		}
+<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
+<span id="L435" class="ln">   435  </span>		return nil
+<span id="L436" class="ln">   436  </span>	}
+<span id="L437" class="ln">   437  </span>	additionalProperties := make(map[string]interface{})
+<span id="L438" class="ln">   438  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L439" class="ln">   439  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;category&#34;, &#34;creationDate&#34;, &#34;creator&#34;, &#34;defaultRule&#34;, &#34;description&#34;, &#34;enabled&#34;, &#34;expression&#34;, &#34;name&#34;, &#34;updatedAt&#34;, &#34;updater&#34;, &#34;version&#34;})
+<span id="L440" class="ln">   440  </span>	} else {
+<span id="L441" class="ln">   441  </span>		return err
+<span id="L442" class="ln">   442  </span>	}
+<span id="L443" class="ln">   443  </span>	o.Category = all.Category
+<span id="L444" class="ln">   444  </span>	o.CreationDate = all.CreationDate
+<span id="L445" class="ln">   445  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L446" class="ln">   446  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L447" class="ln">   447  </span>		if err != nil {
+<span id="L448" class="ln">   448  </span>			return err
+<span id="L449" class="ln">   449  </span>		}
+<span id="L450" class="ln">   450  </span>		o.UnparsedObject = raw
+<span id="L451" class="ln">   451  </span>	}
+<span id="L452" class="ln">   452  </span>	o.Creator = all.Creator
+<span id="L453" class="ln">   453  </span>	o.DefaultRule = all.DefaultRule
+<span id="L454" class="ln">   454  </span>	o.Description = all.Description
+<span id="L455" class="ln">   455  </span>	o.Enabled = all.Enabled
+<span id="L456" class="ln">   456  </span>	o.Expression = all.Expression
+<span id="L457" class="ln">   457  </span>	o.Name = all.Name
+<span id="L458" class="ln">   458  </span>	o.UpdatedAt = all.UpdatedAt
+<span id="L459" class="ln">   459  </span>	if all.Updater != nil &amp;&amp; all.Updater.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L460" class="ln">   460  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L461" class="ln">   461  </span>		if err != nil {
+<span id="L462" class="ln">   462  </span>			return err
+<span id="L463" class="ln">   463  </span>		}
+<span id="L464" class="ln">   464  </span>		o.UnparsedObject = raw
+<span id="L465" class="ln">   465  </span>	}
+<span id="L466" class="ln">   466  </span>	o.Updater = all.Updater
+<span id="L467" class="ln">   467  </span>	o.Version = all.Version
+<span id="L468" class="ln">   468  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L469" class="ln">   469  </span>		o.AdditionalProperties = additionalProperties
+<span id="L470" class="ln">   470  </span>	}
+<span id="L471" class="ln">   471  </span>
+<span id="L472" class="ln">   472  </span>	return nil
+<span id="L473" class="ln">   473  </span>}
+<span id="L474" class="ln">   474  </span>
 </pre><p></p>
 
 <div id="footer">

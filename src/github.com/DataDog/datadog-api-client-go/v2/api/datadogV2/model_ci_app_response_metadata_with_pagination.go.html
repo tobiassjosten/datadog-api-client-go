@@ -280,48 +280,47 @@
 <span id="L223" class="ln">   223  </span>		Status    *CIAppResponseStatus `json:&#34;status,omitempty&#34;`
 <span id="L224" class="ln">   224  </span>		Warnings  []CIAppWarning       `json:&#34;warnings,omitempty&#34;`
 <span id="L225" class="ln">   225  </span>	}{}
-<span id="L226" class="ln">   226  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L227" class="ln">   227  </span>	if err != nil {
-<span id="L228" class="ln">   228  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L229" class="ln">   229  </span>		if err != nil {
-<span id="L230" class="ln">   230  </span>			return err
-<span id="L231" class="ln">   231  </span>		}
-<span id="L232" class="ln">   232  </span>		o.UnparsedObject = raw
-<span id="L233" class="ln">   233  </span>		return nil
-<span id="L234" class="ln">   234  </span>	}
-<span id="L235" class="ln">   235  </span>	additionalProperties := make(map[string]interface{})
-<span id="L236" class="ln">   236  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L237" class="ln">   237  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;elapsed&#34;, &#34;page&#34;, &#34;request_id&#34;, &#34;status&#34;, &#34;warnings&#34;})
-<span id="L238" class="ln">   238  </span>	} else {
-<span id="L239" class="ln">   239  </span>		return err
-<span id="L240" class="ln">   240  </span>	}
-<span id="L241" class="ln">   241  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L242" class="ln">   242  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L243" class="ln">   243  </span>		if err != nil {
-<span id="L244" class="ln">   244  </span>			return err
-<span id="L245" class="ln">   245  </span>		}
-<span id="L246" class="ln">   246  </span>		o.UnparsedObject = raw
-<span id="L247" class="ln">   247  </span>		return nil
-<span id="L248" class="ln">   248  </span>	}
-<span id="L249" class="ln">   249  </span>	o.Elapsed = all.Elapsed
-<span id="L250" class="ln">   250  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L251" class="ln">   251  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L252" class="ln">   252  </span>		if err != nil {
-<span id="L253" class="ln">   253  </span>			return err
-<span id="L254" class="ln">   254  </span>		}
-<span id="L255" class="ln">   255  </span>		o.UnparsedObject = raw
-<span id="L256" class="ln">   256  </span>	}
-<span id="L257" class="ln">   257  </span>	o.Page = all.Page
-<span id="L258" class="ln">   258  </span>	o.RequestId = all.RequestId
-<span id="L259" class="ln">   259  </span>	o.Status = all.Status
-<span id="L260" class="ln">   260  </span>	o.Warnings = all.Warnings
-<span id="L261" class="ln">   261  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L262" class="ln">   262  </span>		o.AdditionalProperties = additionalProperties
-<span id="L263" class="ln">   263  </span>	}
-<span id="L264" class="ln">   264  </span>
-<span id="L265" class="ln">   265  </span>	return nil
-<span id="L266" class="ln">   266  </span>}
-<span id="L267" class="ln">   267  </span>
+<span id="L226" class="ln">   226  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L227" class="ln">   227  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L228" class="ln">   228  </span>		if err != nil {
+<span id="L229" class="ln">   229  </span>			return err
+<span id="L230" class="ln">   230  </span>		}
+<span id="L231" class="ln">   231  </span>		o.UnparsedObject = raw
+<span id="L232" class="ln">   232  </span>		return nil
+<span id="L233" class="ln">   233  </span>	}
+<span id="L234" class="ln">   234  </span>	additionalProperties := make(map[string]interface{})
+<span id="L235" class="ln">   235  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L236" class="ln">   236  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;elapsed&#34;, &#34;page&#34;, &#34;request_id&#34;, &#34;status&#34;, &#34;warnings&#34;})
+<span id="L237" class="ln">   237  </span>	} else {
+<span id="L238" class="ln">   238  </span>		return err
+<span id="L239" class="ln">   239  </span>	}
+<span id="L240" class="ln">   240  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L241" class="ln">   241  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L242" class="ln">   242  </span>		if err != nil {
+<span id="L243" class="ln">   243  </span>			return err
+<span id="L244" class="ln">   244  </span>		}
+<span id="L245" class="ln">   245  </span>		o.UnparsedObject = raw
+<span id="L246" class="ln">   246  </span>		return nil
+<span id="L247" class="ln">   247  </span>	}
+<span id="L248" class="ln">   248  </span>	o.Elapsed = all.Elapsed
+<span id="L249" class="ln">   249  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L250" class="ln">   250  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L251" class="ln">   251  </span>		if err != nil {
+<span id="L252" class="ln">   252  </span>			return err
+<span id="L253" class="ln">   253  </span>		}
+<span id="L254" class="ln">   254  </span>		o.UnparsedObject = raw
+<span id="L255" class="ln">   255  </span>	}
+<span id="L256" class="ln">   256  </span>	o.Page = all.Page
+<span id="L257" class="ln">   257  </span>	o.RequestId = all.RequestId
+<span id="L258" class="ln">   258  </span>	o.Status = all.Status
+<span id="L259" class="ln">   259  </span>	o.Warnings = all.Warnings
+<span id="L260" class="ln">   260  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L261" class="ln">   261  </span>		o.AdditionalProperties = additionalProperties
+<span id="L262" class="ln">   262  </span>	}
+<span id="L263" class="ln">   263  </span>
+<span id="L264" class="ln">   264  </span>	return nil
+<span id="L265" class="ln">   265  </span>}
+<span id="L266" class="ln">   266  </span>
 </pre><p></p>
 
 <div id="footer">

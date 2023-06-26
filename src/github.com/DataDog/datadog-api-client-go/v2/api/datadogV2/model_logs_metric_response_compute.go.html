@@ -212,39 +212,38 @@
 <span id="L155" class="ln">   155  </span>		IncludePercentiles *bool                                     `json:&#34;include_percentiles,omitempty&#34;`
 <span id="L156" class="ln">   156  </span>		Path               *string                                   `json:&#34;path,omitempty&#34;`
 <span id="L157" class="ln">   157  </span>	}{}
-<span id="L158" class="ln">   158  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L159" class="ln">   159  </span>	if err != nil {
-<span id="L160" class="ln">   160  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L161" class="ln">   161  </span>		if err != nil {
-<span id="L162" class="ln">   162  </span>			return err
-<span id="L163" class="ln">   163  </span>		}
-<span id="L164" class="ln">   164  </span>		o.UnparsedObject = raw
-<span id="L165" class="ln">   165  </span>		return nil
-<span id="L166" class="ln">   166  </span>	}
-<span id="L167" class="ln">   167  </span>	additionalProperties := make(map[string]interface{})
-<span id="L168" class="ln">   168  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L169" class="ln">   169  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregation_type&#34;, &#34;include_percentiles&#34;, &#34;path&#34;})
-<span id="L170" class="ln">   170  </span>	} else {
-<span id="L171" class="ln">   171  </span>		return err
-<span id="L172" class="ln">   172  </span>	}
-<span id="L173" class="ln">   173  </span>	if v := all.AggregationType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L174" class="ln">   174  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L175" class="ln">   175  </span>		if err != nil {
-<span id="L176" class="ln">   176  </span>			return err
-<span id="L177" class="ln">   177  </span>		}
-<span id="L178" class="ln">   178  </span>		o.UnparsedObject = raw
-<span id="L179" class="ln">   179  </span>		return nil
-<span id="L180" class="ln">   180  </span>	}
-<span id="L181" class="ln">   181  </span>	o.AggregationType = all.AggregationType
-<span id="L182" class="ln">   182  </span>	o.IncludePercentiles = all.IncludePercentiles
-<span id="L183" class="ln">   183  </span>	o.Path = all.Path
-<span id="L184" class="ln">   184  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L185" class="ln">   185  </span>		o.AdditionalProperties = additionalProperties
-<span id="L186" class="ln">   186  </span>	}
-<span id="L187" class="ln">   187  </span>
-<span id="L188" class="ln">   188  </span>	return nil
-<span id="L189" class="ln">   189  </span>}
-<span id="L190" class="ln">   190  </span>
+<span id="L158" class="ln">   158  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L159" class="ln">   159  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L160" class="ln">   160  </span>		if err != nil {
+<span id="L161" class="ln">   161  </span>			return err
+<span id="L162" class="ln">   162  </span>		}
+<span id="L163" class="ln">   163  </span>		o.UnparsedObject = raw
+<span id="L164" class="ln">   164  </span>		return nil
+<span id="L165" class="ln">   165  </span>	}
+<span id="L166" class="ln">   166  </span>	additionalProperties := make(map[string]interface{})
+<span id="L167" class="ln">   167  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L168" class="ln">   168  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregation_type&#34;, &#34;include_percentiles&#34;, &#34;path&#34;})
+<span id="L169" class="ln">   169  </span>	} else {
+<span id="L170" class="ln">   170  </span>		return err
+<span id="L171" class="ln">   171  </span>	}
+<span id="L172" class="ln">   172  </span>	if v := all.AggregationType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L173" class="ln">   173  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L174" class="ln">   174  </span>		if err != nil {
+<span id="L175" class="ln">   175  </span>			return err
+<span id="L176" class="ln">   176  </span>		}
+<span id="L177" class="ln">   177  </span>		o.UnparsedObject = raw
+<span id="L178" class="ln">   178  </span>		return nil
+<span id="L179" class="ln">   179  </span>	}
+<span id="L180" class="ln">   180  </span>	o.AggregationType = all.AggregationType
+<span id="L181" class="ln">   181  </span>	o.IncludePercentiles = all.IncludePercentiles
+<span id="L182" class="ln">   182  </span>	o.Path = all.Path
+<span id="L183" class="ln">   183  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L184" class="ln">   184  </span>		o.AdditionalProperties = additionalProperties
+<span id="L185" class="ln">   185  </span>	}
+<span id="L186" class="ln">   186  </span>
+<span id="L187" class="ln">   187  </span>	return nil
+<span id="L188" class="ln">   188  </span>}
+<span id="L189" class="ln">   189  </span>
 </pre><p></p>
 
 <div id="footer">

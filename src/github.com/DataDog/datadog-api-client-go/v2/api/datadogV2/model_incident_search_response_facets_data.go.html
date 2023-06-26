@@ -483,39 +483,38 @@
 <span id="L426" class="ln">   426  </span>		TimeToRepair   []IncidentSearchResponseNumericFacetData       `json:&#34;time_to_repair,omitempty&#34;`
 <span id="L427" class="ln">   427  </span>		TimeToResolve  []IncidentSearchResponseNumericFacetData       `json:&#34;time_to_resolve,omitempty&#34;`
 <span id="L428" class="ln">   428  </span>	}{}
-<span id="L429" class="ln">   429  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L430" class="ln">   430  </span>	if err != nil {
-<span id="L431" class="ln">   431  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L432" class="ln">   432  </span>		if err != nil {
-<span id="L433" class="ln">   433  </span>			return err
-<span id="L434" class="ln">   434  </span>		}
-<span id="L435" class="ln">   435  </span>		o.UnparsedObject = raw
-<span id="L436" class="ln">   436  </span>		return nil
-<span id="L437" class="ln">   437  </span>	}
-<span id="L438" class="ln">   438  </span>	additionalProperties := make(map[string]interface{})
-<span id="L439" class="ln">   439  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L440" class="ln">   440  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;commander&#34;, &#34;created_by&#34;, &#34;fields&#34;, &#34;impact&#34;, &#34;last_modified_by&#34;, &#34;postmortem&#34;, &#34;responder&#34;, &#34;severity&#34;, &#34;state&#34;, &#34;time_to_repair&#34;, &#34;time_to_resolve&#34;})
-<span id="L441" class="ln">   441  </span>	} else {
-<span id="L442" class="ln">   442  </span>		return err
-<span id="L443" class="ln">   443  </span>	}
-<span id="L444" class="ln">   444  </span>	o.Commander = all.Commander
-<span id="L445" class="ln">   445  </span>	o.CreatedBy = all.CreatedBy
-<span id="L446" class="ln">   446  </span>	o.Fields = all.Fields
-<span id="L447" class="ln">   447  </span>	o.Impact = all.Impact
-<span id="L448" class="ln">   448  </span>	o.LastModifiedBy = all.LastModifiedBy
-<span id="L449" class="ln">   449  </span>	o.Postmortem = all.Postmortem
-<span id="L450" class="ln">   450  </span>	o.Responder = all.Responder
-<span id="L451" class="ln">   451  </span>	o.Severity = all.Severity
-<span id="L452" class="ln">   452  </span>	o.State = all.State
-<span id="L453" class="ln">   453  </span>	o.TimeToRepair = all.TimeToRepair
-<span id="L454" class="ln">   454  </span>	o.TimeToResolve = all.TimeToResolve
-<span id="L455" class="ln">   455  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L456" class="ln">   456  </span>		o.AdditionalProperties = additionalProperties
-<span id="L457" class="ln">   457  </span>	}
-<span id="L458" class="ln">   458  </span>
-<span id="L459" class="ln">   459  </span>	return nil
-<span id="L460" class="ln">   460  </span>}
-<span id="L461" class="ln">   461  </span>
+<span id="L429" class="ln">   429  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L431" class="ln">   431  </span>		if err != nil {
+<span id="L432" class="ln">   432  </span>			return err
+<span id="L433" class="ln">   433  </span>		}
+<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
+<span id="L435" class="ln">   435  </span>		return nil
+<span id="L436" class="ln">   436  </span>	}
+<span id="L437" class="ln">   437  </span>	additionalProperties := make(map[string]interface{})
+<span id="L438" class="ln">   438  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L439" class="ln">   439  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;commander&#34;, &#34;created_by&#34;, &#34;fields&#34;, &#34;impact&#34;, &#34;last_modified_by&#34;, &#34;postmortem&#34;, &#34;responder&#34;, &#34;severity&#34;, &#34;state&#34;, &#34;time_to_repair&#34;, &#34;time_to_resolve&#34;})
+<span id="L440" class="ln">   440  </span>	} else {
+<span id="L441" class="ln">   441  </span>		return err
+<span id="L442" class="ln">   442  </span>	}
+<span id="L443" class="ln">   443  </span>	o.Commander = all.Commander
+<span id="L444" class="ln">   444  </span>	o.CreatedBy = all.CreatedBy
+<span id="L445" class="ln">   445  </span>	o.Fields = all.Fields
+<span id="L446" class="ln">   446  </span>	o.Impact = all.Impact
+<span id="L447" class="ln">   447  </span>	o.LastModifiedBy = all.LastModifiedBy
+<span id="L448" class="ln">   448  </span>	o.Postmortem = all.Postmortem
+<span id="L449" class="ln">   449  </span>	o.Responder = all.Responder
+<span id="L450" class="ln">   450  </span>	o.Severity = all.Severity
+<span id="L451" class="ln">   451  </span>	o.State = all.State
+<span id="L452" class="ln">   452  </span>	o.TimeToRepair = all.TimeToRepair
+<span id="L453" class="ln">   453  </span>	o.TimeToResolve = all.TimeToResolve
+<span id="L454" class="ln">   454  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L455" class="ln">   455  </span>		o.AdditionalProperties = additionalProperties
+<span id="L456" class="ln">   456  </span>	}
+<span id="L457" class="ln">   457  </span>
+<span id="L458" class="ln">   458  </span>	return nil
+<span id="L459" class="ln">   459  </span>}
+<span id="L460" class="ln">   460  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -329,81 +329,72 @@
 <span id="L272" class="ln">   272  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L273" class="ln">   273  </span>func (o *ToplistWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L274" class="ln">   274  </span>	raw := map[string]interface{}{}
-<span id="L275" class="ln">   275  </span>	required := struct {
-<span id="L276" class="ln">   276  </span>		Requests *[]ToplistWidgetRequest      `json:&#34;requests&#34;`
-<span id="L277" class="ln">   277  </span>		Type     *ToplistWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L278" class="ln">   278  </span>	}{}
-<span id="L279" class="ln">   279  </span>	all := struct {
-<span id="L280" class="ln">   280  </span>		CustomLinks []WidgetCustomLink          `json:&#34;custom_links,omitempty&#34;`
-<span id="L281" class="ln">   281  </span>		Requests    []ToplistWidgetRequest      `json:&#34;requests&#34;`
-<span id="L282" class="ln">   282  </span>		Time        *WidgetTime                 `json:&#34;time,omitempty&#34;`
-<span id="L283" class="ln">   283  </span>		Title       *string                     `json:&#34;title,omitempty&#34;`
-<span id="L284" class="ln">   284  </span>		TitleAlign  *WidgetTextAlign            `json:&#34;title_align,omitempty&#34;`
-<span id="L285" class="ln">   285  </span>		TitleSize   *string                     `json:&#34;title_size,omitempty&#34;`
-<span id="L286" class="ln">   286  </span>		Type        ToplistWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L287" class="ln">   287  </span>	}{}
-<span id="L288" class="ln">   288  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L289" class="ln">   289  </span>	if err != nil {
-<span id="L290" class="ln">   290  </span>		return err
+<span id="L275" class="ln">   275  </span>	all := struct {
+<span id="L276" class="ln">   276  </span>		CustomLinks []WidgetCustomLink           `json:&#34;custom_links,omitempty&#34;`
+<span id="L277" class="ln">   277  </span>		Requests    *[]ToplistWidgetRequest      `json:&#34;requests&#34;`
+<span id="L278" class="ln">   278  </span>		Time        *WidgetTime                  `json:&#34;time,omitempty&#34;`
+<span id="L279" class="ln">   279  </span>		Title       *string                      `json:&#34;title,omitempty&#34;`
+<span id="L280" class="ln">   280  </span>		TitleAlign  *WidgetTextAlign             `json:&#34;title_align,omitempty&#34;`
+<span id="L281" class="ln">   281  </span>		TitleSize   *string                      `json:&#34;title_size,omitempty&#34;`
+<span id="L282" class="ln">   282  </span>		Type        *ToplistWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L283" class="ln">   283  </span>	}{}
+<span id="L284" class="ln">   284  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L285" class="ln">   285  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L286" class="ln">   286  </span>		if err != nil {
+<span id="L287" class="ln">   287  </span>			return err
+<span id="L288" class="ln">   288  </span>		}
+<span id="L289" class="ln">   289  </span>		o.UnparsedObject = raw
+<span id="L290" class="ln">   290  </span>		return nil
 <span id="L291" class="ln">   291  </span>	}
-<span id="L292" class="ln">   292  </span>	if required.Requests == nil {
+<span id="L292" class="ln">   292  </span>	if all.Requests == nil {
 <span id="L293" class="ln">   293  </span>		return fmt.Errorf(&#34;required field requests missing&#34;)
 <span id="L294" class="ln">   294  </span>	}
-<span id="L295" class="ln">   295  </span>	if required.Type == nil {
+<span id="L295" class="ln">   295  </span>	if all.Type == nil {
 <span id="L296" class="ln">   296  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L297" class="ln">   297  </span>	}
-<span id="L298" class="ln">   298  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L299" class="ln">   299  </span>	if err != nil {
-<span id="L300" class="ln">   300  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L301" class="ln">   301  </span>		if err != nil {
-<span id="L302" class="ln">   302  </span>			return err
-<span id="L303" class="ln">   303  </span>		}
-<span id="L304" class="ln">   304  </span>		o.UnparsedObject = raw
-<span id="L305" class="ln">   305  </span>		return nil
-<span id="L306" class="ln">   306  </span>	}
-<span id="L307" class="ln">   307  </span>	additionalProperties := make(map[string]interface{})
-<span id="L308" class="ln">   308  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L309" class="ln">   309  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;custom_links&#34;, &#34;requests&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
-<span id="L310" class="ln">   310  </span>	} else {
-<span id="L311" class="ln">   311  </span>		return err
-<span id="L312" class="ln">   312  </span>	}
-<span id="L313" class="ln">   313  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L314" class="ln">   314  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L315" class="ln">   315  </span>		if err != nil {
-<span id="L316" class="ln">   316  </span>			return err
-<span id="L317" class="ln">   317  </span>		}
-<span id="L318" class="ln">   318  </span>		o.UnparsedObject = raw
-<span id="L319" class="ln">   319  </span>		return nil
-<span id="L320" class="ln">   320  </span>	}
-<span id="L321" class="ln">   321  </span>	if v := all.Type; !v.IsValid() {
-<span id="L322" class="ln">   322  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L323" class="ln">   323  </span>		if err != nil {
-<span id="L324" class="ln">   324  </span>			return err
-<span id="L325" class="ln">   325  </span>		}
-<span id="L326" class="ln">   326  </span>		o.UnparsedObject = raw
-<span id="L327" class="ln">   327  </span>		return nil
+<span id="L298" class="ln">   298  </span>	additionalProperties := make(map[string]interface{})
+<span id="L299" class="ln">   299  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L300" class="ln">   300  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;custom_links&#34;, &#34;requests&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
+<span id="L301" class="ln">   301  </span>	} else {
+<span id="L302" class="ln">   302  </span>		return err
+<span id="L303" class="ln">   303  </span>	}
+<span id="L304" class="ln">   304  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L305" class="ln">   305  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L306" class="ln">   306  </span>		if err != nil {
+<span id="L307" class="ln">   307  </span>			return err
+<span id="L308" class="ln">   308  </span>		}
+<span id="L309" class="ln">   309  </span>		o.UnparsedObject = raw
+<span id="L310" class="ln">   310  </span>		return nil
+<span id="L311" class="ln">   311  </span>	}
+<span id="L312" class="ln">   312  </span>	if v := all.Type; !v.IsValid() {
+<span id="L313" class="ln">   313  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L314" class="ln">   314  </span>		if err != nil {
+<span id="L315" class="ln">   315  </span>			return err
+<span id="L316" class="ln">   316  </span>		}
+<span id="L317" class="ln">   317  </span>		o.UnparsedObject = raw
+<span id="L318" class="ln">   318  </span>		return nil
+<span id="L319" class="ln">   319  </span>	}
+<span id="L320" class="ln">   320  </span>	o.CustomLinks = all.CustomLinks
+<span id="L321" class="ln">   321  </span>	o.Requests = *all.Requests
+<span id="L322" class="ln">   322  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L323" class="ln">   323  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L324" class="ln">   324  </span>		if err != nil {
+<span id="L325" class="ln">   325  </span>			return err
+<span id="L326" class="ln">   326  </span>		}
+<span id="L327" class="ln">   327  </span>		o.UnparsedObject = raw
 <span id="L328" class="ln">   328  </span>	}
-<span id="L329" class="ln">   329  </span>	o.CustomLinks = all.CustomLinks
-<span id="L330" class="ln">   330  </span>	o.Requests = all.Requests
-<span id="L331" class="ln">   331  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L332" class="ln">   332  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L333" class="ln">   333  </span>		if err != nil {
-<span id="L334" class="ln">   334  </span>			return err
-<span id="L335" class="ln">   335  </span>		}
-<span id="L336" class="ln">   336  </span>		o.UnparsedObject = raw
-<span id="L337" class="ln">   337  </span>	}
-<span id="L338" class="ln">   338  </span>	o.Time = all.Time
-<span id="L339" class="ln">   339  </span>	o.Title = all.Title
-<span id="L340" class="ln">   340  </span>	o.TitleAlign = all.TitleAlign
-<span id="L341" class="ln">   341  </span>	o.TitleSize = all.TitleSize
-<span id="L342" class="ln">   342  </span>	o.Type = all.Type
-<span id="L343" class="ln">   343  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L344" class="ln">   344  </span>		o.AdditionalProperties = additionalProperties
-<span id="L345" class="ln">   345  </span>	}
-<span id="L346" class="ln">   346  </span>
-<span id="L347" class="ln">   347  </span>	return nil
-<span id="L348" class="ln">   348  </span>}
-<span id="L349" class="ln">   349  </span>
+<span id="L329" class="ln">   329  </span>	o.Time = all.Time
+<span id="L330" class="ln">   330  </span>	o.Title = all.Title
+<span id="L331" class="ln">   331  </span>	o.TitleAlign = all.TitleAlign
+<span id="L332" class="ln">   332  </span>	o.TitleSize = all.TitleSize
+<span id="L333" class="ln">   333  </span>	o.Type = *all.Type
+<span id="L334" class="ln">   334  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L335" class="ln">   335  </span>		o.AdditionalProperties = additionalProperties
+<span id="L336" class="ln">   336  </span>	}
+<span id="L337" class="ln">   337  </span>
+<span id="L338" class="ln">   338  </span>	return nil
+<span id="L339" class="ln">   339  </span>}
+<span id="L340" class="ln">   340  </span>
 </pre><p></p>
 
 <div id="footer">

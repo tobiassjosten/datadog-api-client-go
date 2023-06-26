@@ -245,39 +245,38 @@
 <span id="L188" class="ln">   188  </span>		Request         *SyntheticsTestRequest      `json:&#34;request,omitempty&#34;`
 <span id="L189" class="ln">   189  </span>		Variables       []SyntheticsBrowserVariable `json:&#34;variables,omitempty&#34;`
 <span id="L190" class="ln">   190  </span>	}{}
-<span id="L191" class="ln">   191  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L192" class="ln">   192  </span>	if err != nil {
-<span id="L193" class="ln">   193  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L194" class="ln">   194  </span>		if err != nil {
-<span id="L195" class="ln">   195  </span>			return err
-<span id="L196" class="ln">   196  </span>		}
-<span id="L197" class="ln">   197  </span>		o.UnparsedObject = raw
-<span id="L198" class="ln">   198  </span>		return nil
-<span id="L199" class="ln">   199  </span>	}
-<span id="L200" class="ln">   200  </span>	additionalProperties := make(map[string]interface{})
-<span id="L201" class="ln">   201  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L202" class="ln">   202  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;assertions&#34;, &#34;configVariables&#34;, &#34;request&#34;, &#34;variables&#34;})
-<span id="L203" class="ln">   203  </span>	} else {
-<span id="L204" class="ln">   204  </span>		return err
-<span id="L205" class="ln">   205  </span>	}
-<span id="L206" class="ln">   206  </span>	o.Assertions = all.Assertions
-<span id="L207" class="ln">   207  </span>	o.ConfigVariables = all.ConfigVariables
-<span id="L208" class="ln">   208  </span>	if all.Request != nil &amp;&amp; all.Request.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L209" class="ln">   209  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L210" class="ln">   210  </span>		if err != nil {
-<span id="L211" class="ln">   211  </span>			return err
-<span id="L212" class="ln">   212  </span>		}
-<span id="L213" class="ln">   213  </span>		o.UnparsedObject = raw
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>	o.Request = all.Request
-<span id="L216" class="ln">   216  </span>	o.Variables = all.Variables
-<span id="L217" class="ln">   217  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L218" class="ln">   218  </span>		o.AdditionalProperties = additionalProperties
-<span id="L219" class="ln">   219  </span>	}
-<span id="L220" class="ln">   220  </span>
-<span id="L221" class="ln">   221  </span>	return nil
-<span id="L222" class="ln">   222  </span>}
-<span id="L223" class="ln">   223  </span>
+<span id="L191" class="ln">   191  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L192" class="ln">   192  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L193" class="ln">   193  </span>		if err != nil {
+<span id="L194" class="ln">   194  </span>			return err
+<span id="L195" class="ln">   195  </span>		}
+<span id="L196" class="ln">   196  </span>		o.UnparsedObject = raw
+<span id="L197" class="ln">   197  </span>		return nil
+<span id="L198" class="ln">   198  </span>	}
+<span id="L199" class="ln">   199  </span>	additionalProperties := make(map[string]interface{})
+<span id="L200" class="ln">   200  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L201" class="ln">   201  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;assertions&#34;, &#34;configVariables&#34;, &#34;request&#34;, &#34;variables&#34;})
+<span id="L202" class="ln">   202  </span>	} else {
+<span id="L203" class="ln">   203  </span>		return err
+<span id="L204" class="ln">   204  </span>	}
+<span id="L205" class="ln">   205  </span>	o.Assertions = all.Assertions
+<span id="L206" class="ln">   206  </span>	o.ConfigVariables = all.ConfigVariables
+<span id="L207" class="ln">   207  </span>	if all.Request != nil &amp;&amp; all.Request.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L208" class="ln">   208  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L209" class="ln">   209  </span>		if err != nil {
+<span id="L210" class="ln">   210  </span>			return err
+<span id="L211" class="ln">   211  </span>		}
+<span id="L212" class="ln">   212  </span>		o.UnparsedObject = raw
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>	o.Request = all.Request
+<span id="L215" class="ln">   215  </span>	o.Variables = all.Variables
+<span id="L216" class="ln">   216  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L217" class="ln">   217  </span>		o.AdditionalProperties = additionalProperties
+<span id="L218" class="ln">   218  </span>	}
+<span id="L219" class="ln">   219  </span>
+<span id="L220" class="ln">   220  </span>	return nil
+<span id="L221" class="ln">   221  </span>}
+<span id="L222" class="ln">   222  </span>
 </pre><p></p>
 
 <div id="footer">

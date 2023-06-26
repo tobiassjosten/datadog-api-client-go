@@ -416,37 +416,36 @@
 <span id="L359" class="ln">   359  </span>		Total     *float64 `json:&#34;total,omitempty&#34;`
 <span id="L360" class="ln">   360  </span>		Wait      *float64 `json:&#34;wait,omitempty&#34;`
 <span id="L361" class="ln">   361  </span>	}{}
-<span id="L362" class="ln">   362  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L363" class="ln">   363  </span>	if err != nil {
-<span id="L364" class="ln">   364  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L365" class="ln">   365  </span>		if err != nil {
-<span id="L366" class="ln">   366  </span>			return err
-<span id="L367" class="ln">   367  </span>		}
-<span id="L368" class="ln">   368  </span>		o.UnparsedObject = raw
-<span id="L369" class="ln">   369  </span>		return nil
-<span id="L370" class="ln">   370  </span>	}
-<span id="L371" class="ln">   371  </span>	additionalProperties := make(map[string]interface{})
-<span id="L372" class="ln">   372  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L373" class="ln">   373  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;dns&#34;, &#34;download&#34;, &#34;firstByte&#34;, &#34;handshake&#34;, &#34;redirect&#34;, &#34;ssl&#34;, &#34;tcp&#34;, &#34;total&#34;, &#34;wait&#34;})
-<span id="L374" class="ln">   374  </span>	} else {
-<span id="L375" class="ln">   375  </span>		return err
-<span id="L376" class="ln">   376  </span>	}
-<span id="L377" class="ln">   377  </span>	o.Dns = all.Dns
-<span id="L378" class="ln">   378  </span>	o.Download = all.Download
-<span id="L379" class="ln">   379  </span>	o.FirstByte = all.FirstByte
-<span id="L380" class="ln">   380  </span>	o.Handshake = all.Handshake
-<span id="L381" class="ln">   381  </span>	o.Redirect = all.Redirect
-<span id="L382" class="ln">   382  </span>	o.Ssl = all.Ssl
-<span id="L383" class="ln">   383  </span>	o.Tcp = all.Tcp
-<span id="L384" class="ln">   384  </span>	o.Total = all.Total
-<span id="L385" class="ln">   385  </span>	o.Wait = all.Wait
-<span id="L386" class="ln">   386  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L387" class="ln">   387  </span>		o.AdditionalProperties = additionalProperties
-<span id="L388" class="ln">   388  </span>	}
-<span id="L389" class="ln">   389  </span>
-<span id="L390" class="ln">   390  </span>	return nil
-<span id="L391" class="ln">   391  </span>}
-<span id="L392" class="ln">   392  </span>
+<span id="L362" class="ln">   362  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L363" class="ln">   363  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L364" class="ln">   364  </span>		if err != nil {
+<span id="L365" class="ln">   365  </span>			return err
+<span id="L366" class="ln">   366  </span>		}
+<span id="L367" class="ln">   367  </span>		o.UnparsedObject = raw
+<span id="L368" class="ln">   368  </span>		return nil
+<span id="L369" class="ln">   369  </span>	}
+<span id="L370" class="ln">   370  </span>	additionalProperties := make(map[string]interface{})
+<span id="L371" class="ln">   371  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L372" class="ln">   372  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;dns&#34;, &#34;download&#34;, &#34;firstByte&#34;, &#34;handshake&#34;, &#34;redirect&#34;, &#34;ssl&#34;, &#34;tcp&#34;, &#34;total&#34;, &#34;wait&#34;})
+<span id="L373" class="ln">   373  </span>	} else {
+<span id="L374" class="ln">   374  </span>		return err
+<span id="L375" class="ln">   375  </span>	}
+<span id="L376" class="ln">   376  </span>	o.Dns = all.Dns
+<span id="L377" class="ln">   377  </span>	o.Download = all.Download
+<span id="L378" class="ln">   378  </span>	o.FirstByte = all.FirstByte
+<span id="L379" class="ln">   379  </span>	o.Handshake = all.Handshake
+<span id="L380" class="ln">   380  </span>	o.Redirect = all.Redirect
+<span id="L381" class="ln">   381  </span>	o.Ssl = all.Ssl
+<span id="L382" class="ln">   382  </span>	o.Tcp = all.Tcp
+<span id="L383" class="ln">   383  </span>	o.Total = all.Total
+<span id="L384" class="ln">   384  </span>	o.Wait = all.Wait
+<span id="L385" class="ln">   385  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L386" class="ln">   386  </span>		o.AdditionalProperties = additionalProperties
+<span id="L387" class="ln">   387  </span>	}
+<span id="L388" class="ln">   388  </span>
+<span id="L389" class="ln">   389  </span>	return nil
+<span id="L390" class="ln">   390  </span>}
+<span id="L391" class="ln">   391  </span>
 </pre><p></p>
 
 <div id="footer">

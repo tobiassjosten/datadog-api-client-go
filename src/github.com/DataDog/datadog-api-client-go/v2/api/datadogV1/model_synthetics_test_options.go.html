@@ -870,93 +870,92 @@
 <span id="L813" class="ln">   813  </span>		Scheduling                   *SyntheticsTestOptionsScheduling     `json:&#34;scheduling,omitempty&#34;`
 <span id="L814" class="ln">   814  </span>		TickEvery                    *int64                               `json:&#34;tick_every,omitempty&#34;`
 <span id="L815" class="ln">   815  </span>	}{}
-<span id="L816" class="ln">   816  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L817" class="ln">   817  </span>	if err != nil {
-<span id="L818" class="ln">   818  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L819" class="ln">   819  </span>		if err != nil {
-<span id="L820" class="ln">   820  </span>			return err
-<span id="L821" class="ln">   821  </span>		}
-<span id="L822" class="ln">   822  </span>		o.UnparsedObject = raw
-<span id="L823" class="ln">   823  </span>		return nil
-<span id="L824" class="ln">   824  </span>	}
-<span id="L825" class="ln">   825  </span>	additionalProperties := make(map[string]interface{})
-<span id="L826" class="ln">   826  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L827" class="ln">   827  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;accept_self_signed&#34;, &#34;allow_insecure&#34;, &#34;checkCertificateRevocation&#34;, &#34;ci&#34;, &#34;device_ids&#34;, &#34;disableCors&#34;, &#34;disableCsp&#34;, &#34;follow_redirects&#34;, &#34;httpVersion&#34;, &#34;ignoreServerCertificateError&#34;, &#34;initialNavigationTimeout&#34;, &#34;min_failure_duration&#34;, &#34;min_location_failed&#34;, &#34;monitor_name&#34;, &#34;monitor_options&#34;, &#34;monitor_priority&#34;, &#34;noScreenshot&#34;, &#34;restricted_roles&#34;, &#34;retry&#34;, &#34;rumSettings&#34;, &#34;scheduling&#34;, &#34;tick_every&#34;})
-<span id="L828" class="ln">   828  </span>	} else {
-<span id="L829" class="ln">   829  </span>		return err
-<span id="L830" class="ln">   830  </span>	}
-<span id="L831" class="ln">   831  </span>	if v := all.HttpVersion; v != nil &amp;&amp; !v.IsValid() {
-<span id="L832" class="ln">   832  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L833" class="ln">   833  </span>		if err != nil {
-<span id="L834" class="ln">   834  </span>			return err
-<span id="L835" class="ln">   835  </span>		}
-<span id="L836" class="ln">   836  </span>		o.UnparsedObject = raw
-<span id="L837" class="ln">   837  </span>		return nil
-<span id="L838" class="ln">   838  </span>	}
-<span id="L839" class="ln">   839  </span>	o.AcceptSelfSigned = all.AcceptSelfSigned
-<span id="L840" class="ln">   840  </span>	o.AllowInsecure = all.AllowInsecure
-<span id="L841" class="ln">   841  </span>	o.CheckCertificateRevocation = all.CheckCertificateRevocation
-<span id="L842" class="ln">   842  </span>	if all.Ci != nil &amp;&amp; all.Ci.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L843" class="ln">   843  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L844" class="ln">   844  </span>		if err != nil {
-<span id="L845" class="ln">   845  </span>			return err
-<span id="L846" class="ln">   846  </span>		}
-<span id="L847" class="ln">   847  </span>		o.UnparsedObject = raw
-<span id="L848" class="ln">   848  </span>	}
-<span id="L849" class="ln">   849  </span>	o.Ci = all.Ci
-<span id="L850" class="ln">   850  </span>	o.DeviceIds = all.DeviceIds
-<span id="L851" class="ln">   851  </span>	o.DisableCors = all.DisableCors
-<span id="L852" class="ln">   852  </span>	o.DisableCsp = all.DisableCsp
-<span id="L853" class="ln">   853  </span>	o.FollowRedirects = all.FollowRedirects
-<span id="L854" class="ln">   854  </span>	o.HttpVersion = all.HttpVersion
-<span id="L855" class="ln">   855  </span>	o.IgnoreServerCertificateError = all.IgnoreServerCertificateError
-<span id="L856" class="ln">   856  </span>	o.InitialNavigationTimeout = all.InitialNavigationTimeout
-<span id="L857" class="ln">   857  </span>	o.MinFailureDuration = all.MinFailureDuration
-<span id="L858" class="ln">   858  </span>	o.MinLocationFailed = all.MinLocationFailed
-<span id="L859" class="ln">   859  </span>	o.MonitorName = all.MonitorName
-<span id="L860" class="ln">   860  </span>	if all.MonitorOptions != nil &amp;&amp; all.MonitorOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L861" class="ln">   861  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L862" class="ln">   862  </span>		if err != nil {
-<span id="L863" class="ln">   863  </span>			return err
-<span id="L864" class="ln">   864  </span>		}
-<span id="L865" class="ln">   865  </span>		o.UnparsedObject = raw
-<span id="L866" class="ln">   866  </span>	}
-<span id="L867" class="ln">   867  </span>	o.MonitorOptions = all.MonitorOptions
-<span id="L868" class="ln">   868  </span>	o.MonitorPriority = all.MonitorPriority
-<span id="L869" class="ln">   869  </span>	o.NoScreenshot = all.NoScreenshot
-<span id="L870" class="ln">   870  </span>	o.RestrictedRoles = all.RestrictedRoles
-<span id="L871" class="ln">   871  </span>	if all.Retry != nil &amp;&amp; all.Retry.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L872" class="ln">   872  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L873" class="ln">   873  </span>		if err != nil {
-<span id="L874" class="ln">   874  </span>			return err
-<span id="L875" class="ln">   875  </span>		}
-<span id="L876" class="ln">   876  </span>		o.UnparsedObject = raw
-<span id="L877" class="ln">   877  </span>	}
-<span id="L878" class="ln">   878  </span>	o.Retry = all.Retry
-<span id="L879" class="ln">   879  </span>	if all.RumSettings != nil &amp;&amp; all.RumSettings.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L880" class="ln">   880  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L881" class="ln">   881  </span>		if err != nil {
-<span id="L882" class="ln">   882  </span>			return err
-<span id="L883" class="ln">   883  </span>		}
-<span id="L884" class="ln">   884  </span>		o.UnparsedObject = raw
-<span id="L885" class="ln">   885  </span>	}
-<span id="L886" class="ln">   886  </span>	o.RumSettings = all.RumSettings
-<span id="L887" class="ln">   887  </span>	if all.Scheduling != nil &amp;&amp; all.Scheduling.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L888" class="ln">   888  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L889" class="ln">   889  </span>		if err != nil {
-<span id="L890" class="ln">   890  </span>			return err
-<span id="L891" class="ln">   891  </span>		}
-<span id="L892" class="ln">   892  </span>		o.UnparsedObject = raw
-<span id="L893" class="ln">   893  </span>	}
-<span id="L894" class="ln">   894  </span>	o.Scheduling = all.Scheduling
-<span id="L895" class="ln">   895  </span>	o.TickEvery = all.TickEvery
-<span id="L896" class="ln">   896  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L897" class="ln">   897  </span>		o.AdditionalProperties = additionalProperties
-<span id="L898" class="ln">   898  </span>	}
-<span id="L899" class="ln">   899  </span>
-<span id="L900" class="ln">   900  </span>	return nil
-<span id="L901" class="ln">   901  </span>}
-<span id="L902" class="ln">   902  </span>
+<span id="L816" class="ln">   816  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L817" class="ln">   817  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L818" class="ln">   818  </span>		if err != nil {
+<span id="L819" class="ln">   819  </span>			return err
+<span id="L820" class="ln">   820  </span>		}
+<span id="L821" class="ln">   821  </span>		o.UnparsedObject = raw
+<span id="L822" class="ln">   822  </span>		return nil
+<span id="L823" class="ln">   823  </span>	}
+<span id="L824" class="ln">   824  </span>	additionalProperties := make(map[string]interface{})
+<span id="L825" class="ln">   825  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L826" class="ln">   826  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;accept_self_signed&#34;, &#34;allow_insecure&#34;, &#34;checkCertificateRevocation&#34;, &#34;ci&#34;, &#34;device_ids&#34;, &#34;disableCors&#34;, &#34;disableCsp&#34;, &#34;follow_redirects&#34;, &#34;httpVersion&#34;, &#34;ignoreServerCertificateError&#34;, &#34;initialNavigationTimeout&#34;, &#34;min_failure_duration&#34;, &#34;min_location_failed&#34;, &#34;monitor_name&#34;, &#34;monitor_options&#34;, &#34;monitor_priority&#34;, &#34;noScreenshot&#34;, &#34;restricted_roles&#34;, &#34;retry&#34;, &#34;rumSettings&#34;, &#34;scheduling&#34;, &#34;tick_every&#34;})
+<span id="L827" class="ln">   827  </span>	} else {
+<span id="L828" class="ln">   828  </span>		return err
+<span id="L829" class="ln">   829  </span>	}
+<span id="L830" class="ln">   830  </span>	if v := all.HttpVersion; v != nil &amp;&amp; !v.IsValid() {
+<span id="L831" class="ln">   831  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L832" class="ln">   832  </span>		if err != nil {
+<span id="L833" class="ln">   833  </span>			return err
+<span id="L834" class="ln">   834  </span>		}
+<span id="L835" class="ln">   835  </span>		o.UnparsedObject = raw
+<span id="L836" class="ln">   836  </span>		return nil
+<span id="L837" class="ln">   837  </span>	}
+<span id="L838" class="ln">   838  </span>	o.AcceptSelfSigned = all.AcceptSelfSigned
+<span id="L839" class="ln">   839  </span>	o.AllowInsecure = all.AllowInsecure
+<span id="L840" class="ln">   840  </span>	o.CheckCertificateRevocation = all.CheckCertificateRevocation
+<span id="L841" class="ln">   841  </span>	if all.Ci != nil &amp;&amp; all.Ci.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L842" class="ln">   842  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L843" class="ln">   843  </span>		if err != nil {
+<span id="L844" class="ln">   844  </span>			return err
+<span id="L845" class="ln">   845  </span>		}
+<span id="L846" class="ln">   846  </span>		o.UnparsedObject = raw
+<span id="L847" class="ln">   847  </span>	}
+<span id="L848" class="ln">   848  </span>	o.Ci = all.Ci
+<span id="L849" class="ln">   849  </span>	o.DeviceIds = all.DeviceIds
+<span id="L850" class="ln">   850  </span>	o.DisableCors = all.DisableCors
+<span id="L851" class="ln">   851  </span>	o.DisableCsp = all.DisableCsp
+<span id="L852" class="ln">   852  </span>	o.FollowRedirects = all.FollowRedirects
+<span id="L853" class="ln">   853  </span>	o.HttpVersion = all.HttpVersion
+<span id="L854" class="ln">   854  </span>	o.IgnoreServerCertificateError = all.IgnoreServerCertificateError
+<span id="L855" class="ln">   855  </span>	o.InitialNavigationTimeout = all.InitialNavigationTimeout
+<span id="L856" class="ln">   856  </span>	o.MinFailureDuration = all.MinFailureDuration
+<span id="L857" class="ln">   857  </span>	o.MinLocationFailed = all.MinLocationFailed
+<span id="L858" class="ln">   858  </span>	o.MonitorName = all.MonitorName
+<span id="L859" class="ln">   859  </span>	if all.MonitorOptions != nil &amp;&amp; all.MonitorOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L860" class="ln">   860  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L861" class="ln">   861  </span>		if err != nil {
+<span id="L862" class="ln">   862  </span>			return err
+<span id="L863" class="ln">   863  </span>		}
+<span id="L864" class="ln">   864  </span>		o.UnparsedObject = raw
+<span id="L865" class="ln">   865  </span>	}
+<span id="L866" class="ln">   866  </span>	o.MonitorOptions = all.MonitorOptions
+<span id="L867" class="ln">   867  </span>	o.MonitorPriority = all.MonitorPriority
+<span id="L868" class="ln">   868  </span>	o.NoScreenshot = all.NoScreenshot
+<span id="L869" class="ln">   869  </span>	o.RestrictedRoles = all.RestrictedRoles
+<span id="L870" class="ln">   870  </span>	if all.Retry != nil &amp;&amp; all.Retry.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L871" class="ln">   871  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L872" class="ln">   872  </span>		if err != nil {
+<span id="L873" class="ln">   873  </span>			return err
+<span id="L874" class="ln">   874  </span>		}
+<span id="L875" class="ln">   875  </span>		o.UnparsedObject = raw
+<span id="L876" class="ln">   876  </span>	}
+<span id="L877" class="ln">   877  </span>	o.Retry = all.Retry
+<span id="L878" class="ln">   878  </span>	if all.RumSettings != nil &amp;&amp; all.RumSettings.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L879" class="ln">   879  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L880" class="ln">   880  </span>		if err != nil {
+<span id="L881" class="ln">   881  </span>			return err
+<span id="L882" class="ln">   882  </span>		}
+<span id="L883" class="ln">   883  </span>		o.UnparsedObject = raw
+<span id="L884" class="ln">   884  </span>	}
+<span id="L885" class="ln">   885  </span>	o.RumSettings = all.RumSettings
+<span id="L886" class="ln">   886  </span>	if all.Scheduling != nil &amp;&amp; all.Scheduling.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L887" class="ln">   887  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L888" class="ln">   888  </span>		if err != nil {
+<span id="L889" class="ln">   889  </span>			return err
+<span id="L890" class="ln">   890  </span>		}
+<span id="L891" class="ln">   891  </span>		o.UnparsedObject = raw
+<span id="L892" class="ln">   892  </span>	}
+<span id="L893" class="ln">   893  </span>	o.Scheduling = all.Scheduling
+<span id="L894" class="ln">   894  </span>	o.TickEvery = all.TickEvery
+<span id="L895" class="ln">   895  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L896" class="ln">   896  </span>		o.AdditionalProperties = additionalProperties
+<span id="L897" class="ln">   897  </span>	}
+<span id="L898" class="ln">   898  </span>
+<span id="L899" class="ln">   899  </span>	return nil
+<span id="L900" class="ln">   900  </span>}
+<span id="L901" class="ln">   901  </span>
 </pre><p></p>
 
 <div id="footer">

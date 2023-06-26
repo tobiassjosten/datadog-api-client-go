@@ -254,32 +254,31 @@
 <span id="L197" class="ln">   197  </span>		Name       *string    `json:&#34;name,omitempty&#34;`
 <span id="L198" class="ln">   198  </span>		UserCount  *int64     `json:&#34;user_count,omitempty&#34;`
 <span id="L199" class="ln">   199  </span>	}{}
-<span id="L200" class="ln">   200  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L201" class="ln">   201  </span>	if err != nil {
-<span id="L202" class="ln">   202  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L203" class="ln">   203  </span>		if err != nil {
-<span id="L204" class="ln">   204  </span>			return err
-<span id="L205" class="ln">   205  </span>		}
-<span id="L206" class="ln">   206  </span>		o.UnparsedObject = raw
-<span id="L207" class="ln">   207  </span>		return nil
-<span id="L208" class="ln">   208  </span>	}
-<span id="L209" class="ln">   209  </span>	additionalProperties := make(map[string]interface{})
-<span id="L210" class="ln">   210  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L211" class="ln">   211  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;user_count&#34;})
-<span id="L212" class="ln">   212  </span>	} else {
-<span id="L213" class="ln">   213  </span>		return err
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>	o.CreatedAt = all.CreatedAt
-<span id="L216" class="ln">   216  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L217" class="ln">   217  </span>	o.Name = all.Name
-<span id="L218" class="ln">   218  </span>	o.UserCount = all.UserCount
-<span id="L219" class="ln">   219  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L220" class="ln">   220  </span>		o.AdditionalProperties = additionalProperties
-<span id="L221" class="ln">   221  </span>	}
-<span id="L222" class="ln">   222  </span>
-<span id="L223" class="ln">   223  </span>	return nil
-<span id="L224" class="ln">   224  </span>}
-<span id="L225" class="ln">   225  </span>
+<span id="L200" class="ln">   200  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L201" class="ln">   201  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L202" class="ln">   202  </span>		if err != nil {
+<span id="L203" class="ln">   203  </span>			return err
+<span id="L204" class="ln">   204  </span>		}
+<span id="L205" class="ln">   205  </span>		o.UnparsedObject = raw
+<span id="L206" class="ln">   206  </span>		return nil
+<span id="L207" class="ln">   207  </span>	}
+<span id="L208" class="ln">   208  </span>	additionalProperties := make(map[string]interface{})
+<span id="L209" class="ln">   209  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L210" class="ln">   210  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;user_count&#34;})
+<span id="L211" class="ln">   211  </span>	} else {
+<span id="L212" class="ln">   212  </span>		return err
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>	o.CreatedAt = all.CreatedAt
+<span id="L215" class="ln">   215  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L216" class="ln">   216  </span>	o.Name = all.Name
+<span id="L217" class="ln">   217  </span>	o.UserCount = all.UserCount
+<span id="L218" class="ln">   218  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L219" class="ln">   219  </span>		o.AdditionalProperties = additionalProperties
+<span id="L220" class="ln">   220  </span>	}
+<span id="L221" class="ln">   221  </span>
+<span id="L222" class="ln">   222  </span>	return nil
+<span id="L223" class="ln">   223  </span>}
+<span id="L224" class="ln">   224  </span>
 </pre><p></p>
 
 <div id="footer">

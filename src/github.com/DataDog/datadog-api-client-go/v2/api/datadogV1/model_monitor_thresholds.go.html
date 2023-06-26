@@ -368,34 +368,33 @@
 <span id="L311" class="ln">   311  </span>		Warning          datadog.NullableFloat64 `json:&#34;warning,omitempty&#34;`
 <span id="L312" class="ln">   312  </span>		WarningRecovery  datadog.NullableFloat64 `json:&#34;warning_recovery,omitempty&#34;`
 <span id="L313" class="ln">   313  </span>	}{}
-<span id="L314" class="ln">   314  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L315" class="ln">   315  </span>	if err != nil {
-<span id="L316" class="ln">   316  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L317" class="ln">   317  </span>		if err != nil {
-<span id="L318" class="ln">   318  </span>			return err
-<span id="L319" class="ln">   319  </span>		}
-<span id="L320" class="ln">   320  </span>		o.UnparsedObject = raw
-<span id="L321" class="ln">   321  </span>		return nil
-<span id="L322" class="ln">   322  </span>	}
-<span id="L323" class="ln">   323  </span>	additionalProperties := make(map[string]interface{})
-<span id="L324" class="ln">   324  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L325" class="ln">   325  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;critical&#34;, &#34;critical_recovery&#34;, &#34;ok&#34;, &#34;unknown&#34;, &#34;warning&#34;, &#34;warning_recovery&#34;})
-<span id="L326" class="ln">   326  </span>	} else {
-<span id="L327" class="ln">   327  </span>		return err
-<span id="L328" class="ln">   328  </span>	}
-<span id="L329" class="ln">   329  </span>	o.Critical = all.Critical
-<span id="L330" class="ln">   330  </span>	o.CriticalRecovery = all.CriticalRecovery
-<span id="L331" class="ln">   331  </span>	o.Ok = all.Ok
-<span id="L332" class="ln">   332  </span>	o.Unknown = all.Unknown
-<span id="L333" class="ln">   333  </span>	o.Warning = all.Warning
-<span id="L334" class="ln">   334  </span>	o.WarningRecovery = all.WarningRecovery
-<span id="L335" class="ln">   335  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L336" class="ln">   336  </span>		o.AdditionalProperties = additionalProperties
-<span id="L337" class="ln">   337  </span>	}
-<span id="L338" class="ln">   338  </span>
-<span id="L339" class="ln">   339  </span>	return nil
-<span id="L340" class="ln">   340  </span>}
-<span id="L341" class="ln">   341  </span>
+<span id="L314" class="ln">   314  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L315" class="ln">   315  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L316" class="ln">   316  </span>		if err != nil {
+<span id="L317" class="ln">   317  </span>			return err
+<span id="L318" class="ln">   318  </span>		}
+<span id="L319" class="ln">   319  </span>		o.UnparsedObject = raw
+<span id="L320" class="ln">   320  </span>		return nil
+<span id="L321" class="ln">   321  </span>	}
+<span id="L322" class="ln">   322  </span>	additionalProperties := make(map[string]interface{})
+<span id="L323" class="ln">   323  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L324" class="ln">   324  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;critical&#34;, &#34;critical_recovery&#34;, &#34;ok&#34;, &#34;unknown&#34;, &#34;warning&#34;, &#34;warning_recovery&#34;})
+<span id="L325" class="ln">   325  </span>	} else {
+<span id="L326" class="ln">   326  </span>		return err
+<span id="L327" class="ln">   327  </span>	}
+<span id="L328" class="ln">   328  </span>	o.Critical = all.Critical
+<span id="L329" class="ln">   329  </span>	o.CriticalRecovery = all.CriticalRecovery
+<span id="L330" class="ln">   330  </span>	o.Ok = all.Ok
+<span id="L331" class="ln">   331  </span>	o.Unknown = all.Unknown
+<span id="L332" class="ln">   332  </span>	o.Warning = all.Warning
+<span id="L333" class="ln">   333  </span>	o.WarningRecovery = all.WarningRecovery
+<span id="L334" class="ln">   334  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L335" class="ln">   335  </span>		o.AdditionalProperties = additionalProperties
+<span id="L336" class="ln">   336  </span>	}
+<span id="L337" class="ln">   337  </span>
+<span id="L338" class="ln">   338  </span>	return nil
+<span id="L339" class="ln">   339  </span>}
+<span id="L340" class="ln">   340  </span>
 </pre><p></p>
 
 <div id="footer">

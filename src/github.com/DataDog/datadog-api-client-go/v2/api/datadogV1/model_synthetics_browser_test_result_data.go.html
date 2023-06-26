@@ -518,54 +518,53 @@
 <span id="L461" class="ln">   461  </span>		ThumbnailsBucketKey *bool                               `json:&#34;thumbnailsBucketKey,omitempty&#34;`
 <span id="L462" class="ln">   462  </span>		TimeToInteractive   *float64                            `json:&#34;timeToInteractive,omitempty&#34;`
 <span id="L463" class="ln">   463  </span>	}{}
-<span id="L464" class="ln">   464  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L465" class="ln">   465  </span>	if err != nil {
-<span id="L466" class="ln">   466  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L467" class="ln">   467  </span>		if err != nil {
-<span id="L468" class="ln">   468  </span>			return err
-<span id="L469" class="ln">   469  </span>		}
-<span id="L470" class="ln">   470  </span>		o.UnparsedObject = raw
-<span id="L471" class="ln">   471  </span>		return nil
-<span id="L472" class="ln">   472  </span>	}
-<span id="L473" class="ln">   473  </span>	additionalProperties := make(map[string]interface{})
-<span id="L474" class="ln">   474  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L475" class="ln">   475  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;browserType&#34;, &#34;browserVersion&#34;, &#34;device&#34;, &#34;duration&#34;, &#34;error&#34;, &#34;failure&#34;, &#34;passed&#34;, &#34;receivedEmailCount&#34;, &#34;startUrl&#34;, &#34;stepDetails&#34;, &#34;thumbnailsBucketKey&#34;, &#34;timeToInteractive&#34;})
-<span id="L476" class="ln">   476  </span>	} else {
-<span id="L477" class="ln">   477  </span>		return err
-<span id="L478" class="ln">   478  </span>	}
-<span id="L479" class="ln">   479  </span>	o.BrowserType = all.BrowserType
-<span id="L480" class="ln">   480  </span>	o.BrowserVersion = all.BrowserVersion
-<span id="L481" class="ln">   481  </span>	if all.Device != nil &amp;&amp; all.Device.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L482" class="ln">   482  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L483" class="ln">   483  </span>		if err != nil {
-<span id="L484" class="ln">   484  </span>			return err
-<span id="L485" class="ln">   485  </span>		}
-<span id="L486" class="ln">   486  </span>		o.UnparsedObject = raw
-<span id="L487" class="ln">   487  </span>	}
-<span id="L488" class="ln">   488  </span>	o.Device = all.Device
-<span id="L489" class="ln">   489  </span>	o.Duration = all.Duration
-<span id="L490" class="ln">   490  </span>	o.Error = all.Error
-<span id="L491" class="ln">   491  </span>	if all.Failure != nil &amp;&amp; all.Failure.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L492" class="ln">   492  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L493" class="ln">   493  </span>		if err != nil {
-<span id="L494" class="ln">   494  </span>			return err
-<span id="L495" class="ln">   495  </span>		}
-<span id="L496" class="ln">   496  </span>		o.UnparsedObject = raw
-<span id="L497" class="ln">   497  </span>	}
-<span id="L498" class="ln">   498  </span>	o.Failure = all.Failure
-<span id="L499" class="ln">   499  </span>	o.Passed = all.Passed
-<span id="L500" class="ln">   500  </span>	o.ReceivedEmailCount = all.ReceivedEmailCount
-<span id="L501" class="ln">   501  </span>	o.StartUrl = all.StartUrl
-<span id="L502" class="ln">   502  </span>	o.StepDetails = all.StepDetails
-<span id="L503" class="ln">   503  </span>	o.ThumbnailsBucketKey = all.ThumbnailsBucketKey
-<span id="L504" class="ln">   504  </span>	o.TimeToInteractive = all.TimeToInteractive
-<span id="L505" class="ln">   505  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L506" class="ln">   506  </span>		o.AdditionalProperties = additionalProperties
-<span id="L507" class="ln">   507  </span>	}
-<span id="L508" class="ln">   508  </span>
-<span id="L509" class="ln">   509  </span>	return nil
-<span id="L510" class="ln">   510  </span>}
-<span id="L511" class="ln">   511  </span>
+<span id="L464" class="ln">   464  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L465" class="ln">   465  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L466" class="ln">   466  </span>		if err != nil {
+<span id="L467" class="ln">   467  </span>			return err
+<span id="L468" class="ln">   468  </span>		}
+<span id="L469" class="ln">   469  </span>		o.UnparsedObject = raw
+<span id="L470" class="ln">   470  </span>		return nil
+<span id="L471" class="ln">   471  </span>	}
+<span id="L472" class="ln">   472  </span>	additionalProperties := make(map[string]interface{})
+<span id="L473" class="ln">   473  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L474" class="ln">   474  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;browserType&#34;, &#34;browserVersion&#34;, &#34;device&#34;, &#34;duration&#34;, &#34;error&#34;, &#34;failure&#34;, &#34;passed&#34;, &#34;receivedEmailCount&#34;, &#34;startUrl&#34;, &#34;stepDetails&#34;, &#34;thumbnailsBucketKey&#34;, &#34;timeToInteractive&#34;})
+<span id="L475" class="ln">   475  </span>	} else {
+<span id="L476" class="ln">   476  </span>		return err
+<span id="L477" class="ln">   477  </span>	}
+<span id="L478" class="ln">   478  </span>	o.BrowserType = all.BrowserType
+<span id="L479" class="ln">   479  </span>	o.BrowserVersion = all.BrowserVersion
+<span id="L480" class="ln">   480  </span>	if all.Device != nil &amp;&amp; all.Device.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L481" class="ln">   481  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L482" class="ln">   482  </span>		if err != nil {
+<span id="L483" class="ln">   483  </span>			return err
+<span id="L484" class="ln">   484  </span>		}
+<span id="L485" class="ln">   485  </span>		o.UnparsedObject = raw
+<span id="L486" class="ln">   486  </span>	}
+<span id="L487" class="ln">   487  </span>	o.Device = all.Device
+<span id="L488" class="ln">   488  </span>	o.Duration = all.Duration
+<span id="L489" class="ln">   489  </span>	o.Error = all.Error
+<span id="L490" class="ln">   490  </span>	if all.Failure != nil &amp;&amp; all.Failure.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L491" class="ln">   491  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L492" class="ln">   492  </span>		if err != nil {
+<span id="L493" class="ln">   493  </span>			return err
+<span id="L494" class="ln">   494  </span>		}
+<span id="L495" class="ln">   495  </span>		o.UnparsedObject = raw
+<span id="L496" class="ln">   496  </span>	}
+<span id="L497" class="ln">   497  </span>	o.Failure = all.Failure
+<span id="L498" class="ln">   498  </span>	o.Passed = all.Passed
+<span id="L499" class="ln">   499  </span>	o.ReceivedEmailCount = all.ReceivedEmailCount
+<span id="L500" class="ln">   500  </span>	o.StartUrl = all.StartUrl
+<span id="L501" class="ln">   501  </span>	o.StepDetails = all.StepDetails
+<span id="L502" class="ln">   502  </span>	o.ThumbnailsBucketKey = all.ThumbnailsBucketKey
+<span id="L503" class="ln">   503  </span>	o.TimeToInteractive = all.TimeToInteractive
+<span id="L504" class="ln">   504  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L505" class="ln">   505  </span>		o.AdditionalProperties = additionalProperties
+<span id="L506" class="ln">   506  </span>	}
+<span id="L507" class="ln">   507  </span>
+<span id="L508" class="ln">   508  </span>	return nil
+<span id="L509" class="ln">   509  </span>}
+<span id="L510" class="ln">   510  </span>
 </pre><p></p>
 
 <div id="footer">

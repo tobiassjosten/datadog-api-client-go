@@ -316,34 +316,33 @@
 <span id="L259" class="ln">   259  </span>		Scope      *string                               `json:&#34;scope,omitempty&#34;`
 <span id="L260" class="ln">   260  </span>		Unit       []SLOHistoryMetricsSeriesMetadataUnit `json:&#34;unit,omitempty&#34;`
 <span id="L261" class="ln">   261  </span>	}{}
-<span id="L262" class="ln">   262  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L263" class="ln">   263  </span>	if err != nil {
-<span id="L264" class="ln">   264  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L265" class="ln">   265  </span>		if err != nil {
-<span id="L266" class="ln">   266  </span>			return err
-<span id="L267" class="ln">   267  </span>		}
-<span id="L268" class="ln">   268  </span>		o.UnparsedObject = raw
-<span id="L269" class="ln">   269  </span>		return nil
-<span id="L270" class="ln">   270  </span>	}
-<span id="L271" class="ln">   271  </span>	additionalProperties := make(map[string]interface{})
-<span id="L272" class="ln">   272  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L273" class="ln">   273  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggr&#34;, &#34;expression&#34;, &#34;metric&#34;, &#34;query_index&#34;, &#34;scope&#34;, &#34;unit&#34;})
-<span id="L274" class="ln">   274  </span>	} else {
-<span id="L275" class="ln">   275  </span>		return err
-<span id="L276" class="ln">   276  </span>	}
-<span id="L277" class="ln">   277  </span>	o.Aggr = all.Aggr
-<span id="L278" class="ln">   278  </span>	o.Expression = all.Expression
-<span id="L279" class="ln">   279  </span>	o.Metric = all.Metric
-<span id="L280" class="ln">   280  </span>	o.QueryIndex = all.QueryIndex
-<span id="L281" class="ln">   281  </span>	o.Scope = all.Scope
-<span id="L282" class="ln">   282  </span>	o.Unit = all.Unit
-<span id="L283" class="ln">   283  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L284" class="ln">   284  </span>		o.AdditionalProperties = additionalProperties
-<span id="L285" class="ln">   285  </span>	}
-<span id="L286" class="ln">   286  </span>
-<span id="L287" class="ln">   287  </span>	return nil
-<span id="L288" class="ln">   288  </span>}
-<span id="L289" class="ln">   289  </span>
+<span id="L262" class="ln">   262  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L263" class="ln">   263  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L264" class="ln">   264  </span>		if err != nil {
+<span id="L265" class="ln">   265  </span>			return err
+<span id="L266" class="ln">   266  </span>		}
+<span id="L267" class="ln">   267  </span>		o.UnparsedObject = raw
+<span id="L268" class="ln">   268  </span>		return nil
+<span id="L269" class="ln">   269  </span>	}
+<span id="L270" class="ln">   270  </span>	additionalProperties := make(map[string]interface{})
+<span id="L271" class="ln">   271  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L272" class="ln">   272  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggr&#34;, &#34;expression&#34;, &#34;metric&#34;, &#34;query_index&#34;, &#34;scope&#34;, &#34;unit&#34;})
+<span id="L273" class="ln">   273  </span>	} else {
+<span id="L274" class="ln">   274  </span>		return err
+<span id="L275" class="ln">   275  </span>	}
+<span id="L276" class="ln">   276  </span>	o.Aggr = all.Aggr
+<span id="L277" class="ln">   277  </span>	o.Expression = all.Expression
+<span id="L278" class="ln">   278  </span>	o.Metric = all.Metric
+<span id="L279" class="ln">   279  </span>	o.QueryIndex = all.QueryIndex
+<span id="L280" class="ln">   280  </span>	o.Scope = all.Scope
+<span id="L281" class="ln">   281  </span>	o.Unit = all.Unit
+<span id="L282" class="ln">   282  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L283" class="ln">   283  </span>		o.AdditionalProperties = additionalProperties
+<span id="L284" class="ln">   284  </span>	}
+<span id="L285" class="ln">   285  </span>
+<span id="L286" class="ln">   286  </span>	return nil
+<span id="L287" class="ln">   287  </span>}
+<span id="L288" class="ln">   288  </span>
 </pre><p></p>
 
 <div id="footer">

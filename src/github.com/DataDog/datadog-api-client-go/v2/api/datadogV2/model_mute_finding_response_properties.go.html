@@ -242,31 +242,30 @@
 <span id="L185" class="ln">   185  </span>		Muted          *bool              `json:&#34;muted,omitempty&#34;`
 <span id="L186" class="ln">   186  </span>		Reason         *FindingMuteReason `json:&#34;reason,omitempty&#34;`
 <span id="L187" class="ln">   187  </span>	}{}
-<span id="L188" class="ln">   188  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L189" class="ln">   189  </span>	if err != nil {
-<span id="L190" class="ln">   190  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L191" class="ln">   191  </span>		if err != nil {
-<span id="L192" class="ln">   192  </span>			return err
-<span id="L193" class="ln">   193  </span>		}
-<span id="L194" class="ln">   194  </span>		o.UnparsedObject = raw
-<span id="L195" class="ln">   195  </span>		return nil
-<span id="L196" class="ln">   196  </span>	}
-<span id="L197" class="ln">   197  </span>	if v := all.Reason; v != nil &amp;&amp; !v.IsValid() {
-<span id="L198" class="ln">   198  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L199" class="ln">   199  </span>		if err != nil {
-<span id="L200" class="ln">   200  </span>			return err
-<span id="L201" class="ln">   201  </span>		}
-<span id="L202" class="ln">   202  </span>		o.UnparsedObject = raw
-<span id="L203" class="ln">   203  </span>		return nil
-<span id="L204" class="ln">   204  </span>	}
-<span id="L205" class="ln">   205  </span>	o.Description = all.Description
-<span id="L206" class="ln">   206  </span>	o.ExpirationDate = all.ExpirationDate
-<span id="L207" class="ln">   207  </span>	o.Muted = all.Muted
-<span id="L208" class="ln">   208  </span>	o.Reason = all.Reason
-<span id="L209" class="ln">   209  </span>
-<span id="L210" class="ln">   210  </span>	return nil
-<span id="L211" class="ln">   211  </span>}
-<span id="L212" class="ln">   212  </span>
+<span id="L188" class="ln">   188  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L189" class="ln">   189  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L190" class="ln">   190  </span>		if err != nil {
+<span id="L191" class="ln">   191  </span>			return err
+<span id="L192" class="ln">   192  </span>		}
+<span id="L193" class="ln">   193  </span>		o.UnparsedObject = raw
+<span id="L194" class="ln">   194  </span>		return nil
+<span id="L195" class="ln">   195  </span>	}
+<span id="L196" class="ln">   196  </span>	if v := all.Reason; v != nil &amp;&amp; !v.IsValid() {
+<span id="L197" class="ln">   197  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L198" class="ln">   198  </span>		if err != nil {
+<span id="L199" class="ln">   199  </span>			return err
+<span id="L200" class="ln">   200  </span>		}
+<span id="L201" class="ln">   201  </span>		o.UnparsedObject = raw
+<span id="L202" class="ln">   202  </span>		return nil
+<span id="L203" class="ln">   203  </span>	}
+<span id="L204" class="ln">   204  </span>	o.Description = all.Description
+<span id="L205" class="ln">   205  </span>	o.ExpirationDate = all.ExpirationDate
+<span id="L206" class="ln">   206  </span>	o.Muted = all.Muted
+<span id="L207" class="ln">   207  </span>	o.Reason = all.Reason
+<span id="L208" class="ln">   208  </span>
+<span id="L209" class="ln">   209  </span>	return nil
+<span id="L210" class="ln">   210  </span>}
+<span id="L211" class="ln">   211  </span>
 </pre><p></p>
 
 <div id="footer">

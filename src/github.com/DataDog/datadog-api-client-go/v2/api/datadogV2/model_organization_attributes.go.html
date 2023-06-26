@@ -390,36 +390,35 @@
 <span id="L333" class="ln">   333  </span>		Sharing     *string    `json:&#34;sharing,omitempty&#34;`
 <span id="L334" class="ln">   334  </span>		Url         *string    `json:&#34;url,omitempty&#34;`
 <span id="L335" class="ln">   335  </span>	}{}
-<span id="L336" class="ln">   336  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L337" class="ln">   337  </span>	if err != nil {
-<span id="L338" class="ln">   338  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L339" class="ln">   339  </span>		if err != nil {
-<span id="L340" class="ln">   340  </span>			return err
-<span id="L341" class="ln">   341  </span>		}
-<span id="L342" class="ln">   342  </span>		o.UnparsedObject = raw
-<span id="L343" class="ln">   343  </span>		return nil
-<span id="L344" class="ln">   344  </span>	}
-<span id="L345" class="ln">   345  </span>	additionalProperties := make(map[string]interface{})
-<span id="L346" class="ln">   346  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L347" class="ln">   347  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;description&#34;, &#34;disabled&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;public_id&#34;, &#34;sharing&#34;, &#34;url&#34;})
-<span id="L348" class="ln">   348  </span>	} else {
-<span id="L349" class="ln">   349  </span>		return err
-<span id="L350" class="ln">   350  </span>	}
-<span id="L351" class="ln">   351  </span>	o.CreatedAt = all.CreatedAt
-<span id="L352" class="ln">   352  </span>	o.Description = all.Description
-<span id="L353" class="ln">   353  </span>	o.Disabled = all.Disabled
-<span id="L354" class="ln">   354  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L355" class="ln">   355  </span>	o.Name = all.Name
-<span id="L356" class="ln">   356  </span>	o.PublicId = all.PublicId
-<span id="L357" class="ln">   357  </span>	o.Sharing = all.Sharing
-<span id="L358" class="ln">   358  </span>	o.Url = all.Url
-<span id="L359" class="ln">   359  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L360" class="ln">   360  </span>		o.AdditionalProperties = additionalProperties
-<span id="L361" class="ln">   361  </span>	}
-<span id="L362" class="ln">   362  </span>
-<span id="L363" class="ln">   363  </span>	return nil
-<span id="L364" class="ln">   364  </span>}
-<span id="L365" class="ln">   365  </span>
+<span id="L336" class="ln">   336  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L337" class="ln">   337  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L338" class="ln">   338  </span>		if err != nil {
+<span id="L339" class="ln">   339  </span>			return err
+<span id="L340" class="ln">   340  </span>		}
+<span id="L341" class="ln">   341  </span>		o.UnparsedObject = raw
+<span id="L342" class="ln">   342  </span>		return nil
+<span id="L343" class="ln">   343  </span>	}
+<span id="L344" class="ln">   344  </span>	additionalProperties := make(map[string]interface{})
+<span id="L345" class="ln">   345  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L346" class="ln">   346  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;description&#34;, &#34;disabled&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;public_id&#34;, &#34;sharing&#34;, &#34;url&#34;})
+<span id="L347" class="ln">   347  </span>	} else {
+<span id="L348" class="ln">   348  </span>		return err
+<span id="L349" class="ln">   349  </span>	}
+<span id="L350" class="ln">   350  </span>	o.CreatedAt = all.CreatedAt
+<span id="L351" class="ln">   351  </span>	o.Description = all.Description
+<span id="L352" class="ln">   352  </span>	o.Disabled = all.Disabled
+<span id="L353" class="ln">   353  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L354" class="ln">   354  </span>	o.Name = all.Name
+<span id="L355" class="ln">   355  </span>	o.PublicId = all.PublicId
+<span id="L356" class="ln">   356  </span>	o.Sharing = all.Sharing
+<span id="L357" class="ln">   357  </span>	o.Url = all.Url
+<span id="L358" class="ln">   358  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L359" class="ln">   359  </span>		o.AdditionalProperties = additionalProperties
+<span id="L360" class="ln">   360  </span>	}
+<span id="L361" class="ln">   361  </span>
+<span id="L362" class="ln">   362  </span>	return nil
+<span id="L363" class="ln">   363  </span>}
+<span id="L364" class="ln">   364  </span>
 </pre><p></p>
 
 <div id="footer">

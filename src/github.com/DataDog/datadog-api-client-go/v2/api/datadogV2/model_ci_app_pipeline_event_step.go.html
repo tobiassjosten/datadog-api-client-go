@@ -795,126 +795,110 @@
 <span id="L738" class="ln">   738  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L739" class="ln">   739  </span>func (o *CIAppPipelineEventStep) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L740" class="ln">   740  </span>	raw := map[string]interface{}{}
-<span id="L741" class="ln">   741  </span>	required := struct {
+<span id="L741" class="ln">   741  </span>	all := struct {
 <span id="L742" class="ln">   742  </span>		End              *time.Time                    `json:&#34;end&#34;`
-<span id="L743" class="ln">   743  </span>		Git              NullableCIAppGitInfo          `json:&#34;git&#34;`
-<span id="L744" class="ln">   744  </span>		Id               *string                       `json:&#34;id&#34;`
-<span id="L745" class="ln">   745  </span>		Level            *CIAppPipelineEventStepLevel  `json:&#34;level&#34;`
-<span id="L746" class="ln">   746  </span>		Name             *string                       `json:&#34;name&#34;`
-<span id="L747" class="ln">   747  </span>		PipelineName     *string                       `json:&#34;pipeline_name&#34;`
-<span id="L748" class="ln">   748  </span>		PipelineUniqueId *string                       `json:&#34;pipeline_unique_id&#34;`
-<span id="L749" class="ln">   749  </span>		Start            *time.Time                    `json:&#34;start&#34;`
-<span id="L750" class="ln">   750  </span>		Status           *CIAppPipelineEventStepStatus `json:&#34;status&#34;`
-<span id="L751" class="ln">   751  </span>	}{}
-<span id="L752" class="ln">   752  </span>	all := struct {
-<span id="L753" class="ln">   753  </span>		End              time.Time                    `json:&#34;end&#34;`
-<span id="L754" class="ln">   754  </span>		Error            NullableCIAppCIError         `json:&#34;error,omitempty&#34;`
-<span id="L755" class="ln">   755  </span>		Git              NullableCIAppGitInfo         `json:&#34;git&#34;`
-<span id="L756" class="ln">   756  </span>		Id               string                       `json:&#34;id&#34;`
-<span id="L757" class="ln">   757  </span>		JobId            datadog.NullableString       `json:&#34;job_id,omitempty&#34;`
-<span id="L758" class="ln">   758  </span>		JobName          datadog.NullableString       `json:&#34;job_name,omitempty&#34;`
-<span id="L759" class="ln">   759  </span>		Level            CIAppPipelineEventStepLevel  `json:&#34;level&#34;`
-<span id="L760" class="ln">   760  </span>		Metrics          datadog.NullableList[string] `json:&#34;metrics,omitempty&#34;`
-<span id="L761" class="ln">   761  </span>		Name             string                       `json:&#34;name&#34;`
-<span id="L762" class="ln">   762  </span>		Node             NullableCIAppHostInfo        `json:&#34;node,omitempty&#34;`
-<span id="L763" class="ln">   763  </span>		Parameters       map[string]string            `json:&#34;parameters,omitempty&#34;`
-<span id="L764" class="ln">   764  </span>		PipelineName     string                       `json:&#34;pipeline_name&#34;`
-<span id="L765" class="ln">   765  </span>		PipelineUniqueId string                       `json:&#34;pipeline_unique_id&#34;`
-<span id="L766" class="ln">   766  </span>		StageId          datadog.NullableString       `json:&#34;stage_id,omitempty&#34;`
-<span id="L767" class="ln">   767  </span>		StageName        datadog.NullableString       `json:&#34;stage_name,omitempty&#34;`
-<span id="L768" class="ln">   768  </span>		Start            time.Time                    `json:&#34;start&#34;`
-<span id="L769" class="ln">   769  </span>		Status           CIAppPipelineEventStepStatus `json:&#34;status&#34;`
-<span id="L770" class="ln">   770  </span>		Tags             datadog.NullableList[string] `json:&#34;tags,omitempty&#34;`
-<span id="L771" class="ln">   771  </span>		Url              datadog.NullableString       `json:&#34;url,omitempty&#34;`
-<span id="L772" class="ln">   772  </span>	}{}
-<span id="L773" class="ln">   773  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L774" class="ln">   774  </span>	if err != nil {
-<span id="L775" class="ln">   775  </span>		return err
-<span id="L776" class="ln">   776  </span>	}
-<span id="L777" class="ln">   777  </span>	if required.End == nil {
-<span id="L778" class="ln">   778  </span>		return fmt.Errorf(&#34;required field end missing&#34;)
-<span id="L779" class="ln">   779  </span>	}
-<span id="L780" class="ln">   780  </span>	if !required.Git.IsSet() {
-<span id="L781" class="ln">   781  </span>		return fmt.Errorf(&#34;required field git missing&#34;)
-<span id="L782" class="ln">   782  </span>	}
-<span id="L783" class="ln">   783  </span>	if required.Id == nil {
-<span id="L784" class="ln">   784  </span>		return fmt.Errorf(&#34;required field id missing&#34;)
-<span id="L785" class="ln">   785  </span>	}
-<span id="L786" class="ln">   786  </span>	if required.Level == nil {
-<span id="L787" class="ln">   787  </span>		return fmt.Errorf(&#34;required field level missing&#34;)
-<span id="L788" class="ln">   788  </span>	}
-<span id="L789" class="ln">   789  </span>	if required.Name == nil {
-<span id="L790" class="ln">   790  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
-<span id="L791" class="ln">   791  </span>	}
-<span id="L792" class="ln">   792  </span>	if required.PipelineName == nil {
-<span id="L793" class="ln">   793  </span>		return fmt.Errorf(&#34;required field pipeline_name missing&#34;)
-<span id="L794" class="ln">   794  </span>	}
-<span id="L795" class="ln">   795  </span>	if required.PipelineUniqueId == nil {
-<span id="L796" class="ln">   796  </span>		return fmt.Errorf(&#34;required field pipeline_unique_id missing&#34;)
-<span id="L797" class="ln">   797  </span>	}
-<span id="L798" class="ln">   798  </span>	if required.Start == nil {
-<span id="L799" class="ln">   799  </span>		return fmt.Errorf(&#34;required field start missing&#34;)
-<span id="L800" class="ln">   800  </span>	}
-<span id="L801" class="ln">   801  </span>	if required.Status == nil {
-<span id="L802" class="ln">   802  </span>		return fmt.Errorf(&#34;required field status missing&#34;)
-<span id="L803" class="ln">   803  </span>	}
-<span id="L804" class="ln">   804  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L805" class="ln">   805  </span>	if err != nil {
-<span id="L806" class="ln">   806  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L807" class="ln">   807  </span>		if err != nil {
-<span id="L808" class="ln">   808  </span>			return err
-<span id="L809" class="ln">   809  </span>		}
-<span id="L810" class="ln">   810  </span>		o.UnparsedObject = raw
-<span id="L811" class="ln">   811  </span>		return nil
-<span id="L812" class="ln">   812  </span>	}
-<span id="L813" class="ln">   813  </span>	additionalProperties := make(map[string]interface{})
-<span id="L814" class="ln">   814  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L815" class="ln">   815  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;end&#34;, &#34;error&#34;, &#34;git&#34;, &#34;id&#34;, &#34;job_id&#34;, &#34;job_name&#34;, &#34;level&#34;, &#34;metrics&#34;, &#34;name&#34;, &#34;node&#34;, &#34;parameters&#34;, &#34;pipeline_name&#34;, &#34;pipeline_unique_id&#34;, &#34;stage_id&#34;, &#34;stage_name&#34;, &#34;start&#34;, &#34;status&#34;, &#34;tags&#34;, &#34;url&#34;})
-<span id="L816" class="ln">   816  </span>	} else {
-<span id="L817" class="ln">   817  </span>		return err
+<span id="L743" class="ln">   743  </span>		Error            NullableCIAppCIError          `json:&#34;error,omitempty&#34;`
+<span id="L744" class="ln">   744  </span>		Git              NullableCIAppGitInfo          `json:&#34;git&#34;`
+<span id="L745" class="ln">   745  </span>		Id               *string                       `json:&#34;id&#34;`
+<span id="L746" class="ln">   746  </span>		JobId            datadog.NullableString        `json:&#34;job_id,omitempty&#34;`
+<span id="L747" class="ln">   747  </span>		JobName          datadog.NullableString        `json:&#34;job_name,omitempty&#34;`
+<span id="L748" class="ln">   748  </span>		Level            *CIAppPipelineEventStepLevel  `json:&#34;level&#34;`
+<span id="L749" class="ln">   749  </span>		Metrics          datadog.NullableList[string]  `json:&#34;metrics,omitempty&#34;`
+<span id="L750" class="ln">   750  </span>		Name             *string                       `json:&#34;name&#34;`
+<span id="L751" class="ln">   751  </span>		Node             NullableCIAppHostInfo         `json:&#34;node,omitempty&#34;`
+<span id="L752" class="ln">   752  </span>		Parameters       map[string]string             `json:&#34;parameters,omitempty&#34;`
+<span id="L753" class="ln">   753  </span>		PipelineName     *string                       `json:&#34;pipeline_name&#34;`
+<span id="L754" class="ln">   754  </span>		PipelineUniqueId *string                       `json:&#34;pipeline_unique_id&#34;`
+<span id="L755" class="ln">   755  </span>		StageId          datadog.NullableString        `json:&#34;stage_id,omitempty&#34;`
+<span id="L756" class="ln">   756  </span>		StageName        datadog.NullableString        `json:&#34;stage_name,omitempty&#34;`
+<span id="L757" class="ln">   757  </span>		Start            *time.Time                    `json:&#34;start&#34;`
+<span id="L758" class="ln">   758  </span>		Status           *CIAppPipelineEventStepStatus `json:&#34;status&#34;`
+<span id="L759" class="ln">   759  </span>		Tags             datadog.NullableList[string]  `json:&#34;tags,omitempty&#34;`
+<span id="L760" class="ln">   760  </span>		Url              datadog.NullableString        `json:&#34;url,omitempty&#34;`
+<span id="L761" class="ln">   761  </span>	}{}
+<span id="L762" class="ln">   762  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L763" class="ln">   763  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L764" class="ln">   764  </span>		if err != nil {
+<span id="L765" class="ln">   765  </span>			return err
+<span id="L766" class="ln">   766  </span>		}
+<span id="L767" class="ln">   767  </span>		o.UnparsedObject = raw
+<span id="L768" class="ln">   768  </span>		return nil
+<span id="L769" class="ln">   769  </span>	}
+<span id="L770" class="ln">   770  </span>	if all.End == nil {
+<span id="L771" class="ln">   771  </span>		return fmt.Errorf(&#34;required field end missing&#34;)
+<span id="L772" class="ln">   772  </span>	}
+<span id="L773" class="ln">   773  </span>	if !all.Git.IsSet() {
+<span id="L774" class="ln">   774  </span>		return fmt.Errorf(&#34;required field git missing&#34;)
+<span id="L775" class="ln">   775  </span>	}
+<span id="L776" class="ln">   776  </span>	if all.Id == nil {
+<span id="L777" class="ln">   777  </span>		return fmt.Errorf(&#34;required field id missing&#34;)
+<span id="L778" class="ln">   778  </span>	}
+<span id="L779" class="ln">   779  </span>	if all.Level == nil {
+<span id="L780" class="ln">   780  </span>		return fmt.Errorf(&#34;required field level missing&#34;)
+<span id="L781" class="ln">   781  </span>	}
+<span id="L782" class="ln">   782  </span>	if all.Name == nil {
+<span id="L783" class="ln">   783  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L784" class="ln">   784  </span>	}
+<span id="L785" class="ln">   785  </span>	if all.PipelineName == nil {
+<span id="L786" class="ln">   786  </span>		return fmt.Errorf(&#34;required field pipeline_name missing&#34;)
+<span id="L787" class="ln">   787  </span>	}
+<span id="L788" class="ln">   788  </span>	if all.PipelineUniqueId == nil {
+<span id="L789" class="ln">   789  </span>		return fmt.Errorf(&#34;required field pipeline_unique_id missing&#34;)
+<span id="L790" class="ln">   790  </span>	}
+<span id="L791" class="ln">   791  </span>	if all.Start == nil {
+<span id="L792" class="ln">   792  </span>		return fmt.Errorf(&#34;required field start missing&#34;)
+<span id="L793" class="ln">   793  </span>	}
+<span id="L794" class="ln">   794  </span>	if all.Status == nil {
+<span id="L795" class="ln">   795  </span>		return fmt.Errorf(&#34;required field status missing&#34;)
+<span id="L796" class="ln">   796  </span>	}
+<span id="L797" class="ln">   797  </span>	additionalProperties := make(map[string]interface{})
+<span id="L798" class="ln">   798  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L799" class="ln">   799  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;end&#34;, &#34;error&#34;, &#34;git&#34;, &#34;id&#34;, &#34;job_id&#34;, &#34;job_name&#34;, &#34;level&#34;, &#34;metrics&#34;, &#34;name&#34;, &#34;node&#34;, &#34;parameters&#34;, &#34;pipeline_name&#34;, &#34;pipeline_unique_id&#34;, &#34;stage_id&#34;, &#34;stage_name&#34;, &#34;start&#34;, &#34;status&#34;, &#34;tags&#34;, &#34;url&#34;})
+<span id="L800" class="ln">   800  </span>	} else {
+<span id="L801" class="ln">   801  </span>		return err
+<span id="L802" class="ln">   802  </span>	}
+<span id="L803" class="ln">   803  </span>	if v := all.Level; !v.IsValid() {
+<span id="L804" class="ln">   804  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L805" class="ln">   805  </span>		if err != nil {
+<span id="L806" class="ln">   806  </span>			return err
+<span id="L807" class="ln">   807  </span>		}
+<span id="L808" class="ln">   808  </span>		o.UnparsedObject = raw
+<span id="L809" class="ln">   809  </span>		return nil
+<span id="L810" class="ln">   810  </span>	}
+<span id="L811" class="ln">   811  </span>	if v := all.Status; !v.IsValid() {
+<span id="L812" class="ln">   812  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L813" class="ln">   813  </span>		if err != nil {
+<span id="L814" class="ln">   814  </span>			return err
+<span id="L815" class="ln">   815  </span>		}
+<span id="L816" class="ln">   816  </span>		o.UnparsedObject = raw
+<span id="L817" class="ln">   817  </span>		return nil
 <span id="L818" class="ln">   818  </span>	}
-<span id="L819" class="ln">   819  </span>	if v := all.Level; !v.IsValid() {
-<span id="L820" class="ln">   820  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L821" class="ln">   821  </span>		if err != nil {
-<span id="L822" class="ln">   822  </span>			return err
-<span id="L823" class="ln">   823  </span>		}
-<span id="L824" class="ln">   824  </span>		o.UnparsedObject = raw
-<span id="L825" class="ln">   825  </span>		return nil
-<span id="L826" class="ln">   826  </span>	}
-<span id="L827" class="ln">   827  </span>	if v := all.Status; !v.IsValid() {
-<span id="L828" class="ln">   828  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L829" class="ln">   829  </span>		if err != nil {
-<span id="L830" class="ln">   830  </span>			return err
-<span id="L831" class="ln">   831  </span>		}
-<span id="L832" class="ln">   832  </span>		o.UnparsedObject = raw
-<span id="L833" class="ln">   833  </span>		return nil
-<span id="L834" class="ln">   834  </span>	}
-<span id="L835" class="ln">   835  </span>	o.End = all.End
-<span id="L836" class="ln">   836  </span>	o.Error = all.Error
-<span id="L837" class="ln">   837  </span>	o.Git = all.Git
-<span id="L838" class="ln">   838  </span>	o.Id = all.Id
-<span id="L839" class="ln">   839  </span>	o.JobId = all.JobId
-<span id="L840" class="ln">   840  </span>	o.JobName = all.JobName
-<span id="L841" class="ln">   841  </span>	o.Level = all.Level
-<span id="L842" class="ln">   842  </span>	o.Metrics = all.Metrics
-<span id="L843" class="ln">   843  </span>	o.Name = all.Name
-<span id="L844" class="ln">   844  </span>	o.Node = all.Node
-<span id="L845" class="ln">   845  </span>	o.Parameters = all.Parameters
-<span id="L846" class="ln">   846  </span>	o.PipelineName = all.PipelineName
-<span id="L847" class="ln">   847  </span>	o.PipelineUniqueId = all.PipelineUniqueId
-<span id="L848" class="ln">   848  </span>	o.StageId = all.StageId
-<span id="L849" class="ln">   849  </span>	o.StageName = all.StageName
-<span id="L850" class="ln">   850  </span>	o.Start = all.Start
-<span id="L851" class="ln">   851  </span>	o.Status = all.Status
-<span id="L852" class="ln">   852  </span>	o.Tags = all.Tags
-<span id="L853" class="ln">   853  </span>	o.Url = all.Url
-<span id="L854" class="ln">   854  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L855" class="ln">   855  </span>		o.AdditionalProperties = additionalProperties
-<span id="L856" class="ln">   856  </span>	}
-<span id="L857" class="ln">   857  </span>
-<span id="L858" class="ln">   858  </span>	return nil
-<span id="L859" class="ln">   859  </span>}
-<span id="L860" class="ln">   860  </span>
+<span id="L819" class="ln">   819  </span>	o.End = *all.End
+<span id="L820" class="ln">   820  </span>	o.Error = all.Error
+<span id="L821" class="ln">   821  </span>	o.Git = all.Git
+<span id="L822" class="ln">   822  </span>	o.Id = *all.Id
+<span id="L823" class="ln">   823  </span>	o.JobId = all.JobId
+<span id="L824" class="ln">   824  </span>	o.JobName = all.JobName
+<span id="L825" class="ln">   825  </span>	o.Level = *all.Level
+<span id="L826" class="ln">   826  </span>	o.Metrics = all.Metrics
+<span id="L827" class="ln">   827  </span>	o.Name = *all.Name
+<span id="L828" class="ln">   828  </span>	o.Node = all.Node
+<span id="L829" class="ln">   829  </span>	o.Parameters = all.Parameters
+<span id="L830" class="ln">   830  </span>	o.PipelineName = *all.PipelineName
+<span id="L831" class="ln">   831  </span>	o.PipelineUniqueId = *all.PipelineUniqueId
+<span id="L832" class="ln">   832  </span>	o.StageId = all.StageId
+<span id="L833" class="ln">   833  </span>	o.StageName = all.StageName
+<span id="L834" class="ln">   834  </span>	o.Start = *all.Start
+<span id="L835" class="ln">   835  </span>	o.Status = *all.Status
+<span id="L836" class="ln">   836  </span>	o.Tags = all.Tags
+<span id="L837" class="ln">   837  </span>	o.Url = all.Url
+<span id="L838" class="ln">   838  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L839" class="ln">   839  </span>		o.AdditionalProperties = additionalProperties
+<span id="L840" class="ln">   840  </span>	}
+<span id="L841" class="ln">   841  </span>
+<span id="L842" class="ln">   842  </span>	return nil
+<span id="L843" class="ln">   843  </span>}
+<span id="L844" class="ln">   844  </span>
 </pre><p></p>
 
 <div id="footer">

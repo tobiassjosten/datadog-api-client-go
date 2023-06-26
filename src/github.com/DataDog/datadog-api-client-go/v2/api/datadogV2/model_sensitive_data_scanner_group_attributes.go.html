@@ -279,40 +279,39 @@
 <span id="L222" class="ln">   222  </span>		Name        *string                       `json:&#34;name,omitempty&#34;`
 <span id="L223" class="ln">   223  </span>		ProductList []SensitiveDataScannerProduct `json:&#34;product_list,omitempty&#34;`
 <span id="L224" class="ln">   224  </span>	}{}
-<span id="L225" class="ln">   225  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L226" class="ln">   226  </span>	if err != nil {
-<span id="L227" class="ln">   227  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L228" class="ln">   228  </span>		if err != nil {
-<span id="L229" class="ln">   229  </span>			return err
-<span id="L230" class="ln">   230  </span>		}
-<span id="L231" class="ln">   231  </span>		o.UnparsedObject = raw
-<span id="L232" class="ln">   232  </span>		return nil
-<span id="L233" class="ln">   233  </span>	}
-<span id="L234" class="ln">   234  </span>	additionalProperties := make(map[string]interface{})
-<span id="L235" class="ln">   235  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L236" class="ln">   236  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;description&#34;, &#34;filter&#34;, &#34;is_enabled&#34;, &#34;name&#34;, &#34;product_list&#34;})
-<span id="L237" class="ln">   237  </span>	} else {
-<span id="L238" class="ln">   238  </span>		return err
-<span id="L239" class="ln">   239  </span>	}
-<span id="L240" class="ln">   240  </span>	o.Description = all.Description
-<span id="L241" class="ln">   241  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L242" class="ln">   242  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L243" class="ln">   243  </span>		if err != nil {
-<span id="L244" class="ln">   244  </span>			return err
-<span id="L245" class="ln">   245  </span>		}
-<span id="L246" class="ln">   246  </span>		o.UnparsedObject = raw
-<span id="L247" class="ln">   247  </span>	}
-<span id="L248" class="ln">   248  </span>	o.Filter = all.Filter
-<span id="L249" class="ln">   249  </span>	o.IsEnabled = all.IsEnabled
-<span id="L250" class="ln">   250  </span>	o.Name = all.Name
-<span id="L251" class="ln">   251  </span>	o.ProductList = all.ProductList
-<span id="L252" class="ln">   252  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L253" class="ln">   253  </span>		o.AdditionalProperties = additionalProperties
-<span id="L254" class="ln">   254  </span>	}
-<span id="L255" class="ln">   255  </span>
-<span id="L256" class="ln">   256  </span>	return nil
-<span id="L257" class="ln">   257  </span>}
-<span id="L258" class="ln">   258  </span>
+<span id="L225" class="ln">   225  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L226" class="ln">   226  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L227" class="ln">   227  </span>		if err != nil {
+<span id="L228" class="ln">   228  </span>			return err
+<span id="L229" class="ln">   229  </span>		}
+<span id="L230" class="ln">   230  </span>		o.UnparsedObject = raw
+<span id="L231" class="ln">   231  </span>		return nil
+<span id="L232" class="ln">   232  </span>	}
+<span id="L233" class="ln">   233  </span>	additionalProperties := make(map[string]interface{})
+<span id="L234" class="ln">   234  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L235" class="ln">   235  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;description&#34;, &#34;filter&#34;, &#34;is_enabled&#34;, &#34;name&#34;, &#34;product_list&#34;})
+<span id="L236" class="ln">   236  </span>	} else {
+<span id="L237" class="ln">   237  </span>		return err
+<span id="L238" class="ln">   238  </span>	}
+<span id="L239" class="ln">   239  </span>	o.Description = all.Description
+<span id="L240" class="ln">   240  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L241" class="ln">   241  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L242" class="ln">   242  </span>		if err != nil {
+<span id="L243" class="ln">   243  </span>			return err
+<span id="L244" class="ln">   244  </span>		}
+<span id="L245" class="ln">   245  </span>		o.UnparsedObject = raw
+<span id="L246" class="ln">   246  </span>	}
+<span id="L247" class="ln">   247  </span>	o.Filter = all.Filter
+<span id="L248" class="ln">   248  </span>	o.IsEnabled = all.IsEnabled
+<span id="L249" class="ln">   249  </span>	o.Name = all.Name
+<span id="L250" class="ln">   250  </span>	o.ProductList = all.ProductList
+<span id="L251" class="ln">   251  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L252" class="ln">   252  </span>		o.AdditionalProperties = additionalProperties
+<span id="L253" class="ln">   253  </span>	}
+<span id="L254" class="ln">   254  </span>
+<span id="L255" class="ln">   255  </span>	return nil
+<span id="L256" class="ln">   256  </span>}
+<span id="L257" class="ln">   257  </span>
 </pre><p></p>
 
 <div id="footer">

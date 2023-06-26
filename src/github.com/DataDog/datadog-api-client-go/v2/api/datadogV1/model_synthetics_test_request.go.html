@@ -995,84 +995,83 @@
 <span id="L938" class="ln">   938  </span>		Timeout                  *float64                          `json:&#34;timeout,omitempty&#34;`
 <span id="L939" class="ln">   939  </span>		Url                      *string                           `json:&#34;url,omitempty&#34;`
 <span id="L940" class="ln">   940  </span>	}{}
-<span id="L941" class="ln">   941  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L942" class="ln">   942  </span>	if err != nil {
-<span id="L943" class="ln">   943  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L944" class="ln">   944  </span>		if err != nil {
-<span id="L945" class="ln">   945  </span>			return err
-<span id="L946" class="ln">   946  </span>		}
-<span id="L947" class="ln">   947  </span>		o.UnparsedObject = raw
-<span id="L948" class="ln">   948  </span>		return nil
-<span id="L949" class="ln">   949  </span>	}
-<span id="L950" class="ln">   950  </span>	additionalProperties := make(map[string]interface{})
-<span id="L951" class="ln">   951  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L952" class="ln">   952  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;allow_insecure&#34;, &#34;basicAuth&#34;, &#34;body&#34;, &#34;bodyType&#34;, &#34;callType&#34;, &#34;certificate&#34;, &#34;certificateDomains&#34;, &#34;compressedJsonDescriptor&#34;, &#34;dnsServer&#34;, &#34;dnsServerPort&#34;, &#34;follow_redirects&#34;, &#34;headers&#34;, &#34;host&#34;, &#34;message&#34;, &#34;metadata&#34;, &#34;method&#34;, &#34;noSavingResponseBody&#34;, &#34;numberOfPackets&#34;, &#34;port&#34;, &#34;proxy&#34;, &#34;query&#34;, &#34;servername&#34;, &#34;service&#34;, &#34;shouldTrackHops&#34;, &#34;timeout&#34;, &#34;url&#34;})
-<span id="L953" class="ln">   953  </span>	} else {
-<span id="L954" class="ln">   954  </span>		return err
-<span id="L955" class="ln">   955  </span>	}
-<span id="L956" class="ln">   956  </span>	if v := all.BodyType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L957" class="ln">   957  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L958" class="ln">   958  </span>		if err != nil {
-<span id="L959" class="ln">   959  </span>			return err
-<span id="L960" class="ln">   960  </span>		}
-<span id="L961" class="ln">   961  </span>		o.UnparsedObject = raw
-<span id="L962" class="ln">   962  </span>		return nil
-<span id="L963" class="ln">   963  </span>	}
-<span id="L964" class="ln">   964  </span>	if v := all.CallType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L965" class="ln">   965  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L966" class="ln">   966  </span>		if err != nil {
-<span id="L967" class="ln">   967  </span>			return err
-<span id="L968" class="ln">   968  </span>		}
-<span id="L969" class="ln">   969  </span>		o.UnparsedObject = raw
-<span id="L970" class="ln">   970  </span>		return nil
-<span id="L971" class="ln">   971  </span>	}
-<span id="L972" class="ln">   972  </span>	o.AllowInsecure = all.AllowInsecure
-<span id="L973" class="ln">   973  </span>	o.BasicAuth = all.BasicAuth
-<span id="L974" class="ln">   974  </span>	o.Body = all.Body
-<span id="L975" class="ln">   975  </span>	o.BodyType = all.BodyType
-<span id="L976" class="ln">   976  </span>	o.CallType = all.CallType
-<span id="L977" class="ln">   977  </span>	if all.Certificate != nil &amp;&amp; all.Certificate.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L978" class="ln">   978  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L979" class="ln">   979  </span>		if err != nil {
-<span id="L980" class="ln">   980  </span>			return err
-<span id="L981" class="ln">   981  </span>		}
-<span id="L982" class="ln">   982  </span>		o.UnparsedObject = raw
-<span id="L983" class="ln">   983  </span>	}
-<span id="L984" class="ln">   984  </span>	o.Certificate = all.Certificate
-<span id="L985" class="ln">   985  </span>	o.CertificateDomains = all.CertificateDomains
-<span id="L986" class="ln">   986  </span>	o.CompressedJsonDescriptor = all.CompressedJsonDescriptor
-<span id="L987" class="ln">   987  </span>	o.DnsServer = all.DnsServer
-<span id="L988" class="ln">   988  </span>	o.DnsServerPort = all.DnsServerPort
-<span id="L989" class="ln">   989  </span>	o.FollowRedirects = all.FollowRedirects
-<span id="L990" class="ln">   990  </span>	o.Headers = all.Headers
-<span id="L991" class="ln">   991  </span>	o.Host = all.Host
-<span id="L992" class="ln">   992  </span>	o.Message = all.Message
-<span id="L993" class="ln">   993  </span>	o.Metadata = all.Metadata
-<span id="L994" class="ln">   994  </span>	o.Method = all.Method
-<span id="L995" class="ln">   995  </span>	o.NoSavingResponseBody = all.NoSavingResponseBody
-<span id="L996" class="ln">   996  </span>	o.NumberOfPackets = all.NumberOfPackets
-<span id="L997" class="ln">   997  </span>	o.Port = all.Port
-<span id="L998" class="ln">   998  </span>	if all.Proxy != nil &amp;&amp; all.Proxy.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L999" class="ln">   999  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1000" class="ln">  1000  </span>		if err != nil {
-<span id="L1001" class="ln">  1001  </span>			return err
-<span id="L1002" class="ln">  1002  </span>		}
-<span id="L1003" class="ln">  1003  </span>		o.UnparsedObject = raw
-<span id="L1004" class="ln">  1004  </span>	}
-<span id="L1005" class="ln">  1005  </span>	o.Proxy = all.Proxy
-<span id="L1006" class="ln">  1006  </span>	o.Query = all.Query
-<span id="L1007" class="ln">  1007  </span>	o.Servername = all.Servername
-<span id="L1008" class="ln">  1008  </span>	o.Service = all.Service
-<span id="L1009" class="ln">  1009  </span>	o.ShouldTrackHops = all.ShouldTrackHops
-<span id="L1010" class="ln">  1010  </span>	o.Timeout = all.Timeout
-<span id="L1011" class="ln">  1011  </span>	o.Url = all.Url
-<span id="L1012" class="ln">  1012  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L1013" class="ln">  1013  </span>		o.AdditionalProperties = additionalProperties
-<span id="L1014" class="ln">  1014  </span>	}
-<span id="L1015" class="ln">  1015  </span>
-<span id="L1016" class="ln">  1016  </span>	return nil
-<span id="L1017" class="ln">  1017  </span>}
-<span id="L1018" class="ln">  1018  </span>
+<span id="L941" class="ln">   941  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L942" class="ln">   942  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L943" class="ln">   943  </span>		if err != nil {
+<span id="L944" class="ln">   944  </span>			return err
+<span id="L945" class="ln">   945  </span>		}
+<span id="L946" class="ln">   946  </span>		o.UnparsedObject = raw
+<span id="L947" class="ln">   947  </span>		return nil
+<span id="L948" class="ln">   948  </span>	}
+<span id="L949" class="ln">   949  </span>	additionalProperties := make(map[string]interface{})
+<span id="L950" class="ln">   950  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L951" class="ln">   951  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;allow_insecure&#34;, &#34;basicAuth&#34;, &#34;body&#34;, &#34;bodyType&#34;, &#34;callType&#34;, &#34;certificate&#34;, &#34;certificateDomains&#34;, &#34;compressedJsonDescriptor&#34;, &#34;dnsServer&#34;, &#34;dnsServerPort&#34;, &#34;follow_redirects&#34;, &#34;headers&#34;, &#34;host&#34;, &#34;message&#34;, &#34;metadata&#34;, &#34;method&#34;, &#34;noSavingResponseBody&#34;, &#34;numberOfPackets&#34;, &#34;port&#34;, &#34;proxy&#34;, &#34;query&#34;, &#34;servername&#34;, &#34;service&#34;, &#34;shouldTrackHops&#34;, &#34;timeout&#34;, &#34;url&#34;})
+<span id="L952" class="ln">   952  </span>	} else {
+<span id="L953" class="ln">   953  </span>		return err
+<span id="L954" class="ln">   954  </span>	}
+<span id="L955" class="ln">   955  </span>	if v := all.BodyType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L956" class="ln">   956  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L957" class="ln">   957  </span>		if err != nil {
+<span id="L958" class="ln">   958  </span>			return err
+<span id="L959" class="ln">   959  </span>		}
+<span id="L960" class="ln">   960  </span>		o.UnparsedObject = raw
+<span id="L961" class="ln">   961  </span>		return nil
+<span id="L962" class="ln">   962  </span>	}
+<span id="L963" class="ln">   963  </span>	if v := all.CallType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L964" class="ln">   964  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L965" class="ln">   965  </span>		if err != nil {
+<span id="L966" class="ln">   966  </span>			return err
+<span id="L967" class="ln">   967  </span>		}
+<span id="L968" class="ln">   968  </span>		o.UnparsedObject = raw
+<span id="L969" class="ln">   969  </span>		return nil
+<span id="L970" class="ln">   970  </span>	}
+<span id="L971" class="ln">   971  </span>	o.AllowInsecure = all.AllowInsecure
+<span id="L972" class="ln">   972  </span>	o.BasicAuth = all.BasicAuth
+<span id="L973" class="ln">   973  </span>	o.Body = all.Body
+<span id="L974" class="ln">   974  </span>	o.BodyType = all.BodyType
+<span id="L975" class="ln">   975  </span>	o.CallType = all.CallType
+<span id="L976" class="ln">   976  </span>	if all.Certificate != nil &amp;&amp; all.Certificate.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L977" class="ln">   977  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L978" class="ln">   978  </span>		if err != nil {
+<span id="L979" class="ln">   979  </span>			return err
+<span id="L980" class="ln">   980  </span>		}
+<span id="L981" class="ln">   981  </span>		o.UnparsedObject = raw
+<span id="L982" class="ln">   982  </span>	}
+<span id="L983" class="ln">   983  </span>	o.Certificate = all.Certificate
+<span id="L984" class="ln">   984  </span>	o.CertificateDomains = all.CertificateDomains
+<span id="L985" class="ln">   985  </span>	o.CompressedJsonDescriptor = all.CompressedJsonDescriptor
+<span id="L986" class="ln">   986  </span>	o.DnsServer = all.DnsServer
+<span id="L987" class="ln">   987  </span>	o.DnsServerPort = all.DnsServerPort
+<span id="L988" class="ln">   988  </span>	o.FollowRedirects = all.FollowRedirects
+<span id="L989" class="ln">   989  </span>	o.Headers = all.Headers
+<span id="L990" class="ln">   990  </span>	o.Host = all.Host
+<span id="L991" class="ln">   991  </span>	o.Message = all.Message
+<span id="L992" class="ln">   992  </span>	o.Metadata = all.Metadata
+<span id="L993" class="ln">   993  </span>	o.Method = all.Method
+<span id="L994" class="ln">   994  </span>	o.NoSavingResponseBody = all.NoSavingResponseBody
+<span id="L995" class="ln">   995  </span>	o.NumberOfPackets = all.NumberOfPackets
+<span id="L996" class="ln">   996  </span>	o.Port = all.Port
+<span id="L997" class="ln">   997  </span>	if all.Proxy != nil &amp;&amp; all.Proxy.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L998" class="ln">   998  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L999" class="ln">   999  </span>		if err != nil {
+<span id="L1000" class="ln">  1000  </span>			return err
+<span id="L1001" class="ln">  1001  </span>		}
+<span id="L1002" class="ln">  1002  </span>		o.UnparsedObject = raw
+<span id="L1003" class="ln">  1003  </span>	}
+<span id="L1004" class="ln">  1004  </span>	o.Proxy = all.Proxy
+<span id="L1005" class="ln">  1005  </span>	o.Query = all.Query
+<span id="L1006" class="ln">  1006  </span>	o.Servername = all.Servername
+<span id="L1007" class="ln">  1007  </span>	o.Service = all.Service
+<span id="L1008" class="ln">  1008  </span>	o.ShouldTrackHops = all.ShouldTrackHops
+<span id="L1009" class="ln">  1009  </span>	o.Timeout = all.Timeout
+<span id="L1010" class="ln">  1010  </span>	o.Url = all.Url
+<span id="L1011" class="ln">  1011  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L1012" class="ln">  1012  </span>		o.AdditionalProperties = additionalProperties
+<span id="L1013" class="ln">  1013  </span>	}
+<span id="L1014" class="ln">  1014  </span>
+<span id="L1015" class="ln">  1015  </span>	return nil
+<span id="L1016" class="ln">  1016  </span>}
+<span id="L1017" class="ln">  1017  </span>
 </pre><p></p>
 
 <div id="footer">

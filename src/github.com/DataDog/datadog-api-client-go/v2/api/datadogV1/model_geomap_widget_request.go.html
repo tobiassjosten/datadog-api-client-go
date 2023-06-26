@@ -347,64 +347,63 @@
 <span id="L290" class="ln">   290  </span>		RumQuery       *LogQueryDefinition                 `json:&#34;rum_query,omitempty&#34;`
 <span id="L291" class="ln">   291  </span>		SecurityQuery  *LogQueryDefinition                 `json:&#34;security_query,omitempty&#34;`
 <span id="L292" class="ln">   292  </span>	}{}
-<span id="L293" class="ln">   293  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L294" class="ln">   294  </span>	if err != nil {
-<span id="L295" class="ln">   295  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L296" class="ln">   296  </span>		if err != nil {
-<span id="L297" class="ln">   297  </span>			return err
-<span id="L298" class="ln">   298  </span>		}
-<span id="L299" class="ln">   299  </span>		o.UnparsedObject = raw
-<span id="L300" class="ln">   300  </span>		return nil
-<span id="L301" class="ln">   301  </span>	}
-<span id="L302" class="ln">   302  </span>	additionalProperties := make(map[string]interface{})
-<span id="L303" class="ln">   303  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L304" class="ln">   304  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;formulas&#34;, &#34;log_query&#34;, &#34;q&#34;, &#34;queries&#34;, &#34;response_format&#34;, &#34;rum_query&#34;, &#34;security_query&#34;})
-<span id="L305" class="ln">   305  </span>	} else {
-<span id="L306" class="ln">   306  </span>		return err
-<span id="L307" class="ln">   307  </span>	}
-<span id="L308" class="ln">   308  </span>	if v := all.ResponseFormat; v != nil &amp;&amp; !v.IsValid() {
-<span id="L309" class="ln">   309  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L310" class="ln">   310  </span>		if err != nil {
-<span id="L311" class="ln">   311  </span>			return err
-<span id="L312" class="ln">   312  </span>		}
-<span id="L313" class="ln">   313  </span>		o.UnparsedObject = raw
-<span id="L314" class="ln">   314  </span>		return nil
-<span id="L315" class="ln">   315  </span>	}
-<span id="L316" class="ln">   316  </span>	o.Formulas = all.Formulas
-<span id="L317" class="ln">   317  </span>	if all.LogQuery != nil &amp;&amp; all.LogQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L318" class="ln">   318  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L319" class="ln">   319  </span>		if err != nil {
-<span id="L320" class="ln">   320  </span>			return err
-<span id="L321" class="ln">   321  </span>		}
-<span id="L322" class="ln">   322  </span>		o.UnparsedObject = raw
-<span id="L323" class="ln">   323  </span>	}
-<span id="L324" class="ln">   324  </span>	o.LogQuery = all.LogQuery
-<span id="L325" class="ln">   325  </span>	o.Q = all.Q
-<span id="L326" class="ln">   326  </span>	o.Queries = all.Queries
-<span id="L327" class="ln">   327  </span>	o.ResponseFormat = all.ResponseFormat
-<span id="L328" class="ln">   328  </span>	if all.RumQuery != nil &amp;&amp; all.RumQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L329" class="ln">   329  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L330" class="ln">   330  </span>		if err != nil {
-<span id="L331" class="ln">   331  </span>			return err
-<span id="L332" class="ln">   332  </span>		}
-<span id="L333" class="ln">   333  </span>		o.UnparsedObject = raw
-<span id="L334" class="ln">   334  </span>	}
-<span id="L335" class="ln">   335  </span>	o.RumQuery = all.RumQuery
-<span id="L336" class="ln">   336  </span>	if all.SecurityQuery != nil &amp;&amp; all.SecurityQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L337" class="ln">   337  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L338" class="ln">   338  </span>		if err != nil {
-<span id="L339" class="ln">   339  </span>			return err
-<span id="L340" class="ln">   340  </span>		}
-<span id="L341" class="ln">   341  </span>		o.UnparsedObject = raw
-<span id="L342" class="ln">   342  </span>	}
-<span id="L343" class="ln">   343  </span>	o.SecurityQuery = all.SecurityQuery
-<span id="L344" class="ln">   344  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L345" class="ln">   345  </span>		o.AdditionalProperties = additionalProperties
-<span id="L346" class="ln">   346  </span>	}
-<span id="L347" class="ln">   347  </span>
-<span id="L348" class="ln">   348  </span>	return nil
-<span id="L349" class="ln">   349  </span>}
-<span id="L350" class="ln">   350  </span>
+<span id="L293" class="ln">   293  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L294" class="ln">   294  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L295" class="ln">   295  </span>		if err != nil {
+<span id="L296" class="ln">   296  </span>			return err
+<span id="L297" class="ln">   297  </span>		}
+<span id="L298" class="ln">   298  </span>		o.UnparsedObject = raw
+<span id="L299" class="ln">   299  </span>		return nil
+<span id="L300" class="ln">   300  </span>	}
+<span id="L301" class="ln">   301  </span>	additionalProperties := make(map[string]interface{})
+<span id="L302" class="ln">   302  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L303" class="ln">   303  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;formulas&#34;, &#34;log_query&#34;, &#34;q&#34;, &#34;queries&#34;, &#34;response_format&#34;, &#34;rum_query&#34;, &#34;security_query&#34;})
+<span id="L304" class="ln">   304  </span>	} else {
+<span id="L305" class="ln">   305  </span>		return err
+<span id="L306" class="ln">   306  </span>	}
+<span id="L307" class="ln">   307  </span>	if v := all.ResponseFormat; v != nil &amp;&amp; !v.IsValid() {
+<span id="L308" class="ln">   308  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L309" class="ln">   309  </span>		if err != nil {
+<span id="L310" class="ln">   310  </span>			return err
+<span id="L311" class="ln">   311  </span>		}
+<span id="L312" class="ln">   312  </span>		o.UnparsedObject = raw
+<span id="L313" class="ln">   313  </span>		return nil
+<span id="L314" class="ln">   314  </span>	}
+<span id="L315" class="ln">   315  </span>	o.Formulas = all.Formulas
+<span id="L316" class="ln">   316  </span>	if all.LogQuery != nil &amp;&amp; all.LogQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L317" class="ln">   317  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L318" class="ln">   318  </span>		if err != nil {
+<span id="L319" class="ln">   319  </span>			return err
+<span id="L320" class="ln">   320  </span>		}
+<span id="L321" class="ln">   321  </span>		o.UnparsedObject = raw
+<span id="L322" class="ln">   322  </span>	}
+<span id="L323" class="ln">   323  </span>	o.LogQuery = all.LogQuery
+<span id="L324" class="ln">   324  </span>	o.Q = all.Q
+<span id="L325" class="ln">   325  </span>	o.Queries = all.Queries
+<span id="L326" class="ln">   326  </span>	o.ResponseFormat = all.ResponseFormat
+<span id="L327" class="ln">   327  </span>	if all.RumQuery != nil &amp;&amp; all.RumQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L328" class="ln">   328  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L329" class="ln">   329  </span>		if err != nil {
+<span id="L330" class="ln">   330  </span>			return err
+<span id="L331" class="ln">   331  </span>		}
+<span id="L332" class="ln">   332  </span>		o.UnparsedObject = raw
+<span id="L333" class="ln">   333  </span>	}
+<span id="L334" class="ln">   334  </span>	o.RumQuery = all.RumQuery
+<span id="L335" class="ln">   335  </span>	if all.SecurityQuery != nil &amp;&amp; all.SecurityQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L336" class="ln">   336  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L337" class="ln">   337  </span>		if err != nil {
+<span id="L338" class="ln">   338  </span>			return err
+<span id="L339" class="ln">   339  </span>		}
+<span id="L340" class="ln">   340  </span>		o.UnparsedObject = raw
+<span id="L341" class="ln">   341  </span>	}
+<span id="L342" class="ln">   342  </span>	o.SecurityQuery = all.SecurityQuery
+<span id="L343" class="ln">   343  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L344" class="ln">   344  </span>		o.AdditionalProperties = additionalProperties
+<span id="L345" class="ln">   345  </span>	}
+<span id="L346" class="ln">   346  </span>
+<span id="L347" class="ln">   347  </span>	return nil
+<span id="L348" class="ln">   348  </span>}
+<span id="L349" class="ln">   349  </span>
 </pre><p></p>
 
 <div id="footer">

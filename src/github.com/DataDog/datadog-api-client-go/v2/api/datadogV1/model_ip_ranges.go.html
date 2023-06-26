@@ -483,102 +483,101 @@
 <span id="L426" class="ln">   426  </span>		Version                    *int64                                `json:&#34;version,omitempty&#34;`
 <span id="L427" class="ln">   427  </span>		Webhooks                   *IPPrefixesWebhooks                   `json:&#34;webhooks,omitempty&#34;`
 <span id="L428" class="ln">   428  </span>	}{}
-<span id="L429" class="ln">   429  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L430" class="ln">   430  </span>	if err != nil {
-<span id="L431" class="ln">   431  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L432" class="ln">   432  </span>		if err != nil {
-<span id="L433" class="ln">   433  </span>			return err
-<span id="L434" class="ln">   434  </span>		}
-<span id="L435" class="ln">   435  </span>		o.UnparsedObject = raw
-<span id="L436" class="ln">   436  </span>		return nil
-<span id="L437" class="ln">   437  </span>	}
-<span id="L438" class="ln">   438  </span>	additionalProperties := make(map[string]interface{})
-<span id="L439" class="ln">   439  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L440" class="ln">   440  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agents&#34;, &#34;api&#34;, &#34;apm&#34;, &#34;logs&#34;, &#34;modified&#34;, &#34;orchestrator&#34;, &#34;process&#34;, &#34;synthetics&#34;, &#34;synthetics-private-locations&#34;, &#34;version&#34;, &#34;webhooks&#34;})
-<span id="L441" class="ln">   441  </span>	} else {
-<span id="L442" class="ln">   442  </span>		return err
-<span id="L443" class="ln">   443  </span>	}
-<span id="L444" class="ln">   444  </span>	if all.Agents != nil &amp;&amp; all.Agents.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L445" class="ln">   445  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L446" class="ln">   446  </span>		if err != nil {
-<span id="L447" class="ln">   447  </span>			return err
-<span id="L448" class="ln">   448  </span>		}
-<span id="L449" class="ln">   449  </span>		o.UnparsedObject = raw
-<span id="L450" class="ln">   450  </span>	}
-<span id="L451" class="ln">   451  </span>	o.Agents = all.Agents
-<span id="L452" class="ln">   452  </span>	if all.Api != nil &amp;&amp; all.Api.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L453" class="ln">   453  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L454" class="ln">   454  </span>		if err != nil {
-<span id="L455" class="ln">   455  </span>			return err
-<span id="L456" class="ln">   456  </span>		}
-<span id="L457" class="ln">   457  </span>		o.UnparsedObject = raw
-<span id="L458" class="ln">   458  </span>	}
-<span id="L459" class="ln">   459  </span>	o.Api = all.Api
-<span id="L460" class="ln">   460  </span>	if all.Apm != nil &amp;&amp; all.Apm.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L461" class="ln">   461  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L462" class="ln">   462  </span>		if err != nil {
-<span id="L463" class="ln">   463  </span>			return err
-<span id="L464" class="ln">   464  </span>		}
-<span id="L465" class="ln">   465  </span>		o.UnparsedObject = raw
-<span id="L466" class="ln">   466  </span>	}
-<span id="L467" class="ln">   467  </span>	o.Apm = all.Apm
-<span id="L468" class="ln">   468  </span>	if all.Logs != nil &amp;&amp; all.Logs.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L469" class="ln">   469  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L470" class="ln">   470  </span>		if err != nil {
-<span id="L471" class="ln">   471  </span>			return err
-<span id="L472" class="ln">   472  </span>		}
-<span id="L473" class="ln">   473  </span>		o.UnparsedObject = raw
-<span id="L474" class="ln">   474  </span>	}
-<span id="L475" class="ln">   475  </span>	o.Logs = all.Logs
-<span id="L476" class="ln">   476  </span>	o.Modified = all.Modified
-<span id="L477" class="ln">   477  </span>	if all.Orchestrator != nil &amp;&amp; all.Orchestrator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L478" class="ln">   478  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L479" class="ln">   479  </span>		if err != nil {
-<span id="L480" class="ln">   480  </span>			return err
-<span id="L481" class="ln">   481  </span>		}
-<span id="L482" class="ln">   482  </span>		o.UnparsedObject = raw
-<span id="L483" class="ln">   483  </span>	}
-<span id="L484" class="ln">   484  </span>	o.Orchestrator = all.Orchestrator
-<span id="L485" class="ln">   485  </span>	if all.Process != nil &amp;&amp; all.Process.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L486" class="ln">   486  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L487" class="ln">   487  </span>		if err != nil {
-<span id="L488" class="ln">   488  </span>			return err
-<span id="L489" class="ln">   489  </span>		}
-<span id="L490" class="ln">   490  </span>		o.UnparsedObject = raw
-<span id="L491" class="ln">   491  </span>	}
-<span id="L492" class="ln">   492  </span>	o.Process = all.Process
-<span id="L493" class="ln">   493  </span>	if all.Synthetics != nil &amp;&amp; all.Synthetics.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L494" class="ln">   494  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L495" class="ln">   495  </span>		if err != nil {
-<span id="L496" class="ln">   496  </span>			return err
-<span id="L497" class="ln">   497  </span>		}
-<span id="L498" class="ln">   498  </span>		o.UnparsedObject = raw
-<span id="L499" class="ln">   499  </span>	}
-<span id="L500" class="ln">   500  </span>	o.Synthetics = all.Synthetics
-<span id="L501" class="ln">   501  </span>	if all.SyntheticsPrivateLocations != nil &amp;&amp; all.SyntheticsPrivateLocations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L502" class="ln">   502  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L503" class="ln">   503  </span>		if err != nil {
-<span id="L504" class="ln">   504  </span>			return err
-<span id="L505" class="ln">   505  </span>		}
-<span id="L506" class="ln">   506  </span>		o.UnparsedObject = raw
-<span id="L507" class="ln">   507  </span>	}
-<span id="L508" class="ln">   508  </span>	o.SyntheticsPrivateLocations = all.SyntheticsPrivateLocations
-<span id="L509" class="ln">   509  </span>	o.Version = all.Version
-<span id="L510" class="ln">   510  </span>	if all.Webhooks != nil &amp;&amp; all.Webhooks.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L511" class="ln">   511  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L512" class="ln">   512  </span>		if err != nil {
-<span id="L513" class="ln">   513  </span>			return err
-<span id="L514" class="ln">   514  </span>		}
-<span id="L515" class="ln">   515  </span>		o.UnparsedObject = raw
-<span id="L516" class="ln">   516  </span>	}
-<span id="L517" class="ln">   517  </span>	o.Webhooks = all.Webhooks
-<span id="L518" class="ln">   518  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L519" class="ln">   519  </span>		o.AdditionalProperties = additionalProperties
-<span id="L520" class="ln">   520  </span>	}
-<span id="L521" class="ln">   521  </span>
-<span id="L522" class="ln">   522  </span>	return nil
-<span id="L523" class="ln">   523  </span>}
-<span id="L524" class="ln">   524  </span>
+<span id="L429" class="ln">   429  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L431" class="ln">   431  </span>		if err != nil {
+<span id="L432" class="ln">   432  </span>			return err
+<span id="L433" class="ln">   433  </span>		}
+<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
+<span id="L435" class="ln">   435  </span>		return nil
+<span id="L436" class="ln">   436  </span>	}
+<span id="L437" class="ln">   437  </span>	additionalProperties := make(map[string]interface{})
+<span id="L438" class="ln">   438  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L439" class="ln">   439  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agents&#34;, &#34;api&#34;, &#34;apm&#34;, &#34;logs&#34;, &#34;modified&#34;, &#34;orchestrator&#34;, &#34;process&#34;, &#34;synthetics&#34;, &#34;synthetics-private-locations&#34;, &#34;version&#34;, &#34;webhooks&#34;})
+<span id="L440" class="ln">   440  </span>	} else {
+<span id="L441" class="ln">   441  </span>		return err
+<span id="L442" class="ln">   442  </span>	}
+<span id="L443" class="ln">   443  </span>	if all.Agents != nil &amp;&amp; all.Agents.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L444" class="ln">   444  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L445" class="ln">   445  </span>		if err != nil {
+<span id="L446" class="ln">   446  </span>			return err
+<span id="L447" class="ln">   447  </span>		}
+<span id="L448" class="ln">   448  </span>		o.UnparsedObject = raw
+<span id="L449" class="ln">   449  </span>	}
+<span id="L450" class="ln">   450  </span>	o.Agents = all.Agents
+<span id="L451" class="ln">   451  </span>	if all.Api != nil &amp;&amp; all.Api.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L452" class="ln">   452  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L453" class="ln">   453  </span>		if err != nil {
+<span id="L454" class="ln">   454  </span>			return err
+<span id="L455" class="ln">   455  </span>		}
+<span id="L456" class="ln">   456  </span>		o.UnparsedObject = raw
+<span id="L457" class="ln">   457  </span>	}
+<span id="L458" class="ln">   458  </span>	o.Api = all.Api
+<span id="L459" class="ln">   459  </span>	if all.Apm != nil &amp;&amp; all.Apm.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L460" class="ln">   460  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L461" class="ln">   461  </span>		if err != nil {
+<span id="L462" class="ln">   462  </span>			return err
+<span id="L463" class="ln">   463  </span>		}
+<span id="L464" class="ln">   464  </span>		o.UnparsedObject = raw
+<span id="L465" class="ln">   465  </span>	}
+<span id="L466" class="ln">   466  </span>	o.Apm = all.Apm
+<span id="L467" class="ln">   467  </span>	if all.Logs != nil &amp;&amp; all.Logs.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L468" class="ln">   468  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L469" class="ln">   469  </span>		if err != nil {
+<span id="L470" class="ln">   470  </span>			return err
+<span id="L471" class="ln">   471  </span>		}
+<span id="L472" class="ln">   472  </span>		o.UnparsedObject = raw
+<span id="L473" class="ln">   473  </span>	}
+<span id="L474" class="ln">   474  </span>	o.Logs = all.Logs
+<span id="L475" class="ln">   475  </span>	o.Modified = all.Modified
+<span id="L476" class="ln">   476  </span>	if all.Orchestrator != nil &amp;&amp; all.Orchestrator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L477" class="ln">   477  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L478" class="ln">   478  </span>		if err != nil {
+<span id="L479" class="ln">   479  </span>			return err
+<span id="L480" class="ln">   480  </span>		}
+<span id="L481" class="ln">   481  </span>		o.UnparsedObject = raw
+<span id="L482" class="ln">   482  </span>	}
+<span id="L483" class="ln">   483  </span>	o.Orchestrator = all.Orchestrator
+<span id="L484" class="ln">   484  </span>	if all.Process != nil &amp;&amp; all.Process.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L485" class="ln">   485  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L486" class="ln">   486  </span>		if err != nil {
+<span id="L487" class="ln">   487  </span>			return err
+<span id="L488" class="ln">   488  </span>		}
+<span id="L489" class="ln">   489  </span>		o.UnparsedObject = raw
+<span id="L490" class="ln">   490  </span>	}
+<span id="L491" class="ln">   491  </span>	o.Process = all.Process
+<span id="L492" class="ln">   492  </span>	if all.Synthetics != nil &amp;&amp; all.Synthetics.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L493" class="ln">   493  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L494" class="ln">   494  </span>		if err != nil {
+<span id="L495" class="ln">   495  </span>			return err
+<span id="L496" class="ln">   496  </span>		}
+<span id="L497" class="ln">   497  </span>		o.UnparsedObject = raw
+<span id="L498" class="ln">   498  </span>	}
+<span id="L499" class="ln">   499  </span>	o.Synthetics = all.Synthetics
+<span id="L500" class="ln">   500  </span>	if all.SyntheticsPrivateLocations != nil &amp;&amp; all.SyntheticsPrivateLocations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L501" class="ln">   501  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L502" class="ln">   502  </span>		if err != nil {
+<span id="L503" class="ln">   503  </span>			return err
+<span id="L504" class="ln">   504  </span>		}
+<span id="L505" class="ln">   505  </span>		o.UnparsedObject = raw
+<span id="L506" class="ln">   506  </span>	}
+<span id="L507" class="ln">   507  </span>	o.SyntheticsPrivateLocations = all.SyntheticsPrivateLocations
+<span id="L508" class="ln">   508  </span>	o.Version = all.Version
+<span id="L509" class="ln">   509  </span>	if all.Webhooks != nil &amp;&amp; all.Webhooks.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L510" class="ln">   510  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L511" class="ln">   511  </span>		if err != nil {
+<span id="L512" class="ln">   512  </span>			return err
+<span id="L513" class="ln">   513  </span>		}
+<span id="L514" class="ln">   514  </span>		o.UnparsedObject = raw
+<span id="L515" class="ln">   515  </span>	}
+<span id="L516" class="ln">   516  </span>	o.Webhooks = all.Webhooks
+<span id="L517" class="ln">   517  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L518" class="ln">   518  </span>		o.AdditionalProperties = additionalProperties
+<span id="L519" class="ln">   519  </span>	}
+<span id="L520" class="ln">   520  </span>
+<span id="L521" class="ln">   521  </span>	return nil
+<span id="L522" class="ln">   522  </span>}
+<span id="L523" class="ln">   523  </span>
 </pre><p></p>
 
 <div id="footer">

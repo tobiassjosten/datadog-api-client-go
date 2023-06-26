@@ -1366,103 +1366,102 @@
 <span id="L1309" class="ln">  1309  </span>		TimeoutH               datadog.NullableInt64                      `json:&#34;timeout_h,omitempty&#34;`
 <span id="L1310" class="ln">  1310  </span>		Variables              []MonitorFormulaAndFunctionQueryDefinition `json:&#34;variables,omitempty&#34;`
 <span id="L1311" class="ln">  1311  </span>	}{}
-<span id="L1312" class="ln">  1312  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L1313" class="ln">  1313  </span>	if err != nil {
-<span id="L1314" class="ln">  1314  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1315" class="ln">  1315  </span>		if err != nil {
-<span id="L1316" class="ln">  1316  </span>			return err
-<span id="L1317" class="ln">  1317  </span>		}
-<span id="L1318" class="ln">  1318  </span>		o.UnparsedObject = raw
-<span id="L1319" class="ln">  1319  </span>		return nil
-<span id="L1320" class="ln">  1320  </span>	}
-<span id="L1321" class="ln">  1321  </span>	additionalProperties := make(map[string]interface{})
-<span id="L1322" class="ln">  1322  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L1323" class="ln">  1323  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregation&#34;, &#34;device_ids&#34;, &#34;enable_logs_sample&#34;, &#34;enable_samples&#34;, &#34;escalation_message&#34;, &#34;evaluation_delay&#34;, &#34;group_retention_duration&#34;, &#34;groupby_simple_monitor&#34;, &#34;include_tags&#34;, &#34;locked&#34;, &#34;min_failure_duration&#34;, &#34;min_location_failed&#34;, &#34;new_group_delay&#34;, &#34;new_host_delay&#34;, &#34;no_data_timeframe&#34;, &#34;notification_preset_name&#34;, &#34;notify_audit&#34;, &#34;notify_by&#34;, &#34;notify_no_data&#34;, &#34;on_missing_data&#34;, &#34;renotify_interval&#34;, &#34;renotify_occurrences&#34;, &#34;renotify_statuses&#34;, &#34;require_full_window&#34;, &#34;scheduling_options&#34;, &#34;silenced&#34;, &#34;synthetics_check_id&#34;, &#34;threshold_windows&#34;, &#34;thresholds&#34;, &#34;timeout_h&#34;, &#34;variables&#34;})
-<span id="L1324" class="ln">  1324  </span>	} else {
-<span id="L1325" class="ln">  1325  </span>		return err
-<span id="L1326" class="ln">  1326  </span>	}
-<span id="L1327" class="ln">  1327  </span>	if v := all.NotificationPresetName; v != nil &amp;&amp; !v.IsValid() {
-<span id="L1328" class="ln">  1328  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1329" class="ln">  1329  </span>		if err != nil {
-<span id="L1330" class="ln">  1330  </span>			return err
-<span id="L1331" class="ln">  1331  </span>		}
-<span id="L1332" class="ln">  1332  </span>		o.UnparsedObject = raw
-<span id="L1333" class="ln">  1333  </span>		return nil
-<span id="L1334" class="ln">  1334  </span>	}
-<span id="L1335" class="ln">  1335  </span>	if v := all.OnMissingData; v != nil &amp;&amp; !v.IsValid() {
-<span id="L1336" class="ln">  1336  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1337" class="ln">  1337  </span>		if err != nil {
-<span id="L1338" class="ln">  1338  </span>			return err
-<span id="L1339" class="ln">  1339  </span>		}
-<span id="L1340" class="ln">  1340  </span>		o.UnparsedObject = raw
-<span id="L1341" class="ln">  1341  </span>		return nil
-<span id="L1342" class="ln">  1342  </span>	}
-<span id="L1343" class="ln">  1343  </span>	if all.Aggregation != nil &amp;&amp; all.Aggregation.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L1344" class="ln">  1344  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1345" class="ln">  1345  </span>		if err != nil {
-<span id="L1346" class="ln">  1346  </span>			return err
-<span id="L1347" class="ln">  1347  </span>		}
-<span id="L1348" class="ln">  1348  </span>		o.UnparsedObject = raw
-<span id="L1349" class="ln">  1349  </span>	}
-<span id="L1350" class="ln">  1350  </span>	o.Aggregation = all.Aggregation
-<span id="L1351" class="ln">  1351  </span>	o.DeviceIds = all.DeviceIds
-<span id="L1352" class="ln">  1352  </span>	o.EnableLogsSample = all.EnableLogsSample
-<span id="L1353" class="ln">  1353  </span>	o.EnableSamples = all.EnableSamples
-<span id="L1354" class="ln">  1354  </span>	o.EscalationMessage = all.EscalationMessage
-<span id="L1355" class="ln">  1355  </span>	o.EvaluationDelay = all.EvaluationDelay
-<span id="L1356" class="ln">  1356  </span>	o.GroupRetentionDuration = all.GroupRetentionDuration
-<span id="L1357" class="ln">  1357  </span>	o.GroupbySimpleMonitor = all.GroupbySimpleMonitor
-<span id="L1358" class="ln">  1358  </span>	o.IncludeTags = all.IncludeTags
-<span id="L1359" class="ln">  1359  </span>	o.Locked = all.Locked
-<span id="L1360" class="ln">  1360  </span>	o.MinFailureDuration = all.MinFailureDuration
-<span id="L1361" class="ln">  1361  </span>	o.MinLocationFailed = all.MinLocationFailed
-<span id="L1362" class="ln">  1362  </span>	o.NewGroupDelay = all.NewGroupDelay
-<span id="L1363" class="ln">  1363  </span>	o.NewHostDelay = all.NewHostDelay
-<span id="L1364" class="ln">  1364  </span>	o.NoDataTimeframe = all.NoDataTimeframe
-<span id="L1365" class="ln">  1365  </span>	o.NotificationPresetName = all.NotificationPresetName
-<span id="L1366" class="ln">  1366  </span>	o.NotifyAudit = all.NotifyAudit
-<span id="L1367" class="ln">  1367  </span>	o.NotifyBy = all.NotifyBy
-<span id="L1368" class="ln">  1368  </span>	o.NotifyNoData = all.NotifyNoData
-<span id="L1369" class="ln">  1369  </span>	o.OnMissingData = all.OnMissingData
-<span id="L1370" class="ln">  1370  </span>	o.RenotifyInterval = all.RenotifyInterval
-<span id="L1371" class="ln">  1371  </span>	o.RenotifyOccurrences = all.RenotifyOccurrences
-<span id="L1372" class="ln">  1372  </span>	o.RenotifyStatuses = all.RenotifyStatuses
-<span id="L1373" class="ln">  1373  </span>	o.RequireFullWindow = all.RequireFullWindow
-<span id="L1374" class="ln">  1374  </span>	if all.SchedulingOptions != nil &amp;&amp; all.SchedulingOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L1375" class="ln">  1375  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1376" class="ln">  1376  </span>		if err != nil {
-<span id="L1377" class="ln">  1377  </span>			return err
-<span id="L1378" class="ln">  1378  </span>		}
-<span id="L1379" class="ln">  1379  </span>		o.UnparsedObject = raw
-<span id="L1380" class="ln">  1380  </span>	}
-<span id="L1381" class="ln">  1381  </span>	o.SchedulingOptions = all.SchedulingOptions
-<span id="L1382" class="ln">  1382  </span>	o.Silenced = all.Silenced
-<span id="L1383" class="ln">  1383  </span>	o.SyntheticsCheckId = all.SyntheticsCheckId
-<span id="L1384" class="ln">  1384  </span>	if all.ThresholdWindows != nil &amp;&amp; all.ThresholdWindows.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L1385" class="ln">  1385  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1386" class="ln">  1386  </span>		if err != nil {
-<span id="L1387" class="ln">  1387  </span>			return err
-<span id="L1388" class="ln">  1388  </span>		}
-<span id="L1389" class="ln">  1389  </span>		o.UnparsedObject = raw
-<span id="L1390" class="ln">  1390  </span>	}
-<span id="L1391" class="ln">  1391  </span>	o.ThresholdWindows = all.ThresholdWindows
-<span id="L1392" class="ln">  1392  </span>	if all.Thresholds != nil &amp;&amp; all.Thresholds.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L1393" class="ln">  1393  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1394" class="ln">  1394  </span>		if err != nil {
-<span id="L1395" class="ln">  1395  </span>			return err
-<span id="L1396" class="ln">  1396  </span>		}
-<span id="L1397" class="ln">  1397  </span>		o.UnparsedObject = raw
-<span id="L1398" class="ln">  1398  </span>	}
-<span id="L1399" class="ln">  1399  </span>	o.Thresholds = all.Thresholds
-<span id="L1400" class="ln">  1400  </span>	o.TimeoutH = all.TimeoutH
-<span id="L1401" class="ln">  1401  </span>	o.Variables = all.Variables
-<span id="L1402" class="ln">  1402  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L1403" class="ln">  1403  </span>		o.AdditionalProperties = additionalProperties
-<span id="L1404" class="ln">  1404  </span>	}
-<span id="L1405" class="ln">  1405  </span>
-<span id="L1406" class="ln">  1406  </span>	return nil
-<span id="L1407" class="ln">  1407  </span>}
-<span id="L1408" class="ln">  1408  </span>
+<span id="L1312" class="ln">  1312  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L1313" class="ln">  1313  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1314" class="ln">  1314  </span>		if err != nil {
+<span id="L1315" class="ln">  1315  </span>			return err
+<span id="L1316" class="ln">  1316  </span>		}
+<span id="L1317" class="ln">  1317  </span>		o.UnparsedObject = raw
+<span id="L1318" class="ln">  1318  </span>		return nil
+<span id="L1319" class="ln">  1319  </span>	}
+<span id="L1320" class="ln">  1320  </span>	additionalProperties := make(map[string]interface{})
+<span id="L1321" class="ln">  1321  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L1322" class="ln">  1322  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregation&#34;, &#34;device_ids&#34;, &#34;enable_logs_sample&#34;, &#34;enable_samples&#34;, &#34;escalation_message&#34;, &#34;evaluation_delay&#34;, &#34;group_retention_duration&#34;, &#34;groupby_simple_monitor&#34;, &#34;include_tags&#34;, &#34;locked&#34;, &#34;min_failure_duration&#34;, &#34;min_location_failed&#34;, &#34;new_group_delay&#34;, &#34;new_host_delay&#34;, &#34;no_data_timeframe&#34;, &#34;notification_preset_name&#34;, &#34;notify_audit&#34;, &#34;notify_by&#34;, &#34;notify_no_data&#34;, &#34;on_missing_data&#34;, &#34;renotify_interval&#34;, &#34;renotify_occurrences&#34;, &#34;renotify_statuses&#34;, &#34;require_full_window&#34;, &#34;scheduling_options&#34;, &#34;silenced&#34;, &#34;synthetics_check_id&#34;, &#34;threshold_windows&#34;, &#34;thresholds&#34;, &#34;timeout_h&#34;, &#34;variables&#34;})
+<span id="L1323" class="ln">  1323  </span>	} else {
+<span id="L1324" class="ln">  1324  </span>		return err
+<span id="L1325" class="ln">  1325  </span>	}
+<span id="L1326" class="ln">  1326  </span>	if v := all.NotificationPresetName; v != nil &amp;&amp; !v.IsValid() {
+<span id="L1327" class="ln">  1327  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1328" class="ln">  1328  </span>		if err != nil {
+<span id="L1329" class="ln">  1329  </span>			return err
+<span id="L1330" class="ln">  1330  </span>		}
+<span id="L1331" class="ln">  1331  </span>		o.UnparsedObject = raw
+<span id="L1332" class="ln">  1332  </span>		return nil
+<span id="L1333" class="ln">  1333  </span>	}
+<span id="L1334" class="ln">  1334  </span>	if v := all.OnMissingData; v != nil &amp;&amp; !v.IsValid() {
+<span id="L1335" class="ln">  1335  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1336" class="ln">  1336  </span>		if err != nil {
+<span id="L1337" class="ln">  1337  </span>			return err
+<span id="L1338" class="ln">  1338  </span>		}
+<span id="L1339" class="ln">  1339  </span>		o.UnparsedObject = raw
+<span id="L1340" class="ln">  1340  </span>		return nil
+<span id="L1341" class="ln">  1341  </span>	}
+<span id="L1342" class="ln">  1342  </span>	if all.Aggregation != nil &amp;&amp; all.Aggregation.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L1343" class="ln">  1343  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1344" class="ln">  1344  </span>		if err != nil {
+<span id="L1345" class="ln">  1345  </span>			return err
+<span id="L1346" class="ln">  1346  </span>		}
+<span id="L1347" class="ln">  1347  </span>		o.UnparsedObject = raw
+<span id="L1348" class="ln">  1348  </span>	}
+<span id="L1349" class="ln">  1349  </span>	o.Aggregation = all.Aggregation
+<span id="L1350" class="ln">  1350  </span>	o.DeviceIds = all.DeviceIds
+<span id="L1351" class="ln">  1351  </span>	o.EnableLogsSample = all.EnableLogsSample
+<span id="L1352" class="ln">  1352  </span>	o.EnableSamples = all.EnableSamples
+<span id="L1353" class="ln">  1353  </span>	o.EscalationMessage = all.EscalationMessage
+<span id="L1354" class="ln">  1354  </span>	o.EvaluationDelay = all.EvaluationDelay
+<span id="L1355" class="ln">  1355  </span>	o.GroupRetentionDuration = all.GroupRetentionDuration
+<span id="L1356" class="ln">  1356  </span>	o.GroupbySimpleMonitor = all.GroupbySimpleMonitor
+<span id="L1357" class="ln">  1357  </span>	o.IncludeTags = all.IncludeTags
+<span id="L1358" class="ln">  1358  </span>	o.Locked = all.Locked
+<span id="L1359" class="ln">  1359  </span>	o.MinFailureDuration = all.MinFailureDuration
+<span id="L1360" class="ln">  1360  </span>	o.MinLocationFailed = all.MinLocationFailed
+<span id="L1361" class="ln">  1361  </span>	o.NewGroupDelay = all.NewGroupDelay
+<span id="L1362" class="ln">  1362  </span>	o.NewHostDelay = all.NewHostDelay
+<span id="L1363" class="ln">  1363  </span>	o.NoDataTimeframe = all.NoDataTimeframe
+<span id="L1364" class="ln">  1364  </span>	o.NotificationPresetName = all.NotificationPresetName
+<span id="L1365" class="ln">  1365  </span>	o.NotifyAudit = all.NotifyAudit
+<span id="L1366" class="ln">  1366  </span>	o.NotifyBy = all.NotifyBy
+<span id="L1367" class="ln">  1367  </span>	o.NotifyNoData = all.NotifyNoData
+<span id="L1368" class="ln">  1368  </span>	o.OnMissingData = all.OnMissingData
+<span id="L1369" class="ln">  1369  </span>	o.RenotifyInterval = all.RenotifyInterval
+<span id="L1370" class="ln">  1370  </span>	o.RenotifyOccurrences = all.RenotifyOccurrences
+<span id="L1371" class="ln">  1371  </span>	o.RenotifyStatuses = all.RenotifyStatuses
+<span id="L1372" class="ln">  1372  </span>	o.RequireFullWindow = all.RequireFullWindow
+<span id="L1373" class="ln">  1373  </span>	if all.SchedulingOptions != nil &amp;&amp; all.SchedulingOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L1374" class="ln">  1374  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1375" class="ln">  1375  </span>		if err != nil {
+<span id="L1376" class="ln">  1376  </span>			return err
+<span id="L1377" class="ln">  1377  </span>		}
+<span id="L1378" class="ln">  1378  </span>		o.UnparsedObject = raw
+<span id="L1379" class="ln">  1379  </span>	}
+<span id="L1380" class="ln">  1380  </span>	o.SchedulingOptions = all.SchedulingOptions
+<span id="L1381" class="ln">  1381  </span>	o.Silenced = all.Silenced
+<span id="L1382" class="ln">  1382  </span>	o.SyntheticsCheckId = all.SyntheticsCheckId
+<span id="L1383" class="ln">  1383  </span>	if all.ThresholdWindows != nil &amp;&amp; all.ThresholdWindows.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L1384" class="ln">  1384  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1385" class="ln">  1385  </span>		if err != nil {
+<span id="L1386" class="ln">  1386  </span>			return err
+<span id="L1387" class="ln">  1387  </span>		}
+<span id="L1388" class="ln">  1388  </span>		o.UnparsedObject = raw
+<span id="L1389" class="ln">  1389  </span>	}
+<span id="L1390" class="ln">  1390  </span>	o.ThresholdWindows = all.ThresholdWindows
+<span id="L1391" class="ln">  1391  </span>	if all.Thresholds != nil &amp;&amp; all.Thresholds.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L1392" class="ln">  1392  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1393" class="ln">  1393  </span>		if err != nil {
+<span id="L1394" class="ln">  1394  </span>			return err
+<span id="L1395" class="ln">  1395  </span>		}
+<span id="L1396" class="ln">  1396  </span>		o.UnparsedObject = raw
+<span id="L1397" class="ln">  1397  </span>	}
+<span id="L1398" class="ln">  1398  </span>	o.Thresholds = all.Thresholds
+<span id="L1399" class="ln">  1399  </span>	o.TimeoutH = all.TimeoutH
+<span id="L1400" class="ln">  1400  </span>	o.Variables = all.Variables
+<span id="L1401" class="ln">  1401  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L1402" class="ln">  1402  </span>		o.AdditionalProperties = additionalProperties
+<span id="L1403" class="ln">  1403  </span>	}
+<span id="L1404" class="ln">  1404  </span>
+<span id="L1405" class="ln">  1405  </span>	return nil
+<span id="L1406" class="ln">  1406  </span>}
+<span id="L1407" class="ln">  1407  </span>
 </pre><p></p>
 
 <div id="footer">

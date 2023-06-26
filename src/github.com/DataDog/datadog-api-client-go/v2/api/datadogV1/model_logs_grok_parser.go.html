@@ -297,75 +297,65 @@
 <span id="L240" class="ln">   240  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L241" class="ln">   241  </span>func (o *LogsGrokParser) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L242" class="ln">   242  </span>	raw := map[string]interface{}{}
-<span id="L243" class="ln">   243  </span>	required := struct {
-<span id="L244" class="ln">   244  </span>		Grok   *LogsGrokParserRules `json:&#34;grok&#34;`
-<span id="L245" class="ln">   245  </span>		Source *string              `json:&#34;source&#34;`
-<span id="L246" class="ln">   246  </span>		Type   *LogsGrokParserType  `json:&#34;type&#34;`
-<span id="L247" class="ln">   247  </span>	}{}
-<span id="L248" class="ln">   248  </span>	all := struct {
-<span id="L249" class="ln">   249  </span>		Grok      LogsGrokParserRules `json:&#34;grok&#34;`
-<span id="L250" class="ln">   250  </span>		IsEnabled *bool               `json:&#34;is_enabled,omitempty&#34;`
-<span id="L251" class="ln">   251  </span>		Name      *string             `json:&#34;name,omitempty&#34;`
-<span id="L252" class="ln">   252  </span>		Samples   []string            `json:&#34;samples,omitempty&#34;`
-<span id="L253" class="ln">   253  </span>		Source    string              `json:&#34;source&#34;`
-<span id="L254" class="ln">   254  </span>		Type      LogsGrokParserType  `json:&#34;type&#34;`
-<span id="L255" class="ln">   255  </span>	}{}
-<span id="L256" class="ln">   256  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L257" class="ln">   257  </span>	if err != nil {
-<span id="L258" class="ln">   258  </span>		return err
-<span id="L259" class="ln">   259  </span>	}
-<span id="L260" class="ln">   260  </span>	if required.Grok == nil {
-<span id="L261" class="ln">   261  </span>		return fmt.Errorf(&#34;required field grok missing&#34;)
-<span id="L262" class="ln">   262  </span>	}
-<span id="L263" class="ln">   263  </span>	if required.Source == nil {
-<span id="L264" class="ln">   264  </span>		return fmt.Errorf(&#34;required field source missing&#34;)
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	if required.Type == nil {
-<span id="L267" class="ln">   267  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L268" class="ln">   268  </span>	}
-<span id="L269" class="ln">   269  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L270" class="ln">   270  </span>	if err != nil {
-<span id="L271" class="ln">   271  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L272" class="ln">   272  </span>		if err != nil {
-<span id="L273" class="ln">   273  </span>			return err
-<span id="L274" class="ln">   274  </span>		}
-<span id="L275" class="ln">   275  </span>		o.UnparsedObject = raw
-<span id="L276" class="ln">   276  </span>		return nil
-<span id="L277" class="ln">   277  </span>	}
-<span id="L278" class="ln">   278  </span>	additionalProperties := make(map[string]interface{})
-<span id="L279" class="ln">   279  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L280" class="ln">   280  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;grok&#34;, &#34;is_enabled&#34;, &#34;name&#34;, &#34;samples&#34;, &#34;source&#34;, &#34;type&#34;})
-<span id="L281" class="ln">   281  </span>	} else {
-<span id="L282" class="ln">   282  </span>		return err
-<span id="L283" class="ln">   283  </span>	}
-<span id="L284" class="ln">   284  </span>	if v := all.Type; !v.IsValid() {
-<span id="L285" class="ln">   285  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L286" class="ln">   286  </span>		if err != nil {
-<span id="L287" class="ln">   287  </span>			return err
-<span id="L288" class="ln">   288  </span>		}
-<span id="L289" class="ln">   289  </span>		o.UnparsedObject = raw
-<span id="L290" class="ln">   290  </span>		return nil
-<span id="L291" class="ln">   291  </span>	}
-<span id="L292" class="ln">   292  </span>	if all.Grok.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L293" class="ln">   293  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L294" class="ln">   294  </span>		if err != nil {
-<span id="L295" class="ln">   295  </span>			return err
-<span id="L296" class="ln">   296  </span>		}
-<span id="L297" class="ln">   297  </span>		o.UnparsedObject = raw
-<span id="L298" class="ln">   298  </span>	}
-<span id="L299" class="ln">   299  </span>	o.Grok = all.Grok
-<span id="L300" class="ln">   300  </span>	o.IsEnabled = all.IsEnabled
-<span id="L301" class="ln">   301  </span>	o.Name = all.Name
-<span id="L302" class="ln">   302  </span>	o.Samples = all.Samples
-<span id="L303" class="ln">   303  </span>	o.Source = all.Source
-<span id="L304" class="ln">   304  </span>	o.Type = all.Type
-<span id="L305" class="ln">   305  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L306" class="ln">   306  </span>		o.AdditionalProperties = additionalProperties
-<span id="L307" class="ln">   307  </span>	}
-<span id="L308" class="ln">   308  </span>
-<span id="L309" class="ln">   309  </span>	return nil
-<span id="L310" class="ln">   310  </span>}
-<span id="L311" class="ln">   311  </span>
+<span id="L243" class="ln">   243  </span>	all := struct {
+<span id="L244" class="ln">   244  </span>		Grok      *LogsGrokParserRules `json:&#34;grok&#34;`
+<span id="L245" class="ln">   245  </span>		IsEnabled *bool                `json:&#34;is_enabled,omitempty&#34;`
+<span id="L246" class="ln">   246  </span>		Name      *string              `json:&#34;name,omitempty&#34;`
+<span id="L247" class="ln">   247  </span>		Samples   []string             `json:&#34;samples,omitempty&#34;`
+<span id="L248" class="ln">   248  </span>		Source    *string              `json:&#34;source&#34;`
+<span id="L249" class="ln">   249  </span>		Type      *LogsGrokParserType  `json:&#34;type&#34;`
+<span id="L250" class="ln">   250  </span>	}{}
+<span id="L251" class="ln">   251  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L252" class="ln">   252  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L253" class="ln">   253  </span>		if err != nil {
+<span id="L254" class="ln">   254  </span>			return err
+<span id="L255" class="ln">   255  </span>		}
+<span id="L256" class="ln">   256  </span>		o.UnparsedObject = raw
+<span id="L257" class="ln">   257  </span>		return nil
+<span id="L258" class="ln">   258  </span>	}
+<span id="L259" class="ln">   259  </span>	if all.Grok == nil {
+<span id="L260" class="ln">   260  </span>		return fmt.Errorf(&#34;required field grok missing&#34;)
+<span id="L261" class="ln">   261  </span>	}
+<span id="L262" class="ln">   262  </span>	if all.Source == nil {
+<span id="L263" class="ln">   263  </span>		return fmt.Errorf(&#34;required field source missing&#34;)
+<span id="L264" class="ln">   264  </span>	}
+<span id="L265" class="ln">   265  </span>	if all.Type == nil {
+<span id="L266" class="ln">   266  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L267" class="ln">   267  </span>	}
+<span id="L268" class="ln">   268  </span>	additionalProperties := make(map[string]interface{})
+<span id="L269" class="ln">   269  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L270" class="ln">   270  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;grok&#34;, &#34;is_enabled&#34;, &#34;name&#34;, &#34;samples&#34;, &#34;source&#34;, &#34;type&#34;})
+<span id="L271" class="ln">   271  </span>	} else {
+<span id="L272" class="ln">   272  </span>		return err
+<span id="L273" class="ln">   273  </span>	}
+<span id="L274" class="ln">   274  </span>	if v := all.Type; !v.IsValid() {
+<span id="L275" class="ln">   275  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L276" class="ln">   276  </span>		if err != nil {
+<span id="L277" class="ln">   277  </span>			return err
+<span id="L278" class="ln">   278  </span>		}
+<span id="L279" class="ln">   279  </span>		o.UnparsedObject = raw
+<span id="L280" class="ln">   280  </span>		return nil
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>	if all.Grok.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L283" class="ln">   283  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L284" class="ln">   284  </span>		if err != nil {
+<span id="L285" class="ln">   285  </span>			return err
+<span id="L286" class="ln">   286  </span>		}
+<span id="L287" class="ln">   287  </span>		o.UnparsedObject = raw
+<span id="L288" class="ln">   288  </span>	}
+<span id="L289" class="ln">   289  </span>	o.Grok = *all.Grok
+<span id="L290" class="ln">   290  </span>	o.IsEnabled = all.IsEnabled
+<span id="L291" class="ln">   291  </span>	o.Name = all.Name
+<span id="L292" class="ln">   292  </span>	o.Samples = all.Samples
+<span id="L293" class="ln">   293  </span>	o.Source = *all.Source
+<span id="L294" class="ln">   294  </span>	o.Type = *all.Type
+<span id="L295" class="ln">   295  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L296" class="ln">   296  </span>		o.AdditionalProperties = additionalProperties
+<span id="L297" class="ln">   297  </span>	}
+<span id="L298" class="ln">   298  </span>
+<span id="L299" class="ln">   299  </span>	return nil
+<span id="L300" class="ln">   300  </span>}
+<span id="L301" class="ln">   301  </span>
 </pre><p></p>
 
 <div id="footer">

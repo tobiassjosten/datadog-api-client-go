@@ -460,68 +460,67 @@
 <span id="L403" class="ln">   403  </span>		Type       *SLOType                `json:&#34;type,omitempty&#34;`
 <span id="L404" class="ln">   404  </span>		TypeId     *SLOTypeNumeric         `json:&#34;type_id,omitempty&#34;`
 <span id="L405" class="ln">   405  </span>	}{}
-<span id="L406" class="ln">   406  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L407" class="ln">   407  </span>	if err != nil {
-<span id="L408" class="ln">   408  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L409" class="ln">   409  </span>		if err != nil {
-<span id="L410" class="ln">   410  </span>			return err
-<span id="L411" class="ln">   411  </span>		}
-<span id="L412" class="ln">   412  </span>		o.UnparsedObject = raw
-<span id="L413" class="ln">   413  </span>		return nil
-<span id="L414" class="ln">   414  </span>	}
-<span id="L415" class="ln">   415  </span>	additionalProperties := make(map[string]interface{})
-<span id="L416" class="ln">   416  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L417" class="ln">   417  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;from_ts&#34;, &#34;group_by&#34;, &#34;groups&#34;, &#34;monitors&#34;, &#34;overall&#34;, &#34;series&#34;, &#34;thresholds&#34;, &#34;to_ts&#34;, &#34;type&#34;, &#34;type_id&#34;})
-<span id="L418" class="ln">   418  </span>	} else {
-<span id="L419" class="ln">   419  </span>		return err
-<span id="L420" class="ln">   420  </span>	}
-<span id="L421" class="ln">   421  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L422" class="ln">   422  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L423" class="ln">   423  </span>		if err != nil {
-<span id="L424" class="ln">   424  </span>			return err
-<span id="L425" class="ln">   425  </span>		}
-<span id="L426" class="ln">   426  </span>		o.UnparsedObject = raw
-<span id="L427" class="ln">   427  </span>		return nil
-<span id="L428" class="ln">   428  </span>	}
-<span id="L429" class="ln">   429  </span>	if v := all.TypeId; v != nil &amp;&amp; !v.IsValid() {
-<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L431" class="ln">   431  </span>		if err != nil {
-<span id="L432" class="ln">   432  </span>			return err
-<span id="L433" class="ln">   433  </span>		}
-<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
-<span id="L435" class="ln">   435  </span>		return nil
-<span id="L436" class="ln">   436  </span>	}
-<span id="L437" class="ln">   437  </span>	o.FromTs = all.FromTs
-<span id="L438" class="ln">   438  </span>	o.GroupBy = all.GroupBy
-<span id="L439" class="ln">   439  </span>	o.Groups = all.Groups
-<span id="L440" class="ln">   440  </span>	o.Monitors = all.Monitors
-<span id="L441" class="ln">   441  </span>	if all.Overall != nil &amp;&amp; all.Overall.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L442" class="ln">   442  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L443" class="ln">   443  </span>		if err != nil {
-<span id="L444" class="ln">   444  </span>			return err
-<span id="L445" class="ln">   445  </span>		}
-<span id="L446" class="ln">   446  </span>		o.UnparsedObject = raw
-<span id="L447" class="ln">   447  </span>	}
-<span id="L448" class="ln">   448  </span>	o.Overall = all.Overall
-<span id="L449" class="ln">   449  </span>	if all.Series != nil &amp;&amp; all.Series.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L450" class="ln">   450  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L451" class="ln">   451  </span>		if err != nil {
-<span id="L452" class="ln">   452  </span>			return err
-<span id="L453" class="ln">   453  </span>		}
-<span id="L454" class="ln">   454  </span>		o.UnparsedObject = raw
-<span id="L455" class="ln">   455  </span>	}
-<span id="L456" class="ln">   456  </span>	o.Series = all.Series
-<span id="L457" class="ln">   457  </span>	o.Thresholds = all.Thresholds
-<span id="L458" class="ln">   458  </span>	o.ToTs = all.ToTs
-<span id="L459" class="ln">   459  </span>	o.Type = all.Type
-<span id="L460" class="ln">   460  </span>	o.TypeId = all.TypeId
-<span id="L461" class="ln">   461  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L462" class="ln">   462  </span>		o.AdditionalProperties = additionalProperties
-<span id="L463" class="ln">   463  </span>	}
-<span id="L464" class="ln">   464  </span>
-<span id="L465" class="ln">   465  </span>	return nil
-<span id="L466" class="ln">   466  </span>}
-<span id="L467" class="ln">   467  </span>
+<span id="L406" class="ln">   406  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L407" class="ln">   407  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L408" class="ln">   408  </span>		if err != nil {
+<span id="L409" class="ln">   409  </span>			return err
+<span id="L410" class="ln">   410  </span>		}
+<span id="L411" class="ln">   411  </span>		o.UnparsedObject = raw
+<span id="L412" class="ln">   412  </span>		return nil
+<span id="L413" class="ln">   413  </span>	}
+<span id="L414" class="ln">   414  </span>	additionalProperties := make(map[string]interface{})
+<span id="L415" class="ln">   415  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L416" class="ln">   416  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;from_ts&#34;, &#34;group_by&#34;, &#34;groups&#34;, &#34;monitors&#34;, &#34;overall&#34;, &#34;series&#34;, &#34;thresholds&#34;, &#34;to_ts&#34;, &#34;type&#34;, &#34;type_id&#34;})
+<span id="L417" class="ln">   417  </span>	} else {
+<span id="L418" class="ln">   418  </span>		return err
+<span id="L419" class="ln">   419  </span>	}
+<span id="L420" class="ln">   420  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L421" class="ln">   421  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L422" class="ln">   422  </span>		if err != nil {
+<span id="L423" class="ln">   423  </span>			return err
+<span id="L424" class="ln">   424  </span>		}
+<span id="L425" class="ln">   425  </span>		o.UnparsedObject = raw
+<span id="L426" class="ln">   426  </span>		return nil
+<span id="L427" class="ln">   427  </span>	}
+<span id="L428" class="ln">   428  </span>	if v := all.TypeId; v != nil &amp;&amp; !v.IsValid() {
+<span id="L429" class="ln">   429  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L430" class="ln">   430  </span>		if err != nil {
+<span id="L431" class="ln">   431  </span>			return err
+<span id="L432" class="ln">   432  </span>		}
+<span id="L433" class="ln">   433  </span>		o.UnparsedObject = raw
+<span id="L434" class="ln">   434  </span>		return nil
+<span id="L435" class="ln">   435  </span>	}
+<span id="L436" class="ln">   436  </span>	o.FromTs = all.FromTs
+<span id="L437" class="ln">   437  </span>	o.GroupBy = all.GroupBy
+<span id="L438" class="ln">   438  </span>	o.Groups = all.Groups
+<span id="L439" class="ln">   439  </span>	o.Monitors = all.Monitors
+<span id="L440" class="ln">   440  </span>	if all.Overall != nil &amp;&amp; all.Overall.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L441" class="ln">   441  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L442" class="ln">   442  </span>		if err != nil {
+<span id="L443" class="ln">   443  </span>			return err
+<span id="L444" class="ln">   444  </span>		}
+<span id="L445" class="ln">   445  </span>		o.UnparsedObject = raw
+<span id="L446" class="ln">   446  </span>	}
+<span id="L447" class="ln">   447  </span>	o.Overall = all.Overall
+<span id="L448" class="ln">   448  </span>	if all.Series != nil &amp;&amp; all.Series.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L449" class="ln">   449  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L450" class="ln">   450  </span>		if err != nil {
+<span id="L451" class="ln">   451  </span>			return err
+<span id="L452" class="ln">   452  </span>		}
+<span id="L453" class="ln">   453  </span>		o.UnparsedObject = raw
+<span id="L454" class="ln">   454  </span>	}
+<span id="L455" class="ln">   455  </span>	o.Series = all.Series
+<span id="L456" class="ln">   456  </span>	o.Thresholds = all.Thresholds
+<span id="L457" class="ln">   457  </span>	o.ToTs = all.ToTs
+<span id="L458" class="ln">   458  </span>	o.Type = all.Type
+<span id="L459" class="ln">   459  </span>	o.TypeId = all.TypeId
+<span id="L460" class="ln">   460  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L461" class="ln">   461  </span>		o.AdditionalProperties = additionalProperties
+<span id="L462" class="ln">   462  </span>	}
+<span id="L463" class="ln">   463  </span>
+<span id="L464" class="ln">   464  </span>	return nil
+<span id="L465" class="ln">   465  </span>}
+<span id="L466" class="ln">   466  </span>
 </pre><p></p>
 
 <div id="footer">

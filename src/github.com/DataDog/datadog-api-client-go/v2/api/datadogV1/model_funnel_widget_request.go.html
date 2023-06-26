@@ -162,63 +162,54 @@
 <span id="L105" class="ln">   105  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L106" class="ln">   106  </span>func (o *FunnelWidgetRequest) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L107" class="ln">   107  </span>	raw := map[string]interface{}{}
-<span id="L108" class="ln">   108  </span>	required := struct {
+<span id="L108" class="ln">   108  </span>	all := struct {
 <span id="L109" class="ln">   109  </span>		Query       *FunnelQuery       `json:&#34;query&#34;`
 <span id="L110" class="ln">   110  </span>		RequestType *FunnelRequestType `json:&#34;request_type&#34;`
 <span id="L111" class="ln">   111  </span>	}{}
-<span id="L112" class="ln">   112  </span>	all := struct {
-<span id="L113" class="ln">   113  </span>		Query       FunnelQuery       `json:&#34;query&#34;`
-<span id="L114" class="ln">   114  </span>		RequestType FunnelRequestType `json:&#34;request_type&#34;`
-<span id="L115" class="ln">   115  </span>	}{}
-<span id="L116" class="ln">   116  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L117" class="ln">   117  </span>	if err != nil {
-<span id="L118" class="ln">   118  </span>		return err
+<span id="L112" class="ln">   112  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L113" class="ln">   113  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L114" class="ln">   114  </span>		if err != nil {
+<span id="L115" class="ln">   115  </span>			return err
+<span id="L116" class="ln">   116  </span>		}
+<span id="L117" class="ln">   117  </span>		o.UnparsedObject = raw
+<span id="L118" class="ln">   118  </span>		return nil
 <span id="L119" class="ln">   119  </span>	}
-<span id="L120" class="ln">   120  </span>	if required.Query == nil {
+<span id="L120" class="ln">   120  </span>	if all.Query == nil {
 <span id="L121" class="ln">   121  </span>		return fmt.Errorf(&#34;required field query missing&#34;)
 <span id="L122" class="ln">   122  </span>	}
-<span id="L123" class="ln">   123  </span>	if required.RequestType == nil {
+<span id="L123" class="ln">   123  </span>	if all.RequestType == nil {
 <span id="L124" class="ln">   124  </span>		return fmt.Errorf(&#34;required field request_type missing&#34;)
 <span id="L125" class="ln">   125  </span>	}
-<span id="L126" class="ln">   126  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L127" class="ln">   127  </span>	if err != nil {
-<span id="L128" class="ln">   128  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L129" class="ln">   129  </span>		if err != nil {
-<span id="L130" class="ln">   130  </span>			return err
-<span id="L131" class="ln">   131  </span>		}
-<span id="L132" class="ln">   132  </span>		o.UnparsedObject = raw
-<span id="L133" class="ln">   133  </span>		return nil
-<span id="L134" class="ln">   134  </span>	}
-<span id="L135" class="ln">   135  </span>	additionalProperties := make(map[string]interface{})
-<span id="L136" class="ln">   136  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L137" class="ln">   137  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;query&#34;, &#34;request_type&#34;})
-<span id="L138" class="ln">   138  </span>	} else {
-<span id="L139" class="ln">   139  </span>		return err
-<span id="L140" class="ln">   140  </span>	}
-<span id="L141" class="ln">   141  </span>	if v := all.RequestType; !v.IsValid() {
-<span id="L142" class="ln">   142  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L143" class="ln">   143  </span>		if err != nil {
-<span id="L144" class="ln">   144  </span>			return err
-<span id="L145" class="ln">   145  </span>		}
-<span id="L146" class="ln">   146  </span>		o.UnparsedObject = raw
-<span id="L147" class="ln">   147  </span>		return nil
-<span id="L148" class="ln">   148  </span>	}
-<span id="L149" class="ln">   149  </span>	if all.Query.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L150" class="ln">   150  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L151" class="ln">   151  </span>		if err != nil {
-<span id="L152" class="ln">   152  </span>			return err
-<span id="L153" class="ln">   153  </span>		}
-<span id="L154" class="ln">   154  </span>		o.UnparsedObject = raw
-<span id="L155" class="ln">   155  </span>	}
-<span id="L156" class="ln">   156  </span>	o.Query = all.Query
-<span id="L157" class="ln">   157  </span>	o.RequestType = all.RequestType
-<span id="L158" class="ln">   158  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L159" class="ln">   159  </span>		o.AdditionalProperties = additionalProperties
-<span id="L160" class="ln">   160  </span>	}
-<span id="L161" class="ln">   161  </span>
-<span id="L162" class="ln">   162  </span>	return nil
-<span id="L163" class="ln">   163  </span>}
-<span id="L164" class="ln">   164  </span>
+<span id="L126" class="ln">   126  </span>	additionalProperties := make(map[string]interface{})
+<span id="L127" class="ln">   127  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L128" class="ln">   128  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;query&#34;, &#34;request_type&#34;})
+<span id="L129" class="ln">   129  </span>	} else {
+<span id="L130" class="ln">   130  </span>		return err
+<span id="L131" class="ln">   131  </span>	}
+<span id="L132" class="ln">   132  </span>	if v := all.RequestType; !v.IsValid() {
+<span id="L133" class="ln">   133  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L134" class="ln">   134  </span>		if err != nil {
+<span id="L135" class="ln">   135  </span>			return err
+<span id="L136" class="ln">   136  </span>		}
+<span id="L137" class="ln">   137  </span>		o.UnparsedObject = raw
+<span id="L138" class="ln">   138  </span>		return nil
+<span id="L139" class="ln">   139  </span>	}
+<span id="L140" class="ln">   140  </span>	if all.Query.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L141" class="ln">   141  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L142" class="ln">   142  </span>		if err != nil {
+<span id="L143" class="ln">   143  </span>			return err
+<span id="L144" class="ln">   144  </span>		}
+<span id="L145" class="ln">   145  </span>		o.UnparsedObject = raw
+<span id="L146" class="ln">   146  </span>	}
+<span id="L147" class="ln">   147  </span>	o.Query = *all.Query
+<span id="L148" class="ln">   148  </span>	o.RequestType = *all.RequestType
+<span id="L149" class="ln">   149  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L150" class="ln">   150  </span>		o.AdditionalProperties = additionalProperties
+<span id="L151" class="ln">   151  </span>	}
+<span id="L152" class="ln">   152  </span>
+<span id="L153" class="ln">   153  </span>	return nil
+<span id="L154" class="ln">   154  </span>}
+<span id="L155" class="ln">   155  </span>
 </pre><p></p>
 
 <div id="footer">

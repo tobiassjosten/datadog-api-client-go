@@ -360,88 +360,78 @@
 <span id="L303" class="ln">   303  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L304" class="ln">   304  </span>func (o *GroupWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L305" class="ln">   305  </span>	raw := map[string]interface{}{}
-<span id="L306" class="ln">   306  </span>	required := struct {
-<span id="L307" class="ln">   307  </span>		LayoutType *WidgetLayoutType          `json:&#34;layout_type&#34;`
-<span id="L308" class="ln">   308  </span>		Type       *GroupWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L309" class="ln">   309  </span>		Widgets    *[]Widget                  `json:&#34;widgets&#34;`
-<span id="L310" class="ln">   310  </span>	}{}
-<span id="L311" class="ln">   311  </span>	all := struct {
-<span id="L312" class="ln">   312  </span>		BackgroundColor *string                   `json:&#34;background_color,omitempty&#34;`
-<span id="L313" class="ln">   313  </span>		BannerImg       *string                   `json:&#34;banner_img,omitempty&#34;`
-<span id="L314" class="ln">   314  </span>		LayoutType      WidgetLayoutType          `json:&#34;layout_type&#34;`
-<span id="L315" class="ln">   315  </span>		ShowTitle       *bool                     `json:&#34;show_title,omitempty&#34;`
-<span id="L316" class="ln">   316  </span>		Title           *string                   `json:&#34;title,omitempty&#34;`
-<span id="L317" class="ln">   317  </span>		TitleAlign      *WidgetTextAlign          `json:&#34;title_align,omitempty&#34;`
-<span id="L318" class="ln">   318  </span>		Type            GroupWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L319" class="ln">   319  </span>		Widgets         []Widget                  `json:&#34;widgets&#34;`
-<span id="L320" class="ln">   320  </span>	}{}
-<span id="L321" class="ln">   321  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L322" class="ln">   322  </span>	if err != nil {
-<span id="L323" class="ln">   323  </span>		return err
-<span id="L324" class="ln">   324  </span>	}
-<span id="L325" class="ln">   325  </span>	if required.LayoutType == nil {
-<span id="L326" class="ln">   326  </span>		return fmt.Errorf(&#34;required field layout_type missing&#34;)
-<span id="L327" class="ln">   327  </span>	}
-<span id="L328" class="ln">   328  </span>	if required.Type == nil {
-<span id="L329" class="ln">   329  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L330" class="ln">   330  </span>	}
-<span id="L331" class="ln">   331  </span>	if required.Widgets == nil {
-<span id="L332" class="ln">   332  </span>		return fmt.Errorf(&#34;required field widgets missing&#34;)
-<span id="L333" class="ln">   333  </span>	}
-<span id="L334" class="ln">   334  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L335" class="ln">   335  </span>	if err != nil {
-<span id="L336" class="ln">   336  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L337" class="ln">   337  </span>		if err != nil {
-<span id="L338" class="ln">   338  </span>			return err
-<span id="L339" class="ln">   339  </span>		}
-<span id="L340" class="ln">   340  </span>		o.UnparsedObject = raw
-<span id="L341" class="ln">   341  </span>		return nil
-<span id="L342" class="ln">   342  </span>	}
-<span id="L343" class="ln">   343  </span>	additionalProperties := make(map[string]interface{})
-<span id="L344" class="ln">   344  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L345" class="ln">   345  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;background_color&#34;, &#34;banner_img&#34;, &#34;layout_type&#34;, &#34;show_title&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;type&#34;, &#34;widgets&#34;})
-<span id="L346" class="ln">   346  </span>	} else {
-<span id="L347" class="ln">   347  </span>		return err
-<span id="L348" class="ln">   348  </span>	}
-<span id="L349" class="ln">   349  </span>	if v := all.LayoutType; !v.IsValid() {
-<span id="L350" class="ln">   350  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L351" class="ln">   351  </span>		if err != nil {
-<span id="L352" class="ln">   352  </span>			return err
-<span id="L353" class="ln">   353  </span>		}
-<span id="L354" class="ln">   354  </span>		o.UnparsedObject = raw
-<span id="L355" class="ln">   355  </span>		return nil
-<span id="L356" class="ln">   356  </span>	}
-<span id="L357" class="ln">   357  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L358" class="ln">   358  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L359" class="ln">   359  </span>		if err != nil {
-<span id="L360" class="ln">   360  </span>			return err
-<span id="L361" class="ln">   361  </span>		}
-<span id="L362" class="ln">   362  </span>		o.UnparsedObject = raw
-<span id="L363" class="ln">   363  </span>		return nil
-<span id="L364" class="ln">   364  </span>	}
-<span id="L365" class="ln">   365  </span>	if v := all.Type; !v.IsValid() {
-<span id="L366" class="ln">   366  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L367" class="ln">   367  </span>		if err != nil {
-<span id="L368" class="ln">   368  </span>			return err
-<span id="L369" class="ln">   369  </span>		}
-<span id="L370" class="ln">   370  </span>		o.UnparsedObject = raw
-<span id="L371" class="ln">   371  </span>		return nil
-<span id="L372" class="ln">   372  </span>	}
-<span id="L373" class="ln">   373  </span>	o.BackgroundColor = all.BackgroundColor
-<span id="L374" class="ln">   374  </span>	o.BannerImg = all.BannerImg
-<span id="L375" class="ln">   375  </span>	o.LayoutType = all.LayoutType
-<span id="L376" class="ln">   376  </span>	o.ShowTitle = all.ShowTitle
-<span id="L377" class="ln">   377  </span>	o.Title = all.Title
-<span id="L378" class="ln">   378  </span>	o.TitleAlign = all.TitleAlign
-<span id="L379" class="ln">   379  </span>	o.Type = all.Type
-<span id="L380" class="ln">   380  </span>	o.Widgets = all.Widgets
-<span id="L381" class="ln">   381  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L382" class="ln">   382  </span>		o.AdditionalProperties = additionalProperties
-<span id="L383" class="ln">   383  </span>	}
-<span id="L384" class="ln">   384  </span>
-<span id="L385" class="ln">   385  </span>	return nil
-<span id="L386" class="ln">   386  </span>}
-<span id="L387" class="ln">   387  </span>
+<span id="L306" class="ln">   306  </span>	all := struct {
+<span id="L307" class="ln">   307  </span>		BackgroundColor *string                    `json:&#34;background_color,omitempty&#34;`
+<span id="L308" class="ln">   308  </span>		BannerImg       *string                    `json:&#34;banner_img,omitempty&#34;`
+<span id="L309" class="ln">   309  </span>		LayoutType      *WidgetLayoutType          `json:&#34;layout_type&#34;`
+<span id="L310" class="ln">   310  </span>		ShowTitle       *bool                      `json:&#34;show_title,omitempty&#34;`
+<span id="L311" class="ln">   311  </span>		Title           *string                    `json:&#34;title,omitempty&#34;`
+<span id="L312" class="ln">   312  </span>		TitleAlign      *WidgetTextAlign           `json:&#34;title_align,omitempty&#34;`
+<span id="L313" class="ln">   313  </span>		Type            *GroupWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L314" class="ln">   314  </span>		Widgets         *[]Widget                  `json:&#34;widgets&#34;`
+<span id="L315" class="ln">   315  </span>	}{}
+<span id="L316" class="ln">   316  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L317" class="ln">   317  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L318" class="ln">   318  </span>		if err != nil {
+<span id="L319" class="ln">   319  </span>			return err
+<span id="L320" class="ln">   320  </span>		}
+<span id="L321" class="ln">   321  </span>		o.UnparsedObject = raw
+<span id="L322" class="ln">   322  </span>		return nil
+<span id="L323" class="ln">   323  </span>	}
+<span id="L324" class="ln">   324  </span>	if all.LayoutType == nil {
+<span id="L325" class="ln">   325  </span>		return fmt.Errorf(&#34;required field layout_type missing&#34;)
+<span id="L326" class="ln">   326  </span>	}
+<span id="L327" class="ln">   327  </span>	if all.Type == nil {
+<span id="L328" class="ln">   328  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L329" class="ln">   329  </span>	}
+<span id="L330" class="ln">   330  </span>	if all.Widgets == nil {
+<span id="L331" class="ln">   331  </span>		return fmt.Errorf(&#34;required field widgets missing&#34;)
+<span id="L332" class="ln">   332  </span>	}
+<span id="L333" class="ln">   333  </span>	additionalProperties := make(map[string]interface{})
+<span id="L334" class="ln">   334  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L335" class="ln">   335  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;background_color&#34;, &#34;banner_img&#34;, &#34;layout_type&#34;, &#34;show_title&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;type&#34;, &#34;widgets&#34;})
+<span id="L336" class="ln">   336  </span>	} else {
+<span id="L337" class="ln">   337  </span>		return err
+<span id="L338" class="ln">   338  </span>	}
+<span id="L339" class="ln">   339  </span>	if v := all.LayoutType; !v.IsValid() {
+<span id="L340" class="ln">   340  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L341" class="ln">   341  </span>		if err != nil {
+<span id="L342" class="ln">   342  </span>			return err
+<span id="L343" class="ln">   343  </span>		}
+<span id="L344" class="ln">   344  </span>		o.UnparsedObject = raw
+<span id="L345" class="ln">   345  </span>		return nil
+<span id="L346" class="ln">   346  </span>	}
+<span id="L347" class="ln">   347  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L348" class="ln">   348  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L349" class="ln">   349  </span>		if err != nil {
+<span id="L350" class="ln">   350  </span>			return err
+<span id="L351" class="ln">   351  </span>		}
+<span id="L352" class="ln">   352  </span>		o.UnparsedObject = raw
+<span id="L353" class="ln">   353  </span>		return nil
+<span id="L354" class="ln">   354  </span>	}
+<span id="L355" class="ln">   355  </span>	if v := all.Type; !v.IsValid() {
+<span id="L356" class="ln">   356  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L357" class="ln">   357  </span>		if err != nil {
+<span id="L358" class="ln">   358  </span>			return err
+<span id="L359" class="ln">   359  </span>		}
+<span id="L360" class="ln">   360  </span>		o.UnparsedObject = raw
+<span id="L361" class="ln">   361  </span>		return nil
+<span id="L362" class="ln">   362  </span>	}
+<span id="L363" class="ln">   363  </span>	o.BackgroundColor = all.BackgroundColor
+<span id="L364" class="ln">   364  </span>	o.BannerImg = all.BannerImg
+<span id="L365" class="ln">   365  </span>	o.LayoutType = *all.LayoutType
+<span id="L366" class="ln">   366  </span>	o.ShowTitle = all.ShowTitle
+<span id="L367" class="ln">   367  </span>	o.Title = all.Title
+<span id="L368" class="ln">   368  </span>	o.TitleAlign = all.TitleAlign
+<span id="L369" class="ln">   369  </span>	o.Type = *all.Type
+<span id="L370" class="ln">   370  </span>	o.Widgets = *all.Widgets
+<span id="L371" class="ln">   371  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L372" class="ln">   372  </span>		o.AdditionalProperties = additionalProperties
+<span id="L373" class="ln">   373  </span>	}
+<span id="L374" class="ln">   374  </span>
+<span id="L375" class="ln">   375  </span>	return nil
+<span id="L376" class="ln">   376  </span>}
+<span id="L377" class="ln">   377  </span>
 </pre><p></p>
 
 <div id="footer">

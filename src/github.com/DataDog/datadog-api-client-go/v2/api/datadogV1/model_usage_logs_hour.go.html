@@ -576,39 +576,38 @@
 <span id="L519" class="ln">   519  </span>		OrgName                     *string               `json:&#34;org_name,omitempty&#34;`
 <span id="L520" class="ln">   520  </span>		PublicId                    *string               `json:&#34;public_id,omitempty&#34;`
 <span id="L521" class="ln">   521  </span>	}{}
-<span id="L522" class="ln">   522  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L523" class="ln">   523  </span>	if err != nil {
-<span id="L524" class="ln">   524  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L525" class="ln">   525  </span>		if err != nil {
-<span id="L526" class="ln">   526  </span>			return err
-<span id="L527" class="ln">   527  </span>		}
-<span id="L528" class="ln">   528  </span>		o.UnparsedObject = raw
-<span id="L529" class="ln">   529  </span>		return nil
-<span id="L530" class="ln">   530  </span>	}
-<span id="L531" class="ln">   531  </span>	additionalProperties := make(map[string]interface{})
-<span id="L532" class="ln">   532  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L533" class="ln">   533  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;billable_ingested_bytes&#34;, &#34;hour&#34;, &#34;indexed_events_count&#34;, &#34;ingested_events_bytes&#34;, &#34;logs_forwarding_events_bytes&#34;, &#34;logs_live_indexed_count&#34;, &#34;logs_live_ingested_bytes&#34;, &#34;logs_rehydrated_indexed_count&#34;, &#34;logs_rehydrated_ingested_bytes&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
-<span id="L534" class="ln">   534  </span>	} else {
-<span id="L535" class="ln">   535  </span>		return err
-<span id="L536" class="ln">   536  </span>	}
-<span id="L537" class="ln">   537  </span>	o.BillableIngestedBytes = all.BillableIngestedBytes
-<span id="L538" class="ln">   538  </span>	o.Hour = all.Hour
-<span id="L539" class="ln">   539  </span>	o.IndexedEventsCount = all.IndexedEventsCount
-<span id="L540" class="ln">   540  </span>	o.IngestedEventsBytes = all.IngestedEventsBytes
-<span id="L541" class="ln">   541  </span>	o.LogsForwardingEventsBytes = all.LogsForwardingEventsBytes
-<span id="L542" class="ln">   542  </span>	o.LogsLiveIndexedCount = all.LogsLiveIndexedCount
-<span id="L543" class="ln">   543  </span>	o.LogsLiveIngestedBytes = all.LogsLiveIngestedBytes
-<span id="L544" class="ln">   544  </span>	o.LogsRehydratedIndexedCount = all.LogsRehydratedIndexedCount
-<span id="L545" class="ln">   545  </span>	o.LogsRehydratedIngestedBytes = all.LogsRehydratedIngestedBytes
-<span id="L546" class="ln">   546  </span>	o.OrgName = all.OrgName
-<span id="L547" class="ln">   547  </span>	o.PublicId = all.PublicId
-<span id="L548" class="ln">   548  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L549" class="ln">   549  </span>		o.AdditionalProperties = additionalProperties
-<span id="L550" class="ln">   550  </span>	}
-<span id="L551" class="ln">   551  </span>
-<span id="L552" class="ln">   552  </span>	return nil
-<span id="L553" class="ln">   553  </span>}
-<span id="L554" class="ln">   554  </span>
+<span id="L522" class="ln">   522  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L523" class="ln">   523  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L524" class="ln">   524  </span>		if err != nil {
+<span id="L525" class="ln">   525  </span>			return err
+<span id="L526" class="ln">   526  </span>		}
+<span id="L527" class="ln">   527  </span>		o.UnparsedObject = raw
+<span id="L528" class="ln">   528  </span>		return nil
+<span id="L529" class="ln">   529  </span>	}
+<span id="L530" class="ln">   530  </span>	additionalProperties := make(map[string]interface{})
+<span id="L531" class="ln">   531  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L532" class="ln">   532  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;billable_ingested_bytes&#34;, &#34;hour&#34;, &#34;indexed_events_count&#34;, &#34;ingested_events_bytes&#34;, &#34;logs_forwarding_events_bytes&#34;, &#34;logs_live_indexed_count&#34;, &#34;logs_live_ingested_bytes&#34;, &#34;logs_rehydrated_indexed_count&#34;, &#34;logs_rehydrated_ingested_bytes&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
+<span id="L533" class="ln">   533  </span>	} else {
+<span id="L534" class="ln">   534  </span>		return err
+<span id="L535" class="ln">   535  </span>	}
+<span id="L536" class="ln">   536  </span>	o.BillableIngestedBytes = all.BillableIngestedBytes
+<span id="L537" class="ln">   537  </span>	o.Hour = all.Hour
+<span id="L538" class="ln">   538  </span>	o.IndexedEventsCount = all.IndexedEventsCount
+<span id="L539" class="ln">   539  </span>	o.IngestedEventsBytes = all.IngestedEventsBytes
+<span id="L540" class="ln">   540  </span>	o.LogsForwardingEventsBytes = all.LogsForwardingEventsBytes
+<span id="L541" class="ln">   541  </span>	o.LogsLiveIndexedCount = all.LogsLiveIndexedCount
+<span id="L542" class="ln">   542  </span>	o.LogsLiveIngestedBytes = all.LogsLiveIngestedBytes
+<span id="L543" class="ln">   543  </span>	o.LogsRehydratedIndexedCount = all.LogsRehydratedIndexedCount
+<span id="L544" class="ln">   544  </span>	o.LogsRehydratedIngestedBytes = all.LogsRehydratedIngestedBytes
+<span id="L545" class="ln">   545  </span>	o.OrgName = all.OrgName
+<span id="L546" class="ln">   546  </span>	o.PublicId = all.PublicId
+<span id="L547" class="ln">   547  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L548" class="ln">   548  </span>		o.AdditionalProperties = additionalProperties
+<span id="L549" class="ln">   549  </span>	}
+<span id="L550" class="ln">   550  </span>
+<span id="L551" class="ln">   551  </span>	return nil
+<span id="L552" class="ln">   552  </span>}
+<span id="L553" class="ln">   553  </span>
 </pre><p></p>
 
 <div id="footer">

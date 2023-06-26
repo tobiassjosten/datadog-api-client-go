@@ -296,78 +296,69 @@
 <span id="L239" class="ln">   239  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L240" class="ln">   240  </span>func (o *EventsScalarQuery) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L241" class="ln">   241  </span>	raw := map[string]interface{}{}
-<span id="L242" class="ln">   242  </span>	required := struct {
+<span id="L242" class="ln">   242  </span>	all := struct {
 <span id="L243" class="ln">   243  </span>		Compute    *EventsCompute    `json:&#34;compute&#34;`
 <span id="L244" class="ln">   244  </span>		DataSource *EventsDataSource `json:&#34;data_source&#34;`
-<span id="L245" class="ln">   245  </span>	}{}
-<span id="L246" class="ln">   246  </span>	all := struct {
-<span id="L247" class="ln">   247  </span>		Compute    EventsCompute    `json:&#34;compute&#34;`
-<span id="L248" class="ln">   248  </span>		DataSource EventsDataSource `json:&#34;data_source&#34;`
-<span id="L249" class="ln">   249  </span>		GroupBy    []EventsGroupBy  `json:&#34;group_by,omitempty&#34;`
-<span id="L250" class="ln">   250  </span>		Indexes    []string         `json:&#34;indexes,omitempty&#34;`
-<span id="L251" class="ln">   251  </span>		Name       *string          `json:&#34;name,omitempty&#34;`
-<span id="L252" class="ln">   252  </span>		Search     *EventsSearch    `json:&#34;search,omitempty&#34;`
-<span id="L253" class="ln">   253  </span>	}{}
-<span id="L254" class="ln">   254  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L255" class="ln">   255  </span>	if err != nil {
-<span id="L256" class="ln">   256  </span>		return err
+<span id="L245" class="ln">   245  </span>		GroupBy    []EventsGroupBy   `json:&#34;group_by,omitempty&#34;`
+<span id="L246" class="ln">   246  </span>		Indexes    []string          `json:&#34;indexes,omitempty&#34;`
+<span id="L247" class="ln">   247  </span>		Name       *string           `json:&#34;name,omitempty&#34;`
+<span id="L248" class="ln">   248  </span>		Search     *EventsSearch     `json:&#34;search,omitempty&#34;`
+<span id="L249" class="ln">   249  </span>	}{}
+<span id="L250" class="ln">   250  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L251" class="ln">   251  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L252" class="ln">   252  </span>		if err != nil {
+<span id="L253" class="ln">   253  </span>			return err
+<span id="L254" class="ln">   254  </span>		}
+<span id="L255" class="ln">   255  </span>		o.UnparsedObject = raw
+<span id="L256" class="ln">   256  </span>		return nil
 <span id="L257" class="ln">   257  </span>	}
-<span id="L258" class="ln">   258  </span>	if required.Compute == nil {
+<span id="L258" class="ln">   258  </span>	if all.Compute == nil {
 <span id="L259" class="ln">   259  </span>		return fmt.Errorf(&#34;required field compute missing&#34;)
 <span id="L260" class="ln">   260  </span>	}
-<span id="L261" class="ln">   261  </span>	if required.DataSource == nil {
+<span id="L261" class="ln">   261  </span>	if all.DataSource == nil {
 <span id="L262" class="ln">   262  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
 <span id="L263" class="ln">   263  </span>	}
-<span id="L264" class="ln">   264  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L265" class="ln">   265  </span>	if err != nil {
-<span id="L266" class="ln">   266  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L267" class="ln">   267  </span>		if err != nil {
-<span id="L268" class="ln">   268  </span>			return err
-<span id="L269" class="ln">   269  </span>		}
-<span id="L270" class="ln">   270  </span>		o.UnparsedObject = raw
-<span id="L271" class="ln">   271  </span>		return nil
-<span id="L272" class="ln">   272  </span>	}
-<span id="L273" class="ln">   273  </span>	additionalProperties := make(map[string]interface{})
-<span id="L274" class="ln">   274  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L275" class="ln">   275  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;compute&#34;, &#34;data_source&#34;, &#34;group_by&#34;, &#34;indexes&#34;, &#34;name&#34;, &#34;search&#34;})
-<span id="L276" class="ln">   276  </span>	} else {
-<span id="L277" class="ln">   277  </span>		return err
-<span id="L278" class="ln">   278  </span>	}
-<span id="L279" class="ln">   279  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L280" class="ln">   280  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L281" class="ln">   281  </span>		if err != nil {
-<span id="L282" class="ln">   282  </span>			return err
-<span id="L283" class="ln">   283  </span>		}
-<span id="L284" class="ln">   284  </span>		o.UnparsedObject = raw
-<span id="L285" class="ln">   285  </span>		return nil
-<span id="L286" class="ln">   286  </span>	}
-<span id="L287" class="ln">   287  </span>	if all.Compute.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L288" class="ln">   288  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L289" class="ln">   289  </span>		if err != nil {
-<span id="L290" class="ln">   290  </span>			return err
-<span id="L291" class="ln">   291  </span>		}
-<span id="L292" class="ln">   292  </span>		o.UnparsedObject = raw
-<span id="L293" class="ln">   293  </span>	}
-<span id="L294" class="ln">   294  </span>	o.Compute = all.Compute
-<span id="L295" class="ln">   295  </span>	o.DataSource = all.DataSource
-<span id="L296" class="ln">   296  </span>	o.GroupBy = all.GroupBy
-<span id="L297" class="ln">   297  </span>	o.Indexes = all.Indexes
-<span id="L298" class="ln">   298  </span>	o.Name = all.Name
-<span id="L299" class="ln">   299  </span>	if all.Search != nil &amp;&amp; all.Search.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L300" class="ln">   300  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L301" class="ln">   301  </span>		if err != nil {
-<span id="L302" class="ln">   302  </span>			return err
-<span id="L303" class="ln">   303  </span>		}
-<span id="L304" class="ln">   304  </span>		o.UnparsedObject = raw
-<span id="L305" class="ln">   305  </span>	}
-<span id="L306" class="ln">   306  </span>	o.Search = all.Search
-<span id="L307" class="ln">   307  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L308" class="ln">   308  </span>		o.AdditionalProperties = additionalProperties
-<span id="L309" class="ln">   309  </span>	}
-<span id="L310" class="ln">   310  </span>
-<span id="L311" class="ln">   311  </span>	return nil
-<span id="L312" class="ln">   312  </span>}
-<span id="L313" class="ln">   313  </span>
+<span id="L264" class="ln">   264  </span>	additionalProperties := make(map[string]interface{})
+<span id="L265" class="ln">   265  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L266" class="ln">   266  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;compute&#34;, &#34;data_source&#34;, &#34;group_by&#34;, &#34;indexes&#34;, &#34;name&#34;, &#34;search&#34;})
+<span id="L267" class="ln">   267  </span>	} else {
+<span id="L268" class="ln">   268  </span>		return err
+<span id="L269" class="ln">   269  </span>	}
+<span id="L270" class="ln">   270  </span>	if v := all.DataSource; !v.IsValid() {
+<span id="L271" class="ln">   271  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L272" class="ln">   272  </span>		if err != nil {
+<span id="L273" class="ln">   273  </span>			return err
+<span id="L274" class="ln">   274  </span>		}
+<span id="L275" class="ln">   275  </span>		o.UnparsedObject = raw
+<span id="L276" class="ln">   276  </span>		return nil
+<span id="L277" class="ln">   277  </span>	}
+<span id="L278" class="ln">   278  </span>	if all.Compute.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L279" class="ln">   279  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L280" class="ln">   280  </span>		if err != nil {
+<span id="L281" class="ln">   281  </span>			return err
+<span id="L282" class="ln">   282  </span>		}
+<span id="L283" class="ln">   283  </span>		o.UnparsedObject = raw
+<span id="L284" class="ln">   284  </span>	}
+<span id="L285" class="ln">   285  </span>	o.Compute = *all.Compute
+<span id="L286" class="ln">   286  </span>	o.DataSource = *all.DataSource
+<span id="L287" class="ln">   287  </span>	o.GroupBy = all.GroupBy
+<span id="L288" class="ln">   288  </span>	o.Indexes = all.Indexes
+<span id="L289" class="ln">   289  </span>	o.Name = all.Name
+<span id="L290" class="ln">   290  </span>	if all.Search != nil &amp;&amp; all.Search.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L291" class="ln">   291  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L292" class="ln">   292  </span>		if err != nil {
+<span id="L293" class="ln">   293  </span>			return err
+<span id="L294" class="ln">   294  </span>		}
+<span id="L295" class="ln">   295  </span>		o.UnparsedObject = raw
+<span id="L296" class="ln">   296  </span>	}
+<span id="L297" class="ln">   297  </span>	o.Search = all.Search
+<span id="L298" class="ln">   298  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L299" class="ln">   299  </span>		o.AdditionalProperties = additionalProperties
+<span id="L300" class="ln">   300  </span>	}
+<span id="L301" class="ln">   301  </span>
+<span id="L302" class="ln">   302  </span>	return nil
+<span id="L303" class="ln">   303  </span>}
+<span id="L304" class="ln">   304  </span>
 </pre><p></p>
 
 <div id="footer">

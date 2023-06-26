@@ -351,43 +351,42 @@
 <span id="L294" class="ln">   294  </span>		Name       *string     `json:&#34;name,omitempty&#34;`
 <span id="L295" class="ln">   295  </span>		Verified   *bool       `json:&#34;verified,omitempty&#34;`
 <span id="L296" class="ln">   296  </span>	}{}
-<span id="L297" class="ln">   297  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L298" class="ln">   298  </span>	if err != nil {
-<span id="L299" class="ln">   299  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L300" class="ln">   300  </span>		if err != nil {
-<span id="L301" class="ln">   301  </span>			return err
-<span id="L302" class="ln">   302  </span>		}
-<span id="L303" class="ln">   303  </span>		o.UnparsedObject = raw
-<span id="L304" class="ln">   304  </span>		return nil
-<span id="L305" class="ln">   305  </span>	}
-<span id="L306" class="ln">   306  </span>	additionalProperties := make(map[string]interface{})
-<span id="L307" class="ln">   307  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L308" class="ln">   308  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;access_role&#34;, &#34;disabled&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;icon&#34;, &#34;name&#34;, &#34;verified&#34;})
-<span id="L309" class="ln">   309  </span>	} else {
-<span id="L310" class="ln">   310  </span>		return err
-<span id="L311" class="ln">   311  </span>	}
-<span id="L312" class="ln">   312  </span>	if v := all.AccessRole; v != nil &amp;&amp; !v.IsValid() {
-<span id="L313" class="ln">   313  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L314" class="ln">   314  </span>		if err != nil {
-<span id="L315" class="ln">   315  </span>			return err
-<span id="L316" class="ln">   316  </span>		}
-<span id="L317" class="ln">   317  </span>		o.UnparsedObject = raw
-<span id="L318" class="ln">   318  </span>		return nil
-<span id="L319" class="ln">   319  </span>	}
-<span id="L320" class="ln">   320  </span>	o.AccessRole = all.AccessRole
-<span id="L321" class="ln">   321  </span>	o.Disabled = all.Disabled
-<span id="L322" class="ln">   322  </span>	o.Email = all.Email
-<span id="L323" class="ln">   323  </span>	o.Handle = all.Handle
-<span id="L324" class="ln">   324  </span>	o.Icon = all.Icon
-<span id="L325" class="ln">   325  </span>	o.Name = all.Name
-<span id="L326" class="ln">   326  </span>	o.Verified = all.Verified
-<span id="L327" class="ln">   327  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L328" class="ln">   328  </span>		o.AdditionalProperties = additionalProperties
-<span id="L329" class="ln">   329  </span>	}
-<span id="L330" class="ln">   330  </span>
-<span id="L331" class="ln">   331  </span>	return nil
-<span id="L332" class="ln">   332  </span>}
-<span id="L333" class="ln">   333  </span>
+<span id="L297" class="ln">   297  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L298" class="ln">   298  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L299" class="ln">   299  </span>		if err != nil {
+<span id="L300" class="ln">   300  </span>			return err
+<span id="L301" class="ln">   301  </span>		}
+<span id="L302" class="ln">   302  </span>		o.UnparsedObject = raw
+<span id="L303" class="ln">   303  </span>		return nil
+<span id="L304" class="ln">   304  </span>	}
+<span id="L305" class="ln">   305  </span>	additionalProperties := make(map[string]interface{})
+<span id="L306" class="ln">   306  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L307" class="ln">   307  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;access_role&#34;, &#34;disabled&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;icon&#34;, &#34;name&#34;, &#34;verified&#34;})
+<span id="L308" class="ln">   308  </span>	} else {
+<span id="L309" class="ln">   309  </span>		return err
+<span id="L310" class="ln">   310  </span>	}
+<span id="L311" class="ln">   311  </span>	if v := all.AccessRole; v != nil &amp;&amp; !v.IsValid() {
+<span id="L312" class="ln">   312  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L313" class="ln">   313  </span>		if err != nil {
+<span id="L314" class="ln">   314  </span>			return err
+<span id="L315" class="ln">   315  </span>		}
+<span id="L316" class="ln">   316  </span>		o.UnparsedObject = raw
+<span id="L317" class="ln">   317  </span>		return nil
+<span id="L318" class="ln">   318  </span>	}
+<span id="L319" class="ln">   319  </span>	o.AccessRole = all.AccessRole
+<span id="L320" class="ln">   320  </span>	o.Disabled = all.Disabled
+<span id="L321" class="ln">   321  </span>	o.Email = all.Email
+<span id="L322" class="ln">   322  </span>	o.Handle = all.Handle
+<span id="L323" class="ln">   323  </span>	o.Icon = all.Icon
+<span id="L324" class="ln">   324  </span>	o.Name = all.Name
+<span id="L325" class="ln">   325  </span>	o.Verified = all.Verified
+<span id="L326" class="ln">   326  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L327" class="ln">   327  </span>		o.AdditionalProperties = additionalProperties
+<span id="L328" class="ln">   328  </span>	}
+<span id="L329" class="ln">   329  </span>
+<span id="L330" class="ln">   330  </span>	return nil
+<span id="L331" class="ln">   331  </span>}
+<span id="L332" class="ln">   332  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -357,34 +357,33 @@
 <span id="L300" class="ln">   300  </span>		OrgName                        *string               `json:&#34;org_name,omitempty&#34;`
 <span id="L301" class="ln">   301  </span>		PublicId                       *string               `json:&#34;public_id,omitempty&#34;`
 <span id="L302" class="ln">   302  </span>	}{}
-<span id="L303" class="ln">   303  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L304" class="ln">   304  </span>	if err != nil {
-<span id="L305" class="ln">   305  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L306" class="ln">   306  </span>		if err != nil {
-<span id="L307" class="ln">   307  </span>			return err
-<span id="L308" class="ln">   308  </span>		}
-<span id="L309" class="ln">   309  </span>		o.UnparsedObject = raw
-<span id="L310" class="ln">   310  </span>		return nil
-<span id="L311" class="ln">   311  </span>	}
-<span id="L312" class="ln">   312  </span>	additionalProperties := make(map[string]interface{})
-<span id="L313" class="ln">   313  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L314" class="ln">   314  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;ci_pipeline_indexed_spans&#34;, &#34;ci_test_indexed_spans&#34;, &#34;ci_visibility_pipeline_committers&#34;, &#34;ci_visibility_test_committers&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
-<span id="L315" class="ln">   315  </span>	} else {
-<span id="L316" class="ln">   316  </span>		return err
-<span id="L317" class="ln">   317  </span>	}
-<span id="L318" class="ln">   318  </span>	o.CiPipelineIndexedSpans = all.CiPipelineIndexedSpans
-<span id="L319" class="ln">   319  </span>	o.CiTestIndexedSpans = all.CiTestIndexedSpans
-<span id="L320" class="ln">   320  </span>	o.CiVisibilityPipelineCommitters = all.CiVisibilityPipelineCommitters
-<span id="L321" class="ln">   321  </span>	o.CiVisibilityTestCommitters = all.CiVisibilityTestCommitters
-<span id="L322" class="ln">   322  </span>	o.OrgName = all.OrgName
-<span id="L323" class="ln">   323  </span>	o.PublicId = all.PublicId
-<span id="L324" class="ln">   324  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L325" class="ln">   325  </span>		o.AdditionalProperties = additionalProperties
-<span id="L326" class="ln">   326  </span>	}
-<span id="L327" class="ln">   327  </span>
-<span id="L328" class="ln">   328  </span>	return nil
-<span id="L329" class="ln">   329  </span>}
-<span id="L330" class="ln">   330  </span>
+<span id="L303" class="ln">   303  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L304" class="ln">   304  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L305" class="ln">   305  </span>		if err != nil {
+<span id="L306" class="ln">   306  </span>			return err
+<span id="L307" class="ln">   307  </span>		}
+<span id="L308" class="ln">   308  </span>		o.UnparsedObject = raw
+<span id="L309" class="ln">   309  </span>		return nil
+<span id="L310" class="ln">   310  </span>	}
+<span id="L311" class="ln">   311  </span>	additionalProperties := make(map[string]interface{})
+<span id="L312" class="ln">   312  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L313" class="ln">   313  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;ci_pipeline_indexed_spans&#34;, &#34;ci_test_indexed_spans&#34;, &#34;ci_visibility_pipeline_committers&#34;, &#34;ci_visibility_test_committers&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
+<span id="L314" class="ln">   314  </span>	} else {
+<span id="L315" class="ln">   315  </span>		return err
+<span id="L316" class="ln">   316  </span>	}
+<span id="L317" class="ln">   317  </span>	o.CiPipelineIndexedSpans = all.CiPipelineIndexedSpans
+<span id="L318" class="ln">   318  </span>	o.CiTestIndexedSpans = all.CiTestIndexedSpans
+<span id="L319" class="ln">   319  </span>	o.CiVisibilityPipelineCommitters = all.CiVisibilityPipelineCommitters
+<span id="L320" class="ln">   320  </span>	o.CiVisibilityTestCommitters = all.CiVisibilityTestCommitters
+<span id="L321" class="ln">   321  </span>	o.OrgName = all.OrgName
+<span id="L322" class="ln">   322  </span>	o.PublicId = all.PublicId
+<span id="L323" class="ln">   323  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L324" class="ln">   324  </span>		o.AdditionalProperties = additionalProperties
+<span id="L325" class="ln">   325  </span>	}
+<span id="L326" class="ln">   326  </span>
+<span id="L327" class="ln">   327  </span>	return nil
+<span id="L328" class="ln">   328  </span>}
+<span id="L329" class="ln">   329  </span>
 </pre><p></p>
 
 <div id="footer">

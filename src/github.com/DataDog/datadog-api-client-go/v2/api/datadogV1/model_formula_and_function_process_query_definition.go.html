@@ -391,90 +391,80 @@
 <span id="L334" class="ln">   334  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L335" class="ln">   335  </span>func (o *FormulaAndFunctionProcessQueryDefinition) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L336" class="ln">   336  </span>	raw := map[string]interface{}{}
-<span id="L337" class="ln">   337  </span>	required := struct {
-<span id="L338" class="ln">   338  </span>		DataSource *FormulaAndFunctionProcessQueryDataSource `json:&#34;data_source&#34;`
-<span id="L339" class="ln">   339  </span>		Metric     *string                                   `json:&#34;metric&#34;`
-<span id="L340" class="ln">   340  </span>		Name       *string                                   `json:&#34;name&#34;`
-<span id="L341" class="ln">   341  </span>	}{}
-<span id="L342" class="ln">   342  </span>	all := struct {
-<span id="L343" class="ln">   343  </span>		Aggregator      *FormulaAndFunctionMetricAggregation     `json:&#34;aggregator,omitempty&#34;`
-<span id="L344" class="ln">   344  </span>		DataSource      FormulaAndFunctionProcessQueryDataSource `json:&#34;data_source&#34;`
-<span id="L345" class="ln">   345  </span>		IsNormalizedCpu *bool                                    `json:&#34;is_normalized_cpu,omitempty&#34;`
-<span id="L346" class="ln">   346  </span>		Limit           *int64                                   `json:&#34;limit,omitempty&#34;`
-<span id="L347" class="ln">   347  </span>		Metric          string                                   `json:&#34;metric&#34;`
-<span id="L348" class="ln">   348  </span>		Name            string                                   `json:&#34;name&#34;`
-<span id="L349" class="ln">   349  </span>		Sort            *QuerySortOrder                          `json:&#34;sort,omitempty&#34;`
-<span id="L350" class="ln">   350  </span>		TagFilters      []string                                 `json:&#34;tag_filters,omitempty&#34;`
-<span id="L351" class="ln">   351  </span>		TextFilter      *string                                  `json:&#34;text_filter,omitempty&#34;`
-<span id="L352" class="ln">   352  </span>	}{}
-<span id="L353" class="ln">   353  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L354" class="ln">   354  </span>	if err != nil {
-<span id="L355" class="ln">   355  </span>		return err
-<span id="L356" class="ln">   356  </span>	}
-<span id="L357" class="ln">   357  </span>	if required.DataSource == nil {
-<span id="L358" class="ln">   358  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
-<span id="L359" class="ln">   359  </span>	}
-<span id="L360" class="ln">   360  </span>	if required.Metric == nil {
-<span id="L361" class="ln">   361  </span>		return fmt.Errorf(&#34;required field metric missing&#34;)
-<span id="L362" class="ln">   362  </span>	}
-<span id="L363" class="ln">   363  </span>	if required.Name == nil {
-<span id="L364" class="ln">   364  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
-<span id="L365" class="ln">   365  </span>	}
-<span id="L366" class="ln">   366  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L367" class="ln">   367  </span>	if err != nil {
-<span id="L368" class="ln">   368  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L369" class="ln">   369  </span>		if err != nil {
-<span id="L370" class="ln">   370  </span>			return err
-<span id="L371" class="ln">   371  </span>		}
-<span id="L372" class="ln">   372  </span>		o.UnparsedObject = raw
-<span id="L373" class="ln">   373  </span>		return nil
-<span id="L374" class="ln">   374  </span>	}
-<span id="L375" class="ln">   375  </span>	additionalProperties := make(map[string]interface{})
-<span id="L376" class="ln">   376  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L377" class="ln">   377  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregator&#34;, &#34;data_source&#34;, &#34;is_normalized_cpu&#34;, &#34;limit&#34;, &#34;metric&#34;, &#34;name&#34;, &#34;sort&#34;, &#34;tag_filters&#34;, &#34;text_filter&#34;})
-<span id="L378" class="ln">   378  </span>	} else {
-<span id="L379" class="ln">   379  </span>		return err
-<span id="L380" class="ln">   380  </span>	}
-<span id="L381" class="ln">   381  </span>	if v := all.Aggregator; v != nil &amp;&amp; !v.IsValid() {
-<span id="L382" class="ln">   382  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L383" class="ln">   383  </span>		if err != nil {
-<span id="L384" class="ln">   384  </span>			return err
-<span id="L385" class="ln">   385  </span>		}
-<span id="L386" class="ln">   386  </span>		o.UnparsedObject = raw
-<span id="L387" class="ln">   387  </span>		return nil
-<span id="L388" class="ln">   388  </span>	}
-<span id="L389" class="ln">   389  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L390" class="ln">   390  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L391" class="ln">   391  </span>		if err != nil {
-<span id="L392" class="ln">   392  </span>			return err
-<span id="L393" class="ln">   393  </span>		}
-<span id="L394" class="ln">   394  </span>		o.UnparsedObject = raw
-<span id="L395" class="ln">   395  </span>		return nil
-<span id="L396" class="ln">   396  </span>	}
-<span id="L397" class="ln">   397  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
-<span id="L398" class="ln">   398  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L399" class="ln">   399  </span>		if err != nil {
-<span id="L400" class="ln">   400  </span>			return err
-<span id="L401" class="ln">   401  </span>		}
-<span id="L402" class="ln">   402  </span>		o.UnparsedObject = raw
-<span id="L403" class="ln">   403  </span>		return nil
-<span id="L404" class="ln">   404  </span>	}
-<span id="L405" class="ln">   405  </span>	o.Aggregator = all.Aggregator
-<span id="L406" class="ln">   406  </span>	o.DataSource = all.DataSource
-<span id="L407" class="ln">   407  </span>	o.IsNormalizedCpu = all.IsNormalizedCpu
-<span id="L408" class="ln">   408  </span>	o.Limit = all.Limit
-<span id="L409" class="ln">   409  </span>	o.Metric = all.Metric
-<span id="L410" class="ln">   410  </span>	o.Name = all.Name
-<span id="L411" class="ln">   411  </span>	o.Sort = all.Sort
-<span id="L412" class="ln">   412  </span>	o.TagFilters = all.TagFilters
-<span id="L413" class="ln">   413  </span>	o.TextFilter = all.TextFilter
-<span id="L414" class="ln">   414  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L415" class="ln">   415  </span>		o.AdditionalProperties = additionalProperties
-<span id="L416" class="ln">   416  </span>	}
-<span id="L417" class="ln">   417  </span>
-<span id="L418" class="ln">   418  </span>	return nil
-<span id="L419" class="ln">   419  </span>}
-<span id="L420" class="ln">   420  </span>
+<span id="L337" class="ln">   337  </span>	all := struct {
+<span id="L338" class="ln">   338  </span>		Aggregator      *FormulaAndFunctionMetricAggregation      `json:&#34;aggregator,omitempty&#34;`
+<span id="L339" class="ln">   339  </span>		DataSource      *FormulaAndFunctionProcessQueryDataSource `json:&#34;data_source&#34;`
+<span id="L340" class="ln">   340  </span>		IsNormalizedCpu *bool                                     `json:&#34;is_normalized_cpu,omitempty&#34;`
+<span id="L341" class="ln">   341  </span>		Limit           *int64                                    `json:&#34;limit,omitempty&#34;`
+<span id="L342" class="ln">   342  </span>		Metric          *string                                   `json:&#34;metric&#34;`
+<span id="L343" class="ln">   343  </span>		Name            *string                                   `json:&#34;name&#34;`
+<span id="L344" class="ln">   344  </span>		Sort            *QuerySortOrder                           `json:&#34;sort,omitempty&#34;`
+<span id="L345" class="ln">   345  </span>		TagFilters      []string                                  `json:&#34;tag_filters,omitempty&#34;`
+<span id="L346" class="ln">   346  </span>		TextFilter      *string                                   `json:&#34;text_filter,omitempty&#34;`
+<span id="L347" class="ln">   347  </span>	}{}
+<span id="L348" class="ln">   348  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L349" class="ln">   349  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L350" class="ln">   350  </span>		if err != nil {
+<span id="L351" class="ln">   351  </span>			return err
+<span id="L352" class="ln">   352  </span>		}
+<span id="L353" class="ln">   353  </span>		o.UnparsedObject = raw
+<span id="L354" class="ln">   354  </span>		return nil
+<span id="L355" class="ln">   355  </span>	}
+<span id="L356" class="ln">   356  </span>	if all.DataSource == nil {
+<span id="L357" class="ln">   357  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
+<span id="L358" class="ln">   358  </span>	}
+<span id="L359" class="ln">   359  </span>	if all.Metric == nil {
+<span id="L360" class="ln">   360  </span>		return fmt.Errorf(&#34;required field metric missing&#34;)
+<span id="L361" class="ln">   361  </span>	}
+<span id="L362" class="ln">   362  </span>	if all.Name == nil {
+<span id="L363" class="ln">   363  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L364" class="ln">   364  </span>	}
+<span id="L365" class="ln">   365  </span>	additionalProperties := make(map[string]interface{})
+<span id="L366" class="ln">   366  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L367" class="ln">   367  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregator&#34;, &#34;data_source&#34;, &#34;is_normalized_cpu&#34;, &#34;limit&#34;, &#34;metric&#34;, &#34;name&#34;, &#34;sort&#34;, &#34;tag_filters&#34;, &#34;text_filter&#34;})
+<span id="L368" class="ln">   368  </span>	} else {
+<span id="L369" class="ln">   369  </span>		return err
+<span id="L370" class="ln">   370  </span>	}
+<span id="L371" class="ln">   371  </span>	if v := all.Aggregator; v != nil &amp;&amp; !v.IsValid() {
+<span id="L372" class="ln">   372  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L373" class="ln">   373  </span>		if err != nil {
+<span id="L374" class="ln">   374  </span>			return err
+<span id="L375" class="ln">   375  </span>		}
+<span id="L376" class="ln">   376  </span>		o.UnparsedObject = raw
+<span id="L377" class="ln">   377  </span>		return nil
+<span id="L378" class="ln">   378  </span>	}
+<span id="L379" class="ln">   379  </span>	if v := all.DataSource; !v.IsValid() {
+<span id="L380" class="ln">   380  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L381" class="ln">   381  </span>		if err != nil {
+<span id="L382" class="ln">   382  </span>			return err
+<span id="L383" class="ln">   383  </span>		}
+<span id="L384" class="ln">   384  </span>		o.UnparsedObject = raw
+<span id="L385" class="ln">   385  </span>		return nil
+<span id="L386" class="ln">   386  </span>	}
+<span id="L387" class="ln">   387  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
+<span id="L388" class="ln">   388  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L389" class="ln">   389  </span>		if err != nil {
+<span id="L390" class="ln">   390  </span>			return err
+<span id="L391" class="ln">   391  </span>		}
+<span id="L392" class="ln">   392  </span>		o.UnparsedObject = raw
+<span id="L393" class="ln">   393  </span>		return nil
+<span id="L394" class="ln">   394  </span>	}
+<span id="L395" class="ln">   395  </span>	o.Aggregator = all.Aggregator
+<span id="L396" class="ln">   396  </span>	o.DataSource = *all.DataSource
+<span id="L397" class="ln">   397  </span>	o.IsNormalizedCpu = all.IsNormalizedCpu
+<span id="L398" class="ln">   398  </span>	o.Limit = all.Limit
+<span id="L399" class="ln">   399  </span>	o.Metric = *all.Metric
+<span id="L400" class="ln">   400  </span>	o.Name = *all.Name
+<span id="L401" class="ln">   401  </span>	o.Sort = all.Sort
+<span id="L402" class="ln">   402  </span>	o.TagFilters = all.TagFilters
+<span id="L403" class="ln">   403  </span>	o.TextFilter = all.TextFilter
+<span id="L404" class="ln">   404  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L405" class="ln">   405  </span>		o.AdditionalProperties = additionalProperties
+<span id="L406" class="ln">   406  </span>	}
+<span id="L407" class="ln">   407  </span>
+<span id="L408" class="ln">   408  </span>	return nil
+<span id="L409" class="ln">   409  </span>}
+<span id="L410" class="ln">   410  </span>
 </pre><p></p>
 
 <div id="footer">

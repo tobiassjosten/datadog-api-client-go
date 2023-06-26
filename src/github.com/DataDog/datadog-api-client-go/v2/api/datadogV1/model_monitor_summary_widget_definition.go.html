@@ -572,120 +572,111 @@
 <span id="L515" class="ln">   515  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L516" class="ln">   516  </span>func (o *MonitorSummaryWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L517" class="ln">   517  </span>	raw := map[string]interface{}{}
-<span id="L518" class="ln">   518  </span>	required := struct {
-<span id="L519" class="ln">   519  </span>		Query *string                             `json:&#34;query&#34;`
-<span id="L520" class="ln">   520  </span>		Type  *MonitorSummaryWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L521" class="ln">   521  </span>	}{}
-<span id="L522" class="ln">   522  </span>	all := struct {
-<span id="L523" class="ln">   523  </span>		ColorPreference   *WidgetColorPreference             `json:&#34;color_preference,omitempty&#34;`
-<span id="L524" class="ln">   524  </span>		Count             *int64                             `json:&#34;count,omitempty&#34;`
-<span id="L525" class="ln">   525  </span>		DisplayFormat     *WidgetMonitorSummaryDisplayFormat `json:&#34;display_format,omitempty&#34;`
-<span id="L526" class="ln">   526  </span>		HideZeroCounts    *bool                              `json:&#34;hide_zero_counts,omitempty&#34;`
-<span id="L527" class="ln">   527  </span>		Query             string                             `json:&#34;query&#34;`
-<span id="L528" class="ln">   528  </span>		ShowLastTriggered *bool                              `json:&#34;show_last_triggered,omitempty&#34;`
-<span id="L529" class="ln">   529  </span>		ShowPriority      *bool                              `json:&#34;show_priority,omitempty&#34;`
-<span id="L530" class="ln">   530  </span>		Sort              *WidgetMonitorSummarySort          `json:&#34;sort,omitempty&#34;`
-<span id="L531" class="ln">   531  </span>		Start             *int64                             `json:&#34;start,omitempty&#34;`
-<span id="L532" class="ln">   532  </span>		SummaryType       *WidgetSummaryType                 `json:&#34;summary_type,omitempty&#34;`
-<span id="L533" class="ln">   533  </span>		Title             *string                            `json:&#34;title,omitempty&#34;`
-<span id="L534" class="ln">   534  </span>		TitleAlign        *WidgetTextAlign                   `json:&#34;title_align,omitempty&#34;`
-<span id="L535" class="ln">   535  </span>		TitleSize         *string                            `json:&#34;title_size,omitempty&#34;`
-<span id="L536" class="ln">   536  </span>		Type              MonitorSummaryWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L537" class="ln">   537  </span>	}{}
-<span id="L538" class="ln">   538  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L539" class="ln">   539  </span>	if err != nil {
-<span id="L540" class="ln">   540  </span>		return err
+<span id="L518" class="ln">   518  </span>	all := struct {
+<span id="L519" class="ln">   519  </span>		ColorPreference   *WidgetColorPreference              `json:&#34;color_preference,omitempty&#34;`
+<span id="L520" class="ln">   520  </span>		Count             *int64                              `json:&#34;count,omitempty&#34;`
+<span id="L521" class="ln">   521  </span>		DisplayFormat     *WidgetMonitorSummaryDisplayFormat  `json:&#34;display_format,omitempty&#34;`
+<span id="L522" class="ln">   522  </span>		HideZeroCounts    *bool                               `json:&#34;hide_zero_counts,omitempty&#34;`
+<span id="L523" class="ln">   523  </span>		Query             *string                             `json:&#34;query&#34;`
+<span id="L524" class="ln">   524  </span>		ShowLastTriggered *bool                               `json:&#34;show_last_triggered,omitempty&#34;`
+<span id="L525" class="ln">   525  </span>		ShowPriority      *bool                               `json:&#34;show_priority,omitempty&#34;`
+<span id="L526" class="ln">   526  </span>		Sort              *WidgetMonitorSummarySort           `json:&#34;sort,omitempty&#34;`
+<span id="L527" class="ln">   527  </span>		Start             *int64                              `json:&#34;start,omitempty&#34;`
+<span id="L528" class="ln">   528  </span>		SummaryType       *WidgetSummaryType                  `json:&#34;summary_type,omitempty&#34;`
+<span id="L529" class="ln">   529  </span>		Title             *string                             `json:&#34;title,omitempty&#34;`
+<span id="L530" class="ln">   530  </span>		TitleAlign        *WidgetTextAlign                    `json:&#34;title_align,omitempty&#34;`
+<span id="L531" class="ln">   531  </span>		TitleSize         *string                             `json:&#34;title_size,omitempty&#34;`
+<span id="L532" class="ln">   532  </span>		Type              *MonitorSummaryWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L533" class="ln">   533  </span>	}{}
+<span id="L534" class="ln">   534  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L535" class="ln">   535  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L536" class="ln">   536  </span>		if err != nil {
+<span id="L537" class="ln">   537  </span>			return err
+<span id="L538" class="ln">   538  </span>		}
+<span id="L539" class="ln">   539  </span>		o.UnparsedObject = raw
+<span id="L540" class="ln">   540  </span>		return nil
 <span id="L541" class="ln">   541  </span>	}
-<span id="L542" class="ln">   542  </span>	if required.Query == nil {
+<span id="L542" class="ln">   542  </span>	if all.Query == nil {
 <span id="L543" class="ln">   543  </span>		return fmt.Errorf(&#34;required field query missing&#34;)
 <span id="L544" class="ln">   544  </span>	}
-<span id="L545" class="ln">   545  </span>	if required.Type == nil {
+<span id="L545" class="ln">   545  </span>	if all.Type == nil {
 <span id="L546" class="ln">   546  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L547" class="ln">   547  </span>	}
-<span id="L548" class="ln">   548  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L549" class="ln">   549  </span>	if err != nil {
-<span id="L550" class="ln">   550  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L551" class="ln">   551  </span>		if err != nil {
-<span id="L552" class="ln">   552  </span>			return err
-<span id="L553" class="ln">   553  </span>		}
-<span id="L554" class="ln">   554  </span>		o.UnparsedObject = raw
-<span id="L555" class="ln">   555  </span>		return nil
-<span id="L556" class="ln">   556  </span>	}
-<span id="L557" class="ln">   557  </span>	additionalProperties := make(map[string]interface{})
-<span id="L558" class="ln">   558  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L559" class="ln">   559  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;color_preference&#34;, &#34;count&#34;, &#34;display_format&#34;, &#34;hide_zero_counts&#34;, &#34;query&#34;, &#34;show_last_triggered&#34;, &#34;show_priority&#34;, &#34;sort&#34;, &#34;start&#34;, &#34;summary_type&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
-<span id="L560" class="ln">   560  </span>	} else {
-<span id="L561" class="ln">   561  </span>		return err
-<span id="L562" class="ln">   562  </span>	}
-<span id="L563" class="ln">   563  </span>	if v := all.ColorPreference; v != nil &amp;&amp; !v.IsValid() {
-<span id="L564" class="ln">   564  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L565" class="ln">   565  </span>		if err != nil {
-<span id="L566" class="ln">   566  </span>			return err
-<span id="L567" class="ln">   567  </span>		}
-<span id="L568" class="ln">   568  </span>		o.UnparsedObject = raw
-<span id="L569" class="ln">   569  </span>		return nil
-<span id="L570" class="ln">   570  </span>	}
-<span id="L571" class="ln">   571  </span>	if v := all.DisplayFormat; v != nil &amp;&amp; !v.IsValid() {
-<span id="L572" class="ln">   572  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L573" class="ln">   573  </span>		if err != nil {
-<span id="L574" class="ln">   574  </span>			return err
-<span id="L575" class="ln">   575  </span>		}
-<span id="L576" class="ln">   576  </span>		o.UnparsedObject = raw
-<span id="L577" class="ln">   577  </span>		return nil
-<span id="L578" class="ln">   578  </span>	}
-<span id="L579" class="ln">   579  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
-<span id="L580" class="ln">   580  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L581" class="ln">   581  </span>		if err != nil {
-<span id="L582" class="ln">   582  </span>			return err
-<span id="L583" class="ln">   583  </span>		}
-<span id="L584" class="ln">   584  </span>		o.UnparsedObject = raw
-<span id="L585" class="ln">   585  </span>		return nil
-<span id="L586" class="ln">   586  </span>	}
-<span id="L587" class="ln">   587  </span>	if v := all.SummaryType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L588" class="ln">   588  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L589" class="ln">   589  </span>		if err != nil {
-<span id="L590" class="ln">   590  </span>			return err
-<span id="L591" class="ln">   591  </span>		}
-<span id="L592" class="ln">   592  </span>		o.UnparsedObject = raw
-<span id="L593" class="ln">   593  </span>		return nil
-<span id="L594" class="ln">   594  </span>	}
-<span id="L595" class="ln">   595  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L596" class="ln">   596  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L597" class="ln">   597  </span>		if err != nil {
-<span id="L598" class="ln">   598  </span>			return err
-<span id="L599" class="ln">   599  </span>		}
-<span id="L600" class="ln">   600  </span>		o.UnparsedObject = raw
-<span id="L601" class="ln">   601  </span>		return nil
-<span id="L602" class="ln">   602  </span>	}
-<span id="L603" class="ln">   603  </span>	if v := all.Type; !v.IsValid() {
-<span id="L604" class="ln">   604  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L605" class="ln">   605  </span>		if err != nil {
-<span id="L606" class="ln">   606  </span>			return err
-<span id="L607" class="ln">   607  </span>		}
-<span id="L608" class="ln">   608  </span>		o.UnparsedObject = raw
-<span id="L609" class="ln">   609  </span>		return nil
-<span id="L610" class="ln">   610  </span>	}
-<span id="L611" class="ln">   611  </span>	o.ColorPreference = all.ColorPreference
-<span id="L612" class="ln">   612  </span>	o.Count = all.Count
-<span id="L613" class="ln">   613  </span>	o.DisplayFormat = all.DisplayFormat
-<span id="L614" class="ln">   614  </span>	o.HideZeroCounts = all.HideZeroCounts
-<span id="L615" class="ln">   615  </span>	o.Query = all.Query
-<span id="L616" class="ln">   616  </span>	o.ShowLastTriggered = all.ShowLastTriggered
-<span id="L617" class="ln">   617  </span>	o.ShowPriority = all.ShowPriority
-<span id="L618" class="ln">   618  </span>	o.Sort = all.Sort
-<span id="L619" class="ln">   619  </span>	o.Start = all.Start
-<span id="L620" class="ln">   620  </span>	o.SummaryType = all.SummaryType
-<span id="L621" class="ln">   621  </span>	o.Title = all.Title
-<span id="L622" class="ln">   622  </span>	o.TitleAlign = all.TitleAlign
-<span id="L623" class="ln">   623  </span>	o.TitleSize = all.TitleSize
-<span id="L624" class="ln">   624  </span>	o.Type = all.Type
-<span id="L625" class="ln">   625  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L626" class="ln">   626  </span>		o.AdditionalProperties = additionalProperties
-<span id="L627" class="ln">   627  </span>	}
-<span id="L628" class="ln">   628  </span>
-<span id="L629" class="ln">   629  </span>	return nil
-<span id="L630" class="ln">   630  </span>}
-<span id="L631" class="ln">   631  </span>
+<span id="L548" class="ln">   548  </span>	additionalProperties := make(map[string]interface{})
+<span id="L549" class="ln">   549  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L550" class="ln">   550  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;color_preference&#34;, &#34;count&#34;, &#34;display_format&#34;, &#34;hide_zero_counts&#34;, &#34;query&#34;, &#34;show_last_triggered&#34;, &#34;show_priority&#34;, &#34;sort&#34;, &#34;start&#34;, &#34;summary_type&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
+<span id="L551" class="ln">   551  </span>	} else {
+<span id="L552" class="ln">   552  </span>		return err
+<span id="L553" class="ln">   553  </span>	}
+<span id="L554" class="ln">   554  </span>	if v := all.ColorPreference; v != nil &amp;&amp; !v.IsValid() {
+<span id="L555" class="ln">   555  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L556" class="ln">   556  </span>		if err != nil {
+<span id="L557" class="ln">   557  </span>			return err
+<span id="L558" class="ln">   558  </span>		}
+<span id="L559" class="ln">   559  </span>		o.UnparsedObject = raw
+<span id="L560" class="ln">   560  </span>		return nil
+<span id="L561" class="ln">   561  </span>	}
+<span id="L562" class="ln">   562  </span>	if v := all.DisplayFormat; v != nil &amp;&amp; !v.IsValid() {
+<span id="L563" class="ln">   563  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L564" class="ln">   564  </span>		if err != nil {
+<span id="L565" class="ln">   565  </span>			return err
+<span id="L566" class="ln">   566  </span>		}
+<span id="L567" class="ln">   567  </span>		o.UnparsedObject = raw
+<span id="L568" class="ln">   568  </span>		return nil
+<span id="L569" class="ln">   569  </span>	}
+<span id="L570" class="ln">   570  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
+<span id="L571" class="ln">   571  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L572" class="ln">   572  </span>		if err != nil {
+<span id="L573" class="ln">   573  </span>			return err
+<span id="L574" class="ln">   574  </span>		}
+<span id="L575" class="ln">   575  </span>		o.UnparsedObject = raw
+<span id="L576" class="ln">   576  </span>		return nil
+<span id="L577" class="ln">   577  </span>	}
+<span id="L578" class="ln">   578  </span>	if v := all.SummaryType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L579" class="ln">   579  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L580" class="ln">   580  </span>		if err != nil {
+<span id="L581" class="ln">   581  </span>			return err
+<span id="L582" class="ln">   582  </span>		}
+<span id="L583" class="ln">   583  </span>		o.UnparsedObject = raw
+<span id="L584" class="ln">   584  </span>		return nil
+<span id="L585" class="ln">   585  </span>	}
+<span id="L586" class="ln">   586  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L587" class="ln">   587  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L588" class="ln">   588  </span>		if err != nil {
+<span id="L589" class="ln">   589  </span>			return err
+<span id="L590" class="ln">   590  </span>		}
+<span id="L591" class="ln">   591  </span>		o.UnparsedObject = raw
+<span id="L592" class="ln">   592  </span>		return nil
+<span id="L593" class="ln">   593  </span>	}
+<span id="L594" class="ln">   594  </span>	if v := all.Type; !v.IsValid() {
+<span id="L595" class="ln">   595  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L596" class="ln">   596  </span>		if err != nil {
+<span id="L597" class="ln">   597  </span>			return err
+<span id="L598" class="ln">   598  </span>		}
+<span id="L599" class="ln">   599  </span>		o.UnparsedObject = raw
+<span id="L600" class="ln">   600  </span>		return nil
+<span id="L601" class="ln">   601  </span>	}
+<span id="L602" class="ln">   602  </span>	o.ColorPreference = all.ColorPreference
+<span id="L603" class="ln">   603  </span>	o.Count = all.Count
+<span id="L604" class="ln">   604  </span>	o.DisplayFormat = all.DisplayFormat
+<span id="L605" class="ln">   605  </span>	o.HideZeroCounts = all.HideZeroCounts
+<span id="L606" class="ln">   606  </span>	o.Query = *all.Query
+<span id="L607" class="ln">   607  </span>	o.ShowLastTriggered = all.ShowLastTriggered
+<span id="L608" class="ln">   608  </span>	o.ShowPriority = all.ShowPriority
+<span id="L609" class="ln">   609  </span>	o.Sort = all.Sort
+<span id="L610" class="ln">   610  </span>	o.Start = all.Start
+<span id="L611" class="ln">   611  </span>	o.SummaryType = all.SummaryType
+<span id="L612" class="ln">   612  </span>	o.Title = all.Title
+<span id="L613" class="ln">   613  </span>	o.TitleAlign = all.TitleAlign
+<span id="L614" class="ln">   614  </span>	o.TitleSize = all.TitleSize
+<span id="L615" class="ln">   615  </span>	o.Type = *all.Type
+<span id="L616" class="ln">   616  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L617" class="ln">   617  </span>		o.AdditionalProperties = additionalProperties
+<span id="L618" class="ln">   618  </span>	}
+<span id="L619" class="ln">   619  </span>
+<span id="L620" class="ln">   620  </span>	return nil
+<span id="L621" class="ln">   621  </span>}
+<span id="L622" class="ln">   622  </span>
 </pre><p></p>
 
 <div id="footer">

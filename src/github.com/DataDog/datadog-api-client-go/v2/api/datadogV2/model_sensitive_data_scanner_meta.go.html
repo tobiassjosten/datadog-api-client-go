@@ -279,33 +279,32 @@
 <span id="L222" class="ln">   222  </span>		IsPciCompliant      *bool  `json:&#34;is_pci_compliant,omitempty&#34;`
 <span id="L223" class="ln">   223  </span>		Version             *int64 `json:&#34;version,omitempty&#34;`
 <span id="L224" class="ln">   224  </span>	}{}
-<span id="L225" class="ln">   225  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L226" class="ln">   226  </span>	if err != nil {
-<span id="L227" class="ln">   227  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L228" class="ln">   228  </span>		if err != nil {
-<span id="L229" class="ln">   229  </span>			return err
-<span id="L230" class="ln">   230  </span>		}
-<span id="L231" class="ln">   231  </span>		o.UnparsedObject = raw
-<span id="L232" class="ln">   232  </span>		return nil
-<span id="L233" class="ln">   233  </span>	}
-<span id="L234" class="ln">   234  </span>	additionalProperties := make(map[string]interface{})
-<span id="L235" class="ln">   235  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L236" class="ln">   236  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;count_limit&#34;, &#34;group_count_limit&#34;, &#34;has_highlight_enabled&#34;, &#34;is_pci_compliant&#34;, &#34;version&#34;})
-<span id="L237" class="ln">   237  </span>	} else {
-<span id="L238" class="ln">   238  </span>		return err
-<span id="L239" class="ln">   239  </span>	}
-<span id="L240" class="ln">   240  </span>	o.CountLimit = all.CountLimit
-<span id="L241" class="ln">   241  </span>	o.GroupCountLimit = all.GroupCountLimit
-<span id="L242" class="ln">   242  </span>	o.HasHighlightEnabled = all.HasHighlightEnabled
-<span id="L243" class="ln">   243  </span>	o.IsPciCompliant = all.IsPciCompliant
-<span id="L244" class="ln">   244  </span>	o.Version = all.Version
-<span id="L245" class="ln">   245  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L246" class="ln">   246  </span>		o.AdditionalProperties = additionalProperties
-<span id="L247" class="ln">   247  </span>	}
-<span id="L248" class="ln">   248  </span>
-<span id="L249" class="ln">   249  </span>	return nil
-<span id="L250" class="ln">   250  </span>}
-<span id="L251" class="ln">   251  </span>
+<span id="L225" class="ln">   225  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L226" class="ln">   226  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L227" class="ln">   227  </span>		if err != nil {
+<span id="L228" class="ln">   228  </span>			return err
+<span id="L229" class="ln">   229  </span>		}
+<span id="L230" class="ln">   230  </span>		o.UnparsedObject = raw
+<span id="L231" class="ln">   231  </span>		return nil
+<span id="L232" class="ln">   232  </span>	}
+<span id="L233" class="ln">   233  </span>	additionalProperties := make(map[string]interface{})
+<span id="L234" class="ln">   234  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L235" class="ln">   235  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;count_limit&#34;, &#34;group_count_limit&#34;, &#34;has_highlight_enabled&#34;, &#34;is_pci_compliant&#34;, &#34;version&#34;})
+<span id="L236" class="ln">   236  </span>	} else {
+<span id="L237" class="ln">   237  </span>		return err
+<span id="L238" class="ln">   238  </span>	}
+<span id="L239" class="ln">   239  </span>	o.CountLimit = all.CountLimit
+<span id="L240" class="ln">   240  </span>	o.GroupCountLimit = all.GroupCountLimit
+<span id="L241" class="ln">   241  </span>	o.HasHighlightEnabled = all.HasHighlightEnabled
+<span id="L242" class="ln">   242  </span>	o.IsPciCompliant = all.IsPciCompliant
+<span id="L243" class="ln">   243  </span>	o.Version = all.Version
+<span id="L244" class="ln">   244  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L245" class="ln">   245  </span>		o.AdditionalProperties = additionalProperties
+<span id="L246" class="ln">   246  </span>	}
+<span id="L247" class="ln">   247  </span>
+<span id="L248" class="ln">   248  </span>	return nil
+<span id="L249" class="ln">   249  </span>}
+<span id="L250" class="ln">   250  </span>
 </pre><p></p>
 
 <div id="footer">

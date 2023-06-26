@@ -699,115 +699,106 @@
 <span id="L642" class="ln">   642  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L643" class="ln">   643  </span>func (o *Monitor) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L644" class="ln">   644  </span>	raw := map[string]interface{}{}
-<span id="L645" class="ln">   645  </span>	required := struct {
-<span id="L646" class="ln">   646  </span>		Query *string      `json:&#34;query&#34;`
-<span id="L647" class="ln">   647  </span>		Type  *MonitorType `json:&#34;type&#34;`
-<span id="L648" class="ln">   648  </span>	}{}
-<span id="L649" class="ln">   649  </span>	all := struct {
-<span id="L650" class="ln">   650  </span>		Created           *time.Time                   `json:&#34;created,omitempty&#34;`
-<span id="L651" class="ln">   651  </span>		Creator           *Creator                     `json:&#34;creator,omitempty&#34;`
-<span id="L652" class="ln">   652  </span>		Deleted           datadog.NullableTime         `json:&#34;deleted,omitempty&#34;`
-<span id="L653" class="ln">   653  </span>		Id                *int64                       `json:&#34;id,omitempty&#34;`
-<span id="L654" class="ln">   654  </span>		MatchingDowntimes []MatchingDowntime           `json:&#34;matching_downtimes,omitempty&#34;`
-<span id="L655" class="ln">   655  </span>		Message           *string                      `json:&#34;message,omitempty&#34;`
-<span id="L656" class="ln">   656  </span>		Modified          *time.Time                   `json:&#34;modified,omitempty&#34;`
-<span id="L657" class="ln">   657  </span>		Multi             *bool                        `json:&#34;multi,omitempty&#34;`
-<span id="L658" class="ln">   658  </span>		Name              *string                      `json:&#34;name,omitempty&#34;`
-<span id="L659" class="ln">   659  </span>		Options           *MonitorOptions              `json:&#34;options,omitempty&#34;`
-<span id="L660" class="ln">   660  </span>		OverallState      *MonitorOverallStates        `json:&#34;overall_state,omitempty&#34;`
-<span id="L661" class="ln">   661  </span>		Priority          datadog.NullableInt64        `json:&#34;priority,omitempty&#34;`
-<span id="L662" class="ln">   662  </span>		Query             string                       `json:&#34;query&#34;`
-<span id="L663" class="ln">   663  </span>		RestrictedRoles   datadog.NullableList[string] `json:&#34;restricted_roles,omitempty&#34;`
-<span id="L664" class="ln">   664  </span>		State             *MonitorState                `json:&#34;state,omitempty&#34;`
-<span id="L665" class="ln">   665  </span>		Tags              []string                     `json:&#34;tags,omitempty&#34;`
-<span id="L666" class="ln">   666  </span>		Type              MonitorType                  `json:&#34;type&#34;`
-<span id="L667" class="ln">   667  </span>	}{}
-<span id="L668" class="ln">   668  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L669" class="ln">   669  </span>	if err != nil {
-<span id="L670" class="ln">   670  </span>		return err
+<span id="L645" class="ln">   645  </span>	all := struct {
+<span id="L646" class="ln">   646  </span>		Created           *time.Time                   `json:&#34;created,omitempty&#34;`
+<span id="L647" class="ln">   647  </span>		Creator           *Creator                     `json:&#34;creator,omitempty&#34;`
+<span id="L648" class="ln">   648  </span>		Deleted           datadog.NullableTime         `json:&#34;deleted,omitempty&#34;`
+<span id="L649" class="ln">   649  </span>		Id                *int64                       `json:&#34;id,omitempty&#34;`
+<span id="L650" class="ln">   650  </span>		MatchingDowntimes []MatchingDowntime           `json:&#34;matching_downtimes,omitempty&#34;`
+<span id="L651" class="ln">   651  </span>		Message           *string                      `json:&#34;message,omitempty&#34;`
+<span id="L652" class="ln">   652  </span>		Modified          *time.Time                   `json:&#34;modified,omitempty&#34;`
+<span id="L653" class="ln">   653  </span>		Multi             *bool                        `json:&#34;multi,omitempty&#34;`
+<span id="L654" class="ln">   654  </span>		Name              *string                      `json:&#34;name,omitempty&#34;`
+<span id="L655" class="ln">   655  </span>		Options           *MonitorOptions              `json:&#34;options,omitempty&#34;`
+<span id="L656" class="ln">   656  </span>		OverallState      *MonitorOverallStates        `json:&#34;overall_state,omitempty&#34;`
+<span id="L657" class="ln">   657  </span>		Priority          datadog.NullableInt64        `json:&#34;priority,omitempty&#34;`
+<span id="L658" class="ln">   658  </span>		Query             *string                      `json:&#34;query&#34;`
+<span id="L659" class="ln">   659  </span>		RestrictedRoles   datadog.NullableList[string] `json:&#34;restricted_roles,omitempty&#34;`
+<span id="L660" class="ln">   660  </span>		State             *MonitorState                `json:&#34;state,omitempty&#34;`
+<span id="L661" class="ln">   661  </span>		Tags              []string                     `json:&#34;tags,omitempty&#34;`
+<span id="L662" class="ln">   662  </span>		Type              *MonitorType                 `json:&#34;type&#34;`
+<span id="L663" class="ln">   663  </span>	}{}
+<span id="L664" class="ln">   664  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L665" class="ln">   665  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L666" class="ln">   666  </span>		if err != nil {
+<span id="L667" class="ln">   667  </span>			return err
+<span id="L668" class="ln">   668  </span>		}
+<span id="L669" class="ln">   669  </span>		o.UnparsedObject = raw
+<span id="L670" class="ln">   670  </span>		return nil
 <span id="L671" class="ln">   671  </span>	}
-<span id="L672" class="ln">   672  </span>	if required.Query == nil {
+<span id="L672" class="ln">   672  </span>	if all.Query == nil {
 <span id="L673" class="ln">   673  </span>		return fmt.Errorf(&#34;required field query missing&#34;)
 <span id="L674" class="ln">   674  </span>	}
-<span id="L675" class="ln">   675  </span>	if required.Type == nil {
+<span id="L675" class="ln">   675  </span>	if all.Type == nil {
 <span id="L676" class="ln">   676  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L677" class="ln">   677  </span>	}
-<span id="L678" class="ln">   678  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L679" class="ln">   679  </span>	if err != nil {
-<span id="L680" class="ln">   680  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L681" class="ln">   681  </span>		if err != nil {
-<span id="L682" class="ln">   682  </span>			return err
-<span id="L683" class="ln">   683  </span>		}
-<span id="L684" class="ln">   684  </span>		o.UnparsedObject = raw
-<span id="L685" class="ln">   685  </span>		return nil
-<span id="L686" class="ln">   686  </span>	}
-<span id="L687" class="ln">   687  </span>	additionalProperties := make(map[string]interface{})
-<span id="L688" class="ln">   688  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L689" class="ln">   689  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;creator&#34;, &#34;deleted&#34;, &#34;id&#34;, &#34;matching_downtimes&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;multi&#34;, &#34;name&#34;, &#34;options&#34;, &#34;overall_state&#34;, &#34;priority&#34;, &#34;query&#34;, &#34;restricted_roles&#34;, &#34;state&#34;, &#34;tags&#34;, &#34;type&#34;})
-<span id="L690" class="ln">   690  </span>	} else {
-<span id="L691" class="ln">   691  </span>		return err
-<span id="L692" class="ln">   692  </span>	}
-<span id="L693" class="ln">   693  </span>	if v := all.OverallState; v != nil &amp;&amp; !v.IsValid() {
-<span id="L694" class="ln">   694  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L695" class="ln">   695  </span>		if err != nil {
-<span id="L696" class="ln">   696  </span>			return err
-<span id="L697" class="ln">   697  </span>		}
-<span id="L698" class="ln">   698  </span>		o.UnparsedObject = raw
-<span id="L699" class="ln">   699  </span>		return nil
-<span id="L700" class="ln">   700  </span>	}
-<span id="L701" class="ln">   701  </span>	if v := all.Type; !v.IsValid() {
+<span id="L678" class="ln">   678  </span>	additionalProperties := make(map[string]interface{})
+<span id="L679" class="ln">   679  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L680" class="ln">   680  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;creator&#34;, &#34;deleted&#34;, &#34;id&#34;, &#34;matching_downtimes&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;multi&#34;, &#34;name&#34;, &#34;options&#34;, &#34;overall_state&#34;, &#34;priority&#34;, &#34;query&#34;, &#34;restricted_roles&#34;, &#34;state&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L681" class="ln">   681  </span>	} else {
+<span id="L682" class="ln">   682  </span>		return err
+<span id="L683" class="ln">   683  </span>	}
+<span id="L684" class="ln">   684  </span>	if v := all.OverallState; v != nil &amp;&amp; !v.IsValid() {
+<span id="L685" class="ln">   685  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L686" class="ln">   686  </span>		if err != nil {
+<span id="L687" class="ln">   687  </span>			return err
+<span id="L688" class="ln">   688  </span>		}
+<span id="L689" class="ln">   689  </span>		o.UnparsedObject = raw
+<span id="L690" class="ln">   690  </span>		return nil
+<span id="L691" class="ln">   691  </span>	}
+<span id="L692" class="ln">   692  </span>	if v := all.Type; !v.IsValid() {
+<span id="L693" class="ln">   693  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L694" class="ln">   694  </span>		if err != nil {
+<span id="L695" class="ln">   695  </span>			return err
+<span id="L696" class="ln">   696  </span>		}
+<span id="L697" class="ln">   697  </span>		o.UnparsedObject = raw
+<span id="L698" class="ln">   698  </span>		return nil
+<span id="L699" class="ln">   699  </span>	}
+<span id="L700" class="ln">   700  </span>	o.Created = all.Created
+<span id="L701" class="ln">   701  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L702" class="ln">   702  </span>		err = json.Unmarshal(bytes, &amp;raw)
 <span id="L703" class="ln">   703  </span>		if err != nil {
 <span id="L704" class="ln">   704  </span>			return err
 <span id="L705" class="ln">   705  </span>		}
 <span id="L706" class="ln">   706  </span>		o.UnparsedObject = raw
-<span id="L707" class="ln">   707  </span>		return nil
-<span id="L708" class="ln">   708  </span>	}
-<span id="L709" class="ln">   709  </span>	o.Created = all.Created
-<span id="L710" class="ln">   710  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L711" class="ln">   711  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L712" class="ln">   712  </span>		if err != nil {
-<span id="L713" class="ln">   713  </span>			return err
-<span id="L714" class="ln">   714  </span>		}
-<span id="L715" class="ln">   715  </span>		o.UnparsedObject = raw
-<span id="L716" class="ln">   716  </span>	}
-<span id="L717" class="ln">   717  </span>	o.Creator = all.Creator
-<span id="L718" class="ln">   718  </span>	o.Deleted = all.Deleted
-<span id="L719" class="ln">   719  </span>	o.Id = all.Id
-<span id="L720" class="ln">   720  </span>	o.MatchingDowntimes = all.MatchingDowntimes
-<span id="L721" class="ln">   721  </span>	o.Message = all.Message
-<span id="L722" class="ln">   722  </span>	o.Modified = all.Modified
-<span id="L723" class="ln">   723  </span>	o.Multi = all.Multi
-<span id="L724" class="ln">   724  </span>	o.Name = all.Name
-<span id="L725" class="ln">   725  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L726" class="ln">   726  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L727" class="ln">   727  </span>		if err != nil {
-<span id="L728" class="ln">   728  </span>			return err
-<span id="L729" class="ln">   729  </span>		}
-<span id="L730" class="ln">   730  </span>		o.UnparsedObject = raw
-<span id="L731" class="ln">   731  </span>	}
-<span id="L732" class="ln">   732  </span>	o.Options = all.Options
-<span id="L733" class="ln">   733  </span>	o.OverallState = all.OverallState
-<span id="L734" class="ln">   734  </span>	o.Priority = all.Priority
-<span id="L735" class="ln">   735  </span>	o.Query = all.Query
-<span id="L736" class="ln">   736  </span>	o.RestrictedRoles = all.RestrictedRoles
-<span id="L737" class="ln">   737  </span>	if all.State != nil &amp;&amp; all.State.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L738" class="ln">   738  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L739" class="ln">   739  </span>		if err != nil {
-<span id="L740" class="ln">   740  </span>			return err
-<span id="L741" class="ln">   741  </span>		}
-<span id="L742" class="ln">   742  </span>		o.UnparsedObject = raw
-<span id="L743" class="ln">   743  </span>	}
-<span id="L744" class="ln">   744  </span>	o.State = all.State
-<span id="L745" class="ln">   745  </span>	o.Tags = all.Tags
-<span id="L746" class="ln">   746  </span>	o.Type = all.Type
-<span id="L747" class="ln">   747  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L748" class="ln">   748  </span>		o.AdditionalProperties = additionalProperties
-<span id="L749" class="ln">   749  </span>	}
-<span id="L750" class="ln">   750  </span>
-<span id="L751" class="ln">   751  </span>	return nil
-<span id="L752" class="ln">   752  </span>}
-<span id="L753" class="ln">   753  </span>
+<span id="L707" class="ln">   707  </span>	}
+<span id="L708" class="ln">   708  </span>	o.Creator = all.Creator
+<span id="L709" class="ln">   709  </span>	o.Deleted = all.Deleted
+<span id="L710" class="ln">   710  </span>	o.Id = all.Id
+<span id="L711" class="ln">   711  </span>	o.MatchingDowntimes = all.MatchingDowntimes
+<span id="L712" class="ln">   712  </span>	o.Message = all.Message
+<span id="L713" class="ln">   713  </span>	o.Modified = all.Modified
+<span id="L714" class="ln">   714  </span>	o.Multi = all.Multi
+<span id="L715" class="ln">   715  </span>	o.Name = all.Name
+<span id="L716" class="ln">   716  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L717" class="ln">   717  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L718" class="ln">   718  </span>		if err != nil {
+<span id="L719" class="ln">   719  </span>			return err
+<span id="L720" class="ln">   720  </span>		}
+<span id="L721" class="ln">   721  </span>		o.UnparsedObject = raw
+<span id="L722" class="ln">   722  </span>	}
+<span id="L723" class="ln">   723  </span>	o.Options = all.Options
+<span id="L724" class="ln">   724  </span>	o.OverallState = all.OverallState
+<span id="L725" class="ln">   725  </span>	o.Priority = all.Priority
+<span id="L726" class="ln">   726  </span>	o.Query = *all.Query
+<span id="L727" class="ln">   727  </span>	o.RestrictedRoles = all.RestrictedRoles
+<span id="L728" class="ln">   728  </span>	if all.State != nil &amp;&amp; all.State.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L729" class="ln">   729  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L730" class="ln">   730  </span>		if err != nil {
+<span id="L731" class="ln">   731  </span>			return err
+<span id="L732" class="ln">   732  </span>		}
+<span id="L733" class="ln">   733  </span>		o.UnparsedObject = raw
+<span id="L734" class="ln">   734  </span>	}
+<span id="L735" class="ln">   735  </span>	o.State = all.State
+<span id="L736" class="ln">   736  </span>	o.Tags = all.Tags
+<span id="L737" class="ln">   737  </span>	o.Type = *all.Type
+<span id="L738" class="ln">   738  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L739" class="ln">   739  </span>		o.AdditionalProperties = additionalProperties
+<span id="L740" class="ln">   740  </span>	}
+<span id="L741" class="ln">   741  </span>
+<span id="L742" class="ln">   742  </span>	return nil
+<span id="L743" class="ln">   743  </span>}
+<span id="L744" class="ln">   744  </span>
 </pre><p></p>
 
 <div id="footer">

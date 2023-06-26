@@ -688,69 +688,68 @@
 <span id="L631" class="ln">   631  </span>		VitalsMetrics       []SyntheticsCoreWebVitals     `json:&#34;vitalsMetrics,omitempty&#34;`
 <span id="L632" class="ln">   632  </span>		Warnings            []SyntheticsStepDetailWarning `json:&#34;warnings,omitempty&#34;`
 <span id="L633" class="ln">   633  </span>	}{}
-<span id="L634" class="ln">   634  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L635" class="ln">   635  </span>	if err != nil {
-<span id="L636" class="ln">   636  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L637" class="ln">   637  </span>		if err != nil {
-<span id="L638" class="ln">   638  </span>			return err
-<span id="L639" class="ln">   639  </span>		}
-<span id="L640" class="ln">   640  </span>		o.UnparsedObject = raw
-<span id="L641" class="ln">   641  </span>		return nil
-<span id="L642" class="ln">   642  </span>	}
-<span id="L643" class="ln">   643  </span>	additionalProperties := make(map[string]interface{})
-<span id="L644" class="ln">   644  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L645" class="ln">   645  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;browserErrors&#34;, &#34;checkType&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;error&#34;, &#34;playingTab&#34;, &#34;screenshotBucketKey&#34;, &#34;skipped&#34;, &#34;snapshotBucketKey&#34;, &#34;stepId&#34;, &#34;subTestStepDetails&#34;, &#34;timeToInteractive&#34;, &#34;type&#34;, &#34;url&#34;, &#34;value&#34;, &#34;vitalsMetrics&#34;, &#34;warnings&#34;})
-<span id="L646" class="ln">   646  </span>	} else {
-<span id="L647" class="ln">   647  </span>		return err
-<span id="L648" class="ln">   648  </span>	}
-<span id="L649" class="ln">   649  </span>	if v := all.CheckType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L650" class="ln">   650  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L651" class="ln">   651  </span>		if err != nil {
-<span id="L652" class="ln">   652  </span>			return err
-<span id="L653" class="ln">   653  </span>		}
-<span id="L654" class="ln">   654  </span>		o.UnparsedObject = raw
-<span id="L655" class="ln">   655  </span>		return nil
-<span id="L656" class="ln">   656  </span>	}
-<span id="L657" class="ln">   657  </span>	if v := all.PlayingTab; v != nil &amp;&amp; !v.IsValid() {
-<span id="L658" class="ln">   658  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L659" class="ln">   659  </span>		if err != nil {
-<span id="L660" class="ln">   660  </span>			return err
-<span id="L661" class="ln">   661  </span>		}
-<span id="L662" class="ln">   662  </span>		o.UnparsedObject = raw
-<span id="L663" class="ln">   663  </span>		return nil
-<span id="L664" class="ln">   664  </span>	}
-<span id="L665" class="ln">   665  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L666" class="ln">   666  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L667" class="ln">   667  </span>		if err != nil {
-<span id="L668" class="ln">   668  </span>			return err
-<span id="L669" class="ln">   669  </span>		}
-<span id="L670" class="ln">   670  </span>		o.UnparsedObject = raw
-<span id="L671" class="ln">   671  </span>		return nil
-<span id="L672" class="ln">   672  </span>	}
-<span id="L673" class="ln">   673  </span>	o.BrowserErrors = all.BrowserErrors
-<span id="L674" class="ln">   674  </span>	o.CheckType = all.CheckType
-<span id="L675" class="ln">   675  </span>	o.Description = all.Description
-<span id="L676" class="ln">   676  </span>	o.Duration = all.Duration
-<span id="L677" class="ln">   677  </span>	o.Error = all.Error
-<span id="L678" class="ln">   678  </span>	o.PlayingTab = all.PlayingTab
-<span id="L679" class="ln">   679  </span>	o.ScreenshotBucketKey = all.ScreenshotBucketKey
-<span id="L680" class="ln">   680  </span>	o.Skipped = all.Skipped
-<span id="L681" class="ln">   681  </span>	o.SnapshotBucketKey = all.SnapshotBucketKey
-<span id="L682" class="ln">   682  </span>	o.StepId = all.StepId
-<span id="L683" class="ln">   683  </span>	o.SubTestStepDetails = all.SubTestStepDetails
-<span id="L684" class="ln">   684  </span>	o.TimeToInteractive = all.TimeToInteractive
-<span id="L685" class="ln">   685  </span>	o.Type = all.Type
-<span id="L686" class="ln">   686  </span>	o.Url = all.Url
-<span id="L687" class="ln">   687  </span>	o.Value = all.Value
-<span id="L688" class="ln">   688  </span>	o.VitalsMetrics = all.VitalsMetrics
-<span id="L689" class="ln">   689  </span>	o.Warnings = all.Warnings
-<span id="L690" class="ln">   690  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L691" class="ln">   691  </span>		o.AdditionalProperties = additionalProperties
-<span id="L692" class="ln">   692  </span>	}
-<span id="L693" class="ln">   693  </span>
-<span id="L694" class="ln">   694  </span>	return nil
-<span id="L695" class="ln">   695  </span>}
-<span id="L696" class="ln">   696  </span>
+<span id="L634" class="ln">   634  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L635" class="ln">   635  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L636" class="ln">   636  </span>		if err != nil {
+<span id="L637" class="ln">   637  </span>			return err
+<span id="L638" class="ln">   638  </span>		}
+<span id="L639" class="ln">   639  </span>		o.UnparsedObject = raw
+<span id="L640" class="ln">   640  </span>		return nil
+<span id="L641" class="ln">   641  </span>	}
+<span id="L642" class="ln">   642  </span>	additionalProperties := make(map[string]interface{})
+<span id="L643" class="ln">   643  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L644" class="ln">   644  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;browserErrors&#34;, &#34;checkType&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;error&#34;, &#34;playingTab&#34;, &#34;screenshotBucketKey&#34;, &#34;skipped&#34;, &#34;snapshotBucketKey&#34;, &#34;stepId&#34;, &#34;subTestStepDetails&#34;, &#34;timeToInteractive&#34;, &#34;type&#34;, &#34;url&#34;, &#34;value&#34;, &#34;vitalsMetrics&#34;, &#34;warnings&#34;})
+<span id="L645" class="ln">   645  </span>	} else {
+<span id="L646" class="ln">   646  </span>		return err
+<span id="L647" class="ln">   647  </span>	}
+<span id="L648" class="ln">   648  </span>	if v := all.CheckType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L649" class="ln">   649  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L650" class="ln">   650  </span>		if err != nil {
+<span id="L651" class="ln">   651  </span>			return err
+<span id="L652" class="ln">   652  </span>		}
+<span id="L653" class="ln">   653  </span>		o.UnparsedObject = raw
+<span id="L654" class="ln">   654  </span>		return nil
+<span id="L655" class="ln">   655  </span>	}
+<span id="L656" class="ln">   656  </span>	if v := all.PlayingTab; v != nil &amp;&amp; !v.IsValid() {
+<span id="L657" class="ln">   657  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L658" class="ln">   658  </span>		if err != nil {
+<span id="L659" class="ln">   659  </span>			return err
+<span id="L660" class="ln">   660  </span>		}
+<span id="L661" class="ln">   661  </span>		o.UnparsedObject = raw
+<span id="L662" class="ln">   662  </span>		return nil
+<span id="L663" class="ln">   663  </span>	}
+<span id="L664" class="ln">   664  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L665" class="ln">   665  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L666" class="ln">   666  </span>		if err != nil {
+<span id="L667" class="ln">   667  </span>			return err
+<span id="L668" class="ln">   668  </span>		}
+<span id="L669" class="ln">   669  </span>		o.UnparsedObject = raw
+<span id="L670" class="ln">   670  </span>		return nil
+<span id="L671" class="ln">   671  </span>	}
+<span id="L672" class="ln">   672  </span>	o.BrowserErrors = all.BrowserErrors
+<span id="L673" class="ln">   673  </span>	o.CheckType = all.CheckType
+<span id="L674" class="ln">   674  </span>	o.Description = all.Description
+<span id="L675" class="ln">   675  </span>	o.Duration = all.Duration
+<span id="L676" class="ln">   676  </span>	o.Error = all.Error
+<span id="L677" class="ln">   677  </span>	o.PlayingTab = all.PlayingTab
+<span id="L678" class="ln">   678  </span>	o.ScreenshotBucketKey = all.ScreenshotBucketKey
+<span id="L679" class="ln">   679  </span>	o.Skipped = all.Skipped
+<span id="L680" class="ln">   680  </span>	o.SnapshotBucketKey = all.SnapshotBucketKey
+<span id="L681" class="ln">   681  </span>	o.StepId = all.StepId
+<span id="L682" class="ln">   682  </span>	o.SubTestStepDetails = all.SubTestStepDetails
+<span id="L683" class="ln">   683  </span>	o.TimeToInteractive = all.TimeToInteractive
+<span id="L684" class="ln">   684  </span>	o.Type = all.Type
+<span id="L685" class="ln">   685  </span>	o.Url = all.Url
+<span id="L686" class="ln">   686  </span>	o.Value = all.Value
+<span id="L687" class="ln">   687  </span>	o.VitalsMetrics = all.VitalsMetrics
+<span id="L688" class="ln">   688  </span>	o.Warnings = all.Warnings
+<span id="L689" class="ln">   689  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L690" class="ln">   690  </span>		o.AdditionalProperties = additionalProperties
+<span id="L691" class="ln">   691  </span>	}
+<span id="L692" class="ln">   692  </span>
+<span id="L693" class="ln">   693  </span>	return nil
+<span id="L694" class="ln">   694  </span>}
+<span id="L695" class="ln">   695  </span>
 </pre><p></p>
 
 <div id="footer">

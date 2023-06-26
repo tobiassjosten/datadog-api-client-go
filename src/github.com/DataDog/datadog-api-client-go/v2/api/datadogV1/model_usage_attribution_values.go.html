@@ -1877,80 +1877,79 @@
 <span id="L1820" class="ln">  1820  </span>		SnmpPercentage                   *float64 `json:&#34;snmp_percentage,omitempty&#34;`
 <span id="L1821" class="ln">  1821  </span>		SnmpUsage                        *float64 `json:&#34;snmp_usage,omitempty&#34;`
 <span id="L1822" class="ln">  1822  </span>	}{}
-<span id="L1823" class="ln">  1823  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L1824" class="ln">  1824  </span>	if err != nil {
-<span id="L1825" class="ln">  1825  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1826" class="ln">  1826  </span>		if err != nil {
-<span id="L1827" class="ln">  1827  </span>			return err
-<span id="L1828" class="ln">  1828  </span>		}
-<span id="L1829" class="ln">  1829  </span>		o.UnparsedObject = raw
-<span id="L1830" class="ln">  1830  </span>		return nil
-<span id="L1831" class="ln">  1831  </span>	}
-<span id="L1832" class="ln">  1832  </span>	additionalProperties := make(map[string]interface{})
-<span id="L1833" class="ln">  1833  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L1834" class="ln">  1834  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;api_percentage&#34;, &#34;api_usage&#34;, &#34;apm_fargate_percentage&#34;, &#34;apm_fargate_usage&#34;, &#34;apm_host_percentage&#34;, &#34;apm_host_usage&#34;, &#34;appsec_fargate_percentage&#34;, &#34;appsec_fargate_usage&#34;, &#34;appsec_percentage&#34;, &#34;appsec_usage&#34;, &#34;browser_percentage&#34;, &#34;browser_usage&#34;, &#34;container_percentage&#34;, &#34;container_usage&#34;, &#34;cspm_container_percentage&#34;, &#34;cspm_container_usage&#34;, &#34;cspm_host_percentage&#34;, &#34;cspm_host_usage&#34;, &#34;custom_timeseries_percentage&#34;, &#34;custom_timeseries_usage&#34;, &#34;cws_container_percentage&#34;, &#34;cws_container_usage&#34;, &#34;cws_host_percentage&#34;, &#34;cws_host_usage&#34;, &#34;dbm_hosts_percentage&#34;, &#34;dbm_hosts_usage&#34;, &#34;dbm_queries_percentage&#34;, &#34;dbm_queries_usage&#34;, &#34;estimated_indexed_logs_percentage&#34;, &#34;estimated_indexed_logs_usage&#34;, &#34;estimated_indexed_spans_percentage&#34;, &#34;estimated_indexed_spans_usage&#34;, &#34;estimated_ingested_logs_percentage&#34;, &#34;estimated_ingested_logs_usage&#34;, &#34;estimated_ingested_spans_percentage&#34;, &#34;estimated_ingested_spans_usage&#34;, &#34;estimated_rum_sessions_percentage&#34;, &#34;estimated_rum_sessions_usage&#34;, &#34;infra_host_percentage&#34;, &#34;infra_host_usage&#34;, &#34;lambda_functions_percentage&#34;, &#34;lambda_functions_usage&#34;, &#34;lambda_invocations_percentage&#34;, &#34;lambda_invocations_usage&#34;, &#34;npm_host_percentage&#34;, &#34;npm_host_usage&#34;, &#34;profiled_container_percentage&#34;, &#34;profiled_container_usage&#34;, &#34;profiled_hosts_percentage&#34;, &#34;profiled_hosts_usage&#34;, &#34;snmp_percentage&#34;, &#34;snmp_usage&#34;})
-<span id="L1835" class="ln">  1835  </span>	} else {
-<span id="L1836" class="ln">  1836  </span>		return err
-<span id="L1837" class="ln">  1837  </span>	}
-<span id="L1838" class="ln">  1838  </span>	o.ApiPercentage = all.ApiPercentage
-<span id="L1839" class="ln">  1839  </span>	o.ApiUsage = all.ApiUsage
-<span id="L1840" class="ln">  1840  </span>	o.ApmFargatePercentage = all.ApmFargatePercentage
-<span id="L1841" class="ln">  1841  </span>	o.ApmFargateUsage = all.ApmFargateUsage
-<span id="L1842" class="ln">  1842  </span>	o.ApmHostPercentage = all.ApmHostPercentage
-<span id="L1843" class="ln">  1843  </span>	o.ApmHostUsage = all.ApmHostUsage
-<span id="L1844" class="ln">  1844  </span>	o.AppsecFargatePercentage = all.AppsecFargatePercentage
-<span id="L1845" class="ln">  1845  </span>	o.AppsecFargateUsage = all.AppsecFargateUsage
-<span id="L1846" class="ln">  1846  </span>	o.AppsecPercentage = all.AppsecPercentage
-<span id="L1847" class="ln">  1847  </span>	o.AppsecUsage = all.AppsecUsage
-<span id="L1848" class="ln">  1848  </span>	o.BrowserPercentage = all.BrowserPercentage
-<span id="L1849" class="ln">  1849  </span>	o.BrowserUsage = all.BrowserUsage
-<span id="L1850" class="ln">  1850  </span>	o.ContainerPercentage = all.ContainerPercentage
-<span id="L1851" class="ln">  1851  </span>	o.ContainerUsage = all.ContainerUsage
-<span id="L1852" class="ln">  1852  </span>	o.CspmContainerPercentage = all.CspmContainerPercentage
-<span id="L1853" class="ln">  1853  </span>	o.CspmContainerUsage = all.CspmContainerUsage
-<span id="L1854" class="ln">  1854  </span>	o.CspmHostPercentage = all.CspmHostPercentage
-<span id="L1855" class="ln">  1855  </span>	o.CspmHostUsage = all.CspmHostUsage
-<span id="L1856" class="ln">  1856  </span>	o.CustomTimeseriesPercentage = all.CustomTimeseriesPercentage
-<span id="L1857" class="ln">  1857  </span>	o.CustomTimeseriesUsage = all.CustomTimeseriesUsage
-<span id="L1858" class="ln">  1858  </span>	o.CwsContainerPercentage = all.CwsContainerPercentage
-<span id="L1859" class="ln">  1859  </span>	o.CwsContainerUsage = all.CwsContainerUsage
-<span id="L1860" class="ln">  1860  </span>	o.CwsHostPercentage = all.CwsHostPercentage
-<span id="L1861" class="ln">  1861  </span>	o.CwsHostUsage = all.CwsHostUsage
-<span id="L1862" class="ln">  1862  </span>	o.DbmHostsPercentage = all.DbmHostsPercentage
-<span id="L1863" class="ln">  1863  </span>	o.DbmHostsUsage = all.DbmHostsUsage
-<span id="L1864" class="ln">  1864  </span>	o.DbmQueriesPercentage = all.DbmQueriesPercentage
-<span id="L1865" class="ln">  1865  </span>	o.DbmQueriesUsage = all.DbmQueriesUsage
-<span id="L1866" class="ln">  1866  </span>	o.EstimatedIndexedLogsPercentage = all.EstimatedIndexedLogsPercentage
-<span id="L1867" class="ln">  1867  </span>	o.EstimatedIndexedLogsUsage = all.EstimatedIndexedLogsUsage
-<span id="L1868" class="ln">  1868  </span>	o.EstimatedIndexedSpansPercentage = all.EstimatedIndexedSpansPercentage
-<span id="L1869" class="ln">  1869  </span>	o.EstimatedIndexedSpansUsage = all.EstimatedIndexedSpansUsage
-<span id="L1870" class="ln">  1870  </span>	o.EstimatedIngestedLogsPercentage = all.EstimatedIngestedLogsPercentage
-<span id="L1871" class="ln">  1871  </span>	o.EstimatedIngestedLogsUsage = all.EstimatedIngestedLogsUsage
-<span id="L1872" class="ln">  1872  </span>	o.EstimatedIngestedSpansPercentage = all.EstimatedIngestedSpansPercentage
-<span id="L1873" class="ln">  1873  </span>	o.EstimatedIngestedSpansUsage = all.EstimatedIngestedSpansUsage
-<span id="L1874" class="ln">  1874  </span>	o.EstimatedRumSessionsPercentage = all.EstimatedRumSessionsPercentage
-<span id="L1875" class="ln">  1875  </span>	o.EstimatedRumSessionsUsage = all.EstimatedRumSessionsUsage
-<span id="L1876" class="ln">  1876  </span>	o.InfraHostPercentage = all.InfraHostPercentage
-<span id="L1877" class="ln">  1877  </span>	o.InfraHostUsage = all.InfraHostUsage
-<span id="L1878" class="ln">  1878  </span>	o.LambdaFunctionsPercentage = all.LambdaFunctionsPercentage
-<span id="L1879" class="ln">  1879  </span>	o.LambdaFunctionsUsage = all.LambdaFunctionsUsage
-<span id="L1880" class="ln">  1880  </span>	o.LambdaInvocationsPercentage = all.LambdaInvocationsPercentage
-<span id="L1881" class="ln">  1881  </span>	o.LambdaInvocationsUsage = all.LambdaInvocationsUsage
-<span id="L1882" class="ln">  1882  </span>	o.NpmHostPercentage = all.NpmHostPercentage
-<span id="L1883" class="ln">  1883  </span>	o.NpmHostUsage = all.NpmHostUsage
-<span id="L1884" class="ln">  1884  </span>	o.ProfiledContainerPercentage = all.ProfiledContainerPercentage
-<span id="L1885" class="ln">  1885  </span>	o.ProfiledContainerUsage = all.ProfiledContainerUsage
-<span id="L1886" class="ln">  1886  </span>	o.ProfiledHostsPercentage = all.ProfiledHostsPercentage
-<span id="L1887" class="ln">  1887  </span>	o.ProfiledHostsUsage = all.ProfiledHostsUsage
-<span id="L1888" class="ln">  1888  </span>	o.SnmpPercentage = all.SnmpPercentage
-<span id="L1889" class="ln">  1889  </span>	o.SnmpUsage = all.SnmpUsage
-<span id="L1890" class="ln">  1890  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L1891" class="ln">  1891  </span>		o.AdditionalProperties = additionalProperties
-<span id="L1892" class="ln">  1892  </span>	}
-<span id="L1893" class="ln">  1893  </span>
-<span id="L1894" class="ln">  1894  </span>	return nil
-<span id="L1895" class="ln">  1895  </span>}
-<span id="L1896" class="ln">  1896  </span>
+<span id="L1823" class="ln">  1823  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L1824" class="ln">  1824  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L1825" class="ln">  1825  </span>		if err != nil {
+<span id="L1826" class="ln">  1826  </span>			return err
+<span id="L1827" class="ln">  1827  </span>		}
+<span id="L1828" class="ln">  1828  </span>		o.UnparsedObject = raw
+<span id="L1829" class="ln">  1829  </span>		return nil
+<span id="L1830" class="ln">  1830  </span>	}
+<span id="L1831" class="ln">  1831  </span>	additionalProperties := make(map[string]interface{})
+<span id="L1832" class="ln">  1832  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L1833" class="ln">  1833  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;api_percentage&#34;, &#34;api_usage&#34;, &#34;apm_fargate_percentage&#34;, &#34;apm_fargate_usage&#34;, &#34;apm_host_percentage&#34;, &#34;apm_host_usage&#34;, &#34;appsec_fargate_percentage&#34;, &#34;appsec_fargate_usage&#34;, &#34;appsec_percentage&#34;, &#34;appsec_usage&#34;, &#34;browser_percentage&#34;, &#34;browser_usage&#34;, &#34;container_percentage&#34;, &#34;container_usage&#34;, &#34;cspm_container_percentage&#34;, &#34;cspm_container_usage&#34;, &#34;cspm_host_percentage&#34;, &#34;cspm_host_usage&#34;, &#34;custom_timeseries_percentage&#34;, &#34;custom_timeseries_usage&#34;, &#34;cws_container_percentage&#34;, &#34;cws_container_usage&#34;, &#34;cws_host_percentage&#34;, &#34;cws_host_usage&#34;, &#34;dbm_hosts_percentage&#34;, &#34;dbm_hosts_usage&#34;, &#34;dbm_queries_percentage&#34;, &#34;dbm_queries_usage&#34;, &#34;estimated_indexed_logs_percentage&#34;, &#34;estimated_indexed_logs_usage&#34;, &#34;estimated_indexed_spans_percentage&#34;, &#34;estimated_indexed_spans_usage&#34;, &#34;estimated_ingested_logs_percentage&#34;, &#34;estimated_ingested_logs_usage&#34;, &#34;estimated_ingested_spans_percentage&#34;, &#34;estimated_ingested_spans_usage&#34;, &#34;estimated_rum_sessions_percentage&#34;, &#34;estimated_rum_sessions_usage&#34;, &#34;infra_host_percentage&#34;, &#34;infra_host_usage&#34;, &#34;lambda_functions_percentage&#34;, &#34;lambda_functions_usage&#34;, &#34;lambda_invocations_percentage&#34;, &#34;lambda_invocations_usage&#34;, &#34;npm_host_percentage&#34;, &#34;npm_host_usage&#34;, &#34;profiled_container_percentage&#34;, &#34;profiled_container_usage&#34;, &#34;profiled_hosts_percentage&#34;, &#34;profiled_hosts_usage&#34;, &#34;snmp_percentage&#34;, &#34;snmp_usage&#34;})
+<span id="L1834" class="ln">  1834  </span>	} else {
+<span id="L1835" class="ln">  1835  </span>		return err
+<span id="L1836" class="ln">  1836  </span>	}
+<span id="L1837" class="ln">  1837  </span>	o.ApiPercentage = all.ApiPercentage
+<span id="L1838" class="ln">  1838  </span>	o.ApiUsage = all.ApiUsage
+<span id="L1839" class="ln">  1839  </span>	o.ApmFargatePercentage = all.ApmFargatePercentage
+<span id="L1840" class="ln">  1840  </span>	o.ApmFargateUsage = all.ApmFargateUsage
+<span id="L1841" class="ln">  1841  </span>	o.ApmHostPercentage = all.ApmHostPercentage
+<span id="L1842" class="ln">  1842  </span>	o.ApmHostUsage = all.ApmHostUsage
+<span id="L1843" class="ln">  1843  </span>	o.AppsecFargatePercentage = all.AppsecFargatePercentage
+<span id="L1844" class="ln">  1844  </span>	o.AppsecFargateUsage = all.AppsecFargateUsage
+<span id="L1845" class="ln">  1845  </span>	o.AppsecPercentage = all.AppsecPercentage
+<span id="L1846" class="ln">  1846  </span>	o.AppsecUsage = all.AppsecUsage
+<span id="L1847" class="ln">  1847  </span>	o.BrowserPercentage = all.BrowserPercentage
+<span id="L1848" class="ln">  1848  </span>	o.BrowserUsage = all.BrowserUsage
+<span id="L1849" class="ln">  1849  </span>	o.ContainerPercentage = all.ContainerPercentage
+<span id="L1850" class="ln">  1850  </span>	o.ContainerUsage = all.ContainerUsage
+<span id="L1851" class="ln">  1851  </span>	o.CspmContainerPercentage = all.CspmContainerPercentage
+<span id="L1852" class="ln">  1852  </span>	o.CspmContainerUsage = all.CspmContainerUsage
+<span id="L1853" class="ln">  1853  </span>	o.CspmHostPercentage = all.CspmHostPercentage
+<span id="L1854" class="ln">  1854  </span>	o.CspmHostUsage = all.CspmHostUsage
+<span id="L1855" class="ln">  1855  </span>	o.CustomTimeseriesPercentage = all.CustomTimeseriesPercentage
+<span id="L1856" class="ln">  1856  </span>	o.CustomTimeseriesUsage = all.CustomTimeseriesUsage
+<span id="L1857" class="ln">  1857  </span>	o.CwsContainerPercentage = all.CwsContainerPercentage
+<span id="L1858" class="ln">  1858  </span>	o.CwsContainerUsage = all.CwsContainerUsage
+<span id="L1859" class="ln">  1859  </span>	o.CwsHostPercentage = all.CwsHostPercentage
+<span id="L1860" class="ln">  1860  </span>	o.CwsHostUsage = all.CwsHostUsage
+<span id="L1861" class="ln">  1861  </span>	o.DbmHostsPercentage = all.DbmHostsPercentage
+<span id="L1862" class="ln">  1862  </span>	o.DbmHostsUsage = all.DbmHostsUsage
+<span id="L1863" class="ln">  1863  </span>	o.DbmQueriesPercentage = all.DbmQueriesPercentage
+<span id="L1864" class="ln">  1864  </span>	o.DbmQueriesUsage = all.DbmQueriesUsage
+<span id="L1865" class="ln">  1865  </span>	o.EstimatedIndexedLogsPercentage = all.EstimatedIndexedLogsPercentage
+<span id="L1866" class="ln">  1866  </span>	o.EstimatedIndexedLogsUsage = all.EstimatedIndexedLogsUsage
+<span id="L1867" class="ln">  1867  </span>	o.EstimatedIndexedSpansPercentage = all.EstimatedIndexedSpansPercentage
+<span id="L1868" class="ln">  1868  </span>	o.EstimatedIndexedSpansUsage = all.EstimatedIndexedSpansUsage
+<span id="L1869" class="ln">  1869  </span>	o.EstimatedIngestedLogsPercentage = all.EstimatedIngestedLogsPercentage
+<span id="L1870" class="ln">  1870  </span>	o.EstimatedIngestedLogsUsage = all.EstimatedIngestedLogsUsage
+<span id="L1871" class="ln">  1871  </span>	o.EstimatedIngestedSpansPercentage = all.EstimatedIngestedSpansPercentage
+<span id="L1872" class="ln">  1872  </span>	o.EstimatedIngestedSpansUsage = all.EstimatedIngestedSpansUsage
+<span id="L1873" class="ln">  1873  </span>	o.EstimatedRumSessionsPercentage = all.EstimatedRumSessionsPercentage
+<span id="L1874" class="ln">  1874  </span>	o.EstimatedRumSessionsUsage = all.EstimatedRumSessionsUsage
+<span id="L1875" class="ln">  1875  </span>	o.InfraHostPercentage = all.InfraHostPercentage
+<span id="L1876" class="ln">  1876  </span>	o.InfraHostUsage = all.InfraHostUsage
+<span id="L1877" class="ln">  1877  </span>	o.LambdaFunctionsPercentage = all.LambdaFunctionsPercentage
+<span id="L1878" class="ln">  1878  </span>	o.LambdaFunctionsUsage = all.LambdaFunctionsUsage
+<span id="L1879" class="ln">  1879  </span>	o.LambdaInvocationsPercentage = all.LambdaInvocationsPercentage
+<span id="L1880" class="ln">  1880  </span>	o.LambdaInvocationsUsage = all.LambdaInvocationsUsage
+<span id="L1881" class="ln">  1881  </span>	o.NpmHostPercentage = all.NpmHostPercentage
+<span id="L1882" class="ln">  1882  </span>	o.NpmHostUsage = all.NpmHostUsage
+<span id="L1883" class="ln">  1883  </span>	o.ProfiledContainerPercentage = all.ProfiledContainerPercentage
+<span id="L1884" class="ln">  1884  </span>	o.ProfiledContainerUsage = all.ProfiledContainerUsage
+<span id="L1885" class="ln">  1885  </span>	o.ProfiledHostsPercentage = all.ProfiledHostsPercentage
+<span id="L1886" class="ln">  1886  </span>	o.ProfiledHostsUsage = all.ProfiledHostsUsage
+<span id="L1887" class="ln">  1887  </span>	o.SnmpPercentage = all.SnmpPercentage
+<span id="L1888" class="ln">  1888  </span>	o.SnmpUsage = all.SnmpUsage
+<span id="L1889" class="ln">  1889  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L1890" class="ln">  1890  </span>		o.AdditionalProperties = additionalProperties
+<span id="L1891" class="ln">  1891  </span>	}
+<span id="L1892" class="ln">  1892  </span>
+<span id="L1893" class="ln">  1893  </span>	return nil
+<span id="L1894" class="ln">  1894  </span>}
+<span id="L1895" class="ln">  1895  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -226,72 +226,62 @@
 <span id="L169" class="ln">   169  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L170" class="ln">   170  </span>func (o *MetricsScalarQuery) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L171" class="ln">   171  </span>	raw := map[string]interface{}{}
-<span id="L172" class="ln">   172  </span>	required := struct {
+<span id="L172" class="ln">   172  </span>	all := struct {
 <span id="L173" class="ln">   173  </span>		Aggregator *MetricsAggregator `json:&#34;aggregator&#34;`
 <span id="L174" class="ln">   174  </span>		DataSource *MetricsDataSource `json:&#34;data_source&#34;`
-<span id="L175" class="ln">   175  </span>		Query      *string            `json:&#34;query&#34;`
-<span id="L176" class="ln">   176  </span>	}{}
-<span id="L177" class="ln">   177  </span>	all := struct {
-<span id="L178" class="ln">   178  </span>		Aggregator MetricsAggregator `json:&#34;aggregator&#34;`
-<span id="L179" class="ln">   179  </span>		DataSource MetricsDataSource `json:&#34;data_source&#34;`
-<span id="L180" class="ln">   180  </span>		Name       *string           `json:&#34;name,omitempty&#34;`
-<span id="L181" class="ln">   181  </span>		Query      string            `json:&#34;query&#34;`
-<span id="L182" class="ln">   182  </span>	}{}
-<span id="L183" class="ln">   183  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L184" class="ln">   184  </span>	if err != nil {
-<span id="L185" class="ln">   185  </span>		return err
-<span id="L186" class="ln">   186  </span>	}
-<span id="L187" class="ln">   187  </span>	if required.Aggregator == nil {
-<span id="L188" class="ln">   188  </span>		return fmt.Errorf(&#34;required field aggregator missing&#34;)
-<span id="L189" class="ln">   189  </span>	}
-<span id="L190" class="ln">   190  </span>	if required.DataSource == nil {
-<span id="L191" class="ln">   191  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
-<span id="L192" class="ln">   192  </span>	}
-<span id="L193" class="ln">   193  </span>	if required.Query == nil {
-<span id="L194" class="ln">   194  </span>		return fmt.Errorf(&#34;required field query missing&#34;)
-<span id="L195" class="ln">   195  </span>	}
-<span id="L196" class="ln">   196  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L197" class="ln">   197  </span>	if err != nil {
-<span id="L198" class="ln">   198  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L199" class="ln">   199  </span>		if err != nil {
-<span id="L200" class="ln">   200  </span>			return err
-<span id="L201" class="ln">   201  </span>		}
-<span id="L202" class="ln">   202  </span>		o.UnparsedObject = raw
-<span id="L203" class="ln">   203  </span>		return nil
-<span id="L204" class="ln">   204  </span>	}
-<span id="L205" class="ln">   205  </span>	additionalProperties := make(map[string]interface{})
-<span id="L206" class="ln">   206  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L207" class="ln">   207  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregator&#34;, &#34;data_source&#34;, &#34;name&#34;, &#34;query&#34;})
-<span id="L208" class="ln">   208  </span>	} else {
-<span id="L209" class="ln">   209  </span>		return err
-<span id="L210" class="ln">   210  </span>	}
-<span id="L211" class="ln">   211  </span>	if v := all.Aggregator; !v.IsValid() {
-<span id="L212" class="ln">   212  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L213" class="ln">   213  </span>		if err != nil {
-<span id="L214" class="ln">   214  </span>			return err
-<span id="L215" class="ln">   215  </span>		}
-<span id="L216" class="ln">   216  </span>		o.UnparsedObject = raw
-<span id="L217" class="ln">   217  </span>		return nil
-<span id="L218" class="ln">   218  </span>	}
-<span id="L219" class="ln">   219  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L220" class="ln">   220  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L221" class="ln">   221  </span>		if err != nil {
-<span id="L222" class="ln">   222  </span>			return err
-<span id="L223" class="ln">   223  </span>		}
-<span id="L224" class="ln">   224  </span>		o.UnparsedObject = raw
-<span id="L225" class="ln">   225  </span>		return nil
-<span id="L226" class="ln">   226  </span>	}
-<span id="L227" class="ln">   227  </span>	o.Aggregator = all.Aggregator
-<span id="L228" class="ln">   228  </span>	o.DataSource = all.DataSource
-<span id="L229" class="ln">   229  </span>	o.Name = all.Name
-<span id="L230" class="ln">   230  </span>	o.Query = all.Query
-<span id="L231" class="ln">   231  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L232" class="ln">   232  </span>		o.AdditionalProperties = additionalProperties
-<span id="L233" class="ln">   233  </span>	}
-<span id="L234" class="ln">   234  </span>
-<span id="L235" class="ln">   235  </span>	return nil
-<span id="L236" class="ln">   236  </span>}
-<span id="L237" class="ln">   237  </span>
+<span id="L175" class="ln">   175  </span>		Name       *string            `json:&#34;name,omitempty&#34;`
+<span id="L176" class="ln">   176  </span>		Query      *string            `json:&#34;query&#34;`
+<span id="L177" class="ln">   177  </span>	}{}
+<span id="L178" class="ln">   178  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L179" class="ln">   179  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L180" class="ln">   180  </span>		if err != nil {
+<span id="L181" class="ln">   181  </span>			return err
+<span id="L182" class="ln">   182  </span>		}
+<span id="L183" class="ln">   183  </span>		o.UnparsedObject = raw
+<span id="L184" class="ln">   184  </span>		return nil
+<span id="L185" class="ln">   185  </span>	}
+<span id="L186" class="ln">   186  </span>	if all.Aggregator == nil {
+<span id="L187" class="ln">   187  </span>		return fmt.Errorf(&#34;required field aggregator missing&#34;)
+<span id="L188" class="ln">   188  </span>	}
+<span id="L189" class="ln">   189  </span>	if all.DataSource == nil {
+<span id="L190" class="ln">   190  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
+<span id="L191" class="ln">   191  </span>	}
+<span id="L192" class="ln">   192  </span>	if all.Query == nil {
+<span id="L193" class="ln">   193  </span>		return fmt.Errorf(&#34;required field query missing&#34;)
+<span id="L194" class="ln">   194  </span>	}
+<span id="L195" class="ln">   195  </span>	additionalProperties := make(map[string]interface{})
+<span id="L196" class="ln">   196  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L197" class="ln">   197  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregator&#34;, &#34;data_source&#34;, &#34;name&#34;, &#34;query&#34;})
+<span id="L198" class="ln">   198  </span>	} else {
+<span id="L199" class="ln">   199  </span>		return err
+<span id="L200" class="ln">   200  </span>	}
+<span id="L201" class="ln">   201  </span>	if v := all.Aggregator; !v.IsValid() {
+<span id="L202" class="ln">   202  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L203" class="ln">   203  </span>		if err != nil {
+<span id="L204" class="ln">   204  </span>			return err
+<span id="L205" class="ln">   205  </span>		}
+<span id="L206" class="ln">   206  </span>		o.UnparsedObject = raw
+<span id="L207" class="ln">   207  </span>		return nil
+<span id="L208" class="ln">   208  </span>	}
+<span id="L209" class="ln">   209  </span>	if v := all.DataSource; !v.IsValid() {
+<span id="L210" class="ln">   210  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L211" class="ln">   211  </span>		if err != nil {
+<span id="L212" class="ln">   212  </span>			return err
+<span id="L213" class="ln">   213  </span>		}
+<span id="L214" class="ln">   214  </span>		o.UnparsedObject = raw
+<span id="L215" class="ln">   215  </span>		return nil
+<span id="L216" class="ln">   216  </span>	}
+<span id="L217" class="ln">   217  </span>	o.Aggregator = *all.Aggregator
+<span id="L218" class="ln">   218  </span>	o.DataSource = *all.DataSource
+<span id="L219" class="ln">   219  </span>	o.Name = all.Name
+<span id="L220" class="ln">   220  </span>	o.Query = *all.Query
+<span id="L221" class="ln">   221  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L222" class="ln">   222  </span>		o.AdditionalProperties = additionalProperties
+<span id="L223" class="ln">   223  </span>	}
+<span id="L224" class="ln">   224  </span>
+<span id="L225" class="ln">   225  </span>	return nil
+<span id="L226" class="ln">   226  </span>}
+<span id="L227" class="ln">   227  </span>
 </pre><p></p>
 
 <div id="footer">

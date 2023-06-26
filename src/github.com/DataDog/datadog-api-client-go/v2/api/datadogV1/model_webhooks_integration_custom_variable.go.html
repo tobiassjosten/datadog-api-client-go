@@ -190,54 +190,44 @@
 <span id="L133" class="ln">   133  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L134" class="ln">   134  </span>func (o *WebhooksIntegrationCustomVariable) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L135" class="ln">   135  </span>	raw := map[string]interface{}{}
-<span id="L136" class="ln">   136  </span>	required := struct {
+<span id="L136" class="ln">   136  </span>	all := struct {
 <span id="L137" class="ln">   137  </span>		IsSecret *bool   `json:&#34;is_secret&#34;`
 <span id="L138" class="ln">   138  </span>		Name     *string `json:&#34;name&#34;`
 <span id="L139" class="ln">   139  </span>		Value    *string `json:&#34;value&#34;`
 <span id="L140" class="ln">   140  </span>	}{}
-<span id="L141" class="ln">   141  </span>	all := struct {
-<span id="L142" class="ln">   142  </span>		IsSecret bool   `json:&#34;is_secret&#34;`
-<span id="L143" class="ln">   143  </span>		Name     string `json:&#34;name&#34;`
-<span id="L144" class="ln">   144  </span>		Value    string `json:&#34;value&#34;`
-<span id="L145" class="ln">   145  </span>	}{}
-<span id="L146" class="ln">   146  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L147" class="ln">   147  </span>	if err != nil {
-<span id="L148" class="ln">   148  </span>		return err
-<span id="L149" class="ln">   149  </span>	}
-<span id="L150" class="ln">   150  </span>	if required.IsSecret == nil {
-<span id="L151" class="ln">   151  </span>		return fmt.Errorf(&#34;required field is_secret missing&#34;)
-<span id="L152" class="ln">   152  </span>	}
-<span id="L153" class="ln">   153  </span>	if required.Name == nil {
-<span id="L154" class="ln">   154  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
-<span id="L155" class="ln">   155  </span>	}
-<span id="L156" class="ln">   156  </span>	if required.Value == nil {
-<span id="L157" class="ln">   157  </span>		return fmt.Errorf(&#34;required field value missing&#34;)
-<span id="L158" class="ln">   158  </span>	}
-<span id="L159" class="ln">   159  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L160" class="ln">   160  </span>	if err != nil {
-<span id="L161" class="ln">   161  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L162" class="ln">   162  </span>		if err != nil {
-<span id="L163" class="ln">   163  </span>			return err
-<span id="L164" class="ln">   164  </span>		}
-<span id="L165" class="ln">   165  </span>		o.UnparsedObject = raw
-<span id="L166" class="ln">   166  </span>		return nil
-<span id="L167" class="ln">   167  </span>	}
-<span id="L168" class="ln">   168  </span>	additionalProperties := make(map[string]interface{})
-<span id="L169" class="ln">   169  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L170" class="ln">   170  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;is_secret&#34;, &#34;name&#34;, &#34;value&#34;})
-<span id="L171" class="ln">   171  </span>	} else {
-<span id="L172" class="ln">   172  </span>		return err
-<span id="L173" class="ln">   173  </span>	}
-<span id="L174" class="ln">   174  </span>	o.IsSecret = all.IsSecret
-<span id="L175" class="ln">   175  </span>	o.Name = all.Name
-<span id="L176" class="ln">   176  </span>	o.Value = all.Value
-<span id="L177" class="ln">   177  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L178" class="ln">   178  </span>		o.AdditionalProperties = additionalProperties
-<span id="L179" class="ln">   179  </span>	}
-<span id="L180" class="ln">   180  </span>
-<span id="L181" class="ln">   181  </span>	return nil
-<span id="L182" class="ln">   182  </span>}
-<span id="L183" class="ln">   183  </span>
+<span id="L141" class="ln">   141  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L142" class="ln">   142  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L143" class="ln">   143  </span>		if err != nil {
+<span id="L144" class="ln">   144  </span>			return err
+<span id="L145" class="ln">   145  </span>		}
+<span id="L146" class="ln">   146  </span>		o.UnparsedObject = raw
+<span id="L147" class="ln">   147  </span>		return nil
+<span id="L148" class="ln">   148  </span>	}
+<span id="L149" class="ln">   149  </span>	if all.IsSecret == nil {
+<span id="L150" class="ln">   150  </span>		return fmt.Errorf(&#34;required field is_secret missing&#34;)
+<span id="L151" class="ln">   151  </span>	}
+<span id="L152" class="ln">   152  </span>	if all.Name == nil {
+<span id="L153" class="ln">   153  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L154" class="ln">   154  </span>	}
+<span id="L155" class="ln">   155  </span>	if all.Value == nil {
+<span id="L156" class="ln">   156  </span>		return fmt.Errorf(&#34;required field value missing&#34;)
+<span id="L157" class="ln">   157  </span>	}
+<span id="L158" class="ln">   158  </span>	additionalProperties := make(map[string]interface{})
+<span id="L159" class="ln">   159  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L160" class="ln">   160  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;is_secret&#34;, &#34;name&#34;, &#34;value&#34;})
+<span id="L161" class="ln">   161  </span>	} else {
+<span id="L162" class="ln">   162  </span>		return err
+<span id="L163" class="ln">   163  </span>	}
+<span id="L164" class="ln">   164  </span>	o.IsSecret = *all.IsSecret
+<span id="L165" class="ln">   165  </span>	o.Name = *all.Name
+<span id="L166" class="ln">   166  </span>	o.Value = *all.Value
+<span id="L167" class="ln">   167  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L168" class="ln">   168  </span>		o.AdditionalProperties = additionalProperties
+<span id="L169" class="ln">   169  </span>	}
+<span id="L170" class="ln">   170  </span>
+<span id="L171" class="ln">   171  </span>	return nil
+<span id="L172" class="ln">   172  </span>}
+<span id="L173" class="ln">   173  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -215,46 +215,45 @@
 <span id="L158" class="ln">   158  </span>		Id         *string                    `json:&#34;id,omitempty&#34;`
 <span id="L159" class="ln">   159  </span>		Type       *DetailedFindingType       `json:&#34;type,omitempty&#34;`
 <span id="L160" class="ln">   160  </span>	}{}
-<span id="L161" class="ln">   161  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L162" class="ln">   162  </span>	if err != nil {
-<span id="L163" class="ln">   163  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L164" class="ln">   164  </span>		if err != nil {
-<span id="L165" class="ln">   165  </span>			return err
-<span id="L166" class="ln">   166  </span>		}
-<span id="L167" class="ln">   167  </span>		o.UnparsedObject = raw
-<span id="L168" class="ln">   168  </span>		return nil
-<span id="L169" class="ln">   169  </span>	}
-<span id="L170" class="ln">   170  </span>	additionalProperties := make(map[string]interface{})
-<span id="L171" class="ln">   171  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L172" class="ln">   172  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;id&#34;, &#34;type&#34;})
-<span id="L173" class="ln">   173  </span>	} else {
-<span id="L174" class="ln">   174  </span>		return err
-<span id="L175" class="ln">   175  </span>	}
-<span id="L176" class="ln">   176  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L177" class="ln">   177  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L178" class="ln">   178  </span>		if err != nil {
-<span id="L179" class="ln">   179  </span>			return err
-<span id="L180" class="ln">   180  </span>		}
-<span id="L181" class="ln">   181  </span>		o.UnparsedObject = raw
-<span id="L182" class="ln">   182  </span>		return nil
-<span id="L183" class="ln">   183  </span>	}
-<span id="L184" class="ln">   184  </span>	if all.Attributes != nil &amp;&amp; all.Attributes.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L185" class="ln">   185  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L186" class="ln">   186  </span>		if err != nil {
-<span id="L187" class="ln">   187  </span>			return err
-<span id="L188" class="ln">   188  </span>		}
-<span id="L189" class="ln">   189  </span>		o.UnparsedObject = raw
-<span id="L190" class="ln">   190  </span>	}
-<span id="L191" class="ln">   191  </span>	o.Attributes = all.Attributes
-<span id="L192" class="ln">   192  </span>	o.Id = all.Id
-<span id="L193" class="ln">   193  </span>	o.Type = all.Type
-<span id="L194" class="ln">   194  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L195" class="ln">   195  </span>		o.AdditionalProperties = additionalProperties
-<span id="L196" class="ln">   196  </span>	}
-<span id="L197" class="ln">   197  </span>
-<span id="L198" class="ln">   198  </span>	return nil
-<span id="L199" class="ln">   199  </span>}
-<span id="L200" class="ln">   200  </span>
+<span id="L161" class="ln">   161  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L162" class="ln">   162  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L163" class="ln">   163  </span>		if err != nil {
+<span id="L164" class="ln">   164  </span>			return err
+<span id="L165" class="ln">   165  </span>		}
+<span id="L166" class="ln">   166  </span>		o.UnparsedObject = raw
+<span id="L167" class="ln">   167  </span>		return nil
+<span id="L168" class="ln">   168  </span>	}
+<span id="L169" class="ln">   169  </span>	additionalProperties := make(map[string]interface{})
+<span id="L170" class="ln">   170  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L171" class="ln">   171  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;id&#34;, &#34;type&#34;})
+<span id="L172" class="ln">   172  </span>	} else {
+<span id="L173" class="ln">   173  </span>		return err
+<span id="L174" class="ln">   174  </span>	}
+<span id="L175" class="ln">   175  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L176" class="ln">   176  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L177" class="ln">   177  </span>		if err != nil {
+<span id="L178" class="ln">   178  </span>			return err
+<span id="L179" class="ln">   179  </span>		}
+<span id="L180" class="ln">   180  </span>		o.UnparsedObject = raw
+<span id="L181" class="ln">   181  </span>		return nil
+<span id="L182" class="ln">   182  </span>	}
+<span id="L183" class="ln">   183  </span>	if all.Attributes != nil &amp;&amp; all.Attributes.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L184" class="ln">   184  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L185" class="ln">   185  </span>		if err != nil {
+<span id="L186" class="ln">   186  </span>			return err
+<span id="L187" class="ln">   187  </span>		}
+<span id="L188" class="ln">   188  </span>		o.UnparsedObject = raw
+<span id="L189" class="ln">   189  </span>	}
+<span id="L190" class="ln">   190  </span>	o.Attributes = all.Attributes
+<span id="L191" class="ln">   191  </span>	o.Id = all.Id
+<span id="L192" class="ln">   192  </span>	o.Type = all.Type
+<span id="L193" class="ln">   193  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L194" class="ln">   194  </span>		o.AdditionalProperties = additionalProperties
+<span id="L195" class="ln">   195  </span>	}
+<span id="L196" class="ln">   196  </span>
+<span id="L197" class="ln">   197  </span>	return nil
+<span id="L198" class="ln">   198  </span>}
+<span id="L199" class="ln">   199  </span>
 </pre><p></p>
 
 <div id="footer">

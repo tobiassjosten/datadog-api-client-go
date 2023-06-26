@@ -295,41 +295,40 @@
 <span id="L238" class="ln">   238  </span>		StorageTier *LogsStorageTier `json:&#34;storage_tier,omitempty&#34;`
 <span id="L239" class="ln">   239  </span>		To          *string          `json:&#34;to,omitempty&#34;`
 <span id="L240" class="ln">   240  </span>	}{}
-<span id="L241" class="ln">   241  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L242" class="ln">   242  </span>	if err != nil {
-<span id="L243" class="ln">   243  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L244" class="ln">   244  </span>		if err != nil {
-<span id="L245" class="ln">   245  </span>			return err
-<span id="L246" class="ln">   246  </span>		}
-<span id="L247" class="ln">   247  </span>		o.UnparsedObject = raw
-<span id="L248" class="ln">   248  </span>		return nil
-<span id="L249" class="ln">   249  </span>	}
-<span id="L250" class="ln">   250  </span>	additionalProperties := make(map[string]interface{})
-<span id="L251" class="ln">   251  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L252" class="ln">   252  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;from&#34;, &#34;indexes&#34;, &#34;query&#34;, &#34;storage_tier&#34;, &#34;to&#34;})
-<span id="L253" class="ln">   253  </span>	} else {
-<span id="L254" class="ln">   254  </span>		return err
-<span id="L255" class="ln">   255  </span>	}
-<span id="L256" class="ln">   256  </span>	if v := all.StorageTier; v != nil &amp;&amp; !v.IsValid() {
-<span id="L257" class="ln">   257  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L258" class="ln">   258  </span>		if err != nil {
-<span id="L259" class="ln">   259  </span>			return err
-<span id="L260" class="ln">   260  </span>		}
-<span id="L261" class="ln">   261  </span>		o.UnparsedObject = raw
-<span id="L262" class="ln">   262  </span>		return nil
-<span id="L263" class="ln">   263  </span>	}
-<span id="L264" class="ln">   264  </span>	o.From = all.From
-<span id="L265" class="ln">   265  </span>	o.Indexes = all.Indexes
-<span id="L266" class="ln">   266  </span>	o.Query = all.Query
-<span id="L267" class="ln">   267  </span>	o.StorageTier = all.StorageTier
-<span id="L268" class="ln">   268  </span>	o.To = all.To
-<span id="L269" class="ln">   269  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L270" class="ln">   270  </span>		o.AdditionalProperties = additionalProperties
-<span id="L271" class="ln">   271  </span>	}
-<span id="L272" class="ln">   272  </span>
-<span id="L273" class="ln">   273  </span>	return nil
-<span id="L274" class="ln">   274  </span>}
-<span id="L275" class="ln">   275  </span>
+<span id="L241" class="ln">   241  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L242" class="ln">   242  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L243" class="ln">   243  </span>		if err != nil {
+<span id="L244" class="ln">   244  </span>			return err
+<span id="L245" class="ln">   245  </span>		}
+<span id="L246" class="ln">   246  </span>		o.UnparsedObject = raw
+<span id="L247" class="ln">   247  </span>		return nil
+<span id="L248" class="ln">   248  </span>	}
+<span id="L249" class="ln">   249  </span>	additionalProperties := make(map[string]interface{})
+<span id="L250" class="ln">   250  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L251" class="ln">   251  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;from&#34;, &#34;indexes&#34;, &#34;query&#34;, &#34;storage_tier&#34;, &#34;to&#34;})
+<span id="L252" class="ln">   252  </span>	} else {
+<span id="L253" class="ln">   253  </span>		return err
+<span id="L254" class="ln">   254  </span>	}
+<span id="L255" class="ln">   255  </span>	if v := all.StorageTier; v != nil &amp;&amp; !v.IsValid() {
+<span id="L256" class="ln">   256  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L257" class="ln">   257  </span>		if err != nil {
+<span id="L258" class="ln">   258  </span>			return err
+<span id="L259" class="ln">   259  </span>		}
+<span id="L260" class="ln">   260  </span>		o.UnparsedObject = raw
+<span id="L261" class="ln">   261  </span>		return nil
+<span id="L262" class="ln">   262  </span>	}
+<span id="L263" class="ln">   263  </span>	o.From = all.From
+<span id="L264" class="ln">   264  </span>	o.Indexes = all.Indexes
+<span id="L265" class="ln">   265  </span>	o.Query = all.Query
+<span id="L266" class="ln">   266  </span>	o.StorageTier = all.StorageTier
+<span id="L267" class="ln">   267  </span>	o.To = all.To
+<span id="L268" class="ln">   268  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L269" class="ln">   269  </span>		o.AdditionalProperties = additionalProperties
+<span id="L270" class="ln">   270  </span>	}
+<span id="L271" class="ln">   271  </span>
+<span id="L272" class="ln">   272  </span>	return nil
+<span id="L273" class="ln">   273  </span>}
+<span id="L274" class="ln">   274  </span>
 </pre><p></p>
 
 <div id="footer">

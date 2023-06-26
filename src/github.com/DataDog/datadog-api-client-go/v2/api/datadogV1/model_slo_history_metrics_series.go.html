@@ -223,63 +223,53 @@
 <span id="L166" class="ln">   166  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L167" class="ln">   167  </span>func (o *SLOHistoryMetricsSeries) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L168" class="ln">   168  </span>	raw := map[string]interface{}{}
-<span id="L169" class="ln">   169  </span>	required := struct {
-<span id="L170" class="ln">   170  </span>		Count  *int64     `json:&#34;count&#34;`
-<span id="L171" class="ln">   171  </span>		Sum    *float64   `json:&#34;sum&#34;`
-<span id="L172" class="ln">   172  </span>		Values *[]float64 `json:&#34;values&#34;`
-<span id="L173" class="ln">   173  </span>	}{}
-<span id="L174" class="ln">   174  </span>	all := struct {
-<span id="L175" class="ln">   175  </span>		Count    int64                            `json:&#34;count&#34;`
-<span id="L176" class="ln">   176  </span>		Metadata *SLOHistoryMetricsSeriesMetadata `json:&#34;metadata,omitempty&#34;`
-<span id="L177" class="ln">   177  </span>		Sum      float64                          `json:&#34;sum&#34;`
-<span id="L178" class="ln">   178  </span>		Values   []float64                        `json:&#34;values&#34;`
-<span id="L179" class="ln">   179  </span>	}{}
-<span id="L180" class="ln">   180  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L181" class="ln">   181  </span>	if err != nil {
-<span id="L182" class="ln">   182  </span>		return err
-<span id="L183" class="ln">   183  </span>	}
-<span id="L184" class="ln">   184  </span>	if required.Count == nil {
-<span id="L185" class="ln">   185  </span>		return fmt.Errorf(&#34;required field count missing&#34;)
-<span id="L186" class="ln">   186  </span>	}
-<span id="L187" class="ln">   187  </span>	if required.Sum == nil {
-<span id="L188" class="ln">   188  </span>		return fmt.Errorf(&#34;required field sum missing&#34;)
-<span id="L189" class="ln">   189  </span>	}
-<span id="L190" class="ln">   190  </span>	if required.Values == nil {
-<span id="L191" class="ln">   191  </span>		return fmt.Errorf(&#34;required field values missing&#34;)
-<span id="L192" class="ln">   192  </span>	}
-<span id="L193" class="ln">   193  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L194" class="ln">   194  </span>	if err != nil {
-<span id="L195" class="ln">   195  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L196" class="ln">   196  </span>		if err != nil {
-<span id="L197" class="ln">   197  </span>			return err
-<span id="L198" class="ln">   198  </span>		}
-<span id="L199" class="ln">   199  </span>		o.UnparsedObject = raw
-<span id="L200" class="ln">   200  </span>		return nil
-<span id="L201" class="ln">   201  </span>	}
-<span id="L202" class="ln">   202  </span>	additionalProperties := make(map[string]interface{})
-<span id="L203" class="ln">   203  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L204" class="ln">   204  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;count&#34;, &#34;metadata&#34;, &#34;sum&#34;, &#34;values&#34;})
-<span id="L205" class="ln">   205  </span>	} else {
-<span id="L206" class="ln">   206  </span>		return err
-<span id="L207" class="ln">   207  </span>	}
-<span id="L208" class="ln">   208  </span>	o.Count = all.Count
-<span id="L209" class="ln">   209  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L210" class="ln">   210  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L211" class="ln">   211  </span>		if err != nil {
-<span id="L212" class="ln">   212  </span>			return err
-<span id="L213" class="ln">   213  </span>		}
-<span id="L214" class="ln">   214  </span>		o.UnparsedObject = raw
-<span id="L215" class="ln">   215  </span>	}
-<span id="L216" class="ln">   216  </span>	o.Metadata = all.Metadata
-<span id="L217" class="ln">   217  </span>	o.Sum = all.Sum
-<span id="L218" class="ln">   218  </span>	o.Values = all.Values
-<span id="L219" class="ln">   219  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L220" class="ln">   220  </span>		o.AdditionalProperties = additionalProperties
-<span id="L221" class="ln">   221  </span>	}
-<span id="L222" class="ln">   222  </span>
-<span id="L223" class="ln">   223  </span>	return nil
-<span id="L224" class="ln">   224  </span>}
-<span id="L225" class="ln">   225  </span>
+<span id="L169" class="ln">   169  </span>	all := struct {
+<span id="L170" class="ln">   170  </span>		Count    *int64                           `json:&#34;count&#34;`
+<span id="L171" class="ln">   171  </span>		Metadata *SLOHistoryMetricsSeriesMetadata `json:&#34;metadata,omitempty&#34;`
+<span id="L172" class="ln">   172  </span>		Sum      *float64                         `json:&#34;sum&#34;`
+<span id="L173" class="ln">   173  </span>		Values   *[]float64                       `json:&#34;values&#34;`
+<span id="L174" class="ln">   174  </span>	}{}
+<span id="L175" class="ln">   175  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L176" class="ln">   176  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L177" class="ln">   177  </span>		if err != nil {
+<span id="L178" class="ln">   178  </span>			return err
+<span id="L179" class="ln">   179  </span>		}
+<span id="L180" class="ln">   180  </span>		o.UnparsedObject = raw
+<span id="L181" class="ln">   181  </span>		return nil
+<span id="L182" class="ln">   182  </span>	}
+<span id="L183" class="ln">   183  </span>	if all.Count == nil {
+<span id="L184" class="ln">   184  </span>		return fmt.Errorf(&#34;required field count missing&#34;)
+<span id="L185" class="ln">   185  </span>	}
+<span id="L186" class="ln">   186  </span>	if all.Sum == nil {
+<span id="L187" class="ln">   187  </span>		return fmt.Errorf(&#34;required field sum missing&#34;)
+<span id="L188" class="ln">   188  </span>	}
+<span id="L189" class="ln">   189  </span>	if all.Values == nil {
+<span id="L190" class="ln">   190  </span>		return fmt.Errorf(&#34;required field values missing&#34;)
+<span id="L191" class="ln">   191  </span>	}
+<span id="L192" class="ln">   192  </span>	additionalProperties := make(map[string]interface{})
+<span id="L193" class="ln">   193  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L194" class="ln">   194  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;count&#34;, &#34;metadata&#34;, &#34;sum&#34;, &#34;values&#34;})
+<span id="L195" class="ln">   195  </span>	} else {
+<span id="L196" class="ln">   196  </span>		return err
+<span id="L197" class="ln">   197  </span>	}
+<span id="L198" class="ln">   198  </span>	o.Count = *all.Count
+<span id="L199" class="ln">   199  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L200" class="ln">   200  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L201" class="ln">   201  </span>		if err != nil {
+<span id="L202" class="ln">   202  </span>			return err
+<span id="L203" class="ln">   203  </span>		}
+<span id="L204" class="ln">   204  </span>		o.UnparsedObject = raw
+<span id="L205" class="ln">   205  </span>	}
+<span id="L206" class="ln">   206  </span>	o.Metadata = all.Metadata
+<span id="L207" class="ln">   207  </span>	o.Sum = *all.Sum
+<span id="L208" class="ln">   208  </span>	o.Values = *all.Values
+<span id="L209" class="ln">   209  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L210" class="ln">   210  </span>		o.AdditionalProperties = additionalProperties
+<span id="L211" class="ln">   211  </span>	}
+<span id="L212" class="ln">   212  </span>
+<span id="L213" class="ln">   213  </span>	return nil
+<span id="L214" class="ln">   214  </span>}
+<span id="L215" class="ln">   215  </span>
 </pre><p></p>
 
 <div id="footer">

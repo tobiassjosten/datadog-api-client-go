@@ -438,112 +438,99 @@
 <span id="L381" class="ln">   381  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L382" class="ln">   382  </span>func (o *SyntheticsBrowserTest) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L383" class="ln">   383  </span>	raw := map[string]interface{}{}
-<span id="L384" class="ln">   384  </span>	required := struct {
+<span id="L384" class="ln">   384  </span>	all := struct {
 <span id="L385" class="ln">   385  </span>		Config    *SyntheticsBrowserTestConfig `json:&#34;config&#34;`
 <span id="L386" class="ln">   386  </span>		Locations *[]string                    `json:&#34;locations&#34;`
 <span id="L387" class="ln">   387  </span>		Message   *string                      `json:&#34;message&#34;`
-<span id="L388" class="ln">   388  </span>		Name      *string                      `json:&#34;name&#34;`
-<span id="L389" class="ln">   389  </span>		Options   *SyntheticsTestOptions       `json:&#34;options&#34;`
-<span id="L390" class="ln">   390  </span>		Type      *SyntheticsBrowserTestType   `json:&#34;type&#34;`
-<span id="L391" class="ln">   391  </span>	}{}
-<span id="L392" class="ln">   392  </span>	all := struct {
-<span id="L393" class="ln">   393  </span>		Config    SyntheticsBrowserTestConfig `json:&#34;config&#34;`
-<span id="L394" class="ln">   394  </span>		Locations []string                    `json:&#34;locations&#34;`
-<span id="L395" class="ln">   395  </span>		Message   string                      `json:&#34;message&#34;`
-<span id="L396" class="ln">   396  </span>		MonitorId *int64                      `json:&#34;monitor_id,omitempty&#34;`
-<span id="L397" class="ln">   397  </span>		Name      string                      `json:&#34;name&#34;`
-<span id="L398" class="ln">   398  </span>		Options   SyntheticsTestOptions       `json:&#34;options&#34;`
-<span id="L399" class="ln">   399  </span>		PublicId  *string                     `json:&#34;public_id,omitempty&#34;`
-<span id="L400" class="ln">   400  </span>		Status    *SyntheticsTestPauseStatus  `json:&#34;status,omitempty&#34;`
-<span id="L401" class="ln">   401  </span>		Steps     []SyntheticsStep            `json:&#34;steps,omitempty&#34;`
-<span id="L402" class="ln">   402  </span>		Tags      []string                    `json:&#34;tags,omitempty&#34;`
-<span id="L403" class="ln">   403  </span>		Type      SyntheticsBrowserTestType   `json:&#34;type&#34;`
-<span id="L404" class="ln">   404  </span>	}{}
-<span id="L405" class="ln">   405  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L406" class="ln">   406  </span>	if err != nil {
-<span id="L407" class="ln">   407  </span>		return err
-<span id="L408" class="ln">   408  </span>	}
-<span id="L409" class="ln">   409  </span>	if required.Config == nil {
-<span id="L410" class="ln">   410  </span>		return fmt.Errorf(&#34;required field config missing&#34;)
-<span id="L411" class="ln">   411  </span>	}
-<span id="L412" class="ln">   412  </span>	if required.Locations == nil {
-<span id="L413" class="ln">   413  </span>		return fmt.Errorf(&#34;required field locations missing&#34;)
-<span id="L414" class="ln">   414  </span>	}
-<span id="L415" class="ln">   415  </span>	if required.Message == nil {
-<span id="L416" class="ln">   416  </span>		return fmt.Errorf(&#34;required field message missing&#34;)
-<span id="L417" class="ln">   417  </span>	}
-<span id="L418" class="ln">   418  </span>	if required.Name == nil {
-<span id="L419" class="ln">   419  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
-<span id="L420" class="ln">   420  </span>	}
-<span id="L421" class="ln">   421  </span>	if required.Options == nil {
-<span id="L422" class="ln">   422  </span>		return fmt.Errorf(&#34;required field options missing&#34;)
-<span id="L423" class="ln">   423  </span>	}
-<span id="L424" class="ln">   424  </span>	if required.Type == nil {
-<span id="L425" class="ln">   425  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L426" class="ln">   426  </span>	}
-<span id="L427" class="ln">   427  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L428" class="ln">   428  </span>	if err != nil {
-<span id="L429" class="ln">   429  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L430" class="ln">   430  </span>		if err != nil {
-<span id="L431" class="ln">   431  </span>			return err
-<span id="L432" class="ln">   432  </span>		}
-<span id="L433" class="ln">   433  </span>		o.UnparsedObject = raw
-<span id="L434" class="ln">   434  </span>		return nil
-<span id="L435" class="ln">   435  </span>	}
-<span id="L436" class="ln">   436  </span>	additionalProperties := make(map[string]interface{})
-<span id="L437" class="ln">   437  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L438" class="ln">   438  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;config&#34;, &#34;locations&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;name&#34;, &#34;options&#34;, &#34;public_id&#34;, &#34;status&#34;, &#34;steps&#34;, &#34;tags&#34;, &#34;type&#34;})
-<span id="L439" class="ln">   439  </span>	} else {
-<span id="L440" class="ln">   440  </span>		return err
-<span id="L441" class="ln">   441  </span>	}
-<span id="L442" class="ln">   442  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L443" class="ln">   443  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L444" class="ln">   444  </span>		if err != nil {
-<span id="L445" class="ln">   445  </span>			return err
-<span id="L446" class="ln">   446  </span>		}
-<span id="L447" class="ln">   447  </span>		o.UnparsedObject = raw
-<span id="L448" class="ln">   448  </span>		return nil
-<span id="L449" class="ln">   449  </span>	}
-<span id="L450" class="ln">   450  </span>	if v := all.Type; !v.IsValid() {
-<span id="L451" class="ln">   451  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L452" class="ln">   452  </span>		if err != nil {
-<span id="L453" class="ln">   453  </span>			return err
-<span id="L454" class="ln">   454  </span>		}
-<span id="L455" class="ln">   455  </span>		o.UnparsedObject = raw
-<span id="L456" class="ln">   456  </span>		return nil
-<span id="L457" class="ln">   457  </span>	}
-<span id="L458" class="ln">   458  </span>	if all.Config.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L459" class="ln">   459  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L460" class="ln">   460  </span>		if err != nil {
-<span id="L461" class="ln">   461  </span>			return err
-<span id="L462" class="ln">   462  </span>		}
-<span id="L463" class="ln">   463  </span>		o.UnparsedObject = raw
-<span id="L464" class="ln">   464  </span>	}
-<span id="L465" class="ln">   465  </span>	o.Config = all.Config
-<span id="L466" class="ln">   466  </span>	o.Locations = all.Locations
-<span id="L467" class="ln">   467  </span>	o.Message = all.Message
-<span id="L468" class="ln">   468  </span>	o.MonitorId = all.MonitorId
-<span id="L469" class="ln">   469  </span>	o.Name = all.Name
-<span id="L470" class="ln">   470  </span>	if all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L471" class="ln">   471  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L472" class="ln">   472  </span>		if err != nil {
-<span id="L473" class="ln">   473  </span>			return err
-<span id="L474" class="ln">   474  </span>		}
-<span id="L475" class="ln">   475  </span>		o.UnparsedObject = raw
-<span id="L476" class="ln">   476  </span>	}
-<span id="L477" class="ln">   477  </span>	o.Options = all.Options
-<span id="L478" class="ln">   478  </span>	o.PublicId = all.PublicId
-<span id="L479" class="ln">   479  </span>	o.Status = all.Status
-<span id="L480" class="ln">   480  </span>	o.Steps = all.Steps
-<span id="L481" class="ln">   481  </span>	o.Tags = all.Tags
-<span id="L482" class="ln">   482  </span>	o.Type = all.Type
-<span id="L483" class="ln">   483  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L484" class="ln">   484  </span>		o.AdditionalProperties = additionalProperties
-<span id="L485" class="ln">   485  </span>	}
-<span id="L486" class="ln">   486  </span>
-<span id="L487" class="ln">   487  </span>	return nil
-<span id="L488" class="ln">   488  </span>}
-<span id="L489" class="ln">   489  </span>
+<span id="L388" class="ln">   388  </span>		MonitorId *int64                       `json:&#34;monitor_id,omitempty&#34;`
+<span id="L389" class="ln">   389  </span>		Name      *string                      `json:&#34;name&#34;`
+<span id="L390" class="ln">   390  </span>		Options   *SyntheticsTestOptions       `json:&#34;options&#34;`
+<span id="L391" class="ln">   391  </span>		PublicId  *string                      `json:&#34;public_id,omitempty&#34;`
+<span id="L392" class="ln">   392  </span>		Status    *SyntheticsTestPauseStatus   `json:&#34;status,omitempty&#34;`
+<span id="L393" class="ln">   393  </span>		Steps     []SyntheticsStep             `json:&#34;steps,omitempty&#34;`
+<span id="L394" class="ln">   394  </span>		Tags      []string                     `json:&#34;tags,omitempty&#34;`
+<span id="L395" class="ln">   395  </span>		Type      *SyntheticsBrowserTestType   `json:&#34;type&#34;`
+<span id="L396" class="ln">   396  </span>	}{}
+<span id="L397" class="ln">   397  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L398" class="ln">   398  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L399" class="ln">   399  </span>		if err != nil {
+<span id="L400" class="ln">   400  </span>			return err
+<span id="L401" class="ln">   401  </span>		}
+<span id="L402" class="ln">   402  </span>		o.UnparsedObject = raw
+<span id="L403" class="ln">   403  </span>		return nil
+<span id="L404" class="ln">   404  </span>	}
+<span id="L405" class="ln">   405  </span>	if all.Config == nil {
+<span id="L406" class="ln">   406  </span>		return fmt.Errorf(&#34;required field config missing&#34;)
+<span id="L407" class="ln">   407  </span>	}
+<span id="L408" class="ln">   408  </span>	if all.Locations == nil {
+<span id="L409" class="ln">   409  </span>		return fmt.Errorf(&#34;required field locations missing&#34;)
+<span id="L410" class="ln">   410  </span>	}
+<span id="L411" class="ln">   411  </span>	if all.Message == nil {
+<span id="L412" class="ln">   412  </span>		return fmt.Errorf(&#34;required field message missing&#34;)
+<span id="L413" class="ln">   413  </span>	}
+<span id="L414" class="ln">   414  </span>	if all.Name == nil {
+<span id="L415" class="ln">   415  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L416" class="ln">   416  </span>	}
+<span id="L417" class="ln">   417  </span>	if all.Options == nil {
+<span id="L418" class="ln">   418  </span>		return fmt.Errorf(&#34;required field options missing&#34;)
+<span id="L419" class="ln">   419  </span>	}
+<span id="L420" class="ln">   420  </span>	if all.Type == nil {
+<span id="L421" class="ln">   421  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L422" class="ln">   422  </span>	}
+<span id="L423" class="ln">   423  </span>	additionalProperties := make(map[string]interface{})
+<span id="L424" class="ln">   424  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L425" class="ln">   425  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;config&#34;, &#34;locations&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;name&#34;, &#34;options&#34;, &#34;public_id&#34;, &#34;status&#34;, &#34;steps&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L426" class="ln">   426  </span>	} else {
+<span id="L427" class="ln">   427  </span>		return err
+<span id="L428" class="ln">   428  </span>	}
+<span id="L429" class="ln">   429  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L431" class="ln">   431  </span>		if err != nil {
+<span id="L432" class="ln">   432  </span>			return err
+<span id="L433" class="ln">   433  </span>		}
+<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
+<span id="L435" class="ln">   435  </span>		return nil
+<span id="L436" class="ln">   436  </span>	}
+<span id="L437" class="ln">   437  </span>	if v := all.Type; !v.IsValid() {
+<span id="L438" class="ln">   438  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L439" class="ln">   439  </span>		if err != nil {
+<span id="L440" class="ln">   440  </span>			return err
+<span id="L441" class="ln">   441  </span>		}
+<span id="L442" class="ln">   442  </span>		o.UnparsedObject = raw
+<span id="L443" class="ln">   443  </span>		return nil
+<span id="L444" class="ln">   444  </span>	}
+<span id="L445" class="ln">   445  </span>	if all.Config.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L446" class="ln">   446  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L447" class="ln">   447  </span>		if err != nil {
+<span id="L448" class="ln">   448  </span>			return err
+<span id="L449" class="ln">   449  </span>		}
+<span id="L450" class="ln">   450  </span>		o.UnparsedObject = raw
+<span id="L451" class="ln">   451  </span>	}
+<span id="L452" class="ln">   452  </span>	o.Config = *all.Config
+<span id="L453" class="ln">   453  </span>	o.Locations = *all.Locations
+<span id="L454" class="ln">   454  </span>	o.Message = *all.Message
+<span id="L455" class="ln">   455  </span>	o.MonitorId = all.MonitorId
+<span id="L456" class="ln">   456  </span>	o.Name = *all.Name
+<span id="L457" class="ln">   457  </span>	if all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L458" class="ln">   458  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L459" class="ln">   459  </span>		if err != nil {
+<span id="L460" class="ln">   460  </span>			return err
+<span id="L461" class="ln">   461  </span>		}
+<span id="L462" class="ln">   462  </span>		o.UnparsedObject = raw
+<span id="L463" class="ln">   463  </span>	}
+<span id="L464" class="ln">   464  </span>	o.Options = *all.Options
+<span id="L465" class="ln">   465  </span>	o.PublicId = all.PublicId
+<span id="L466" class="ln">   466  </span>	o.Status = all.Status
+<span id="L467" class="ln">   467  </span>	o.Steps = all.Steps
+<span id="L468" class="ln">   468  </span>	o.Tags = all.Tags
+<span id="L469" class="ln">   469  </span>	o.Type = *all.Type
+<span id="L470" class="ln">   470  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L471" class="ln">   471  </span>		o.AdditionalProperties = additionalProperties
+<span id="L472" class="ln">   472  </span>	}
+<span id="L473" class="ln">   473  </span>
+<span id="L474" class="ln">   474  </span>	return nil
+<span id="L475" class="ln">   475  </span>}
+<span id="L476" class="ln">   476  </span>
 </pre><p></p>
 
 <div id="footer">

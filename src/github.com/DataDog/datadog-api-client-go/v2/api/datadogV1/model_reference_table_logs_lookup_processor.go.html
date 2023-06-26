@@ -294,72 +294,61 @@
 <span id="L237" class="ln">   237  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L238" class="ln">   238  </span>func (o *ReferenceTableLogsLookupProcessor) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L239" class="ln">   239  </span>	raw := map[string]interface{}{}
-<span id="L240" class="ln">   240  </span>	required := struct {
-<span id="L241" class="ln">   241  </span>		LookupEnrichmentTable *string                  `json:&#34;lookup_enrichment_table&#34;`
-<span id="L242" class="ln">   242  </span>		Source                *string                  `json:&#34;source&#34;`
-<span id="L243" class="ln">   243  </span>		Target                *string                  `json:&#34;target&#34;`
-<span id="L244" class="ln">   244  </span>		Type                  *LogsLookupProcessorType `json:&#34;type&#34;`
-<span id="L245" class="ln">   245  </span>	}{}
-<span id="L246" class="ln">   246  </span>	all := struct {
-<span id="L247" class="ln">   247  </span>		IsEnabled             *bool                   `json:&#34;is_enabled,omitempty&#34;`
-<span id="L248" class="ln">   248  </span>		LookupEnrichmentTable string                  `json:&#34;lookup_enrichment_table&#34;`
-<span id="L249" class="ln">   249  </span>		Name                  *string                 `json:&#34;name,omitempty&#34;`
-<span id="L250" class="ln">   250  </span>		Source                string                  `json:&#34;source&#34;`
-<span id="L251" class="ln">   251  </span>		Target                string                  `json:&#34;target&#34;`
-<span id="L252" class="ln">   252  </span>		Type                  LogsLookupProcessorType `json:&#34;type&#34;`
-<span id="L253" class="ln">   253  </span>	}{}
-<span id="L254" class="ln">   254  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L255" class="ln">   255  </span>	if err != nil {
-<span id="L256" class="ln">   256  </span>		return err
-<span id="L257" class="ln">   257  </span>	}
-<span id="L258" class="ln">   258  </span>	if required.LookupEnrichmentTable == nil {
-<span id="L259" class="ln">   259  </span>		return fmt.Errorf(&#34;required field lookup_enrichment_table missing&#34;)
-<span id="L260" class="ln">   260  </span>	}
-<span id="L261" class="ln">   261  </span>	if required.Source == nil {
-<span id="L262" class="ln">   262  </span>		return fmt.Errorf(&#34;required field source missing&#34;)
-<span id="L263" class="ln">   263  </span>	}
-<span id="L264" class="ln">   264  </span>	if required.Target == nil {
-<span id="L265" class="ln">   265  </span>		return fmt.Errorf(&#34;required field target missing&#34;)
-<span id="L266" class="ln">   266  </span>	}
-<span id="L267" class="ln">   267  </span>	if required.Type == nil {
-<span id="L268" class="ln">   268  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L269" class="ln">   269  </span>	}
-<span id="L270" class="ln">   270  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L271" class="ln">   271  </span>	if err != nil {
-<span id="L272" class="ln">   272  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L273" class="ln">   273  </span>		if err != nil {
-<span id="L274" class="ln">   274  </span>			return err
-<span id="L275" class="ln">   275  </span>		}
-<span id="L276" class="ln">   276  </span>		o.UnparsedObject = raw
-<span id="L277" class="ln">   277  </span>		return nil
-<span id="L278" class="ln">   278  </span>	}
-<span id="L279" class="ln">   279  </span>	additionalProperties := make(map[string]interface{})
-<span id="L280" class="ln">   280  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L281" class="ln">   281  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;is_enabled&#34;, &#34;lookup_enrichment_table&#34;, &#34;name&#34;, &#34;source&#34;, &#34;target&#34;, &#34;type&#34;})
-<span id="L282" class="ln">   282  </span>	} else {
-<span id="L283" class="ln">   283  </span>		return err
-<span id="L284" class="ln">   284  </span>	}
-<span id="L285" class="ln">   285  </span>	if v := all.Type; !v.IsValid() {
-<span id="L286" class="ln">   286  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L287" class="ln">   287  </span>		if err != nil {
-<span id="L288" class="ln">   288  </span>			return err
-<span id="L289" class="ln">   289  </span>		}
-<span id="L290" class="ln">   290  </span>		o.UnparsedObject = raw
-<span id="L291" class="ln">   291  </span>		return nil
-<span id="L292" class="ln">   292  </span>	}
-<span id="L293" class="ln">   293  </span>	o.IsEnabled = all.IsEnabled
-<span id="L294" class="ln">   294  </span>	o.LookupEnrichmentTable = all.LookupEnrichmentTable
-<span id="L295" class="ln">   295  </span>	o.Name = all.Name
-<span id="L296" class="ln">   296  </span>	o.Source = all.Source
-<span id="L297" class="ln">   297  </span>	o.Target = all.Target
-<span id="L298" class="ln">   298  </span>	o.Type = all.Type
-<span id="L299" class="ln">   299  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L300" class="ln">   300  </span>		o.AdditionalProperties = additionalProperties
-<span id="L301" class="ln">   301  </span>	}
-<span id="L302" class="ln">   302  </span>
-<span id="L303" class="ln">   303  </span>	return nil
-<span id="L304" class="ln">   304  </span>}
-<span id="L305" class="ln">   305  </span>
+<span id="L240" class="ln">   240  </span>	all := struct {
+<span id="L241" class="ln">   241  </span>		IsEnabled             *bool                    `json:&#34;is_enabled,omitempty&#34;`
+<span id="L242" class="ln">   242  </span>		LookupEnrichmentTable *string                  `json:&#34;lookup_enrichment_table&#34;`
+<span id="L243" class="ln">   243  </span>		Name                  *string                  `json:&#34;name,omitempty&#34;`
+<span id="L244" class="ln">   244  </span>		Source                *string                  `json:&#34;source&#34;`
+<span id="L245" class="ln">   245  </span>		Target                *string                  `json:&#34;target&#34;`
+<span id="L246" class="ln">   246  </span>		Type                  *LogsLookupProcessorType `json:&#34;type&#34;`
+<span id="L247" class="ln">   247  </span>	}{}
+<span id="L248" class="ln">   248  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L249" class="ln">   249  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L250" class="ln">   250  </span>		if err != nil {
+<span id="L251" class="ln">   251  </span>			return err
+<span id="L252" class="ln">   252  </span>		}
+<span id="L253" class="ln">   253  </span>		o.UnparsedObject = raw
+<span id="L254" class="ln">   254  </span>		return nil
+<span id="L255" class="ln">   255  </span>	}
+<span id="L256" class="ln">   256  </span>	if all.LookupEnrichmentTable == nil {
+<span id="L257" class="ln">   257  </span>		return fmt.Errorf(&#34;required field lookup_enrichment_table missing&#34;)
+<span id="L258" class="ln">   258  </span>	}
+<span id="L259" class="ln">   259  </span>	if all.Source == nil {
+<span id="L260" class="ln">   260  </span>		return fmt.Errorf(&#34;required field source missing&#34;)
+<span id="L261" class="ln">   261  </span>	}
+<span id="L262" class="ln">   262  </span>	if all.Target == nil {
+<span id="L263" class="ln">   263  </span>		return fmt.Errorf(&#34;required field target missing&#34;)
+<span id="L264" class="ln">   264  </span>	}
+<span id="L265" class="ln">   265  </span>	if all.Type == nil {
+<span id="L266" class="ln">   266  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L267" class="ln">   267  </span>	}
+<span id="L268" class="ln">   268  </span>	additionalProperties := make(map[string]interface{})
+<span id="L269" class="ln">   269  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L270" class="ln">   270  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;is_enabled&#34;, &#34;lookup_enrichment_table&#34;, &#34;name&#34;, &#34;source&#34;, &#34;target&#34;, &#34;type&#34;})
+<span id="L271" class="ln">   271  </span>	} else {
+<span id="L272" class="ln">   272  </span>		return err
+<span id="L273" class="ln">   273  </span>	}
+<span id="L274" class="ln">   274  </span>	if v := all.Type; !v.IsValid() {
+<span id="L275" class="ln">   275  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L276" class="ln">   276  </span>		if err != nil {
+<span id="L277" class="ln">   277  </span>			return err
+<span id="L278" class="ln">   278  </span>		}
+<span id="L279" class="ln">   279  </span>		o.UnparsedObject = raw
+<span id="L280" class="ln">   280  </span>		return nil
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>	o.IsEnabled = all.IsEnabled
+<span id="L283" class="ln">   283  </span>	o.LookupEnrichmentTable = *all.LookupEnrichmentTable
+<span id="L284" class="ln">   284  </span>	o.Name = all.Name
+<span id="L285" class="ln">   285  </span>	o.Source = *all.Source
+<span id="L286" class="ln">   286  </span>	o.Target = *all.Target
+<span id="L287" class="ln">   287  </span>	o.Type = *all.Type
+<span id="L288" class="ln">   288  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L289" class="ln">   289  </span>		o.AdditionalProperties = additionalProperties
+<span id="L290" class="ln">   290  </span>	}
+<span id="L291" class="ln">   291  </span>
+<span id="L292" class="ln">   292  </span>	return nil
+<span id="L293" class="ln">   293  </span>}
+<span id="L294" class="ln">   294  </span>
 </pre><p></p>
 
 <div id="footer">

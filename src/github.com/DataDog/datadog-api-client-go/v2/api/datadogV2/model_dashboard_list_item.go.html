@@ -512,83 +512,74 @@
 <span id="L455" class="ln">   455  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L456" class="ln">   456  </span>func (o *DashboardListItem) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L457" class="ln">   457  </span>	raw := map[string]interface{}{}
-<span id="L458" class="ln">   458  </span>	required := struct {
-<span id="L459" class="ln">   459  </span>		Id   *string        `json:&#34;id&#34;`
-<span id="L460" class="ln">   460  </span>		Type *DashboardType `json:&#34;type&#34;`
-<span id="L461" class="ln">   461  </span>	}{}
-<span id="L462" class="ln">   462  </span>	all := struct {
-<span id="L463" class="ln">   463  </span>		Author     *Creator               `json:&#34;author,omitempty&#34;`
-<span id="L464" class="ln">   464  </span>		Created    *time.Time             `json:&#34;created,omitempty&#34;`
-<span id="L465" class="ln">   465  </span>		Icon       datadog.NullableString `json:&#34;icon,omitempty&#34;`
-<span id="L466" class="ln">   466  </span>		Id         string                 `json:&#34;id&#34;`
-<span id="L467" class="ln">   467  </span>		IsFavorite *bool                  `json:&#34;is_favorite,omitempty&#34;`
-<span id="L468" class="ln">   468  </span>		IsReadOnly *bool                  `json:&#34;is_read_only,omitempty&#34;`
-<span id="L469" class="ln">   469  </span>		IsShared   *bool                  `json:&#34;is_shared,omitempty&#34;`
-<span id="L470" class="ln">   470  </span>		Modified   *time.Time             `json:&#34;modified,omitempty&#34;`
-<span id="L471" class="ln">   471  </span>		Popularity *int32                 `json:&#34;popularity,omitempty&#34;`
-<span id="L472" class="ln">   472  </span>		Title      *string                `json:&#34;title,omitempty&#34;`
-<span id="L473" class="ln">   473  </span>		Type       DashboardType          `json:&#34;type&#34;`
-<span id="L474" class="ln">   474  </span>		Url        *string                `json:&#34;url,omitempty&#34;`
-<span id="L475" class="ln">   475  </span>	}{}
-<span id="L476" class="ln">   476  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L477" class="ln">   477  </span>	if err != nil {
-<span id="L478" class="ln">   478  </span>		return err
+<span id="L458" class="ln">   458  </span>	all := struct {
+<span id="L459" class="ln">   459  </span>		Author     *Creator               `json:&#34;author,omitempty&#34;`
+<span id="L460" class="ln">   460  </span>		Created    *time.Time             `json:&#34;created,omitempty&#34;`
+<span id="L461" class="ln">   461  </span>		Icon       datadog.NullableString `json:&#34;icon,omitempty&#34;`
+<span id="L462" class="ln">   462  </span>		Id         *string                `json:&#34;id&#34;`
+<span id="L463" class="ln">   463  </span>		IsFavorite *bool                  `json:&#34;is_favorite,omitempty&#34;`
+<span id="L464" class="ln">   464  </span>		IsReadOnly *bool                  `json:&#34;is_read_only,omitempty&#34;`
+<span id="L465" class="ln">   465  </span>		IsShared   *bool                  `json:&#34;is_shared,omitempty&#34;`
+<span id="L466" class="ln">   466  </span>		Modified   *time.Time             `json:&#34;modified,omitempty&#34;`
+<span id="L467" class="ln">   467  </span>		Popularity *int32                 `json:&#34;popularity,omitempty&#34;`
+<span id="L468" class="ln">   468  </span>		Title      *string                `json:&#34;title,omitempty&#34;`
+<span id="L469" class="ln">   469  </span>		Type       *DashboardType         `json:&#34;type&#34;`
+<span id="L470" class="ln">   470  </span>		Url        *string                `json:&#34;url,omitempty&#34;`
+<span id="L471" class="ln">   471  </span>	}{}
+<span id="L472" class="ln">   472  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L473" class="ln">   473  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L474" class="ln">   474  </span>		if err != nil {
+<span id="L475" class="ln">   475  </span>			return err
+<span id="L476" class="ln">   476  </span>		}
+<span id="L477" class="ln">   477  </span>		o.UnparsedObject = raw
+<span id="L478" class="ln">   478  </span>		return nil
 <span id="L479" class="ln">   479  </span>	}
-<span id="L480" class="ln">   480  </span>	if required.Id == nil {
+<span id="L480" class="ln">   480  </span>	if all.Id == nil {
 <span id="L481" class="ln">   481  </span>		return fmt.Errorf(&#34;required field id missing&#34;)
 <span id="L482" class="ln">   482  </span>	}
-<span id="L483" class="ln">   483  </span>	if required.Type == nil {
+<span id="L483" class="ln">   483  </span>	if all.Type == nil {
 <span id="L484" class="ln">   484  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L485" class="ln">   485  </span>	}
-<span id="L486" class="ln">   486  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L487" class="ln">   487  </span>	if err != nil {
-<span id="L488" class="ln">   488  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L489" class="ln">   489  </span>		if err != nil {
-<span id="L490" class="ln">   490  </span>			return err
-<span id="L491" class="ln">   491  </span>		}
-<span id="L492" class="ln">   492  </span>		o.UnparsedObject = raw
-<span id="L493" class="ln">   493  </span>		return nil
-<span id="L494" class="ln">   494  </span>	}
-<span id="L495" class="ln">   495  </span>	additionalProperties := make(map[string]interface{})
-<span id="L496" class="ln">   496  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L497" class="ln">   497  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author&#34;, &#34;created&#34;, &#34;icon&#34;, &#34;id&#34;, &#34;is_favorite&#34;, &#34;is_read_only&#34;, &#34;is_shared&#34;, &#34;modified&#34;, &#34;popularity&#34;, &#34;title&#34;, &#34;type&#34;, &#34;url&#34;})
-<span id="L498" class="ln">   498  </span>	} else {
-<span id="L499" class="ln">   499  </span>		return err
-<span id="L500" class="ln">   500  </span>	}
-<span id="L501" class="ln">   501  </span>	if v := all.Type; !v.IsValid() {
-<span id="L502" class="ln">   502  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L503" class="ln">   503  </span>		if err != nil {
-<span id="L504" class="ln">   504  </span>			return err
-<span id="L505" class="ln">   505  </span>		}
-<span id="L506" class="ln">   506  </span>		o.UnparsedObject = raw
-<span id="L507" class="ln">   507  </span>		return nil
-<span id="L508" class="ln">   508  </span>	}
-<span id="L509" class="ln">   509  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L510" class="ln">   510  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L511" class="ln">   511  </span>		if err != nil {
-<span id="L512" class="ln">   512  </span>			return err
-<span id="L513" class="ln">   513  </span>		}
-<span id="L514" class="ln">   514  </span>		o.UnparsedObject = raw
-<span id="L515" class="ln">   515  </span>	}
-<span id="L516" class="ln">   516  </span>	o.Author = all.Author
-<span id="L517" class="ln">   517  </span>	o.Created = all.Created
-<span id="L518" class="ln">   518  </span>	o.Icon = all.Icon
-<span id="L519" class="ln">   519  </span>	o.Id = all.Id
-<span id="L520" class="ln">   520  </span>	o.IsFavorite = all.IsFavorite
-<span id="L521" class="ln">   521  </span>	o.IsReadOnly = all.IsReadOnly
-<span id="L522" class="ln">   522  </span>	o.IsShared = all.IsShared
-<span id="L523" class="ln">   523  </span>	o.Modified = all.Modified
-<span id="L524" class="ln">   524  </span>	o.Popularity = all.Popularity
-<span id="L525" class="ln">   525  </span>	o.Title = all.Title
-<span id="L526" class="ln">   526  </span>	o.Type = all.Type
-<span id="L527" class="ln">   527  </span>	o.Url = all.Url
-<span id="L528" class="ln">   528  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L529" class="ln">   529  </span>		o.AdditionalProperties = additionalProperties
-<span id="L530" class="ln">   530  </span>	}
-<span id="L531" class="ln">   531  </span>
-<span id="L532" class="ln">   532  </span>	return nil
-<span id="L533" class="ln">   533  </span>}
-<span id="L534" class="ln">   534  </span>
+<span id="L486" class="ln">   486  </span>	additionalProperties := make(map[string]interface{})
+<span id="L487" class="ln">   487  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L488" class="ln">   488  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author&#34;, &#34;created&#34;, &#34;icon&#34;, &#34;id&#34;, &#34;is_favorite&#34;, &#34;is_read_only&#34;, &#34;is_shared&#34;, &#34;modified&#34;, &#34;popularity&#34;, &#34;title&#34;, &#34;type&#34;, &#34;url&#34;})
+<span id="L489" class="ln">   489  </span>	} else {
+<span id="L490" class="ln">   490  </span>		return err
+<span id="L491" class="ln">   491  </span>	}
+<span id="L492" class="ln">   492  </span>	if v := all.Type; !v.IsValid() {
+<span id="L493" class="ln">   493  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L494" class="ln">   494  </span>		if err != nil {
+<span id="L495" class="ln">   495  </span>			return err
+<span id="L496" class="ln">   496  </span>		}
+<span id="L497" class="ln">   497  </span>		o.UnparsedObject = raw
+<span id="L498" class="ln">   498  </span>		return nil
+<span id="L499" class="ln">   499  </span>	}
+<span id="L500" class="ln">   500  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L501" class="ln">   501  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L502" class="ln">   502  </span>		if err != nil {
+<span id="L503" class="ln">   503  </span>			return err
+<span id="L504" class="ln">   504  </span>		}
+<span id="L505" class="ln">   505  </span>		o.UnparsedObject = raw
+<span id="L506" class="ln">   506  </span>	}
+<span id="L507" class="ln">   507  </span>	o.Author = all.Author
+<span id="L508" class="ln">   508  </span>	o.Created = all.Created
+<span id="L509" class="ln">   509  </span>	o.Icon = all.Icon
+<span id="L510" class="ln">   510  </span>	o.Id = *all.Id
+<span id="L511" class="ln">   511  </span>	o.IsFavorite = all.IsFavorite
+<span id="L512" class="ln">   512  </span>	o.IsReadOnly = all.IsReadOnly
+<span id="L513" class="ln">   513  </span>	o.IsShared = all.IsShared
+<span id="L514" class="ln">   514  </span>	o.Modified = all.Modified
+<span id="L515" class="ln">   515  </span>	o.Popularity = all.Popularity
+<span id="L516" class="ln">   516  </span>	o.Title = all.Title
+<span id="L517" class="ln">   517  </span>	o.Type = *all.Type
+<span id="L518" class="ln">   518  </span>	o.Url = all.Url
+<span id="L519" class="ln">   519  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L520" class="ln">   520  </span>		o.AdditionalProperties = additionalProperties
+<span id="L521" class="ln">   521  </span>	}
+<span id="L522" class="ln">   522  </span>
+<span id="L523" class="ln">   523  </span>	return nil
+<span id="L524" class="ln">   524  </span>}
+<span id="L525" class="ln">   525  </span>
 </pre><p></p>
 
 <div id="footer">

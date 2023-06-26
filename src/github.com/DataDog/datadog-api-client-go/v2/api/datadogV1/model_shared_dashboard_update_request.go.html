@@ -303,58 +303,50 @@
 <span id="L246" class="ln">   246  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L247" class="ln">   247  </span>func (o *SharedDashboardUpdateRequest) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L248" class="ln">   248  </span>	raw := map[string]interface{}{}
-<span id="L249" class="ln">   249  </span>	required := struct {
-<span id="L250" class="ln">   250  </span>		GlobalTime NullableSharedDashboardUpdateRequestGlobalTime `json:&#34;global_time&#34;`
-<span id="L251" class="ln">   251  </span>	}{}
-<span id="L252" class="ln">   252  </span>	all := struct {
-<span id="L253" class="ln">   253  </span>		GlobalTime                  NullableSharedDashboardUpdateRequestGlobalTime `json:&#34;global_time&#34;`
-<span id="L254" class="ln">   254  </span>		GlobalTimeSelectableEnabled datadog.NullableBool                           `json:&#34;global_time_selectable_enabled,omitempty&#34;`
-<span id="L255" class="ln">   255  </span>		SelectableTemplateVars      []SelectableTemplateVariableItems              `json:&#34;selectable_template_vars,omitempty&#34;`
-<span id="L256" class="ln">   256  </span>		ShareList                   datadog.NullableList[string]                   `json:&#34;share_list,omitempty&#34;`
-<span id="L257" class="ln">   257  </span>		ShareType                   NullableDashboardShareType                     `json:&#34;share_type,omitempty&#34;`
-<span id="L258" class="ln">   258  </span>	}{}
-<span id="L259" class="ln">   259  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L260" class="ln">   260  </span>	if err != nil {
-<span id="L261" class="ln">   261  </span>		return err
-<span id="L262" class="ln">   262  </span>	}
-<span id="L263" class="ln">   263  </span>	if !required.GlobalTime.IsSet() {
-<span id="L264" class="ln">   264  </span>		return fmt.Errorf(&#34;required field global_time missing&#34;)
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L267" class="ln">   267  </span>	if err != nil {
-<span id="L268" class="ln">   268  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L269" class="ln">   269  </span>		if err != nil {
-<span id="L270" class="ln">   270  </span>			return err
-<span id="L271" class="ln">   271  </span>		}
-<span id="L272" class="ln">   272  </span>		o.UnparsedObject = raw
-<span id="L273" class="ln">   273  </span>		return nil
-<span id="L274" class="ln">   274  </span>	}
-<span id="L275" class="ln">   275  </span>	additionalProperties := make(map[string]interface{})
-<span id="L276" class="ln">   276  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L277" class="ln">   277  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;global_time&#34;, &#34;global_time_selectable_enabled&#34;, &#34;selectable_template_vars&#34;, &#34;share_list&#34;, &#34;share_type&#34;})
-<span id="L278" class="ln">   278  </span>	} else {
-<span id="L279" class="ln">   279  </span>		return err
+<span id="L249" class="ln">   249  </span>	all := struct {
+<span id="L250" class="ln">   250  </span>		GlobalTime                  NullableSharedDashboardUpdateRequestGlobalTime `json:&#34;global_time&#34;`
+<span id="L251" class="ln">   251  </span>		GlobalTimeSelectableEnabled datadog.NullableBool                           `json:&#34;global_time_selectable_enabled,omitempty&#34;`
+<span id="L252" class="ln">   252  </span>		SelectableTemplateVars      []SelectableTemplateVariableItems              `json:&#34;selectable_template_vars,omitempty&#34;`
+<span id="L253" class="ln">   253  </span>		ShareList                   datadog.NullableList[string]                   `json:&#34;share_list,omitempty&#34;`
+<span id="L254" class="ln">   254  </span>		ShareType                   NullableDashboardShareType                     `json:&#34;share_type,omitempty&#34;`
+<span id="L255" class="ln">   255  </span>	}{}
+<span id="L256" class="ln">   256  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L257" class="ln">   257  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L258" class="ln">   258  </span>		if err != nil {
+<span id="L259" class="ln">   259  </span>			return err
+<span id="L260" class="ln">   260  </span>		}
+<span id="L261" class="ln">   261  </span>		o.UnparsedObject = raw
+<span id="L262" class="ln">   262  </span>		return nil
+<span id="L263" class="ln">   263  </span>	}
+<span id="L264" class="ln">   264  </span>	if !all.GlobalTime.IsSet() {
+<span id="L265" class="ln">   265  </span>		return fmt.Errorf(&#34;required field global_time missing&#34;)
+<span id="L266" class="ln">   266  </span>	}
+<span id="L267" class="ln">   267  </span>	additionalProperties := make(map[string]interface{})
+<span id="L268" class="ln">   268  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L269" class="ln">   269  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;global_time&#34;, &#34;global_time_selectable_enabled&#34;, &#34;selectable_template_vars&#34;, &#34;share_list&#34;, &#34;share_type&#34;})
+<span id="L270" class="ln">   270  </span>	} else {
+<span id="L271" class="ln">   271  </span>		return err
+<span id="L272" class="ln">   272  </span>	}
+<span id="L273" class="ln">   273  </span>	if v := all.ShareType; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
+<span id="L274" class="ln">   274  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L275" class="ln">   275  </span>		if err != nil {
+<span id="L276" class="ln">   276  </span>			return err
+<span id="L277" class="ln">   277  </span>		}
+<span id="L278" class="ln">   278  </span>		o.UnparsedObject = raw
+<span id="L279" class="ln">   279  </span>		return nil
 <span id="L280" class="ln">   280  </span>	}
-<span id="L281" class="ln">   281  </span>	if v := all.ShareType; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L282" class="ln">   282  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L283" class="ln">   283  </span>		if err != nil {
-<span id="L284" class="ln">   284  </span>			return err
-<span id="L285" class="ln">   285  </span>		}
-<span id="L286" class="ln">   286  </span>		o.UnparsedObject = raw
-<span id="L287" class="ln">   287  </span>		return nil
+<span id="L281" class="ln">   281  </span>	o.GlobalTime = all.GlobalTime
+<span id="L282" class="ln">   282  </span>	o.GlobalTimeSelectableEnabled = all.GlobalTimeSelectableEnabled
+<span id="L283" class="ln">   283  </span>	o.SelectableTemplateVars = all.SelectableTemplateVars
+<span id="L284" class="ln">   284  </span>	o.ShareList = all.ShareList
+<span id="L285" class="ln">   285  </span>	o.ShareType = all.ShareType
+<span id="L286" class="ln">   286  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L287" class="ln">   287  </span>		o.AdditionalProperties = additionalProperties
 <span id="L288" class="ln">   288  </span>	}
-<span id="L289" class="ln">   289  </span>	o.GlobalTime = all.GlobalTime
-<span id="L290" class="ln">   290  </span>	o.GlobalTimeSelectableEnabled = all.GlobalTimeSelectableEnabled
-<span id="L291" class="ln">   291  </span>	o.SelectableTemplateVars = all.SelectableTemplateVars
-<span id="L292" class="ln">   292  </span>	o.ShareList = all.ShareList
-<span id="L293" class="ln">   293  </span>	o.ShareType = all.ShareType
-<span id="L294" class="ln">   294  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L295" class="ln">   295  </span>		o.AdditionalProperties = additionalProperties
-<span id="L296" class="ln">   296  </span>	}
-<span id="L297" class="ln">   297  </span>
-<span id="L298" class="ln">   298  </span>	return nil
-<span id="L299" class="ln">   299  </span>}
-<span id="L300" class="ln">   300  </span>
+<span id="L289" class="ln">   289  </span>
+<span id="L290" class="ln">   290  </span>	return nil
+<span id="L291" class="ln">   291  </span>}
+<span id="L292" class="ln">   292  </span>
 </pre><p></p>
 
 <div id="footer">

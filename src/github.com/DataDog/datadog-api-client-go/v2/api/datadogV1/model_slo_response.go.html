@@ -179,37 +179,36 @@
 <span id="L122" class="ln">   122  </span>		Data   *SLOResponseData `json:&#34;data,omitempty&#34;`
 <span id="L123" class="ln">   123  </span>		Errors []string         `json:&#34;errors,omitempty&#34;`
 <span id="L124" class="ln">   124  </span>	}{}
-<span id="L125" class="ln">   125  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L126" class="ln">   126  </span>	if err != nil {
-<span id="L127" class="ln">   127  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L128" class="ln">   128  </span>		if err != nil {
-<span id="L129" class="ln">   129  </span>			return err
-<span id="L130" class="ln">   130  </span>		}
-<span id="L131" class="ln">   131  </span>		o.UnparsedObject = raw
-<span id="L132" class="ln">   132  </span>		return nil
-<span id="L133" class="ln">   133  </span>	}
-<span id="L134" class="ln">   134  </span>	additionalProperties := make(map[string]interface{})
-<span id="L135" class="ln">   135  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L136" class="ln">   136  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;data&#34;, &#34;errors&#34;})
-<span id="L137" class="ln">   137  </span>	} else {
-<span id="L138" class="ln">   138  </span>		return err
-<span id="L139" class="ln">   139  </span>	}
-<span id="L140" class="ln">   140  </span>	if all.Data != nil &amp;&amp; all.Data.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L141" class="ln">   141  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L142" class="ln">   142  </span>		if err != nil {
-<span id="L143" class="ln">   143  </span>			return err
-<span id="L144" class="ln">   144  </span>		}
-<span id="L145" class="ln">   145  </span>		o.UnparsedObject = raw
-<span id="L146" class="ln">   146  </span>	}
-<span id="L147" class="ln">   147  </span>	o.Data = all.Data
-<span id="L148" class="ln">   148  </span>	o.Errors = all.Errors
-<span id="L149" class="ln">   149  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L150" class="ln">   150  </span>		o.AdditionalProperties = additionalProperties
-<span id="L151" class="ln">   151  </span>	}
-<span id="L152" class="ln">   152  </span>
-<span id="L153" class="ln">   153  </span>	return nil
-<span id="L154" class="ln">   154  </span>}
-<span id="L155" class="ln">   155  </span>
+<span id="L125" class="ln">   125  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L126" class="ln">   126  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L127" class="ln">   127  </span>		if err != nil {
+<span id="L128" class="ln">   128  </span>			return err
+<span id="L129" class="ln">   129  </span>		}
+<span id="L130" class="ln">   130  </span>		o.UnparsedObject = raw
+<span id="L131" class="ln">   131  </span>		return nil
+<span id="L132" class="ln">   132  </span>	}
+<span id="L133" class="ln">   133  </span>	additionalProperties := make(map[string]interface{})
+<span id="L134" class="ln">   134  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L135" class="ln">   135  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;data&#34;, &#34;errors&#34;})
+<span id="L136" class="ln">   136  </span>	} else {
+<span id="L137" class="ln">   137  </span>		return err
+<span id="L138" class="ln">   138  </span>	}
+<span id="L139" class="ln">   139  </span>	if all.Data != nil &amp;&amp; all.Data.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L140" class="ln">   140  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L141" class="ln">   141  </span>		if err != nil {
+<span id="L142" class="ln">   142  </span>			return err
+<span id="L143" class="ln">   143  </span>		}
+<span id="L144" class="ln">   144  </span>		o.UnparsedObject = raw
+<span id="L145" class="ln">   145  </span>	}
+<span id="L146" class="ln">   146  </span>	o.Data = all.Data
+<span id="L147" class="ln">   147  </span>	o.Errors = all.Errors
+<span id="L148" class="ln">   148  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L149" class="ln">   149  </span>		o.AdditionalProperties = additionalProperties
+<span id="L150" class="ln">   150  </span>	}
+<span id="L151" class="ln">   151  </span>
+<span id="L152" class="ln">   152  </span>	return nil
+<span id="L153" class="ln">   153  </span>}
+<span id="L154" class="ln">   154  </span>
 </pre><p></p>
 
 <div id="footer">

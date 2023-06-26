@@ -862,45 +862,44 @@
 <span id="L805" class="ln">   805  </span>		PublicId                    *string               `json:&#34;public_id,omitempty&#34;`
 <span id="L806" class="ln">   806  </span>		VsphereHostCount            datadog.NullableInt64 `json:&#34;vsphere_host_count,omitempty&#34;`
 <span id="L807" class="ln">   807  </span>	}{}
-<span id="L808" class="ln">   808  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L809" class="ln">   809  </span>	if err != nil {
-<span id="L810" class="ln">   810  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L811" class="ln">   811  </span>		if err != nil {
-<span id="L812" class="ln">   812  </span>			return err
-<span id="L813" class="ln">   813  </span>		}
-<span id="L814" class="ln">   814  </span>		o.UnparsedObject = raw
-<span id="L815" class="ln">   815  </span>		return nil
-<span id="L816" class="ln">   816  </span>	}
-<span id="L817" class="ln">   817  </span>	additionalProperties := make(map[string]interface{})
-<span id="L818" class="ln">   818  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L819" class="ln">   819  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agent_host_count&#34;, &#34;alibaba_host_count&#34;, &#34;apm_azure_app_service_host_count&#34;, &#34;apm_host_count&#34;, &#34;aws_host_count&#34;, &#34;azure_host_count&#34;, &#34;container_count&#34;, &#34;gcp_host_count&#34;, &#34;heroku_host_count&#34;, &#34;host_count&#34;, &#34;hour&#34;, &#34;infra_azure_app_service&#34;, &#34;opentelemetry_apm_host_count&#34;, &#34;opentelemetry_host_count&#34;, &#34;org_name&#34;, &#34;public_id&#34;, &#34;vsphere_host_count&#34;})
-<span id="L820" class="ln">   820  </span>	} else {
-<span id="L821" class="ln">   821  </span>		return err
-<span id="L822" class="ln">   822  </span>	}
-<span id="L823" class="ln">   823  </span>	o.AgentHostCount = all.AgentHostCount
-<span id="L824" class="ln">   824  </span>	o.AlibabaHostCount = all.AlibabaHostCount
-<span id="L825" class="ln">   825  </span>	o.ApmAzureAppServiceHostCount = all.ApmAzureAppServiceHostCount
-<span id="L826" class="ln">   826  </span>	o.ApmHostCount = all.ApmHostCount
-<span id="L827" class="ln">   827  </span>	o.AwsHostCount = all.AwsHostCount
-<span id="L828" class="ln">   828  </span>	o.AzureHostCount = all.AzureHostCount
-<span id="L829" class="ln">   829  </span>	o.ContainerCount = all.ContainerCount
-<span id="L830" class="ln">   830  </span>	o.GcpHostCount = all.GcpHostCount
-<span id="L831" class="ln">   831  </span>	o.HerokuHostCount = all.HerokuHostCount
-<span id="L832" class="ln">   832  </span>	o.HostCount = all.HostCount
-<span id="L833" class="ln">   833  </span>	o.Hour = all.Hour
-<span id="L834" class="ln">   834  </span>	o.InfraAzureAppService = all.InfraAzureAppService
-<span id="L835" class="ln">   835  </span>	o.OpentelemetryApmHostCount = all.OpentelemetryApmHostCount
-<span id="L836" class="ln">   836  </span>	o.OpentelemetryHostCount = all.OpentelemetryHostCount
-<span id="L837" class="ln">   837  </span>	o.OrgName = all.OrgName
-<span id="L838" class="ln">   838  </span>	o.PublicId = all.PublicId
-<span id="L839" class="ln">   839  </span>	o.VsphereHostCount = all.VsphereHostCount
-<span id="L840" class="ln">   840  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L841" class="ln">   841  </span>		o.AdditionalProperties = additionalProperties
-<span id="L842" class="ln">   842  </span>	}
-<span id="L843" class="ln">   843  </span>
-<span id="L844" class="ln">   844  </span>	return nil
-<span id="L845" class="ln">   845  </span>}
-<span id="L846" class="ln">   846  </span>
+<span id="L808" class="ln">   808  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L809" class="ln">   809  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L810" class="ln">   810  </span>		if err != nil {
+<span id="L811" class="ln">   811  </span>			return err
+<span id="L812" class="ln">   812  </span>		}
+<span id="L813" class="ln">   813  </span>		o.UnparsedObject = raw
+<span id="L814" class="ln">   814  </span>		return nil
+<span id="L815" class="ln">   815  </span>	}
+<span id="L816" class="ln">   816  </span>	additionalProperties := make(map[string]interface{})
+<span id="L817" class="ln">   817  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L818" class="ln">   818  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agent_host_count&#34;, &#34;alibaba_host_count&#34;, &#34;apm_azure_app_service_host_count&#34;, &#34;apm_host_count&#34;, &#34;aws_host_count&#34;, &#34;azure_host_count&#34;, &#34;container_count&#34;, &#34;gcp_host_count&#34;, &#34;heroku_host_count&#34;, &#34;host_count&#34;, &#34;hour&#34;, &#34;infra_azure_app_service&#34;, &#34;opentelemetry_apm_host_count&#34;, &#34;opentelemetry_host_count&#34;, &#34;org_name&#34;, &#34;public_id&#34;, &#34;vsphere_host_count&#34;})
+<span id="L819" class="ln">   819  </span>	} else {
+<span id="L820" class="ln">   820  </span>		return err
+<span id="L821" class="ln">   821  </span>	}
+<span id="L822" class="ln">   822  </span>	o.AgentHostCount = all.AgentHostCount
+<span id="L823" class="ln">   823  </span>	o.AlibabaHostCount = all.AlibabaHostCount
+<span id="L824" class="ln">   824  </span>	o.ApmAzureAppServiceHostCount = all.ApmAzureAppServiceHostCount
+<span id="L825" class="ln">   825  </span>	o.ApmHostCount = all.ApmHostCount
+<span id="L826" class="ln">   826  </span>	o.AwsHostCount = all.AwsHostCount
+<span id="L827" class="ln">   827  </span>	o.AzureHostCount = all.AzureHostCount
+<span id="L828" class="ln">   828  </span>	o.ContainerCount = all.ContainerCount
+<span id="L829" class="ln">   829  </span>	o.GcpHostCount = all.GcpHostCount
+<span id="L830" class="ln">   830  </span>	o.HerokuHostCount = all.HerokuHostCount
+<span id="L831" class="ln">   831  </span>	o.HostCount = all.HostCount
+<span id="L832" class="ln">   832  </span>	o.Hour = all.Hour
+<span id="L833" class="ln">   833  </span>	o.InfraAzureAppService = all.InfraAzureAppService
+<span id="L834" class="ln">   834  </span>	o.OpentelemetryApmHostCount = all.OpentelemetryApmHostCount
+<span id="L835" class="ln">   835  </span>	o.OpentelemetryHostCount = all.OpentelemetryHostCount
+<span id="L836" class="ln">   836  </span>	o.OrgName = all.OrgName
+<span id="L837" class="ln">   837  </span>	o.PublicId = all.PublicId
+<span id="L838" class="ln">   838  </span>	o.VsphereHostCount = all.VsphereHostCount
+<span id="L839" class="ln">   839  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L840" class="ln">   840  </span>		o.AdditionalProperties = additionalProperties
+<span id="L841" class="ln">   841  </span>	}
+<span id="L842" class="ln">   842  </span>
+<span id="L843" class="ln">   843  </span>	return nil
+<span id="L844" class="ln">   844  </span>}
+<span id="L845" class="ln">   845  </span>
 </pre><p></p>
 
 <div id="footer">

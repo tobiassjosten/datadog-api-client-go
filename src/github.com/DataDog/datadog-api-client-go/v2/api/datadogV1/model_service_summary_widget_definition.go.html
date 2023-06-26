@@ -614,123 +614,112 @@
 <span id="L557" class="ln">   557  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L558" class="ln">   558  </span>func (o *ServiceSummaryWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L559" class="ln">   559  </span>	raw := map[string]interface{}{}
-<span id="L560" class="ln">   560  </span>	required := struct {
-<span id="L561" class="ln">   561  </span>		Env      *string                             `json:&#34;env&#34;`
-<span id="L562" class="ln">   562  </span>		Service  *string                             `json:&#34;service&#34;`
-<span id="L563" class="ln">   563  </span>		SpanName *string                             `json:&#34;span_name&#34;`
-<span id="L564" class="ln">   564  </span>		Type     *ServiceSummaryWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L565" class="ln">   565  </span>	}{}
-<span id="L566" class="ln">   566  </span>	all := struct {
-<span id="L567" class="ln">   567  </span>		DisplayFormat    *WidgetServiceSummaryDisplayFormat `json:&#34;display_format,omitempty&#34;`
-<span id="L568" class="ln">   568  </span>		Env              string                             `json:&#34;env&#34;`
-<span id="L569" class="ln">   569  </span>		Service          string                             `json:&#34;service&#34;`
-<span id="L570" class="ln">   570  </span>		ShowBreakdown    *bool                              `json:&#34;show_breakdown,omitempty&#34;`
-<span id="L571" class="ln">   571  </span>		ShowDistribution *bool                              `json:&#34;show_distribution,omitempty&#34;`
-<span id="L572" class="ln">   572  </span>		ShowErrors       *bool                              `json:&#34;show_errors,omitempty&#34;`
-<span id="L573" class="ln">   573  </span>		ShowHits         *bool                              `json:&#34;show_hits,omitempty&#34;`
-<span id="L574" class="ln">   574  </span>		ShowLatency      *bool                              `json:&#34;show_latency,omitempty&#34;`
-<span id="L575" class="ln">   575  </span>		ShowResourceList *bool                              `json:&#34;show_resource_list,omitempty&#34;`
-<span id="L576" class="ln">   576  </span>		SizeFormat       *WidgetSizeFormat                  `json:&#34;size_format,omitempty&#34;`
-<span id="L577" class="ln">   577  </span>		SpanName         string                             `json:&#34;span_name&#34;`
-<span id="L578" class="ln">   578  </span>		Time             *WidgetTime                        `json:&#34;time,omitempty&#34;`
-<span id="L579" class="ln">   579  </span>		Title            *string                            `json:&#34;title,omitempty&#34;`
-<span id="L580" class="ln">   580  </span>		TitleAlign       *WidgetTextAlign                   `json:&#34;title_align,omitempty&#34;`
-<span id="L581" class="ln">   581  </span>		TitleSize        *string                            `json:&#34;title_size,omitempty&#34;`
-<span id="L582" class="ln">   582  </span>		Type             ServiceSummaryWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L583" class="ln">   583  </span>	}{}
-<span id="L584" class="ln">   584  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L585" class="ln">   585  </span>	if err != nil {
-<span id="L586" class="ln">   586  </span>		return err
-<span id="L587" class="ln">   587  </span>	}
-<span id="L588" class="ln">   588  </span>	if required.Env == nil {
-<span id="L589" class="ln">   589  </span>		return fmt.Errorf(&#34;required field env missing&#34;)
-<span id="L590" class="ln">   590  </span>	}
-<span id="L591" class="ln">   591  </span>	if required.Service == nil {
-<span id="L592" class="ln">   592  </span>		return fmt.Errorf(&#34;required field service missing&#34;)
-<span id="L593" class="ln">   593  </span>	}
-<span id="L594" class="ln">   594  </span>	if required.SpanName == nil {
-<span id="L595" class="ln">   595  </span>		return fmt.Errorf(&#34;required field span_name missing&#34;)
-<span id="L596" class="ln">   596  </span>	}
-<span id="L597" class="ln">   597  </span>	if required.Type == nil {
-<span id="L598" class="ln">   598  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L599" class="ln">   599  </span>	}
-<span id="L600" class="ln">   600  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L601" class="ln">   601  </span>	if err != nil {
-<span id="L602" class="ln">   602  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L603" class="ln">   603  </span>		if err != nil {
-<span id="L604" class="ln">   604  </span>			return err
-<span id="L605" class="ln">   605  </span>		}
-<span id="L606" class="ln">   606  </span>		o.UnparsedObject = raw
-<span id="L607" class="ln">   607  </span>		return nil
-<span id="L608" class="ln">   608  </span>	}
-<span id="L609" class="ln">   609  </span>	additionalProperties := make(map[string]interface{})
-<span id="L610" class="ln">   610  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L611" class="ln">   611  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;display_format&#34;, &#34;env&#34;, &#34;service&#34;, &#34;show_breakdown&#34;, &#34;show_distribution&#34;, &#34;show_errors&#34;, &#34;show_hits&#34;, &#34;show_latency&#34;, &#34;show_resource_list&#34;, &#34;size_format&#34;, &#34;span_name&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
-<span id="L612" class="ln">   612  </span>	} else {
-<span id="L613" class="ln">   613  </span>		return err
-<span id="L614" class="ln">   614  </span>	}
-<span id="L615" class="ln">   615  </span>	if v := all.DisplayFormat; v != nil &amp;&amp; !v.IsValid() {
-<span id="L616" class="ln">   616  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L617" class="ln">   617  </span>		if err != nil {
-<span id="L618" class="ln">   618  </span>			return err
-<span id="L619" class="ln">   619  </span>		}
-<span id="L620" class="ln">   620  </span>		o.UnparsedObject = raw
-<span id="L621" class="ln">   621  </span>		return nil
-<span id="L622" class="ln">   622  </span>	}
-<span id="L623" class="ln">   623  </span>	if v := all.SizeFormat; v != nil &amp;&amp; !v.IsValid() {
-<span id="L624" class="ln">   624  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L625" class="ln">   625  </span>		if err != nil {
-<span id="L626" class="ln">   626  </span>			return err
-<span id="L627" class="ln">   627  </span>		}
-<span id="L628" class="ln">   628  </span>		o.UnparsedObject = raw
-<span id="L629" class="ln">   629  </span>		return nil
-<span id="L630" class="ln">   630  </span>	}
-<span id="L631" class="ln">   631  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L632" class="ln">   632  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L633" class="ln">   633  </span>		if err != nil {
-<span id="L634" class="ln">   634  </span>			return err
-<span id="L635" class="ln">   635  </span>		}
-<span id="L636" class="ln">   636  </span>		o.UnparsedObject = raw
-<span id="L637" class="ln">   637  </span>		return nil
-<span id="L638" class="ln">   638  </span>	}
-<span id="L639" class="ln">   639  </span>	if v := all.Type; !v.IsValid() {
-<span id="L640" class="ln">   640  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L641" class="ln">   641  </span>		if err != nil {
-<span id="L642" class="ln">   642  </span>			return err
-<span id="L643" class="ln">   643  </span>		}
-<span id="L644" class="ln">   644  </span>		o.UnparsedObject = raw
-<span id="L645" class="ln">   645  </span>		return nil
-<span id="L646" class="ln">   646  </span>	}
-<span id="L647" class="ln">   647  </span>	o.DisplayFormat = all.DisplayFormat
-<span id="L648" class="ln">   648  </span>	o.Env = all.Env
-<span id="L649" class="ln">   649  </span>	o.Service = all.Service
-<span id="L650" class="ln">   650  </span>	o.ShowBreakdown = all.ShowBreakdown
-<span id="L651" class="ln">   651  </span>	o.ShowDistribution = all.ShowDistribution
-<span id="L652" class="ln">   652  </span>	o.ShowErrors = all.ShowErrors
-<span id="L653" class="ln">   653  </span>	o.ShowHits = all.ShowHits
-<span id="L654" class="ln">   654  </span>	o.ShowLatency = all.ShowLatency
-<span id="L655" class="ln">   655  </span>	o.ShowResourceList = all.ShowResourceList
-<span id="L656" class="ln">   656  </span>	o.SizeFormat = all.SizeFormat
-<span id="L657" class="ln">   657  </span>	o.SpanName = all.SpanName
-<span id="L658" class="ln">   658  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L659" class="ln">   659  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L660" class="ln">   660  </span>		if err != nil {
-<span id="L661" class="ln">   661  </span>			return err
-<span id="L662" class="ln">   662  </span>		}
-<span id="L663" class="ln">   663  </span>		o.UnparsedObject = raw
-<span id="L664" class="ln">   664  </span>	}
-<span id="L665" class="ln">   665  </span>	o.Time = all.Time
-<span id="L666" class="ln">   666  </span>	o.Title = all.Title
-<span id="L667" class="ln">   667  </span>	o.TitleAlign = all.TitleAlign
-<span id="L668" class="ln">   668  </span>	o.TitleSize = all.TitleSize
-<span id="L669" class="ln">   669  </span>	o.Type = all.Type
-<span id="L670" class="ln">   670  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L671" class="ln">   671  </span>		o.AdditionalProperties = additionalProperties
-<span id="L672" class="ln">   672  </span>	}
-<span id="L673" class="ln">   673  </span>
-<span id="L674" class="ln">   674  </span>	return nil
-<span id="L675" class="ln">   675  </span>}
-<span id="L676" class="ln">   676  </span>
+<span id="L560" class="ln">   560  </span>	all := struct {
+<span id="L561" class="ln">   561  </span>		DisplayFormat    *WidgetServiceSummaryDisplayFormat  `json:&#34;display_format,omitempty&#34;`
+<span id="L562" class="ln">   562  </span>		Env              *string                             `json:&#34;env&#34;`
+<span id="L563" class="ln">   563  </span>		Service          *string                             `json:&#34;service&#34;`
+<span id="L564" class="ln">   564  </span>		ShowBreakdown    *bool                               `json:&#34;show_breakdown,omitempty&#34;`
+<span id="L565" class="ln">   565  </span>		ShowDistribution *bool                               `json:&#34;show_distribution,omitempty&#34;`
+<span id="L566" class="ln">   566  </span>		ShowErrors       *bool                               `json:&#34;show_errors,omitempty&#34;`
+<span id="L567" class="ln">   567  </span>		ShowHits         *bool                               `json:&#34;show_hits,omitempty&#34;`
+<span id="L568" class="ln">   568  </span>		ShowLatency      *bool                               `json:&#34;show_latency,omitempty&#34;`
+<span id="L569" class="ln">   569  </span>		ShowResourceList *bool                               `json:&#34;show_resource_list,omitempty&#34;`
+<span id="L570" class="ln">   570  </span>		SizeFormat       *WidgetSizeFormat                   `json:&#34;size_format,omitempty&#34;`
+<span id="L571" class="ln">   571  </span>		SpanName         *string                             `json:&#34;span_name&#34;`
+<span id="L572" class="ln">   572  </span>		Time             *WidgetTime                         `json:&#34;time,omitempty&#34;`
+<span id="L573" class="ln">   573  </span>		Title            *string                             `json:&#34;title,omitempty&#34;`
+<span id="L574" class="ln">   574  </span>		TitleAlign       *WidgetTextAlign                    `json:&#34;title_align,omitempty&#34;`
+<span id="L575" class="ln">   575  </span>		TitleSize        *string                             `json:&#34;title_size,omitempty&#34;`
+<span id="L576" class="ln">   576  </span>		Type             *ServiceSummaryWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L577" class="ln">   577  </span>	}{}
+<span id="L578" class="ln">   578  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L579" class="ln">   579  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L580" class="ln">   580  </span>		if err != nil {
+<span id="L581" class="ln">   581  </span>			return err
+<span id="L582" class="ln">   582  </span>		}
+<span id="L583" class="ln">   583  </span>		o.UnparsedObject = raw
+<span id="L584" class="ln">   584  </span>		return nil
+<span id="L585" class="ln">   585  </span>	}
+<span id="L586" class="ln">   586  </span>	if all.Env == nil {
+<span id="L587" class="ln">   587  </span>		return fmt.Errorf(&#34;required field env missing&#34;)
+<span id="L588" class="ln">   588  </span>	}
+<span id="L589" class="ln">   589  </span>	if all.Service == nil {
+<span id="L590" class="ln">   590  </span>		return fmt.Errorf(&#34;required field service missing&#34;)
+<span id="L591" class="ln">   591  </span>	}
+<span id="L592" class="ln">   592  </span>	if all.SpanName == nil {
+<span id="L593" class="ln">   593  </span>		return fmt.Errorf(&#34;required field span_name missing&#34;)
+<span id="L594" class="ln">   594  </span>	}
+<span id="L595" class="ln">   595  </span>	if all.Type == nil {
+<span id="L596" class="ln">   596  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L597" class="ln">   597  </span>	}
+<span id="L598" class="ln">   598  </span>	additionalProperties := make(map[string]interface{})
+<span id="L599" class="ln">   599  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L600" class="ln">   600  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;display_format&#34;, &#34;env&#34;, &#34;service&#34;, &#34;show_breakdown&#34;, &#34;show_distribution&#34;, &#34;show_errors&#34;, &#34;show_hits&#34;, &#34;show_latency&#34;, &#34;show_resource_list&#34;, &#34;size_format&#34;, &#34;span_name&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
+<span id="L601" class="ln">   601  </span>	} else {
+<span id="L602" class="ln">   602  </span>		return err
+<span id="L603" class="ln">   603  </span>	}
+<span id="L604" class="ln">   604  </span>	if v := all.DisplayFormat; v != nil &amp;&amp; !v.IsValid() {
+<span id="L605" class="ln">   605  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L606" class="ln">   606  </span>		if err != nil {
+<span id="L607" class="ln">   607  </span>			return err
+<span id="L608" class="ln">   608  </span>		}
+<span id="L609" class="ln">   609  </span>		o.UnparsedObject = raw
+<span id="L610" class="ln">   610  </span>		return nil
+<span id="L611" class="ln">   611  </span>	}
+<span id="L612" class="ln">   612  </span>	if v := all.SizeFormat; v != nil &amp;&amp; !v.IsValid() {
+<span id="L613" class="ln">   613  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L614" class="ln">   614  </span>		if err != nil {
+<span id="L615" class="ln">   615  </span>			return err
+<span id="L616" class="ln">   616  </span>		}
+<span id="L617" class="ln">   617  </span>		o.UnparsedObject = raw
+<span id="L618" class="ln">   618  </span>		return nil
+<span id="L619" class="ln">   619  </span>	}
+<span id="L620" class="ln">   620  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L621" class="ln">   621  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L622" class="ln">   622  </span>		if err != nil {
+<span id="L623" class="ln">   623  </span>			return err
+<span id="L624" class="ln">   624  </span>		}
+<span id="L625" class="ln">   625  </span>		o.UnparsedObject = raw
+<span id="L626" class="ln">   626  </span>		return nil
+<span id="L627" class="ln">   627  </span>	}
+<span id="L628" class="ln">   628  </span>	if v := all.Type; !v.IsValid() {
+<span id="L629" class="ln">   629  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L630" class="ln">   630  </span>		if err != nil {
+<span id="L631" class="ln">   631  </span>			return err
+<span id="L632" class="ln">   632  </span>		}
+<span id="L633" class="ln">   633  </span>		o.UnparsedObject = raw
+<span id="L634" class="ln">   634  </span>		return nil
+<span id="L635" class="ln">   635  </span>	}
+<span id="L636" class="ln">   636  </span>	o.DisplayFormat = all.DisplayFormat
+<span id="L637" class="ln">   637  </span>	o.Env = *all.Env
+<span id="L638" class="ln">   638  </span>	o.Service = *all.Service
+<span id="L639" class="ln">   639  </span>	o.ShowBreakdown = all.ShowBreakdown
+<span id="L640" class="ln">   640  </span>	o.ShowDistribution = all.ShowDistribution
+<span id="L641" class="ln">   641  </span>	o.ShowErrors = all.ShowErrors
+<span id="L642" class="ln">   642  </span>	o.ShowHits = all.ShowHits
+<span id="L643" class="ln">   643  </span>	o.ShowLatency = all.ShowLatency
+<span id="L644" class="ln">   644  </span>	o.ShowResourceList = all.ShowResourceList
+<span id="L645" class="ln">   645  </span>	o.SizeFormat = all.SizeFormat
+<span id="L646" class="ln">   646  </span>	o.SpanName = *all.SpanName
+<span id="L647" class="ln">   647  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L648" class="ln">   648  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L649" class="ln">   649  </span>		if err != nil {
+<span id="L650" class="ln">   650  </span>			return err
+<span id="L651" class="ln">   651  </span>		}
+<span id="L652" class="ln">   652  </span>		o.UnparsedObject = raw
+<span id="L653" class="ln">   653  </span>	}
+<span id="L654" class="ln">   654  </span>	o.Time = all.Time
+<span id="L655" class="ln">   655  </span>	o.Title = all.Title
+<span id="L656" class="ln">   656  </span>	o.TitleAlign = all.TitleAlign
+<span id="L657" class="ln">   657  </span>	o.TitleSize = all.TitleSize
+<span id="L658" class="ln">   658  </span>	o.Type = *all.Type
+<span id="L659" class="ln">   659  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L660" class="ln">   660  </span>		o.AdditionalProperties = additionalProperties
+<span id="L661" class="ln">   661  </span>	}
+<span id="L662" class="ln">   662  </span>
+<span id="L663" class="ln">   663  </span>	return nil
+<span id="L664" class="ln">   664  </span>}
+<span id="L665" class="ln">   665  </span>
 </pre><p></p>
 
 <div id="footer">

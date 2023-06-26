@@ -322,34 +322,33 @@
 <span id="L265" class="ln">   265  </span>		Tags       []string               `json:&#34;tags,omitempty&#34;`
 <span id="L266" class="ln">   266  </span>		Timestamp  *time.Time             `json:&#34;timestamp,omitempty&#34;`
 <span id="L267" class="ln">   267  </span>	}{}
-<span id="L268" class="ln">   268  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L269" class="ln">   269  </span>	if err != nil {
-<span id="L270" class="ln">   270  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L271" class="ln">   271  </span>		if err != nil {
-<span id="L272" class="ln">   272  </span>			return err
-<span id="L273" class="ln">   273  </span>		}
-<span id="L274" class="ln">   274  </span>		o.UnparsedObject = raw
-<span id="L275" class="ln">   275  </span>		return nil
-<span id="L276" class="ln">   276  </span>	}
-<span id="L277" class="ln">   277  </span>	additionalProperties := make(map[string]interface{})
-<span id="L278" class="ln">   278  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L279" class="ln">   279  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;host&#34;, &#34;message&#34;, &#34;service&#34;, &#34;tags&#34;, &#34;timestamp&#34;})
-<span id="L280" class="ln">   280  </span>	} else {
-<span id="L281" class="ln">   281  </span>		return err
-<span id="L282" class="ln">   282  </span>	}
-<span id="L283" class="ln">   283  </span>	o.Attributes = all.Attributes
-<span id="L284" class="ln">   284  </span>	o.Host = all.Host
-<span id="L285" class="ln">   285  </span>	o.Message = all.Message
-<span id="L286" class="ln">   286  </span>	o.Service = all.Service
-<span id="L287" class="ln">   287  </span>	o.Tags = all.Tags
-<span id="L288" class="ln">   288  </span>	o.Timestamp = all.Timestamp
-<span id="L289" class="ln">   289  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L290" class="ln">   290  </span>		o.AdditionalProperties = additionalProperties
-<span id="L291" class="ln">   291  </span>	}
-<span id="L292" class="ln">   292  </span>
-<span id="L293" class="ln">   293  </span>	return nil
-<span id="L294" class="ln">   294  </span>}
-<span id="L295" class="ln">   295  </span>
+<span id="L268" class="ln">   268  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L269" class="ln">   269  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L270" class="ln">   270  </span>		if err != nil {
+<span id="L271" class="ln">   271  </span>			return err
+<span id="L272" class="ln">   272  </span>		}
+<span id="L273" class="ln">   273  </span>		o.UnparsedObject = raw
+<span id="L274" class="ln">   274  </span>		return nil
+<span id="L275" class="ln">   275  </span>	}
+<span id="L276" class="ln">   276  </span>	additionalProperties := make(map[string]interface{})
+<span id="L277" class="ln">   277  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L278" class="ln">   278  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;host&#34;, &#34;message&#34;, &#34;service&#34;, &#34;tags&#34;, &#34;timestamp&#34;})
+<span id="L279" class="ln">   279  </span>	} else {
+<span id="L280" class="ln">   280  </span>		return err
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>	o.Attributes = all.Attributes
+<span id="L283" class="ln">   283  </span>	o.Host = all.Host
+<span id="L284" class="ln">   284  </span>	o.Message = all.Message
+<span id="L285" class="ln">   285  </span>	o.Service = all.Service
+<span id="L286" class="ln">   286  </span>	o.Tags = all.Tags
+<span id="L287" class="ln">   287  </span>	o.Timestamp = all.Timestamp
+<span id="L288" class="ln">   288  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L289" class="ln">   289  </span>		o.AdditionalProperties = additionalProperties
+<span id="L290" class="ln">   290  </span>	}
+<span id="L291" class="ln">   291  </span>
+<span id="L292" class="ln">   292  </span>	return nil
+<span id="L293" class="ln">   293  </span>}
+<span id="L294" class="ln">   294  </span>
 </pre><p></p>
 
 <div id="footer">

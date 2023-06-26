@@ -847,97 +847,96 @@
 <span id="L790" class="ln">   790  </span>		Timezone                      *string                    `json:&#34;timezone,omitempty&#34;`
 <span id="L791" class="ln">   791  </span>		UpdaterId                     datadog.NullableInt32      `json:&#34;updater_id,omitempty&#34;`
 <span id="L792" class="ln">   792  </span>	}{}
-<span id="L793" class="ln">   793  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L794" class="ln">   794  </span>	if err != nil {
-<span id="L795" class="ln">   795  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L796" class="ln">   796  </span>		if err != nil {
-<span id="L797" class="ln">   797  </span>			return err
-<span id="L798" class="ln">   798  </span>		}
-<span id="L799" class="ln">   799  </span>		o.UnparsedObject = raw
-<span id="L800" class="ln">   800  </span>		return nil
-<span id="L801" class="ln">   801  </span>	}
-<span id="L802" class="ln">   802  </span>	additionalProperties := make(map[string]interface{})
-<span id="L803" class="ln">   803  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L804" class="ln">   804  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;active&#34;, &#34;canceled&#34;, &#34;creator_id&#34;, &#34;disabled&#34;, &#34;downtime_type&#34;, &#34;end&#34;, &#34;id&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;monitor_tags&#34;, &#34;mute_first_recovery_notification&#34;, &#34;notify_end_states&#34;, &#34;notify_end_types&#34;, &#34;parent_id&#34;, &#34;recurrence&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;timezone&#34;, &#34;updater_id&#34;})
-<span id="L805" class="ln">   805  </span>	} else {
-<span id="L806" class="ln">   806  </span>		return err
-<span id="L807" class="ln">   807  </span>	}
-<span id="L808" class="ln">   808  </span>	o.Active = all.Active
-<span id="L809" class="ln">   809  </span>	o.Canceled = all.Canceled
-<span id="L810" class="ln">   810  </span>	o.CreatorId = all.CreatorId
-<span id="L811" class="ln">   811  </span>	o.Disabled = all.Disabled
-<span id="L812" class="ln">   812  </span>	o.DowntimeType = all.DowntimeType
-<span id="L813" class="ln">   813  </span>	o.End = all.End
-<span id="L814" class="ln">   814  </span>	o.Id = all.Id
-<span id="L815" class="ln">   815  </span>	o.Message = all.Message
-<span id="L816" class="ln">   816  </span>	o.MonitorId = all.MonitorId
-<span id="L817" class="ln">   817  </span>	o.MonitorTags = all.MonitorTags
-<span id="L818" class="ln">   818  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
-<span id="L819" class="ln">   819  </span>	o.NotifyEndStates = all.NotifyEndStates
-<span id="L820" class="ln">   820  </span>	o.NotifyEndTypes = all.NotifyEndTypes
-<span id="L821" class="ln">   821  </span>	o.ParentId = all.ParentId
-<span id="L822" class="ln">   822  </span>	o.Recurrence = all.Recurrence
-<span id="L823" class="ln">   823  </span>	o.Scope = all.Scope
-<span id="L824" class="ln">   824  </span>	o.Start = all.Start
-<span id="L825" class="ln">   825  </span>	o.Timezone = all.Timezone
-<span id="L826" class="ln">   826  </span>	o.UpdaterId = all.UpdaterId
-<span id="L827" class="ln">   827  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L828" class="ln">   828  </span>		o.AdditionalProperties = additionalProperties
-<span id="L829" class="ln">   829  </span>	}
-<span id="L830" class="ln">   830  </span>
-<span id="L831" class="ln">   831  </span>	return nil
-<span id="L832" class="ln">   832  </span>}
-<span id="L833" class="ln">   833  </span>
-<span id="L834" class="ln">   834  </span><span class="comment">// NullableDowntimeChild handles when a null is used for DowntimeChild.</span>
-<span id="L835" class="ln">   835  </span>type NullableDowntimeChild struct {
-<span id="L836" class="ln">   836  </span>	value *DowntimeChild
-<span id="L837" class="ln">   837  </span>	isSet bool
-<span id="L838" class="ln">   838  </span>}
-<span id="L839" class="ln">   839  </span>
-<span id="L840" class="ln">   840  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L841" class="ln">   841  </span>func (v NullableDowntimeChild) Get() *DowntimeChild {
-<span id="L842" class="ln">   842  </span>	return v.value
-<span id="L843" class="ln">   843  </span>}
-<span id="L844" class="ln">   844  </span>
-<span id="L845" class="ln">   845  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L846" class="ln">   846  </span>func (v *NullableDowntimeChild) Set(val *DowntimeChild) {
-<span id="L847" class="ln">   847  </span>	v.value = val
-<span id="L848" class="ln">   848  </span>	v.isSet = true
-<span id="L849" class="ln">   849  </span>}
-<span id="L850" class="ln">   850  </span>
-<span id="L851" class="ln">   851  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L852" class="ln">   852  </span>func (v NullableDowntimeChild) IsSet() bool {
-<span id="L853" class="ln">   853  </span>	return v.isSet
-<span id="L854" class="ln">   854  </span>}
-<span id="L855" class="ln">   855  </span>
-<span id="L856" class="ln">   856  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L857" class="ln">   857  </span>func (v *NullableDowntimeChild) Unset() {
-<span id="L858" class="ln">   858  </span>	v.value = nil
-<span id="L859" class="ln">   859  </span>	v.isSet = false
-<span id="L860" class="ln">   860  </span>}
-<span id="L861" class="ln">   861  </span>
-<span id="L862" class="ln">   862  </span><span class="comment">// NewNullableDowntimeChild initializes the struct as if Set has been called.</span>
-<span id="L863" class="ln">   863  </span>func NewNullableDowntimeChild(val *DowntimeChild) *NullableDowntimeChild {
-<span id="L864" class="ln">   864  </span>	return &amp;NullableDowntimeChild{value: val, isSet: true}
-<span id="L865" class="ln">   865  </span>}
-<span id="L866" class="ln">   866  </span>
-<span id="L867" class="ln">   867  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L868" class="ln">   868  </span>func (v NullableDowntimeChild) MarshalJSON() ([]byte, error) {
-<span id="L869" class="ln">   869  </span>	return json.Marshal(v.value)
-<span id="L870" class="ln">   870  </span>}
-<span id="L871" class="ln">   871  </span>
-<span id="L872" class="ln">   872  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L873" class="ln">   873  </span>func (v *NullableDowntimeChild) UnmarshalJSON(src []byte) error {
-<span id="L874" class="ln">   874  </span>	v.isSet = true
-<span id="L875" class="ln">   875  </span>
-<span id="L876" class="ln">   876  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L877" class="ln">   877  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L878" class="ln">   878  </span>		return nil
-<span id="L879" class="ln">   879  </span>	}
-<span id="L880" class="ln">   880  </span>
-<span id="L881" class="ln">   881  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L882" class="ln">   882  </span>}
-<span id="L883" class="ln">   883  </span>
+<span id="L793" class="ln">   793  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L794" class="ln">   794  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L795" class="ln">   795  </span>		if err != nil {
+<span id="L796" class="ln">   796  </span>			return err
+<span id="L797" class="ln">   797  </span>		}
+<span id="L798" class="ln">   798  </span>		o.UnparsedObject = raw
+<span id="L799" class="ln">   799  </span>		return nil
+<span id="L800" class="ln">   800  </span>	}
+<span id="L801" class="ln">   801  </span>	additionalProperties := make(map[string]interface{})
+<span id="L802" class="ln">   802  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L803" class="ln">   803  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;active&#34;, &#34;canceled&#34;, &#34;creator_id&#34;, &#34;disabled&#34;, &#34;downtime_type&#34;, &#34;end&#34;, &#34;id&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;monitor_tags&#34;, &#34;mute_first_recovery_notification&#34;, &#34;notify_end_states&#34;, &#34;notify_end_types&#34;, &#34;parent_id&#34;, &#34;recurrence&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;timezone&#34;, &#34;updater_id&#34;})
+<span id="L804" class="ln">   804  </span>	} else {
+<span id="L805" class="ln">   805  </span>		return err
+<span id="L806" class="ln">   806  </span>	}
+<span id="L807" class="ln">   807  </span>	o.Active = all.Active
+<span id="L808" class="ln">   808  </span>	o.Canceled = all.Canceled
+<span id="L809" class="ln">   809  </span>	o.CreatorId = all.CreatorId
+<span id="L810" class="ln">   810  </span>	o.Disabled = all.Disabled
+<span id="L811" class="ln">   811  </span>	o.DowntimeType = all.DowntimeType
+<span id="L812" class="ln">   812  </span>	o.End = all.End
+<span id="L813" class="ln">   813  </span>	o.Id = all.Id
+<span id="L814" class="ln">   814  </span>	o.Message = all.Message
+<span id="L815" class="ln">   815  </span>	o.MonitorId = all.MonitorId
+<span id="L816" class="ln">   816  </span>	o.MonitorTags = all.MonitorTags
+<span id="L817" class="ln">   817  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
+<span id="L818" class="ln">   818  </span>	o.NotifyEndStates = all.NotifyEndStates
+<span id="L819" class="ln">   819  </span>	o.NotifyEndTypes = all.NotifyEndTypes
+<span id="L820" class="ln">   820  </span>	o.ParentId = all.ParentId
+<span id="L821" class="ln">   821  </span>	o.Recurrence = all.Recurrence
+<span id="L822" class="ln">   822  </span>	o.Scope = all.Scope
+<span id="L823" class="ln">   823  </span>	o.Start = all.Start
+<span id="L824" class="ln">   824  </span>	o.Timezone = all.Timezone
+<span id="L825" class="ln">   825  </span>	o.UpdaterId = all.UpdaterId
+<span id="L826" class="ln">   826  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L827" class="ln">   827  </span>		o.AdditionalProperties = additionalProperties
+<span id="L828" class="ln">   828  </span>	}
+<span id="L829" class="ln">   829  </span>
+<span id="L830" class="ln">   830  </span>	return nil
+<span id="L831" class="ln">   831  </span>}
+<span id="L832" class="ln">   832  </span>
+<span id="L833" class="ln">   833  </span><span class="comment">// NullableDowntimeChild handles when a null is used for DowntimeChild.</span>
+<span id="L834" class="ln">   834  </span>type NullableDowntimeChild struct {
+<span id="L835" class="ln">   835  </span>	value *DowntimeChild
+<span id="L836" class="ln">   836  </span>	isSet bool
+<span id="L837" class="ln">   837  </span>}
+<span id="L838" class="ln">   838  </span>
+<span id="L839" class="ln">   839  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L840" class="ln">   840  </span>func (v NullableDowntimeChild) Get() *DowntimeChild {
+<span id="L841" class="ln">   841  </span>	return v.value
+<span id="L842" class="ln">   842  </span>}
+<span id="L843" class="ln">   843  </span>
+<span id="L844" class="ln">   844  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L845" class="ln">   845  </span>func (v *NullableDowntimeChild) Set(val *DowntimeChild) {
+<span id="L846" class="ln">   846  </span>	v.value = val
+<span id="L847" class="ln">   847  </span>	v.isSet = true
+<span id="L848" class="ln">   848  </span>}
+<span id="L849" class="ln">   849  </span>
+<span id="L850" class="ln">   850  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L851" class="ln">   851  </span>func (v NullableDowntimeChild) IsSet() bool {
+<span id="L852" class="ln">   852  </span>	return v.isSet
+<span id="L853" class="ln">   853  </span>}
+<span id="L854" class="ln">   854  </span>
+<span id="L855" class="ln">   855  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L856" class="ln">   856  </span>func (v *NullableDowntimeChild) Unset() {
+<span id="L857" class="ln">   857  </span>	v.value = nil
+<span id="L858" class="ln">   858  </span>	v.isSet = false
+<span id="L859" class="ln">   859  </span>}
+<span id="L860" class="ln">   860  </span>
+<span id="L861" class="ln">   861  </span><span class="comment">// NewNullableDowntimeChild initializes the struct as if Set has been called.</span>
+<span id="L862" class="ln">   862  </span>func NewNullableDowntimeChild(val *DowntimeChild) *NullableDowntimeChild {
+<span id="L863" class="ln">   863  </span>	return &amp;NullableDowntimeChild{value: val, isSet: true}
+<span id="L864" class="ln">   864  </span>}
+<span id="L865" class="ln">   865  </span>
+<span id="L866" class="ln">   866  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L867" class="ln">   867  </span>func (v NullableDowntimeChild) MarshalJSON() ([]byte, error) {
+<span id="L868" class="ln">   868  </span>	return json.Marshal(v.value)
+<span id="L869" class="ln">   869  </span>}
+<span id="L870" class="ln">   870  </span>
+<span id="L871" class="ln">   871  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L872" class="ln">   872  </span>func (v *NullableDowntimeChild) UnmarshalJSON(src []byte) error {
+<span id="L873" class="ln">   873  </span>	v.isSet = true
+<span id="L874" class="ln">   874  </span>
+<span id="L875" class="ln">   875  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L876" class="ln">   876  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L877" class="ln">   877  </span>		return nil
+<span id="L878" class="ln">   878  </span>	}
+<span id="L879" class="ln">   879  </span>
+<span id="L880" class="ln">   880  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L881" class="ln">   881  </span>}
+<span id="L882" class="ln">   882  </span>
 </pre><p></p>
 
 <div id="footer">

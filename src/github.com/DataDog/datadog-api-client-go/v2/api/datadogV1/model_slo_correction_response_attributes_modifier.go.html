@@ -211,81 +211,80 @@
 <span id="L154" class="ln">   154  </span>		Handle *string `json:&#34;handle,omitempty&#34;`
 <span id="L155" class="ln">   155  </span>		Name   *string `json:&#34;name,omitempty&#34;`
 <span id="L156" class="ln">   156  </span>	}{}
-<span id="L157" class="ln">   157  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L158" class="ln">   158  </span>	if err != nil {
-<span id="L159" class="ln">   159  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L160" class="ln">   160  </span>		if err != nil {
-<span id="L161" class="ln">   161  </span>			return err
-<span id="L162" class="ln">   162  </span>		}
-<span id="L163" class="ln">   163  </span>		o.UnparsedObject = raw
-<span id="L164" class="ln">   164  </span>		return nil
-<span id="L165" class="ln">   165  </span>	}
-<span id="L166" class="ln">   166  </span>	additionalProperties := make(map[string]interface{})
-<span id="L167" class="ln">   167  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L168" class="ln">   168  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;email&#34;, &#34;handle&#34;, &#34;name&#34;})
-<span id="L169" class="ln">   169  </span>	} else {
-<span id="L170" class="ln">   170  </span>		return err
-<span id="L171" class="ln">   171  </span>	}
-<span id="L172" class="ln">   172  </span>	o.Email = all.Email
-<span id="L173" class="ln">   173  </span>	o.Handle = all.Handle
-<span id="L174" class="ln">   174  </span>	o.Name = all.Name
-<span id="L175" class="ln">   175  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L176" class="ln">   176  </span>		o.AdditionalProperties = additionalProperties
-<span id="L177" class="ln">   177  </span>	}
-<span id="L178" class="ln">   178  </span>
-<span id="L179" class="ln">   179  </span>	return nil
-<span id="L180" class="ln">   180  </span>}
-<span id="L181" class="ln">   181  </span>
-<span id="L182" class="ln">   182  </span><span class="comment">// NullableSLOCorrectionResponseAttributesModifier handles when a null is used for SLOCorrectionResponseAttributesModifier.</span>
-<span id="L183" class="ln">   183  </span>type NullableSLOCorrectionResponseAttributesModifier struct {
-<span id="L184" class="ln">   184  </span>	value *SLOCorrectionResponseAttributesModifier
-<span id="L185" class="ln">   185  </span>	isSet bool
-<span id="L186" class="ln">   186  </span>}
-<span id="L187" class="ln">   187  </span>
-<span id="L188" class="ln">   188  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L189" class="ln">   189  </span>func (v NullableSLOCorrectionResponseAttributesModifier) Get() *SLOCorrectionResponseAttributesModifier {
-<span id="L190" class="ln">   190  </span>	return v.value
-<span id="L191" class="ln">   191  </span>}
-<span id="L192" class="ln">   192  </span>
-<span id="L193" class="ln">   193  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L194" class="ln">   194  </span>func (v *NullableSLOCorrectionResponseAttributesModifier) Set(val *SLOCorrectionResponseAttributesModifier) {
-<span id="L195" class="ln">   195  </span>	v.value = val
-<span id="L196" class="ln">   196  </span>	v.isSet = true
-<span id="L197" class="ln">   197  </span>}
-<span id="L198" class="ln">   198  </span>
-<span id="L199" class="ln">   199  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L200" class="ln">   200  </span>func (v NullableSLOCorrectionResponseAttributesModifier) IsSet() bool {
-<span id="L201" class="ln">   201  </span>	return v.isSet
-<span id="L202" class="ln">   202  </span>}
-<span id="L203" class="ln">   203  </span>
-<span id="L204" class="ln">   204  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L205" class="ln">   205  </span>func (v *NullableSLOCorrectionResponseAttributesModifier) Unset() {
-<span id="L206" class="ln">   206  </span>	v.value = nil
-<span id="L207" class="ln">   207  </span>	v.isSet = false
-<span id="L208" class="ln">   208  </span>}
-<span id="L209" class="ln">   209  </span>
-<span id="L210" class="ln">   210  </span><span class="comment">// NewNullableSLOCorrectionResponseAttributesModifier initializes the struct as if Set has been called.</span>
-<span id="L211" class="ln">   211  </span>func NewNullableSLOCorrectionResponseAttributesModifier(val *SLOCorrectionResponseAttributesModifier) *NullableSLOCorrectionResponseAttributesModifier {
-<span id="L212" class="ln">   212  </span>	return &amp;NullableSLOCorrectionResponseAttributesModifier{value: val, isSet: true}
-<span id="L213" class="ln">   213  </span>}
-<span id="L214" class="ln">   214  </span>
-<span id="L215" class="ln">   215  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L216" class="ln">   216  </span>func (v NullableSLOCorrectionResponseAttributesModifier) MarshalJSON() ([]byte, error) {
-<span id="L217" class="ln">   217  </span>	return json.Marshal(v.value)
-<span id="L218" class="ln">   218  </span>}
-<span id="L219" class="ln">   219  </span>
-<span id="L220" class="ln">   220  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L221" class="ln">   221  </span>func (v *NullableSLOCorrectionResponseAttributesModifier) UnmarshalJSON(src []byte) error {
-<span id="L222" class="ln">   222  </span>	v.isSet = true
-<span id="L223" class="ln">   223  </span>
-<span id="L224" class="ln">   224  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L225" class="ln">   225  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L226" class="ln">   226  </span>		return nil
-<span id="L227" class="ln">   227  </span>	}
-<span id="L228" class="ln">   228  </span>
-<span id="L229" class="ln">   229  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L230" class="ln">   230  </span>}
-<span id="L231" class="ln">   231  </span>
+<span id="L157" class="ln">   157  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L158" class="ln">   158  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L159" class="ln">   159  </span>		if err != nil {
+<span id="L160" class="ln">   160  </span>			return err
+<span id="L161" class="ln">   161  </span>		}
+<span id="L162" class="ln">   162  </span>		o.UnparsedObject = raw
+<span id="L163" class="ln">   163  </span>		return nil
+<span id="L164" class="ln">   164  </span>	}
+<span id="L165" class="ln">   165  </span>	additionalProperties := make(map[string]interface{})
+<span id="L166" class="ln">   166  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L167" class="ln">   167  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;email&#34;, &#34;handle&#34;, &#34;name&#34;})
+<span id="L168" class="ln">   168  </span>	} else {
+<span id="L169" class="ln">   169  </span>		return err
+<span id="L170" class="ln">   170  </span>	}
+<span id="L171" class="ln">   171  </span>	o.Email = all.Email
+<span id="L172" class="ln">   172  </span>	o.Handle = all.Handle
+<span id="L173" class="ln">   173  </span>	o.Name = all.Name
+<span id="L174" class="ln">   174  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L175" class="ln">   175  </span>		o.AdditionalProperties = additionalProperties
+<span id="L176" class="ln">   176  </span>	}
+<span id="L177" class="ln">   177  </span>
+<span id="L178" class="ln">   178  </span>	return nil
+<span id="L179" class="ln">   179  </span>}
+<span id="L180" class="ln">   180  </span>
+<span id="L181" class="ln">   181  </span><span class="comment">// NullableSLOCorrectionResponseAttributesModifier handles when a null is used for SLOCorrectionResponseAttributesModifier.</span>
+<span id="L182" class="ln">   182  </span>type NullableSLOCorrectionResponseAttributesModifier struct {
+<span id="L183" class="ln">   183  </span>	value *SLOCorrectionResponseAttributesModifier
+<span id="L184" class="ln">   184  </span>	isSet bool
+<span id="L185" class="ln">   185  </span>}
+<span id="L186" class="ln">   186  </span>
+<span id="L187" class="ln">   187  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L188" class="ln">   188  </span>func (v NullableSLOCorrectionResponseAttributesModifier) Get() *SLOCorrectionResponseAttributesModifier {
+<span id="L189" class="ln">   189  </span>	return v.value
+<span id="L190" class="ln">   190  </span>}
+<span id="L191" class="ln">   191  </span>
+<span id="L192" class="ln">   192  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L193" class="ln">   193  </span>func (v *NullableSLOCorrectionResponseAttributesModifier) Set(val *SLOCorrectionResponseAttributesModifier) {
+<span id="L194" class="ln">   194  </span>	v.value = val
+<span id="L195" class="ln">   195  </span>	v.isSet = true
+<span id="L196" class="ln">   196  </span>}
+<span id="L197" class="ln">   197  </span>
+<span id="L198" class="ln">   198  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L199" class="ln">   199  </span>func (v NullableSLOCorrectionResponseAttributesModifier) IsSet() bool {
+<span id="L200" class="ln">   200  </span>	return v.isSet
+<span id="L201" class="ln">   201  </span>}
+<span id="L202" class="ln">   202  </span>
+<span id="L203" class="ln">   203  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L204" class="ln">   204  </span>func (v *NullableSLOCorrectionResponseAttributesModifier) Unset() {
+<span id="L205" class="ln">   205  </span>	v.value = nil
+<span id="L206" class="ln">   206  </span>	v.isSet = false
+<span id="L207" class="ln">   207  </span>}
+<span id="L208" class="ln">   208  </span>
+<span id="L209" class="ln">   209  </span><span class="comment">// NewNullableSLOCorrectionResponseAttributesModifier initializes the struct as if Set has been called.</span>
+<span id="L210" class="ln">   210  </span>func NewNullableSLOCorrectionResponseAttributesModifier(val *SLOCorrectionResponseAttributesModifier) *NullableSLOCorrectionResponseAttributesModifier {
+<span id="L211" class="ln">   211  </span>	return &amp;NullableSLOCorrectionResponseAttributesModifier{value: val, isSet: true}
+<span id="L212" class="ln">   212  </span>}
+<span id="L213" class="ln">   213  </span>
+<span id="L214" class="ln">   214  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L215" class="ln">   215  </span>func (v NullableSLOCorrectionResponseAttributesModifier) MarshalJSON() ([]byte, error) {
+<span id="L216" class="ln">   216  </span>	return json.Marshal(v.value)
+<span id="L217" class="ln">   217  </span>}
+<span id="L218" class="ln">   218  </span>
+<span id="L219" class="ln">   219  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L220" class="ln">   220  </span>func (v *NullableSLOCorrectionResponseAttributesModifier) UnmarshalJSON(src []byte) error {
+<span id="L221" class="ln">   221  </span>	v.isSet = true
+<span id="L222" class="ln">   222  </span>
+<span id="L223" class="ln">   223  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L224" class="ln">   224  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L225" class="ln">   225  </span>		return nil
+<span id="L226" class="ln">   226  </span>	}
+<span id="L227" class="ln">   227  </span>
+<span id="L228" class="ln">   228  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L229" class="ln">   229  </span>}
+<span id="L230" class="ln">   230  </span>
 </pre><p></p>
 
 <div id="footer">

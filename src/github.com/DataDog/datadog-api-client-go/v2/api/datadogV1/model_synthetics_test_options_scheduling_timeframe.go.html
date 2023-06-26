@@ -211,31 +211,30 @@
 <span id="L154" class="ln">   154  </span>		From *string `json:&#34;from,omitempty&#34;`
 <span id="L155" class="ln">   155  </span>		To   *string `json:&#34;to,omitempty&#34;`
 <span id="L156" class="ln">   156  </span>	}{}
-<span id="L157" class="ln">   157  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L158" class="ln">   158  </span>	if err != nil {
-<span id="L159" class="ln">   159  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L160" class="ln">   160  </span>		if err != nil {
-<span id="L161" class="ln">   161  </span>			return err
-<span id="L162" class="ln">   162  </span>		}
-<span id="L163" class="ln">   163  </span>		o.UnparsedObject = raw
-<span id="L164" class="ln">   164  </span>		return nil
-<span id="L165" class="ln">   165  </span>	}
-<span id="L166" class="ln">   166  </span>	additionalProperties := make(map[string]interface{})
-<span id="L167" class="ln">   167  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L168" class="ln">   168  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;day&#34;, &#34;from&#34;, &#34;to&#34;})
-<span id="L169" class="ln">   169  </span>	} else {
-<span id="L170" class="ln">   170  </span>		return err
-<span id="L171" class="ln">   171  </span>	}
-<span id="L172" class="ln">   172  </span>	o.Day = all.Day
-<span id="L173" class="ln">   173  </span>	o.From = all.From
-<span id="L174" class="ln">   174  </span>	o.To = all.To
-<span id="L175" class="ln">   175  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L176" class="ln">   176  </span>		o.AdditionalProperties = additionalProperties
-<span id="L177" class="ln">   177  </span>	}
-<span id="L178" class="ln">   178  </span>
-<span id="L179" class="ln">   179  </span>	return nil
-<span id="L180" class="ln">   180  </span>}
-<span id="L181" class="ln">   181  </span>
+<span id="L157" class="ln">   157  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L158" class="ln">   158  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L159" class="ln">   159  </span>		if err != nil {
+<span id="L160" class="ln">   160  </span>			return err
+<span id="L161" class="ln">   161  </span>		}
+<span id="L162" class="ln">   162  </span>		o.UnparsedObject = raw
+<span id="L163" class="ln">   163  </span>		return nil
+<span id="L164" class="ln">   164  </span>	}
+<span id="L165" class="ln">   165  </span>	additionalProperties := make(map[string]interface{})
+<span id="L166" class="ln">   166  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L167" class="ln">   167  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;day&#34;, &#34;from&#34;, &#34;to&#34;})
+<span id="L168" class="ln">   168  </span>	} else {
+<span id="L169" class="ln">   169  </span>		return err
+<span id="L170" class="ln">   170  </span>	}
+<span id="L171" class="ln">   171  </span>	o.Day = all.Day
+<span id="L172" class="ln">   172  </span>	o.From = all.From
+<span id="L173" class="ln">   173  </span>	o.To = all.To
+<span id="L174" class="ln">   174  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L175" class="ln">   175  </span>		o.AdditionalProperties = additionalProperties
+<span id="L176" class="ln">   176  </span>	}
+<span id="L177" class="ln">   177  </span>
+<span id="L178" class="ln">   178  </span>	return nil
+<span id="L179" class="ln">   179  </span>}
+<span id="L180" class="ln">   180  </span>
 </pre><p></p>
 
 <div id="footer">

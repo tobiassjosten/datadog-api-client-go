@@ -352,35 +352,34 @@
 <span id="L295" class="ln">   295  </span>		Name        *string    `json:&#34;name,omitempty&#34;`
 <span id="L296" class="ln">   296  </span>		Restricted  *bool      `json:&#34;restricted,omitempty&#34;`
 <span id="L297" class="ln">   297  </span>	}{}
-<span id="L298" class="ln">   298  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L299" class="ln">   299  </span>	if err != nil {
-<span id="L300" class="ln">   300  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L301" class="ln">   301  </span>		if err != nil {
-<span id="L302" class="ln">   302  </span>			return err
-<span id="L303" class="ln">   303  </span>		}
-<span id="L304" class="ln">   304  </span>		o.UnparsedObject = raw
-<span id="L305" class="ln">   305  </span>		return nil
-<span id="L306" class="ln">   306  </span>	}
-<span id="L307" class="ln">   307  </span>	additionalProperties := make(map[string]interface{})
-<span id="L308" class="ln">   308  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L309" class="ln">   309  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;description&#34;, &#34;display_name&#34;, &#34;display_type&#34;, &#34;group_name&#34;, &#34;name&#34;, &#34;restricted&#34;})
-<span id="L310" class="ln">   310  </span>	} else {
-<span id="L311" class="ln">   311  </span>		return err
-<span id="L312" class="ln">   312  </span>	}
-<span id="L313" class="ln">   313  </span>	o.Created = all.Created
-<span id="L314" class="ln">   314  </span>	o.Description = all.Description
-<span id="L315" class="ln">   315  </span>	o.DisplayName = all.DisplayName
-<span id="L316" class="ln">   316  </span>	o.DisplayType = all.DisplayType
-<span id="L317" class="ln">   317  </span>	o.GroupName = all.GroupName
-<span id="L318" class="ln">   318  </span>	o.Name = all.Name
-<span id="L319" class="ln">   319  </span>	o.Restricted = all.Restricted
-<span id="L320" class="ln">   320  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L321" class="ln">   321  </span>		o.AdditionalProperties = additionalProperties
-<span id="L322" class="ln">   322  </span>	}
-<span id="L323" class="ln">   323  </span>
-<span id="L324" class="ln">   324  </span>	return nil
-<span id="L325" class="ln">   325  </span>}
-<span id="L326" class="ln">   326  </span>
+<span id="L298" class="ln">   298  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L299" class="ln">   299  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L300" class="ln">   300  </span>		if err != nil {
+<span id="L301" class="ln">   301  </span>			return err
+<span id="L302" class="ln">   302  </span>		}
+<span id="L303" class="ln">   303  </span>		o.UnparsedObject = raw
+<span id="L304" class="ln">   304  </span>		return nil
+<span id="L305" class="ln">   305  </span>	}
+<span id="L306" class="ln">   306  </span>	additionalProperties := make(map[string]interface{})
+<span id="L307" class="ln">   307  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L308" class="ln">   308  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;description&#34;, &#34;display_name&#34;, &#34;display_type&#34;, &#34;group_name&#34;, &#34;name&#34;, &#34;restricted&#34;})
+<span id="L309" class="ln">   309  </span>	} else {
+<span id="L310" class="ln">   310  </span>		return err
+<span id="L311" class="ln">   311  </span>	}
+<span id="L312" class="ln">   312  </span>	o.Created = all.Created
+<span id="L313" class="ln">   313  </span>	o.Description = all.Description
+<span id="L314" class="ln">   314  </span>	o.DisplayName = all.DisplayName
+<span id="L315" class="ln">   315  </span>	o.DisplayType = all.DisplayType
+<span id="L316" class="ln">   316  </span>	o.GroupName = all.GroupName
+<span id="L317" class="ln">   317  </span>	o.Name = all.Name
+<span id="L318" class="ln">   318  </span>	o.Restricted = all.Restricted
+<span id="L319" class="ln">   319  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L320" class="ln">   320  </span>		o.AdditionalProperties = additionalProperties
+<span id="L321" class="ln">   321  </span>	}
+<span id="L322" class="ln">   322  </span>
+<span id="L323" class="ln">   323  </span>	return nil
+<span id="L324" class="ln">   324  </span>}
+<span id="L325" class="ln">   325  </span>
 </pre><p></p>
 
 <div id="footer">

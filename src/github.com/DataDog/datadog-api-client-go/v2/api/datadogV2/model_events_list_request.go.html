@@ -246,61 +246,60 @@
 <span id="L189" class="ln">   189  </span>		Page    *EventsRequestPage  `json:&#34;page,omitempty&#34;`
 <span id="L190" class="ln">   190  </span>		Sort    *EventsSort         `json:&#34;sort,omitempty&#34;`
 <span id="L191" class="ln">   191  </span>	}{}
-<span id="L192" class="ln">   192  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L193" class="ln">   193  </span>	if err != nil {
-<span id="L194" class="ln">   194  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L195" class="ln">   195  </span>		if err != nil {
-<span id="L196" class="ln">   196  </span>			return err
-<span id="L197" class="ln">   197  </span>		}
-<span id="L198" class="ln">   198  </span>		o.UnparsedObject = raw
-<span id="L199" class="ln">   199  </span>		return nil
-<span id="L200" class="ln">   200  </span>	}
-<span id="L201" class="ln">   201  </span>	additionalProperties := make(map[string]interface{})
-<span id="L202" class="ln">   202  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L203" class="ln">   203  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;filter&#34;, &#34;options&#34;, &#34;page&#34;, &#34;sort&#34;})
-<span id="L204" class="ln">   204  </span>	} else {
-<span id="L205" class="ln">   205  </span>		return err
-<span id="L206" class="ln">   206  </span>	}
-<span id="L207" class="ln">   207  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
-<span id="L208" class="ln">   208  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L209" class="ln">   209  </span>		if err != nil {
-<span id="L210" class="ln">   210  </span>			return err
-<span id="L211" class="ln">   211  </span>		}
-<span id="L212" class="ln">   212  </span>		o.UnparsedObject = raw
-<span id="L213" class="ln">   213  </span>		return nil
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L216" class="ln">   216  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L217" class="ln">   217  </span>		if err != nil {
-<span id="L218" class="ln">   218  </span>			return err
-<span id="L219" class="ln">   219  </span>		}
-<span id="L220" class="ln">   220  </span>		o.UnparsedObject = raw
-<span id="L221" class="ln">   221  </span>	}
-<span id="L222" class="ln">   222  </span>	o.Filter = all.Filter
-<span id="L223" class="ln">   223  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L224" class="ln">   224  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L225" class="ln">   225  </span>		if err != nil {
-<span id="L226" class="ln">   226  </span>			return err
-<span id="L227" class="ln">   227  </span>		}
-<span id="L228" class="ln">   228  </span>		o.UnparsedObject = raw
-<span id="L229" class="ln">   229  </span>	}
-<span id="L230" class="ln">   230  </span>	o.Options = all.Options
-<span id="L231" class="ln">   231  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L232" class="ln">   232  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L233" class="ln">   233  </span>		if err != nil {
-<span id="L234" class="ln">   234  </span>			return err
-<span id="L235" class="ln">   235  </span>		}
-<span id="L236" class="ln">   236  </span>		o.UnparsedObject = raw
-<span id="L237" class="ln">   237  </span>	}
-<span id="L238" class="ln">   238  </span>	o.Page = all.Page
-<span id="L239" class="ln">   239  </span>	o.Sort = all.Sort
-<span id="L240" class="ln">   240  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L241" class="ln">   241  </span>		o.AdditionalProperties = additionalProperties
-<span id="L242" class="ln">   242  </span>	}
-<span id="L243" class="ln">   243  </span>
-<span id="L244" class="ln">   244  </span>	return nil
-<span id="L245" class="ln">   245  </span>}
-<span id="L246" class="ln">   246  </span>
+<span id="L192" class="ln">   192  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L193" class="ln">   193  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L194" class="ln">   194  </span>		if err != nil {
+<span id="L195" class="ln">   195  </span>			return err
+<span id="L196" class="ln">   196  </span>		}
+<span id="L197" class="ln">   197  </span>		o.UnparsedObject = raw
+<span id="L198" class="ln">   198  </span>		return nil
+<span id="L199" class="ln">   199  </span>	}
+<span id="L200" class="ln">   200  </span>	additionalProperties := make(map[string]interface{})
+<span id="L201" class="ln">   201  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L202" class="ln">   202  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;filter&#34;, &#34;options&#34;, &#34;page&#34;, &#34;sort&#34;})
+<span id="L203" class="ln">   203  </span>	} else {
+<span id="L204" class="ln">   204  </span>		return err
+<span id="L205" class="ln">   205  </span>	}
+<span id="L206" class="ln">   206  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
+<span id="L207" class="ln">   207  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L208" class="ln">   208  </span>		if err != nil {
+<span id="L209" class="ln">   209  </span>			return err
+<span id="L210" class="ln">   210  </span>		}
+<span id="L211" class="ln">   211  </span>		o.UnparsedObject = raw
+<span id="L212" class="ln">   212  </span>		return nil
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L215" class="ln">   215  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L216" class="ln">   216  </span>		if err != nil {
+<span id="L217" class="ln">   217  </span>			return err
+<span id="L218" class="ln">   218  </span>		}
+<span id="L219" class="ln">   219  </span>		o.UnparsedObject = raw
+<span id="L220" class="ln">   220  </span>	}
+<span id="L221" class="ln">   221  </span>	o.Filter = all.Filter
+<span id="L222" class="ln">   222  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L223" class="ln">   223  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L224" class="ln">   224  </span>		if err != nil {
+<span id="L225" class="ln">   225  </span>			return err
+<span id="L226" class="ln">   226  </span>		}
+<span id="L227" class="ln">   227  </span>		o.UnparsedObject = raw
+<span id="L228" class="ln">   228  </span>	}
+<span id="L229" class="ln">   229  </span>	o.Options = all.Options
+<span id="L230" class="ln">   230  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L231" class="ln">   231  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L232" class="ln">   232  </span>		if err != nil {
+<span id="L233" class="ln">   233  </span>			return err
+<span id="L234" class="ln">   234  </span>		}
+<span id="L235" class="ln">   235  </span>		o.UnparsedObject = raw
+<span id="L236" class="ln">   236  </span>	}
+<span id="L237" class="ln">   237  </span>	o.Page = all.Page
+<span id="L238" class="ln">   238  </span>	o.Sort = all.Sort
+<span id="L239" class="ln">   239  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L240" class="ln">   240  </span>		o.AdditionalProperties = additionalProperties
+<span id="L241" class="ln">   241  </span>	}
+<span id="L242" class="ln">   242  </span>
+<span id="L243" class="ln">   243  </span>	return nil
+<span id="L244" class="ln">   244  </span>}
+<span id="L245" class="ln">   245  </span>
 </pre><p></p>
 
 <div id="footer">

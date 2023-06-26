@@ -591,42 +591,41 @@
 <span id="L534" class="ln">   534  </span>		TokenUri                *string  `json:&#34;token_uri,omitempty&#34;`
 <span id="L535" class="ln">   535  </span>		Type                    *string  `json:&#34;type,omitempty&#34;`
 <span id="L536" class="ln">   536  </span>	}{}
-<span id="L537" class="ln">   537  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L538" class="ln">   538  </span>	if err != nil {
-<span id="L539" class="ln">   539  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L540" class="ln">   540  </span>		if err != nil {
-<span id="L541" class="ln">   541  </span>			return err
-<span id="L542" class="ln">   542  </span>		}
-<span id="L543" class="ln">   543  </span>		o.UnparsedObject = raw
-<span id="L544" class="ln">   544  </span>		return nil
-<span id="L545" class="ln">   545  </span>	}
-<span id="L546" class="ln">   546  </span>	additionalProperties := make(map[string]interface{})
-<span id="L547" class="ln">   547  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L548" class="ln">   548  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;auth_provider_x509_cert_url&#34;, &#34;auth_uri&#34;, &#34;automute&#34;, &#34;client_email&#34;, &#34;client_id&#34;, &#34;client_x509_cert_url&#34;, &#34;errors&#34;, &#34;host_filters&#34;, &#34;is_cspm_enabled&#34;, &#34;private_key&#34;, &#34;private_key_id&#34;, &#34;project_id&#34;, &#34;token_uri&#34;, &#34;type&#34;})
-<span id="L549" class="ln">   549  </span>	} else {
-<span id="L550" class="ln">   550  </span>		return err
-<span id="L551" class="ln">   551  </span>	}
-<span id="L552" class="ln">   552  </span>	o.AuthProviderX509CertUrl = all.AuthProviderX509CertUrl
-<span id="L553" class="ln">   553  </span>	o.AuthUri = all.AuthUri
-<span id="L554" class="ln">   554  </span>	o.Automute = all.Automute
-<span id="L555" class="ln">   555  </span>	o.ClientEmail = all.ClientEmail
-<span id="L556" class="ln">   556  </span>	o.ClientId = all.ClientId
-<span id="L557" class="ln">   557  </span>	o.ClientX509CertUrl = all.ClientX509CertUrl
-<span id="L558" class="ln">   558  </span>	o.Errors = all.Errors
-<span id="L559" class="ln">   559  </span>	o.HostFilters = all.HostFilters
-<span id="L560" class="ln">   560  </span>	o.IsCspmEnabled = all.IsCspmEnabled
-<span id="L561" class="ln">   561  </span>	o.PrivateKey = all.PrivateKey
-<span id="L562" class="ln">   562  </span>	o.PrivateKeyId = all.PrivateKeyId
-<span id="L563" class="ln">   563  </span>	o.ProjectId = all.ProjectId
-<span id="L564" class="ln">   564  </span>	o.TokenUri = all.TokenUri
-<span id="L565" class="ln">   565  </span>	o.Type = all.Type
-<span id="L566" class="ln">   566  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L567" class="ln">   567  </span>		o.AdditionalProperties = additionalProperties
-<span id="L568" class="ln">   568  </span>	}
-<span id="L569" class="ln">   569  </span>
-<span id="L570" class="ln">   570  </span>	return nil
-<span id="L571" class="ln">   571  </span>}
-<span id="L572" class="ln">   572  </span>
+<span id="L537" class="ln">   537  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L538" class="ln">   538  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L539" class="ln">   539  </span>		if err != nil {
+<span id="L540" class="ln">   540  </span>			return err
+<span id="L541" class="ln">   541  </span>		}
+<span id="L542" class="ln">   542  </span>		o.UnparsedObject = raw
+<span id="L543" class="ln">   543  </span>		return nil
+<span id="L544" class="ln">   544  </span>	}
+<span id="L545" class="ln">   545  </span>	additionalProperties := make(map[string]interface{})
+<span id="L546" class="ln">   546  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L547" class="ln">   547  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;auth_provider_x509_cert_url&#34;, &#34;auth_uri&#34;, &#34;automute&#34;, &#34;client_email&#34;, &#34;client_id&#34;, &#34;client_x509_cert_url&#34;, &#34;errors&#34;, &#34;host_filters&#34;, &#34;is_cspm_enabled&#34;, &#34;private_key&#34;, &#34;private_key_id&#34;, &#34;project_id&#34;, &#34;token_uri&#34;, &#34;type&#34;})
+<span id="L548" class="ln">   548  </span>	} else {
+<span id="L549" class="ln">   549  </span>		return err
+<span id="L550" class="ln">   550  </span>	}
+<span id="L551" class="ln">   551  </span>	o.AuthProviderX509CertUrl = all.AuthProviderX509CertUrl
+<span id="L552" class="ln">   552  </span>	o.AuthUri = all.AuthUri
+<span id="L553" class="ln">   553  </span>	o.Automute = all.Automute
+<span id="L554" class="ln">   554  </span>	o.ClientEmail = all.ClientEmail
+<span id="L555" class="ln">   555  </span>	o.ClientId = all.ClientId
+<span id="L556" class="ln">   556  </span>	o.ClientX509CertUrl = all.ClientX509CertUrl
+<span id="L557" class="ln">   557  </span>	o.Errors = all.Errors
+<span id="L558" class="ln">   558  </span>	o.HostFilters = all.HostFilters
+<span id="L559" class="ln">   559  </span>	o.IsCspmEnabled = all.IsCspmEnabled
+<span id="L560" class="ln">   560  </span>	o.PrivateKey = all.PrivateKey
+<span id="L561" class="ln">   561  </span>	o.PrivateKeyId = all.PrivateKeyId
+<span id="L562" class="ln">   562  </span>	o.ProjectId = all.ProjectId
+<span id="L563" class="ln">   563  </span>	o.TokenUri = all.TokenUri
+<span id="L564" class="ln">   564  </span>	o.Type = all.Type
+<span id="L565" class="ln">   565  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L566" class="ln">   566  </span>		o.AdditionalProperties = additionalProperties
+<span id="L567" class="ln">   567  </span>	}
+<span id="L568" class="ln">   568  </span>
+<span id="L569" class="ln">   569  </span>	return nil
+<span id="L570" class="ln">   570  </span>}
+<span id="L571" class="ln">   571  </span>
 </pre><p></p>
 
 <div id="footer">

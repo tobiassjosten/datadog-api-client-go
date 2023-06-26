@@ -418,88 +418,77 @@
 <span id="L361" class="ln">   361  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L362" class="ln">   362  </span>func (o *SyntheticsBasicAuthOauthROP) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L363" class="ln">   363  </span>	raw := map[string]interface{}{}
-<span id="L364" class="ln">   364  </span>	required := struct {
+<span id="L364" class="ln">   364  </span>	all := struct {
 <span id="L365" class="ln">   365  </span>		AccessTokenUrl         *string                                         `json:&#34;accessTokenUrl&#34;`
-<span id="L366" class="ln">   366  </span>		Password               *string                                         `json:&#34;password&#34;`
-<span id="L367" class="ln">   367  </span>		TokenApiAuthentication *SyntheticsBasicAuthOauthTokenApiAuthentication `json:&#34;tokenApiAuthentication&#34;`
-<span id="L368" class="ln">   368  </span>		Username               *string                                         `json:&#34;username&#34;`
-<span id="L369" class="ln">   369  </span>	}{}
-<span id="L370" class="ln">   370  </span>	all := struct {
-<span id="L371" class="ln">   371  </span>		AccessTokenUrl         string                                         `json:&#34;accessTokenUrl&#34;`
-<span id="L372" class="ln">   372  </span>		Audience               *string                                        `json:&#34;audience,omitempty&#34;`
-<span id="L373" class="ln">   373  </span>		ClientId               *string                                        `json:&#34;clientId,omitempty&#34;`
-<span id="L374" class="ln">   374  </span>		ClientSecret           *string                                        `json:&#34;clientSecret,omitempty&#34;`
-<span id="L375" class="ln">   375  </span>		Password               string                                         `json:&#34;password&#34;`
-<span id="L376" class="ln">   376  </span>		Resource               *string                                        `json:&#34;resource,omitempty&#34;`
-<span id="L377" class="ln">   377  </span>		Scope                  *string                                        `json:&#34;scope,omitempty&#34;`
-<span id="L378" class="ln">   378  </span>		TokenApiAuthentication SyntheticsBasicAuthOauthTokenApiAuthentication `json:&#34;tokenApiAuthentication&#34;`
-<span id="L379" class="ln">   379  </span>		Type                   *SyntheticsBasicAuthOauthROPType               `json:&#34;type,omitempty&#34;`
-<span id="L380" class="ln">   380  </span>		Username               string                                         `json:&#34;username&#34;`
-<span id="L381" class="ln">   381  </span>	}{}
-<span id="L382" class="ln">   382  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L383" class="ln">   383  </span>	if err != nil {
-<span id="L384" class="ln">   384  </span>		return err
-<span id="L385" class="ln">   385  </span>	}
-<span id="L386" class="ln">   386  </span>	if required.AccessTokenUrl == nil {
-<span id="L387" class="ln">   387  </span>		return fmt.Errorf(&#34;required field accessTokenUrl missing&#34;)
-<span id="L388" class="ln">   388  </span>	}
-<span id="L389" class="ln">   389  </span>	if required.Password == nil {
-<span id="L390" class="ln">   390  </span>		return fmt.Errorf(&#34;required field password missing&#34;)
-<span id="L391" class="ln">   391  </span>	}
-<span id="L392" class="ln">   392  </span>	if required.TokenApiAuthentication == nil {
-<span id="L393" class="ln">   393  </span>		return fmt.Errorf(&#34;required field tokenApiAuthentication missing&#34;)
-<span id="L394" class="ln">   394  </span>	}
-<span id="L395" class="ln">   395  </span>	if required.Username == nil {
-<span id="L396" class="ln">   396  </span>		return fmt.Errorf(&#34;required field username missing&#34;)
-<span id="L397" class="ln">   397  </span>	}
-<span id="L398" class="ln">   398  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L399" class="ln">   399  </span>	if err != nil {
-<span id="L400" class="ln">   400  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L401" class="ln">   401  </span>		if err != nil {
-<span id="L402" class="ln">   402  </span>			return err
-<span id="L403" class="ln">   403  </span>		}
-<span id="L404" class="ln">   404  </span>		o.UnparsedObject = raw
-<span id="L405" class="ln">   405  </span>		return nil
-<span id="L406" class="ln">   406  </span>	}
-<span id="L407" class="ln">   407  </span>	additionalProperties := make(map[string]interface{})
-<span id="L408" class="ln">   408  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L409" class="ln">   409  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;accessTokenUrl&#34;, &#34;audience&#34;, &#34;clientId&#34;, &#34;clientSecret&#34;, &#34;password&#34;, &#34;resource&#34;, &#34;scope&#34;, &#34;tokenApiAuthentication&#34;, &#34;type&#34;, &#34;username&#34;})
-<span id="L410" class="ln">   410  </span>	} else {
-<span id="L411" class="ln">   411  </span>		return err
-<span id="L412" class="ln">   412  </span>	}
-<span id="L413" class="ln">   413  </span>	if v := all.TokenApiAuthentication; !v.IsValid() {
-<span id="L414" class="ln">   414  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L415" class="ln">   415  </span>		if err != nil {
-<span id="L416" class="ln">   416  </span>			return err
-<span id="L417" class="ln">   417  </span>		}
-<span id="L418" class="ln">   418  </span>		o.UnparsedObject = raw
-<span id="L419" class="ln">   419  </span>		return nil
-<span id="L420" class="ln">   420  </span>	}
-<span id="L421" class="ln">   421  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L422" class="ln">   422  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L423" class="ln">   423  </span>		if err != nil {
-<span id="L424" class="ln">   424  </span>			return err
-<span id="L425" class="ln">   425  </span>		}
-<span id="L426" class="ln">   426  </span>		o.UnparsedObject = raw
-<span id="L427" class="ln">   427  </span>		return nil
-<span id="L428" class="ln">   428  </span>	}
-<span id="L429" class="ln">   429  </span>	o.AccessTokenUrl = all.AccessTokenUrl
-<span id="L430" class="ln">   430  </span>	o.Audience = all.Audience
-<span id="L431" class="ln">   431  </span>	o.ClientId = all.ClientId
-<span id="L432" class="ln">   432  </span>	o.ClientSecret = all.ClientSecret
-<span id="L433" class="ln">   433  </span>	o.Password = all.Password
-<span id="L434" class="ln">   434  </span>	o.Resource = all.Resource
-<span id="L435" class="ln">   435  </span>	o.Scope = all.Scope
-<span id="L436" class="ln">   436  </span>	o.TokenApiAuthentication = all.TokenApiAuthentication
-<span id="L437" class="ln">   437  </span>	o.Type = all.Type
-<span id="L438" class="ln">   438  </span>	o.Username = all.Username
-<span id="L439" class="ln">   439  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L440" class="ln">   440  </span>		o.AdditionalProperties = additionalProperties
-<span id="L441" class="ln">   441  </span>	}
-<span id="L442" class="ln">   442  </span>
-<span id="L443" class="ln">   443  </span>	return nil
-<span id="L444" class="ln">   444  </span>}
-<span id="L445" class="ln">   445  </span>
+<span id="L366" class="ln">   366  </span>		Audience               *string                                         `json:&#34;audience,omitempty&#34;`
+<span id="L367" class="ln">   367  </span>		ClientId               *string                                         `json:&#34;clientId,omitempty&#34;`
+<span id="L368" class="ln">   368  </span>		ClientSecret           *string                                         `json:&#34;clientSecret,omitempty&#34;`
+<span id="L369" class="ln">   369  </span>		Password               *string                                         `json:&#34;password&#34;`
+<span id="L370" class="ln">   370  </span>		Resource               *string                                         `json:&#34;resource,omitempty&#34;`
+<span id="L371" class="ln">   371  </span>		Scope                  *string                                         `json:&#34;scope,omitempty&#34;`
+<span id="L372" class="ln">   372  </span>		TokenApiAuthentication *SyntheticsBasicAuthOauthTokenApiAuthentication `json:&#34;tokenApiAuthentication&#34;`
+<span id="L373" class="ln">   373  </span>		Type                   *SyntheticsBasicAuthOauthROPType                `json:&#34;type,omitempty&#34;`
+<span id="L374" class="ln">   374  </span>		Username               *string                                         `json:&#34;username&#34;`
+<span id="L375" class="ln">   375  </span>	}{}
+<span id="L376" class="ln">   376  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L377" class="ln">   377  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L378" class="ln">   378  </span>		if err != nil {
+<span id="L379" class="ln">   379  </span>			return err
+<span id="L380" class="ln">   380  </span>		}
+<span id="L381" class="ln">   381  </span>		o.UnparsedObject = raw
+<span id="L382" class="ln">   382  </span>		return nil
+<span id="L383" class="ln">   383  </span>	}
+<span id="L384" class="ln">   384  </span>	if all.AccessTokenUrl == nil {
+<span id="L385" class="ln">   385  </span>		return fmt.Errorf(&#34;required field accessTokenUrl missing&#34;)
+<span id="L386" class="ln">   386  </span>	}
+<span id="L387" class="ln">   387  </span>	if all.Password == nil {
+<span id="L388" class="ln">   388  </span>		return fmt.Errorf(&#34;required field password missing&#34;)
+<span id="L389" class="ln">   389  </span>	}
+<span id="L390" class="ln">   390  </span>	if all.TokenApiAuthentication == nil {
+<span id="L391" class="ln">   391  </span>		return fmt.Errorf(&#34;required field tokenApiAuthentication missing&#34;)
+<span id="L392" class="ln">   392  </span>	}
+<span id="L393" class="ln">   393  </span>	if all.Username == nil {
+<span id="L394" class="ln">   394  </span>		return fmt.Errorf(&#34;required field username missing&#34;)
+<span id="L395" class="ln">   395  </span>	}
+<span id="L396" class="ln">   396  </span>	additionalProperties := make(map[string]interface{})
+<span id="L397" class="ln">   397  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L398" class="ln">   398  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;accessTokenUrl&#34;, &#34;audience&#34;, &#34;clientId&#34;, &#34;clientSecret&#34;, &#34;password&#34;, &#34;resource&#34;, &#34;scope&#34;, &#34;tokenApiAuthentication&#34;, &#34;type&#34;, &#34;username&#34;})
+<span id="L399" class="ln">   399  </span>	} else {
+<span id="L400" class="ln">   400  </span>		return err
+<span id="L401" class="ln">   401  </span>	}
+<span id="L402" class="ln">   402  </span>	if v := all.TokenApiAuthentication; !v.IsValid() {
+<span id="L403" class="ln">   403  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L404" class="ln">   404  </span>		if err != nil {
+<span id="L405" class="ln">   405  </span>			return err
+<span id="L406" class="ln">   406  </span>		}
+<span id="L407" class="ln">   407  </span>		o.UnparsedObject = raw
+<span id="L408" class="ln">   408  </span>		return nil
+<span id="L409" class="ln">   409  </span>	}
+<span id="L410" class="ln">   410  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L411" class="ln">   411  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L412" class="ln">   412  </span>		if err != nil {
+<span id="L413" class="ln">   413  </span>			return err
+<span id="L414" class="ln">   414  </span>		}
+<span id="L415" class="ln">   415  </span>		o.UnparsedObject = raw
+<span id="L416" class="ln">   416  </span>		return nil
+<span id="L417" class="ln">   417  </span>	}
+<span id="L418" class="ln">   418  </span>	o.AccessTokenUrl = *all.AccessTokenUrl
+<span id="L419" class="ln">   419  </span>	o.Audience = all.Audience
+<span id="L420" class="ln">   420  </span>	o.ClientId = all.ClientId
+<span id="L421" class="ln">   421  </span>	o.ClientSecret = all.ClientSecret
+<span id="L422" class="ln">   422  </span>	o.Password = *all.Password
+<span id="L423" class="ln">   423  </span>	o.Resource = all.Resource
+<span id="L424" class="ln">   424  </span>	o.Scope = all.Scope
+<span id="L425" class="ln">   425  </span>	o.TokenApiAuthentication = *all.TokenApiAuthentication
+<span id="L426" class="ln">   426  </span>	o.Type = all.Type
+<span id="L427" class="ln">   427  </span>	o.Username = *all.Username
+<span id="L428" class="ln">   428  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L429" class="ln">   429  </span>		o.AdditionalProperties = additionalProperties
+<span id="L430" class="ln">   430  </span>	}
+<span id="L431" class="ln">   431  </span>
+<span id="L432" class="ln">   432  </span>	return nil
+<span id="L433" class="ln">   433  </span>}
+<span id="L434" class="ln">   434  </span>
 </pre><p></p>
 
 <div id="footer">

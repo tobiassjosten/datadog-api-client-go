@@ -305,66 +305,58 @@
 <span id="L248" class="ln">   248  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L249" class="ln">   249  </span>func (o *CIAppPipelinesGroupBy) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L250" class="ln">   250  </span>	raw := map[string]interface{}{}
-<span id="L251" class="ln">   251  </span>	required := struct {
-<span id="L252" class="ln">   252  </span>		Facet *string `json:&#34;facet&#34;`
-<span id="L253" class="ln">   253  </span>	}{}
-<span id="L254" class="ln">   254  </span>	all := struct {
-<span id="L255" class="ln">   255  </span>		Facet     string                 `json:&#34;facet&#34;`
-<span id="L256" class="ln">   256  </span>		Histogram *CIAppGroupByHistogram `json:&#34;histogram,omitempty&#34;`
-<span id="L257" class="ln">   257  </span>		Limit     *int64                 `json:&#34;limit,omitempty&#34;`
-<span id="L258" class="ln">   258  </span>		Missing   *CIAppGroupByMissing   `json:&#34;missing,omitempty&#34;`
-<span id="L259" class="ln">   259  </span>		Sort      *CIAppAggregateSort    `json:&#34;sort,omitempty&#34;`
-<span id="L260" class="ln">   260  </span>		Total     *CIAppGroupByTotal     `json:&#34;total,omitempty&#34;`
-<span id="L261" class="ln">   261  </span>	}{}
-<span id="L262" class="ln">   262  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L263" class="ln">   263  </span>	if err != nil {
-<span id="L264" class="ln">   264  </span>		return err
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	if required.Facet == nil {
-<span id="L267" class="ln">   267  </span>		return fmt.Errorf(&#34;required field facet missing&#34;)
-<span id="L268" class="ln">   268  </span>	}
-<span id="L269" class="ln">   269  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L270" class="ln">   270  </span>	if err != nil {
-<span id="L271" class="ln">   271  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L272" class="ln">   272  </span>		if err != nil {
-<span id="L273" class="ln">   273  </span>			return err
-<span id="L274" class="ln">   274  </span>		}
-<span id="L275" class="ln">   275  </span>		o.UnparsedObject = raw
-<span id="L276" class="ln">   276  </span>		return nil
-<span id="L277" class="ln">   277  </span>	}
-<span id="L278" class="ln">   278  </span>	additionalProperties := make(map[string]interface{})
-<span id="L279" class="ln">   279  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L280" class="ln">   280  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;facet&#34;, &#34;histogram&#34;, &#34;limit&#34;, &#34;missing&#34;, &#34;sort&#34;, &#34;total&#34;})
-<span id="L281" class="ln">   281  </span>	} else {
-<span id="L282" class="ln">   282  </span>		return err
+<span id="L251" class="ln">   251  </span>	all := struct {
+<span id="L252" class="ln">   252  </span>		Facet     *string                `json:&#34;facet&#34;`
+<span id="L253" class="ln">   253  </span>		Histogram *CIAppGroupByHistogram `json:&#34;histogram,omitempty&#34;`
+<span id="L254" class="ln">   254  </span>		Limit     *int64                 `json:&#34;limit,omitempty&#34;`
+<span id="L255" class="ln">   255  </span>		Missing   *CIAppGroupByMissing   `json:&#34;missing,omitempty&#34;`
+<span id="L256" class="ln">   256  </span>		Sort      *CIAppAggregateSort    `json:&#34;sort,omitempty&#34;`
+<span id="L257" class="ln">   257  </span>		Total     *CIAppGroupByTotal     `json:&#34;total,omitempty&#34;`
+<span id="L258" class="ln">   258  </span>	}{}
+<span id="L259" class="ln">   259  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L260" class="ln">   260  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L261" class="ln">   261  </span>		if err != nil {
+<span id="L262" class="ln">   262  </span>			return err
+<span id="L263" class="ln">   263  </span>		}
+<span id="L264" class="ln">   264  </span>		o.UnparsedObject = raw
+<span id="L265" class="ln">   265  </span>		return nil
+<span id="L266" class="ln">   266  </span>	}
+<span id="L267" class="ln">   267  </span>	if all.Facet == nil {
+<span id="L268" class="ln">   268  </span>		return fmt.Errorf(&#34;required field facet missing&#34;)
+<span id="L269" class="ln">   269  </span>	}
+<span id="L270" class="ln">   270  </span>	additionalProperties := make(map[string]interface{})
+<span id="L271" class="ln">   271  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L272" class="ln">   272  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;facet&#34;, &#34;histogram&#34;, &#34;limit&#34;, &#34;missing&#34;, &#34;sort&#34;, &#34;total&#34;})
+<span id="L273" class="ln">   273  </span>	} else {
+<span id="L274" class="ln">   274  </span>		return err
+<span id="L275" class="ln">   275  </span>	}
+<span id="L276" class="ln">   276  </span>	o.Facet = *all.Facet
+<span id="L277" class="ln">   277  </span>	if all.Histogram != nil &amp;&amp; all.Histogram.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L278" class="ln">   278  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L279" class="ln">   279  </span>		if err != nil {
+<span id="L280" class="ln">   280  </span>			return err
+<span id="L281" class="ln">   281  </span>		}
+<span id="L282" class="ln">   282  </span>		o.UnparsedObject = raw
 <span id="L283" class="ln">   283  </span>	}
-<span id="L284" class="ln">   284  </span>	o.Facet = all.Facet
-<span id="L285" class="ln">   285  </span>	if all.Histogram != nil &amp;&amp; all.Histogram.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L286" class="ln">   286  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L287" class="ln">   287  </span>		if err != nil {
-<span id="L288" class="ln">   288  </span>			return err
-<span id="L289" class="ln">   289  </span>		}
-<span id="L290" class="ln">   290  </span>		o.UnparsedObject = raw
-<span id="L291" class="ln">   291  </span>	}
-<span id="L292" class="ln">   292  </span>	o.Histogram = all.Histogram
-<span id="L293" class="ln">   293  </span>	o.Limit = all.Limit
-<span id="L294" class="ln">   294  </span>	o.Missing = all.Missing
-<span id="L295" class="ln">   295  </span>	if all.Sort != nil &amp;&amp; all.Sort.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L296" class="ln">   296  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L297" class="ln">   297  </span>		if err != nil {
-<span id="L298" class="ln">   298  </span>			return err
-<span id="L299" class="ln">   299  </span>		}
-<span id="L300" class="ln">   300  </span>		o.UnparsedObject = raw
-<span id="L301" class="ln">   301  </span>	}
-<span id="L302" class="ln">   302  </span>	o.Sort = all.Sort
-<span id="L303" class="ln">   303  </span>	o.Total = all.Total
-<span id="L304" class="ln">   304  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L305" class="ln">   305  </span>		o.AdditionalProperties = additionalProperties
-<span id="L306" class="ln">   306  </span>	}
-<span id="L307" class="ln">   307  </span>
-<span id="L308" class="ln">   308  </span>	return nil
-<span id="L309" class="ln">   309  </span>}
-<span id="L310" class="ln">   310  </span>
+<span id="L284" class="ln">   284  </span>	o.Histogram = all.Histogram
+<span id="L285" class="ln">   285  </span>	o.Limit = all.Limit
+<span id="L286" class="ln">   286  </span>	o.Missing = all.Missing
+<span id="L287" class="ln">   287  </span>	if all.Sort != nil &amp;&amp; all.Sort.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L288" class="ln">   288  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L289" class="ln">   289  </span>		if err != nil {
+<span id="L290" class="ln">   290  </span>			return err
+<span id="L291" class="ln">   291  </span>		}
+<span id="L292" class="ln">   292  </span>		o.UnparsedObject = raw
+<span id="L293" class="ln">   293  </span>	}
+<span id="L294" class="ln">   294  </span>	o.Sort = all.Sort
+<span id="L295" class="ln">   295  </span>	o.Total = all.Total
+<span id="L296" class="ln">   296  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L297" class="ln">   297  </span>		o.AdditionalProperties = additionalProperties
+<span id="L298" class="ln">   298  </span>	}
+<span id="L299" class="ln">   299  </span>
+<span id="L300" class="ln">   300  </span>	return nil
+<span id="L301" class="ln">   301  </span>}
+<span id="L302" class="ln">   302  </span>
 </pre><p></p>
 
 <div id="footer">

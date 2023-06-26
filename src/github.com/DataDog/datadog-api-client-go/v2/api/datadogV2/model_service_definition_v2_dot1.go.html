@@ -494,83 +494,74 @@
 <span id="L437" class="ln">   437  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L438" class="ln">   438  </span>func (o *ServiceDefinitionV2Dot1) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L439" class="ln">   439  </span>	raw := map[string]interface{}{}
-<span id="L440" class="ln">   440  </span>	required := struct {
-<span id="L441" class="ln">   441  </span>		DdService     *string                         `json:&#34;dd-service&#34;`
-<span id="L442" class="ln">   442  </span>		SchemaVersion *ServiceDefinitionV2Dot1Version `json:&#34;schema-version&#34;`
-<span id="L443" class="ln">   443  </span>	}{}
-<span id="L444" class="ln">   444  </span>	all := struct {
-<span id="L445" class="ln">   445  </span>		Application   *string                              `json:&#34;application,omitempty&#34;`
-<span id="L446" class="ln">   446  </span>		Contacts      []ServiceDefinitionV2Dot1Contact     `json:&#34;contacts,omitempty&#34;`
-<span id="L447" class="ln">   447  </span>		DdService     string                               `json:&#34;dd-service&#34;`
-<span id="L448" class="ln">   448  </span>		Description   *string                              `json:&#34;description,omitempty&#34;`
-<span id="L449" class="ln">   449  </span>		Extensions    map[string]interface{}               `json:&#34;extensions,omitempty&#34;`
-<span id="L450" class="ln">   450  </span>		Integrations  *ServiceDefinitionV2Dot1Integrations `json:&#34;integrations,omitempty&#34;`
-<span id="L451" class="ln">   451  </span>		Lifecycle     *string                              `json:&#34;lifecycle,omitempty&#34;`
-<span id="L452" class="ln">   452  </span>		Links         []ServiceDefinitionV2Dot1Link        `json:&#34;links,omitempty&#34;`
-<span id="L453" class="ln">   453  </span>		SchemaVersion ServiceDefinitionV2Dot1Version       `json:&#34;schema-version&#34;`
-<span id="L454" class="ln">   454  </span>		Tags          []string                             `json:&#34;tags,omitempty&#34;`
-<span id="L455" class="ln">   455  </span>		Team          *string                              `json:&#34;team,omitempty&#34;`
-<span id="L456" class="ln">   456  </span>		Tier          *string                              `json:&#34;tier,omitempty&#34;`
-<span id="L457" class="ln">   457  </span>	}{}
-<span id="L458" class="ln">   458  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L459" class="ln">   459  </span>	if err != nil {
-<span id="L460" class="ln">   460  </span>		return err
+<span id="L440" class="ln">   440  </span>	all := struct {
+<span id="L441" class="ln">   441  </span>		Application   *string                              `json:&#34;application,omitempty&#34;`
+<span id="L442" class="ln">   442  </span>		Contacts      []ServiceDefinitionV2Dot1Contact     `json:&#34;contacts,omitempty&#34;`
+<span id="L443" class="ln">   443  </span>		DdService     *string                              `json:&#34;dd-service&#34;`
+<span id="L444" class="ln">   444  </span>		Description   *string                              `json:&#34;description,omitempty&#34;`
+<span id="L445" class="ln">   445  </span>		Extensions    map[string]interface{}               `json:&#34;extensions,omitempty&#34;`
+<span id="L446" class="ln">   446  </span>		Integrations  *ServiceDefinitionV2Dot1Integrations `json:&#34;integrations,omitempty&#34;`
+<span id="L447" class="ln">   447  </span>		Lifecycle     *string                              `json:&#34;lifecycle,omitempty&#34;`
+<span id="L448" class="ln">   448  </span>		Links         []ServiceDefinitionV2Dot1Link        `json:&#34;links,omitempty&#34;`
+<span id="L449" class="ln">   449  </span>		SchemaVersion *ServiceDefinitionV2Dot1Version      `json:&#34;schema-version&#34;`
+<span id="L450" class="ln">   450  </span>		Tags          []string                             `json:&#34;tags,omitempty&#34;`
+<span id="L451" class="ln">   451  </span>		Team          *string                              `json:&#34;team,omitempty&#34;`
+<span id="L452" class="ln">   452  </span>		Tier          *string                              `json:&#34;tier,omitempty&#34;`
+<span id="L453" class="ln">   453  </span>	}{}
+<span id="L454" class="ln">   454  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L455" class="ln">   455  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L456" class="ln">   456  </span>		if err != nil {
+<span id="L457" class="ln">   457  </span>			return err
+<span id="L458" class="ln">   458  </span>		}
+<span id="L459" class="ln">   459  </span>		o.UnparsedObject = raw
+<span id="L460" class="ln">   460  </span>		return nil
 <span id="L461" class="ln">   461  </span>	}
-<span id="L462" class="ln">   462  </span>	if required.DdService == nil {
+<span id="L462" class="ln">   462  </span>	if all.DdService == nil {
 <span id="L463" class="ln">   463  </span>		return fmt.Errorf(&#34;required field dd-service missing&#34;)
 <span id="L464" class="ln">   464  </span>	}
-<span id="L465" class="ln">   465  </span>	if required.SchemaVersion == nil {
+<span id="L465" class="ln">   465  </span>	if all.SchemaVersion == nil {
 <span id="L466" class="ln">   466  </span>		return fmt.Errorf(&#34;required field schema-version missing&#34;)
 <span id="L467" class="ln">   467  </span>	}
-<span id="L468" class="ln">   468  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L469" class="ln">   469  </span>	if err != nil {
-<span id="L470" class="ln">   470  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L471" class="ln">   471  </span>		if err != nil {
-<span id="L472" class="ln">   472  </span>			return err
-<span id="L473" class="ln">   473  </span>		}
-<span id="L474" class="ln">   474  </span>		o.UnparsedObject = raw
-<span id="L475" class="ln">   475  </span>		return nil
-<span id="L476" class="ln">   476  </span>	}
-<span id="L477" class="ln">   477  </span>	additionalProperties := make(map[string]interface{})
-<span id="L478" class="ln">   478  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L479" class="ln">   479  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application&#34;, &#34;contacts&#34;, &#34;dd-service&#34;, &#34;description&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;lifecycle&#34;, &#34;links&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;, &#34;tier&#34;})
-<span id="L480" class="ln">   480  </span>	} else {
-<span id="L481" class="ln">   481  </span>		return err
-<span id="L482" class="ln">   482  </span>	}
-<span id="L483" class="ln">   483  </span>	if v := all.SchemaVersion; !v.IsValid() {
-<span id="L484" class="ln">   484  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L485" class="ln">   485  </span>		if err != nil {
-<span id="L486" class="ln">   486  </span>			return err
-<span id="L487" class="ln">   487  </span>		}
-<span id="L488" class="ln">   488  </span>		o.UnparsedObject = raw
-<span id="L489" class="ln">   489  </span>		return nil
-<span id="L490" class="ln">   490  </span>	}
-<span id="L491" class="ln">   491  </span>	o.Application = all.Application
-<span id="L492" class="ln">   492  </span>	o.Contacts = all.Contacts
-<span id="L493" class="ln">   493  </span>	o.DdService = all.DdService
-<span id="L494" class="ln">   494  </span>	o.Description = all.Description
-<span id="L495" class="ln">   495  </span>	o.Extensions = all.Extensions
-<span id="L496" class="ln">   496  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L497" class="ln">   497  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L498" class="ln">   498  </span>		if err != nil {
-<span id="L499" class="ln">   499  </span>			return err
-<span id="L500" class="ln">   500  </span>		}
-<span id="L501" class="ln">   501  </span>		o.UnparsedObject = raw
-<span id="L502" class="ln">   502  </span>	}
-<span id="L503" class="ln">   503  </span>	o.Integrations = all.Integrations
-<span id="L504" class="ln">   504  </span>	o.Lifecycle = all.Lifecycle
-<span id="L505" class="ln">   505  </span>	o.Links = all.Links
-<span id="L506" class="ln">   506  </span>	o.SchemaVersion = all.SchemaVersion
-<span id="L507" class="ln">   507  </span>	o.Tags = all.Tags
-<span id="L508" class="ln">   508  </span>	o.Team = all.Team
-<span id="L509" class="ln">   509  </span>	o.Tier = all.Tier
-<span id="L510" class="ln">   510  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L511" class="ln">   511  </span>		o.AdditionalProperties = additionalProperties
-<span id="L512" class="ln">   512  </span>	}
-<span id="L513" class="ln">   513  </span>
-<span id="L514" class="ln">   514  </span>	return nil
-<span id="L515" class="ln">   515  </span>}
-<span id="L516" class="ln">   516  </span>
+<span id="L468" class="ln">   468  </span>	additionalProperties := make(map[string]interface{})
+<span id="L469" class="ln">   469  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L470" class="ln">   470  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application&#34;, &#34;contacts&#34;, &#34;dd-service&#34;, &#34;description&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;lifecycle&#34;, &#34;links&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;, &#34;tier&#34;})
+<span id="L471" class="ln">   471  </span>	} else {
+<span id="L472" class="ln">   472  </span>		return err
+<span id="L473" class="ln">   473  </span>	}
+<span id="L474" class="ln">   474  </span>	if v := all.SchemaVersion; !v.IsValid() {
+<span id="L475" class="ln">   475  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L476" class="ln">   476  </span>		if err != nil {
+<span id="L477" class="ln">   477  </span>			return err
+<span id="L478" class="ln">   478  </span>		}
+<span id="L479" class="ln">   479  </span>		o.UnparsedObject = raw
+<span id="L480" class="ln">   480  </span>		return nil
+<span id="L481" class="ln">   481  </span>	}
+<span id="L482" class="ln">   482  </span>	o.Application = all.Application
+<span id="L483" class="ln">   483  </span>	o.Contacts = all.Contacts
+<span id="L484" class="ln">   484  </span>	o.DdService = *all.DdService
+<span id="L485" class="ln">   485  </span>	o.Description = all.Description
+<span id="L486" class="ln">   486  </span>	o.Extensions = all.Extensions
+<span id="L487" class="ln">   487  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L488" class="ln">   488  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L489" class="ln">   489  </span>		if err != nil {
+<span id="L490" class="ln">   490  </span>			return err
+<span id="L491" class="ln">   491  </span>		}
+<span id="L492" class="ln">   492  </span>		o.UnparsedObject = raw
+<span id="L493" class="ln">   493  </span>	}
+<span id="L494" class="ln">   494  </span>	o.Integrations = all.Integrations
+<span id="L495" class="ln">   495  </span>	o.Lifecycle = all.Lifecycle
+<span id="L496" class="ln">   496  </span>	o.Links = all.Links
+<span id="L497" class="ln">   497  </span>	o.SchemaVersion = *all.SchemaVersion
+<span id="L498" class="ln">   498  </span>	o.Tags = all.Tags
+<span id="L499" class="ln">   499  </span>	o.Team = all.Team
+<span id="L500" class="ln">   500  </span>	o.Tier = all.Tier
+<span id="L501" class="ln">   501  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L502" class="ln">   502  </span>		o.AdditionalProperties = additionalProperties
+<span id="L503" class="ln">   503  </span>	}
+<span id="L504" class="ln">   504  </span>
+<span id="L505" class="ln">   505  </span>	return nil
+<span id="L506" class="ln">   506  </span>}
+<span id="L507" class="ln">   507  </span>
 </pre><p></p>
 
 <div id="footer">

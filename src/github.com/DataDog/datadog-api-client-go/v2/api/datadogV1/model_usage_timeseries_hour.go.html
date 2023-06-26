@@ -318,34 +318,33 @@
 <span id="L261" class="ln">   261  </span>		OrgName                   *string    `json:&#34;org_name,omitempty&#34;`
 <span id="L262" class="ln">   262  </span>		PublicId                  *string    `json:&#34;public_id,omitempty&#34;`
 <span id="L263" class="ln">   263  </span>	}{}
-<span id="L264" class="ln">   264  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L265" class="ln">   265  </span>	if err != nil {
-<span id="L266" class="ln">   266  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L267" class="ln">   267  </span>		if err != nil {
-<span id="L268" class="ln">   268  </span>			return err
-<span id="L269" class="ln">   269  </span>		}
-<span id="L270" class="ln">   270  </span>		o.UnparsedObject = raw
-<span id="L271" class="ln">   271  </span>		return nil
-<span id="L272" class="ln">   272  </span>	}
-<span id="L273" class="ln">   273  </span>	additionalProperties := make(map[string]interface{})
-<span id="L274" class="ln">   274  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L275" class="ln">   275  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;hour&#34;, &#34;num_custom_input_timeseries&#34;, &#34;num_custom_output_timeseries&#34;, &#34;num_custom_timeseries&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
-<span id="L276" class="ln">   276  </span>	} else {
-<span id="L277" class="ln">   277  </span>		return err
-<span id="L278" class="ln">   278  </span>	}
-<span id="L279" class="ln">   279  </span>	o.Hour = all.Hour
-<span id="L280" class="ln">   280  </span>	o.NumCustomInputTimeseries = all.NumCustomInputTimeseries
-<span id="L281" class="ln">   281  </span>	o.NumCustomOutputTimeseries = all.NumCustomOutputTimeseries
-<span id="L282" class="ln">   282  </span>	o.NumCustomTimeseries = all.NumCustomTimeseries
-<span id="L283" class="ln">   283  </span>	o.OrgName = all.OrgName
-<span id="L284" class="ln">   284  </span>	o.PublicId = all.PublicId
-<span id="L285" class="ln">   285  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L286" class="ln">   286  </span>		o.AdditionalProperties = additionalProperties
-<span id="L287" class="ln">   287  </span>	}
-<span id="L288" class="ln">   288  </span>
-<span id="L289" class="ln">   289  </span>	return nil
-<span id="L290" class="ln">   290  </span>}
-<span id="L291" class="ln">   291  </span>
+<span id="L264" class="ln">   264  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L265" class="ln">   265  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L266" class="ln">   266  </span>		if err != nil {
+<span id="L267" class="ln">   267  </span>			return err
+<span id="L268" class="ln">   268  </span>		}
+<span id="L269" class="ln">   269  </span>		o.UnparsedObject = raw
+<span id="L270" class="ln">   270  </span>		return nil
+<span id="L271" class="ln">   271  </span>	}
+<span id="L272" class="ln">   272  </span>	additionalProperties := make(map[string]interface{})
+<span id="L273" class="ln">   273  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L274" class="ln">   274  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;hour&#34;, &#34;num_custom_input_timeseries&#34;, &#34;num_custom_output_timeseries&#34;, &#34;num_custom_timeseries&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
+<span id="L275" class="ln">   275  </span>	} else {
+<span id="L276" class="ln">   276  </span>		return err
+<span id="L277" class="ln">   277  </span>	}
+<span id="L278" class="ln">   278  </span>	o.Hour = all.Hour
+<span id="L279" class="ln">   279  </span>	o.NumCustomInputTimeseries = all.NumCustomInputTimeseries
+<span id="L280" class="ln">   280  </span>	o.NumCustomOutputTimeseries = all.NumCustomOutputTimeseries
+<span id="L281" class="ln">   281  </span>	o.NumCustomTimeseries = all.NumCustomTimeseries
+<span id="L282" class="ln">   282  </span>	o.OrgName = all.OrgName
+<span id="L283" class="ln">   283  </span>	o.PublicId = all.PublicId
+<span id="L284" class="ln">   284  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L285" class="ln">   285  </span>		o.AdditionalProperties = additionalProperties
+<span id="L286" class="ln">   286  </span>	}
+<span id="L287" class="ln">   287  </span>
+<span id="L288" class="ln">   288  </span>	return nil
+<span id="L289" class="ln">   289  </span>}
+<span id="L290" class="ln">   290  </span>
 </pre><p></p>
 
 <div id="footer">

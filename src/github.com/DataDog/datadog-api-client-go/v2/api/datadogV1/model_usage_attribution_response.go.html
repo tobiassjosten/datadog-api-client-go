@@ -177,37 +177,36 @@
 <span id="L120" class="ln">   120  </span>		Metadata *UsageAttributionMetadata `json:&#34;metadata,omitempty&#34;`
 <span id="L121" class="ln">   121  </span>		Usage    []UsageAttributionBody    `json:&#34;usage,omitempty&#34;`
 <span id="L122" class="ln">   122  </span>	}{}
-<span id="L123" class="ln">   123  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L124" class="ln">   124  </span>	if err != nil {
-<span id="L125" class="ln">   125  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L126" class="ln">   126  </span>		if err != nil {
-<span id="L127" class="ln">   127  </span>			return err
-<span id="L128" class="ln">   128  </span>		}
-<span id="L129" class="ln">   129  </span>		o.UnparsedObject = raw
-<span id="L130" class="ln">   130  </span>		return nil
-<span id="L131" class="ln">   131  </span>	}
-<span id="L132" class="ln">   132  </span>	additionalProperties := make(map[string]interface{})
-<span id="L133" class="ln">   133  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L134" class="ln">   134  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;metadata&#34;, &#34;usage&#34;})
-<span id="L135" class="ln">   135  </span>	} else {
-<span id="L136" class="ln">   136  </span>		return err
-<span id="L137" class="ln">   137  </span>	}
-<span id="L138" class="ln">   138  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L139" class="ln">   139  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L140" class="ln">   140  </span>		if err != nil {
-<span id="L141" class="ln">   141  </span>			return err
-<span id="L142" class="ln">   142  </span>		}
-<span id="L143" class="ln">   143  </span>		o.UnparsedObject = raw
-<span id="L144" class="ln">   144  </span>	}
-<span id="L145" class="ln">   145  </span>	o.Metadata = all.Metadata
-<span id="L146" class="ln">   146  </span>	o.Usage = all.Usage
-<span id="L147" class="ln">   147  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L148" class="ln">   148  </span>		o.AdditionalProperties = additionalProperties
-<span id="L149" class="ln">   149  </span>	}
-<span id="L150" class="ln">   150  </span>
-<span id="L151" class="ln">   151  </span>	return nil
-<span id="L152" class="ln">   152  </span>}
-<span id="L153" class="ln">   153  </span>
+<span id="L123" class="ln">   123  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L124" class="ln">   124  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L125" class="ln">   125  </span>		if err != nil {
+<span id="L126" class="ln">   126  </span>			return err
+<span id="L127" class="ln">   127  </span>		}
+<span id="L128" class="ln">   128  </span>		o.UnparsedObject = raw
+<span id="L129" class="ln">   129  </span>		return nil
+<span id="L130" class="ln">   130  </span>	}
+<span id="L131" class="ln">   131  </span>	additionalProperties := make(map[string]interface{})
+<span id="L132" class="ln">   132  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L133" class="ln">   133  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;metadata&#34;, &#34;usage&#34;})
+<span id="L134" class="ln">   134  </span>	} else {
+<span id="L135" class="ln">   135  </span>		return err
+<span id="L136" class="ln">   136  </span>	}
+<span id="L137" class="ln">   137  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L138" class="ln">   138  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L139" class="ln">   139  </span>		if err != nil {
+<span id="L140" class="ln">   140  </span>			return err
+<span id="L141" class="ln">   141  </span>		}
+<span id="L142" class="ln">   142  </span>		o.UnparsedObject = raw
+<span id="L143" class="ln">   143  </span>	}
+<span id="L144" class="ln">   144  </span>	o.Metadata = all.Metadata
+<span id="L145" class="ln">   145  </span>	o.Usage = all.Usage
+<span id="L146" class="ln">   146  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L147" class="ln">   147  </span>		o.AdditionalProperties = additionalProperties
+<span id="L148" class="ln">   148  </span>	}
+<span id="L149" class="ln">   149  </span>
+<span id="L150" class="ln">   150  </span>	return nil
+<span id="L151" class="ln">   151  </span>}
+<span id="L152" class="ln">   152  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -382,36 +382,35 @@
 <span id="L325" class="ln">   325  </span>		NewTenantName *string  `json:&#34;new_tenant_name,omitempty&#34;`
 <span id="L326" class="ln">   326  </span>		TenantName    *string  `json:&#34;tenant_name,omitempty&#34;`
 <span id="L327" class="ln">   327  </span>	}{}
-<span id="L328" class="ln">   328  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L329" class="ln">   329  </span>	if err != nil {
-<span id="L330" class="ln">   330  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L331" class="ln">   331  </span>		if err != nil {
-<span id="L332" class="ln">   332  </span>			return err
-<span id="L333" class="ln">   333  </span>		}
-<span id="L334" class="ln">   334  </span>		o.UnparsedObject = raw
-<span id="L335" class="ln">   335  </span>		return nil
-<span id="L336" class="ln">   336  </span>	}
-<span id="L337" class="ln">   337  </span>	additionalProperties := make(map[string]interface{})
-<span id="L338" class="ln">   338  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L339" class="ln">   339  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;automute&#34;, &#34;client_id&#34;, &#34;client_secret&#34;, &#34;errors&#34;, &#34;host_filters&#34;, &#34;new_client_id&#34;, &#34;new_tenant_name&#34;, &#34;tenant_name&#34;})
-<span id="L340" class="ln">   340  </span>	} else {
-<span id="L341" class="ln">   341  </span>		return err
-<span id="L342" class="ln">   342  </span>	}
-<span id="L343" class="ln">   343  </span>	o.Automute = all.Automute
-<span id="L344" class="ln">   344  </span>	o.ClientId = all.ClientId
-<span id="L345" class="ln">   345  </span>	o.ClientSecret = all.ClientSecret
-<span id="L346" class="ln">   346  </span>	o.Errors = all.Errors
-<span id="L347" class="ln">   347  </span>	o.HostFilters = all.HostFilters
-<span id="L348" class="ln">   348  </span>	o.NewClientId = all.NewClientId
-<span id="L349" class="ln">   349  </span>	o.NewTenantName = all.NewTenantName
-<span id="L350" class="ln">   350  </span>	o.TenantName = all.TenantName
-<span id="L351" class="ln">   351  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L352" class="ln">   352  </span>		o.AdditionalProperties = additionalProperties
-<span id="L353" class="ln">   353  </span>	}
-<span id="L354" class="ln">   354  </span>
-<span id="L355" class="ln">   355  </span>	return nil
-<span id="L356" class="ln">   356  </span>}
-<span id="L357" class="ln">   357  </span>
+<span id="L328" class="ln">   328  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L329" class="ln">   329  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L330" class="ln">   330  </span>		if err != nil {
+<span id="L331" class="ln">   331  </span>			return err
+<span id="L332" class="ln">   332  </span>		}
+<span id="L333" class="ln">   333  </span>		o.UnparsedObject = raw
+<span id="L334" class="ln">   334  </span>		return nil
+<span id="L335" class="ln">   335  </span>	}
+<span id="L336" class="ln">   336  </span>	additionalProperties := make(map[string]interface{})
+<span id="L337" class="ln">   337  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L338" class="ln">   338  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;automute&#34;, &#34;client_id&#34;, &#34;client_secret&#34;, &#34;errors&#34;, &#34;host_filters&#34;, &#34;new_client_id&#34;, &#34;new_tenant_name&#34;, &#34;tenant_name&#34;})
+<span id="L339" class="ln">   339  </span>	} else {
+<span id="L340" class="ln">   340  </span>		return err
+<span id="L341" class="ln">   341  </span>	}
+<span id="L342" class="ln">   342  </span>	o.Automute = all.Automute
+<span id="L343" class="ln">   343  </span>	o.ClientId = all.ClientId
+<span id="L344" class="ln">   344  </span>	o.ClientSecret = all.ClientSecret
+<span id="L345" class="ln">   345  </span>	o.Errors = all.Errors
+<span id="L346" class="ln">   346  </span>	o.HostFilters = all.HostFilters
+<span id="L347" class="ln">   347  </span>	o.NewClientId = all.NewClientId
+<span id="L348" class="ln">   348  </span>	o.NewTenantName = all.NewTenantName
+<span id="L349" class="ln">   349  </span>	o.TenantName = all.TenantName
+<span id="L350" class="ln">   350  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L351" class="ln">   351  </span>		o.AdditionalProperties = additionalProperties
+<span id="L352" class="ln">   352  </span>	}
+<span id="L353" class="ln">   353  </span>
+<span id="L354" class="ln">   354  </span>	return nil
+<span id="L355" class="ln">   355  </span>}
+<span id="L356" class="ln">   356  </span>
 </pre><p></p>
 
 <div id="footer">

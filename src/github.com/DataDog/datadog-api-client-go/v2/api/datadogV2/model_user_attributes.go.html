@@ -514,39 +514,38 @@
 <span id="L457" class="ln">   457  </span>		Title          datadog.NullableString `json:&#34;title,omitempty&#34;`
 <span id="L458" class="ln">   458  </span>		Verified       *bool                  `json:&#34;verified,omitempty&#34;`
 <span id="L459" class="ln">   459  </span>	}{}
-<span id="L460" class="ln">   460  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L461" class="ln">   461  </span>	if err != nil {
-<span id="L462" class="ln">   462  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L463" class="ln">   463  </span>		if err != nil {
-<span id="L464" class="ln">   464  </span>			return err
-<span id="L465" class="ln">   465  </span>		}
-<span id="L466" class="ln">   466  </span>		o.UnparsedObject = raw
-<span id="L467" class="ln">   467  </span>		return nil
-<span id="L468" class="ln">   468  </span>	}
-<span id="L469" class="ln">   469  </span>	additionalProperties := make(map[string]interface{})
-<span id="L470" class="ln">   470  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L471" class="ln">   471  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;disabled&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;icon&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;service_account&#34;, &#34;status&#34;, &#34;title&#34;, &#34;verified&#34;})
-<span id="L472" class="ln">   472  </span>	} else {
-<span id="L473" class="ln">   473  </span>		return err
-<span id="L474" class="ln">   474  </span>	}
-<span id="L475" class="ln">   475  </span>	o.CreatedAt = all.CreatedAt
-<span id="L476" class="ln">   476  </span>	o.Disabled = all.Disabled
-<span id="L477" class="ln">   477  </span>	o.Email = all.Email
-<span id="L478" class="ln">   478  </span>	o.Handle = all.Handle
-<span id="L479" class="ln">   479  </span>	o.Icon = all.Icon
-<span id="L480" class="ln">   480  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L481" class="ln">   481  </span>	o.Name = all.Name
-<span id="L482" class="ln">   482  </span>	o.ServiceAccount = all.ServiceAccount
-<span id="L483" class="ln">   483  </span>	o.Status = all.Status
-<span id="L484" class="ln">   484  </span>	o.Title = all.Title
-<span id="L485" class="ln">   485  </span>	o.Verified = all.Verified
-<span id="L486" class="ln">   486  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L487" class="ln">   487  </span>		o.AdditionalProperties = additionalProperties
-<span id="L488" class="ln">   488  </span>	}
-<span id="L489" class="ln">   489  </span>
-<span id="L490" class="ln">   490  </span>	return nil
-<span id="L491" class="ln">   491  </span>}
-<span id="L492" class="ln">   492  </span>
+<span id="L460" class="ln">   460  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L461" class="ln">   461  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L462" class="ln">   462  </span>		if err != nil {
+<span id="L463" class="ln">   463  </span>			return err
+<span id="L464" class="ln">   464  </span>		}
+<span id="L465" class="ln">   465  </span>		o.UnparsedObject = raw
+<span id="L466" class="ln">   466  </span>		return nil
+<span id="L467" class="ln">   467  </span>	}
+<span id="L468" class="ln">   468  </span>	additionalProperties := make(map[string]interface{})
+<span id="L469" class="ln">   469  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L470" class="ln">   470  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;disabled&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;icon&#34;, &#34;modified_at&#34;, &#34;name&#34;, &#34;service_account&#34;, &#34;status&#34;, &#34;title&#34;, &#34;verified&#34;})
+<span id="L471" class="ln">   471  </span>	} else {
+<span id="L472" class="ln">   472  </span>		return err
+<span id="L473" class="ln">   473  </span>	}
+<span id="L474" class="ln">   474  </span>	o.CreatedAt = all.CreatedAt
+<span id="L475" class="ln">   475  </span>	o.Disabled = all.Disabled
+<span id="L476" class="ln">   476  </span>	o.Email = all.Email
+<span id="L477" class="ln">   477  </span>	o.Handle = all.Handle
+<span id="L478" class="ln">   478  </span>	o.Icon = all.Icon
+<span id="L479" class="ln">   479  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L480" class="ln">   480  </span>	o.Name = all.Name
+<span id="L481" class="ln">   481  </span>	o.ServiceAccount = all.ServiceAccount
+<span id="L482" class="ln">   482  </span>	o.Status = all.Status
+<span id="L483" class="ln">   483  </span>	o.Title = all.Title
+<span id="L484" class="ln">   484  </span>	o.Verified = all.Verified
+<span id="L485" class="ln">   485  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L486" class="ln">   486  </span>		o.AdditionalProperties = additionalProperties
+<span id="L487" class="ln">   487  </span>	}
+<span id="L488" class="ln">   488  </span>
+<span id="L489" class="ln">   489  </span>	return nil
+<span id="L490" class="ln">   490  </span>}
+<span id="L491" class="ln">   491  </span>
 </pre><p></p>
 
 <div id="footer">

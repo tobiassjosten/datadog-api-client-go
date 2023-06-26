@@ -422,99 +422,89 @@
 <span id="L365" class="ln">   365  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L366" class="ln">   366  </span>func (o *CheckStatusWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L367" class="ln">   367  </span>	raw := map[string]interface{}{}
-<span id="L368" class="ln">   368  </span>	required := struct {
-<span id="L369" class="ln">   369  </span>		Check    *string                          `json:&#34;check&#34;`
-<span id="L370" class="ln">   370  </span>		Grouping *WidgetGrouping                  `json:&#34;grouping&#34;`
-<span id="L371" class="ln">   371  </span>		Type     *CheckStatusWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L372" class="ln">   372  </span>	}{}
-<span id="L373" class="ln">   373  </span>	all := struct {
-<span id="L374" class="ln">   374  </span>		Check      string                          `json:&#34;check&#34;`
-<span id="L375" class="ln">   375  </span>		Group      *string                         `json:&#34;group,omitempty&#34;`
-<span id="L376" class="ln">   376  </span>		GroupBy    []string                        `json:&#34;group_by,omitempty&#34;`
-<span id="L377" class="ln">   377  </span>		Grouping   WidgetGrouping                  `json:&#34;grouping&#34;`
-<span id="L378" class="ln">   378  </span>		Tags       []string                        `json:&#34;tags,omitempty&#34;`
-<span id="L379" class="ln">   379  </span>		Time       *WidgetTime                     `json:&#34;time,omitempty&#34;`
-<span id="L380" class="ln">   380  </span>		Title      *string                         `json:&#34;title,omitempty&#34;`
-<span id="L381" class="ln">   381  </span>		TitleAlign *WidgetTextAlign                `json:&#34;title_align,omitempty&#34;`
-<span id="L382" class="ln">   382  </span>		TitleSize  *string                         `json:&#34;title_size,omitempty&#34;`
-<span id="L383" class="ln">   383  </span>		Type       CheckStatusWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L384" class="ln">   384  </span>	}{}
-<span id="L385" class="ln">   385  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L386" class="ln">   386  </span>	if err != nil {
-<span id="L387" class="ln">   387  </span>		return err
-<span id="L388" class="ln">   388  </span>	}
-<span id="L389" class="ln">   389  </span>	if required.Check == nil {
-<span id="L390" class="ln">   390  </span>		return fmt.Errorf(&#34;required field check missing&#34;)
-<span id="L391" class="ln">   391  </span>	}
-<span id="L392" class="ln">   392  </span>	if required.Grouping == nil {
-<span id="L393" class="ln">   393  </span>		return fmt.Errorf(&#34;required field grouping missing&#34;)
-<span id="L394" class="ln">   394  </span>	}
-<span id="L395" class="ln">   395  </span>	if required.Type == nil {
-<span id="L396" class="ln">   396  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L397" class="ln">   397  </span>	}
-<span id="L398" class="ln">   398  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L399" class="ln">   399  </span>	if err != nil {
-<span id="L400" class="ln">   400  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L401" class="ln">   401  </span>		if err != nil {
-<span id="L402" class="ln">   402  </span>			return err
-<span id="L403" class="ln">   403  </span>		}
-<span id="L404" class="ln">   404  </span>		o.UnparsedObject = raw
-<span id="L405" class="ln">   405  </span>		return nil
-<span id="L406" class="ln">   406  </span>	}
-<span id="L407" class="ln">   407  </span>	additionalProperties := make(map[string]interface{})
-<span id="L408" class="ln">   408  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L409" class="ln">   409  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;check&#34;, &#34;group&#34;, &#34;group_by&#34;, &#34;grouping&#34;, &#34;tags&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
-<span id="L410" class="ln">   410  </span>	} else {
-<span id="L411" class="ln">   411  </span>		return err
-<span id="L412" class="ln">   412  </span>	}
-<span id="L413" class="ln">   413  </span>	if v := all.Grouping; !v.IsValid() {
-<span id="L414" class="ln">   414  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L415" class="ln">   415  </span>		if err != nil {
-<span id="L416" class="ln">   416  </span>			return err
-<span id="L417" class="ln">   417  </span>		}
-<span id="L418" class="ln">   418  </span>		o.UnparsedObject = raw
-<span id="L419" class="ln">   419  </span>		return nil
-<span id="L420" class="ln">   420  </span>	}
-<span id="L421" class="ln">   421  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L422" class="ln">   422  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L423" class="ln">   423  </span>		if err != nil {
-<span id="L424" class="ln">   424  </span>			return err
-<span id="L425" class="ln">   425  </span>		}
-<span id="L426" class="ln">   426  </span>		o.UnparsedObject = raw
-<span id="L427" class="ln">   427  </span>		return nil
-<span id="L428" class="ln">   428  </span>	}
-<span id="L429" class="ln">   429  </span>	if v := all.Type; !v.IsValid() {
-<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L431" class="ln">   431  </span>		if err != nil {
-<span id="L432" class="ln">   432  </span>			return err
-<span id="L433" class="ln">   433  </span>		}
-<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
-<span id="L435" class="ln">   435  </span>		return nil
-<span id="L436" class="ln">   436  </span>	}
-<span id="L437" class="ln">   437  </span>	o.Check = all.Check
-<span id="L438" class="ln">   438  </span>	o.Group = all.Group
-<span id="L439" class="ln">   439  </span>	o.GroupBy = all.GroupBy
-<span id="L440" class="ln">   440  </span>	o.Grouping = all.Grouping
-<span id="L441" class="ln">   441  </span>	o.Tags = all.Tags
-<span id="L442" class="ln">   442  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L443" class="ln">   443  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L444" class="ln">   444  </span>		if err != nil {
-<span id="L445" class="ln">   445  </span>			return err
-<span id="L446" class="ln">   446  </span>		}
-<span id="L447" class="ln">   447  </span>		o.UnparsedObject = raw
-<span id="L448" class="ln">   448  </span>	}
-<span id="L449" class="ln">   449  </span>	o.Time = all.Time
-<span id="L450" class="ln">   450  </span>	o.Title = all.Title
-<span id="L451" class="ln">   451  </span>	o.TitleAlign = all.TitleAlign
-<span id="L452" class="ln">   452  </span>	o.TitleSize = all.TitleSize
-<span id="L453" class="ln">   453  </span>	o.Type = all.Type
-<span id="L454" class="ln">   454  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L455" class="ln">   455  </span>		o.AdditionalProperties = additionalProperties
-<span id="L456" class="ln">   456  </span>	}
-<span id="L457" class="ln">   457  </span>
-<span id="L458" class="ln">   458  </span>	return nil
-<span id="L459" class="ln">   459  </span>}
-<span id="L460" class="ln">   460  </span>
+<span id="L368" class="ln">   368  </span>	all := struct {
+<span id="L369" class="ln">   369  </span>		Check      *string                          `json:&#34;check&#34;`
+<span id="L370" class="ln">   370  </span>		Group      *string                          `json:&#34;group,omitempty&#34;`
+<span id="L371" class="ln">   371  </span>		GroupBy    []string                         `json:&#34;group_by,omitempty&#34;`
+<span id="L372" class="ln">   372  </span>		Grouping   *WidgetGrouping                  `json:&#34;grouping&#34;`
+<span id="L373" class="ln">   373  </span>		Tags       []string                         `json:&#34;tags,omitempty&#34;`
+<span id="L374" class="ln">   374  </span>		Time       *WidgetTime                      `json:&#34;time,omitempty&#34;`
+<span id="L375" class="ln">   375  </span>		Title      *string                          `json:&#34;title,omitempty&#34;`
+<span id="L376" class="ln">   376  </span>		TitleAlign *WidgetTextAlign                 `json:&#34;title_align,omitempty&#34;`
+<span id="L377" class="ln">   377  </span>		TitleSize  *string                          `json:&#34;title_size,omitempty&#34;`
+<span id="L378" class="ln">   378  </span>		Type       *CheckStatusWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L379" class="ln">   379  </span>	}{}
+<span id="L380" class="ln">   380  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L381" class="ln">   381  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L382" class="ln">   382  </span>		if err != nil {
+<span id="L383" class="ln">   383  </span>			return err
+<span id="L384" class="ln">   384  </span>		}
+<span id="L385" class="ln">   385  </span>		o.UnparsedObject = raw
+<span id="L386" class="ln">   386  </span>		return nil
+<span id="L387" class="ln">   387  </span>	}
+<span id="L388" class="ln">   388  </span>	if all.Check == nil {
+<span id="L389" class="ln">   389  </span>		return fmt.Errorf(&#34;required field check missing&#34;)
+<span id="L390" class="ln">   390  </span>	}
+<span id="L391" class="ln">   391  </span>	if all.Grouping == nil {
+<span id="L392" class="ln">   392  </span>		return fmt.Errorf(&#34;required field grouping missing&#34;)
+<span id="L393" class="ln">   393  </span>	}
+<span id="L394" class="ln">   394  </span>	if all.Type == nil {
+<span id="L395" class="ln">   395  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L396" class="ln">   396  </span>	}
+<span id="L397" class="ln">   397  </span>	additionalProperties := make(map[string]interface{})
+<span id="L398" class="ln">   398  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L399" class="ln">   399  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;check&#34;, &#34;group&#34;, &#34;group_by&#34;, &#34;grouping&#34;, &#34;tags&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
+<span id="L400" class="ln">   400  </span>	} else {
+<span id="L401" class="ln">   401  </span>		return err
+<span id="L402" class="ln">   402  </span>	}
+<span id="L403" class="ln">   403  </span>	if v := all.Grouping; !v.IsValid() {
+<span id="L404" class="ln">   404  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L405" class="ln">   405  </span>		if err != nil {
+<span id="L406" class="ln">   406  </span>			return err
+<span id="L407" class="ln">   407  </span>		}
+<span id="L408" class="ln">   408  </span>		o.UnparsedObject = raw
+<span id="L409" class="ln">   409  </span>		return nil
+<span id="L410" class="ln">   410  </span>	}
+<span id="L411" class="ln">   411  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L412" class="ln">   412  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L413" class="ln">   413  </span>		if err != nil {
+<span id="L414" class="ln">   414  </span>			return err
+<span id="L415" class="ln">   415  </span>		}
+<span id="L416" class="ln">   416  </span>		o.UnparsedObject = raw
+<span id="L417" class="ln">   417  </span>		return nil
+<span id="L418" class="ln">   418  </span>	}
+<span id="L419" class="ln">   419  </span>	if v := all.Type; !v.IsValid() {
+<span id="L420" class="ln">   420  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L421" class="ln">   421  </span>		if err != nil {
+<span id="L422" class="ln">   422  </span>			return err
+<span id="L423" class="ln">   423  </span>		}
+<span id="L424" class="ln">   424  </span>		o.UnparsedObject = raw
+<span id="L425" class="ln">   425  </span>		return nil
+<span id="L426" class="ln">   426  </span>	}
+<span id="L427" class="ln">   427  </span>	o.Check = *all.Check
+<span id="L428" class="ln">   428  </span>	o.Group = all.Group
+<span id="L429" class="ln">   429  </span>	o.GroupBy = all.GroupBy
+<span id="L430" class="ln">   430  </span>	o.Grouping = *all.Grouping
+<span id="L431" class="ln">   431  </span>	o.Tags = all.Tags
+<span id="L432" class="ln">   432  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L433" class="ln">   433  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L434" class="ln">   434  </span>		if err != nil {
+<span id="L435" class="ln">   435  </span>			return err
+<span id="L436" class="ln">   436  </span>		}
+<span id="L437" class="ln">   437  </span>		o.UnparsedObject = raw
+<span id="L438" class="ln">   438  </span>	}
+<span id="L439" class="ln">   439  </span>	o.Time = all.Time
+<span id="L440" class="ln">   440  </span>	o.Title = all.Title
+<span id="L441" class="ln">   441  </span>	o.TitleAlign = all.TitleAlign
+<span id="L442" class="ln">   442  </span>	o.TitleSize = all.TitleSize
+<span id="L443" class="ln">   443  </span>	o.Type = *all.Type
+<span id="L444" class="ln">   444  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L445" class="ln">   445  </span>		o.AdditionalProperties = additionalProperties
+<span id="L446" class="ln">   446  </span>	}
+<span id="L447" class="ln">   447  </span>
+<span id="L448" class="ln">   448  </span>	return nil
+<span id="L449" class="ln">   449  </span>}
+<span id="L450" class="ln">   450  </span>
 </pre><p></p>
 
 <div id="footer">

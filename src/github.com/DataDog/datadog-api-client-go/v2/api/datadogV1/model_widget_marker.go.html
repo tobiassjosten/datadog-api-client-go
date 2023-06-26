@@ -238,48 +238,40 @@
 <span id="L181" class="ln">   181  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L182" class="ln">   182  </span>func (o *WidgetMarker) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L183" class="ln">   183  </span>	raw := map[string]interface{}{}
-<span id="L184" class="ln">   184  </span>	required := struct {
-<span id="L185" class="ln">   185  </span>		Value *string `json:&#34;value&#34;`
-<span id="L186" class="ln">   186  </span>	}{}
-<span id="L187" class="ln">   187  </span>	all := struct {
-<span id="L188" class="ln">   188  </span>		DisplayType *string `json:&#34;display_type,omitempty&#34;`
-<span id="L189" class="ln">   189  </span>		Label       *string `json:&#34;label,omitempty&#34;`
-<span id="L190" class="ln">   190  </span>		Time        *string `json:&#34;time,omitempty&#34;`
-<span id="L191" class="ln">   191  </span>		Value       string  `json:&#34;value&#34;`
-<span id="L192" class="ln">   192  </span>	}{}
-<span id="L193" class="ln">   193  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L194" class="ln">   194  </span>	if err != nil {
-<span id="L195" class="ln">   195  </span>		return err
-<span id="L196" class="ln">   196  </span>	}
-<span id="L197" class="ln">   197  </span>	if required.Value == nil {
-<span id="L198" class="ln">   198  </span>		return fmt.Errorf(&#34;required field value missing&#34;)
-<span id="L199" class="ln">   199  </span>	}
-<span id="L200" class="ln">   200  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L201" class="ln">   201  </span>	if err != nil {
-<span id="L202" class="ln">   202  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L203" class="ln">   203  </span>		if err != nil {
-<span id="L204" class="ln">   204  </span>			return err
-<span id="L205" class="ln">   205  </span>		}
-<span id="L206" class="ln">   206  </span>		o.UnparsedObject = raw
-<span id="L207" class="ln">   207  </span>		return nil
-<span id="L208" class="ln">   208  </span>	}
-<span id="L209" class="ln">   209  </span>	additionalProperties := make(map[string]interface{})
-<span id="L210" class="ln">   210  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L211" class="ln">   211  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;display_type&#34;, &#34;label&#34;, &#34;time&#34;, &#34;value&#34;})
-<span id="L212" class="ln">   212  </span>	} else {
-<span id="L213" class="ln">   213  </span>		return err
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>	o.DisplayType = all.DisplayType
-<span id="L216" class="ln">   216  </span>	o.Label = all.Label
-<span id="L217" class="ln">   217  </span>	o.Time = all.Time
-<span id="L218" class="ln">   218  </span>	o.Value = all.Value
-<span id="L219" class="ln">   219  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L220" class="ln">   220  </span>		o.AdditionalProperties = additionalProperties
-<span id="L221" class="ln">   221  </span>	}
-<span id="L222" class="ln">   222  </span>
-<span id="L223" class="ln">   223  </span>	return nil
-<span id="L224" class="ln">   224  </span>}
-<span id="L225" class="ln">   225  </span>
+<span id="L184" class="ln">   184  </span>	all := struct {
+<span id="L185" class="ln">   185  </span>		DisplayType *string `json:&#34;display_type,omitempty&#34;`
+<span id="L186" class="ln">   186  </span>		Label       *string `json:&#34;label,omitempty&#34;`
+<span id="L187" class="ln">   187  </span>		Time        *string `json:&#34;time,omitempty&#34;`
+<span id="L188" class="ln">   188  </span>		Value       *string `json:&#34;value&#34;`
+<span id="L189" class="ln">   189  </span>	}{}
+<span id="L190" class="ln">   190  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L191" class="ln">   191  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L192" class="ln">   192  </span>		if err != nil {
+<span id="L193" class="ln">   193  </span>			return err
+<span id="L194" class="ln">   194  </span>		}
+<span id="L195" class="ln">   195  </span>		o.UnparsedObject = raw
+<span id="L196" class="ln">   196  </span>		return nil
+<span id="L197" class="ln">   197  </span>	}
+<span id="L198" class="ln">   198  </span>	if all.Value == nil {
+<span id="L199" class="ln">   199  </span>		return fmt.Errorf(&#34;required field value missing&#34;)
+<span id="L200" class="ln">   200  </span>	}
+<span id="L201" class="ln">   201  </span>	additionalProperties := make(map[string]interface{})
+<span id="L202" class="ln">   202  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L203" class="ln">   203  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;display_type&#34;, &#34;label&#34;, &#34;time&#34;, &#34;value&#34;})
+<span id="L204" class="ln">   204  </span>	} else {
+<span id="L205" class="ln">   205  </span>		return err
+<span id="L206" class="ln">   206  </span>	}
+<span id="L207" class="ln">   207  </span>	o.DisplayType = all.DisplayType
+<span id="L208" class="ln">   208  </span>	o.Label = all.Label
+<span id="L209" class="ln">   209  </span>	o.Time = all.Time
+<span id="L210" class="ln">   210  </span>	o.Value = *all.Value
+<span id="L211" class="ln">   211  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L212" class="ln">   212  </span>		o.AdditionalProperties = additionalProperties
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>
+<span id="L215" class="ln">   215  </span>	return nil
+<span id="L216" class="ln">   216  </span>}
+<span id="L217" class="ln">   217  </span>
 </pre><p></p>
 
 <div id="footer">

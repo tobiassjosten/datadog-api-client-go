@@ -3003,113 +3003,112 @@
 <span id="L2946" class="ln">  2946  </span>		VsphereHostTop99p                       *int64  `json:&#34;vsphere_host_top99p,omitempty&#34;`
 <span id="L2947" class="ln">  2947  </span>		VulnManagementHostCountTop99p           *int64  `json:&#34;vuln_management_host_count_top99p,omitempty&#34;`
 <span id="L2948" class="ln">  2948  </span>	}{}
-<span id="L2949" class="ln">  2949  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L2950" class="ln">  2950  </span>	if err != nil {
-<span id="L2951" class="ln">  2951  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L2952" class="ln">  2952  </span>		if err != nil {
-<span id="L2953" class="ln">  2953  </span>			return err
-<span id="L2954" class="ln">  2954  </span>		}
-<span id="L2955" class="ln">  2955  </span>		o.UnparsedObject = raw
-<span id="L2956" class="ln">  2956  </span>		return nil
-<span id="L2957" class="ln">  2957  </span>	}
-<span id="L2958" class="ln">  2958  </span>	additionalProperties := make(map[string]interface{})
-<span id="L2959" class="ln">  2959  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L2960" class="ln">  2960  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agent_host_top99p&#34;, &#34;apm_azure_app_service_host_top99p&#34;, &#34;apm_fargate_count_avg&#34;, &#34;apm_host_top99p&#34;, &#34;appsec_fargate_count_avg&#34;, &#34;audit_logs_lines_indexed_sum&#34;, &#34;audit_trail_enabled_hwm&#34;, &#34;avg_profiled_fargate_tasks&#34;, &#34;aws_host_top99p&#34;, &#34;aws_lambda_func_count&#34;, &#34;aws_lambda_invocations_sum&#34;, &#34;azure_app_service_top99p&#34;, &#34;billable_ingested_bytes_sum&#34;, &#34;browser_rum_lite_session_count_sum&#34;, &#34;browser_rum_replay_session_count_sum&#34;, &#34;browser_rum_units_sum&#34;, &#34;ci_pipeline_indexed_spans_sum&#34;, &#34;ci_test_indexed_spans_sum&#34;, &#34;ci_visibility_pipeline_committers_hwm&#34;, &#34;ci_visibility_test_committers_hwm&#34;, &#34;cloud_cost_management_aws_host_count_avg&#34;, &#34;cloud_cost_management_azure_host_count_avg&#34;, &#34;cloud_cost_management_host_count_avg&#34;, &#34;container_avg&#34;, &#34;container_excl_agent_avg&#34;, &#34;container_hwm&#34;, &#34;cspm_aas_host_top99p&#34;, &#34;cspm_aws_host_top99p&#34;, &#34;cspm_azure_host_top99p&#34;, &#34;cspm_container_avg&#34;, &#34;cspm_container_hwm&#34;, &#34;cspm_gcp_host_top99p&#34;, &#34;cspm_host_top99p&#34;, &#34;custom_ts_avg&#34;, &#34;cws_container_count_avg&#34;, &#34;cws_host_top99p&#34;, &#34;dbm_host_top99p_sum&#34;, &#34;dbm_queries_avg_sum&#34;, &#34;fargate_tasks_count_avg&#34;, &#34;fargate_tasks_count_hwm&#34;, &#34;forwarding_events_bytes_sum&#34;, &#34;gcp_host_top99p&#34;, &#34;heroku_host_top99p&#34;, &#34;id&#34;, &#34;incident_management_monthly_active_users_hwm&#34;, &#34;indexed_events_count_sum&#34;, &#34;infra_host_top99p&#34;, &#34;ingested_events_bytes_sum&#34;, &#34;iot_device_agg_sum&#34;, &#34;iot_device_top99p_sum&#34;, &#34;mobile_rum_lite_session_count_sum&#34;, &#34;mobile_rum_session_count_android_sum&#34;, &#34;mobile_rum_session_count_flutter_sum&#34;, &#34;mobile_rum_session_count_ios_sum&#34;, &#34;mobile_rum_session_count_reactnative_sum&#34;, &#34;mobile_rum_session_count_roku_sum&#34;, &#34;mobile_rum_session_count_sum&#34;, &#34;mobile_rum_units_sum&#34;, &#34;name&#34;, &#34;netflow_indexed_events_count_sum&#34;, &#34;npm_host_top99p&#34;, &#34;observability_pipelines_bytes_processed_sum&#34;, &#34;online_archive_events_count_sum&#34;, &#34;opentelemetry_apm_host_top99p&#34;, &#34;opentelemetry_host_top99p&#34;, &#34;profiling_host_top99p&#34;, &#34;public_id&#34;, &#34;region&#34;, &#34;rum_browser_and_mobile_session_count&#34;, &#34;rum_session_count_sum&#34;, &#34;rum_total_session_count_sum&#34;, &#34;rum_units_sum&#34;, &#34;sds_apm_scanned_bytes_sum&#34;, &#34;sds_events_scanned_bytes_sum&#34;, &#34;sds_logs_scanned_bytes_sum&#34;, &#34;sds_rum_scanned_bytes_sum&#34;, &#34;sds_total_scanned_bytes_sum&#34;, &#34;synthetics_browser_check_calls_count_sum&#34;, &#34;synthetics_check_calls_count_sum&#34;, &#34;synthetics_parallel_testing_max_slots_hwm&#34;, &#34;trace_search_indexed_events_count_sum&#34;, &#34;twol_ingested_events_bytes_sum&#34;, &#34;universal_service_monitoring_host_top99p&#34;, &#34;vsphere_host_top99p&#34;, &#34;vuln_management_host_count_top99p&#34;})
-<span id="L2961" class="ln">  2961  </span>	} else {
-<span id="L2962" class="ln">  2962  </span>		return err
-<span id="L2963" class="ln">  2963  </span>	}
-<span id="L2964" class="ln">  2964  </span>	o.AgentHostTop99p = all.AgentHostTop99p
-<span id="L2965" class="ln">  2965  </span>	o.ApmAzureAppServiceHostTop99p = all.ApmAzureAppServiceHostTop99p
-<span id="L2966" class="ln">  2966  </span>	o.ApmFargateCountAvg = all.ApmFargateCountAvg
-<span id="L2967" class="ln">  2967  </span>	o.ApmHostTop99p = all.ApmHostTop99p
-<span id="L2968" class="ln">  2968  </span>	o.AppsecFargateCountAvg = all.AppsecFargateCountAvg
-<span id="L2969" class="ln">  2969  </span>	o.AuditLogsLinesIndexedSum = all.AuditLogsLinesIndexedSum
-<span id="L2970" class="ln">  2970  </span>	o.AuditTrailEnabledHwm = all.AuditTrailEnabledHwm
-<span id="L2971" class="ln">  2971  </span>	o.AvgProfiledFargateTasks = all.AvgProfiledFargateTasks
-<span id="L2972" class="ln">  2972  </span>	o.AwsHostTop99p = all.AwsHostTop99p
-<span id="L2973" class="ln">  2973  </span>	o.AwsLambdaFuncCount = all.AwsLambdaFuncCount
-<span id="L2974" class="ln">  2974  </span>	o.AwsLambdaInvocationsSum = all.AwsLambdaInvocationsSum
-<span id="L2975" class="ln">  2975  </span>	o.AzureAppServiceTop99p = all.AzureAppServiceTop99p
-<span id="L2976" class="ln">  2976  </span>	o.BillableIngestedBytesSum = all.BillableIngestedBytesSum
-<span id="L2977" class="ln">  2977  </span>	o.BrowserRumLiteSessionCountSum = all.BrowserRumLiteSessionCountSum
-<span id="L2978" class="ln">  2978  </span>	o.BrowserRumReplaySessionCountSum = all.BrowserRumReplaySessionCountSum
-<span id="L2979" class="ln">  2979  </span>	o.BrowserRumUnitsSum = all.BrowserRumUnitsSum
-<span id="L2980" class="ln">  2980  </span>	o.CiPipelineIndexedSpansSum = all.CiPipelineIndexedSpansSum
-<span id="L2981" class="ln">  2981  </span>	o.CiTestIndexedSpansSum = all.CiTestIndexedSpansSum
-<span id="L2982" class="ln">  2982  </span>	o.CiVisibilityPipelineCommittersHwm = all.CiVisibilityPipelineCommittersHwm
-<span id="L2983" class="ln">  2983  </span>	o.CiVisibilityTestCommittersHwm = all.CiVisibilityTestCommittersHwm
-<span id="L2984" class="ln">  2984  </span>	o.CloudCostManagementAwsHostCountAvg = all.CloudCostManagementAwsHostCountAvg
-<span id="L2985" class="ln">  2985  </span>	o.CloudCostManagementAzureHostCountAvg = all.CloudCostManagementAzureHostCountAvg
-<span id="L2986" class="ln">  2986  </span>	o.CloudCostManagementHostCountAvg = all.CloudCostManagementHostCountAvg
-<span id="L2987" class="ln">  2987  </span>	o.ContainerAvg = all.ContainerAvg
-<span id="L2988" class="ln">  2988  </span>	o.ContainerExclAgentAvg = all.ContainerExclAgentAvg
-<span id="L2989" class="ln">  2989  </span>	o.ContainerHwm = all.ContainerHwm
-<span id="L2990" class="ln">  2990  </span>	o.CspmAasHostTop99p = all.CspmAasHostTop99p
-<span id="L2991" class="ln">  2991  </span>	o.CspmAwsHostTop99p = all.CspmAwsHostTop99p
-<span id="L2992" class="ln">  2992  </span>	o.CspmAzureHostTop99p = all.CspmAzureHostTop99p
-<span id="L2993" class="ln">  2993  </span>	o.CspmContainerAvg = all.CspmContainerAvg
-<span id="L2994" class="ln">  2994  </span>	o.CspmContainerHwm = all.CspmContainerHwm
-<span id="L2995" class="ln">  2995  </span>	o.CspmGcpHostTop99p = all.CspmGcpHostTop99p
-<span id="L2996" class="ln">  2996  </span>	o.CspmHostTop99p = all.CspmHostTop99p
-<span id="L2997" class="ln">  2997  </span>	o.CustomTsAvg = all.CustomTsAvg
-<span id="L2998" class="ln">  2998  </span>	o.CwsContainerCountAvg = all.CwsContainerCountAvg
-<span id="L2999" class="ln">  2999  </span>	o.CwsHostTop99p = all.CwsHostTop99p
-<span id="L3000" class="ln">  3000  </span>	o.DbmHostTop99pSum = all.DbmHostTop99pSum
-<span id="L3001" class="ln">  3001  </span>	o.DbmQueriesAvgSum = all.DbmQueriesAvgSum
-<span id="L3002" class="ln">  3002  </span>	o.FargateTasksCountAvg = all.FargateTasksCountAvg
-<span id="L3003" class="ln">  3003  </span>	o.FargateTasksCountHwm = all.FargateTasksCountHwm
-<span id="L3004" class="ln">  3004  </span>	o.ForwardingEventsBytesSum = all.ForwardingEventsBytesSum
-<span id="L3005" class="ln">  3005  </span>	o.GcpHostTop99p = all.GcpHostTop99p
-<span id="L3006" class="ln">  3006  </span>	o.HerokuHostTop99p = all.HerokuHostTop99p
-<span id="L3007" class="ln">  3007  </span>	o.Id = all.Id
-<span id="L3008" class="ln">  3008  </span>	o.IncidentManagementMonthlyActiveUsersHwm = all.IncidentManagementMonthlyActiveUsersHwm
-<span id="L3009" class="ln">  3009  </span>	o.IndexedEventsCountSum = all.IndexedEventsCountSum
-<span id="L3010" class="ln">  3010  </span>	o.InfraHostTop99p = all.InfraHostTop99p
-<span id="L3011" class="ln">  3011  </span>	o.IngestedEventsBytesSum = all.IngestedEventsBytesSum
-<span id="L3012" class="ln">  3012  </span>	o.IotDeviceAggSum = all.IotDeviceAggSum
-<span id="L3013" class="ln">  3013  </span>	o.IotDeviceTop99pSum = all.IotDeviceTop99pSum
-<span id="L3014" class="ln">  3014  </span>	o.MobileRumLiteSessionCountSum = all.MobileRumLiteSessionCountSum
-<span id="L3015" class="ln">  3015  </span>	o.MobileRumSessionCountAndroidSum = all.MobileRumSessionCountAndroidSum
-<span id="L3016" class="ln">  3016  </span>	o.MobileRumSessionCountFlutterSum = all.MobileRumSessionCountFlutterSum
-<span id="L3017" class="ln">  3017  </span>	o.MobileRumSessionCountIosSum = all.MobileRumSessionCountIosSum
-<span id="L3018" class="ln">  3018  </span>	o.MobileRumSessionCountReactnativeSum = all.MobileRumSessionCountReactnativeSum
-<span id="L3019" class="ln">  3019  </span>	o.MobileRumSessionCountRokuSum = all.MobileRumSessionCountRokuSum
-<span id="L3020" class="ln">  3020  </span>	o.MobileRumSessionCountSum = all.MobileRumSessionCountSum
-<span id="L3021" class="ln">  3021  </span>	o.MobileRumUnitsSum = all.MobileRumUnitsSum
-<span id="L3022" class="ln">  3022  </span>	o.Name = all.Name
-<span id="L3023" class="ln">  3023  </span>	o.NetflowIndexedEventsCountSum = all.NetflowIndexedEventsCountSum
-<span id="L3024" class="ln">  3024  </span>	o.NpmHostTop99p = all.NpmHostTop99p
-<span id="L3025" class="ln">  3025  </span>	o.ObservabilityPipelinesBytesProcessedSum = all.ObservabilityPipelinesBytesProcessedSum
-<span id="L3026" class="ln">  3026  </span>	o.OnlineArchiveEventsCountSum = all.OnlineArchiveEventsCountSum
-<span id="L3027" class="ln">  3027  </span>	o.OpentelemetryApmHostTop99p = all.OpentelemetryApmHostTop99p
-<span id="L3028" class="ln">  3028  </span>	o.OpentelemetryHostTop99p = all.OpentelemetryHostTop99p
-<span id="L3029" class="ln">  3029  </span>	o.ProfilingHostTop99p = all.ProfilingHostTop99p
-<span id="L3030" class="ln">  3030  </span>	o.PublicId = all.PublicId
-<span id="L3031" class="ln">  3031  </span>	o.Region = all.Region
-<span id="L3032" class="ln">  3032  </span>	o.RumBrowserAndMobileSessionCount = all.RumBrowserAndMobileSessionCount
-<span id="L3033" class="ln">  3033  </span>	o.RumSessionCountSum = all.RumSessionCountSum
-<span id="L3034" class="ln">  3034  </span>	o.RumTotalSessionCountSum = all.RumTotalSessionCountSum
-<span id="L3035" class="ln">  3035  </span>	o.RumUnitsSum = all.RumUnitsSum
-<span id="L3036" class="ln">  3036  </span>	o.SdsApmScannedBytesSum = all.SdsApmScannedBytesSum
-<span id="L3037" class="ln">  3037  </span>	o.SdsEventsScannedBytesSum = all.SdsEventsScannedBytesSum
-<span id="L3038" class="ln">  3038  </span>	o.SdsLogsScannedBytesSum = all.SdsLogsScannedBytesSum
-<span id="L3039" class="ln">  3039  </span>	o.SdsRumScannedBytesSum = all.SdsRumScannedBytesSum
-<span id="L3040" class="ln">  3040  </span>	o.SdsTotalScannedBytesSum = all.SdsTotalScannedBytesSum
-<span id="L3041" class="ln">  3041  </span>	o.SyntheticsBrowserCheckCallsCountSum = all.SyntheticsBrowserCheckCallsCountSum
-<span id="L3042" class="ln">  3042  </span>	o.SyntheticsCheckCallsCountSum = all.SyntheticsCheckCallsCountSum
-<span id="L3043" class="ln">  3043  </span>	o.SyntheticsParallelTestingMaxSlotsHwm = all.SyntheticsParallelTestingMaxSlotsHwm
-<span id="L3044" class="ln">  3044  </span>	o.TraceSearchIndexedEventsCountSum = all.TraceSearchIndexedEventsCountSum
-<span id="L3045" class="ln">  3045  </span>	o.TwolIngestedEventsBytesSum = all.TwolIngestedEventsBytesSum
-<span id="L3046" class="ln">  3046  </span>	o.UniversalServiceMonitoringHostTop99p = all.UniversalServiceMonitoringHostTop99p
-<span id="L3047" class="ln">  3047  </span>	o.VsphereHostTop99p = all.VsphereHostTop99p
-<span id="L3048" class="ln">  3048  </span>	o.VulnManagementHostCountTop99p = all.VulnManagementHostCountTop99p
-<span id="L3049" class="ln">  3049  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L3050" class="ln">  3050  </span>		o.AdditionalProperties = additionalProperties
-<span id="L3051" class="ln">  3051  </span>	}
-<span id="L3052" class="ln">  3052  </span>
-<span id="L3053" class="ln">  3053  </span>	return nil
-<span id="L3054" class="ln">  3054  </span>}
-<span id="L3055" class="ln">  3055  </span>
+<span id="L2949" class="ln">  2949  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L2950" class="ln">  2950  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L2951" class="ln">  2951  </span>		if err != nil {
+<span id="L2952" class="ln">  2952  </span>			return err
+<span id="L2953" class="ln">  2953  </span>		}
+<span id="L2954" class="ln">  2954  </span>		o.UnparsedObject = raw
+<span id="L2955" class="ln">  2955  </span>		return nil
+<span id="L2956" class="ln">  2956  </span>	}
+<span id="L2957" class="ln">  2957  </span>	additionalProperties := make(map[string]interface{})
+<span id="L2958" class="ln">  2958  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L2959" class="ln">  2959  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agent_host_top99p&#34;, &#34;apm_azure_app_service_host_top99p&#34;, &#34;apm_fargate_count_avg&#34;, &#34;apm_host_top99p&#34;, &#34;appsec_fargate_count_avg&#34;, &#34;audit_logs_lines_indexed_sum&#34;, &#34;audit_trail_enabled_hwm&#34;, &#34;avg_profiled_fargate_tasks&#34;, &#34;aws_host_top99p&#34;, &#34;aws_lambda_func_count&#34;, &#34;aws_lambda_invocations_sum&#34;, &#34;azure_app_service_top99p&#34;, &#34;billable_ingested_bytes_sum&#34;, &#34;browser_rum_lite_session_count_sum&#34;, &#34;browser_rum_replay_session_count_sum&#34;, &#34;browser_rum_units_sum&#34;, &#34;ci_pipeline_indexed_spans_sum&#34;, &#34;ci_test_indexed_spans_sum&#34;, &#34;ci_visibility_pipeline_committers_hwm&#34;, &#34;ci_visibility_test_committers_hwm&#34;, &#34;cloud_cost_management_aws_host_count_avg&#34;, &#34;cloud_cost_management_azure_host_count_avg&#34;, &#34;cloud_cost_management_host_count_avg&#34;, &#34;container_avg&#34;, &#34;container_excl_agent_avg&#34;, &#34;container_hwm&#34;, &#34;cspm_aas_host_top99p&#34;, &#34;cspm_aws_host_top99p&#34;, &#34;cspm_azure_host_top99p&#34;, &#34;cspm_container_avg&#34;, &#34;cspm_container_hwm&#34;, &#34;cspm_gcp_host_top99p&#34;, &#34;cspm_host_top99p&#34;, &#34;custom_ts_avg&#34;, &#34;cws_container_count_avg&#34;, &#34;cws_host_top99p&#34;, &#34;dbm_host_top99p_sum&#34;, &#34;dbm_queries_avg_sum&#34;, &#34;fargate_tasks_count_avg&#34;, &#34;fargate_tasks_count_hwm&#34;, &#34;forwarding_events_bytes_sum&#34;, &#34;gcp_host_top99p&#34;, &#34;heroku_host_top99p&#34;, &#34;id&#34;, &#34;incident_management_monthly_active_users_hwm&#34;, &#34;indexed_events_count_sum&#34;, &#34;infra_host_top99p&#34;, &#34;ingested_events_bytes_sum&#34;, &#34;iot_device_agg_sum&#34;, &#34;iot_device_top99p_sum&#34;, &#34;mobile_rum_lite_session_count_sum&#34;, &#34;mobile_rum_session_count_android_sum&#34;, &#34;mobile_rum_session_count_flutter_sum&#34;, &#34;mobile_rum_session_count_ios_sum&#34;, &#34;mobile_rum_session_count_reactnative_sum&#34;, &#34;mobile_rum_session_count_roku_sum&#34;, &#34;mobile_rum_session_count_sum&#34;, &#34;mobile_rum_units_sum&#34;, &#34;name&#34;, &#34;netflow_indexed_events_count_sum&#34;, &#34;npm_host_top99p&#34;, &#34;observability_pipelines_bytes_processed_sum&#34;, &#34;online_archive_events_count_sum&#34;, &#34;opentelemetry_apm_host_top99p&#34;, &#34;opentelemetry_host_top99p&#34;, &#34;profiling_host_top99p&#34;, &#34;public_id&#34;, &#34;region&#34;, &#34;rum_browser_and_mobile_session_count&#34;, &#34;rum_session_count_sum&#34;, &#34;rum_total_session_count_sum&#34;, &#34;rum_units_sum&#34;, &#34;sds_apm_scanned_bytes_sum&#34;, &#34;sds_events_scanned_bytes_sum&#34;, &#34;sds_logs_scanned_bytes_sum&#34;, &#34;sds_rum_scanned_bytes_sum&#34;, &#34;sds_total_scanned_bytes_sum&#34;, &#34;synthetics_browser_check_calls_count_sum&#34;, &#34;synthetics_check_calls_count_sum&#34;, &#34;synthetics_parallel_testing_max_slots_hwm&#34;, &#34;trace_search_indexed_events_count_sum&#34;, &#34;twol_ingested_events_bytes_sum&#34;, &#34;universal_service_monitoring_host_top99p&#34;, &#34;vsphere_host_top99p&#34;, &#34;vuln_management_host_count_top99p&#34;})
+<span id="L2960" class="ln">  2960  </span>	} else {
+<span id="L2961" class="ln">  2961  </span>		return err
+<span id="L2962" class="ln">  2962  </span>	}
+<span id="L2963" class="ln">  2963  </span>	o.AgentHostTop99p = all.AgentHostTop99p
+<span id="L2964" class="ln">  2964  </span>	o.ApmAzureAppServiceHostTop99p = all.ApmAzureAppServiceHostTop99p
+<span id="L2965" class="ln">  2965  </span>	o.ApmFargateCountAvg = all.ApmFargateCountAvg
+<span id="L2966" class="ln">  2966  </span>	o.ApmHostTop99p = all.ApmHostTop99p
+<span id="L2967" class="ln">  2967  </span>	o.AppsecFargateCountAvg = all.AppsecFargateCountAvg
+<span id="L2968" class="ln">  2968  </span>	o.AuditLogsLinesIndexedSum = all.AuditLogsLinesIndexedSum
+<span id="L2969" class="ln">  2969  </span>	o.AuditTrailEnabledHwm = all.AuditTrailEnabledHwm
+<span id="L2970" class="ln">  2970  </span>	o.AvgProfiledFargateTasks = all.AvgProfiledFargateTasks
+<span id="L2971" class="ln">  2971  </span>	o.AwsHostTop99p = all.AwsHostTop99p
+<span id="L2972" class="ln">  2972  </span>	o.AwsLambdaFuncCount = all.AwsLambdaFuncCount
+<span id="L2973" class="ln">  2973  </span>	o.AwsLambdaInvocationsSum = all.AwsLambdaInvocationsSum
+<span id="L2974" class="ln">  2974  </span>	o.AzureAppServiceTop99p = all.AzureAppServiceTop99p
+<span id="L2975" class="ln">  2975  </span>	o.BillableIngestedBytesSum = all.BillableIngestedBytesSum
+<span id="L2976" class="ln">  2976  </span>	o.BrowserRumLiteSessionCountSum = all.BrowserRumLiteSessionCountSum
+<span id="L2977" class="ln">  2977  </span>	o.BrowserRumReplaySessionCountSum = all.BrowserRumReplaySessionCountSum
+<span id="L2978" class="ln">  2978  </span>	o.BrowserRumUnitsSum = all.BrowserRumUnitsSum
+<span id="L2979" class="ln">  2979  </span>	o.CiPipelineIndexedSpansSum = all.CiPipelineIndexedSpansSum
+<span id="L2980" class="ln">  2980  </span>	o.CiTestIndexedSpansSum = all.CiTestIndexedSpansSum
+<span id="L2981" class="ln">  2981  </span>	o.CiVisibilityPipelineCommittersHwm = all.CiVisibilityPipelineCommittersHwm
+<span id="L2982" class="ln">  2982  </span>	o.CiVisibilityTestCommittersHwm = all.CiVisibilityTestCommittersHwm
+<span id="L2983" class="ln">  2983  </span>	o.CloudCostManagementAwsHostCountAvg = all.CloudCostManagementAwsHostCountAvg
+<span id="L2984" class="ln">  2984  </span>	o.CloudCostManagementAzureHostCountAvg = all.CloudCostManagementAzureHostCountAvg
+<span id="L2985" class="ln">  2985  </span>	o.CloudCostManagementHostCountAvg = all.CloudCostManagementHostCountAvg
+<span id="L2986" class="ln">  2986  </span>	o.ContainerAvg = all.ContainerAvg
+<span id="L2987" class="ln">  2987  </span>	o.ContainerExclAgentAvg = all.ContainerExclAgentAvg
+<span id="L2988" class="ln">  2988  </span>	o.ContainerHwm = all.ContainerHwm
+<span id="L2989" class="ln">  2989  </span>	o.CspmAasHostTop99p = all.CspmAasHostTop99p
+<span id="L2990" class="ln">  2990  </span>	o.CspmAwsHostTop99p = all.CspmAwsHostTop99p
+<span id="L2991" class="ln">  2991  </span>	o.CspmAzureHostTop99p = all.CspmAzureHostTop99p
+<span id="L2992" class="ln">  2992  </span>	o.CspmContainerAvg = all.CspmContainerAvg
+<span id="L2993" class="ln">  2993  </span>	o.CspmContainerHwm = all.CspmContainerHwm
+<span id="L2994" class="ln">  2994  </span>	o.CspmGcpHostTop99p = all.CspmGcpHostTop99p
+<span id="L2995" class="ln">  2995  </span>	o.CspmHostTop99p = all.CspmHostTop99p
+<span id="L2996" class="ln">  2996  </span>	o.CustomTsAvg = all.CustomTsAvg
+<span id="L2997" class="ln">  2997  </span>	o.CwsContainerCountAvg = all.CwsContainerCountAvg
+<span id="L2998" class="ln">  2998  </span>	o.CwsHostTop99p = all.CwsHostTop99p
+<span id="L2999" class="ln">  2999  </span>	o.DbmHostTop99pSum = all.DbmHostTop99pSum
+<span id="L3000" class="ln">  3000  </span>	o.DbmQueriesAvgSum = all.DbmQueriesAvgSum
+<span id="L3001" class="ln">  3001  </span>	o.FargateTasksCountAvg = all.FargateTasksCountAvg
+<span id="L3002" class="ln">  3002  </span>	o.FargateTasksCountHwm = all.FargateTasksCountHwm
+<span id="L3003" class="ln">  3003  </span>	o.ForwardingEventsBytesSum = all.ForwardingEventsBytesSum
+<span id="L3004" class="ln">  3004  </span>	o.GcpHostTop99p = all.GcpHostTop99p
+<span id="L3005" class="ln">  3005  </span>	o.HerokuHostTop99p = all.HerokuHostTop99p
+<span id="L3006" class="ln">  3006  </span>	o.Id = all.Id
+<span id="L3007" class="ln">  3007  </span>	o.IncidentManagementMonthlyActiveUsersHwm = all.IncidentManagementMonthlyActiveUsersHwm
+<span id="L3008" class="ln">  3008  </span>	o.IndexedEventsCountSum = all.IndexedEventsCountSum
+<span id="L3009" class="ln">  3009  </span>	o.InfraHostTop99p = all.InfraHostTop99p
+<span id="L3010" class="ln">  3010  </span>	o.IngestedEventsBytesSum = all.IngestedEventsBytesSum
+<span id="L3011" class="ln">  3011  </span>	o.IotDeviceAggSum = all.IotDeviceAggSum
+<span id="L3012" class="ln">  3012  </span>	o.IotDeviceTop99pSum = all.IotDeviceTop99pSum
+<span id="L3013" class="ln">  3013  </span>	o.MobileRumLiteSessionCountSum = all.MobileRumLiteSessionCountSum
+<span id="L3014" class="ln">  3014  </span>	o.MobileRumSessionCountAndroidSum = all.MobileRumSessionCountAndroidSum
+<span id="L3015" class="ln">  3015  </span>	o.MobileRumSessionCountFlutterSum = all.MobileRumSessionCountFlutterSum
+<span id="L3016" class="ln">  3016  </span>	o.MobileRumSessionCountIosSum = all.MobileRumSessionCountIosSum
+<span id="L3017" class="ln">  3017  </span>	o.MobileRumSessionCountReactnativeSum = all.MobileRumSessionCountReactnativeSum
+<span id="L3018" class="ln">  3018  </span>	o.MobileRumSessionCountRokuSum = all.MobileRumSessionCountRokuSum
+<span id="L3019" class="ln">  3019  </span>	o.MobileRumSessionCountSum = all.MobileRumSessionCountSum
+<span id="L3020" class="ln">  3020  </span>	o.MobileRumUnitsSum = all.MobileRumUnitsSum
+<span id="L3021" class="ln">  3021  </span>	o.Name = all.Name
+<span id="L3022" class="ln">  3022  </span>	o.NetflowIndexedEventsCountSum = all.NetflowIndexedEventsCountSum
+<span id="L3023" class="ln">  3023  </span>	o.NpmHostTop99p = all.NpmHostTop99p
+<span id="L3024" class="ln">  3024  </span>	o.ObservabilityPipelinesBytesProcessedSum = all.ObservabilityPipelinesBytesProcessedSum
+<span id="L3025" class="ln">  3025  </span>	o.OnlineArchiveEventsCountSum = all.OnlineArchiveEventsCountSum
+<span id="L3026" class="ln">  3026  </span>	o.OpentelemetryApmHostTop99p = all.OpentelemetryApmHostTop99p
+<span id="L3027" class="ln">  3027  </span>	o.OpentelemetryHostTop99p = all.OpentelemetryHostTop99p
+<span id="L3028" class="ln">  3028  </span>	o.ProfilingHostTop99p = all.ProfilingHostTop99p
+<span id="L3029" class="ln">  3029  </span>	o.PublicId = all.PublicId
+<span id="L3030" class="ln">  3030  </span>	o.Region = all.Region
+<span id="L3031" class="ln">  3031  </span>	o.RumBrowserAndMobileSessionCount = all.RumBrowserAndMobileSessionCount
+<span id="L3032" class="ln">  3032  </span>	o.RumSessionCountSum = all.RumSessionCountSum
+<span id="L3033" class="ln">  3033  </span>	o.RumTotalSessionCountSum = all.RumTotalSessionCountSum
+<span id="L3034" class="ln">  3034  </span>	o.RumUnitsSum = all.RumUnitsSum
+<span id="L3035" class="ln">  3035  </span>	o.SdsApmScannedBytesSum = all.SdsApmScannedBytesSum
+<span id="L3036" class="ln">  3036  </span>	o.SdsEventsScannedBytesSum = all.SdsEventsScannedBytesSum
+<span id="L3037" class="ln">  3037  </span>	o.SdsLogsScannedBytesSum = all.SdsLogsScannedBytesSum
+<span id="L3038" class="ln">  3038  </span>	o.SdsRumScannedBytesSum = all.SdsRumScannedBytesSum
+<span id="L3039" class="ln">  3039  </span>	o.SdsTotalScannedBytesSum = all.SdsTotalScannedBytesSum
+<span id="L3040" class="ln">  3040  </span>	o.SyntheticsBrowserCheckCallsCountSum = all.SyntheticsBrowserCheckCallsCountSum
+<span id="L3041" class="ln">  3041  </span>	o.SyntheticsCheckCallsCountSum = all.SyntheticsCheckCallsCountSum
+<span id="L3042" class="ln">  3042  </span>	o.SyntheticsParallelTestingMaxSlotsHwm = all.SyntheticsParallelTestingMaxSlotsHwm
+<span id="L3043" class="ln">  3043  </span>	o.TraceSearchIndexedEventsCountSum = all.TraceSearchIndexedEventsCountSum
+<span id="L3044" class="ln">  3044  </span>	o.TwolIngestedEventsBytesSum = all.TwolIngestedEventsBytesSum
+<span id="L3045" class="ln">  3045  </span>	o.UniversalServiceMonitoringHostTop99p = all.UniversalServiceMonitoringHostTop99p
+<span id="L3046" class="ln">  3046  </span>	o.VsphereHostTop99p = all.VsphereHostTop99p
+<span id="L3047" class="ln">  3047  </span>	o.VulnManagementHostCountTop99p = all.VulnManagementHostCountTop99p
+<span id="L3048" class="ln">  3048  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L3049" class="ln">  3049  </span>		o.AdditionalProperties = additionalProperties
+<span id="L3050" class="ln">  3050  </span>	}
+<span id="L3051" class="ln">  3051  </span>
+<span id="L3052" class="ln">  3052  </span>	return nil
+<span id="L3053" class="ln">  3053  </span>}
+<span id="L3054" class="ln">  3054  </span>
 </pre><p></p>
 
 <div id="footer">

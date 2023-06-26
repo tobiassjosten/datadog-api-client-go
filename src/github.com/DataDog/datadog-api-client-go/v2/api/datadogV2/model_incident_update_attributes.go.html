@@ -415,36 +415,35 @@
 <span id="L358" class="ln">   358  </span>		NotificationHandles []IncidentNotificationHandle       `json:&#34;notification_handles,omitempty&#34;`
 <span id="L359" class="ln">   359  </span>		Title               *string                            `json:&#34;title,omitempty&#34;`
 <span id="L360" class="ln">   360  </span>	}{}
-<span id="L361" class="ln">   361  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L362" class="ln">   362  </span>	if err != nil {
-<span id="L363" class="ln">   363  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L364" class="ln">   364  </span>		if err != nil {
-<span id="L365" class="ln">   365  </span>			return err
-<span id="L366" class="ln">   366  </span>		}
-<span id="L367" class="ln">   367  </span>		o.UnparsedObject = raw
-<span id="L368" class="ln">   368  </span>		return nil
-<span id="L369" class="ln">   369  </span>	}
-<span id="L370" class="ln">   370  </span>	additionalProperties := make(map[string]interface{})
-<span id="L371" class="ln">   371  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L372" class="ln">   372  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;customer_impact_end&#34;, &#34;customer_impact_scope&#34;, &#34;customer_impact_start&#34;, &#34;customer_impacted&#34;, &#34;detected&#34;, &#34;fields&#34;, &#34;notification_handles&#34;, &#34;title&#34;})
-<span id="L373" class="ln">   373  </span>	} else {
-<span id="L374" class="ln">   374  </span>		return err
-<span id="L375" class="ln">   375  </span>	}
-<span id="L376" class="ln">   376  </span>	o.CustomerImpactEnd = all.CustomerImpactEnd
-<span id="L377" class="ln">   377  </span>	o.CustomerImpactScope = all.CustomerImpactScope
-<span id="L378" class="ln">   378  </span>	o.CustomerImpactStart = all.CustomerImpactStart
-<span id="L379" class="ln">   379  </span>	o.CustomerImpacted = all.CustomerImpacted
-<span id="L380" class="ln">   380  </span>	o.Detected = all.Detected
-<span id="L381" class="ln">   381  </span>	o.Fields = all.Fields
-<span id="L382" class="ln">   382  </span>	o.NotificationHandles = all.NotificationHandles
-<span id="L383" class="ln">   383  </span>	o.Title = all.Title
-<span id="L384" class="ln">   384  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L385" class="ln">   385  </span>		o.AdditionalProperties = additionalProperties
-<span id="L386" class="ln">   386  </span>	}
-<span id="L387" class="ln">   387  </span>
-<span id="L388" class="ln">   388  </span>	return nil
-<span id="L389" class="ln">   389  </span>}
-<span id="L390" class="ln">   390  </span>
+<span id="L361" class="ln">   361  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L362" class="ln">   362  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L363" class="ln">   363  </span>		if err != nil {
+<span id="L364" class="ln">   364  </span>			return err
+<span id="L365" class="ln">   365  </span>		}
+<span id="L366" class="ln">   366  </span>		o.UnparsedObject = raw
+<span id="L367" class="ln">   367  </span>		return nil
+<span id="L368" class="ln">   368  </span>	}
+<span id="L369" class="ln">   369  </span>	additionalProperties := make(map[string]interface{})
+<span id="L370" class="ln">   370  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L371" class="ln">   371  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;customer_impact_end&#34;, &#34;customer_impact_scope&#34;, &#34;customer_impact_start&#34;, &#34;customer_impacted&#34;, &#34;detected&#34;, &#34;fields&#34;, &#34;notification_handles&#34;, &#34;title&#34;})
+<span id="L372" class="ln">   372  </span>	} else {
+<span id="L373" class="ln">   373  </span>		return err
+<span id="L374" class="ln">   374  </span>	}
+<span id="L375" class="ln">   375  </span>	o.CustomerImpactEnd = all.CustomerImpactEnd
+<span id="L376" class="ln">   376  </span>	o.CustomerImpactScope = all.CustomerImpactScope
+<span id="L377" class="ln">   377  </span>	o.CustomerImpactStart = all.CustomerImpactStart
+<span id="L378" class="ln">   378  </span>	o.CustomerImpacted = all.CustomerImpacted
+<span id="L379" class="ln">   379  </span>	o.Detected = all.Detected
+<span id="L380" class="ln">   380  </span>	o.Fields = all.Fields
+<span id="L381" class="ln">   381  </span>	o.NotificationHandles = all.NotificationHandles
+<span id="L382" class="ln">   382  </span>	o.Title = all.Title
+<span id="L383" class="ln">   383  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L384" class="ln">   384  </span>		o.AdditionalProperties = additionalProperties
+<span id="L385" class="ln">   385  </span>	}
+<span id="L386" class="ln">   386  </span>
+<span id="L387" class="ln">   387  </span>	return nil
+<span id="L388" class="ln">   388  </span>}
+<span id="L389" class="ln">   389  </span>
 </pre><p></p>
 
 <div id="footer">

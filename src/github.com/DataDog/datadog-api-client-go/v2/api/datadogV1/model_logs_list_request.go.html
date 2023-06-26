@@ -305,67 +305,59 @@
 <span id="L248" class="ln">   248  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L249" class="ln">   249  </span>func (o *LogsListRequest) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L250" class="ln">   250  </span>	raw := map[string]interface{}{}
-<span id="L251" class="ln">   251  </span>	required := struct {
-<span id="L252" class="ln">   252  </span>		Time *LogsListRequestTime `json:&#34;time&#34;`
-<span id="L253" class="ln">   253  </span>	}{}
-<span id="L254" class="ln">   254  </span>	all := struct {
-<span id="L255" class="ln">   255  </span>		Index   *string             `json:&#34;index,omitempty&#34;`
-<span id="L256" class="ln">   256  </span>		Limit   *int32              `json:&#34;limit,omitempty&#34;`
-<span id="L257" class="ln">   257  </span>		Query   *string             `json:&#34;query,omitempty&#34;`
-<span id="L258" class="ln">   258  </span>		Sort    *LogsSort           `json:&#34;sort,omitempty&#34;`
-<span id="L259" class="ln">   259  </span>		StartAt *string             `json:&#34;startAt,omitempty&#34;`
-<span id="L260" class="ln">   260  </span>		Time    LogsListRequestTime `json:&#34;time&#34;`
-<span id="L261" class="ln">   261  </span>	}{}
-<span id="L262" class="ln">   262  </span>	err = json.Unmarshal(bytes, &amp;required)
-<span id="L263" class="ln">   263  </span>	if err != nil {
-<span id="L264" class="ln">   264  </span>		return err
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	if required.Time == nil {
-<span id="L267" class="ln">   267  </span>		return fmt.Errorf(&#34;required field time missing&#34;)
-<span id="L268" class="ln">   268  </span>	}
-<span id="L269" class="ln">   269  </span>	err = json.Unmarshal(bytes, &amp;all)
-<span id="L270" class="ln">   270  </span>	if err != nil {
-<span id="L271" class="ln">   271  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L272" class="ln">   272  </span>		if err != nil {
-<span id="L273" class="ln">   273  </span>			return err
-<span id="L274" class="ln">   274  </span>		}
-<span id="L275" class="ln">   275  </span>		o.UnparsedObject = raw
-<span id="L276" class="ln">   276  </span>		return nil
-<span id="L277" class="ln">   277  </span>	}
-<span id="L278" class="ln">   278  </span>	additionalProperties := make(map[string]interface{})
-<span id="L279" class="ln">   279  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L280" class="ln">   280  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;index&#34;, &#34;limit&#34;, &#34;query&#34;, &#34;sort&#34;, &#34;startAt&#34;, &#34;time&#34;})
-<span id="L281" class="ln">   281  </span>	} else {
-<span id="L282" class="ln">   282  </span>		return err
+<span id="L251" class="ln">   251  </span>	all := struct {
+<span id="L252" class="ln">   252  </span>		Index   *string              `json:&#34;index,omitempty&#34;`
+<span id="L253" class="ln">   253  </span>		Limit   *int32               `json:&#34;limit,omitempty&#34;`
+<span id="L254" class="ln">   254  </span>		Query   *string              `json:&#34;query,omitempty&#34;`
+<span id="L255" class="ln">   255  </span>		Sort    *LogsSort            `json:&#34;sort,omitempty&#34;`
+<span id="L256" class="ln">   256  </span>		StartAt *string              `json:&#34;startAt,omitempty&#34;`
+<span id="L257" class="ln">   257  </span>		Time    *LogsListRequestTime `json:&#34;time&#34;`
+<span id="L258" class="ln">   258  </span>	}{}
+<span id="L259" class="ln">   259  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L260" class="ln">   260  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L261" class="ln">   261  </span>		if err != nil {
+<span id="L262" class="ln">   262  </span>			return err
+<span id="L263" class="ln">   263  </span>		}
+<span id="L264" class="ln">   264  </span>		o.UnparsedObject = raw
+<span id="L265" class="ln">   265  </span>		return nil
+<span id="L266" class="ln">   266  </span>	}
+<span id="L267" class="ln">   267  </span>	if all.Time == nil {
+<span id="L268" class="ln">   268  </span>		return fmt.Errorf(&#34;required field time missing&#34;)
+<span id="L269" class="ln">   269  </span>	}
+<span id="L270" class="ln">   270  </span>	additionalProperties := make(map[string]interface{})
+<span id="L271" class="ln">   271  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L272" class="ln">   272  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;index&#34;, &#34;limit&#34;, &#34;query&#34;, &#34;sort&#34;, &#34;startAt&#34;, &#34;time&#34;})
+<span id="L273" class="ln">   273  </span>	} else {
+<span id="L274" class="ln">   274  </span>		return err
+<span id="L275" class="ln">   275  </span>	}
+<span id="L276" class="ln">   276  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
+<span id="L277" class="ln">   277  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L278" class="ln">   278  </span>		if err != nil {
+<span id="L279" class="ln">   279  </span>			return err
+<span id="L280" class="ln">   280  </span>		}
+<span id="L281" class="ln">   281  </span>		o.UnparsedObject = raw
+<span id="L282" class="ln">   282  </span>		return nil
 <span id="L283" class="ln">   283  </span>	}
-<span id="L284" class="ln">   284  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
-<span id="L285" class="ln">   285  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L286" class="ln">   286  </span>		if err != nil {
-<span id="L287" class="ln">   287  </span>			return err
-<span id="L288" class="ln">   288  </span>		}
-<span id="L289" class="ln">   289  </span>		o.UnparsedObject = raw
-<span id="L290" class="ln">   290  </span>		return nil
-<span id="L291" class="ln">   291  </span>	}
-<span id="L292" class="ln">   292  </span>	o.Index = all.Index
-<span id="L293" class="ln">   293  </span>	o.Limit = all.Limit
-<span id="L294" class="ln">   294  </span>	o.Query = all.Query
-<span id="L295" class="ln">   295  </span>	o.Sort = all.Sort
-<span id="L296" class="ln">   296  </span>	o.StartAt = all.StartAt
-<span id="L297" class="ln">   297  </span>	if all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L298" class="ln">   298  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L299" class="ln">   299  </span>		if err != nil {
-<span id="L300" class="ln">   300  </span>			return err
-<span id="L301" class="ln">   301  </span>		}
-<span id="L302" class="ln">   302  </span>		o.UnparsedObject = raw
-<span id="L303" class="ln">   303  </span>	}
-<span id="L304" class="ln">   304  </span>	o.Time = all.Time
-<span id="L305" class="ln">   305  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L306" class="ln">   306  </span>		o.AdditionalProperties = additionalProperties
-<span id="L307" class="ln">   307  </span>	}
-<span id="L308" class="ln">   308  </span>
-<span id="L309" class="ln">   309  </span>	return nil
-<span id="L310" class="ln">   310  </span>}
-<span id="L311" class="ln">   311  </span>
+<span id="L284" class="ln">   284  </span>	o.Index = all.Index
+<span id="L285" class="ln">   285  </span>	o.Limit = all.Limit
+<span id="L286" class="ln">   286  </span>	o.Query = all.Query
+<span id="L287" class="ln">   287  </span>	o.Sort = all.Sort
+<span id="L288" class="ln">   288  </span>	o.StartAt = all.StartAt
+<span id="L289" class="ln">   289  </span>	if all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L290" class="ln">   290  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L291" class="ln">   291  </span>		if err != nil {
+<span id="L292" class="ln">   292  </span>			return err
+<span id="L293" class="ln">   293  </span>		}
+<span id="L294" class="ln">   294  </span>		o.UnparsedObject = raw
+<span id="L295" class="ln">   295  </span>	}
+<span id="L296" class="ln">   296  </span>	o.Time = *all.Time
+<span id="L297" class="ln">   297  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L298" class="ln">   298  </span>		o.AdditionalProperties = additionalProperties
+<span id="L299" class="ln">   299  </span>	}
+<span id="L300" class="ln">   300  </span>
+<span id="L301" class="ln">   301  </span>	return nil
+<span id="L302" class="ln">   302  </span>}
+<span id="L303" class="ln">   303  </span>
 </pre><p></p>
 
 <div id="footer">
