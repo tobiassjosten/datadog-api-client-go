@@ -147,7 +147,7 @@
 <span id="L90" class="ln">    90  </span>}
 <span id="L91" class="ln">    91  </span>
 <span id="L92" class="ln">    92  </span><span class="comment">// CreateCIAppPipelineEvent Send pipeline event.</span>
-<span id="L93" class="ln">    93  </span><span class="comment">// Send your pipeline event to your Datadog platform over HTTP.</span>
+<span id="L93" class="ln">    93  </span><span class="comment">// Send your pipeline event to your Datadog platform over HTTP. For details about how pipeline executions are modeled and what execution types we support, see the [guide](https://docs.datadoghq.com/continuous_integration/guides/pipeline_data_model/).</span>
 <span id="L94" class="ln">    94  </span><span class="comment">//</span>
 <span id="L95" class="ln">    95  </span><span class="comment">// This API endpoint is in private beta.</span>
 <span id="L96" class="ln">    96  </span>func (a *CIVisibilityPipelinesApi) CreateCIAppPipelineEvent(ctx _context.Context, body CIAppCreatePipelineEventRequest) (interface{}, *_nethttp.Response, error) {
