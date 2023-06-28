@@ -95,7 +95,7 @@
 <span id="L38" class="ln">    38  </span>	Q *string `json:&#34;q,omitempty&#34;`
 <span id="L39" class="ln">    39  </span>	<span class="comment">// List of queries that can be returned directly or used in formulas.</span>
 <span id="L40" class="ln">    40  </span>	Queries []FormulaAndFunctionQueryDefinition `json:&#34;queries,omitempty&#34;`
-<span id="L41" class="ln">    41  </span>	<span class="comment">// Timeseries or Scalar response.</span>
+<span id="L41" class="ln">    41  </span>	<span class="comment">// Timeseries, scalar, or event list response. Event list response formats are supported by Geomap widgets.</span>
 <span id="L42" class="ln">    42  </span>	ResponseFormat *FormulaAndFunctionResponseFormat `json:&#34;response_format,omitempty&#34;`
 <span id="L43" class="ln">    43  </span>	<span class="comment">// The log query.</span>
 <span id="L44" class="ln">    44  </span>	RumQuery *LogQueryDefinition `json:&#34;rum_query,omitempty&#34;`

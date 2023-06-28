@@ -75,7 +75,7 @@
 <span id="L18" class="ln">    18  </span>	Q *string `json:&#34;q,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// List of queries that can be returned directly or used in formulas.</span>
 <span id="L20" class="ln">    20  </span>	Queries []FormulaAndFunctionQueryDefinition `json:&#34;queries,omitempty&#34;`
-<span id="L21" class="ln">    21  </span>	<span class="comment">// Timeseries or Scalar response.</span>
+<span id="L21" class="ln">    21  </span>	<span class="comment">// Timeseries, scalar, or event list response. Event list response formats are supported by Geomap widgets.</span>
 <span id="L22" class="ln">    22  </span>	ResponseFormat *FormulaAndFunctionResponseFormat `json:&#34;response_format,omitempty&#34;`
 <span id="L23" class="ln">    23  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L24" class="ln">    24  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`

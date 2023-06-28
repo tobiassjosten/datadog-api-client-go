@@ -73,7 +73,7 @@
 <span id="L16" class="ln">    16  </span>	Formulas []ScatterplotWidgetFormula `json:&#34;formulas,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// List of queries that can be returned directly or used in formulas.</span>
 <span id="L18" class="ln">    18  </span>	Queries []FormulaAndFunctionQueryDefinition `json:&#34;queries,omitempty&#34;`
-<span id="L19" class="ln">    19  </span>	<span class="comment">// Timeseries or Scalar response.</span>
+<span id="L19" class="ln">    19  </span>	<span class="comment">// Timeseries, scalar, or event list response. Event list response formats are supported by Geomap widgets.</span>
 <span id="L20" class="ln">    20  </span>	ResponseFormat *FormulaAndFunctionResponseFormat `json:&#34;response_format,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L22" class="ln">    22  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
