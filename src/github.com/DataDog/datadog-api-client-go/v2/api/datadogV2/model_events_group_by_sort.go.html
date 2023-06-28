@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span>type EventsGroupBySort struct {
 <span id="L16" class="ln">    16  </span>	<span class="comment">// The type of aggregation that can be performed on events-based queries.</span>
 <span id="L17" class="ln">    17  </span>	Aggregation EventsAggregation `json:&#34;aggregation&#34;`
-<span id="L18" class="ln">    18  </span>	<span class="comment">// Metric whose calculated value should be used to define the sort order of a query&#39;s results.</span>
+<span id="L18" class="ln">    18  </span>	<span class="comment">// The metric&#39;s calculated value which should be used to define the sort order of a query&#39;s results.</span>
 <span id="L19" class="ln">    19  </span>	Metric *string `json:&#34;metric,omitempty&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// Direction of sort.</span>
 <span id="L21" class="ln">    21  </span>	Order *QuerySortOrder `json:&#34;order,omitempty&#34;`
