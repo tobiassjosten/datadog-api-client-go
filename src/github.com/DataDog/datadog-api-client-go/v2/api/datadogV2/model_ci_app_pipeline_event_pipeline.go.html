@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span>
 <span id="L16" class="ln">    16  </span><span class="comment">// CIAppPipelineEventPipeline Details of the top level pipeline, build, or workflow of your CI.</span>
 <span id="L17" class="ln">    17  </span>type CIAppPipelineEventPipeline struct {
-<span id="L18" class="ln">    18  </span>	<span class="comment">// Time when the pipeline run finished. The time format must be RFC3339.</span>
+<span id="L18" class="ln">    18  </span>	<span class="comment">// Time when the pipeline run finished. It cannot be older than 18 hours in the past from the current time. The time format must be RFC3339.</span>
 <span id="L19" class="ln">    19  </span>	End time.Time `json:&#34;end&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// Contains information of the CI error.</span>
 <span id="L21" class="ln">    21  </span>	Error NullableCIAppCIError `json:&#34;error,omitempty&#34;`

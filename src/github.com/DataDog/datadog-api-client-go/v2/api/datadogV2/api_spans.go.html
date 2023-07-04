@@ -153,7 +153,7 @@
 <span id="L96" class="ln">    96  </span><span class="comment">// Use this endpoint to build complex spans filtering and search.</span>
 <span id="L97" class="ln">    97  </span><span class="comment">// This endpoint is rate limited to `300` requests per hour.</span>
 <span id="L98" class="ln">    98  </span><span class="comment">//</span>
-<span id="L99" class="ln">    99  </span><span class="comment">// [1]: /logs/guide/collect-multiple-logs-with-pagination</span>
+<span id="L99" class="ln">    99  </span><span class="comment">// [1]: /logs/guide/collect-multiple-logs-with-pagination?tab=v2api</span>
 <span id="L100" class="ln">   100  </span>func (a *SpansApi) ListSpans(ctx _context.Context, body SpansListRequest) (SpansListResponse, *_nethttp.Response, error) {
 <span id="L101" class="ln">   101  </span>	var (
 <span id="L102" class="ln">   102  </span>		localVarHTTPMethod  = _nethttp.MethodPost
@@ -350,7 +350,7 @@
 <span id="L293" class="ln">   293  </span><span class="comment">// Use this endpoint to see your latest spans.</span>
 <span id="L294" class="ln">   294  </span><span class="comment">// This endpoint is rate limited to `300` requests per hour.</span>
 <span id="L295" class="ln">   295  </span><span class="comment">//</span>
-<span id="L296" class="ln">   296  </span><span class="comment">// [1]: /logs/guide/collect-multiple-logs-with-pagination</span>
+<span id="L296" class="ln">   296  </span><span class="comment">// [1]: /logs/guide/collect-multiple-logs-with-pagination?tab=v2api</span>
 <span id="L297" class="ln">   297  </span>func (a *SpansApi) ListSpansGet(ctx _context.Context, o ...ListSpansGetOptionalParameters) (SpansListResponse, *_nethttp.Response, error) {
 <span id="L298" class="ln">   298  </span>	var (
 <span id="L299" class="ln">   299  </span>		localVarHTTPMethod  = _nethttp.MethodGet
