@@ -323,7 +323,7 @@
 <span id="L266" class="ln">   266  </span><span class="comment">// ListLogsGetOptionalParameters holds optional parameters for ListLogsGet.</span>
 <span id="L267" class="ln">   267  </span>type ListLogsGetOptionalParameters struct {
 <span id="L268" class="ln">   268  </span>	FilterQuery       *string
-<span id="L269" class="ln">   269  </span>	FilterIndex       *string
+<span id="L269" class="ln">   269  </span>	FilterIndexes     *[]string
 <span id="L270" class="ln">   270  </span>	FilterFrom        *time.Time
 <span id="L271" class="ln">   271  </span>	FilterTo          *time.Time
 <span id="L272" class="ln">   272  </span>	FilterStorageTier *LogsStorageTier
@@ -344,9 +344,9 @@
 <span id="L287" class="ln">   287  </span>	return r
 <span id="L288" class="ln">   288  </span>}
 <span id="L289" class="ln">   289  </span>
-<span id="L290" class="ln">   290  </span><span class="comment">// WithFilterIndex sets the corresponding parameter name and returns the struct.</span>
-<span id="L291" class="ln">   291  </span>func (r *ListLogsGetOptionalParameters) WithFilterIndex(filterIndex string) *ListLogsGetOptionalParameters {
-<span id="L292" class="ln">   292  </span>	r.FilterIndex = &amp;filterIndex
+<span id="L290" class="ln">   290  </span><span class="comment">// WithFilterIndexes sets the corresponding parameter name and returns the struct.</span>
+<span id="L291" class="ln">   291  </span>func (r *ListLogsGetOptionalParameters) WithFilterIndexes(filterIndexes []string) *ListLogsGetOptionalParameters {
+<span id="L292" class="ln">   292  </span>	r.FilterIndexes = &amp;filterIndexes
 <span id="L293" class="ln">   293  </span>	return r
 <span id="L294" class="ln">   294  </span>}
 <span id="L295" class="ln">   295  </span>
@@ -426,8 +426,8 @@
 <span id="L369" class="ln">   369  </span>	if optionalParams.FilterQuery != nil {
 <span id="L370" class="ln">   370  </span>		localVarQueryParams.Add(&#34;filter[query]&#34;, datadog.ParameterToString(*optionalParams.FilterQuery, &#34;&#34;))
 <span id="L371" class="ln">   371  </span>	}
-<span id="L372" class="ln">   372  </span>	if optionalParams.FilterIndex != nil {
-<span id="L373" class="ln">   373  </span>		localVarQueryParams.Add(&#34;filter[index]&#34;, datadog.ParameterToString(*optionalParams.FilterIndex, &#34;&#34;))
+<span id="L372" class="ln">   372  </span>	if optionalParams.FilterIndexes != nil {
+<span id="L373" class="ln">   373  </span>		localVarQueryParams.Add(&#34;filter[indexes]&#34;, datadog.ParameterToString(*optionalParams.FilterIndexes, &#34;csv&#34;))
 <span id="L374" class="ln">   374  </span>	}
 <span id="L375" class="ln">   375  </span>	if optionalParams.FilterFrom != nil {
 <span id="L376" class="ln">   376  </span>		localVarQueryParams.Add(&#34;filter[from]&#34;, datadog.ParameterToString(*optionalParams.FilterFrom, &#34;&#34;))
