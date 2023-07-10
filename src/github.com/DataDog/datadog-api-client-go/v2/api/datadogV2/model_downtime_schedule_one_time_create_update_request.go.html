@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span><span class="comment">// DowntimeScheduleOneTimeCreateUpdateRequest A one-time downtime definition.</span>
 <span id="L16" class="ln">    16  </span>type DowntimeScheduleOneTimeCreateUpdateRequest struct {
 <span id="L17" class="ln">    17  </span>	<span class="comment">// ISO-8601 Datetime to end the downtime. Must include a UTC offset of zero. If not provided, the</span>
-<span id="L18" class="ln">    18  </span>	<span class="comment">// downtime starts the moment it is created.</span>
+<span id="L18" class="ln">    18  </span>	<span class="comment">// downtime continues forever.</span>
 <span id="L19" class="ln">    19  </span>	End datadog.NullableTime `json:&#34;end,omitempty&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// ISO-8601 Datetime to start the downtime. Must include a UTC offset of zero. If not provided, the</span>
 <span id="L21" class="ln">    21  </span>	<span class="comment">// downtime starts the moment it is created.</span>
