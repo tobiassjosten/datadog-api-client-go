@@ -1121,56 +1121,6 @@
 <span id="L1064" class="ln">  1064  </span>	return nil
 <span id="L1065" class="ln">  1065  </span>}
 <span id="L1066" class="ln">  1066  </span>
-<span id="L1067" class="ln">  1067  </span><span class="comment">// NullableWidgetDefinition handles when a null is used for WidgetDefinition.</span>
-<span id="L1068" class="ln">  1068  </span>type NullableWidgetDefinition struct {
-<span id="L1069" class="ln">  1069  </span>	value *WidgetDefinition
-<span id="L1070" class="ln">  1070  </span>	isSet bool
-<span id="L1071" class="ln">  1071  </span>}
-<span id="L1072" class="ln">  1072  </span>
-<span id="L1073" class="ln">  1073  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L1074" class="ln">  1074  </span>func (v NullableWidgetDefinition) Get() *WidgetDefinition {
-<span id="L1075" class="ln">  1075  </span>	return v.value
-<span id="L1076" class="ln">  1076  </span>}
-<span id="L1077" class="ln">  1077  </span>
-<span id="L1078" class="ln">  1078  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L1079" class="ln">  1079  </span>func (v *NullableWidgetDefinition) Set(val *WidgetDefinition) {
-<span id="L1080" class="ln">  1080  </span>	v.value = val
-<span id="L1081" class="ln">  1081  </span>	v.isSet = true
-<span id="L1082" class="ln">  1082  </span>}
-<span id="L1083" class="ln">  1083  </span>
-<span id="L1084" class="ln">  1084  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L1085" class="ln">  1085  </span>func (v NullableWidgetDefinition) IsSet() bool {
-<span id="L1086" class="ln">  1086  </span>	return v.isSet
-<span id="L1087" class="ln">  1087  </span>}
-<span id="L1088" class="ln">  1088  </span>
-<span id="L1089" class="ln">  1089  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L1090" class="ln">  1090  </span>func (v *NullableWidgetDefinition) Unset() {
-<span id="L1091" class="ln">  1091  </span>	v.value = nil
-<span id="L1092" class="ln">  1092  </span>	v.isSet = false
-<span id="L1093" class="ln">  1093  </span>}
-<span id="L1094" class="ln">  1094  </span>
-<span id="L1095" class="ln">  1095  </span><span class="comment">// NewNullableWidgetDefinition initializes the struct as if Set has been called.</span>
-<span id="L1096" class="ln">  1096  </span>func NewNullableWidgetDefinition(val *WidgetDefinition) *NullableWidgetDefinition {
-<span id="L1097" class="ln">  1097  </span>	return &amp;NullableWidgetDefinition{value: val, isSet: true}
-<span id="L1098" class="ln">  1098  </span>}
-<span id="L1099" class="ln">  1099  </span>
-<span id="L1100" class="ln">  1100  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L1101" class="ln">  1101  </span>func (v NullableWidgetDefinition) MarshalJSON() ([]byte, error) {
-<span id="L1102" class="ln">  1102  </span>	return json.Marshal(v.value)
-<span id="L1103" class="ln">  1103  </span>}
-<span id="L1104" class="ln">  1104  </span>
-<span id="L1105" class="ln">  1105  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L1106" class="ln">  1106  </span>func (v *NullableWidgetDefinition) UnmarshalJSON(src []byte) error {
-<span id="L1107" class="ln">  1107  </span>	v.isSet = true
-<span id="L1108" class="ln">  1108  </span>
-<span id="L1109" class="ln">  1109  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L1110" class="ln">  1110  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L1111" class="ln">  1111  </span>		return nil
-<span id="L1112" class="ln">  1112  </span>	}
-<span id="L1113" class="ln">  1113  </span>
-<span id="L1114" class="ln">  1114  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L1115" class="ln">  1115  </span>}
-<span id="L1116" class="ln">  1116  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -193,56 +193,6 @@
 <span id="L136" class="ln">   136  </span>	return nil
 <span id="L137" class="ln">   137  </span>}
 <span id="L138" class="ln">   138  </span>
-<span id="L139" class="ln">   139  </span><span class="comment">// NullableServiceDefinitionV2Contact handles when a null is used for ServiceDefinitionV2Contact.</span>
-<span id="L140" class="ln">   140  </span>type NullableServiceDefinitionV2Contact struct {
-<span id="L141" class="ln">   141  </span>	value *ServiceDefinitionV2Contact
-<span id="L142" class="ln">   142  </span>	isSet bool
-<span id="L143" class="ln">   143  </span>}
-<span id="L144" class="ln">   144  </span>
-<span id="L145" class="ln">   145  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L146" class="ln">   146  </span>func (v NullableServiceDefinitionV2Contact) Get() *ServiceDefinitionV2Contact {
-<span id="L147" class="ln">   147  </span>	return v.value
-<span id="L148" class="ln">   148  </span>}
-<span id="L149" class="ln">   149  </span>
-<span id="L150" class="ln">   150  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L151" class="ln">   151  </span>func (v *NullableServiceDefinitionV2Contact) Set(val *ServiceDefinitionV2Contact) {
-<span id="L152" class="ln">   152  </span>	v.value = val
-<span id="L153" class="ln">   153  </span>	v.isSet = true
-<span id="L154" class="ln">   154  </span>}
-<span id="L155" class="ln">   155  </span>
-<span id="L156" class="ln">   156  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L157" class="ln">   157  </span>func (v NullableServiceDefinitionV2Contact) IsSet() bool {
-<span id="L158" class="ln">   158  </span>	return v.isSet
-<span id="L159" class="ln">   159  </span>}
-<span id="L160" class="ln">   160  </span>
-<span id="L161" class="ln">   161  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L162" class="ln">   162  </span>func (v *NullableServiceDefinitionV2Contact) Unset() {
-<span id="L163" class="ln">   163  </span>	v.value = nil
-<span id="L164" class="ln">   164  </span>	v.isSet = false
-<span id="L165" class="ln">   165  </span>}
-<span id="L166" class="ln">   166  </span>
-<span id="L167" class="ln">   167  </span><span class="comment">// NewNullableServiceDefinitionV2Contact initializes the struct as if Set has been called.</span>
-<span id="L168" class="ln">   168  </span>func NewNullableServiceDefinitionV2Contact(val *ServiceDefinitionV2Contact) *NullableServiceDefinitionV2Contact {
-<span id="L169" class="ln">   169  </span>	return &amp;NullableServiceDefinitionV2Contact{value: val, isSet: true}
-<span id="L170" class="ln">   170  </span>}
-<span id="L171" class="ln">   171  </span>
-<span id="L172" class="ln">   172  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L173" class="ln">   173  </span>func (v NullableServiceDefinitionV2Contact) MarshalJSON() ([]byte, error) {
-<span id="L174" class="ln">   174  </span>	return json.Marshal(v.value)
-<span id="L175" class="ln">   175  </span>}
-<span id="L176" class="ln">   176  </span>
-<span id="L177" class="ln">   177  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L178" class="ln">   178  </span>func (v *NullableServiceDefinitionV2Contact) UnmarshalJSON(src []byte) error {
-<span id="L179" class="ln">   179  </span>	v.isSet = true
-<span id="L180" class="ln">   180  </span>
-<span id="L181" class="ln">   181  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L182" class="ln">   182  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L183" class="ln">   183  </span>		return nil
-<span id="L184" class="ln">   184  </span>	}
-<span id="L185" class="ln">   185  </span>
-<span id="L186" class="ln">   186  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L187" class="ln">   187  </span>}
-<span id="L188" class="ln">   188  </span>
 </pre><p></p>
 
 <div id="footer">
