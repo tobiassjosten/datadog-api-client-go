@@ -822,11 +822,11 @@
 <span id="L765" class="ln">   765  </span>
 <span id="L766" class="ln">   766  </span><span class="comment">// GetSecurityMonitoringSignal Get a signal&#39;s details.</span>
 <span id="L767" class="ln">   767  </span><span class="comment">// Get a signal&#39;s details.</span>
-<span id="L768" class="ln">   768  </span>func (a *SecurityMonitoringApi) GetSecurityMonitoringSignal(ctx _context.Context, signalId string) (SecurityMonitoringSignal, *_nethttp.Response, error) {
+<span id="L768" class="ln">   768  </span>func (a *SecurityMonitoringApi) GetSecurityMonitoringSignal(ctx _context.Context, signalId string) (SecurityMonitoringSignalResponse, *_nethttp.Response, error) {
 <span id="L769" class="ln">   769  </span>	var (
 <span id="L770" class="ln">   770  </span>		localVarHTTPMethod  = _nethttp.MethodGet
 <span id="L771" class="ln">   771  </span>		localVarPostBody    interface{}
-<span id="L772" class="ln">   772  </span>		localVarReturnValue SecurityMonitoringSignal
+<span id="L772" class="ln">   772  </span>		localVarReturnValue SecurityMonitoringSignalResponse
 <span id="L773" class="ln">   773  </span>	)
 <span id="L774" class="ln">   774  </span>
 <span id="L775" class="ln">   775  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.GetSecurityMonitoringSignal&#34;)
