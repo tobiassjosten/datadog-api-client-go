@@ -70,7 +70,7 @@
 <span id="L13" class="ln">    13  </span><span class="comment">// CIAppPipelineEvent Object description of a pipeline event after being processed and stored by Datadog.</span>
 <span id="L14" class="ln">    14  </span>type CIAppPipelineEvent struct {
 <span id="L15" class="ln">    15  </span>	<span class="comment">// JSON object containing all event attributes and their associated values.</span>
-<span id="L16" class="ln">    16  </span>	Attributes *CIAppEventAttributes `json:&#34;attributes,omitempty&#34;`
+<span id="L16" class="ln">    16  </span>	Attributes *CIAppPipelineEventAttributes `json:&#34;attributes,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// Unique ID of the event.</span>
 <span id="L18" class="ln">    18  </span>	Id *string `json:&#34;id,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// Type of the event.</span>
@@ -98,9 +98,9 @@
 <span id="L41" class="ln">    41  </span>}
 <span id="L42" class="ln">    42  </span>
 <span id="L43" class="ln">    43  </span><span class="comment">// GetAttributes returns the Attributes field value if set, zero value otherwise.</span>
-<span id="L44" class="ln">    44  </span>func (o *CIAppPipelineEvent) GetAttributes() CIAppEventAttributes {
+<span id="L44" class="ln">    44  </span>func (o *CIAppPipelineEvent) GetAttributes() CIAppPipelineEventAttributes {
 <span id="L45" class="ln">    45  </span>	if o == nil || o.Attributes == nil {
-<span id="L46" class="ln">    46  </span>		var ret CIAppEventAttributes
+<span id="L46" class="ln">    46  </span>		var ret CIAppPipelineEventAttributes
 <span id="L47" class="ln">    47  </span>		return ret
 <span id="L48" class="ln">    48  </span>	}
 <span id="L49" class="ln">    49  </span>	return *o.Attributes
@@ -108,7 +108,7 @@
 <span id="L51" class="ln">    51  </span>
 <span id="L52" class="ln">    52  </span><span class="comment">// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise</span>
 <span id="L53" class="ln">    53  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L54" class="ln">    54  </span>func (o *CIAppPipelineEvent) GetAttributesOk() (*CIAppEventAttributes, bool) {
+<span id="L54" class="ln">    54  </span>func (o *CIAppPipelineEvent) GetAttributesOk() (*CIAppPipelineEventAttributes, bool) {
 <span id="L55" class="ln">    55  </span>	if o == nil || o.Attributes == nil {
 <span id="L56" class="ln">    56  </span>		return nil, false
 <span id="L57" class="ln">    57  </span>	}
@@ -120,8 +120,8 @@
 <span id="L63" class="ln">    63  </span>	return o != nil &amp;&amp; o.Attributes != nil
 <span id="L64" class="ln">    64  </span>}
 <span id="L65" class="ln">    65  </span>
-<span id="L66" class="ln">    66  </span><span class="comment">// SetAttributes gets a reference to the given CIAppEventAttributes and assigns it to the Attributes field.</span>
-<span id="L67" class="ln">    67  </span>func (o *CIAppPipelineEvent) SetAttributes(v CIAppEventAttributes) {
+<span id="L66" class="ln">    66  </span><span class="comment">// SetAttributes gets a reference to the given CIAppPipelineEventAttributes and assigns it to the Attributes field.</span>
+<span id="L67" class="ln">    67  </span>func (o *CIAppPipelineEvent) SetAttributes(v CIAppPipelineEventAttributes) {
 <span id="L68" class="ln">    68  </span>	o.Attributes = &amp;v
 <span id="L69" class="ln">    69  </span>}
 <span id="L70" class="ln">    70  </span>
@@ -207,9 +207,9 @@
 <span id="L150" class="ln">   150  </span>func (o *CIAppPipelineEvent) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L151" class="ln">   151  </span>	raw := map[string]interface{}{}
 <span id="L152" class="ln">   152  </span>	all := struct {
-<span id="L153" class="ln">   153  </span>		Attributes *CIAppEventAttributes       `json:&#34;attributes,omitempty&#34;`
-<span id="L154" class="ln">   154  </span>		Id         *string                     `json:&#34;id,omitempty&#34;`
-<span id="L155" class="ln">   155  </span>		Type       *CIAppPipelineEventTypeName `json:&#34;type,omitempty&#34;`
+<span id="L153" class="ln">   153  </span>		Attributes *CIAppPipelineEventAttributes `json:&#34;attributes,omitempty&#34;`
+<span id="L154" class="ln">   154  </span>		Id         *string                       `json:&#34;id,omitempty&#34;`
+<span id="L155" class="ln">   155  </span>		Type       *CIAppPipelineEventTypeName   `json:&#34;type,omitempty&#34;`
 <span id="L156" class="ln">   156  </span>	}{}
 <span id="L157" class="ln">   157  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
 <span id="L158" class="ln">   158  </span>		err = json.Unmarshal(bytes, &amp;raw)
