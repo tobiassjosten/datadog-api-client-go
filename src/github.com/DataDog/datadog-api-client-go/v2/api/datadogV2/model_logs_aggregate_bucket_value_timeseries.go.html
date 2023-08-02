@@ -104,9 +104,26 @@
 <span id="L47" class="ln">    47  </span>
 <span id="L48" class="ln">    48  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L49" class="ln">    49  </span>func (o *LogsAggregateBucketValueTimeseries) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L50" class="ln">    50  </span>	return json.Unmarshal(bytes, &amp;o.Items)
-<span id="L51" class="ln">    51  </span>}
-<span id="L52" class="ln">    52  </span>
+<span id="L50" class="ln">    50  </span>	if err = json.Unmarshal(bytes, &amp;o.Items); err != nil {
+<span id="L51" class="ln">    51  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L52" class="ln">    52  </span>	}
+<span id="L53" class="ln">    53  </span>
+<span id="L54" class="ln">    54  </span>	if o.Items != nil &amp;&amp; len(o.Items) &gt; 0 {
+<span id="L55" class="ln">    55  </span>		for _, v := range o.Items {
+<span id="L56" class="ln">    56  </span>			if v.UnparsedObject != nil {
+<span id="L57" class="ln">    57  </span>				err = json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L58" class="ln">    58  </span>				if err != nil {
+<span id="L59" class="ln">    59  </span>					return err
+<span id="L60" class="ln">    60  </span>				}
+<span id="L61" class="ln">    61  </span>
+<span id="L62" class="ln">    62  </span>				break
+<span id="L63" class="ln">    63  </span>			}
+<span id="L64" class="ln">    64  </span>		}
+<span id="L65" class="ln">    65  </span>	}
+<span id="L66" class="ln">    66  </span>
+<span id="L67" class="ln">    67  </span>	return nil
+<span id="L68" class="ln">    68  </span>}
+<span id="L69" class="ln">    69  </span>
 </pre><p></p>
 
 <div id="footer">
