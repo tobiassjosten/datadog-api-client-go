@@ -248,39 +248,33 @@
 <span id="L191" class="ln">   191  </span>
 <span id="L192" class="ln">   192  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L193" class="ln">   193  </span>func (o *UserInvitationDataAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L194" class="ln">   194  </span>	raw := map[string]interface{}{}
-<span id="L195" class="ln">   195  </span>	all := struct {
-<span id="L196" class="ln">   196  </span>		CreatedAt  *time.Time `json:&#34;created_at,omitempty&#34;`
-<span id="L197" class="ln">   197  </span>		ExpiresAt  *time.Time `json:&#34;expires_at,omitempty&#34;`
-<span id="L198" class="ln">   198  </span>		InviteType *string    `json:&#34;invite_type,omitempty&#34;`
-<span id="L199" class="ln">   199  </span>		Uuid       *string    `json:&#34;uuid,omitempty&#34;`
-<span id="L200" class="ln">   200  </span>	}{}
-<span id="L201" class="ln">   201  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L202" class="ln">   202  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L203" class="ln">   203  </span>		if err != nil {
-<span id="L204" class="ln">   204  </span>			return err
-<span id="L205" class="ln">   205  </span>		}
-<span id="L206" class="ln">   206  </span>		o.UnparsedObject = raw
-<span id="L207" class="ln">   207  </span>		return nil
+<span id="L194" class="ln">   194  </span>	all := struct {
+<span id="L195" class="ln">   195  </span>		CreatedAt  *time.Time `json:&#34;created_at,omitempty&#34;`
+<span id="L196" class="ln">   196  </span>		ExpiresAt  *time.Time `json:&#34;expires_at,omitempty&#34;`
+<span id="L197" class="ln">   197  </span>		InviteType *string    `json:&#34;invite_type,omitempty&#34;`
+<span id="L198" class="ln">   198  </span>		Uuid       *string    `json:&#34;uuid,omitempty&#34;`
+<span id="L199" class="ln">   199  </span>	}{}
+<span id="L200" class="ln">   200  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L201" class="ln">   201  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L202" class="ln">   202  </span>	}
+<span id="L203" class="ln">   203  </span>	additionalProperties := make(map[string]interface{})
+<span id="L204" class="ln">   204  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L205" class="ln">   205  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;expires_at&#34;, &#34;invite_type&#34;, &#34;uuid&#34;})
+<span id="L206" class="ln">   206  </span>	} else {
+<span id="L207" class="ln">   207  </span>		return err
 <span id="L208" class="ln">   208  </span>	}
-<span id="L209" class="ln">   209  </span>	additionalProperties := make(map[string]interface{})
-<span id="L210" class="ln">   210  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L211" class="ln">   211  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;expires_at&#34;, &#34;invite_type&#34;, &#34;uuid&#34;})
-<span id="L212" class="ln">   212  </span>	} else {
-<span id="L213" class="ln">   213  </span>		return err
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>	o.CreatedAt = all.CreatedAt
-<span id="L216" class="ln">   216  </span>	o.ExpiresAt = all.ExpiresAt
-<span id="L217" class="ln">   217  </span>	o.InviteType = all.InviteType
-<span id="L218" class="ln">   218  </span>	o.Uuid = all.Uuid
-<span id="L219" class="ln">   219  </span>
-<span id="L220" class="ln">   220  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L221" class="ln">   221  </span>		o.AdditionalProperties = additionalProperties
-<span id="L222" class="ln">   222  </span>	}
-<span id="L223" class="ln">   223  </span>
-<span id="L224" class="ln">   224  </span>	return nil
-<span id="L225" class="ln">   225  </span>}
-<span id="L226" class="ln">   226  </span>
+<span id="L209" class="ln">   209  </span>	o.CreatedAt = all.CreatedAt
+<span id="L210" class="ln">   210  </span>	o.ExpiresAt = all.ExpiresAt
+<span id="L211" class="ln">   211  </span>	o.InviteType = all.InviteType
+<span id="L212" class="ln">   212  </span>	o.Uuid = all.Uuid
+<span id="L213" class="ln">   213  </span>
+<span id="L214" class="ln">   214  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L215" class="ln">   215  </span>		o.AdditionalProperties = additionalProperties
+<span id="L216" class="ln">   216  </span>	}
+<span id="L217" class="ln">   217  </span>
+<span id="L218" class="ln">   218  </span>	return nil
+<span id="L219" class="ln">   219  </span>}
+<span id="L220" class="ln">   220  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -337,45 +337,39 @@
 <span id="L280" class="ln">   280  </span>
 <span id="L281" class="ln">   281  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L282" class="ln">   282  </span>func (o *MetricMetadata) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L283" class="ln">   283  </span>	raw := map[string]interface{}{}
-<span id="L284" class="ln">   284  </span>	all := struct {
-<span id="L285" class="ln">   285  </span>		Description    *string `json:&#34;description,omitempty&#34;`
-<span id="L286" class="ln">   286  </span>		Integration    *string `json:&#34;integration,omitempty&#34;`
-<span id="L287" class="ln">   287  </span>		PerUnit        *string `json:&#34;per_unit,omitempty&#34;`
-<span id="L288" class="ln">   288  </span>		ShortName      *string `json:&#34;short_name,omitempty&#34;`
-<span id="L289" class="ln">   289  </span>		StatsdInterval *int64  `json:&#34;statsd_interval,omitempty&#34;`
-<span id="L290" class="ln">   290  </span>		Type           *string `json:&#34;type,omitempty&#34;`
-<span id="L291" class="ln">   291  </span>		Unit           *string `json:&#34;unit,omitempty&#34;`
-<span id="L292" class="ln">   292  </span>	}{}
-<span id="L293" class="ln">   293  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L294" class="ln">   294  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L295" class="ln">   295  </span>		if err != nil {
-<span id="L296" class="ln">   296  </span>			return err
-<span id="L297" class="ln">   297  </span>		}
-<span id="L298" class="ln">   298  </span>		o.UnparsedObject = raw
-<span id="L299" class="ln">   299  </span>		return nil
+<span id="L283" class="ln">   283  </span>	all := struct {
+<span id="L284" class="ln">   284  </span>		Description    *string `json:&#34;description,omitempty&#34;`
+<span id="L285" class="ln">   285  </span>		Integration    *string `json:&#34;integration,omitempty&#34;`
+<span id="L286" class="ln">   286  </span>		PerUnit        *string `json:&#34;per_unit,omitempty&#34;`
+<span id="L287" class="ln">   287  </span>		ShortName      *string `json:&#34;short_name,omitempty&#34;`
+<span id="L288" class="ln">   288  </span>		StatsdInterval *int64  `json:&#34;statsd_interval,omitempty&#34;`
+<span id="L289" class="ln">   289  </span>		Type           *string `json:&#34;type,omitempty&#34;`
+<span id="L290" class="ln">   290  </span>		Unit           *string `json:&#34;unit,omitempty&#34;`
+<span id="L291" class="ln">   291  </span>	}{}
+<span id="L292" class="ln">   292  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L293" class="ln">   293  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L294" class="ln">   294  </span>	}
+<span id="L295" class="ln">   295  </span>	additionalProperties := make(map[string]interface{})
+<span id="L296" class="ln">   296  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L297" class="ln">   297  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;description&#34;, &#34;integration&#34;, &#34;per_unit&#34;, &#34;short_name&#34;, &#34;statsd_interval&#34;, &#34;type&#34;, &#34;unit&#34;})
+<span id="L298" class="ln">   298  </span>	} else {
+<span id="L299" class="ln">   299  </span>		return err
 <span id="L300" class="ln">   300  </span>	}
-<span id="L301" class="ln">   301  </span>	additionalProperties := make(map[string]interface{})
-<span id="L302" class="ln">   302  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L303" class="ln">   303  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;description&#34;, &#34;integration&#34;, &#34;per_unit&#34;, &#34;short_name&#34;, &#34;statsd_interval&#34;, &#34;type&#34;, &#34;unit&#34;})
-<span id="L304" class="ln">   304  </span>	} else {
-<span id="L305" class="ln">   305  </span>		return err
-<span id="L306" class="ln">   306  </span>	}
-<span id="L307" class="ln">   307  </span>	o.Description = all.Description
-<span id="L308" class="ln">   308  </span>	o.Integration = all.Integration
-<span id="L309" class="ln">   309  </span>	o.PerUnit = all.PerUnit
-<span id="L310" class="ln">   310  </span>	o.ShortName = all.ShortName
-<span id="L311" class="ln">   311  </span>	o.StatsdInterval = all.StatsdInterval
-<span id="L312" class="ln">   312  </span>	o.Type = all.Type
-<span id="L313" class="ln">   313  </span>	o.Unit = all.Unit
-<span id="L314" class="ln">   314  </span>
-<span id="L315" class="ln">   315  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L316" class="ln">   316  </span>		o.AdditionalProperties = additionalProperties
-<span id="L317" class="ln">   317  </span>	}
-<span id="L318" class="ln">   318  </span>
-<span id="L319" class="ln">   319  </span>	return nil
-<span id="L320" class="ln">   320  </span>}
-<span id="L321" class="ln">   321  </span>
+<span id="L301" class="ln">   301  </span>	o.Description = all.Description
+<span id="L302" class="ln">   302  </span>	o.Integration = all.Integration
+<span id="L303" class="ln">   303  </span>	o.PerUnit = all.PerUnit
+<span id="L304" class="ln">   304  </span>	o.ShortName = all.ShortName
+<span id="L305" class="ln">   305  </span>	o.StatsdInterval = all.StatsdInterval
+<span id="L306" class="ln">   306  </span>	o.Type = all.Type
+<span id="L307" class="ln">   307  </span>	o.Unit = all.Unit
+<span id="L308" class="ln">   308  </span>
+<span id="L309" class="ln">   309  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L310" class="ln">   310  </span>		o.AdditionalProperties = additionalProperties
+<span id="L311" class="ln">   311  </span>	}
+<span id="L312" class="ln">   312  </span>
+<span id="L313" class="ln">   313  </span>	return nil
+<span id="L314" class="ln">   314  </span>}
+<span id="L315" class="ln">   315  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -321,80 +321,70 @@
 <span id="L264" class="ln">   264  </span>
 <span id="L265" class="ln">   265  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L266" class="ln">   266  </span>func (o *FormulaAndFunctionSLOQueryDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L267" class="ln">   267  </span>	raw := map[string]interface{}{}
-<span id="L268" class="ln">   268  </span>	all := struct {
-<span id="L269" class="ln">   269  </span>		AdditionalQueryFilters *string                          `json:&#34;additional_query_filters,omitempty&#34;`
-<span id="L270" class="ln">   270  </span>		DataSource             *FormulaAndFunctionSLODataSource `json:&#34;data_source&#34;`
-<span id="L271" class="ln">   271  </span>		GroupMode              *FormulaAndFunctionSLOGroupMode  `json:&#34;group_mode,omitempty&#34;`
-<span id="L272" class="ln">   272  </span>		Measure                *FormulaAndFunctionSLOMeasure    `json:&#34;measure&#34;`
-<span id="L273" class="ln">   273  </span>		Name                   *string                          `json:&#34;name,omitempty&#34;`
-<span id="L274" class="ln">   274  </span>		SloId                  *string                          `json:&#34;slo_id&#34;`
-<span id="L275" class="ln">   275  </span>		SloQueryType           *FormulaAndFunctionSLOQueryType  `json:&#34;slo_query_type,omitempty&#34;`
-<span id="L276" class="ln">   276  </span>	}{}
-<span id="L277" class="ln">   277  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L278" class="ln">   278  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L279" class="ln">   279  </span>		if err != nil {
-<span id="L280" class="ln">   280  </span>			return err
-<span id="L281" class="ln">   281  </span>		}
-<span id="L282" class="ln">   282  </span>		o.UnparsedObject = raw
-<span id="L283" class="ln">   283  </span>		return nil
+<span id="L267" class="ln">   267  </span>	all := struct {
+<span id="L268" class="ln">   268  </span>		AdditionalQueryFilters *string                          `json:&#34;additional_query_filters,omitempty&#34;`
+<span id="L269" class="ln">   269  </span>		DataSource             *FormulaAndFunctionSLODataSource `json:&#34;data_source&#34;`
+<span id="L270" class="ln">   270  </span>		GroupMode              *FormulaAndFunctionSLOGroupMode  `json:&#34;group_mode,omitempty&#34;`
+<span id="L271" class="ln">   271  </span>		Measure                *FormulaAndFunctionSLOMeasure    `json:&#34;measure&#34;`
+<span id="L272" class="ln">   272  </span>		Name                   *string                          `json:&#34;name,omitempty&#34;`
+<span id="L273" class="ln">   273  </span>		SloId                  *string                          `json:&#34;slo_id&#34;`
+<span id="L274" class="ln">   274  </span>		SloQueryType           *FormulaAndFunctionSLOQueryType  `json:&#34;slo_query_type,omitempty&#34;`
+<span id="L275" class="ln">   275  </span>	}{}
+<span id="L276" class="ln">   276  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L277" class="ln">   277  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L278" class="ln">   278  </span>	}
+<span id="L279" class="ln">   279  </span>	if all.DataSource == nil {
+<span id="L280" class="ln">   280  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>	if all.Measure == nil {
+<span id="L283" class="ln">   283  </span>		return fmt.Errorf(&#34;required field measure missing&#34;)
 <span id="L284" class="ln">   284  </span>	}
-<span id="L285" class="ln">   285  </span>	if all.DataSource == nil {
-<span id="L286" class="ln">   286  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
+<span id="L285" class="ln">   285  </span>	if all.SloId == nil {
+<span id="L286" class="ln">   286  </span>		return fmt.Errorf(&#34;required field slo_id missing&#34;)
 <span id="L287" class="ln">   287  </span>	}
-<span id="L288" class="ln">   288  </span>	if all.Measure == nil {
-<span id="L289" class="ln">   289  </span>		return fmt.Errorf(&#34;required field measure missing&#34;)
-<span id="L290" class="ln">   290  </span>	}
-<span id="L291" class="ln">   291  </span>	if all.SloId == nil {
-<span id="L292" class="ln">   292  </span>		return fmt.Errorf(&#34;required field slo_id missing&#34;)
+<span id="L288" class="ln">   288  </span>	additionalProperties := make(map[string]interface{})
+<span id="L289" class="ln">   289  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L290" class="ln">   290  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;additional_query_filters&#34;, &#34;data_source&#34;, &#34;group_mode&#34;, &#34;measure&#34;, &#34;name&#34;, &#34;slo_id&#34;, &#34;slo_query_type&#34;})
+<span id="L291" class="ln">   291  </span>	} else {
+<span id="L292" class="ln">   292  </span>		return err
 <span id="L293" class="ln">   293  </span>	}
-<span id="L294" class="ln">   294  </span>	additionalProperties := make(map[string]interface{})
-<span id="L295" class="ln">   295  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L296" class="ln">   296  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;additional_query_filters&#34;, &#34;data_source&#34;, &#34;group_mode&#34;, &#34;measure&#34;, &#34;name&#34;, &#34;slo_id&#34;, &#34;slo_query_type&#34;})
-<span id="L297" class="ln">   297  </span>	} else {
-<span id="L298" class="ln">   298  </span>		return err
-<span id="L299" class="ln">   299  </span>	}
-<span id="L300" class="ln">   300  </span>
-<span id="L301" class="ln">   301  </span>	hasInvalidField := false
-<span id="L302" class="ln">   302  </span>	o.AdditionalQueryFilters = all.AdditionalQueryFilters
-<span id="L303" class="ln">   303  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L304" class="ln">   304  </span>		hasInvalidField = true
-<span id="L305" class="ln">   305  </span>	} else {
-<span id="L306" class="ln">   306  </span>		o.DataSource = *all.DataSource
-<span id="L307" class="ln">   307  </span>	}
-<span id="L308" class="ln">   308  </span>	if v := all.GroupMode; v != nil &amp;&amp; !v.IsValid() {
-<span id="L309" class="ln">   309  </span>		hasInvalidField = true
-<span id="L310" class="ln">   310  </span>	} else {
-<span id="L311" class="ln">   311  </span>		o.GroupMode = all.GroupMode
-<span id="L312" class="ln">   312  </span>	}
-<span id="L313" class="ln">   313  </span>	if v := all.Measure; !v.IsValid() {
-<span id="L314" class="ln">   314  </span>		hasInvalidField = true
-<span id="L315" class="ln">   315  </span>	} else {
-<span id="L316" class="ln">   316  </span>		o.Measure = *all.Measure
-<span id="L317" class="ln">   317  </span>	}
-<span id="L318" class="ln">   318  </span>	o.Name = all.Name
-<span id="L319" class="ln">   319  </span>	o.SloId = *all.SloId
-<span id="L320" class="ln">   320  </span>	if v := all.SloQueryType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L321" class="ln">   321  </span>		hasInvalidField = true
-<span id="L322" class="ln">   322  </span>	} else {
-<span id="L323" class="ln">   323  </span>		o.SloQueryType = all.SloQueryType
-<span id="L324" class="ln">   324  </span>	}
-<span id="L325" class="ln">   325  </span>
-<span id="L326" class="ln">   326  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L327" class="ln">   327  </span>		o.AdditionalProperties = additionalProperties
-<span id="L328" class="ln">   328  </span>	}
-<span id="L329" class="ln">   329  </span>
-<span id="L330" class="ln">   330  </span>	if hasInvalidField {
-<span id="L331" class="ln">   331  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L332" class="ln">   332  </span>		if err != nil {
-<span id="L333" class="ln">   333  </span>			return err
-<span id="L334" class="ln">   334  </span>		}
-<span id="L335" class="ln">   335  </span>		o.UnparsedObject = raw
-<span id="L336" class="ln">   336  </span>	}
-<span id="L337" class="ln">   337  </span>
-<span id="L338" class="ln">   338  </span>	return nil
-<span id="L339" class="ln">   339  </span>}
-<span id="L340" class="ln">   340  </span>
+<span id="L294" class="ln">   294  </span>
+<span id="L295" class="ln">   295  </span>	hasInvalidField := false
+<span id="L296" class="ln">   296  </span>	o.AdditionalQueryFilters = all.AdditionalQueryFilters
+<span id="L297" class="ln">   297  </span>	if !all.DataSource.IsValid() {
+<span id="L298" class="ln">   298  </span>		hasInvalidField = true
+<span id="L299" class="ln">   299  </span>	} else {
+<span id="L300" class="ln">   300  </span>		o.DataSource = *all.DataSource
+<span id="L301" class="ln">   301  </span>	}
+<span id="L302" class="ln">   302  </span>	if all.GroupMode != nil &amp;&amp; !all.GroupMode.IsValid() {
+<span id="L303" class="ln">   303  </span>		hasInvalidField = true
+<span id="L304" class="ln">   304  </span>	} else {
+<span id="L305" class="ln">   305  </span>		o.GroupMode = all.GroupMode
+<span id="L306" class="ln">   306  </span>	}
+<span id="L307" class="ln">   307  </span>	if !all.Measure.IsValid() {
+<span id="L308" class="ln">   308  </span>		hasInvalidField = true
+<span id="L309" class="ln">   309  </span>	} else {
+<span id="L310" class="ln">   310  </span>		o.Measure = *all.Measure
+<span id="L311" class="ln">   311  </span>	}
+<span id="L312" class="ln">   312  </span>	o.Name = all.Name
+<span id="L313" class="ln">   313  </span>	o.SloId = *all.SloId
+<span id="L314" class="ln">   314  </span>	if all.SloQueryType != nil &amp;&amp; !all.SloQueryType.IsValid() {
+<span id="L315" class="ln">   315  </span>		hasInvalidField = true
+<span id="L316" class="ln">   316  </span>	} else {
+<span id="L317" class="ln">   317  </span>		o.SloQueryType = all.SloQueryType
+<span id="L318" class="ln">   318  </span>	}
+<span id="L319" class="ln">   319  </span>
+<span id="L320" class="ln">   320  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L321" class="ln">   321  </span>		o.AdditionalProperties = additionalProperties
+<span id="L322" class="ln">   322  </span>	}
+<span id="L323" class="ln">   323  </span>
+<span id="L324" class="ln">   324  </span>	if hasInvalidField {
+<span id="L325" class="ln">   325  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L326" class="ln">   326  </span>	}
+<span id="L327" class="ln">   327  </span>
+<span id="L328" class="ln">   328  </span>	return nil
+<span id="L329" class="ln">   329  </span>}
+<span id="L330" class="ln">   330  </span>
 </pre><p></p>
 
 <div id="footer">

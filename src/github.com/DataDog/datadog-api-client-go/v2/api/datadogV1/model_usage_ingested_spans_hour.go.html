@@ -255,39 +255,33 @@
 <span id="L198" class="ln">   198  </span>
 <span id="L199" class="ln">   199  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L200" class="ln">   200  </span>func (o *UsageIngestedSpansHour) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L201" class="ln">   201  </span>	raw := map[string]interface{}{}
-<span id="L202" class="ln">   202  </span>	all := struct {
-<span id="L203" class="ln">   203  </span>		Hour                *time.Time            `json:&#34;hour,omitempty&#34;`
-<span id="L204" class="ln">   204  </span>		IngestedEventsBytes datadog.NullableInt64 `json:&#34;ingested_events_bytes,omitempty&#34;`
-<span id="L205" class="ln">   205  </span>		OrgName             *string               `json:&#34;org_name,omitempty&#34;`
-<span id="L206" class="ln">   206  </span>		PublicId            *string               `json:&#34;public_id,omitempty&#34;`
-<span id="L207" class="ln">   207  </span>	}{}
-<span id="L208" class="ln">   208  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L209" class="ln">   209  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L210" class="ln">   210  </span>		if err != nil {
-<span id="L211" class="ln">   211  </span>			return err
-<span id="L212" class="ln">   212  </span>		}
-<span id="L213" class="ln">   213  </span>		o.UnparsedObject = raw
-<span id="L214" class="ln">   214  </span>		return nil
+<span id="L201" class="ln">   201  </span>	all := struct {
+<span id="L202" class="ln">   202  </span>		Hour                *time.Time            `json:&#34;hour,omitempty&#34;`
+<span id="L203" class="ln">   203  </span>		IngestedEventsBytes datadog.NullableInt64 `json:&#34;ingested_events_bytes,omitempty&#34;`
+<span id="L204" class="ln">   204  </span>		OrgName             *string               `json:&#34;org_name,omitempty&#34;`
+<span id="L205" class="ln">   205  </span>		PublicId            *string               `json:&#34;public_id,omitempty&#34;`
+<span id="L206" class="ln">   206  </span>	}{}
+<span id="L207" class="ln">   207  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L208" class="ln">   208  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L209" class="ln">   209  </span>	}
+<span id="L210" class="ln">   210  </span>	additionalProperties := make(map[string]interface{})
+<span id="L211" class="ln">   211  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L212" class="ln">   212  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;hour&#34;, &#34;ingested_events_bytes&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
+<span id="L213" class="ln">   213  </span>	} else {
+<span id="L214" class="ln">   214  </span>		return err
 <span id="L215" class="ln">   215  </span>	}
-<span id="L216" class="ln">   216  </span>	additionalProperties := make(map[string]interface{})
-<span id="L217" class="ln">   217  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L218" class="ln">   218  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;hour&#34;, &#34;ingested_events_bytes&#34;, &#34;org_name&#34;, &#34;public_id&#34;})
-<span id="L219" class="ln">   219  </span>	} else {
-<span id="L220" class="ln">   220  </span>		return err
-<span id="L221" class="ln">   221  </span>	}
-<span id="L222" class="ln">   222  </span>	o.Hour = all.Hour
-<span id="L223" class="ln">   223  </span>	o.IngestedEventsBytes = all.IngestedEventsBytes
-<span id="L224" class="ln">   224  </span>	o.OrgName = all.OrgName
-<span id="L225" class="ln">   225  </span>	o.PublicId = all.PublicId
-<span id="L226" class="ln">   226  </span>
-<span id="L227" class="ln">   227  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L228" class="ln">   228  </span>		o.AdditionalProperties = additionalProperties
-<span id="L229" class="ln">   229  </span>	}
-<span id="L230" class="ln">   230  </span>
-<span id="L231" class="ln">   231  </span>	return nil
-<span id="L232" class="ln">   232  </span>}
-<span id="L233" class="ln">   233  </span>
+<span id="L216" class="ln">   216  </span>	o.Hour = all.Hour
+<span id="L217" class="ln">   217  </span>	o.IngestedEventsBytes = all.IngestedEventsBytes
+<span id="L218" class="ln">   218  </span>	o.OrgName = all.OrgName
+<span id="L219" class="ln">   219  </span>	o.PublicId = all.PublicId
+<span id="L220" class="ln">   220  </span>
+<span id="L221" class="ln">   221  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L222" class="ln">   222  </span>		o.AdditionalProperties = additionalProperties
+<span id="L223" class="ln">   223  </span>	}
+<span id="L224" class="ln">   224  </span>
+<span id="L225" class="ln">   225  </span>	return nil
+<span id="L226" class="ln">   226  </span>}
+<span id="L227" class="ln">   227  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -448,77 +448,67 @@
 <span id="L391" class="ln">   391  </span>
 <span id="L392" class="ln">   392  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L393" class="ln">   393  </span>func (o *OrganizationSettings) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L394" class="ln">   394  </span>	raw := map[string]interface{}{}
-<span id="L395" class="ln">   395  </span>	all := struct {
-<span id="L396" class="ln">   396  </span>		PrivateWidgetShare         *bool                                           `json:&#34;private_widget_share,omitempty&#34;`
-<span id="L397" class="ln">   397  </span>		Saml                       *OrganizationSettingsSaml                       `json:&#34;saml,omitempty&#34;`
-<span id="L398" class="ln">   398  </span>		SamlAutocreateAccessRole   NullableAccessRole                              `json:&#34;saml_autocreate_access_role,omitempty&#34;`
-<span id="L399" class="ln">   399  </span>		SamlAutocreateUsersDomains *OrganizationSettingsSamlAutocreateUsersDomains `json:&#34;saml_autocreate_users_domains,omitempty&#34;`
-<span id="L400" class="ln">   400  </span>		SamlCanBeEnabled           *bool                                           `json:&#34;saml_can_be_enabled,omitempty&#34;`
-<span id="L401" class="ln">   401  </span>		SamlIdpEndpoint            *string                                         `json:&#34;saml_idp_endpoint,omitempty&#34;`
-<span id="L402" class="ln">   402  </span>		SamlIdpInitiatedLogin      *OrganizationSettingsSamlIdpInitiatedLogin      `json:&#34;saml_idp_initiated_login,omitempty&#34;`
-<span id="L403" class="ln">   403  </span>		SamlIdpMetadataUploaded    *bool                                           `json:&#34;saml_idp_metadata_uploaded,omitempty&#34;`
-<span id="L404" class="ln">   404  </span>		SamlLoginUrl               *string                                         `json:&#34;saml_login_url,omitempty&#34;`
-<span id="L405" class="ln">   405  </span>		SamlStrictMode             *OrganizationSettingsSamlStrictMode             `json:&#34;saml_strict_mode,omitempty&#34;`
-<span id="L406" class="ln">   406  </span>	}{}
-<span id="L407" class="ln">   407  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L408" class="ln">   408  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L409" class="ln">   409  </span>		if err != nil {
-<span id="L410" class="ln">   410  </span>			return err
-<span id="L411" class="ln">   411  </span>		}
-<span id="L412" class="ln">   412  </span>		o.UnparsedObject = raw
-<span id="L413" class="ln">   413  </span>		return nil
+<span id="L394" class="ln">   394  </span>	all := struct {
+<span id="L395" class="ln">   395  </span>		PrivateWidgetShare         *bool                                           `json:&#34;private_widget_share,omitempty&#34;`
+<span id="L396" class="ln">   396  </span>		Saml                       *OrganizationSettingsSaml                       `json:&#34;saml,omitempty&#34;`
+<span id="L397" class="ln">   397  </span>		SamlAutocreateAccessRole   NullableAccessRole                              `json:&#34;saml_autocreate_access_role,omitempty&#34;`
+<span id="L398" class="ln">   398  </span>		SamlAutocreateUsersDomains *OrganizationSettingsSamlAutocreateUsersDomains `json:&#34;saml_autocreate_users_domains,omitempty&#34;`
+<span id="L399" class="ln">   399  </span>		SamlCanBeEnabled           *bool                                           `json:&#34;saml_can_be_enabled,omitempty&#34;`
+<span id="L400" class="ln">   400  </span>		SamlIdpEndpoint            *string                                         `json:&#34;saml_idp_endpoint,omitempty&#34;`
+<span id="L401" class="ln">   401  </span>		SamlIdpInitiatedLogin      *OrganizationSettingsSamlIdpInitiatedLogin      `json:&#34;saml_idp_initiated_login,omitempty&#34;`
+<span id="L402" class="ln">   402  </span>		SamlIdpMetadataUploaded    *bool                                           `json:&#34;saml_idp_metadata_uploaded,omitempty&#34;`
+<span id="L403" class="ln">   403  </span>		SamlLoginUrl               *string                                         `json:&#34;saml_login_url,omitempty&#34;`
+<span id="L404" class="ln">   404  </span>		SamlStrictMode             *OrganizationSettingsSamlStrictMode             `json:&#34;saml_strict_mode,omitempty&#34;`
+<span id="L405" class="ln">   405  </span>	}{}
+<span id="L406" class="ln">   406  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L407" class="ln">   407  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L408" class="ln">   408  </span>	}
+<span id="L409" class="ln">   409  </span>	additionalProperties := make(map[string]interface{})
+<span id="L410" class="ln">   410  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L411" class="ln">   411  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;private_widget_share&#34;, &#34;saml&#34;, &#34;saml_autocreate_access_role&#34;, &#34;saml_autocreate_users_domains&#34;, &#34;saml_can_be_enabled&#34;, &#34;saml_idp_endpoint&#34;, &#34;saml_idp_initiated_login&#34;, &#34;saml_idp_metadata_uploaded&#34;, &#34;saml_login_url&#34;, &#34;saml_strict_mode&#34;})
+<span id="L412" class="ln">   412  </span>	} else {
+<span id="L413" class="ln">   413  </span>		return err
 <span id="L414" class="ln">   414  </span>	}
-<span id="L415" class="ln">   415  </span>	additionalProperties := make(map[string]interface{})
-<span id="L416" class="ln">   416  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L417" class="ln">   417  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;private_widget_share&#34;, &#34;saml&#34;, &#34;saml_autocreate_access_role&#34;, &#34;saml_autocreate_users_domains&#34;, &#34;saml_can_be_enabled&#34;, &#34;saml_idp_endpoint&#34;, &#34;saml_idp_initiated_login&#34;, &#34;saml_idp_metadata_uploaded&#34;, &#34;saml_login_url&#34;, &#34;saml_strict_mode&#34;})
-<span id="L418" class="ln">   418  </span>	} else {
-<span id="L419" class="ln">   419  </span>		return err
+<span id="L415" class="ln">   415  </span>
+<span id="L416" class="ln">   416  </span>	hasInvalidField := false
+<span id="L417" class="ln">   417  </span>	o.PrivateWidgetShare = all.PrivateWidgetShare
+<span id="L418" class="ln">   418  </span>	if all.Saml != nil &amp;&amp; all.Saml.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L419" class="ln">   419  </span>		hasInvalidField = true
 <span id="L420" class="ln">   420  </span>	}
-<span id="L421" class="ln">   421  </span>
-<span id="L422" class="ln">   422  </span>	hasInvalidField := false
-<span id="L423" class="ln">   423  </span>	o.PrivateWidgetShare = all.PrivateWidgetShare
-<span id="L424" class="ln">   424  </span>	if all.Saml != nil &amp;&amp; all.Saml.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L425" class="ln">   425  </span>		hasInvalidField = true
+<span id="L421" class="ln">   421  </span>	o.Saml = all.Saml
+<span id="L422" class="ln">   422  </span>	if all.SamlAutocreateAccessRole.Get() != nil &amp;&amp; !all.SamlAutocreateAccessRole.Get().IsValid() {
+<span id="L423" class="ln">   423  </span>		hasInvalidField = true
+<span id="L424" class="ln">   424  </span>	} else {
+<span id="L425" class="ln">   425  </span>		o.SamlAutocreateAccessRole = all.SamlAutocreateAccessRole
 <span id="L426" class="ln">   426  </span>	}
-<span id="L427" class="ln">   427  </span>	o.Saml = all.Saml
-<span id="L428" class="ln">   428  </span>	if v := all.SamlAutocreateAccessRole; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L429" class="ln">   429  </span>		hasInvalidField = true
-<span id="L430" class="ln">   430  </span>	} else {
-<span id="L431" class="ln">   431  </span>		o.SamlAutocreateAccessRole = all.SamlAutocreateAccessRole
-<span id="L432" class="ln">   432  </span>	}
-<span id="L433" class="ln">   433  </span>	if all.SamlAutocreateUsersDomains != nil &amp;&amp; all.SamlAutocreateUsersDomains.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L427" class="ln">   427  </span>	if all.SamlAutocreateUsersDomains != nil &amp;&amp; all.SamlAutocreateUsersDomains.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L428" class="ln">   428  </span>		hasInvalidField = true
+<span id="L429" class="ln">   429  </span>	}
+<span id="L430" class="ln">   430  </span>	o.SamlAutocreateUsersDomains = all.SamlAutocreateUsersDomains
+<span id="L431" class="ln">   431  </span>	o.SamlCanBeEnabled = all.SamlCanBeEnabled
+<span id="L432" class="ln">   432  </span>	o.SamlIdpEndpoint = all.SamlIdpEndpoint
+<span id="L433" class="ln">   433  </span>	if all.SamlIdpInitiatedLogin != nil &amp;&amp; all.SamlIdpInitiatedLogin.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L434" class="ln">   434  </span>		hasInvalidField = true
 <span id="L435" class="ln">   435  </span>	}
-<span id="L436" class="ln">   436  </span>	o.SamlAutocreateUsersDomains = all.SamlAutocreateUsersDomains
-<span id="L437" class="ln">   437  </span>	o.SamlCanBeEnabled = all.SamlCanBeEnabled
-<span id="L438" class="ln">   438  </span>	o.SamlIdpEndpoint = all.SamlIdpEndpoint
-<span id="L439" class="ln">   439  </span>	if all.SamlIdpInitiatedLogin != nil &amp;&amp; all.SamlIdpInitiatedLogin.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L436" class="ln">   436  </span>	o.SamlIdpInitiatedLogin = all.SamlIdpInitiatedLogin
+<span id="L437" class="ln">   437  </span>	o.SamlIdpMetadataUploaded = all.SamlIdpMetadataUploaded
+<span id="L438" class="ln">   438  </span>	o.SamlLoginUrl = all.SamlLoginUrl
+<span id="L439" class="ln">   439  </span>	if all.SamlStrictMode != nil &amp;&amp; all.SamlStrictMode.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L440" class="ln">   440  </span>		hasInvalidField = true
 <span id="L441" class="ln">   441  </span>	}
-<span id="L442" class="ln">   442  </span>	o.SamlIdpInitiatedLogin = all.SamlIdpInitiatedLogin
-<span id="L443" class="ln">   443  </span>	o.SamlIdpMetadataUploaded = all.SamlIdpMetadataUploaded
-<span id="L444" class="ln">   444  </span>	o.SamlLoginUrl = all.SamlLoginUrl
-<span id="L445" class="ln">   445  </span>	if all.SamlStrictMode != nil &amp;&amp; all.SamlStrictMode.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L446" class="ln">   446  </span>		hasInvalidField = true
-<span id="L447" class="ln">   447  </span>	}
-<span id="L448" class="ln">   448  </span>	o.SamlStrictMode = all.SamlStrictMode
-<span id="L449" class="ln">   449  </span>
-<span id="L450" class="ln">   450  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L451" class="ln">   451  </span>		o.AdditionalProperties = additionalProperties
-<span id="L452" class="ln">   452  </span>	}
-<span id="L453" class="ln">   453  </span>
-<span id="L454" class="ln">   454  </span>	if hasInvalidField {
-<span id="L455" class="ln">   455  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L456" class="ln">   456  </span>		if err != nil {
-<span id="L457" class="ln">   457  </span>			return err
-<span id="L458" class="ln">   458  </span>		}
-<span id="L459" class="ln">   459  </span>		o.UnparsedObject = raw
-<span id="L460" class="ln">   460  </span>	}
-<span id="L461" class="ln">   461  </span>
-<span id="L462" class="ln">   462  </span>	return nil
-<span id="L463" class="ln">   463  </span>}
-<span id="L464" class="ln">   464  </span>
+<span id="L442" class="ln">   442  </span>	o.SamlStrictMode = all.SamlStrictMode
+<span id="L443" class="ln">   443  </span>
+<span id="L444" class="ln">   444  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L445" class="ln">   445  </span>		o.AdditionalProperties = additionalProperties
+<span id="L446" class="ln">   446  </span>	}
+<span id="L447" class="ln">   447  </span>
+<span id="L448" class="ln">   448  </span>	if hasInvalidField {
+<span id="L449" class="ln">   449  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L450" class="ln">   450  </span>	}
+<span id="L451" class="ln">   451  </span>
+<span id="L452" class="ln">   452  </span>	return nil
+<span id="L453" class="ln">   453  </span>}
+<span id="L454" class="ln">   454  </span>
 </pre><p></p>
 
 <div id="footer">

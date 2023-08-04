@@ -530,55 +530,49 @@
 <span id="L473" class="ln">   473  </span>
 <span id="L474" class="ln">   474  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L475" class="ln">   475  </span>func (o *SLOHistorySLIData) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L476" class="ln">   476  </span>	raw := map[string]interface{}{}
-<span id="L477" class="ln">   477  </span>	all := struct {
-<span id="L478" class="ln">   478  </span>		ErrorBudgetRemaining map[string]float64                `json:&#34;error_budget_remaining,omitempty&#34;`
-<span id="L479" class="ln">   479  </span>		Errors               []SLOHistoryResponseErrorWithType `json:&#34;errors,omitempty&#34;`
-<span id="L480" class="ln">   480  </span>		Group                *string                           `json:&#34;group,omitempty&#34;`
-<span id="L481" class="ln">   481  </span>		History              [][]float64                       `json:&#34;history,omitempty&#34;`
-<span id="L482" class="ln">   482  </span>		MonitorModified      *int64                            `json:&#34;monitor_modified,omitempty&#34;`
-<span id="L483" class="ln">   483  </span>		MonitorType          *string                           `json:&#34;monitor_type,omitempty&#34;`
-<span id="L484" class="ln">   484  </span>		Name                 *string                           `json:&#34;name,omitempty&#34;`
-<span id="L485" class="ln">   485  </span>		Precision            map[string]float64                `json:&#34;precision,omitempty&#34;`
-<span id="L486" class="ln">   486  </span>		Preview              *bool                             `json:&#34;preview,omitempty&#34;`
-<span id="L487" class="ln">   487  </span>		SliValue             datadog.NullableFloat64           `json:&#34;sli_value,omitempty&#34;`
-<span id="L488" class="ln">   488  </span>		SpanPrecision        *float64                          `json:&#34;span_precision,omitempty&#34;`
-<span id="L489" class="ln">   489  </span>		Uptime               datadog.NullableFloat64           `json:&#34;uptime,omitempty&#34;`
-<span id="L490" class="ln">   490  </span>	}{}
-<span id="L491" class="ln">   491  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L492" class="ln">   492  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L493" class="ln">   493  </span>		if err != nil {
-<span id="L494" class="ln">   494  </span>			return err
-<span id="L495" class="ln">   495  </span>		}
-<span id="L496" class="ln">   496  </span>		o.UnparsedObject = raw
-<span id="L497" class="ln">   497  </span>		return nil
+<span id="L476" class="ln">   476  </span>	all := struct {
+<span id="L477" class="ln">   477  </span>		ErrorBudgetRemaining map[string]float64                `json:&#34;error_budget_remaining,omitempty&#34;`
+<span id="L478" class="ln">   478  </span>		Errors               []SLOHistoryResponseErrorWithType `json:&#34;errors,omitempty&#34;`
+<span id="L479" class="ln">   479  </span>		Group                *string                           `json:&#34;group,omitempty&#34;`
+<span id="L480" class="ln">   480  </span>		History              [][]float64                       `json:&#34;history,omitempty&#34;`
+<span id="L481" class="ln">   481  </span>		MonitorModified      *int64                            `json:&#34;monitor_modified,omitempty&#34;`
+<span id="L482" class="ln">   482  </span>		MonitorType          *string                           `json:&#34;monitor_type,omitempty&#34;`
+<span id="L483" class="ln">   483  </span>		Name                 *string                           `json:&#34;name,omitempty&#34;`
+<span id="L484" class="ln">   484  </span>		Precision            map[string]float64                `json:&#34;precision,omitempty&#34;`
+<span id="L485" class="ln">   485  </span>		Preview              *bool                             `json:&#34;preview,omitempty&#34;`
+<span id="L486" class="ln">   486  </span>		SliValue             datadog.NullableFloat64           `json:&#34;sli_value,omitempty&#34;`
+<span id="L487" class="ln">   487  </span>		SpanPrecision        *float64                          `json:&#34;span_precision,omitempty&#34;`
+<span id="L488" class="ln">   488  </span>		Uptime               datadog.NullableFloat64           `json:&#34;uptime,omitempty&#34;`
+<span id="L489" class="ln">   489  </span>	}{}
+<span id="L490" class="ln">   490  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L491" class="ln">   491  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L492" class="ln">   492  </span>	}
+<span id="L493" class="ln">   493  </span>	additionalProperties := make(map[string]interface{})
+<span id="L494" class="ln">   494  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L495" class="ln">   495  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;error_budget_remaining&#34;, &#34;errors&#34;, &#34;group&#34;, &#34;history&#34;, &#34;monitor_modified&#34;, &#34;monitor_type&#34;, &#34;name&#34;, &#34;precision&#34;, &#34;preview&#34;, &#34;sli_value&#34;, &#34;span_precision&#34;, &#34;uptime&#34;})
+<span id="L496" class="ln">   496  </span>	} else {
+<span id="L497" class="ln">   497  </span>		return err
 <span id="L498" class="ln">   498  </span>	}
-<span id="L499" class="ln">   499  </span>	additionalProperties := make(map[string]interface{})
-<span id="L500" class="ln">   500  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L501" class="ln">   501  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;error_budget_remaining&#34;, &#34;errors&#34;, &#34;group&#34;, &#34;history&#34;, &#34;monitor_modified&#34;, &#34;monitor_type&#34;, &#34;name&#34;, &#34;precision&#34;, &#34;preview&#34;, &#34;sli_value&#34;, &#34;span_precision&#34;, &#34;uptime&#34;})
-<span id="L502" class="ln">   502  </span>	} else {
-<span id="L503" class="ln">   503  </span>		return err
-<span id="L504" class="ln">   504  </span>	}
-<span id="L505" class="ln">   505  </span>	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
-<span id="L506" class="ln">   506  </span>	o.Errors = all.Errors
-<span id="L507" class="ln">   507  </span>	o.Group = all.Group
-<span id="L508" class="ln">   508  </span>	o.History = all.History
-<span id="L509" class="ln">   509  </span>	o.MonitorModified = all.MonitorModified
-<span id="L510" class="ln">   510  </span>	o.MonitorType = all.MonitorType
-<span id="L511" class="ln">   511  </span>	o.Name = all.Name
-<span id="L512" class="ln">   512  </span>	o.Precision = all.Precision
-<span id="L513" class="ln">   513  </span>	o.Preview = all.Preview
-<span id="L514" class="ln">   514  </span>	o.SliValue = all.SliValue
-<span id="L515" class="ln">   515  </span>	o.SpanPrecision = all.SpanPrecision
-<span id="L516" class="ln">   516  </span>	o.Uptime = all.Uptime
-<span id="L517" class="ln">   517  </span>
-<span id="L518" class="ln">   518  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L519" class="ln">   519  </span>		o.AdditionalProperties = additionalProperties
-<span id="L520" class="ln">   520  </span>	}
-<span id="L521" class="ln">   521  </span>
-<span id="L522" class="ln">   522  </span>	return nil
-<span id="L523" class="ln">   523  </span>}
-<span id="L524" class="ln">   524  </span>
+<span id="L499" class="ln">   499  </span>	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
+<span id="L500" class="ln">   500  </span>	o.Errors = all.Errors
+<span id="L501" class="ln">   501  </span>	o.Group = all.Group
+<span id="L502" class="ln">   502  </span>	o.History = all.History
+<span id="L503" class="ln">   503  </span>	o.MonitorModified = all.MonitorModified
+<span id="L504" class="ln">   504  </span>	o.MonitorType = all.MonitorType
+<span id="L505" class="ln">   505  </span>	o.Name = all.Name
+<span id="L506" class="ln">   506  </span>	o.Precision = all.Precision
+<span id="L507" class="ln">   507  </span>	o.Preview = all.Preview
+<span id="L508" class="ln">   508  </span>	o.SliValue = all.SliValue
+<span id="L509" class="ln">   509  </span>	o.SpanPrecision = all.SpanPrecision
+<span id="L510" class="ln">   510  </span>	o.Uptime = all.Uptime
+<span id="L511" class="ln">   511  </span>
+<span id="L512" class="ln">   512  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L513" class="ln">   513  </span>		o.AdditionalProperties = additionalProperties
+<span id="L514" class="ln">   514  </span>	}
+<span id="L515" class="ln">   515  </span>
+<span id="L516" class="ln">   516  </span>	return nil
+<span id="L517" class="ln">   517  </span>}
+<span id="L518" class="ln">   518  </span>
 </pre><p></p>
 
 <div id="footer">

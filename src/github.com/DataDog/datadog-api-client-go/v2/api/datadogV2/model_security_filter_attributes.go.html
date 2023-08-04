@@ -337,59 +337,49 @@
 <span id="L280" class="ln">   280  </span>
 <span id="L281" class="ln">   281  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L282" class="ln">   282  </span>func (o *SecurityFilterAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L283" class="ln">   283  </span>	raw := map[string]interface{}{}
-<span id="L284" class="ln">   284  </span>	all := struct {
-<span id="L285" class="ln">   285  </span>		ExclusionFilters []SecurityFilterExclusionFilterResponse `json:&#34;exclusion_filters,omitempty&#34;`
-<span id="L286" class="ln">   286  </span>		FilteredDataType *SecurityFilterFilteredDataType         `json:&#34;filtered_data_type,omitempty&#34;`
-<span id="L287" class="ln">   287  </span>		IsBuiltin        *bool                                   `json:&#34;is_builtin,omitempty&#34;`
-<span id="L288" class="ln">   288  </span>		IsEnabled        *bool                                   `json:&#34;is_enabled,omitempty&#34;`
-<span id="L289" class="ln">   289  </span>		Name             *string                                 `json:&#34;name,omitempty&#34;`
-<span id="L290" class="ln">   290  </span>		Query            *string                                 `json:&#34;query,omitempty&#34;`
-<span id="L291" class="ln">   291  </span>		Version          *int32                                  `json:&#34;version,omitempty&#34;`
-<span id="L292" class="ln">   292  </span>	}{}
-<span id="L293" class="ln">   293  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L294" class="ln">   294  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L295" class="ln">   295  </span>		if err != nil {
-<span id="L296" class="ln">   296  </span>			return err
-<span id="L297" class="ln">   297  </span>		}
-<span id="L298" class="ln">   298  </span>		o.UnparsedObject = raw
-<span id="L299" class="ln">   299  </span>		return nil
+<span id="L283" class="ln">   283  </span>	all := struct {
+<span id="L284" class="ln">   284  </span>		ExclusionFilters []SecurityFilterExclusionFilterResponse `json:&#34;exclusion_filters,omitempty&#34;`
+<span id="L285" class="ln">   285  </span>		FilteredDataType *SecurityFilterFilteredDataType         `json:&#34;filtered_data_type,omitempty&#34;`
+<span id="L286" class="ln">   286  </span>		IsBuiltin        *bool                                   `json:&#34;is_builtin,omitempty&#34;`
+<span id="L287" class="ln">   287  </span>		IsEnabled        *bool                                   `json:&#34;is_enabled,omitempty&#34;`
+<span id="L288" class="ln">   288  </span>		Name             *string                                 `json:&#34;name,omitempty&#34;`
+<span id="L289" class="ln">   289  </span>		Query            *string                                 `json:&#34;query,omitempty&#34;`
+<span id="L290" class="ln">   290  </span>		Version          *int32                                  `json:&#34;version,omitempty&#34;`
+<span id="L291" class="ln">   291  </span>	}{}
+<span id="L292" class="ln">   292  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L293" class="ln">   293  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L294" class="ln">   294  </span>	}
+<span id="L295" class="ln">   295  </span>	additionalProperties := make(map[string]interface{})
+<span id="L296" class="ln">   296  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L297" class="ln">   297  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;exclusion_filters&#34;, &#34;filtered_data_type&#34;, &#34;is_builtin&#34;, &#34;is_enabled&#34;, &#34;name&#34;, &#34;query&#34;, &#34;version&#34;})
+<span id="L298" class="ln">   298  </span>	} else {
+<span id="L299" class="ln">   299  </span>		return err
 <span id="L300" class="ln">   300  </span>	}
-<span id="L301" class="ln">   301  </span>	additionalProperties := make(map[string]interface{})
-<span id="L302" class="ln">   302  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L303" class="ln">   303  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;exclusion_filters&#34;, &#34;filtered_data_type&#34;, &#34;is_builtin&#34;, &#34;is_enabled&#34;, &#34;name&#34;, &#34;query&#34;, &#34;version&#34;})
-<span id="L304" class="ln">   304  </span>	} else {
-<span id="L305" class="ln">   305  </span>		return err
-<span id="L306" class="ln">   306  </span>	}
-<span id="L307" class="ln">   307  </span>
-<span id="L308" class="ln">   308  </span>	hasInvalidField := false
-<span id="L309" class="ln">   309  </span>	o.ExclusionFilters = all.ExclusionFilters
-<span id="L310" class="ln">   310  </span>	if v := all.FilteredDataType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L311" class="ln">   311  </span>		hasInvalidField = true
-<span id="L312" class="ln">   312  </span>	} else {
-<span id="L313" class="ln">   313  </span>		o.FilteredDataType = all.FilteredDataType
-<span id="L314" class="ln">   314  </span>	}
-<span id="L315" class="ln">   315  </span>	o.IsBuiltin = all.IsBuiltin
-<span id="L316" class="ln">   316  </span>	o.IsEnabled = all.IsEnabled
-<span id="L317" class="ln">   317  </span>	o.Name = all.Name
-<span id="L318" class="ln">   318  </span>	o.Query = all.Query
-<span id="L319" class="ln">   319  </span>	o.Version = all.Version
-<span id="L320" class="ln">   320  </span>
-<span id="L321" class="ln">   321  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L322" class="ln">   322  </span>		o.AdditionalProperties = additionalProperties
-<span id="L323" class="ln">   323  </span>	}
-<span id="L324" class="ln">   324  </span>
-<span id="L325" class="ln">   325  </span>	if hasInvalidField {
-<span id="L326" class="ln">   326  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L327" class="ln">   327  </span>		if err != nil {
-<span id="L328" class="ln">   328  </span>			return err
-<span id="L329" class="ln">   329  </span>		}
-<span id="L330" class="ln">   330  </span>		o.UnparsedObject = raw
-<span id="L331" class="ln">   331  </span>	}
-<span id="L332" class="ln">   332  </span>
-<span id="L333" class="ln">   333  </span>	return nil
-<span id="L334" class="ln">   334  </span>}
-<span id="L335" class="ln">   335  </span>
+<span id="L301" class="ln">   301  </span>
+<span id="L302" class="ln">   302  </span>	hasInvalidField := false
+<span id="L303" class="ln">   303  </span>	o.ExclusionFilters = all.ExclusionFilters
+<span id="L304" class="ln">   304  </span>	if all.FilteredDataType != nil &amp;&amp; !all.FilteredDataType.IsValid() {
+<span id="L305" class="ln">   305  </span>		hasInvalidField = true
+<span id="L306" class="ln">   306  </span>	} else {
+<span id="L307" class="ln">   307  </span>		o.FilteredDataType = all.FilteredDataType
+<span id="L308" class="ln">   308  </span>	}
+<span id="L309" class="ln">   309  </span>	o.IsBuiltin = all.IsBuiltin
+<span id="L310" class="ln">   310  </span>	o.IsEnabled = all.IsEnabled
+<span id="L311" class="ln">   311  </span>	o.Name = all.Name
+<span id="L312" class="ln">   312  </span>	o.Query = all.Query
+<span id="L313" class="ln">   313  </span>	o.Version = all.Version
+<span id="L314" class="ln">   314  </span>
+<span id="L315" class="ln">   315  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L316" class="ln">   316  </span>		o.AdditionalProperties = additionalProperties
+<span id="L317" class="ln">   317  </span>	}
+<span id="L318" class="ln">   318  </span>
+<span id="L319" class="ln">   319  </span>	if hasInvalidField {
+<span id="L320" class="ln">   320  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L321" class="ln">   321  </span>	}
+<span id="L322" class="ln">   322  </span>
+<span id="L323" class="ln">   323  </span>	return nil
+<span id="L324" class="ln">   324  </span>}
+<span id="L325" class="ln">   325  </span>
 </pre><p></p>
 
 <div id="footer">

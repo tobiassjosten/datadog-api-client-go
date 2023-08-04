@@ -221,37 +221,31 @@
 <span id="L164" class="ln">   164  </span>
 <span id="L165" class="ln">   165  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L166" class="ln">   166  </span>func (o *MetricTagConfigurationUpdateAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L167" class="ln">   167  </span>	raw := map[string]interface{}{}
-<span id="L168" class="ln">   168  </span>	all := struct {
-<span id="L169" class="ln">   169  </span>		Aggregations       []MetricCustomAggregation `json:&#34;aggregations,omitempty&#34;`
-<span id="L170" class="ln">   170  </span>		IncludePercentiles *bool                     `json:&#34;include_percentiles,omitempty&#34;`
-<span id="L171" class="ln">   171  </span>		Tags               []string                  `json:&#34;tags,omitempty&#34;`
-<span id="L172" class="ln">   172  </span>	}{}
-<span id="L173" class="ln">   173  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L174" class="ln">   174  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L175" class="ln">   175  </span>		if err != nil {
-<span id="L176" class="ln">   176  </span>			return err
-<span id="L177" class="ln">   177  </span>		}
-<span id="L178" class="ln">   178  </span>		o.UnparsedObject = raw
-<span id="L179" class="ln">   179  </span>		return nil
+<span id="L167" class="ln">   167  </span>	all := struct {
+<span id="L168" class="ln">   168  </span>		Aggregations       []MetricCustomAggregation `json:&#34;aggregations,omitempty&#34;`
+<span id="L169" class="ln">   169  </span>		IncludePercentiles *bool                     `json:&#34;include_percentiles,omitempty&#34;`
+<span id="L170" class="ln">   170  </span>		Tags               []string                  `json:&#34;tags,omitempty&#34;`
+<span id="L171" class="ln">   171  </span>	}{}
+<span id="L172" class="ln">   172  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L173" class="ln">   173  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L174" class="ln">   174  </span>	}
+<span id="L175" class="ln">   175  </span>	additionalProperties := make(map[string]interface{})
+<span id="L176" class="ln">   176  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L177" class="ln">   177  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregations&#34;, &#34;include_percentiles&#34;, &#34;tags&#34;})
+<span id="L178" class="ln">   178  </span>	} else {
+<span id="L179" class="ln">   179  </span>		return err
 <span id="L180" class="ln">   180  </span>	}
-<span id="L181" class="ln">   181  </span>	additionalProperties := make(map[string]interface{})
-<span id="L182" class="ln">   182  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L183" class="ln">   183  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregations&#34;, &#34;include_percentiles&#34;, &#34;tags&#34;})
-<span id="L184" class="ln">   184  </span>	} else {
-<span id="L185" class="ln">   185  </span>		return err
-<span id="L186" class="ln">   186  </span>	}
-<span id="L187" class="ln">   187  </span>	o.Aggregations = all.Aggregations
-<span id="L188" class="ln">   188  </span>	o.IncludePercentiles = all.IncludePercentiles
-<span id="L189" class="ln">   189  </span>	o.Tags = all.Tags
-<span id="L190" class="ln">   190  </span>
-<span id="L191" class="ln">   191  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L192" class="ln">   192  </span>		o.AdditionalProperties = additionalProperties
-<span id="L193" class="ln">   193  </span>	}
-<span id="L194" class="ln">   194  </span>
-<span id="L195" class="ln">   195  </span>	return nil
-<span id="L196" class="ln">   196  </span>}
-<span id="L197" class="ln">   197  </span>
+<span id="L181" class="ln">   181  </span>	o.Aggregations = all.Aggregations
+<span id="L182" class="ln">   182  </span>	o.IncludePercentiles = all.IncludePercentiles
+<span id="L183" class="ln">   183  </span>	o.Tags = all.Tags
+<span id="L184" class="ln">   184  </span>
+<span id="L185" class="ln">   185  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L186" class="ln">   186  </span>		o.AdditionalProperties = additionalProperties
+<span id="L187" class="ln">   187  </span>	}
+<span id="L188" class="ln">   188  </span>
+<span id="L189" class="ln">   189  </span>	return nil
+<span id="L190" class="ln">   190  </span>}
+<span id="L191" class="ln">   191  </span>
 </pre><p></p>
 
 <div id="footer">

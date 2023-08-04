@@ -387,76 +387,66 @@
 <span id="L330" class="ln">   330  </span>
 <span id="L331" class="ln">   331  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L332" class="ln">   332  </span>func (o *WidgetConditionalFormat) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L333" class="ln">   333  </span>	raw := map[string]interface{}{}
-<span id="L334" class="ln">   334  </span>	all := struct {
-<span id="L335" class="ln">   335  </span>		Comparator    *WidgetComparator `json:&#34;comparator&#34;`
-<span id="L336" class="ln">   336  </span>		CustomBgColor *string           `json:&#34;custom_bg_color,omitempty&#34;`
-<span id="L337" class="ln">   337  </span>		CustomFgColor *string           `json:&#34;custom_fg_color,omitempty&#34;`
-<span id="L338" class="ln">   338  </span>		HideValue     *bool             `json:&#34;hide_value,omitempty&#34;`
-<span id="L339" class="ln">   339  </span>		ImageUrl      *string           `json:&#34;image_url,omitempty&#34;`
-<span id="L340" class="ln">   340  </span>		Metric        *string           `json:&#34;metric,omitempty&#34;`
-<span id="L341" class="ln">   341  </span>		Palette       *WidgetPalette    `json:&#34;palette&#34;`
-<span id="L342" class="ln">   342  </span>		Timeframe     *string           `json:&#34;timeframe,omitempty&#34;`
-<span id="L343" class="ln">   343  </span>		Value         *float64          `json:&#34;value&#34;`
-<span id="L344" class="ln">   344  </span>	}{}
-<span id="L345" class="ln">   345  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L346" class="ln">   346  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L347" class="ln">   347  </span>		if err != nil {
-<span id="L348" class="ln">   348  </span>			return err
-<span id="L349" class="ln">   349  </span>		}
-<span id="L350" class="ln">   350  </span>		o.UnparsedObject = raw
-<span id="L351" class="ln">   351  </span>		return nil
+<span id="L333" class="ln">   333  </span>	all := struct {
+<span id="L334" class="ln">   334  </span>		Comparator    *WidgetComparator `json:&#34;comparator&#34;`
+<span id="L335" class="ln">   335  </span>		CustomBgColor *string           `json:&#34;custom_bg_color,omitempty&#34;`
+<span id="L336" class="ln">   336  </span>		CustomFgColor *string           `json:&#34;custom_fg_color,omitempty&#34;`
+<span id="L337" class="ln">   337  </span>		HideValue     *bool             `json:&#34;hide_value,omitempty&#34;`
+<span id="L338" class="ln">   338  </span>		ImageUrl      *string           `json:&#34;image_url,omitempty&#34;`
+<span id="L339" class="ln">   339  </span>		Metric        *string           `json:&#34;metric,omitempty&#34;`
+<span id="L340" class="ln">   340  </span>		Palette       *WidgetPalette    `json:&#34;palette&#34;`
+<span id="L341" class="ln">   341  </span>		Timeframe     *string           `json:&#34;timeframe,omitempty&#34;`
+<span id="L342" class="ln">   342  </span>		Value         *float64          `json:&#34;value&#34;`
+<span id="L343" class="ln">   343  </span>	}{}
+<span id="L344" class="ln">   344  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L345" class="ln">   345  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L346" class="ln">   346  </span>	}
+<span id="L347" class="ln">   347  </span>	if all.Comparator == nil {
+<span id="L348" class="ln">   348  </span>		return fmt.Errorf(&#34;required field comparator missing&#34;)
+<span id="L349" class="ln">   349  </span>	}
+<span id="L350" class="ln">   350  </span>	if all.Palette == nil {
+<span id="L351" class="ln">   351  </span>		return fmt.Errorf(&#34;required field palette missing&#34;)
 <span id="L352" class="ln">   352  </span>	}
-<span id="L353" class="ln">   353  </span>	if all.Comparator == nil {
-<span id="L354" class="ln">   354  </span>		return fmt.Errorf(&#34;required field comparator missing&#34;)
+<span id="L353" class="ln">   353  </span>	if all.Value == nil {
+<span id="L354" class="ln">   354  </span>		return fmt.Errorf(&#34;required field value missing&#34;)
 <span id="L355" class="ln">   355  </span>	}
-<span id="L356" class="ln">   356  </span>	if all.Palette == nil {
-<span id="L357" class="ln">   357  </span>		return fmt.Errorf(&#34;required field palette missing&#34;)
-<span id="L358" class="ln">   358  </span>	}
-<span id="L359" class="ln">   359  </span>	if all.Value == nil {
-<span id="L360" class="ln">   360  </span>		return fmt.Errorf(&#34;required field value missing&#34;)
+<span id="L356" class="ln">   356  </span>	additionalProperties := make(map[string]interface{})
+<span id="L357" class="ln">   357  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L358" class="ln">   358  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;comparator&#34;, &#34;custom_bg_color&#34;, &#34;custom_fg_color&#34;, &#34;hide_value&#34;, &#34;image_url&#34;, &#34;metric&#34;, &#34;palette&#34;, &#34;timeframe&#34;, &#34;value&#34;})
+<span id="L359" class="ln">   359  </span>	} else {
+<span id="L360" class="ln">   360  </span>		return err
 <span id="L361" class="ln">   361  </span>	}
-<span id="L362" class="ln">   362  </span>	additionalProperties := make(map[string]interface{})
-<span id="L363" class="ln">   363  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L364" class="ln">   364  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;comparator&#34;, &#34;custom_bg_color&#34;, &#34;custom_fg_color&#34;, &#34;hide_value&#34;, &#34;image_url&#34;, &#34;metric&#34;, &#34;palette&#34;, &#34;timeframe&#34;, &#34;value&#34;})
-<span id="L365" class="ln">   365  </span>	} else {
-<span id="L366" class="ln">   366  </span>		return err
-<span id="L367" class="ln">   367  </span>	}
-<span id="L368" class="ln">   368  </span>
-<span id="L369" class="ln">   369  </span>	hasInvalidField := false
-<span id="L370" class="ln">   370  </span>	if v := all.Comparator; !v.IsValid() {
-<span id="L371" class="ln">   371  </span>		hasInvalidField = true
-<span id="L372" class="ln">   372  </span>	} else {
-<span id="L373" class="ln">   373  </span>		o.Comparator = *all.Comparator
-<span id="L374" class="ln">   374  </span>	}
-<span id="L375" class="ln">   375  </span>	o.CustomBgColor = all.CustomBgColor
-<span id="L376" class="ln">   376  </span>	o.CustomFgColor = all.CustomFgColor
-<span id="L377" class="ln">   377  </span>	o.HideValue = all.HideValue
-<span id="L378" class="ln">   378  </span>	o.ImageUrl = all.ImageUrl
-<span id="L379" class="ln">   379  </span>	o.Metric = all.Metric
-<span id="L380" class="ln">   380  </span>	if v := all.Palette; !v.IsValid() {
-<span id="L381" class="ln">   381  </span>		hasInvalidField = true
-<span id="L382" class="ln">   382  </span>	} else {
-<span id="L383" class="ln">   383  </span>		o.Palette = *all.Palette
+<span id="L362" class="ln">   362  </span>
+<span id="L363" class="ln">   363  </span>	hasInvalidField := false
+<span id="L364" class="ln">   364  </span>	if !all.Comparator.IsValid() {
+<span id="L365" class="ln">   365  </span>		hasInvalidField = true
+<span id="L366" class="ln">   366  </span>	} else {
+<span id="L367" class="ln">   367  </span>		o.Comparator = *all.Comparator
+<span id="L368" class="ln">   368  </span>	}
+<span id="L369" class="ln">   369  </span>	o.CustomBgColor = all.CustomBgColor
+<span id="L370" class="ln">   370  </span>	o.CustomFgColor = all.CustomFgColor
+<span id="L371" class="ln">   371  </span>	o.HideValue = all.HideValue
+<span id="L372" class="ln">   372  </span>	o.ImageUrl = all.ImageUrl
+<span id="L373" class="ln">   373  </span>	o.Metric = all.Metric
+<span id="L374" class="ln">   374  </span>	if !all.Palette.IsValid() {
+<span id="L375" class="ln">   375  </span>		hasInvalidField = true
+<span id="L376" class="ln">   376  </span>	} else {
+<span id="L377" class="ln">   377  </span>		o.Palette = *all.Palette
+<span id="L378" class="ln">   378  </span>	}
+<span id="L379" class="ln">   379  </span>	o.Timeframe = all.Timeframe
+<span id="L380" class="ln">   380  </span>	o.Value = *all.Value
+<span id="L381" class="ln">   381  </span>
+<span id="L382" class="ln">   382  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L383" class="ln">   383  </span>		o.AdditionalProperties = additionalProperties
 <span id="L384" class="ln">   384  </span>	}
-<span id="L385" class="ln">   385  </span>	o.Timeframe = all.Timeframe
-<span id="L386" class="ln">   386  </span>	o.Value = *all.Value
-<span id="L387" class="ln">   387  </span>
-<span id="L388" class="ln">   388  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L389" class="ln">   389  </span>		o.AdditionalProperties = additionalProperties
-<span id="L390" class="ln">   390  </span>	}
-<span id="L391" class="ln">   391  </span>
-<span id="L392" class="ln">   392  </span>	if hasInvalidField {
-<span id="L393" class="ln">   393  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L394" class="ln">   394  </span>		if err != nil {
-<span id="L395" class="ln">   395  </span>			return err
-<span id="L396" class="ln">   396  </span>		}
-<span id="L397" class="ln">   397  </span>		o.UnparsedObject = raw
-<span id="L398" class="ln">   398  </span>	}
-<span id="L399" class="ln">   399  </span>
-<span id="L400" class="ln">   400  </span>	return nil
-<span id="L401" class="ln">   401  </span>}
-<span id="L402" class="ln">   402  </span>
+<span id="L385" class="ln">   385  </span>
+<span id="L386" class="ln">   386  </span>	if hasInvalidField {
+<span id="L387" class="ln">   387  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L388" class="ln">   388  </span>	}
+<span id="L389" class="ln">   389  </span>
+<span id="L390" class="ln">   390  </span>	return nil
+<span id="L391" class="ln">   391  </span>}
+<span id="L392" class="ln">   392  </span>
 </pre><p></p>
 
 <div id="footer">

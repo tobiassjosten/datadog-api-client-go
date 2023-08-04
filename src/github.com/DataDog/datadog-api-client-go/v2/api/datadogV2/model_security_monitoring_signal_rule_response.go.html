@@ -700,84 +700,74 @@
 <span id="L643" class="ln">   643  </span>
 <span id="L644" class="ln">   644  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L645" class="ln">   645  </span>func (o *SecurityMonitoringSignalRuleResponse) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L646" class="ln">   646  </span>	raw := map[string]interface{}{}
-<span id="L647" class="ln">   647  </span>	all := struct {
-<span id="L648" class="ln">   648  </span>		Cases            []SecurityMonitoringRuleCase                `json:&#34;cases,omitempty&#34;`
-<span id="L649" class="ln">   649  </span>		CreatedAt        *int64                                      `json:&#34;createdAt,omitempty&#34;`
-<span id="L650" class="ln">   650  </span>		CreationAuthorId *int64                                      `json:&#34;creationAuthorId,omitempty&#34;`
-<span id="L651" class="ln">   651  </span>		DeprecationDate  *int64                                      `json:&#34;deprecationDate,omitempty&#34;`
-<span id="L652" class="ln">   652  </span>		Filters          []SecurityMonitoringFilter                  `json:&#34;filters,omitempty&#34;`
-<span id="L653" class="ln">   653  </span>		HasExtendedTitle *bool                                       `json:&#34;hasExtendedTitle,omitempty&#34;`
-<span id="L654" class="ln">   654  </span>		Id               *string                                     `json:&#34;id,omitempty&#34;`
-<span id="L655" class="ln">   655  </span>		IsDefault        *bool                                       `json:&#34;isDefault,omitempty&#34;`
-<span id="L656" class="ln">   656  </span>		IsDeleted        *bool                                       `json:&#34;isDeleted,omitempty&#34;`
-<span id="L657" class="ln">   657  </span>		IsEnabled        *bool                                       `json:&#34;isEnabled,omitempty&#34;`
-<span id="L658" class="ln">   658  </span>		Message          *string                                     `json:&#34;message,omitempty&#34;`
-<span id="L659" class="ln">   659  </span>		Name             *string                                     `json:&#34;name,omitempty&#34;`
-<span id="L660" class="ln">   660  </span>		Options          *SecurityMonitoringRuleOptions              `json:&#34;options,omitempty&#34;`
-<span id="L661" class="ln">   661  </span>		Queries          []SecurityMonitoringSignalRuleResponseQuery `json:&#34;queries,omitempty&#34;`
-<span id="L662" class="ln">   662  </span>		Tags             []string                                    `json:&#34;tags,omitempty&#34;`
-<span id="L663" class="ln">   663  </span>		Type             *SecurityMonitoringSignalRuleType           `json:&#34;type,omitempty&#34;`
-<span id="L664" class="ln">   664  </span>		UpdateAuthorId   *int64                                      `json:&#34;updateAuthorId,omitempty&#34;`
-<span id="L665" class="ln">   665  </span>		Version          *int64                                      `json:&#34;version,omitempty&#34;`
-<span id="L666" class="ln">   666  </span>	}{}
-<span id="L667" class="ln">   667  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L668" class="ln">   668  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L669" class="ln">   669  </span>		if err != nil {
-<span id="L670" class="ln">   670  </span>			return err
-<span id="L671" class="ln">   671  </span>		}
-<span id="L672" class="ln">   672  </span>		o.UnparsedObject = raw
-<span id="L673" class="ln">   673  </span>		return nil
+<span id="L646" class="ln">   646  </span>	all := struct {
+<span id="L647" class="ln">   647  </span>		Cases            []SecurityMonitoringRuleCase                `json:&#34;cases,omitempty&#34;`
+<span id="L648" class="ln">   648  </span>		CreatedAt        *int64                                      `json:&#34;createdAt,omitempty&#34;`
+<span id="L649" class="ln">   649  </span>		CreationAuthorId *int64                                      `json:&#34;creationAuthorId,omitempty&#34;`
+<span id="L650" class="ln">   650  </span>		DeprecationDate  *int64                                      `json:&#34;deprecationDate,omitempty&#34;`
+<span id="L651" class="ln">   651  </span>		Filters          []SecurityMonitoringFilter                  `json:&#34;filters,omitempty&#34;`
+<span id="L652" class="ln">   652  </span>		HasExtendedTitle *bool                                       `json:&#34;hasExtendedTitle,omitempty&#34;`
+<span id="L653" class="ln">   653  </span>		Id               *string                                     `json:&#34;id,omitempty&#34;`
+<span id="L654" class="ln">   654  </span>		IsDefault        *bool                                       `json:&#34;isDefault,omitempty&#34;`
+<span id="L655" class="ln">   655  </span>		IsDeleted        *bool                                       `json:&#34;isDeleted,omitempty&#34;`
+<span id="L656" class="ln">   656  </span>		IsEnabled        *bool                                       `json:&#34;isEnabled,omitempty&#34;`
+<span id="L657" class="ln">   657  </span>		Message          *string                                     `json:&#34;message,omitempty&#34;`
+<span id="L658" class="ln">   658  </span>		Name             *string                                     `json:&#34;name,omitempty&#34;`
+<span id="L659" class="ln">   659  </span>		Options          *SecurityMonitoringRuleOptions              `json:&#34;options,omitempty&#34;`
+<span id="L660" class="ln">   660  </span>		Queries          []SecurityMonitoringSignalRuleResponseQuery `json:&#34;queries,omitempty&#34;`
+<span id="L661" class="ln">   661  </span>		Tags             []string                                    `json:&#34;tags,omitempty&#34;`
+<span id="L662" class="ln">   662  </span>		Type             *SecurityMonitoringSignalRuleType           `json:&#34;type,omitempty&#34;`
+<span id="L663" class="ln">   663  </span>		UpdateAuthorId   *int64                                      `json:&#34;updateAuthorId,omitempty&#34;`
+<span id="L664" class="ln">   664  </span>		Version          *int64                                      `json:&#34;version,omitempty&#34;`
+<span id="L665" class="ln">   665  </span>	}{}
+<span id="L666" class="ln">   666  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L667" class="ln">   667  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L668" class="ln">   668  </span>	}
+<span id="L669" class="ln">   669  </span>	additionalProperties := make(map[string]interface{})
+<span id="L670" class="ln">   670  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L671" class="ln">   671  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cases&#34;, &#34;createdAt&#34;, &#34;creationAuthorId&#34;, &#34;deprecationDate&#34;, &#34;filters&#34;, &#34;hasExtendedTitle&#34;, &#34;id&#34;, &#34;isDefault&#34;, &#34;isDeleted&#34;, &#34;isEnabled&#34;, &#34;message&#34;, &#34;name&#34;, &#34;options&#34;, &#34;queries&#34;, &#34;tags&#34;, &#34;type&#34;, &#34;updateAuthorId&#34;, &#34;version&#34;})
+<span id="L672" class="ln">   672  </span>	} else {
+<span id="L673" class="ln">   673  </span>		return err
 <span id="L674" class="ln">   674  </span>	}
-<span id="L675" class="ln">   675  </span>	additionalProperties := make(map[string]interface{})
-<span id="L676" class="ln">   676  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L677" class="ln">   677  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cases&#34;, &#34;createdAt&#34;, &#34;creationAuthorId&#34;, &#34;deprecationDate&#34;, &#34;filters&#34;, &#34;hasExtendedTitle&#34;, &#34;id&#34;, &#34;isDefault&#34;, &#34;isDeleted&#34;, &#34;isEnabled&#34;, &#34;message&#34;, &#34;name&#34;, &#34;options&#34;, &#34;queries&#34;, &#34;tags&#34;, &#34;type&#34;, &#34;updateAuthorId&#34;, &#34;version&#34;})
-<span id="L678" class="ln">   678  </span>	} else {
-<span id="L679" class="ln">   679  </span>		return err
-<span id="L680" class="ln">   680  </span>	}
-<span id="L681" class="ln">   681  </span>
-<span id="L682" class="ln">   682  </span>	hasInvalidField := false
-<span id="L683" class="ln">   683  </span>	o.Cases = all.Cases
-<span id="L684" class="ln">   684  </span>	o.CreatedAt = all.CreatedAt
-<span id="L685" class="ln">   685  </span>	o.CreationAuthorId = all.CreationAuthorId
-<span id="L686" class="ln">   686  </span>	o.DeprecationDate = all.DeprecationDate
-<span id="L687" class="ln">   687  </span>	o.Filters = all.Filters
-<span id="L688" class="ln">   688  </span>	o.HasExtendedTitle = all.HasExtendedTitle
-<span id="L689" class="ln">   689  </span>	o.Id = all.Id
-<span id="L690" class="ln">   690  </span>	o.IsDefault = all.IsDefault
-<span id="L691" class="ln">   691  </span>	o.IsDeleted = all.IsDeleted
-<span id="L692" class="ln">   692  </span>	o.IsEnabled = all.IsEnabled
-<span id="L693" class="ln">   693  </span>	o.Message = all.Message
-<span id="L694" class="ln">   694  </span>	o.Name = all.Name
-<span id="L695" class="ln">   695  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L675" class="ln">   675  </span>
+<span id="L676" class="ln">   676  </span>	hasInvalidField := false
+<span id="L677" class="ln">   677  </span>	o.Cases = all.Cases
+<span id="L678" class="ln">   678  </span>	o.CreatedAt = all.CreatedAt
+<span id="L679" class="ln">   679  </span>	o.CreationAuthorId = all.CreationAuthorId
+<span id="L680" class="ln">   680  </span>	o.DeprecationDate = all.DeprecationDate
+<span id="L681" class="ln">   681  </span>	o.Filters = all.Filters
+<span id="L682" class="ln">   682  </span>	o.HasExtendedTitle = all.HasExtendedTitle
+<span id="L683" class="ln">   683  </span>	o.Id = all.Id
+<span id="L684" class="ln">   684  </span>	o.IsDefault = all.IsDefault
+<span id="L685" class="ln">   685  </span>	o.IsDeleted = all.IsDeleted
+<span id="L686" class="ln">   686  </span>	o.IsEnabled = all.IsEnabled
+<span id="L687" class="ln">   687  </span>	o.Message = all.Message
+<span id="L688" class="ln">   688  </span>	o.Name = all.Name
+<span id="L689" class="ln">   689  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L690" class="ln">   690  </span>		hasInvalidField = true
+<span id="L691" class="ln">   691  </span>	}
+<span id="L692" class="ln">   692  </span>	o.Options = all.Options
+<span id="L693" class="ln">   693  </span>	o.Queries = all.Queries
+<span id="L694" class="ln">   694  </span>	o.Tags = all.Tags
+<span id="L695" class="ln">   695  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
 <span id="L696" class="ln">   696  </span>		hasInvalidField = true
-<span id="L697" class="ln">   697  </span>	}
-<span id="L698" class="ln">   698  </span>	o.Options = all.Options
-<span id="L699" class="ln">   699  </span>	o.Queries = all.Queries
-<span id="L700" class="ln">   700  </span>	o.Tags = all.Tags
-<span id="L701" class="ln">   701  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L702" class="ln">   702  </span>		hasInvalidField = true
-<span id="L703" class="ln">   703  </span>	} else {
-<span id="L704" class="ln">   704  </span>		o.Type = all.Type
+<span id="L697" class="ln">   697  </span>	} else {
+<span id="L698" class="ln">   698  </span>		o.Type = all.Type
+<span id="L699" class="ln">   699  </span>	}
+<span id="L700" class="ln">   700  </span>	o.UpdateAuthorId = all.UpdateAuthorId
+<span id="L701" class="ln">   701  </span>	o.Version = all.Version
+<span id="L702" class="ln">   702  </span>
+<span id="L703" class="ln">   703  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L704" class="ln">   704  </span>		o.AdditionalProperties = additionalProperties
 <span id="L705" class="ln">   705  </span>	}
-<span id="L706" class="ln">   706  </span>	o.UpdateAuthorId = all.UpdateAuthorId
-<span id="L707" class="ln">   707  </span>	o.Version = all.Version
-<span id="L708" class="ln">   708  </span>
-<span id="L709" class="ln">   709  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L710" class="ln">   710  </span>		o.AdditionalProperties = additionalProperties
-<span id="L711" class="ln">   711  </span>	}
-<span id="L712" class="ln">   712  </span>
-<span id="L713" class="ln">   713  </span>	if hasInvalidField {
-<span id="L714" class="ln">   714  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L715" class="ln">   715  </span>		if err != nil {
-<span id="L716" class="ln">   716  </span>			return err
-<span id="L717" class="ln">   717  </span>		}
-<span id="L718" class="ln">   718  </span>		o.UnparsedObject = raw
-<span id="L719" class="ln">   719  </span>	}
-<span id="L720" class="ln">   720  </span>
-<span id="L721" class="ln">   721  </span>	return nil
-<span id="L722" class="ln">   722  </span>}
-<span id="L723" class="ln">   723  </span>
+<span id="L706" class="ln">   706  </span>
+<span id="L707" class="ln">   707  </span>	if hasInvalidField {
+<span id="L708" class="ln">   708  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L709" class="ln">   709  </span>	}
+<span id="L710" class="ln">   710  </span>
+<span id="L711" class="ln">   711  </span>	return nil
+<span id="L712" class="ln">   712  </span>}
+<span id="L713" class="ln">   713  </span>
 </pre><p></p>
 
 <div id="footer">

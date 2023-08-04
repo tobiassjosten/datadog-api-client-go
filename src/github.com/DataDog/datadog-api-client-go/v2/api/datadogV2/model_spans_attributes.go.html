@@ -679,65 +679,59 @@
 <span id="L622" class="ln">   622  </span>
 <span id="L623" class="ln">   623  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L624" class="ln">   624  </span>func (o *SpansAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L625" class="ln">   625  </span>	raw := map[string]interface{}{}
-<span id="L626" class="ln">   626  </span>	all := struct {
-<span id="L627" class="ln">   627  </span>		Attributes      map[string]interface{} `json:&#34;attributes,omitempty&#34;`
-<span id="L628" class="ln">   628  </span>		Custom          map[string]interface{} `json:&#34;custom,omitempty&#34;`
-<span id="L629" class="ln">   629  </span>		EndTimestamp    *time.Time             `json:&#34;end_timestamp,omitempty&#34;`
-<span id="L630" class="ln">   630  </span>		Env             *string                `json:&#34;env,omitempty&#34;`
-<span id="L631" class="ln">   631  </span>		Host            *string                `json:&#34;host,omitempty&#34;`
-<span id="L632" class="ln">   632  </span>		IngestionReason *string                `json:&#34;ingestion_reason,omitempty&#34;`
-<span id="L633" class="ln">   633  </span>		ParentId        *string                `json:&#34;parent_id,omitempty&#34;`
-<span id="L634" class="ln">   634  </span>		ResourceHash    *string                `json:&#34;resource_hash,omitempty&#34;`
-<span id="L635" class="ln">   635  </span>		ResourceName    *string                `json:&#34;resource_name,omitempty&#34;`
-<span id="L636" class="ln">   636  </span>		RetainedBy      *string                `json:&#34;retained_by,omitempty&#34;`
-<span id="L637" class="ln">   637  </span>		Service         *string                `json:&#34;service,omitempty&#34;`
-<span id="L638" class="ln">   638  </span>		SingleSpan      *bool                  `json:&#34;single_span,omitempty&#34;`
-<span id="L639" class="ln">   639  </span>		SpanId          *string                `json:&#34;span_id,omitempty&#34;`
-<span id="L640" class="ln">   640  </span>		StartTimestamp  *time.Time             `json:&#34;start_timestamp,omitempty&#34;`
-<span id="L641" class="ln">   641  </span>		Tags            []string               `json:&#34;tags,omitempty&#34;`
-<span id="L642" class="ln">   642  </span>		TraceId         *string                `json:&#34;trace_id,omitempty&#34;`
-<span id="L643" class="ln">   643  </span>		Type            *string                `json:&#34;type,omitempty&#34;`
-<span id="L644" class="ln">   644  </span>	}{}
-<span id="L645" class="ln">   645  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L646" class="ln">   646  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L647" class="ln">   647  </span>		if err != nil {
-<span id="L648" class="ln">   648  </span>			return err
-<span id="L649" class="ln">   649  </span>		}
-<span id="L650" class="ln">   650  </span>		o.UnparsedObject = raw
-<span id="L651" class="ln">   651  </span>		return nil
+<span id="L625" class="ln">   625  </span>	all := struct {
+<span id="L626" class="ln">   626  </span>		Attributes      map[string]interface{} `json:&#34;attributes,omitempty&#34;`
+<span id="L627" class="ln">   627  </span>		Custom          map[string]interface{} `json:&#34;custom,omitempty&#34;`
+<span id="L628" class="ln">   628  </span>		EndTimestamp    *time.Time             `json:&#34;end_timestamp,omitempty&#34;`
+<span id="L629" class="ln">   629  </span>		Env             *string                `json:&#34;env,omitempty&#34;`
+<span id="L630" class="ln">   630  </span>		Host            *string                `json:&#34;host,omitempty&#34;`
+<span id="L631" class="ln">   631  </span>		IngestionReason *string                `json:&#34;ingestion_reason,omitempty&#34;`
+<span id="L632" class="ln">   632  </span>		ParentId        *string                `json:&#34;parent_id,omitempty&#34;`
+<span id="L633" class="ln">   633  </span>		ResourceHash    *string                `json:&#34;resource_hash,omitempty&#34;`
+<span id="L634" class="ln">   634  </span>		ResourceName    *string                `json:&#34;resource_name,omitempty&#34;`
+<span id="L635" class="ln">   635  </span>		RetainedBy      *string                `json:&#34;retained_by,omitempty&#34;`
+<span id="L636" class="ln">   636  </span>		Service         *string                `json:&#34;service,omitempty&#34;`
+<span id="L637" class="ln">   637  </span>		SingleSpan      *bool                  `json:&#34;single_span,omitempty&#34;`
+<span id="L638" class="ln">   638  </span>		SpanId          *string                `json:&#34;span_id,omitempty&#34;`
+<span id="L639" class="ln">   639  </span>		StartTimestamp  *time.Time             `json:&#34;start_timestamp,omitempty&#34;`
+<span id="L640" class="ln">   640  </span>		Tags            []string               `json:&#34;tags,omitempty&#34;`
+<span id="L641" class="ln">   641  </span>		TraceId         *string                `json:&#34;trace_id,omitempty&#34;`
+<span id="L642" class="ln">   642  </span>		Type            *string                `json:&#34;type,omitempty&#34;`
+<span id="L643" class="ln">   643  </span>	}{}
+<span id="L644" class="ln">   644  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L645" class="ln">   645  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L646" class="ln">   646  </span>	}
+<span id="L647" class="ln">   647  </span>	additionalProperties := make(map[string]interface{})
+<span id="L648" class="ln">   648  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L649" class="ln">   649  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;custom&#34;, &#34;end_timestamp&#34;, &#34;env&#34;, &#34;host&#34;, &#34;ingestion_reason&#34;, &#34;parent_id&#34;, &#34;resource_hash&#34;, &#34;resource_name&#34;, &#34;retained_by&#34;, &#34;service&#34;, &#34;single_span&#34;, &#34;span_id&#34;, &#34;start_timestamp&#34;, &#34;tags&#34;, &#34;trace_id&#34;, &#34;type&#34;})
+<span id="L650" class="ln">   650  </span>	} else {
+<span id="L651" class="ln">   651  </span>		return err
 <span id="L652" class="ln">   652  </span>	}
-<span id="L653" class="ln">   653  </span>	additionalProperties := make(map[string]interface{})
-<span id="L654" class="ln">   654  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L655" class="ln">   655  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;custom&#34;, &#34;end_timestamp&#34;, &#34;env&#34;, &#34;host&#34;, &#34;ingestion_reason&#34;, &#34;parent_id&#34;, &#34;resource_hash&#34;, &#34;resource_name&#34;, &#34;retained_by&#34;, &#34;service&#34;, &#34;single_span&#34;, &#34;span_id&#34;, &#34;start_timestamp&#34;, &#34;tags&#34;, &#34;trace_id&#34;, &#34;type&#34;})
-<span id="L656" class="ln">   656  </span>	} else {
-<span id="L657" class="ln">   657  </span>		return err
-<span id="L658" class="ln">   658  </span>	}
-<span id="L659" class="ln">   659  </span>	o.Attributes = all.Attributes
-<span id="L660" class="ln">   660  </span>	o.Custom = all.Custom
-<span id="L661" class="ln">   661  </span>	o.EndTimestamp = all.EndTimestamp
-<span id="L662" class="ln">   662  </span>	o.Env = all.Env
-<span id="L663" class="ln">   663  </span>	o.Host = all.Host
-<span id="L664" class="ln">   664  </span>	o.IngestionReason = all.IngestionReason
-<span id="L665" class="ln">   665  </span>	o.ParentId = all.ParentId
-<span id="L666" class="ln">   666  </span>	o.ResourceHash = all.ResourceHash
-<span id="L667" class="ln">   667  </span>	o.ResourceName = all.ResourceName
-<span id="L668" class="ln">   668  </span>	o.RetainedBy = all.RetainedBy
-<span id="L669" class="ln">   669  </span>	o.Service = all.Service
-<span id="L670" class="ln">   670  </span>	o.SingleSpan = all.SingleSpan
-<span id="L671" class="ln">   671  </span>	o.SpanId = all.SpanId
-<span id="L672" class="ln">   672  </span>	o.StartTimestamp = all.StartTimestamp
-<span id="L673" class="ln">   673  </span>	o.Tags = all.Tags
-<span id="L674" class="ln">   674  </span>	o.TraceId = all.TraceId
-<span id="L675" class="ln">   675  </span>	o.Type = all.Type
-<span id="L676" class="ln">   676  </span>
-<span id="L677" class="ln">   677  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L678" class="ln">   678  </span>		o.AdditionalProperties = additionalProperties
-<span id="L679" class="ln">   679  </span>	}
-<span id="L680" class="ln">   680  </span>
-<span id="L681" class="ln">   681  </span>	return nil
-<span id="L682" class="ln">   682  </span>}
-<span id="L683" class="ln">   683  </span>
+<span id="L653" class="ln">   653  </span>	o.Attributes = all.Attributes
+<span id="L654" class="ln">   654  </span>	o.Custom = all.Custom
+<span id="L655" class="ln">   655  </span>	o.EndTimestamp = all.EndTimestamp
+<span id="L656" class="ln">   656  </span>	o.Env = all.Env
+<span id="L657" class="ln">   657  </span>	o.Host = all.Host
+<span id="L658" class="ln">   658  </span>	o.IngestionReason = all.IngestionReason
+<span id="L659" class="ln">   659  </span>	o.ParentId = all.ParentId
+<span id="L660" class="ln">   660  </span>	o.ResourceHash = all.ResourceHash
+<span id="L661" class="ln">   661  </span>	o.ResourceName = all.ResourceName
+<span id="L662" class="ln">   662  </span>	o.RetainedBy = all.RetainedBy
+<span id="L663" class="ln">   663  </span>	o.Service = all.Service
+<span id="L664" class="ln">   664  </span>	o.SingleSpan = all.SingleSpan
+<span id="L665" class="ln">   665  </span>	o.SpanId = all.SpanId
+<span id="L666" class="ln">   666  </span>	o.StartTimestamp = all.StartTimestamp
+<span id="L667" class="ln">   667  </span>	o.Tags = all.Tags
+<span id="L668" class="ln">   668  </span>	o.TraceId = all.TraceId
+<span id="L669" class="ln">   669  </span>	o.Type = all.Type
+<span id="L670" class="ln">   670  </span>
+<span id="L671" class="ln">   671  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L672" class="ln">   672  </span>		o.AdditionalProperties = additionalProperties
+<span id="L673" class="ln">   673  </span>	}
+<span id="L674" class="ln">   674  </span>
+<span id="L675" class="ln">   675  </span>	return nil
+<span id="L676" class="ln">   676  </span>}
+<span id="L677" class="ln">   677  </span>
 </pre><p></p>
 
 <div id="footer">

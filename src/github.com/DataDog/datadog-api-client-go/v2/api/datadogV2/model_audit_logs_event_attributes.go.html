@@ -279,41 +279,35 @@
 <span id="L222" class="ln">   222  </span>
 <span id="L223" class="ln">   223  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L224" class="ln">   224  </span>func (o *AuditLogsEventAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L225" class="ln">   225  </span>	raw := map[string]interface{}{}
-<span id="L226" class="ln">   226  </span>	all := struct {
-<span id="L227" class="ln">   227  </span>		Attributes map[string]interface{} `json:&#34;attributes,omitempty&#34;`
-<span id="L228" class="ln">   228  </span>		Message    *string                `json:&#34;message,omitempty&#34;`
-<span id="L229" class="ln">   229  </span>		Service    *string                `json:&#34;service,omitempty&#34;`
-<span id="L230" class="ln">   230  </span>		Tags       []string               `json:&#34;tags,omitempty&#34;`
-<span id="L231" class="ln">   231  </span>		Timestamp  *time.Time             `json:&#34;timestamp,omitempty&#34;`
-<span id="L232" class="ln">   232  </span>	}{}
-<span id="L233" class="ln">   233  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L234" class="ln">   234  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L235" class="ln">   235  </span>		if err != nil {
-<span id="L236" class="ln">   236  </span>			return err
-<span id="L237" class="ln">   237  </span>		}
-<span id="L238" class="ln">   238  </span>		o.UnparsedObject = raw
-<span id="L239" class="ln">   239  </span>		return nil
+<span id="L225" class="ln">   225  </span>	all := struct {
+<span id="L226" class="ln">   226  </span>		Attributes map[string]interface{} `json:&#34;attributes,omitempty&#34;`
+<span id="L227" class="ln">   227  </span>		Message    *string                `json:&#34;message,omitempty&#34;`
+<span id="L228" class="ln">   228  </span>		Service    *string                `json:&#34;service,omitempty&#34;`
+<span id="L229" class="ln">   229  </span>		Tags       []string               `json:&#34;tags,omitempty&#34;`
+<span id="L230" class="ln">   230  </span>		Timestamp  *time.Time             `json:&#34;timestamp,omitempty&#34;`
+<span id="L231" class="ln">   231  </span>	}{}
+<span id="L232" class="ln">   232  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L233" class="ln">   233  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L234" class="ln">   234  </span>	}
+<span id="L235" class="ln">   235  </span>	additionalProperties := make(map[string]interface{})
+<span id="L236" class="ln">   236  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L237" class="ln">   237  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;message&#34;, &#34;service&#34;, &#34;tags&#34;, &#34;timestamp&#34;})
+<span id="L238" class="ln">   238  </span>	} else {
+<span id="L239" class="ln">   239  </span>		return err
 <span id="L240" class="ln">   240  </span>	}
-<span id="L241" class="ln">   241  </span>	additionalProperties := make(map[string]interface{})
-<span id="L242" class="ln">   242  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L243" class="ln">   243  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;message&#34;, &#34;service&#34;, &#34;tags&#34;, &#34;timestamp&#34;})
-<span id="L244" class="ln">   244  </span>	} else {
-<span id="L245" class="ln">   245  </span>		return err
-<span id="L246" class="ln">   246  </span>	}
-<span id="L247" class="ln">   247  </span>	o.Attributes = all.Attributes
-<span id="L248" class="ln">   248  </span>	o.Message = all.Message
-<span id="L249" class="ln">   249  </span>	o.Service = all.Service
-<span id="L250" class="ln">   250  </span>	o.Tags = all.Tags
-<span id="L251" class="ln">   251  </span>	o.Timestamp = all.Timestamp
-<span id="L252" class="ln">   252  </span>
-<span id="L253" class="ln">   253  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L254" class="ln">   254  </span>		o.AdditionalProperties = additionalProperties
-<span id="L255" class="ln">   255  </span>	}
-<span id="L256" class="ln">   256  </span>
-<span id="L257" class="ln">   257  </span>	return nil
-<span id="L258" class="ln">   258  </span>}
-<span id="L259" class="ln">   259  </span>
+<span id="L241" class="ln">   241  </span>	o.Attributes = all.Attributes
+<span id="L242" class="ln">   242  </span>	o.Message = all.Message
+<span id="L243" class="ln">   243  </span>	o.Service = all.Service
+<span id="L244" class="ln">   244  </span>	o.Tags = all.Tags
+<span id="L245" class="ln">   245  </span>	o.Timestamp = all.Timestamp
+<span id="L246" class="ln">   246  </span>
+<span id="L247" class="ln">   247  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L248" class="ln">   248  </span>		o.AdditionalProperties = additionalProperties
+<span id="L249" class="ln">   249  </span>	}
+<span id="L250" class="ln">   250  </span>
+<span id="L251" class="ln">   251  </span>	return nil
+<span id="L252" class="ln">   252  </span>}
+<span id="L253" class="ln">   253  </span>
 </pre><p></p>
 
 <div id="footer">

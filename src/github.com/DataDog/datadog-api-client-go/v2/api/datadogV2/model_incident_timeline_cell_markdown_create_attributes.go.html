@@ -201,60 +201,50 @@
 <span id="L144" class="ln">   144  </span>
 <span id="L145" class="ln">   145  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L146" class="ln">   146  </span>func (o *IncidentTimelineCellMarkdownCreateAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L147" class="ln">   147  </span>	raw := map[string]interface{}{}
-<span id="L148" class="ln">   148  </span>	all := struct {
-<span id="L149" class="ln">   149  </span>		CellType  *IncidentTimelineCellMarkdownContentType             `json:&#34;cell_type&#34;`
-<span id="L150" class="ln">   150  </span>		Content   *IncidentTimelineCellMarkdownCreateAttributesContent `json:&#34;content&#34;`
-<span id="L151" class="ln">   151  </span>		Important *bool                                                `json:&#34;important,omitempty&#34;`
-<span id="L152" class="ln">   152  </span>	}{}
-<span id="L153" class="ln">   153  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L154" class="ln">   154  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L155" class="ln">   155  </span>		if err != nil {
-<span id="L156" class="ln">   156  </span>			return err
-<span id="L157" class="ln">   157  </span>		}
-<span id="L158" class="ln">   158  </span>		o.UnparsedObject = raw
-<span id="L159" class="ln">   159  </span>		return nil
+<span id="L147" class="ln">   147  </span>	all := struct {
+<span id="L148" class="ln">   148  </span>		CellType  *IncidentTimelineCellMarkdownContentType             `json:&#34;cell_type&#34;`
+<span id="L149" class="ln">   149  </span>		Content   *IncidentTimelineCellMarkdownCreateAttributesContent `json:&#34;content&#34;`
+<span id="L150" class="ln">   150  </span>		Important *bool                                                `json:&#34;important,omitempty&#34;`
+<span id="L151" class="ln">   151  </span>	}{}
+<span id="L152" class="ln">   152  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L153" class="ln">   153  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L154" class="ln">   154  </span>	}
+<span id="L155" class="ln">   155  </span>	if all.CellType == nil {
+<span id="L156" class="ln">   156  </span>		return fmt.Errorf(&#34;required field cell_type missing&#34;)
+<span id="L157" class="ln">   157  </span>	}
+<span id="L158" class="ln">   158  </span>	if all.Content == nil {
+<span id="L159" class="ln">   159  </span>		return fmt.Errorf(&#34;required field content missing&#34;)
 <span id="L160" class="ln">   160  </span>	}
-<span id="L161" class="ln">   161  </span>	if all.CellType == nil {
-<span id="L162" class="ln">   162  </span>		return fmt.Errorf(&#34;required field cell_type missing&#34;)
-<span id="L163" class="ln">   163  </span>	}
-<span id="L164" class="ln">   164  </span>	if all.Content == nil {
-<span id="L165" class="ln">   165  </span>		return fmt.Errorf(&#34;required field content missing&#34;)
+<span id="L161" class="ln">   161  </span>	additionalProperties := make(map[string]interface{})
+<span id="L162" class="ln">   162  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L163" class="ln">   163  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cell_type&#34;, &#34;content&#34;, &#34;important&#34;})
+<span id="L164" class="ln">   164  </span>	} else {
+<span id="L165" class="ln">   165  </span>		return err
 <span id="L166" class="ln">   166  </span>	}
-<span id="L167" class="ln">   167  </span>	additionalProperties := make(map[string]interface{})
-<span id="L168" class="ln">   168  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L169" class="ln">   169  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cell_type&#34;, &#34;content&#34;, &#34;important&#34;})
-<span id="L170" class="ln">   170  </span>	} else {
-<span id="L171" class="ln">   171  </span>		return err
-<span id="L172" class="ln">   172  </span>	}
-<span id="L173" class="ln">   173  </span>
-<span id="L174" class="ln">   174  </span>	hasInvalidField := false
-<span id="L175" class="ln">   175  </span>	if v := all.CellType; !v.IsValid() {
-<span id="L176" class="ln">   176  </span>		hasInvalidField = true
-<span id="L177" class="ln">   177  </span>	} else {
-<span id="L178" class="ln">   178  </span>		o.CellType = *all.CellType
-<span id="L179" class="ln">   179  </span>	}
-<span id="L180" class="ln">   180  </span>	if all.Content.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L181" class="ln">   181  </span>		hasInvalidField = true
+<span id="L167" class="ln">   167  </span>
+<span id="L168" class="ln">   168  </span>	hasInvalidField := false
+<span id="L169" class="ln">   169  </span>	if !all.CellType.IsValid() {
+<span id="L170" class="ln">   170  </span>		hasInvalidField = true
+<span id="L171" class="ln">   171  </span>	} else {
+<span id="L172" class="ln">   172  </span>		o.CellType = *all.CellType
+<span id="L173" class="ln">   173  </span>	}
+<span id="L174" class="ln">   174  </span>	if all.Content.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L175" class="ln">   175  </span>		hasInvalidField = true
+<span id="L176" class="ln">   176  </span>	}
+<span id="L177" class="ln">   177  </span>	o.Content = *all.Content
+<span id="L178" class="ln">   178  </span>	o.Important = all.Important
+<span id="L179" class="ln">   179  </span>
+<span id="L180" class="ln">   180  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L181" class="ln">   181  </span>		o.AdditionalProperties = additionalProperties
 <span id="L182" class="ln">   182  </span>	}
-<span id="L183" class="ln">   183  </span>	o.Content = *all.Content
-<span id="L184" class="ln">   184  </span>	o.Important = all.Important
-<span id="L185" class="ln">   185  </span>
-<span id="L186" class="ln">   186  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L187" class="ln">   187  </span>		o.AdditionalProperties = additionalProperties
-<span id="L188" class="ln">   188  </span>	}
-<span id="L189" class="ln">   189  </span>
-<span id="L190" class="ln">   190  </span>	if hasInvalidField {
-<span id="L191" class="ln">   191  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L192" class="ln">   192  </span>		if err != nil {
-<span id="L193" class="ln">   193  </span>			return err
-<span id="L194" class="ln">   194  </span>		}
-<span id="L195" class="ln">   195  </span>		o.UnparsedObject = raw
-<span id="L196" class="ln">   196  </span>	}
-<span id="L197" class="ln">   197  </span>
-<span id="L198" class="ln">   198  </span>	return nil
-<span id="L199" class="ln">   199  </span>}
-<span id="L200" class="ln">   200  </span>
+<span id="L183" class="ln">   183  </span>
+<span id="L184" class="ln">   184  </span>	if hasInvalidField {
+<span id="L185" class="ln">   185  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L186" class="ln">   186  </span>	}
+<span id="L187" class="ln">   187  </span>
+<span id="L188" class="ln">   188  </span>	return nil
+<span id="L189" class="ln">   189  </span>}
+<span id="L190" class="ln">   190  </span>
 </pre><p></p>
 
 <div id="footer">

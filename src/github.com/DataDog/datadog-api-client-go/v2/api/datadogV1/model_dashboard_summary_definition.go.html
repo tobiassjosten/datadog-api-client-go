@@ -424,63 +424,53 @@
 <span id="L367" class="ln">   367  </span>
 <span id="L368" class="ln">   368  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L369" class="ln">   369  </span>func (o *DashboardSummaryDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L370" class="ln">   370  </span>	raw := map[string]interface{}{}
-<span id="L371" class="ln">   371  </span>	all := struct {
-<span id="L372" class="ln">   372  </span>		AuthorHandle *string                `json:&#34;author_handle,omitempty&#34;`
-<span id="L373" class="ln">   373  </span>		CreatedAt    *time.Time             `json:&#34;created_at,omitempty&#34;`
-<span id="L374" class="ln">   374  </span>		Description  datadog.NullableString `json:&#34;description,omitempty&#34;`
-<span id="L375" class="ln">   375  </span>		Id           *string                `json:&#34;id,omitempty&#34;`
-<span id="L376" class="ln">   376  </span>		IsReadOnly   *bool                  `json:&#34;is_read_only,omitempty&#34;`
-<span id="L377" class="ln">   377  </span>		LayoutType   *DashboardLayoutType   `json:&#34;layout_type,omitempty&#34;`
-<span id="L378" class="ln">   378  </span>		ModifiedAt   *time.Time             `json:&#34;modified_at,omitempty&#34;`
-<span id="L379" class="ln">   379  </span>		Title        *string                `json:&#34;title,omitempty&#34;`
-<span id="L380" class="ln">   380  </span>		Url          *string                `json:&#34;url,omitempty&#34;`
-<span id="L381" class="ln">   381  </span>	}{}
-<span id="L382" class="ln">   382  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L383" class="ln">   383  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L384" class="ln">   384  </span>		if err != nil {
-<span id="L385" class="ln">   385  </span>			return err
-<span id="L386" class="ln">   386  </span>		}
-<span id="L387" class="ln">   387  </span>		o.UnparsedObject = raw
-<span id="L388" class="ln">   388  </span>		return nil
+<span id="L370" class="ln">   370  </span>	all := struct {
+<span id="L371" class="ln">   371  </span>		AuthorHandle *string                `json:&#34;author_handle,omitempty&#34;`
+<span id="L372" class="ln">   372  </span>		CreatedAt    *time.Time             `json:&#34;created_at,omitempty&#34;`
+<span id="L373" class="ln">   373  </span>		Description  datadog.NullableString `json:&#34;description,omitempty&#34;`
+<span id="L374" class="ln">   374  </span>		Id           *string                `json:&#34;id,omitempty&#34;`
+<span id="L375" class="ln">   375  </span>		IsReadOnly   *bool                  `json:&#34;is_read_only,omitempty&#34;`
+<span id="L376" class="ln">   376  </span>		LayoutType   *DashboardLayoutType   `json:&#34;layout_type,omitempty&#34;`
+<span id="L377" class="ln">   377  </span>		ModifiedAt   *time.Time             `json:&#34;modified_at,omitempty&#34;`
+<span id="L378" class="ln">   378  </span>		Title        *string                `json:&#34;title,omitempty&#34;`
+<span id="L379" class="ln">   379  </span>		Url          *string                `json:&#34;url,omitempty&#34;`
+<span id="L380" class="ln">   380  </span>	}{}
+<span id="L381" class="ln">   381  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L382" class="ln">   382  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L383" class="ln">   383  </span>	}
+<span id="L384" class="ln">   384  </span>	additionalProperties := make(map[string]interface{})
+<span id="L385" class="ln">   385  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L386" class="ln">   386  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author_handle&#34;, &#34;created_at&#34;, &#34;description&#34;, &#34;id&#34;, &#34;is_read_only&#34;, &#34;layout_type&#34;, &#34;modified_at&#34;, &#34;title&#34;, &#34;url&#34;})
+<span id="L387" class="ln">   387  </span>	} else {
+<span id="L388" class="ln">   388  </span>		return err
 <span id="L389" class="ln">   389  </span>	}
-<span id="L390" class="ln">   390  </span>	additionalProperties := make(map[string]interface{})
-<span id="L391" class="ln">   391  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L392" class="ln">   392  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author_handle&#34;, &#34;created_at&#34;, &#34;description&#34;, &#34;id&#34;, &#34;is_read_only&#34;, &#34;layout_type&#34;, &#34;modified_at&#34;, &#34;title&#34;, &#34;url&#34;})
-<span id="L393" class="ln">   393  </span>	} else {
-<span id="L394" class="ln">   394  </span>		return err
-<span id="L395" class="ln">   395  </span>	}
-<span id="L396" class="ln">   396  </span>
-<span id="L397" class="ln">   397  </span>	hasInvalidField := false
-<span id="L398" class="ln">   398  </span>	o.AuthorHandle = all.AuthorHandle
-<span id="L399" class="ln">   399  </span>	o.CreatedAt = all.CreatedAt
-<span id="L400" class="ln">   400  </span>	o.Description = all.Description
-<span id="L401" class="ln">   401  </span>	o.Id = all.Id
-<span id="L402" class="ln">   402  </span>	o.IsReadOnly = all.IsReadOnly
-<span id="L403" class="ln">   403  </span>	if v := all.LayoutType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L404" class="ln">   404  </span>		hasInvalidField = true
-<span id="L405" class="ln">   405  </span>	} else {
-<span id="L406" class="ln">   406  </span>		o.LayoutType = all.LayoutType
-<span id="L407" class="ln">   407  </span>	}
-<span id="L408" class="ln">   408  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L409" class="ln">   409  </span>	o.Title = all.Title
-<span id="L410" class="ln">   410  </span>	o.Url = all.Url
-<span id="L411" class="ln">   411  </span>
-<span id="L412" class="ln">   412  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L413" class="ln">   413  </span>		o.AdditionalProperties = additionalProperties
-<span id="L414" class="ln">   414  </span>	}
-<span id="L415" class="ln">   415  </span>
-<span id="L416" class="ln">   416  </span>	if hasInvalidField {
-<span id="L417" class="ln">   417  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L418" class="ln">   418  </span>		if err != nil {
-<span id="L419" class="ln">   419  </span>			return err
-<span id="L420" class="ln">   420  </span>		}
-<span id="L421" class="ln">   421  </span>		o.UnparsedObject = raw
-<span id="L422" class="ln">   422  </span>	}
-<span id="L423" class="ln">   423  </span>
-<span id="L424" class="ln">   424  </span>	return nil
-<span id="L425" class="ln">   425  </span>}
-<span id="L426" class="ln">   426  </span>
+<span id="L390" class="ln">   390  </span>
+<span id="L391" class="ln">   391  </span>	hasInvalidField := false
+<span id="L392" class="ln">   392  </span>	o.AuthorHandle = all.AuthorHandle
+<span id="L393" class="ln">   393  </span>	o.CreatedAt = all.CreatedAt
+<span id="L394" class="ln">   394  </span>	o.Description = all.Description
+<span id="L395" class="ln">   395  </span>	o.Id = all.Id
+<span id="L396" class="ln">   396  </span>	o.IsReadOnly = all.IsReadOnly
+<span id="L397" class="ln">   397  </span>	if all.LayoutType != nil &amp;&amp; !all.LayoutType.IsValid() {
+<span id="L398" class="ln">   398  </span>		hasInvalidField = true
+<span id="L399" class="ln">   399  </span>	} else {
+<span id="L400" class="ln">   400  </span>		o.LayoutType = all.LayoutType
+<span id="L401" class="ln">   401  </span>	}
+<span id="L402" class="ln">   402  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L403" class="ln">   403  </span>	o.Title = all.Title
+<span id="L404" class="ln">   404  </span>	o.Url = all.Url
+<span id="L405" class="ln">   405  </span>
+<span id="L406" class="ln">   406  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L407" class="ln">   407  </span>		o.AdditionalProperties = additionalProperties
+<span id="L408" class="ln">   408  </span>	}
+<span id="L409" class="ln">   409  </span>
+<span id="L410" class="ln">   410  </span>	if hasInvalidField {
+<span id="L411" class="ln">   411  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L412" class="ln">   412  </span>	}
+<span id="L413" class="ln">   413  </span>
+<span id="L414" class="ln">   414  </span>	return nil
+<span id="L415" class="ln">   415  </span>}
+<span id="L416" class="ln">   416  </span>
 </pre><p></p>
 
 <div id="footer">

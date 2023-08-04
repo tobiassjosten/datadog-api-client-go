@@ -208,53 +208,43 @@
 <span id="L151" class="ln">   151  </span>
 <span id="L152" class="ln">   152  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L153" class="ln">   153  </span>func (o *DowntimeScheduleRecurrencesResponse) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L154" class="ln">   154  </span>	raw := map[string]interface{}{}
-<span id="L155" class="ln">   155  </span>	all := struct {
-<span id="L156" class="ln">   156  </span>		CurrentDowntime *DowntimeScheduleCurrentDowntimeResponse `json:&#34;current_downtime,omitempty&#34;`
-<span id="L157" class="ln">   157  </span>		Recurrences     *[]DowntimeScheduleRecurrenceResponse    `json:&#34;recurrences&#34;`
-<span id="L158" class="ln">   158  </span>		Timezone        *string                                  `json:&#34;timezone,omitempty&#34;`
-<span id="L159" class="ln">   159  </span>	}{}
-<span id="L160" class="ln">   160  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L161" class="ln">   161  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L162" class="ln">   162  </span>		if err != nil {
-<span id="L163" class="ln">   163  </span>			return err
-<span id="L164" class="ln">   164  </span>		}
-<span id="L165" class="ln">   165  </span>		o.UnparsedObject = raw
-<span id="L166" class="ln">   166  </span>		return nil
-<span id="L167" class="ln">   167  </span>	}
-<span id="L168" class="ln">   168  </span>	if all.Recurrences == nil {
-<span id="L169" class="ln">   169  </span>		return fmt.Errorf(&#34;required field recurrences missing&#34;)
+<span id="L154" class="ln">   154  </span>	all := struct {
+<span id="L155" class="ln">   155  </span>		CurrentDowntime *DowntimeScheduleCurrentDowntimeResponse `json:&#34;current_downtime,omitempty&#34;`
+<span id="L156" class="ln">   156  </span>		Recurrences     *[]DowntimeScheduleRecurrenceResponse    `json:&#34;recurrences&#34;`
+<span id="L157" class="ln">   157  </span>		Timezone        *string                                  `json:&#34;timezone,omitempty&#34;`
+<span id="L158" class="ln">   158  </span>	}{}
+<span id="L159" class="ln">   159  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L160" class="ln">   160  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L161" class="ln">   161  </span>	}
+<span id="L162" class="ln">   162  </span>	if all.Recurrences == nil {
+<span id="L163" class="ln">   163  </span>		return fmt.Errorf(&#34;required field recurrences missing&#34;)
+<span id="L164" class="ln">   164  </span>	}
+<span id="L165" class="ln">   165  </span>	additionalProperties := make(map[string]interface{})
+<span id="L166" class="ln">   166  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L167" class="ln">   167  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;current_downtime&#34;, &#34;recurrences&#34;, &#34;timezone&#34;})
+<span id="L168" class="ln">   168  </span>	} else {
+<span id="L169" class="ln">   169  </span>		return err
 <span id="L170" class="ln">   170  </span>	}
-<span id="L171" class="ln">   171  </span>	additionalProperties := make(map[string]interface{})
-<span id="L172" class="ln">   172  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L173" class="ln">   173  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;current_downtime&#34;, &#34;recurrences&#34;, &#34;timezone&#34;})
-<span id="L174" class="ln">   174  </span>	} else {
-<span id="L175" class="ln">   175  </span>		return err
-<span id="L176" class="ln">   176  </span>	}
-<span id="L177" class="ln">   177  </span>
-<span id="L178" class="ln">   178  </span>	hasInvalidField := false
-<span id="L179" class="ln">   179  </span>	if all.CurrentDowntime != nil &amp;&amp; all.CurrentDowntime.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L180" class="ln">   180  </span>		hasInvalidField = true
-<span id="L181" class="ln">   181  </span>	}
-<span id="L182" class="ln">   182  </span>	o.CurrentDowntime = all.CurrentDowntime
-<span id="L183" class="ln">   183  </span>	o.Recurrences = *all.Recurrences
-<span id="L184" class="ln">   184  </span>	o.Timezone = all.Timezone
-<span id="L185" class="ln">   185  </span>
-<span id="L186" class="ln">   186  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L187" class="ln">   187  </span>		o.AdditionalProperties = additionalProperties
-<span id="L188" class="ln">   188  </span>	}
-<span id="L189" class="ln">   189  </span>
-<span id="L190" class="ln">   190  </span>	if hasInvalidField {
-<span id="L191" class="ln">   191  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L192" class="ln">   192  </span>		if err != nil {
-<span id="L193" class="ln">   193  </span>			return err
-<span id="L194" class="ln">   194  </span>		}
-<span id="L195" class="ln">   195  </span>		o.UnparsedObject = raw
-<span id="L196" class="ln">   196  </span>	}
-<span id="L197" class="ln">   197  </span>
-<span id="L198" class="ln">   198  </span>	return nil
-<span id="L199" class="ln">   199  </span>}
-<span id="L200" class="ln">   200  </span>
+<span id="L171" class="ln">   171  </span>
+<span id="L172" class="ln">   172  </span>	hasInvalidField := false
+<span id="L173" class="ln">   173  </span>	if all.CurrentDowntime != nil &amp;&amp; all.CurrentDowntime.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L174" class="ln">   174  </span>		hasInvalidField = true
+<span id="L175" class="ln">   175  </span>	}
+<span id="L176" class="ln">   176  </span>	o.CurrentDowntime = all.CurrentDowntime
+<span id="L177" class="ln">   177  </span>	o.Recurrences = *all.Recurrences
+<span id="L178" class="ln">   178  </span>	o.Timezone = all.Timezone
+<span id="L179" class="ln">   179  </span>
+<span id="L180" class="ln">   180  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L181" class="ln">   181  </span>		o.AdditionalProperties = additionalProperties
+<span id="L182" class="ln">   182  </span>	}
+<span id="L183" class="ln">   183  </span>
+<span id="L184" class="ln">   184  </span>	if hasInvalidField {
+<span id="L185" class="ln">   185  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L186" class="ln">   186  </span>	}
+<span id="L187" class="ln">   187  </span>
+<span id="L188" class="ln">   188  </span>	return nil
+<span id="L189" class="ln">   189  </span>}
+<span id="L190" class="ln">   190  </span>
 </pre><p></p>
 
 <div id="footer">

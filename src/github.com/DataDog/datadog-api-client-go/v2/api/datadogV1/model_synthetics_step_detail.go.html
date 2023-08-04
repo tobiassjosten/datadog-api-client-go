@@ -668,87 +668,77 @@
 <span id="L611" class="ln">   611  </span>
 <span id="L612" class="ln">   612  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L613" class="ln">   613  </span>func (o *SyntheticsStepDetail) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L614" class="ln">   614  </span>	raw := map[string]interface{}{}
-<span id="L615" class="ln">   615  </span>	all := struct {
-<span id="L616" class="ln">   616  </span>		BrowserErrors       []SyntheticsBrowserError      `json:&#34;browserErrors,omitempty&#34;`
-<span id="L617" class="ln">   617  </span>		CheckType           *SyntheticsCheckType          `json:&#34;checkType,omitempty&#34;`
-<span id="L618" class="ln">   618  </span>		Description         *string                       `json:&#34;description,omitempty&#34;`
-<span id="L619" class="ln">   619  </span>		Duration            *float64                      `json:&#34;duration,omitempty&#34;`
-<span id="L620" class="ln">   620  </span>		Error               *string                       `json:&#34;error,omitempty&#34;`
-<span id="L621" class="ln">   621  </span>		PlayingTab          *SyntheticsPlayingTab         `json:&#34;playingTab,omitempty&#34;`
-<span id="L622" class="ln">   622  </span>		ScreenshotBucketKey *bool                         `json:&#34;screenshotBucketKey,omitempty&#34;`
-<span id="L623" class="ln">   623  </span>		Skipped             *bool                         `json:&#34;skipped,omitempty&#34;`
-<span id="L624" class="ln">   624  </span>		SnapshotBucketKey   *bool                         `json:&#34;snapshotBucketKey,omitempty&#34;`
-<span id="L625" class="ln">   625  </span>		StepId              *int64                        `json:&#34;stepId,omitempty&#34;`
-<span id="L626" class="ln">   626  </span>		SubTestStepDetails  []SyntheticsStepDetail        `json:&#34;subTestStepDetails,omitempty&#34;`
-<span id="L627" class="ln">   627  </span>		TimeToInteractive   *float64                      `json:&#34;timeToInteractive,omitempty&#34;`
-<span id="L628" class="ln">   628  </span>		Type                *SyntheticsStepType           `json:&#34;type,omitempty&#34;`
-<span id="L629" class="ln">   629  </span>		Url                 *string                       `json:&#34;url,omitempty&#34;`
-<span id="L630" class="ln">   630  </span>		Value               interface{}                   `json:&#34;value,omitempty&#34;`
-<span id="L631" class="ln">   631  </span>		VitalsMetrics       []SyntheticsCoreWebVitals     `json:&#34;vitalsMetrics,omitempty&#34;`
-<span id="L632" class="ln">   632  </span>		Warnings            []SyntheticsStepDetailWarning `json:&#34;warnings,omitempty&#34;`
-<span id="L633" class="ln">   633  </span>	}{}
-<span id="L634" class="ln">   634  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L635" class="ln">   635  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L636" class="ln">   636  </span>		if err != nil {
-<span id="L637" class="ln">   637  </span>			return err
-<span id="L638" class="ln">   638  </span>		}
-<span id="L639" class="ln">   639  </span>		o.UnparsedObject = raw
-<span id="L640" class="ln">   640  </span>		return nil
+<span id="L614" class="ln">   614  </span>	all := struct {
+<span id="L615" class="ln">   615  </span>		BrowserErrors       []SyntheticsBrowserError      `json:&#34;browserErrors,omitempty&#34;`
+<span id="L616" class="ln">   616  </span>		CheckType           *SyntheticsCheckType          `json:&#34;checkType,omitempty&#34;`
+<span id="L617" class="ln">   617  </span>		Description         *string                       `json:&#34;description,omitempty&#34;`
+<span id="L618" class="ln">   618  </span>		Duration            *float64                      `json:&#34;duration,omitempty&#34;`
+<span id="L619" class="ln">   619  </span>		Error               *string                       `json:&#34;error,omitempty&#34;`
+<span id="L620" class="ln">   620  </span>		PlayingTab          *SyntheticsPlayingTab         `json:&#34;playingTab,omitempty&#34;`
+<span id="L621" class="ln">   621  </span>		ScreenshotBucketKey *bool                         `json:&#34;screenshotBucketKey,omitempty&#34;`
+<span id="L622" class="ln">   622  </span>		Skipped             *bool                         `json:&#34;skipped,omitempty&#34;`
+<span id="L623" class="ln">   623  </span>		SnapshotBucketKey   *bool                         `json:&#34;snapshotBucketKey,omitempty&#34;`
+<span id="L624" class="ln">   624  </span>		StepId              *int64                        `json:&#34;stepId,omitempty&#34;`
+<span id="L625" class="ln">   625  </span>		SubTestStepDetails  []SyntheticsStepDetail        `json:&#34;subTestStepDetails,omitempty&#34;`
+<span id="L626" class="ln">   626  </span>		TimeToInteractive   *float64                      `json:&#34;timeToInteractive,omitempty&#34;`
+<span id="L627" class="ln">   627  </span>		Type                *SyntheticsStepType           `json:&#34;type,omitempty&#34;`
+<span id="L628" class="ln">   628  </span>		Url                 *string                       `json:&#34;url,omitempty&#34;`
+<span id="L629" class="ln">   629  </span>		Value               interface{}                   `json:&#34;value,omitempty&#34;`
+<span id="L630" class="ln">   630  </span>		VitalsMetrics       []SyntheticsCoreWebVitals     `json:&#34;vitalsMetrics,omitempty&#34;`
+<span id="L631" class="ln">   631  </span>		Warnings            []SyntheticsStepDetailWarning `json:&#34;warnings,omitempty&#34;`
+<span id="L632" class="ln">   632  </span>	}{}
+<span id="L633" class="ln">   633  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L634" class="ln">   634  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L635" class="ln">   635  </span>	}
+<span id="L636" class="ln">   636  </span>	additionalProperties := make(map[string]interface{})
+<span id="L637" class="ln">   637  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L638" class="ln">   638  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;browserErrors&#34;, &#34;checkType&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;error&#34;, &#34;playingTab&#34;, &#34;screenshotBucketKey&#34;, &#34;skipped&#34;, &#34;snapshotBucketKey&#34;, &#34;stepId&#34;, &#34;subTestStepDetails&#34;, &#34;timeToInteractive&#34;, &#34;type&#34;, &#34;url&#34;, &#34;value&#34;, &#34;vitalsMetrics&#34;, &#34;warnings&#34;})
+<span id="L639" class="ln">   639  </span>	} else {
+<span id="L640" class="ln">   640  </span>		return err
 <span id="L641" class="ln">   641  </span>	}
-<span id="L642" class="ln">   642  </span>	additionalProperties := make(map[string]interface{})
-<span id="L643" class="ln">   643  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L644" class="ln">   644  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;browserErrors&#34;, &#34;checkType&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;error&#34;, &#34;playingTab&#34;, &#34;screenshotBucketKey&#34;, &#34;skipped&#34;, &#34;snapshotBucketKey&#34;, &#34;stepId&#34;, &#34;subTestStepDetails&#34;, &#34;timeToInteractive&#34;, &#34;type&#34;, &#34;url&#34;, &#34;value&#34;, &#34;vitalsMetrics&#34;, &#34;warnings&#34;})
-<span id="L645" class="ln">   645  </span>	} else {
-<span id="L646" class="ln">   646  </span>		return err
-<span id="L647" class="ln">   647  </span>	}
-<span id="L648" class="ln">   648  </span>
-<span id="L649" class="ln">   649  </span>	hasInvalidField := false
-<span id="L650" class="ln">   650  </span>	o.BrowserErrors = all.BrowserErrors
-<span id="L651" class="ln">   651  </span>	if v := all.CheckType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L652" class="ln">   652  </span>		hasInvalidField = true
-<span id="L653" class="ln">   653  </span>	} else {
-<span id="L654" class="ln">   654  </span>		o.CheckType = all.CheckType
-<span id="L655" class="ln">   655  </span>	}
-<span id="L656" class="ln">   656  </span>	o.Description = all.Description
-<span id="L657" class="ln">   657  </span>	o.Duration = all.Duration
-<span id="L658" class="ln">   658  </span>	o.Error = all.Error
-<span id="L659" class="ln">   659  </span>	if v := all.PlayingTab; v != nil &amp;&amp; !v.IsValid() {
-<span id="L660" class="ln">   660  </span>		hasInvalidField = true
-<span id="L661" class="ln">   661  </span>	} else {
-<span id="L662" class="ln">   662  </span>		o.PlayingTab = all.PlayingTab
-<span id="L663" class="ln">   663  </span>	}
-<span id="L664" class="ln">   664  </span>	o.ScreenshotBucketKey = all.ScreenshotBucketKey
-<span id="L665" class="ln">   665  </span>	o.Skipped = all.Skipped
-<span id="L666" class="ln">   666  </span>	o.SnapshotBucketKey = all.SnapshotBucketKey
-<span id="L667" class="ln">   667  </span>	o.StepId = all.StepId
-<span id="L668" class="ln">   668  </span>	o.SubTestStepDetails = all.SubTestStepDetails
-<span id="L669" class="ln">   669  </span>	o.TimeToInteractive = all.TimeToInteractive
-<span id="L670" class="ln">   670  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L671" class="ln">   671  </span>		hasInvalidField = true
-<span id="L672" class="ln">   672  </span>	} else {
-<span id="L673" class="ln">   673  </span>		o.Type = all.Type
-<span id="L674" class="ln">   674  </span>	}
-<span id="L675" class="ln">   675  </span>	o.Url = all.Url
-<span id="L676" class="ln">   676  </span>	o.Value = all.Value
-<span id="L677" class="ln">   677  </span>	o.VitalsMetrics = all.VitalsMetrics
-<span id="L678" class="ln">   678  </span>	o.Warnings = all.Warnings
-<span id="L679" class="ln">   679  </span>
-<span id="L680" class="ln">   680  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L681" class="ln">   681  </span>		o.AdditionalProperties = additionalProperties
-<span id="L682" class="ln">   682  </span>	}
-<span id="L683" class="ln">   683  </span>
-<span id="L684" class="ln">   684  </span>	if hasInvalidField {
-<span id="L685" class="ln">   685  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L686" class="ln">   686  </span>		if err != nil {
-<span id="L687" class="ln">   687  </span>			return err
-<span id="L688" class="ln">   688  </span>		}
-<span id="L689" class="ln">   689  </span>		o.UnparsedObject = raw
-<span id="L690" class="ln">   690  </span>	}
-<span id="L691" class="ln">   691  </span>
-<span id="L692" class="ln">   692  </span>	return nil
-<span id="L693" class="ln">   693  </span>}
-<span id="L694" class="ln">   694  </span>
+<span id="L642" class="ln">   642  </span>
+<span id="L643" class="ln">   643  </span>	hasInvalidField := false
+<span id="L644" class="ln">   644  </span>	o.BrowserErrors = all.BrowserErrors
+<span id="L645" class="ln">   645  </span>	if all.CheckType != nil &amp;&amp; !all.CheckType.IsValid() {
+<span id="L646" class="ln">   646  </span>		hasInvalidField = true
+<span id="L647" class="ln">   647  </span>	} else {
+<span id="L648" class="ln">   648  </span>		o.CheckType = all.CheckType
+<span id="L649" class="ln">   649  </span>	}
+<span id="L650" class="ln">   650  </span>	o.Description = all.Description
+<span id="L651" class="ln">   651  </span>	o.Duration = all.Duration
+<span id="L652" class="ln">   652  </span>	o.Error = all.Error
+<span id="L653" class="ln">   653  </span>	if all.PlayingTab != nil &amp;&amp; !all.PlayingTab.IsValid() {
+<span id="L654" class="ln">   654  </span>		hasInvalidField = true
+<span id="L655" class="ln">   655  </span>	} else {
+<span id="L656" class="ln">   656  </span>		o.PlayingTab = all.PlayingTab
+<span id="L657" class="ln">   657  </span>	}
+<span id="L658" class="ln">   658  </span>	o.ScreenshotBucketKey = all.ScreenshotBucketKey
+<span id="L659" class="ln">   659  </span>	o.Skipped = all.Skipped
+<span id="L660" class="ln">   660  </span>	o.SnapshotBucketKey = all.SnapshotBucketKey
+<span id="L661" class="ln">   661  </span>	o.StepId = all.StepId
+<span id="L662" class="ln">   662  </span>	o.SubTestStepDetails = all.SubTestStepDetails
+<span id="L663" class="ln">   663  </span>	o.TimeToInteractive = all.TimeToInteractive
+<span id="L664" class="ln">   664  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
+<span id="L665" class="ln">   665  </span>		hasInvalidField = true
+<span id="L666" class="ln">   666  </span>	} else {
+<span id="L667" class="ln">   667  </span>		o.Type = all.Type
+<span id="L668" class="ln">   668  </span>	}
+<span id="L669" class="ln">   669  </span>	o.Url = all.Url
+<span id="L670" class="ln">   670  </span>	o.Value = all.Value
+<span id="L671" class="ln">   671  </span>	o.VitalsMetrics = all.VitalsMetrics
+<span id="L672" class="ln">   672  </span>	o.Warnings = all.Warnings
+<span id="L673" class="ln">   673  </span>
+<span id="L674" class="ln">   674  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L675" class="ln">   675  </span>		o.AdditionalProperties = additionalProperties
+<span id="L676" class="ln">   676  </span>	}
+<span id="L677" class="ln">   677  </span>
+<span id="L678" class="ln">   678  </span>	if hasInvalidField {
+<span id="L679" class="ln">   679  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L680" class="ln">   680  </span>	}
+<span id="L681" class="ln">   681  </span>
+<span id="L682" class="ln">   682  </span>	return nil
+<span id="L683" class="ln">   683  </span>}
+<span id="L684" class="ln">   684  </span>
 </pre><p></p>
 
 <div id="footer">

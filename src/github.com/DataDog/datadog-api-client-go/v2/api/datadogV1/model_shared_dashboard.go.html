@@ -498,83 +498,73 @@
 <span id="L441" class="ln">   441  </span>
 <span id="L442" class="ln">   442  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L443" class="ln">   443  </span>func (o *SharedDashboard) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L444" class="ln">   444  </span>	raw := map[string]interface{}{}
-<span id="L445" class="ln">   445  </span>	all := struct {
-<span id="L446" class="ln">   446  </span>		Author                      *SharedDashboardAuthor            `json:&#34;author,omitempty&#34;`
-<span id="L447" class="ln">   447  </span>		CreatedAt                   *time.Time                        `json:&#34;created_at,omitempty&#34;`
-<span id="L448" class="ln">   448  </span>		DashboardId                 *string                           `json:&#34;dashboard_id&#34;`
-<span id="L449" class="ln">   449  </span>		DashboardType               *DashboardType                    `json:&#34;dashboard_type&#34;`
-<span id="L450" class="ln">   450  </span>		GlobalTime                  *DashboardGlobalTime              `json:&#34;global_time,omitempty&#34;`
-<span id="L451" class="ln">   451  </span>		GlobalTimeSelectableEnabled datadog.NullableBool              `json:&#34;global_time_selectable_enabled,omitempty&#34;`
-<span id="L452" class="ln">   452  </span>		PublicUrl                   *string                           `json:&#34;public_url,omitempty&#34;`
-<span id="L453" class="ln">   453  </span>		SelectableTemplateVars      []SelectableTemplateVariableItems `json:&#34;selectable_template_vars,omitempty&#34;`
-<span id="L454" class="ln">   454  </span>		ShareList                   datadog.NullableList[string]      `json:&#34;share_list,omitempty&#34;`
-<span id="L455" class="ln">   455  </span>		ShareType                   NullableDashboardShareType        `json:&#34;share_type,omitempty&#34;`
-<span id="L456" class="ln">   456  </span>		Token                       *string                           `json:&#34;token,omitempty&#34;`
-<span id="L457" class="ln">   457  </span>	}{}
-<span id="L458" class="ln">   458  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L459" class="ln">   459  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L460" class="ln">   460  </span>		if err != nil {
-<span id="L461" class="ln">   461  </span>			return err
-<span id="L462" class="ln">   462  </span>		}
-<span id="L463" class="ln">   463  </span>		o.UnparsedObject = raw
-<span id="L464" class="ln">   464  </span>		return nil
+<span id="L444" class="ln">   444  </span>	all := struct {
+<span id="L445" class="ln">   445  </span>		Author                      *SharedDashboardAuthor            `json:&#34;author,omitempty&#34;`
+<span id="L446" class="ln">   446  </span>		CreatedAt                   *time.Time                        `json:&#34;created_at,omitempty&#34;`
+<span id="L447" class="ln">   447  </span>		DashboardId                 *string                           `json:&#34;dashboard_id&#34;`
+<span id="L448" class="ln">   448  </span>		DashboardType               *DashboardType                    `json:&#34;dashboard_type&#34;`
+<span id="L449" class="ln">   449  </span>		GlobalTime                  *DashboardGlobalTime              `json:&#34;global_time,omitempty&#34;`
+<span id="L450" class="ln">   450  </span>		GlobalTimeSelectableEnabled datadog.NullableBool              `json:&#34;global_time_selectable_enabled,omitempty&#34;`
+<span id="L451" class="ln">   451  </span>		PublicUrl                   *string                           `json:&#34;public_url,omitempty&#34;`
+<span id="L452" class="ln">   452  </span>		SelectableTemplateVars      []SelectableTemplateVariableItems `json:&#34;selectable_template_vars,omitempty&#34;`
+<span id="L453" class="ln">   453  </span>		ShareList                   datadog.NullableList[string]      `json:&#34;share_list,omitempty&#34;`
+<span id="L454" class="ln">   454  </span>		ShareType                   NullableDashboardShareType        `json:&#34;share_type,omitempty&#34;`
+<span id="L455" class="ln">   455  </span>		Token                       *string                           `json:&#34;token,omitempty&#34;`
+<span id="L456" class="ln">   456  </span>	}{}
+<span id="L457" class="ln">   457  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L458" class="ln">   458  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L459" class="ln">   459  </span>	}
+<span id="L460" class="ln">   460  </span>	if all.DashboardId == nil {
+<span id="L461" class="ln">   461  </span>		return fmt.Errorf(&#34;required field dashboard_id missing&#34;)
+<span id="L462" class="ln">   462  </span>	}
+<span id="L463" class="ln">   463  </span>	if all.DashboardType == nil {
+<span id="L464" class="ln">   464  </span>		return fmt.Errorf(&#34;required field dashboard_type missing&#34;)
 <span id="L465" class="ln">   465  </span>	}
-<span id="L466" class="ln">   466  </span>	if all.DashboardId == nil {
-<span id="L467" class="ln">   467  </span>		return fmt.Errorf(&#34;required field dashboard_id missing&#34;)
-<span id="L468" class="ln">   468  </span>	}
-<span id="L469" class="ln">   469  </span>	if all.DashboardType == nil {
-<span id="L470" class="ln">   470  </span>		return fmt.Errorf(&#34;required field dashboard_type missing&#34;)
+<span id="L466" class="ln">   466  </span>	additionalProperties := make(map[string]interface{})
+<span id="L467" class="ln">   467  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L468" class="ln">   468  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author&#34;, &#34;created_at&#34;, &#34;dashboard_id&#34;, &#34;dashboard_type&#34;, &#34;global_time&#34;, &#34;global_time_selectable_enabled&#34;, &#34;public_url&#34;, &#34;selectable_template_vars&#34;, &#34;share_list&#34;, &#34;share_type&#34;, &#34;token&#34;})
+<span id="L469" class="ln">   469  </span>	} else {
+<span id="L470" class="ln">   470  </span>		return err
 <span id="L471" class="ln">   471  </span>	}
-<span id="L472" class="ln">   472  </span>	additionalProperties := make(map[string]interface{})
-<span id="L473" class="ln">   473  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L474" class="ln">   474  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;author&#34;, &#34;created_at&#34;, &#34;dashboard_id&#34;, &#34;dashboard_type&#34;, &#34;global_time&#34;, &#34;global_time_selectable_enabled&#34;, &#34;public_url&#34;, &#34;selectable_template_vars&#34;, &#34;share_list&#34;, &#34;share_type&#34;, &#34;token&#34;})
-<span id="L475" class="ln">   475  </span>	} else {
-<span id="L476" class="ln">   476  </span>		return err
-<span id="L477" class="ln">   477  </span>	}
-<span id="L478" class="ln">   478  </span>
-<span id="L479" class="ln">   479  </span>	hasInvalidField := false
-<span id="L480" class="ln">   480  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L472" class="ln">   472  </span>
+<span id="L473" class="ln">   473  </span>	hasInvalidField := false
+<span id="L474" class="ln">   474  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L475" class="ln">   475  </span>		hasInvalidField = true
+<span id="L476" class="ln">   476  </span>	}
+<span id="L477" class="ln">   477  </span>	o.Author = all.Author
+<span id="L478" class="ln">   478  </span>	o.CreatedAt = all.CreatedAt
+<span id="L479" class="ln">   479  </span>	o.DashboardId = *all.DashboardId
+<span id="L480" class="ln">   480  </span>	if !all.DashboardType.IsValid() {
 <span id="L481" class="ln">   481  </span>		hasInvalidField = true
-<span id="L482" class="ln">   482  </span>	}
-<span id="L483" class="ln">   483  </span>	o.Author = all.Author
-<span id="L484" class="ln">   484  </span>	o.CreatedAt = all.CreatedAt
-<span id="L485" class="ln">   485  </span>	o.DashboardId = *all.DashboardId
-<span id="L486" class="ln">   486  </span>	if v := all.DashboardType; !v.IsValid() {
-<span id="L487" class="ln">   487  </span>		hasInvalidField = true
-<span id="L488" class="ln">   488  </span>	} else {
-<span id="L489" class="ln">   489  </span>		o.DashboardType = *all.DashboardType
-<span id="L490" class="ln">   490  </span>	}
-<span id="L491" class="ln">   491  </span>	if all.GlobalTime != nil &amp;&amp; all.GlobalTime.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L492" class="ln">   492  </span>		hasInvalidField = true
-<span id="L493" class="ln">   493  </span>	}
-<span id="L494" class="ln">   494  </span>	o.GlobalTime = all.GlobalTime
-<span id="L495" class="ln">   495  </span>	o.GlobalTimeSelectableEnabled = all.GlobalTimeSelectableEnabled
-<span id="L496" class="ln">   496  </span>	o.PublicUrl = all.PublicUrl
-<span id="L497" class="ln">   497  </span>	o.SelectableTemplateVars = all.SelectableTemplateVars
-<span id="L498" class="ln">   498  </span>	o.ShareList = all.ShareList
-<span id="L499" class="ln">   499  </span>	if v := all.ShareType; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L500" class="ln">   500  </span>		hasInvalidField = true
-<span id="L501" class="ln">   501  </span>	} else {
-<span id="L502" class="ln">   502  </span>		o.ShareType = all.ShareType
-<span id="L503" class="ln">   503  </span>	}
-<span id="L504" class="ln">   504  </span>	o.Token = all.Token
-<span id="L505" class="ln">   505  </span>
-<span id="L506" class="ln">   506  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L507" class="ln">   507  </span>		o.AdditionalProperties = additionalProperties
-<span id="L508" class="ln">   508  </span>	}
-<span id="L509" class="ln">   509  </span>
-<span id="L510" class="ln">   510  </span>	if hasInvalidField {
-<span id="L511" class="ln">   511  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L512" class="ln">   512  </span>		if err != nil {
-<span id="L513" class="ln">   513  </span>			return err
-<span id="L514" class="ln">   514  </span>		}
-<span id="L515" class="ln">   515  </span>		o.UnparsedObject = raw
-<span id="L516" class="ln">   516  </span>	}
-<span id="L517" class="ln">   517  </span>
-<span id="L518" class="ln">   518  </span>	return nil
-<span id="L519" class="ln">   519  </span>}
-<span id="L520" class="ln">   520  </span>
+<span id="L482" class="ln">   482  </span>	} else {
+<span id="L483" class="ln">   483  </span>		o.DashboardType = *all.DashboardType
+<span id="L484" class="ln">   484  </span>	}
+<span id="L485" class="ln">   485  </span>	if all.GlobalTime != nil &amp;&amp; all.GlobalTime.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L486" class="ln">   486  </span>		hasInvalidField = true
+<span id="L487" class="ln">   487  </span>	}
+<span id="L488" class="ln">   488  </span>	o.GlobalTime = all.GlobalTime
+<span id="L489" class="ln">   489  </span>	o.GlobalTimeSelectableEnabled = all.GlobalTimeSelectableEnabled
+<span id="L490" class="ln">   490  </span>	o.PublicUrl = all.PublicUrl
+<span id="L491" class="ln">   491  </span>	o.SelectableTemplateVars = all.SelectableTemplateVars
+<span id="L492" class="ln">   492  </span>	o.ShareList = all.ShareList
+<span id="L493" class="ln">   493  </span>	if all.ShareType.Get() != nil &amp;&amp; !all.ShareType.Get().IsValid() {
+<span id="L494" class="ln">   494  </span>		hasInvalidField = true
+<span id="L495" class="ln">   495  </span>	} else {
+<span id="L496" class="ln">   496  </span>		o.ShareType = all.ShareType
+<span id="L497" class="ln">   497  </span>	}
+<span id="L498" class="ln">   498  </span>	o.Token = all.Token
+<span id="L499" class="ln">   499  </span>
+<span id="L500" class="ln">   500  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L501" class="ln">   501  </span>		o.AdditionalProperties = additionalProperties
+<span id="L502" class="ln">   502  </span>	}
+<span id="L503" class="ln">   503  </span>
+<span id="L504" class="ln">   504  </span>	if hasInvalidField {
+<span id="L505" class="ln">   505  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L506" class="ln">   506  </span>	}
+<span id="L507" class="ln">   507  </span>
+<span id="L508" class="ln">   508  </span>	return nil
+<span id="L509" class="ln">   509  </span>}
+<span id="L510" class="ln">   510  </span>
 </pre><p></p>
 
 <div id="footer">

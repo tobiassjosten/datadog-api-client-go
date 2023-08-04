@@ -355,70 +355,60 @@
 <span id="L298" class="ln">   298  </span>
 <span id="L299" class="ln">   299  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L300" class="ln">   300  </span>func (o *SLOCorrectionCreateRequestAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L301" class="ln">   301  </span>	raw := map[string]interface{}{}
-<span id="L302" class="ln">   302  </span>	all := struct {
-<span id="L303" class="ln">   303  </span>		Category    *SLOCorrectionCategory `json:&#34;category&#34;`
-<span id="L304" class="ln">   304  </span>		Description *string                `json:&#34;description,omitempty&#34;`
-<span id="L305" class="ln">   305  </span>		Duration    *int64                 `json:&#34;duration,omitempty&#34;`
-<span id="L306" class="ln">   306  </span>		End         *int64                 `json:&#34;end,omitempty&#34;`
-<span id="L307" class="ln">   307  </span>		Rrule       *string                `json:&#34;rrule,omitempty&#34;`
-<span id="L308" class="ln">   308  </span>		SloId       *string                `json:&#34;slo_id&#34;`
-<span id="L309" class="ln">   309  </span>		Start       *int64                 `json:&#34;start&#34;`
-<span id="L310" class="ln">   310  </span>		Timezone    *string                `json:&#34;timezone,omitempty&#34;`
-<span id="L311" class="ln">   311  </span>	}{}
-<span id="L312" class="ln">   312  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L313" class="ln">   313  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L314" class="ln">   314  </span>		if err != nil {
-<span id="L315" class="ln">   315  </span>			return err
-<span id="L316" class="ln">   316  </span>		}
-<span id="L317" class="ln">   317  </span>		o.UnparsedObject = raw
-<span id="L318" class="ln">   318  </span>		return nil
+<span id="L301" class="ln">   301  </span>	all := struct {
+<span id="L302" class="ln">   302  </span>		Category    *SLOCorrectionCategory `json:&#34;category&#34;`
+<span id="L303" class="ln">   303  </span>		Description *string                `json:&#34;description,omitempty&#34;`
+<span id="L304" class="ln">   304  </span>		Duration    *int64                 `json:&#34;duration,omitempty&#34;`
+<span id="L305" class="ln">   305  </span>		End         *int64                 `json:&#34;end,omitempty&#34;`
+<span id="L306" class="ln">   306  </span>		Rrule       *string                `json:&#34;rrule,omitempty&#34;`
+<span id="L307" class="ln">   307  </span>		SloId       *string                `json:&#34;slo_id&#34;`
+<span id="L308" class="ln">   308  </span>		Start       *int64                 `json:&#34;start&#34;`
+<span id="L309" class="ln">   309  </span>		Timezone    *string                `json:&#34;timezone,omitempty&#34;`
+<span id="L310" class="ln">   310  </span>	}{}
+<span id="L311" class="ln">   311  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L312" class="ln">   312  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L313" class="ln">   313  </span>	}
+<span id="L314" class="ln">   314  </span>	if all.Category == nil {
+<span id="L315" class="ln">   315  </span>		return fmt.Errorf(&#34;required field category missing&#34;)
+<span id="L316" class="ln">   316  </span>	}
+<span id="L317" class="ln">   317  </span>	if all.SloId == nil {
+<span id="L318" class="ln">   318  </span>		return fmt.Errorf(&#34;required field slo_id missing&#34;)
 <span id="L319" class="ln">   319  </span>	}
-<span id="L320" class="ln">   320  </span>	if all.Category == nil {
-<span id="L321" class="ln">   321  </span>		return fmt.Errorf(&#34;required field category missing&#34;)
+<span id="L320" class="ln">   320  </span>	if all.Start == nil {
+<span id="L321" class="ln">   321  </span>		return fmt.Errorf(&#34;required field start missing&#34;)
 <span id="L322" class="ln">   322  </span>	}
-<span id="L323" class="ln">   323  </span>	if all.SloId == nil {
-<span id="L324" class="ln">   324  </span>		return fmt.Errorf(&#34;required field slo_id missing&#34;)
-<span id="L325" class="ln">   325  </span>	}
-<span id="L326" class="ln">   326  </span>	if all.Start == nil {
-<span id="L327" class="ln">   327  </span>		return fmt.Errorf(&#34;required field start missing&#34;)
+<span id="L323" class="ln">   323  </span>	additionalProperties := make(map[string]interface{})
+<span id="L324" class="ln">   324  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L325" class="ln">   325  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;category&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;end&#34;, &#34;rrule&#34;, &#34;slo_id&#34;, &#34;start&#34;, &#34;timezone&#34;})
+<span id="L326" class="ln">   326  </span>	} else {
+<span id="L327" class="ln">   327  </span>		return err
 <span id="L328" class="ln">   328  </span>	}
-<span id="L329" class="ln">   329  </span>	additionalProperties := make(map[string]interface{})
-<span id="L330" class="ln">   330  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L331" class="ln">   331  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;category&#34;, &#34;description&#34;, &#34;duration&#34;, &#34;end&#34;, &#34;rrule&#34;, &#34;slo_id&#34;, &#34;start&#34;, &#34;timezone&#34;})
-<span id="L332" class="ln">   332  </span>	} else {
-<span id="L333" class="ln">   333  </span>		return err
-<span id="L334" class="ln">   334  </span>	}
-<span id="L335" class="ln">   335  </span>
-<span id="L336" class="ln">   336  </span>	hasInvalidField := false
-<span id="L337" class="ln">   337  </span>	if v := all.Category; !v.IsValid() {
-<span id="L338" class="ln">   338  </span>		hasInvalidField = true
-<span id="L339" class="ln">   339  </span>	} else {
-<span id="L340" class="ln">   340  </span>		o.Category = *all.Category
-<span id="L341" class="ln">   341  </span>	}
-<span id="L342" class="ln">   342  </span>	o.Description = all.Description
-<span id="L343" class="ln">   343  </span>	o.Duration = all.Duration
-<span id="L344" class="ln">   344  </span>	o.End = all.End
-<span id="L345" class="ln">   345  </span>	o.Rrule = all.Rrule
-<span id="L346" class="ln">   346  </span>	o.SloId = *all.SloId
-<span id="L347" class="ln">   347  </span>	o.Start = *all.Start
-<span id="L348" class="ln">   348  </span>	o.Timezone = all.Timezone
-<span id="L349" class="ln">   349  </span>
-<span id="L350" class="ln">   350  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L351" class="ln">   351  </span>		o.AdditionalProperties = additionalProperties
-<span id="L352" class="ln">   352  </span>	}
-<span id="L353" class="ln">   353  </span>
-<span id="L354" class="ln">   354  </span>	if hasInvalidField {
-<span id="L355" class="ln">   355  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L356" class="ln">   356  </span>		if err != nil {
-<span id="L357" class="ln">   357  </span>			return err
-<span id="L358" class="ln">   358  </span>		}
-<span id="L359" class="ln">   359  </span>		o.UnparsedObject = raw
-<span id="L360" class="ln">   360  </span>	}
-<span id="L361" class="ln">   361  </span>
-<span id="L362" class="ln">   362  </span>	return nil
-<span id="L363" class="ln">   363  </span>}
-<span id="L364" class="ln">   364  </span>
+<span id="L329" class="ln">   329  </span>
+<span id="L330" class="ln">   330  </span>	hasInvalidField := false
+<span id="L331" class="ln">   331  </span>	if !all.Category.IsValid() {
+<span id="L332" class="ln">   332  </span>		hasInvalidField = true
+<span id="L333" class="ln">   333  </span>	} else {
+<span id="L334" class="ln">   334  </span>		o.Category = *all.Category
+<span id="L335" class="ln">   335  </span>	}
+<span id="L336" class="ln">   336  </span>	o.Description = all.Description
+<span id="L337" class="ln">   337  </span>	o.Duration = all.Duration
+<span id="L338" class="ln">   338  </span>	o.End = all.End
+<span id="L339" class="ln">   339  </span>	o.Rrule = all.Rrule
+<span id="L340" class="ln">   340  </span>	o.SloId = *all.SloId
+<span id="L341" class="ln">   341  </span>	o.Start = *all.Start
+<span id="L342" class="ln">   342  </span>	o.Timezone = all.Timezone
+<span id="L343" class="ln">   343  </span>
+<span id="L344" class="ln">   344  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L345" class="ln">   345  </span>		o.AdditionalProperties = additionalProperties
+<span id="L346" class="ln">   346  </span>	}
+<span id="L347" class="ln">   347  </span>
+<span id="L348" class="ln">   348  </span>	if hasInvalidField {
+<span id="L349" class="ln">   349  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L350" class="ln">   350  </span>	}
+<span id="L351" class="ln">   351  </span>
+<span id="L352" class="ln">   352  </span>	return nil
+<span id="L353" class="ln">   353  </span>}
+<span id="L354" class="ln">   354  </span>
 </pre><p></p>
 
 <div id="footer">

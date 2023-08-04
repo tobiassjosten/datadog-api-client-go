@@ -872,71 +872,65 @@
 <span id="L815" class="ln">   815  </span>
 <span id="L816" class="ln">   816  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L817" class="ln">   817  </span>func (o *Downtime) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L818" class="ln">   818  </span>	raw := map[string]interface{}{}
-<span id="L819" class="ln">   819  </span>	all := struct {
-<span id="L820" class="ln">   820  </span>		Active                        *bool                      `json:&#34;active,omitempty&#34;`
-<span id="L821" class="ln">   821  </span>		ActiveChild                   NullableDowntimeChild      `json:&#34;active_child,omitempty&#34;`
-<span id="L822" class="ln">   822  </span>		Canceled                      datadog.NullableInt64      `json:&#34;canceled,omitempty&#34;`
-<span id="L823" class="ln">   823  </span>		CreatorId                     *int32                     `json:&#34;creator_id,omitempty&#34;`
-<span id="L824" class="ln">   824  </span>		Disabled                      *bool                      `json:&#34;disabled,omitempty&#34;`
-<span id="L825" class="ln">   825  </span>		DowntimeType                  *int32                     `json:&#34;downtime_type,omitempty&#34;`
-<span id="L826" class="ln">   826  </span>		End                           datadog.NullableInt64      `json:&#34;end,omitempty&#34;`
-<span id="L827" class="ln">   827  </span>		Id                            *int64                     `json:&#34;id,omitempty&#34;`
-<span id="L828" class="ln">   828  </span>		Message                       datadog.NullableString     `json:&#34;message,omitempty&#34;`
-<span id="L829" class="ln">   829  </span>		MonitorId                     datadog.NullableInt64      `json:&#34;monitor_id,omitempty&#34;`
-<span id="L830" class="ln">   830  </span>		MonitorTags                   []string                   `json:&#34;monitor_tags,omitempty&#34;`
-<span id="L831" class="ln">   831  </span>		MuteFirstRecoveryNotification *bool                      `json:&#34;mute_first_recovery_notification,omitempty&#34;`
-<span id="L832" class="ln">   832  </span>		NotifyEndStates               []NotifyEndState           `json:&#34;notify_end_states,omitempty&#34;`
-<span id="L833" class="ln">   833  </span>		NotifyEndTypes                []NotifyEndType            `json:&#34;notify_end_types,omitempty&#34;`
-<span id="L834" class="ln">   834  </span>		ParentId                      datadog.NullableInt64      `json:&#34;parent_id,omitempty&#34;`
-<span id="L835" class="ln">   835  </span>		Recurrence                    NullableDowntimeRecurrence `json:&#34;recurrence,omitempty&#34;`
-<span id="L836" class="ln">   836  </span>		Scope                         []string                   `json:&#34;scope,omitempty&#34;`
-<span id="L837" class="ln">   837  </span>		Start                         *int64                     `json:&#34;start,omitempty&#34;`
-<span id="L838" class="ln">   838  </span>		Timezone                      *string                    `json:&#34;timezone,omitempty&#34;`
-<span id="L839" class="ln">   839  </span>		UpdaterId                     datadog.NullableInt32      `json:&#34;updater_id,omitempty&#34;`
-<span id="L840" class="ln">   840  </span>	}{}
-<span id="L841" class="ln">   841  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L842" class="ln">   842  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L843" class="ln">   843  </span>		if err != nil {
-<span id="L844" class="ln">   844  </span>			return err
-<span id="L845" class="ln">   845  </span>		}
-<span id="L846" class="ln">   846  </span>		o.UnparsedObject = raw
-<span id="L847" class="ln">   847  </span>		return nil
+<span id="L818" class="ln">   818  </span>	all := struct {
+<span id="L819" class="ln">   819  </span>		Active                        *bool                      `json:&#34;active,omitempty&#34;`
+<span id="L820" class="ln">   820  </span>		ActiveChild                   NullableDowntimeChild      `json:&#34;active_child,omitempty&#34;`
+<span id="L821" class="ln">   821  </span>		Canceled                      datadog.NullableInt64      `json:&#34;canceled,omitempty&#34;`
+<span id="L822" class="ln">   822  </span>		CreatorId                     *int32                     `json:&#34;creator_id,omitempty&#34;`
+<span id="L823" class="ln">   823  </span>		Disabled                      *bool                      `json:&#34;disabled,omitempty&#34;`
+<span id="L824" class="ln">   824  </span>		DowntimeType                  *int32                     `json:&#34;downtime_type,omitempty&#34;`
+<span id="L825" class="ln">   825  </span>		End                           datadog.NullableInt64      `json:&#34;end,omitempty&#34;`
+<span id="L826" class="ln">   826  </span>		Id                            *int64                     `json:&#34;id,omitempty&#34;`
+<span id="L827" class="ln">   827  </span>		Message                       datadog.NullableString     `json:&#34;message,omitempty&#34;`
+<span id="L828" class="ln">   828  </span>		MonitorId                     datadog.NullableInt64      `json:&#34;monitor_id,omitempty&#34;`
+<span id="L829" class="ln">   829  </span>		MonitorTags                   []string                   `json:&#34;monitor_tags,omitempty&#34;`
+<span id="L830" class="ln">   830  </span>		MuteFirstRecoveryNotification *bool                      `json:&#34;mute_first_recovery_notification,omitempty&#34;`
+<span id="L831" class="ln">   831  </span>		NotifyEndStates               []NotifyEndState           `json:&#34;notify_end_states,omitempty&#34;`
+<span id="L832" class="ln">   832  </span>		NotifyEndTypes                []NotifyEndType            `json:&#34;notify_end_types,omitempty&#34;`
+<span id="L833" class="ln">   833  </span>		ParentId                      datadog.NullableInt64      `json:&#34;parent_id,omitempty&#34;`
+<span id="L834" class="ln">   834  </span>		Recurrence                    NullableDowntimeRecurrence `json:&#34;recurrence,omitempty&#34;`
+<span id="L835" class="ln">   835  </span>		Scope                         []string                   `json:&#34;scope,omitempty&#34;`
+<span id="L836" class="ln">   836  </span>		Start                         *int64                     `json:&#34;start,omitempty&#34;`
+<span id="L837" class="ln">   837  </span>		Timezone                      *string                    `json:&#34;timezone,omitempty&#34;`
+<span id="L838" class="ln">   838  </span>		UpdaterId                     datadog.NullableInt32      `json:&#34;updater_id,omitempty&#34;`
+<span id="L839" class="ln">   839  </span>	}{}
+<span id="L840" class="ln">   840  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L841" class="ln">   841  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L842" class="ln">   842  </span>	}
+<span id="L843" class="ln">   843  </span>	additionalProperties := make(map[string]interface{})
+<span id="L844" class="ln">   844  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L845" class="ln">   845  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;active&#34;, &#34;active_child&#34;, &#34;canceled&#34;, &#34;creator_id&#34;, &#34;disabled&#34;, &#34;downtime_type&#34;, &#34;end&#34;, &#34;id&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;monitor_tags&#34;, &#34;mute_first_recovery_notification&#34;, &#34;notify_end_states&#34;, &#34;notify_end_types&#34;, &#34;parent_id&#34;, &#34;recurrence&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;timezone&#34;, &#34;updater_id&#34;})
+<span id="L846" class="ln">   846  </span>	} else {
+<span id="L847" class="ln">   847  </span>		return err
 <span id="L848" class="ln">   848  </span>	}
-<span id="L849" class="ln">   849  </span>	additionalProperties := make(map[string]interface{})
-<span id="L850" class="ln">   850  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L851" class="ln">   851  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;active&#34;, &#34;active_child&#34;, &#34;canceled&#34;, &#34;creator_id&#34;, &#34;disabled&#34;, &#34;downtime_type&#34;, &#34;end&#34;, &#34;id&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;monitor_tags&#34;, &#34;mute_first_recovery_notification&#34;, &#34;notify_end_states&#34;, &#34;notify_end_types&#34;, &#34;parent_id&#34;, &#34;recurrence&#34;, &#34;scope&#34;, &#34;start&#34;, &#34;timezone&#34;, &#34;updater_id&#34;})
-<span id="L852" class="ln">   852  </span>	} else {
-<span id="L853" class="ln">   853  </span>		return err
-<span id="L854" class="ln">   854  </span>	}
-<span id="L855" class="ln">   855  </span>	o.Active = all.Active
-<span id="L856" class="ln">   856  </span>	o.ActiveChild = all.ActiveChild
-<span id="L857" class="ln">   857  </span>	o.Canceled = all.Canceled
-<span id="L858" class="ln">   858  </span>	o.CreatorId = all.CreatorId
-<span id="L859" class="ln">   859  </span>	o.Disabled = all.Disabled
-<span id="L860" class="ln">   860  </span>	o.DowntimeType = all.DowntimeType
-<span id="L861" class="ln">   861  </span>	o.End = all.End
-<span id="L862" class="ln">   862  </span>	o.Id = all.Id
-<span id="L863" class="ln">   863  </span>	o.Message = all.Message
-<span id="L864" class="ln">   864  </span>	o.MonitorId = all.MonitorId
-<span id="L865" class="ln">   865  </span>	o.MonitorTags = all.MonitorTags
-<span id="L866" class="ln">   866  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
-<span id="L867" class="ln">   867  </span>	o.NotifyEndStates = all.NotifyEndStates
-<span id="L868" class="ln">   868  </span>	o.NotifyEndTypes = all.NotifyEndTypes
-<span id="L869" class="ln">   869  </span>	o.ParentId = all.ParentId
-<span id="L870" class="ln">   870  </span>	o.Recurrence = all.Recurrence
-<span id="L871" class="ln">   871  </span>	o.Scope = all.Scope
-<span id="L872" class="ln">   872  </span>	o.Start = all.Start
-<span id="L873" class="ln">   873  </span>	o.Timezone = all.Timezone
-<span id="L874" class="ln">   874  </span>	o.UpdaterId = all.UpdaterId
-<span id="L875" class="ln">   875  </span>
-<span id="L876" class="ln">   876  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L877" class="ln">   877  </span>		o.AdditionalProperties = additionalProperties
-<span id="L878" class="ln">   878  </span>	}
-<span id="L879" class="ln">   879  </span>
-<span id="L880" class="ln">   880  </span>	return nil
-<span id="L881" class="ln">   881  </span>}
-<span id="L882" class="ln">   882  </span>
+<span id="L849" class="ln">   849  </span>	o.Active = all.Active
+<span id="L850" class="ln">   850  </span>	o.ActiveChild = all.ActiveChild
+<span id="L851" class="ln">   851  </span>	o.Canceled = all.Canceled
+<span id="L852" class="ln">   852  </span>	o.CreatorId = all.CreatorId
+<span id="L853" class="ln">   853  </span>	o.Disabled = all.Disabled
+<span id="L854" class="ln">   854  </span>	o.DowntimeType = all.DowntimeType
+<span id="L855" class="ln">   855  </span>	o.End = all.End
+<span id="L856" class="ln">   856  </span>	o.Id = all.Id
+<span id="L857" class="ln">   857  </span>	o.Message = all.Message
+<span id="L858" class="ln">   858  </span>	o.MonitorId = all.MonitorId
+<span id="L859" class="ln">   859  </span>	o.MonitorTags = all.MonitorTags
+<span id="L860" class="ln">   860  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
+<span id="L861" class="ln">   861  </span>	o.NotifyEndStates = all.NotifyEndStates
+<span id="L862" class="ln">   862  </span>	o.NotifyEndTypes = all.NotifyEndTypes
+<span id="L863" class="ln">   863  </span>	o.ParentId = all.ParentId
+<span id="L864" class="ln">   864  </span>	o.Recurrence = all.Recurrence
+<span id="L865" class="ln">   865  </span>	o.Scope = all.Scope
+<span id="L866" class="ln">   866  </span>	o.Start = all.Start
+<span id="L867" class="ln">   867  </span>	o.Timezone = all.Timezone
+<span id="L868" class="ln">   868  </span>	o.UpdaterId = all.UpdaterId
+<span id="L869" class="ln">   869  </span>
+<span id="L870" class="ln">   870  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L871" class="ln">   871  </span>		o.AdditionalProperties = additionalProperties
+<span id="L872" class="ln">   872  </span>	}
+<span id="L873" class="ln">   873  </span>
+<span id="L874" class="ln">   874  </span>	return nil
+<span id="L875" class="ln">   875  </span>}
+<span id="L876" class="ln">   876  </span>
 </pre><p></p>
 
 <div id="footer">

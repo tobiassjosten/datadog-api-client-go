@@ -966,107 +966,97 @@
 <span id="L909" class="ln">   909  </span>
 <span id="L910" class="ln">   910  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L911" class="ln">   911  </span>func (o *SyntheticsTestRequest) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L912" class="ln">   912  </span>	raw := map[string]interface{}{}
-<span id="L913" class="ln">   913  </span>	all := struct {
-<span id="L914" class="ln">   914  </span>		AllowInsecure            *bool                             `json:&#34;allow_insecure,omitempty&#34;`
-<span id="L915" class="ln">   915  </span>		BasicAuth                *SyntheticsBasicAuth              `json:&#34;basicAuth,omitempty&#34;`
-<span id="L916" class="ln">   916  </span>		Body                     *string                           `json:&#34;body,omitempty&#34;`
-<span id="L917" class="ln">   917  </span>		BodyType                 *SyntheticsTestRequestBodyType    `json:&#34;bodyType,omitempty&#34;`
-<span id="L918" class="ln">   918  </span>		CallType                 *SyntheticsTestCallType           `json:&#34;callType,omitempty&#34;`
-<span id="L919" class="ln">   919  </span>		Certificate              *SyntheticsTestRequestCertificate `json:&#34;certificate,omitempty&#34;`
-<span id="L920" class="ln">   920  </span>		CertificateDomains       []string                          `json:&#34;certificateDomains,omitempty&#34;`
-<span id="L921" class="ln">   921  </span>		CompressedJsonDescriptor *string                           `json:&#34;compressedJsonDescriptor,omitempty&#34;`
-<span id="L922" class="ln">   922  </span>		DnsServer                *string                           `json:&#34;dnsServer,omitempty&#34;`
-<span id="L923" class="ln">   923  </span>		DnsServerPort            *int32                            `json:&#34;dnsServerPort,omitempty&#34;`
-<span id="L924" class="ln">   924  </span>		FollowRedirects          *bool                             `json:&#34;follow_redirects,omitempty&#34;`
-<span id="L925" class="ln">   925  </span>		Headers                  map[string]string                 `json:&#34;headers,omitempty&#34;`
-<span id="L926" class="ln">   926  </span>		Host                     *string                           `json:&#34;host,omitempty&#34;`
-<span id="L927" class="ln">   927  </span>		Message                  *string                           `json:&#34;message,omitempty&#34;`
-<span id="L928" class="ln">   928  </span>		Metadata                 map[string]string                 `json:&#34;metadata,omitempty&#34;`
-<span id="L929" class="ln">   929  </span>		Method                   *string                           `json:&#34;method,omitempty&#34;`
-<span id="L930" class="ln">   930  </span>		NoSavingResponseBody     *bool                             `json:&#34;noSavingResponseBody,omitempty&#34;`
-<span id="L931" class="ln">   931  </span>		NumberOfPackets          *int32                            `json:&#34;numberOfPackets,omitempty&#34;`
-<span id="L932" class="ln">   932  </span>		Port                     *int64                            `json:&#34;port,omitempty&#34;`
-<span id="L933" class="ln">   933  </span>		Proxy                    *SyntheticsTestRequestProxy       `json:&#34;proxy,omitempty&#34;`
-<span id="L934" class="ln">   934  </span>		Query                    interface{}                       `json:&#34;query,omitempty&#34;`
-<span id="L935" class="ln">   935  </span>		Servername               *string                           `json:&#34;servername,omitempty&#34;`
-<span id="L936" class="ln">   936  </span>		Service                  *string                           `json:&#34;service,omitempty&#34;`
-<span id="L937" class="ln">   937  </span>		ShouldTrackHops          *bool                             `json:&#34;shouldTrackHops,omitempty&#34;`
-<span id="L938" class="ln">   938  </span>		Timeout                  *float64                          `json:&#34;timeout,omitempty&#34;`
-<span id="L939" class="ln">   939  </span>		Url                      *string                           `json:&#34;url,omitempty&#34;`
-<span id="L940" class="ln">   940  </span>	}{}
-<span id="L941" class="ln">   941  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L942" class="ln">   942  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L943" class="ln">   943  </span>		if err != nil {
-<span id="L944" class="ln">   944  </span>			return err
-<span id="L945" class="ln">   945  </span>		}
-<span id="L946" class="ln">   946  </span>		o.UnparsedObject = raw
-<span id="L947" class="ln">   947  </span>		return nil
+<span id="L912" class="ln">   912  </span>	all := struct {
+<span id="L913" class="ln">   913  </span>		AllowInsecure            *bool                             `json:&#34;allow_insecure,omitempty&#34;`
+<span id="L914" class="ln">   914  </span>		BasicAuth                *SyntheticsBasicAuth              `json:&#34;basicAuth,omitempty&#34;`
+<span id="L915" class="ln">   915  </span>		Body                     *string                           `json:&#34;body,omitempty&#34;`
+<span id="L916" class="ln">   916  </span>		BodyType                 *SyntheticsTestRequestBodyType    `json:&#34;bodyType,omitempty&#34;`
+<span id="L917" class="ln">   917  </span>		CallType                 *SyntheticsTestCallType           `json:&#34;callType,omitempty&#34;`
+<span id="L918" class="ln">   918  </span>		Certificate              *SyntheticsTestRequestCertificate `json:&#34;certificate,omitempty&#34;`
+<span id="L919" class="ln">   919  </span>		CertificateDomains       []string                          `json:&#34;certificateDomains,omitempty&#34;`
+<span id="L920" class="ln">   920  </span>		CompressedJsonDescriptor *string                           `json:&#34;compressedJsonDescriptor,omitempty&#34;`
+<span id="L921" class="ln">   921  </span>		DnsServer                *string                           `json:&#34;dnsServer,omitempty&#34;`
+<span id="L922" class="ln">   922  </span>		DnsServerPort            *int32                            `json:&#34;dnsServerPort,omitempty&#34;`
+<span id="L923" class="ln">   923  </span>		FollowRedirects          *bool                             `json:&#34;follow_redirects,omitempty&#34;`
+<span id="L924" class="ln">   924  </span>		Headers                  map[string]string                 `json:&#34;headers,omitempty&#34;`
+<span id="L925" class="ln">   925  </span>		Host                     *string                           `json:&#34;host,omitempty&#34;`
+<span id="L926" class="ln">   926  </span>		Message                  *string                           `json:&#34;message,omitempty&#34;`
+<span id="L927" class="ln">   927  </span>		Metadata                 map[string]string                 `json:&#34;metadata,omitempty&#34;`
+<span id="L928" class="ln">   928  </span>		Method                   *string                           `json:&#34;method,omitempty&#34;`
+<span id="L929" class="ln">   929  </span>		NoSavingResponseBody     *bool                             `json:&#34;noSavingResponseBody,omitempty&#34;`
+<span id="L930" class="ln">   930  </span>		NumberOfPackets          *int32                            `json:&#34;numberOfPackets,omitempty&#34;`
+<span id="L931" class="ln">   931  </span>		Port                     *int64                            `json:&#34;port,omitempty&#34;`
+<span id="L932" class="ln">   932  </span>		Proxy                    *SyntheticsTestRequestProxy       `json:&#34;proxy,omitempty&#34;`
+<span id="L933" class="ln">   933  </span>		Query                    interface{}                       `json:&#34;query,omitempty&#34;`
+<span id="L934" class="ln">   934  </span>		Servername               *string                           `json:&#34;servername,omitempty&#34;`
+<span id="L935" class="ln">   935  </span>		Service                  *string                           `json:&#34;service,omitempty&#34;`
+<span id="L936" class="ln">   936  </span>		ShouldTrackHops          *bool                             `json:&#34;shouldTrackHops,omitempty&#34;`
+<span id="L937" class="ln">   937  </span>		Timeout                  *float64                          `json:&#34;timeout,omitempty&#34;`
+<span id="L938" class="ln">   938  </span>		Url                      *string                           `json:&#34;url,omitempty&#34;`
+<span id="L939" class="ln">   939  </span>	}{}
+<span id="L940" class="ln">   940  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L941" class="ln">   941  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L942" class="ln">   942  </span>	}
+<span id="L943" class="ln">   943  </span>	additionalProperties := make(map[string]interface{})
+<span id="L944" class="ln">   944  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L945" class="ln">   945  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;allow_insecure&#34;, &#34;basicAuth&#34;, &#34;body&#34;, &#34;bodyType&#34;, &#34;callType&#34;, &#34;certificate&#34;, &#34;certificateDomains&#34;, &#34;compressedJsonDescriptor&#34;, &#34;dnsServer&#34;, &#34;dnsServerPort&#34;, &#34;follow_redirects&#34;, &#34;headers&#34;, &#34;host&#34;, &#34;message&#34;, &#34;metadata&#34;, &#34;method&#34;, &#34;noSavingResponseBody&#34;, &#34;numberOfPackets&#34;, &#34;port&#34;, &#34;proxy&#34;, &#34;query&#34;, &#34;servername&#34;, &#34;service&#34;, &#34;shouldTrackHops&#34;, &#34;timeout&#34;, &#34;url&#34;})
+<span id="L946" class="ln">   946  </span>	} else {
+<span id="L947" class="ln">   947  </span>		return err
 <span id="L948" class="ln">   948  </span>	}
-<span id="L949" class="ln">   949  </span>	additionalProperties := make(map[string]interface{})
-<span id="L950" class="ln">   950  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L951" class="ln">   951  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;allow_insecure&#34;, &#34;basicAuth&#34;, &#34;body&#34;, &#34;bodyType&#34;, &#34;callType&#34;, &#34;certificate&#34;, &#34;certificateDomains&#34;, &#34;compressedJsonDescriptor&#34;, &#34;dnsServer&#34;, &#34;dnsServerPort&#34;, &#34;follow_redirects&#34;, &#34;headers&#34;, &#34;host&#34;, &#34;message&#34;, &#34;metadata&#34;, &#34;method&#34;, &#34;noSavingResponseBody&#34;, &#34;numberOfPackets&#34;, &#34;port&#34;, &#34;proxy&#34;, &#34;query&#34;, &#34;servername&#34;, &#34;service&#34;, &#34;shouldTrackHops&#34;, &#34;timeout&#34;, &#34;url&#34;})
-<span id="L952" class="ln">   952  </span>	} else {
-<span id="L953" class="ln">   953  </span>		return err
-<span id="L954" class="ln">   954  </span>	}
-<span id="L955" class="ln">   955  </span>
-<span id="L956" class="ln">   956  </span>	hasInvalidField := false
-<span id="L957" class="ln">   957  </span>	o.AllowInsecure = all.AllowInsecure
-<span id="L958" class="ln">   958  </span>	o.BasicAuth = all.BasicAuth
-<span id="L959" class="ln">   959  </span>	o.Body = all.Body
-<span id="L960" class="ln">   960  </span>	if v := all.BodyType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L961" class="ln">   961  </span>		hasInvalidField = true
-<span id="L962" class="ln">   962  </span>	} else {
-<span id="L963" class="ln">   963  </span>		o.BodyType = all.BodyType
-<span id="L964" class="ln">   964  </span>	}
-<span id="L965" class="ln">   965  </span>	if v := all.CallType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L966" class="ln">   966  </span>		hasInvalidField = true
-<span id="L967" class="ln">   967  </span>	} else {
-<span id="L968" class="ln">   968  </span>		o.CallType = all.CallType
-<span id="L969" class="ln">   969  </span>	}
-<span id="L970" class="ln">   970  </span>	if all.Certificate != nil &amp;&amp; all.Certificate.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L971" class="ln">   971  </span>		hasInvalidField = true
-<span id="L972" class="ln">   972  </span>	}
-<span id="L973" class="ln">   973  </span>	o.Certificate = all.Certificate
-<span id="L974" class="ln">   974  </span>	o.CertificateDomains = all.CertificateDomains
-<span id="L975" class="ln">   975  </span>	o.CompressedJsonDescriptor = all.CompressedJsonDescriptor
-<span id="L976" class="ln">   976  </span>	o.DnsServer = all.DnsServer
-<span id="L977" class="ln">   977  </span>	o.DnsServerPort = all.DnsServerPort
-<span id="L978" class="ln">   978  </span>	o.FollowRedirects = all.FollowRedirects
-<span id="L979" class="ln">   979  </span>	o.Headers = all.Headers
-<span id="L980" class="ln">   980  </span>	o.Host = all.Host
-<span id="L981" class="ln">   981  </span>	o.Message = all.Message
-<span id="L982" class="ln">   982  </span>	o.Metadata = all.Metadata
-<span id="L983" class="ln">   983  </span>	o.Method = all.Method
-<span id="L984" class="ln">   984  </span>	o.NoSavingResponseBody = all.NoSavingResponseBody
-<span id="L985" class="ln">   985  </span>	o.NumberOfPackets = all.NumberOfPackets
-<span id="L986" class="ln">   986  </span>	o.Port = all.Port
-<span id="L987" class="ln">   987  </span>	if all.Proxy != nil &amp;&amp; all.Proxy.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L988" class="ln">   988  </span>		hasInvalidField = true
-<span id="L989" class="ln">   989  </span>	}
-<span id="L990" class="ln">   990  </span>	o.Proxy = all.Proxy
-<span id="L991" class="ln">   991  </span>	o.Query = all.Query
-<span id="L992" class="ln">   992  </span>	o.Servername = all.Servername
-<span id="L993" class="ln">   993  </span>	o.Service = all.Service
-<span id="L994" class="ln">   994  </span>	o.ShouldTrackHops = all.ShouldTrackHops
-<span id="L995" class="ln">   995  </span>	o.Timeout = all.Timeout
-<span id="L996" class="ln">   996  </span>	o.Url = all.Url
-<span id="L997" class="ln">   997  </span>
-<span id="L998" class="ln">   998  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L999" class="ln">   999  </span>		o.AdditionalProperties = additionalProperties
-<span id="L1000" class="ln">  1000  </span>	}
-<span id="L1001" class="ln">  1001  </span>
-<span id="L1002" class="ln">  1002  </span>	if hasInvalidField {
-<span id="L1003" class="ln">  1003  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L1004" class="ln">  1004  </span>		if err != nil {
-<span id="L1005" class="ln">  1005  </span>			return err
-<span id="L1006" class="ln">  1006  </span>		}
-<span id="L1007" class="ln">  1007  </span>		o.UnparsedObject = raw
-<span id="L1008" class="ln">  1008  </span>	}
-<span id="L1009" class="ln">  1009  </span>
-<span id="L1010" class="ln">  1010  </span>	return nil
-<span id="L1011" class="ln">  1011  </span>}
-<span id="L1012" class="ln">  1012  </span>
+<span id="L949" class="ln">   949  </span>
+<span id="L950" class="ln">   950  </span>	hasInvalidField := false
+<span id="L951" class="ln">   951  </span>	o.AllowInsecure = all.AllowInsecure
+<span id="L952" class="ln">   952  </span>	o.BasicAuth = all.BasicAuth
+<span id="L953" class="ln">   953  </span>	o.Body = all.Body
+<span id="L954" class="ln">   954  </span>	if all.BodyType != nil &amp;&amp; !all.BodyType.IsValid() {
+<span id="L955" class="ln">   955  </span>		hasInvalidField = true
+<span id="L956" class="ln">   956  </span>	} else {
+<span id="L957" class="ln">   957  </span>		o.BodyType = all.BodyType
+<span id="L958" class="ln">   958  </span>	}
+<span id="L959" class="ln">   959  </span>	if all.CallType != nil &amp;&amp; !all.CallType.IsValid() {
+<span id="L960" class="ln">   960  </span>		hasInvalidField = true
+<span id="L961" class="ln">   961  </span>	} else {
+<span id="L962" class="ln">   962  </span>		o.CallType = all.CallType
+<span id="L963" class="ln">   963  </span>	}
+<span id="L964" class="ln">   964  </span>	if all.Certificate != nil &amp;&amp; all.Certificate.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L965" class="ln">   965  </span>		hasInvalidField = true
+<span id="L966" class="ln">   966  </span>	}
+<span id="L967" class="ln">   967  </span>	o.Certificate = all.Certificate
+<span id="L968" class="ln">   968  </span>	o.CertificateDomains = all.CertificateDomains
+<span id="L969" class="ln">   969  </span>	o.CompressedJsonDescriptor = all.CompressedJsonDescriptor
+<span id="L970" class="ln">   970  </span>	o.DnsServer = all.DnsServer
+<span id="L971" class="ln">   971  </span>	o.DnsServerPort = all.DnsServerPort
+<span id="L972" class="ln">   972  </span>	o.FollowRedirects = all.FollowRedirects
+<span id="L973" class="ln">   973  </span>	o.Headers = all.Headers
+<span id="L974" class="ln">   974  </span>	o.Host = all.Host
+<span id="L975" class="ln">   975  </span>	o.Message = all.Message
+<span id="L976" class="ln">   976  </span>	o.Metadata = all.Metadata
+<span id="L977" class="ln">   977  </span>	o.Method = all.Method
+<span id="L978" class="ln">   978  </span>	o.NoSavingResponseBody = all.NoSavingResponseBody
+<span id="L979" class="ln">   979  </span>	o.NumberOfPackets = all.NumberOfPackets
+<span id="L980" class="ln">   980  </span>	o.Port = all.Port
+<span id="L981" class="ln">   981  </span>	if all.Proxy != nil &amp;&amp; all.Proxy.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L982" class="ln">   982  </span>		hasInvalidField = true
+<span id="L983" class="ln">   983  </span>	}
+<span id="L984" class="ln">   984  </span>	o.Proxy = all.Proxy
+<span id="L985" class="ln">   985  </span>	o.Query = all.Query
+<span id="L986" class="ln">   986  </span>	o.Servername = all.Servername
+<span id="L987" class="ln">   987  </span>	o.Service = all.Service
+<span id="L988" class="ln">   988  </span>	o.ShouldTrackHops = all.ShouldTrackHops
+<span id="L989" class="ln">   989  </span>	o.Timeout = all.Timeout
+<span id="L990" class="ln">   990  </span>	o.Url = all.Url
+<span id="L991" class="ln">   991  </span>
+<span id="L992" class="ln">   992  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L993" class="ln">   993  </span>		o.AdditionalProperties = additionalProperties
+<span id="L994" class="ln">   994  </span>	}
+<span id="L995" class="ln">   995  </span>
+<span id="L996" class="ln">   996  </span>	if hasInvalidField {
+<span id="L997" class="ln">   997  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L998" class="ln">   998  </span>	}
+<span id="L999" class="ln">   999  </span>
+<span id="L1000" class="ln">  1000  </span>	return nil
+<span id="L1001" class="ln">  1001  </span>}
+<span id="L1002" class="ln">  1002  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -249,39 +249,33 @@
 <span id="L192" class="ln">   192  </span>
 <span id="L193" class="ln">   193  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L194" class="ln">   194  </span>func (o *SyntheticsTriggerCITestsResponse) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L195" class="ln">   195  </span>	raw := map[string]interface{}{}
-<span id="L196" class="ln">   196  </span>	all := struct {
-<span id="L197" class="ln">   197  </span>		BatchId           datadog.NullableString             `json:&#34;batch_id,omitempty&#34;`
-<span id="L198" class="ln">   198  </span>		Locations         []SyntheticsTriggerCITestLocation  `json:&#34;locations,omitempty&#34;`
-<span id="L199" class="ln">   199  </span>		Results           []SyntheticsTriggerCITestRunResult `json:&#34;results,omitempty&#34;`
-<span id="L200" class="ln">   200  </span>		TriggeredCheckIds []string                           `json:&#34;triggered_check_ids,omitempty&#34;`
-<span id="L201" class="ln">   201  </span>	}{}
-<span id="L202" class="ln">   202  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L203" class="ln">   203  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L204" class="ln">   204  </span>		if err != nil {
-<span id="L205" class="ln">   205  </span>			return err
-<span id="L206" class="ln">   206  </span>		}
-<span id="L207" class="ln">   207  </span>		o.UnparsedObject = raw
-<span id="L208" class="ln">   208  </span>		return nil
+<span id="L195" class="ln">   195  </span>	all := struct {
+<span id="L196" class="ln">   196  </span>		BatchId           datadog.NullableString             `json:&#34;batch_id,omitempty&#34;`
+<span id="L197" class="ln">   197  </span>		Locations         []SyntheticsTriggerCITestLocation  `json:&#34;locations,omitempty&#34;`
+<span id="L198" class="ln">   198  </span>		Results           []SyntheticsTriggerCITestRunResult `json:&#34;results,omitempty&#34;`
+<span id="L199" class="ln">   199  </span>		TriggeredCheckIds []string                           `json:&#34;triggered_check_ids,omitempty&#34;`
+<span id="L200" class="ln">   200  </span>	}{}
+<span id="L201" class="ln">   201  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L202" class="ln">   202  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L203" class="ln">   203  </span>	}
+<span id="L204" class="ln">   204  </span>	additionalProperties := make(map[string]interface{})
+<span id="L205" class="ln">   205  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L206" class="ln">   206  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;batch_id&#34;, &#34;locations&#34;, &#34;results&#34;, &#34;triggered_check_ids&#34;})
+<span id="L207" class="ln">   207  </span>	} else {
+<span id="L208" class="ln">   208  </span>		return err
 <span id="L209" class="ln">   209  </span>	}
-<span id="L210" class="ln">   210  </span>	additionalProperties := make(map[string]interface{})
-<span id="L211" class="ln">   211  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L212" class="ln">   212  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;batch_id&#34;, &#34;locations&#34;, &#34;results&#34;, &#34;triggered_check_ids&#34;})
-<span id="L213" class="ln">   213  </span>	} else {
-<span id="L214" class="ln">   214  </span>		return err
-<span id="L215" class="ln">   215  </span>	}
-<span id="L216" class="ln">   216  </span>	o.BatchId = all.BatchId
-<span id="L217" class="ln">   217  </span>	o.Locations = all.Locations
-<span id="L218" class="ln">   218  </span>	o.Results = all.Results
-<span id="L219" class="ln">   219  </span>	o.TriggeredCheckIds = all.TriggeredCheckIds
-<span id="L220" class="ln">   220  </span>
-<span id="L221" class="ln">   221  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L222" class="ln">   222  </span>		o.AdditionalProperties = additionalProperties
-<span id="L223" class="ln">   223  </span>	}
-<span id="L224" class="ln">   224  </span>
-<span id="L225" class="ln">   225  </span>	return nil
-<span id="L226" class="ln">   226  </span>}
-<span id="L227" class="ln">   227  </span>
+<span id="L210" class="ln">   210  </span>	o.BatchId = all.BatchId
+<span id="L211" class="ln">   211  </span>	o.Locations = all.Locations
+<span id="L212" class="ln">   212  </span>	o.Results = all.Results
+<span id="L213" class="ln">   213  </span>	o.TriggeredCheckIds = all.TriggeredCheckIds
+<span id="L214" class="ln">   214  </span>
+<span id="L215" class="ln">   215  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L216" class="ln">   216  </span>		o.AdditionalProperties = additionalProperties
+<span id="L217" class="ln">   217  </span>	}
+<span id="L218" class="ln">   218  </span>
+<span id="L219" class="ln">   219  </span>	return nil
+<span id="L220" class="ln">   220  </span>}
+<span id="L221" class="ln">   221  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -410,88 +410,78 @@
 <span id="L353" class="ln">   353  </span>
 <span id="L354" class="ln">   354  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L355" class="ln">   355  </span>func (o *SecurityMonitoringRuleOptions) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L356" class="ln">   356  </span>	raw := map[string]interface{}{}
-<span id="L357" class="ln">   357  </span>	all := struct {
-<span id="L358" class="ln">   358  </span>		ComplianceRuleOptions         *CloudConfigurationComplianceRuleOptions       `json:&#34;complianceRuleOptions,omitempty&#34;`
-<span id="L359" class="ln">   359  </span>		DecreaseCriticalityBasedOnEnv *bool                                          `json:&#34;decreaseCriticalityBasedOnEnv,omitempty&#34;`
-<span id="L360" class="ln">   360  </span>		DetectionMethod               *SecurityMonitoringRuleDetectionMethod         `json:&#34;detectionMethod,omitempty&#34;`
-<span id="L361" class="ln">   361  </span>		EvaluationWindow              *SecurityMonitoringRuleEvaluationWindow        `json:&#34;evaluationWindow,omitempty&#34;`
-<span id="L362" class="ln">   362  </span>		HardcodedEvaluatorType        *SecurityMonitoringRuleHardcodedEvaluatorType  `json:&#34;hardcodedEvaluatorType,omitempty&#34;`
-<span id="L363" class="ln">   363  </span>		ImpossibleTravelOptions       *SecurityMonitoringRuleImpossibleTravelOptions `json:&#34;impossibleTravelOptions,omitempty&#34;`
-<span id="L364" class="ln">   364  </span>		KeepAlive                     *SecurityMonitoringRuleKeepAlive               `json:&#34;keepAlive,omitempty&#34;`
-<span id="L365" class="ln">   365  </span>		MaxSignalDuration             *SecurityMonitoringRuleMaxSignalDuration       `json:&#34;maxSignalDuration,omitempty&#34;`
-<span id="L366" class="ln">   366  </span>		NewValueOptions               *SecurityMonitoringRuleNewValueOptions         `json:&#34;newValueOptions,omitempty&#34;`
-<span id="L367" class="ln">   367  </span>	}{}
-<span id="L368" class="ln">   368  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L369" class="ln">   369  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L370" class="ln">   370  </span>		if err != nil {
-<span id="L371" class="ln">   371  </span>			return err
-<span id="L372" class="ln">   372  </span>		}
-<span id="L373" class="ln">   373  </span>		o.UnparsedObject = raw
-<span id="L374" class="ln">   374  </span>		return nil
+<span id="L356" class="ln">   356  </span>	all := struct {
+<span id="L357" class="ln">   357  </span>		ComplianceRuleOptions         *CloudConfigurationComplianceRuleOptions       `json:&#34;complianceRuleOptions,omitempty&#34;`
+<span id="L358" class="ln">   358  </span>		DecreaseCriticalityBasedOnEnv *bool                                          `json:&#34;decreaseCriticalityBasedOnEnv,omitempty&#34;`
+<span id="L359" class="ln">   359  </span>		DetectionMethod               *SecurityMonitoringRuleDetectionMethod         `json:&#34;detectionMethod,omitempty&#34;`
+<span id="L360" class="ln">   360  </span>		EvaluationWindow              *SecurityMonitoringRuleEvaluationWindow        `json:&#34;evaluationWindow,omitempty&#34;`
+<span id="L361" class="ln">   361  </span>		HardcodedEvaluatorType        *SecurityMonitoringRuleHardcodedEvaluatorType  `json:&#34;hardcodedEvaluatorType,omitempty&#34;`
+<span id="L362" class="ln">   362  </span>		ImpossibleTravelOptions       *SecurityMonitoringRuleImpossibleTravelOptions `json:&#34;impossibleTravelOptions,omitempty&#34;`
+<span id="L363" class="ln">   363  </span>		KeepAlive                     *SecurityMonitoringRuleKeepAlive               `json:&#34;keepAlive,omitempty&#34;`
+<span id="L364" class="ln">   364  </span>		MaxSignalDuration             *SecurityMonitoringRuleMaxSignalDuration       `json:&#34;maxSignalDuration,omitempty&#34;`
+<span id="L365" class="ln">   365  </span>		NewValueOptions               *SecurityMonitoringRuleNewValueOptions         `json:&#34;newValueOptions,omitempty&#34;`
+<span id="L366" class="ln">   366  </span>	}{}
+<span id="L367" class="ln">   367  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L368" class="ln">   368  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L369" class="ln">   369  </span>	}
+<span id="L370" class="ln">   370  </span>	additionalProperties := make(map[string]interface{})
+<span id="L371" class="ln">   371  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L372" class="ln">   372  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;complianceRuleOptions&#34;, &#34;decreaseCriticalityBasedOnEnv&#34;, &#34;detectionMethod&#34;, &#34;evaluationWindow&#34;, &#34;hardcodedEvaluatorType&#34;, &#34;impossibleTravelOptions&#34;, &#34;keepAlive&#34;, &#34;maxSignalDuration&#34;, &#34;newValueOptions&#34;})
+<span id="L373" class="ln">   373  </span>	} else {
+<span id="L374" class="ln">   374  </span>		return err
 <span id="L375" class="ln">   375  </span>	}
-<span id="L376" class="ln">   376  </span>	additionalProperties := make(map[string]interface{})
-<span id="L377" class="ln">   377  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L378" class="ln">   378  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;complianceRuleOptions&#34;, &#34;decreaseCriticalityBasedOnEnv&#34;, &#34;detectionMethod&#34;, &#34;evaluationWindow&#34;, &#34;hardcodedEvaluatorType&#34;, &#34;impossibleTravelOptions&#34;, &#34;keepAlive&#34;, &#34;maxSignalDuration&#34;, &#34;newValueOptions&#34;})
-<span id="L379" class="ln">   379  </span>	} else {
-<span id="L380" class="ln">   380  </span>		return err
-<span id="L381" class="ln">   381  </span>	}
-<span id="L382" class="ln">   382  </span>
-<span id="L383" class="ln">   383  </span>	hasInvalidField := false
-<span id="L384" class="ln">   384  </span>	if all.ComplianceRuleOptions != nil &amp;&amp; all.ComplianceRuleOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L385" class="ln">   385  </span>		hasInvalidField = true
-<span id="L386" class="ln">   386  </span>	}
-<span id="L387" class="ln">   387  </span>	o.ComplianceRuleOptions = all.ComplianceRuleOptions
-<span id="L388" class="ln">   388  </span>	o.DecreaseCriticalityBasedOnEnv = all.DecreaseCriticalityBasedOnEnv
-<span id="L389" class="ln">   389  </span>	if v := all.DetectionMethod; v != nil &amp;&amp; !v.IsValid() {
-<span id="L390" class="ln">   390  </span>		hasInvalidField = true
-<span id="L391" class="ln">   391  </span>	} else {
-<span id="L392" class="ln">   392  </span>		o.DetectionMethod = all.DetectionMethod
-<span id="L393" class="ln">   393  </span>	}
-<span id="L394" class="ln">   394  </span>	if v := all.EvaluationWindow; v != nil &amp;&amp; !v.IsValid() {
-<span id="L395" class="ln">   395  </span>		hasInvalidField = true
-<span id="L396" class="ln">   396  </span>	} else {
-<span id="L397" class="ln">   397  </span>		o.EvaluationWindow = all.EvaluationWindow
-<span id="L398" class="ln">   398  </span>	}
-<span id="L399" class="ln">   399  </span>	if v := all.HardcodedEvaluatorType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L400" class="ln">   400  </span>		hasInvalidField = true
-<span id="L401" class="ln">   401  </span>	} else {
-<span id="L402" class="ln">   402  </span>		o.HardcodedEvaluatorType = all.HardcodedEvaluatorType
-<span id="L403" class="ln">   403  </span>	}
-<span id="L404" class="ln">   404  </span>	if all.ImpossibleTravelOptions != nil &amp;&amp; all.ImpossibleTravelOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L405" class="ln">   405  </span>		hasInvalidField = true
+<span id="L376" class="ln">   376  </span>
+<span id="L377" class="ln">   377  </span>	hasInvalidField := false
+<span id="L378" class="ln">   378  </span>	if all.ComplianceRuleOptions != nil &amp;&amp; all.ComplianceRuleOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L379" class="ln">   379  </span>		hasInvalidField = true
+<span id="L380" class="ln">   380  </span>	}
+<span id="L381" class="ln">   381  </span>	o.ComplianceRuleOptions = all.ComplianceRuleOptions
+<span id="L382" class="ln">   382  </span>	o.DecreaseCriticalityBasedOnEnv = all.DecreaseCriticalityBasedOnEnv
+<span id="L383" class="ln">   383  </span>	if all.DetectionMethod != nil &amp;&amp; !all.DetectionMethod.IsValid() {
+<span id="L384" class="ln">   384  </span>		hasInvalidField = true
+<span id="L385" class="ln">   385  </span>	} else {
+<span id="L386" class="ln">   386  </span>		o.DetectionMethod = all.DetectionMethod
+<span id="L387" class="ln">   387  </span>	}
+<span id="L388" class="ln">   388  </span>	if all.EvaluationWindow != nil &amp;&amp; !all.EvaluationWindow.IsValid() {
+<span id="L389" class="ln">   389  </span>		hasInvalidField = true
+<span id="L390" class="ln">   390  </span>	} else {
+<span id="L391" class="ln">   391  </span>		o.EvaluationWindow = all.EvaluationWindow
+<span id="L392" class="ln">   392  </span>	}
+<span id="L393" class="ln">   393  </span>	if all.HardcodedEvaluatorType != nil &amp;&amp; !all.HardcodedEvaluatorType.IsValid() {
+<span id="L394" class="ln">   394  </span>		hasInvalidField = true
+<span id="L395" class="ln">   395  </span>	} else {
+<span id="L396" class="ln">   396  </span>		o.HardcodedEvaluatorType = all.HardcodedEvaluatorType
+<span id="L397" class="ln">   397  </span>	}
+<span id="L398" class="ln">   398  </span>	if all.ImpossibleTravelOptions != nil &amp;&amp; all.ImpossibleTravelOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L399" class="ln">   399  </span>		hasInvalidField = true
+<span id="L400" class="ln">   400  </span>	}
+<span id="L401" class="ln">   401  </span>	o.ImpossibleTravelOptions = all.ImpossibleTravelOptions
+<span id="L402" class="ln">   402  </span>	if all.KeepAlive != nil &amp;&amp; !all.KeepAlive.IsValid() {
+<span id="L403" class="ln">   403  </span>		hasInvalidField = true
+<span id="L404" class="ln">   404  </span>	} else {
+<span id="L405" class="ln">   405  </span>		o.KeepAlive = all.KeepAlive
 <span id="L406" class="ln">   406  </span>	}
-<span id="L407" class="ln">   407  </span>	o.ImpossibleTravelOptions = all.ImpossibleTravelOptions
-<span id="L408" class="ln">   408  </span>	if v := all.KeepAlive; v != nil &amp;&amp; !v.IsValid() {
-<span id="L409" class="ln">   409  </span>		hasInvalidField = true
-<span id="L410" class="ln">   410  </span>	} else {
-<span id="L411" class="ln">   411  </span>		o.KeepAlive = all.KeepAlive
-<span id="L412" class="ln">   412  </span>	}
-<span id="L413" class="ln">   413  </span>	if v := all.MaxSignalDuration; v != nil &amp;&amp; !v.IsValid() {
-<span id="L414" class="ln">   414  </span>		hasInvalidField = true
-<span id="L415" class="ln">   415  </span>	} else {
-<span id="L416" class="ln">   416  </span>		o.MaxSignalDuration = all.MaxSignalDuration
-<span id="L417" class="ln">   417  </span>	}
-<span id="L418" class="ln">   418  </span>	if all.NewValueOptions != nil &amp;&amp; all.NewValueOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L419" class="ln">   419  </span>		hasInvalidField = true
-<span id="L420" class="ln">   420  </span>	}
-<span id="L421" class="ln">   421  </span>	o.NewValueOptions = all.NewValueOptions
-<span id="L422" class="ln">   422  </span>
-<span id="L423" class="ln">   423  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L424" class="ln">   424  </span>		o.AdditionalProperties = additionalProperties
-<span id="L425" class="ln">   425  </span>	}
-<span id="L426" class="ln">   426  </span>
-<span id="L427" class="ln">   427  </span>	if hasInvalidField {
-<span id="L428" class="ln">   428  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L429" class="ln">   429  </span>		if err != nil {
-<span id="L430" class="ln">   430  </span>			return err
-<span id="L431" class="ln">   431  </span>		}
-<span id="L432" class="ln">   432  </span>		o.UnparsedObject = raw
-<span id="L433" class="ln">   433  </span>	}
-<span id="L434" class="ln">   434  </span>
-<span id="L435" class="ln">   435  </span>	return nil
-<span id="L436" class="ln">   436  </span>}
-<span id="L437" class="ln">   437  </span>
+<span id="L407" class="ln">   407  </span>	if all.MaxSignalDuration != nil &amp;&amp; !all.MaxSignalDuration.IsValid() {
+<span id="L408" class="ln">   408  </span>		hasInvalidField = true
+<span id="L409" class="ln">   409  </span>	} else {
+<span id="L410" class="ln">   410  </span>		o.MaxSignalDuration = all.MaxSignalDuration
+<span id="L411" class="ln">   411  </span>	}
+<span id="L412" class="ln">   412  </span>	if all.NewValueOptions != nil &amp;&amp; all.NewValueOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L413" class="ln">   413  </span>		hasInvalidField = true
+<span id="L414" class="ln">   414  </span>	}
+<span id="L415" class="ln">   415  </span>	o.NewValueOptions = all.NewValueOptions
+<span id="L416" class="ln">   416  </span>
+<span id="L417" class="ln">   417  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L418" class="ln">   418  </span>		o.AdditionalProperties = additionalProperties
+<span id="L419" class="ln">   419  </span>	}
+<span id="L420" class="ln">   420  </span>
+<span id="L421" class="ln">   421  </span>	if hasInvalidField {
+<span id="L422" class="ln">   422  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L423" class="ln">   423  </span>	}
+<span id="L424" class="ln">   424  </span>
+<span id="L425" class="ln">   425  </span>	return nil
+<span id="L426" class="ln">   426  </span>}
+<span id="L427" class="ln">   427  </span>
 </pre><p></p>
 
 <div id="footer">

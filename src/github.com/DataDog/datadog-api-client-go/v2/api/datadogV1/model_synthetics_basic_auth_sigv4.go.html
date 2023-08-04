@@ -290,66 +290,56 @@
 <span id="L233" class="ln">   233  </span>
 <span id="L234" class="ln">   234  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L235" class="ln">   235  </span>func (o *SyntheticsBasicAuthSigv4) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L236" class="ln">   236  </span>	raw := map[string]interface{}{}
-<span id="L237" class="ln">   237  </span>	all := struct {
-<span id="L238" class="ln">   238  </span>		AccessKey    *string                       `json:&#34;accessKey&#34;`
-<span id="L239" class="ln">   239  </span>		Region       *string                       `json:&#34;region,omitempty&#34;`
-<span id="L240" class="ln">   240  </span>		SecretKey    *string                       `json:&#34;secretKey&#34;`
-<span id="L241" class="ln">   241  </span>		ServiceName  *string                       `json:&#34;serviceName,omitempty&#34;`
-<span id="L242" class="ln">   242  </span>		SessionToken *string                       `json:&#34;sessionToken,omitempty&#34;`
-<span id="L243" class="ln">   243  </span>		Type         *SyntheticsBasicAuthSigv4Type `json:&#34;type&#34;`
-<span id="L244" class="ln">   244  </span>	}{}
-<span id="L245" class="ln">   245  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L246" class="ln">   246  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L247" class="ln">   247  </span>		if err != nil {
-<span id="L248" class="ln">   248  </span>			return err
-<span id="L249" class="ln">   249  </span>		}
-<span id="L250" class="ln">   250  </span>		o.UnparsedObject = raw
-<span id="L251" class="ln">   251  </span>		return nil
+<span id="L236" class="ln">   236  </span>	all := struct {
+<span id="L237" class="ln">   237  </span>		AccessKey    *string                       `json:&#34;accessKey&#34;`
+<span id="L238" class="ln">   238  </span>		Region       *string                       `json:&#34;region,omitempty&#34;`
+<span id="L239" class="ln">   239  </span>		SecretKey    *string                       `json:&#34;secretKey&#34;`
+<span id="L240" class="ln">   240  </span>		ServiceName  *string                       `json:&#34;serviceName,omitempty&#34;`
+<span id="L241" class="ln">   241  </span>		SessionToken *string                       `json:&#34;sessionToken,omitempty&#34;`
+<span id="L242" class="ln">   242  </span>		Type         *SyntheticsBasicAuthSigv4Type `json:&#34;type&#34;`
+<span id="L243" class="ln">   243  </span>	}{}
+<span id="L244" class="ln">   244  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L245" class="ln">   245  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L246" class="ln">   246  </span>	}
+<span id="L247" class="ln">   247  </span>	if all.AccessKey == nil {
+<span id="L248" class="ln">   248  </span>		return fmt.Errorf(&#34;required field accessKey missing&#34;)
+<span id="L249" class="ln">   249  </span>	}
+<span id="L250" class="ln">   250  </span>	if all.SecretKey == nil {
+<span id="L251" class="ln">   251  </span>		return fmt.Errorf(&#34;required field secretKey missing&#34;)
 <span id="L252" class="ln">   252  </span>	}
-<span id="L253" class="ln">   253  </span>	if all.AccessKey == nil {
-<span id="L254" class="ln">   254  </span>		return fmt.Errorf(&#34;required field accessKey missing&#34;)
+<span id="L253" class="ln">   253  </span>	if all.Type == nil {
+<span id="L254" class="ln">   254  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L255" class="ln">   255  </span>	}
-<span id="L256" class="ln">   256  </span>	if all.SecretKey == nil {
-<span id="L257" class="ln">   257  </span>		return fmt.Errorf(&#34;required field secretKey missing&#34;)
-<span id="L258" class="ln">   258  </span>	}
-<span id="L259" class="ln">   259  </span>	if all.Type == nil {
-<span id="L260" class="ln">   260  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L256" class="ln">   256  </span>	additionalProperties := make(map[string]interface{})
+<span id="L257" class="ln">   257  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L258" class="ln">   258  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;accessKey&#34;, &#34;region&#34;, &#34;secretKey&#34;, &#34;serviceName&#34;, &#34;sessionToken&#34;, &#34;type&#34;})
+<span id="L259" class="ln">   259  </span>	} else {
+<span id="L260" class="ln">   260  </span>		return err
 <span id="L261" class="ln">   261  </span>	}
-<span id="L262" class="ln">   262  </span>	additionalProperties := make(map[string]interface{})
-<span id="L263" class="ln">   263  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L264" class="ln">   264  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;accessKey&#34;, &#34;region&#34;, &#34;secretKey&#34;, &#34;serviceName&#34;, &#34;sessionToken&#34;, &#34;type&#34;})
-<span id="L265" class="ln">   265  </span>	} else {
-<span id="L266" class="ln">   266  </span>		return err
-<span id="L267" class="ln">   267  </span>	}
-<span id="L268" class="ln">   268  </span>
-<span id="L269" class="ln">   269  </span>	hasInvalidField := false
-<span id="L270" class="ln">   270  </span>	o.AccessKey = *all.AccessKey
-<span id="L271" class="ln">   271  </span>	o.Region = all.Region
-<span id="L272" class="ln">   272  </span>	o.SecretKey = *all.SecretKey
-<span id="L273" class="ln">   273  </span>	o.ServiceName = all.ServiceName
-<span id="L274" class="ln">   274  </span>	o.SessionToken = all.SessionToken
-<span id="L275" class="ln">   275  </span>	if v := all.Type; !v.IsValid() {
-<span id="L276" class="ln">   276  </span>		hasInvalidField = true
-<span id="L277" class="ln">   277  </span>	} else {
-<span id="L278" class="ln">   278  </span>		o.Type = *all.Type
-<span id="L279" class="ln">   279  </span>	}
-<span id="L280" class="ln">   280  </span>
-<span id="L281" class="ln">   281  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L282" class="ln">   282  </span>		o.AdditionalProperties = additionalProperties
-<span id="L283" class="ln">   283  </span>	}
-<span id="L284" class="ln">   284  </span>
-<span id="L285" class="ln">   285  </span>	if hasInvalidField {
-<span id="L286" class="ln">   286  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L287" class="ln">   287  </span>		if err != nil {
-<span id="L288" class="ln">   288  </span>			return err
-<span id="L289" class="ln">   289  </span>		}
-<span id="L290" class="ln">   290  </span>		o.UnparsedObject = raw
-<span id="L291" class="ln">   291  </span>	}
-<span id="L292" class="ln">   292  </span>
-<span id="L293" class="ln">   293  </span>	return nil
-<span id="L294" class="ln">   294  </span>}
-<span id="L295" class="ln">   295  </span>
+<span id="L262" class="ln">   262  </span>
+<span id="L263" class="ln">   263  </span>	hasInvalidField := false
+<span id="L264" class="ln">   264  </span>	o.AccessKey = *all.AccessKey
+<span id="L265" class="ln">   265  </span>	o.Region = all.Region
+<span id="L266" class="ln">   266  </span>	o.SecretKey = *all.SecretKey
+<span id="L267" class="ln">   267  </span>	o.ServiceName = all.ServiceName
+<span id="L268" class="ln">   268  </span>	o.SessionToken = all.SessionToken
+<span id="L269" class="ln">   269  </span>	if !all.Type.IsValid() {
+<span id="L270" class="ln">   270  </span>		hasInvalidField = true
+<span id="L271" class="ln">   271  </span>	} else {
+<span id="L272" class="ln">   272  </span>		o.Type = *all.Type
+<span id="L273" class="ln">   273  </span>	}
+<span id="L274" class="ln">   274  </span>
+<span id="L275" class="ln">   275  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L276" class="ln">   276  </span>		o.AdditionalProperties = additionalProperties
+<span id="L277" class="ln">   277  </span>	}
+<span id="L278" class="ln">   278  </span>
+<span id="L279" class="ln">   279  </span>	if hasInvalidField {
+<span id="L280" class="ln">   280  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>
+<span id="L283" class="ln">   283  </span>	return nil
+<span id="L284" class="ln">   284  </span>}
+<span id="L285" class="ln">   285  </span>
 </pre><p></p>
 
 <div id="footer">

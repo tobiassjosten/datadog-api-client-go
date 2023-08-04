@@ -707,89 +707,79 @@
 <span id="L650" class="ln">   650  </span>
 <span id="L651" class="ln">   651  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L652" class="ln">   652  </span>func (o *SLOResponseData) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L653" class="ln">   653  </span>	raw := map[string]interface{}{}
-<span id="L654" class="ln">   654  </span>	all := struct {
-<span id="L655" class="ln">   655  </span>		ConfiguredAlertIds []int64                     `json:&#34;configured_alert_ids,omitempty&#34;`
-<span id="L656" class="ln">   656  </span>		CreatedAt          *int64                      `json:&#34;created_at,omitempty&#34;`
-<span id="L657" class="ln">   657  </span>		Creator            *Creator                    `json:&#34;creator,omitempty&#34;`
-<span id="L658" class="ln">   658  </span>		Description        datadog.NullableString      `json:&#34;description,omitempty&#34;`
-<span id="L659" class="ln">   659  </span>		Groups             []string                    `json:&#34;groups,omitempty&#34;`
-<span id="L660" class="ln">   660  </span>		Id                 *string                     `json:&#34;id,omitempty&#34;`
-<span id="L661" class="ln">   661  </span>		ModifiedAt         *int64                      `json:&#34;modified_at,omitempty&#34;`
-<span id="L662" class="ln">   662  </span>		MonitorIds         []int64                     `json:&#34;monitor_ids,omitempty&#34;`
-<span id="L663" class="ln">   663  </span>		MonitorTags        []string                    `json:&#34;monitor_tags,omitempty&#34;`
-<span id="L664" class="ln">   664  </span>		Name               *string                     `json:&#34;name,omitempty&#34;`
-<span id="L665" class="ln">   665  </span>		Query              *ServiceLevelObjectiveQuery `json:&#34;query,omitempty&#34;`
-<span id="L666" class="ln">   666  </span>		Tags               []string                    `json:&#34;tags,omitempty&#34;`
-<span id="L667" class="ln">   667  </span>		TargetThreshold    *float64                    `json:&#34;target_threshold,omitempty&#34;`
-<span id="L668" class="ln">   668  </span>		Thresholds         []SLOThreshold              `json:&#34;thresholds,omitempty&#34;`
-<span id="L669" class="ln">   669  </span>		Timeframe          *SLOTimeframe               `json:&#34;timeframe,omitempty&#34;`
-<span id="L670" class="ln">   670  </span>		Type               *SLOType                    `json:&#34;type,omitempty&#34;`
-<span id="L671" class="ln">   671  </span>		WarningThreshold   *float64                    `json:&#34;warning_threshold,omitempty&#34;`
-<span id="L672" class="ln">   672  </span>	}{}
-<span id="L673" class="ln">   673  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L674" class="ln">   674  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L675" class="ln">   675  </span>		if err != nil {
-<span id="L676" class="ln">   676  </span>			return err
-<span id="L677" class="ln">   677  </span>		}
-<span id="L678" class="ln">   678  </span>		o.UnparsedObject = raw
-<span id="L679" class="ln">   679  </span>		return nil
+<span id="L653" class="ln">   653  </span>	all := struct {
+<span id="L654" class="ln">   654  </span>		ConfiguredAlertIds []int64                     `json:&#34;configured_alert_ids,omitempty&#34;`
+<span id="L655" class="ln">   655  </span>		CreatedAt          *int64                      `json:&#34;created_at,omitempty&#34;`
+<span id="L656" class="ln">   656  </span>		Creator            *Creator                    `json:&#34;creator,omitempty&#34;`
+<span id="L657" class="ln">   657  </span>		Description        datadog.NullableString      `json:&#34;description,omitempty&#34;`
+<span id="L658" class="ln">   658  </span>		Groups             []string                    `json:&#34;groups,omitempty&#34;`
+<span id="L659" class="ln">   659  </span>		Id                 *string                     `json:&#34;id,omitempty&#34;`
+<span id="L660" class="ln">   660  </span>		ModifiedAt         *int64                      `json:&#34;modified_at,omitempty&#34;`
+<span id="L661" class="ln">   661  </span>		MonitorIds         []int64                     `json:&#34;monitor_ids,omitempty&#34;`
+<span id="L662" class="ln">   662  </span>		MonitorTags        []string                    `json:&#34;monitor_tags,omitempty&#34;`
+<span id="L663" class="ln">   663  </span>		Name               *string                     `json:&#34;name,omitempty&#34;`
+<span id="L664" class="ln">   664  </span>		Query              *ServiceLevelObjectiveQuery `json:&#34;query,omitempty&#34;`
+<span id="L665" class="ln">   665  </span>		Tags               []string                    `json:&#34;tags,omitempty&#34;`
+<span id="L666" class="ln">   666  </span>		TargetThreshold    *float64                    `json:&#34;target_threshold,omitempty&#34;`
+<span id="L667" class="ln">   667  </span>		Thresholds         []SLOThreshold              `json:&#34;thresholds,omitempty&#34;`
+<span id="L668" class="ln">   668  </span>		Timeframe          *SLOTimeframe               `json:&#34;timeframe,omitempty&#34;`
+<span id="L669" class="ln">   669  </span>		Type               *SLOType                    `json:&#34;type,omitempty&#34;`
+<span id="L670" class="ln">   670  </span>		WarningThreshold   *float64                    `json:&#34;warning_threshold,omitempty&#34;`
+<span id="L671" class="ln">   671  </span>	}{}
+<span id="L672" class="ln">   672  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L673" class="ln">   673  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L674" class="ln">   674  </span>	}
+<span id="L675" class="ln">   675  </span>	additionalProperties := make(map[string]interface{})
+<span id="L676" class="ln">   676  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L677" class="ln">   677  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;configured_alert_ids&#34;, &#34;created_at&#34;, &#34;creator&#34;, &#34;description&#34;, &#34;groups&#34;, &#34;id&#34;, &#34;modified_at&#34;, &#34;monitor_ids&#34;, &#34;monitor_tags&#34;, &#34;name&#34;, &#34;query&#34;, &#34;tags&#34;, &#34;target_threshold&#34;, &#34;thresholds&#34;, &#34;timeframe&#34;, &#34;type&#34;, &#34;warning_threshold&#34;})
+<span id="L678" class="ln">   678  </span>	} else {
+<span id="L679" class="ln">   679  </span>		return err
 <span id="L680" class="ln">   680  </span>	}
-<span id="L681" class="ln">   681  </span>	additionalProperties := make(map[string]interface{})
-<span id="L682" class="ln">   682  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L683" class="ln">   683  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;configured_alert_ids&#34;, &#34;created_at&#34;, &#34;creator&#34;, &#34;description&#34;, &#34;groups&#34;, &#34;id&#34;, &#34;modified_at&#34;, &#34;monitor_ids&#34;, &#34;monitor_tags&#34;, &#34;name&#34;, &#34;query&#34;, &#34;tags&#34;, &#34;target_threshold&#34;, &#34;thresholds&#34;, &#34;timeframe&#34;, &#34;type&#34;, &#34;warning_threshold&#34;})
-<span id="L684" class="ln">   684  </span>	} else {
-<span id="L685" class="ln">   685  </span>		return err
-<span id="L686" class="ln">   686  </span>	}
-<span id="L687" class="ln">   687  </span>
-<span id="L688" class="ln">   688  </span>	hasInvalidField := false
-<span id="L689" class="ln">   689  </span>	o.ConfiguredAlertIds = all.ConfiguredAlertIds
-<span id="L690" class="ln">   690  </span>	o.CreatedAt = all.CreatedAt
-<span id="L691" class="ln">   691  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L692" class="ln">   692  </span>		hasInvalidField = true
-<span id="L693" class="ln">   693  </span>	}
-<span id="L694" class="ln">   694  </span>	o.Creator = all.Creator
-<span id="L695" class="ln">   695  </span>	o.Description = all.Description
-<span id="L696" class="ln">   696  </span>	o.Groups = all.Groups
-<span id="L697" class="ln">   697  </span>	o.Id = all.Id
-<span id="L698" class="ln">   698  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L699" class="ln">   699  </span>	o.MonitorIds = all.MonitorIds
-<span id="L700" class="ln">   700  </span>	o.MonitorTags = all.MonitorTags
-<span id="L701" class="ln">   701  </span>	o.Name = all.Name
-<span id="L702" class="ln">   702  </span>	if all.Query != nil &amp;&amp; all.Query.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L703" class="ln">   703  </span>		hasInvalidField = true
-<span id="L704" class="ln">   704  </span>	}
-<span id="L705" class="ln">   705  </span>	o.Query = all.Query
-<span id="L706" class="ln">   706  </span>	o.Tags = all.Tags
-<span id="L707" class="ln">   707  </span>	o.TargetThreshold = all.TargetThreshold
-<span id="L708" class="ln">   708  </span>	o.Thresholds = all.Thresholds
-<span id="L709" class="ln">   709  </span>	if v := all.Timeframe; v != nil &amp;&amp; !v.IsValid() {
-<span id="L710" class="ln">   710  </span>		hasInvalidField = true
-<span id="L711" class="ln">   711  </span>	} else {
-<span id="L712" class="ln">   712  </span>		o.Timeframe = all.Timeframe
-<span id="L713" class="ln">   713  </span>	}
-<span id="L714" class="ln">   714  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L715" class="ln">   715  </span>		hasInvalidField = true
-<span id="L716" class="ln">   716  </span>	} else {
-<span id="L717" class="ln">   717  </span>		o.Type = all.Type
-<span id="L718" class="ln">   718  </span>	}
-<span id="L719" class="ln">   719  </span>	o.WarningThreshold = all.WarningThreshold
-<span id="L720" class="ln">   720  </span>
-<span id="L721" class="ln">   721  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L722" class="ln">   722  </span>		o.AdditionalProperties = additionalProperties
-<span id="L723" class="ln">   723  </span>	}
-<span id="L724" class="ln">   724  </span>
-<span id="L725" class="ln">   725  </span>	if hasInvalidField {
-<span id="L726" class="ln">   726  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L727" class="ln">   727  </span>		if err != nil {
-<span id="L728" class="ln">   728  </span>			return err
-<span id="L729" class="ln">   729  </span>		}
-<span id="L730" class="ln">   730  </span>		o.UnparsedObject = raw
-<span id="L731" class="ln">   731  </span>	}
-<span id="L732" class="ln">   732  </span>
-<span id="L733" class="ln">   733  </span>	return nil
-<span id="L734" class="ln">   734  </span>}
-<span id="L735" class="ln">   735  </span>
+<span id="L681" class="ln">   681  </span>
+<span id="L682" class="ln">   682  </span>	hasInvalidField := false
+<span id="L683" class="ln">   683  </span>	o.ConfiguredAlertIds = all.ConfiguredAlertIds
+<span id="L684" class="ln">   684  </span>	o.CreatedAt = all.CreatedAt
+<span id="L685" class="ln">   685  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L686" class="ln">   686  </span>		hasInvalidField = true
+<span id="L687" class="ln">   687  </span>	}
+<span id="L688" class="ln">   688  </span>	o.Creator = all.Creator
+<span id="L689" class="ln">   689  </span>	o.Description = all.Description
+<span id="L690" class="ln">   690  </span>	o.Groups = all.Groups
+<span id="L691" class="ln">   691  </span>	o.Id = all.Id
+<span id="L692" class="ln">   692  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L693" class="ln">   693  </span>	o.MonitorIds = all.MonitorIds
+<span id="L694" class="ln">   694  </span>	o.MonitorTags = all.MonitorTags
+<span id="L695" class="ln">   695  </span>	o.Name = all.Name
+<span id="L696" class="ln">   696  </span>	if all.Query != nil &amp;&amp; all.Query.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L697" class="ln">   697  </span>		hasInvalidField = true
+<span id="L698" class="ln">   698  </span>	}
+<span id="L699" class="ln">   699  </span>	o.Query = all.Query
+<span id="L700" class="ln">   700  </span>	o.Tags = all.Tags
+<span id="L701" class="ln">   701  </span>	o.TargetThreshold = all.TargetThreshold
+<span id="L702" class="ln">   702  </span>	o.Thresholds = all.Thresholds
+<span id="L703" class="ln">   703  </span>	if all.Timeframe != nil &amp;&amp; !all.Timeframe.IsValid() {
+<span id="L704" class="ln">   704  </span>		hasInvalidField = true
+<span id="L705" class="ln">   705  </span>	} else {
+<span id="L706" class="ln">   706  </span>		o.Timeframe = all.Timeframe
+<span id="L707" class="ln">   707  </span>	}
+<span id="L708" class="ln">   708  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
+<span id="L709" class="ln">   709  </span>		hasInvalidField = true
+<span id="L710" class="ln">   710  </span>	} else {
+<span id="L711" class="ln">   711  </span>		o.Type = all.Type
+<span id="L712" class="ln">   712  </span>	}
+<span id="L713" class="ln">   713  </span>	o.WarningThreshold = all.WarningThreshold
+<span id="L714" class="ln">   714  </span>
+<span id="L715" class="ln">   715  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L716" class="ln">   716  </span>		o.AdditionalProperties = additionalProperties
+<span id="L717" class="ln">   717  </span>	}
+<span id="L718" class="ln">   718  </span>
+<span id="L719" class="ln">   719  </span>	if hasInvalidField {
+<span id="L720" class="ln">   720  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L721" class="ln">   721  </span>	}
+<span id="L722" class="ln">   722  </span>
+<span id="L723" class="ln">   723  </span>	return nil
+<span id="L724" class="ln">   724  </span>}
+<span id="L725" class="ln">   725  </span>
 </pre><p></p>
 
 <div id="footer">

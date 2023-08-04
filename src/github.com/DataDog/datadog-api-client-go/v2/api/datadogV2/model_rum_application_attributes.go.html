@@ -417,80 +417,74 @@
 <span id="L360" class="ln">   360  </span>
 <span id="L361" class="ln">   361  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L362" class="ln">   362  </span>func (o *RUMApplicationAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L363" class="ln">   363  </span>	raw := map[string]interface{}{}
-<span id="L364" class="ln">   364  </span>	all := struct {
-<span id="L365" class="ln">   365  </span>		ApplicationId   *string `json:&#34;application_id&#34;`
-<span id="L366" class="ln">   366  </span>		ClientToken     *string `json:&#34;client_token&#34;`
-<span id="L367" class="ln">   367  </span>		CreatedAt       *int64  `json:&#34;created_at&#34;`
-<span id="L368" class="ln">   368  </span>		CreatedByHandle *string `json:&#34;created_by_handle&#34;`
-<span id="L369" class="ln">   369  </span>		Hash            *string `json:&#34;hash,omitempty&#34;`
-<span id="L370" class="ln">   370  </span>		IsActive        *bool   `json:&#34;is_active,omitempty&#34;`
-<span id="L371" class="ln">   371  </span>		Name            *string `json:&#34;name&#34;`
-<span id="L372" class="ln">   372  </span>		OrgId           *int32  `json:&#34;org_id&#34;`
-<span id="L373" class="ln">   373  </span>		Type            *string `json:&#34;type&#34;`
-<span id="L374" class="ln">   374  </span>		UpdatedAt       *int64  `json:&#34;updated_at&#34;`
-<span id="L375" class="ln">   375  </span>		UpdatedByHandle *string `json:&#34;updated_by_handle&#34;`
-<span id="L376" class="ln">   376  </span>	}{}
-<span id="L377" class="ln">   377  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L378" class="ln">   378  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L379" class="ln">   379  </span>		if err != nil {
-<span id="L380" class="ln">   380  </span>			return err
-<span id="L381" class="ln">   381  </span>		}
-<span id="L382" class="ln">   382  </span>		o.UnparsedObject = raw
-<span id="L383" class="ln">   383  </span>		return nil
+<span id="L363" class="ln">   363  </span>	all := struct {
+<span id="L364" class="ln">   364  </span>		ApplicationId   *string `json:&#34;application_id&#34;`
+<span id="L365" class="ln">   365  </span>		ClientToken     *string `json:&#34;client_token&#34;`
+<span id="L366" class="ln">   366  </span>		CreatedAt       *int64  `json:&#34;created_at&#34;`
+<span id="L367" class="ln">   367  </span>		CreatedByHandle *string `json:&#34;created_by_handle&#34;`
+<span id="L368" class="ln">   368  </span>		Hash            *string `json:&#34;hash,omitempty&#34;`
+<span id="L369" class="ln">   369  </span>		IsActive        *bool   `json:&#34;is_active,omitempty&#34;`
+<span id="L370" class="ln">   370  </span>		Name            *string `json:&#34;name&#34;`
+<span id="L371" class="ln">   371  </span>		OrgId           *int32  `json:&#34;org_id&#34;`
+<span id="L372" class="ln">   372  </span>		Type            *string `json:&#34;type&#34;`
+<span id="L373" class="ln">   373  </span>		UpdatedAt       *int64  `json:&#34;updated_at&#34;`
+<span id="L374" class="ln">   374  </span>		UpdatedByHandle *string `json:&#34;updated_by_handle&#34;`
+<span id="L375" class="ln">   375  </span>	}{}
+<span id="L376" class="ln">   376  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L377" class="ln">   377  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L378" class="ln">   378  </span>	}
+<span id="L379" class="ln">   379  </span>	if all.ApplicationId == nil {
+<span id="L380" class="ln">   380  </span>		return fmt.Errorf(&#34;required field application_id missing&#34;)
+<span id="L381" class="ln">   381  </span>	}
+<span id="L382" class="ln">   382  </span>	if all.ClientToken == nil {
+<span id="L383" class="ln">   383  </span>		return fmt.Errorf(&#34;required field client_token missing&#34;)
 <span id="L384" class="ln">   384  </span>	}
-<span id="L385" class="ln">   385  </span>	if all.ApplicationId == nil {
-<span id="L386" class="ln">   386  </span>		return fmt.Errorf(&#34;required field application_id missing&#34;)
+<span id="L385" class="ln">   385  </span>	if all.CreatedAt == nil {
+<span id="L386" class="ln">   386  </span>		return fmt.Errorf(&#34;required field created_at missing&#34;)
 <span id="L387" class="ln">   387  </span>	}
-<span id="L388" class="ln">   388  </span>	if all.ClientToken == nil {
-<span id="L389" class="ln">   389  </span>		return fmt.Errorf(&#34;required field client_token missing&#34;)
+<span id="L388" class="ln">   388  </span>	if all.CreatedByHandle == nil {
+<span id="L389" class="ln">   389  </span>		return fmt.Errorf(&#34;required field created_by_handle missing&#34;)
 <span id="L390" class="ln">   390  </span>	}
-<span id="L391" class="ln">   391  </span>	if all.CreatedAt == nil {
-<span id="L392" class="ln">   392  </span>		return fmt.Errorf(&#34;required field created_at missing&#34;)
+<span id="L391" class="ln">   391  </span>	if all.Name == nil {
+<span id="L392" class="ln">   392  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
 <span id="L393" class="ln">   393  </span>	}
-<span id="L394" class="ln">   394  </span>	if all.CreatedByHandle == nil {
-<span id="L395" class="ln">   395  </span>		return fmt.Errorf(&#34;required field created_by_handle missing&#34;)
+<span id="L394" class="ln">   394  </span>	if all.OrgId == nil {
+<span id="L395" class="ln">   395  </span>		return fmt.Errorf(&#34;required field org_id missing&#34;)
 <span id="L396" class="ln">   396  </span>	}
-<span id="L397" class="ln">   397  </span>	if all.Name == nil {
-<span id="L398" class="ln">   398  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L397" class="ln">   397  </span>	if all.Type == nil {
+<span id="L398" class="ln">   398  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L399" class="ln">   399  </span>	}
-<span id="L400" class="ln">   400  </span>	if all.OrgId == nil {
-<span id="L401" class="ln">   401  </span>		return fmt.Errorf(&#34;required field org_id missing&#34;)
+<span id="L400" class="ln">   400  </span>	if all.UpdatedAt == nil {
+<span id="L401" class="ln">   401  </span>		return fmt.Errorf(&#34;required field updated_at missing&#34;)
 <span id="L402" class="ln">   402  </span>	}
-<span id="L403" class="ln">   403  </span>	if all.Type == nil {
-<span id="L404" class="ln">   404  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L403" class="ln">   403  </span>	if all.UpdatedByHandle == nil {
+<span id="L404" class="ln">   404  </span>		return fmt.Errorf(&#34;required field updated_by_handle missing&#34;)
 <span id="L405" class="ln">   405  </span>	}
-<span id="L406" class="ln">   406  </span>	if all.UpdatedAt == nil {
-<span id="L407" class="ln">   407  </span>		return fmt.Errorf(&#34;required field updated_at missing&#34;)
-<span id="L408" class="ln">   408  </span>	}
-<span id="L409" class="ln">   409  </span>	if all.UpdatedByHandle == nil {
-<span id="L410" class="ln">   410  </span>		return fmt.Errorf(&#34;required field updated_by_handle missing&#34;)
+<span id="L406" class="ln">   406  </span>	additionalProperties := make(map[string]interface{})
+<span id="L407" class="ln">   407  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L408" class="ln">   408  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application_id&#34;, &#34;client_token&#34;, &#34;created_at&#34;, &#34;created_by_handle&#34;, &#34;hash&#34;, &#34;is_active&#34;, &#34;name&#34;, &#34;org_id&#34;, &#34;type&#34;, &#34;updated_at&#34;, &#34;updated_by_handle&#34;})
+<span id="L409" class="ln">   409  </span>	} else {
+<span id="L410" class="ln">   410  </span>		return err
 <span id="L411" class="ln">   411  </span>	}
-<span id="L412" class="ln">   412  </span>	additionalProperties := make(map[string]interface{})
-<span id="L413" class="ln">   413  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L414" class="ln">   414  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application_id&#34;, &#34;client_token&#34;, &#34;created_at&#34;, &#34;created_by_handle&#34;, &#34;hash&#34;, &#34;is_active&#34;, &#34;name&#34;, &#34;org_id&#34;, &#34;type&#34;, &#34;updated_at&#34;, &#34;updated_by_handle&#34;})
-<span id="L415" class="ln">   415  </span>	} else {
-<span id="L416" class="ln">   416  </span>		return err
-<span id="L417" class="ln">   417  </span>	}
-<span id="L418" class="ln">   418  </span>	o.ApplicationId = *all.ApplicationId
-<span id="L419" class="ln">   419  </span>	o.ClientToken = *all.ClientToken
-<span id="L420" class="ln">   420  </span>	o.CreatedAt = *all.CreatedAt
-<span id="L421" class="ln">   421  </span>	o.CreatedByHandle = *all.CreatedByHandle
-<span id="L422" class="ln">   422  </span>	o.Hash = all.Hash
-<span id="L423" class="ln">   423  </span>	o.IsActive = all.IsActive
-<span id="L424" class="ln">   424  </span>	o.Name = *all.Name
-<span id="L425" class="ln">   425  </span>	o.OrgId = *all.OrgId
-<span id="L426" class="ln">   426  </span>	o.Type = *all.Type
-<span id="L427" class="ln">   427  </span>	o.UpdatedAt = *all.UpdatedAt
-<span id="L428" class="ln">   428  </span>	o.UpdatedByHandle = *all.UpdatedByHandle
-<span id="L429" class="ln">   429  </span>
-<span id="L430" class="ln">   430  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L431" class="ln">   431  </span>		o.AdditionalProperties = additionalProperties
-<span id="L432" class="ln">   432  </span>	}
-<span id="L433" class="ln">   433  </span>
-<span id="L434" class="ln">   434  </span>	return nil
-<span id="L435" class="ln">   435  </span>}
-<span id="L436" class="ln">   436  </span>
+<span id="L412" class="ln">   412  </span>	o.ApplicationId = *all.ApplicationId
+<span id="L413" class="ln">   413  </span>	o.ClientToken = *all.ClientToken
+<span id="L414" class="ln">   414  </span>	o.CreatedAt = *all.CreatedAt
+<span id="L415" class="ln">   415  </span>	o.CreatedByHandle = *all.CreatedByHandle
+<span id="L416" class="ln">   416  </span>	o.Hash = all.Hash
+<span id="L417" class="ln">   417  </span>	o.IsActive = all.IsActive
+<span id="L418" class="ln">   418  </span>	o.Name = *all.Name
+<span id="L419" class="ln">   419  </span>	o.OrgId = *all.OrgId
+<span id="L420" class="ln">   420  </span>	o.Type = *all.Type
+<span id="L421" class="ln">   421  </span>	o.UpdatedAt = *all.UpdatedAt
+<span id="L422" class="ln">   422  </span>	o.UpdatedByHandle = *all.UpdatedByHandle
+<span id="L423" class="ln">   423  </span>
+<span id="L424" class="ln">   424  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L425" class="ln">   425  </span>		o.AdditionalProperties = additionalProperties
+<span id="L426" class="ln">   426  </span>	}
+<span id="L427" class="ln">   427  </span>
+<span id="L428" class="ln">   428  </span>	return nil
+<span id="L429" class="ln">   429  </span>}
+<span id="L430" class="ln">   430  </span>
 </pre><p></p>
 
 <div id="footer">

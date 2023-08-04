@@ -215,37 +215,31 @@
 <span id="L158" class="ln">   158  </span>
 <span id="L159" class="ln">   159  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L160" class="ln">   160  </span>func (o *IncidentTeamResponseAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L161" class="ln">   161  </span>	raw := map[string]interface{}{}
-<span id="L162" class="ln">   162  </span>	all := struct {
-<span id="L163" class="ln">   163  </span>		Created  *time.Time `json:&#34;created,omitempty&#34;`
-<span id="L164" class="ln">   164  </span>		Modified *time.Time `json:&#34;modified,omitempty&#34;`
-<span id="L165" class="ln">   165  </span>		Name     *string    `json:&#34;name,omitempty&#34;`
-<span id="L166" class="ln">   166  </span>	}{}
-<span id="L167" class="ln">   167  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L168" class="ln">   168  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L169" class="ln">   169  </span>		if err != nil {
-<span id="L170" class="ln">   170  </span>			return err
-<span id="L171" class="ln">   171  </span>		}
-<span id="L172" class="ln">   172  </span>		o.UnparsedObject = raw
-<span id="L173" class="ln">   173  </span>		return nil
+<span id="L161" class="ln">   161  </span>	all := struct {
+<span id="L162" class="ln">   162  </span>		Created  *time.Time `json:&#34;created,omitempty&#34;`
+<span id="L163" class="ln">   163  </span>		Modified *time.Time `json:&#34;modified,omitempty&#34;`
+<span id="L164" class="ln">   164  </span>		Name     *string    `json:&#34;name,omitempty&#34;`
+<span id="L165" class="ln">   165  </span>	}{}
+<span id="L166" class="ln">   166  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L167" class="ln">   167  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L168" class="ln">   168  </span>	}
+<span id="L169" class="ln">   169  </span>	additionalProperties := make(map[string]interface{})
+<span id="L170" class="ln">   170  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L171" class="ln">   171  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;modified&#34;, &#34;name&#34;})
+<span id="L172" class="ln">   172  </span>	} else {
+<span id="L173" class="ln">   173  </span>		return err
 <span id="L174" class="ln">   174  </span>	}
-<span id="L175" class="ln">   175  </span>	additionalProperties := make(map[string]interface{})
-<span id="L176" class="ln">   176  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L177" class="ln">   177  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;modified&#34;, &#34;name&#34;})
-<span id="L178" class="ln">   178  </span>	} else {
-<span id="L179" class="ln">   179  </span>		return err
-<span id="L180" class="ln">   180  </span>	}
-<span id="L181" class="ln">   181  </span>	o.Created = all.Created
-<span id="L182" class="ln">   182  </span>	o.Modified = all.Modified
-<span id="L183" class="ln">   183  </span>	o.Name = all.Name
-<span id="L184" class="ln">   184  </span>
-<span id="L185" class="ln">   185  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L186" class="ln">   186  </span>		o.AdditionalProperties = additionalProperties
-<span id="L187" class="ln">   187  </span>	}
-<span id="L188" class="ln">   188  </span>
-<span id="L189" class="ln">   189  </span>	return nil
-<span id="L190" class="ln">   190  </span>}
-<span id="L191" class="ln">   191  </span>
+<span id="L175" class="ln">   175  </span>	o.Created = all.Created
+<span id="L176" class="ln">   176  </span>	o.Modified = all.Modified
+<span id="L177" class="ln">   177  </span>	o.Name = all.Name
+<span id="L178" class="ln">   178  </span>
+<span id="L179" class="ln">   179  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L180" class="ln">   180  </span>		o.AdditionalProperties = additionalProperties
+<span id="L181" class="ln">   181  </span>	}
+<span id="L182" class="ln">   182  </span>
+<span id="L183" class="ln">   183  </span>	return nil
+<span id="L184" class="ln">   184  </span>}
+<span id="L185" class="ln">   185  </span>
 </pre><p></p>
 
 <div id="footer">

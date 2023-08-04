@@ -205,55 +205,45 @@
 <span id="L148" class="ln">   148  </span>
 <span id="L149" class="ln">   149  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L150" class="ln">   150  </span>func (o *WidgetRequestStyle) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L151" class="ln">   151  </span>	raw := map[string]interface{}{}
-<span id="L152" class="ln">   152  </span>	all := struct {
-<span id="L153" class="ln">   153  </span>		LineType  *WidgetLineType  `json:&#34;line_type,omitempty&#34;`
-<span id="L154" class="ln">   154  </span>		LineWidth *WidgetLineWidth `json:&#34;line_width,omitempty&#34;`
-<span id="L155" class="ln">   155  </span>		Palette   *string          `json:&#34;palette,omitempty&#34;`
-<span id="L156" class="ln">   156  </span>	}{}
-<span id="L157" class="ln">   157  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L158" class="ln">   158  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L159" class="ln">   159  </span>		if err != nil {
-<span id="L160" class="ln">   160  </span>			return err
-<span id="L161" class="ln">   161  </span>		}
-<span id="L162" class="ln">   162  </span>		o.UnparsedObject = raw
-<span id="L163" class="ln">   163  </span>		return nil
+<span id="L151" class="ln">   151  </span>	all := struct {
+<span id="L152" class="ln">   152  </span>		LineType  *WidgetLineType  `json:&#34;line_type,omitempty&#34;`
+<span id="L153" class="ln">   153  </span>		LineWidth *WidgetLineWidth `json:&#34;line_width,omitempty&#34;`
+<span id="L154" class="ln">   154  </span>		Palette   *string          `json:&#34;palette,omitempty&#34;`
+<span id="L155" class="ln">   155  </span>	}{}
+<span id="L156" class="ln">   156  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L157" class="ln">   157  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L158" class="ln">   158  </span>	}
+<span id="L159" class="ln">   159  </span>	additionalProperties := make(map[string]interface{})
+<span id="L160" class="ln">   160  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L161" class="ln">   161  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;line_type&#34;, &#34;line_width&#34;, &#34;palette&#34;})
+<span id="L162" class="ln">   162  </span>	} else {
+<span id="L163" class="ln">   163  </span>		return err
 <span id="L164" class="ln">   164  </span>	}
-<span id="L165" class="ln">   165  </span>	additionalProperties := make(map[string]interface{})
-<span id="L166" class="ln">   166  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L167" class="ln">   167  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;line_type&#34;, &#34;line_width&#34;, &#34;palette&#34;})
-<span id="L168" class="ln">   168  </span>	} else {
-<span id="L169" class="ln">   169  </span>		return err
-<span id="L170" class="ln">   170  </span>	}
-<span id="L171" class="ln">   171  </span>
-<span id="L172" class="ln">   172  </span>	hasInvalidField := false
-<span id="L173" class="ln">   173  </span>	if v := all.LineType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L174" class="ln">   174  </span>		hasInvalidField = true
-<span id="L175" class="ln">   175  </span>	} else {
-<span id="L176" class="ln">   176  </span>		o.LineType = all.LineType
-<span id="L177" class="ln">   177  </span>	}
-<span id="L178" class="ln">   178  </span>	if v := all.LineWidth; v != nil &amp;&amp; !v.IsValid() {
-<span id="L179" class="ln">   179  </span>		hasInvalidField = true
-<span id="L180" class="ln">   180  </span>	} else {
-<span id="L181" class="ln">   181  </span>		o.LineWidth = all.LineWidth
-<span id="L182" class="ln">   182  </span>	}
-<span id="L183" class="ln">   183  </span>	o.Palette = all.Palette
-<span id="L184" class="ln">   184  </span>
-<span id="L185" class="ln">   185  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L186" class="ln">   186  </span>		o.AdditionalProperties = additionalProperties
-<span id="L187" class="ln">   187  </span>	}
-<span id="L188" class="ln">   188  </span>
-<span id="L189" class="ln">   189  </span>	if hasInvalidField {
-<span id="L190" class="ln">   190  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L191" class="ln">   191  </span>		if err != nil {
-<span id="L192" class="ln">   192  </span>			return err
-<span id="L193" class="ln">   193  </span>		}
-<span id="L194" class="ln">   194  </span>		o.UnparsedObject = raw
-<span id="L195" class="ln">   195  </span>	}
-<span id="L196" class="ln">   196  </span>
-<span id="L197" class="ln">   197  </span>	return nil
-<span id="L198" class="ln">   198  </span>}
-<span id="L199" class="ln">   199  </span>
+<span id="L165" class="ln">   165  </span>
+<span id="L166" class="ln">   166  </span>	hasInvalidField := false
+<span id="L167" class="ln">   167  </span>	if all.LineType != nil &amp;&amp; !all.LineType.IsValid() {
+<span id="L168" class="ln">   168  </span>		hasInvalidField = true
+<span id="L169" class="ln">   169  </span>	} else {
+<span id="L170" class="ln">   170  </span>		o.LineType = all.LineType
+<span id="L171" class="ln">   171  </span>	}
+<span id="L172" class="ln">   172  </span>	if all.LineWidth != nil &amp;&amp; !all.LineWidth.IsValid() {
+<span id="L173" class="ln">   173  </span>		hasInvalidField = true
+<span id="L174" class="ln">   174  </span>	} else {
+<span id="L175" class="ln">   175  </span>		o.LineWidth = all.LineWidth
+<span id="L176" class="ln">   176  </span>	}
+<span id="L177" class="ln">   177  </span>	o.Palette = all.Palette
+<span id="L178" class="ln">   178  </span>
+<span id="L179" class="ln">   179  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L180" class="ln">   180  </span>		o.AdditionalProperties = additionalProperties
+<span id="L181" class="ln">   181  </span>	}
+<span id="L182" class="ln">   182  </span>
+<span id="L183" class="ln">   183  </span>	if hasInvalidField {
+<span id="L184" class="ln">   184  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L185" class="ln">   185  </span>	}
+<span id="L186" class="ln">   186  </span>
+<span id="L187" class="ln">   187  </span>	return nil
+<span id="L188" class="ln">   188  </span>}
+<span id="L189" class="ln">   189  </span>
 </pre><p></p>
 
 <div id="footer">

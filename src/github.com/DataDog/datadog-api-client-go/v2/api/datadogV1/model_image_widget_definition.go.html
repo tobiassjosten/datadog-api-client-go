@@ -405,85 +405,75 @@
 <span id="L348" class="ln">   348  </span>
 <span id="L349" class="ln">   349  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L350" class="ln">   350  </span>func (o *ImageWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L351" class="ln">   351  </span>	raw := map[string]interface{}{}
-<span id="L352" class="ln">   352  </span>	all := struct {
-<span id="L353" class="ln">   353  </span>		HasBackground   *bool                      `json:&#34;has_background,omitempty&#34;`
-<span id="L354" class="ln">   354  </span>		HasBorder       *bool                      `json:&#34;has_border,omitempty&#34;`
-<span id="L355" class="ln">   355  </span>		HorizontalAlign *WidgetHorizontalAlign     `json:&#34;horizontal_align,omitempty&#34;`
-<span id="L356" class="ln">   356  </span>		Margin          *WidgetMargin              `json:&#34;margin,omitempty&#34;`
-<span id="L357" class="ln">   357  </span>		Sizing          *WidgetImageSizing         `json:&#34;sizing,omitempty&#34;`
-<span id="L358" class="ln">   358  </span>		Type            *ImageWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L359" class="ln">   359  </span>		Url             *string                    `json:&#34;url&#34;`
-<span id="L360" class="ln">   360  </span>		UrlDarkTheme    *string                    `json:&#34;url_dark_theme,omitempty&#34;`
-<span id="L361" class="ln">   361  </span>		VerticalAlign   *WidgetVerticalAlign       `json:&#34;vertical_align,omitempty&#34;`
-<span id="L362" class="ln">   362  </span>	}{}
-<span id="L363" class="ln">   363  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L364" class="ln">   364  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L365" class="ln">   365  </span>		if err != nil {
-<span id="L366" class="ln">   366  </span>			return err
-<span id="L367" class="ln">   367  </span>		}
-<span id="L368" class="ln">   368  </span>		o.UnparsedObject = raw
-<span id="L369" class="ln">   369  </span>		return nil
+<span id="L351" class="ln">   351  </span>	all := struct {
+<span id="L352" class="ln">   352  </span>		HasBackground   *bool                      `json:&#34;has_background,omitempty&#34;`
+<span id="L353" class="ln">   353  </span>		HasBorder       *bool                      `json:&#34;has_border,omitempty&#34;`
+<span id="L354" class="ln">   354  </span>		HorizontalAlign *WidgetHorizontalAlign     `json:&#34;horizontal_align,omitempty&#34;`
+<span id="L355" class="ln">   355  </span>		Margin          *WidgetMargin              `json:&#34;margin,omitempty&#34;`
+<span id="L356" class="ln">   356  </span>		Sizing          *WidgetImageSizing         `json:&#34;sizing,omitempty&#34;`
+<span id="L357" class="ln">   357  </span>		Type            *ImageWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L358" class="ln">   358  </span>		Url             *string                    `json:&#34;url&#34;`
+<span id="L359" class="ln">   359  </span>		UrlDarkTheme    *string                    `json:&#34;url_dark_theme,omitempty&#34;`
+<span id="L360" class="ln">   360  </span>		VerticalAlign   *WidgetVerticalAlign       `json:&#34;vertical_align,omitempty&#34;`
+<span id="L361" class="ln">   361  </span>	}{}
+<span id="L362" class="ln">   362  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L363" class="ln">   363  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L364" class="ln">   364  </span>	}
+<span id="L365" class="ln">   365  </span>	if all.Type == nil {
+<span id="L366" class="ln">   366  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L367" class="ln">   367  </span>	}
+<span id="L368" class="ln">   368  </span>	if all.Url == nil {
+<span id="L369" class="ln">   369  </span>		return fmt.Errorf(&#34;required field url missing&#34;)
 <span id="L370" class="ln">   370  </span>	}
-<span id="L371" class="ln">   371  </span>	if all.Type == nil {
-<span id="L372" class="ln">   372  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L373" class="ln">   373  </span>	}
-<span id="L374" class="ln">   374  </span>	if all.Url == nil {
-<span id="L375" class="ln">   375  </span>		return fmt.Errorf(&#34;required field url missing&#34;)
+<span id="L371" class="ln">   371  </span>	additionalProperties := make(map[string]interface{})
+<span id="L372" class="ln">   372  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L373" class="ln">   373  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;has_background&#34;, &#34;has_border&#34;, &#34;horizontal_align&#34;, &#34;margin&#34;, &#34;sizing&#34;, &#34;type&#34;, &#34;url&#34;, &#34;url_dark_theme&#34;, &#34;vertical_align&#34;})
+<span id="L374" class="ln">   374  </span>	} else {
+<span id="L375" class="ln">   375  </span>		return err
 <span id="L376" class="ln">   376  </span>	}
-<span id="L377" class="ln">   377  </span>	additionalProperties := make(map[string]interface{})
-<span id="L378" class="ln">   378  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L379" class="ln">   379  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;has_background&#34;, &#34;has_border&#34;, &#34;horizontal_align&#34;, &#34;margin&#34;, &#34;sizing&#34;, &#34;type&#34;, &#34;url&#34;, &#34;url_dark_theme&#34;, &#34;vertical_align&#34;})
-<span id="L380" class="ln">   380  </span>	} else {
-<span id="L381" class="ln">   381  </span>		return err
-<span id="L382" class="ln">   382  </span>	}
-<span id="L383" class="ln">   383  </span>
-<span id="L384" class="ln">   384  </span>	hasInvalidField := false
-<span id="L385" class="ln">   385  </span>	o.HasBackground = all.HasBackground
-<span id="L386" class="ln">   386  </span>	o.HasBorder = all.HasBorder
-<span id="L387" class="ln">   387  </span>	if v := all.HorizontalAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L388" class="ln">   388  </span>		hasInvalidField = true
-<span id="L389" class="ln">   389  </span>	} else {
-<span id="L390" class="ln">   390  </span>		o.HorizontalAlign = all.HorizontalAlign
-<span id="L391" class="ln">   391  </span>	}
-<span id="L392" class="ln">   392  </span>	if v := all.Margin; v != nil &amp;&amp; !v.IsValid() {
-<span id="L393" class="ln">   393  </span>		hasInvalidField = true
-<span id="L394" class="ln">   394  </span>	} else {
-<span id="L395" class="ln">   395  </span>		o.Margin = all.Margin
-<span id="L396" class="ln">   396  </span>	}
-<span id="L397" class="ln">   397  </span>	if v := all.Sizing; v != nil &amp;&amp; !v.IsValid() {
-<span id="L398" class="ln">   398  </span>		hasInvalidField = true
-<span id="L399" class="ln">   399  </span>	} else {
-<span id="L400" class="ln">   400  </span>		o.Sizing = all.Sizing
-<span id="L401" class="ln">   401  </span>	}
-<span id="L402" class="ln">   402  </span>	if v := all.Type; !v.IsValid() {
-<span id="L403" class="ln">   403  </span>		hasInvalidField = true
-<span id="L404" class="ln">   404  </span>	} else {
-<span id="L405" class="ln">   405  </span>		o.Type = *all.Type
-<span id="L406" class="ln">   406  </span>	}
-<span id="L407" class="ln">   407  </span>	o.Url = *all.Url
-<span id="L408" class="ln">   408  </span>	o.UrlDarkTheme = all.UrlDarkTheme
-<span id="L409" class="ln">   409  </span>	if v := all.VerticalAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L410" class="ln">   410  </span>		hasInvalidField = true
-<span id="L411" class="ln">   411  </span>	} else {
-<span id="L412" class="ln">   412  </span>		o.VerticalAlign = all.VerticalAlign
-<span id="L413" class="ln">   413  </span>	}
-<span id="L414" class="ln">   414  </span>
-<span id="L415" class="ln">   415  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L416" class="ln">   416  </span>		o.AdditionalProperties = additionalProperties
-<span id="L417" class="ln">   417  </span>	}
-<span id="L418" class="ln">   418  </span>
-<span id="L419" class="ln">   419  </span>	if hasInvalidField {
-<span id="L420" class="ln">   420  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L421" class="ln">   421  </span>		if err != nil {
-<span id="L422" class="ln">   422  </span>			return err
-<span id="L423" class="ln">   423  </span>		}
-<span id="L424" class="ln">   424  </span>		o.UnparsedObject = raw
-<span id="L425" class="ln">   425  </span>	}
-<span id="L426" class="ln">   426  </span>
-<span id="L427" class="ln">   427  </span>	return nil
-<span id="L428" class="ln">   428  </span>}
-<span id="L429" class="ln">   429  </span>
+<span id="L377" class="ln">   377  </span>
+<span id="L378" class="ln">   378  </span>	hasInvalidField := false
+<span id="L379" class="ln">   379  </span>	o.HasBackground = all.HasBackground
+<span id="L380" class="ln">   380  </span>	o.HasBorder = all.HasBorder
+<span id="L381" class="ln">   381  </span>	if all.HorizontalAlign != nil &amp;&amp; !all.HorizontalAlign.IsValid() {
+<span id="L382" class="ln">   382  </span>		hasInvalidField = true
+<span id="L383" class="ln">   383  </span>	} else {
+<span id="L384" class="ln">   384  </span>		o.HorizontalAlign = all.HorizontalAlign
+<span id="L385" class="ln">   385  </span>	}
+<span id="L386" class="ln">   386  </span>	if all.Margin != nil &amp;&amp; !all.Margin.IsValid() {
+<span id="L387" class="ln">   387  </span>		hasInvalidField = true
+<span id="L388" class="ln">   388  </span>	} else {
+<span id="L389" class="ln">   389  </span>		o.Margin = all.Margin
+<span id="L390" class="ln">   390  </span>	}
+<span id="L391" class="ln">   391  </span>	if all.Sizing != nil &amp;&amp; !all.Sizing.IsValid() {
+<span id="L392" class="ln">   392  </span>		hasInvalidField = true
+<span id="L393" class="ln">   393  </span>	} else {
+<span id="L394" class="ln">   394  </span>		o.Sizing = all.Sizing
+<span id="L395" class="ln">   395  </span>	}
+<span id="L396" class="ln">   396  </span>	if !all.Type.IsValid() {
+<span id="L397" class="ln">   397  </span>		hasInvalidField = true
+<span id="L398" class="ln">   398  </span>	} else {
+<span id="L399" class="ln">   399  </span>		o.Type = *all.Type
+<span id="L400" class="ln">   400  </span>	}
+<span id="L401" class="ln">   401  </span>	o.Url = *all.Url
+<span id="L402" class="ln">   402  </span>	o.UrlDarkTheme = all.UrlDarkTheme
+<span id="L403" class="ln">   403  </span>	if all.VerticalAlign != nil &amp;&amp; !all.VerticalAlign.IsValid() {
+<span id="L404" class="ln">   404  </span>		hasInvalidField = true
+<span id="L405" class="ln">   405  </span>	} else {
+<span id="L406" class="ln">   406  </span>		o.VerticalAlign = all.VerticalAlign
+<span id="L407" class="ln">   407  </span>	}
+<span id="L408" class="ln">   408  </span>
+<span id="L409" class="ln">   409  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L410" class="ln">   410  </span>		o.AdditionalProperties = additionalProperties
+<span id="L411" class="ln">   411  </span>	}
+<span id="L412" class="ln">   412  </span>
+<span id="L413" class="ln">   413  </span>	if hasInvalidField {
+<span id="L414" class="ln">   414  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L415" class="ln">   415  </span>	}
+<span id="L416" class="ln">   416  </span>
+<span id="L417" class="ln">   417  </span>	return nil
+<span id="L418" class="ln">   418  </span>}
+<span id="L419" class="ln">   419  </span>
 </pre><p></p>
 
 <div id="footer">

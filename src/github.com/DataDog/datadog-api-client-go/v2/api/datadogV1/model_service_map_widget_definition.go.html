@@ -323,72 +323,62 @@
 <span id="L266" class="ln">   266  </span>
 <span id="L267" class="ln">   267  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L268" class="ln">   268  </span>func (o *ServiceMapWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L269" class="ln">   269  </span>	raw := map[string]interface{}{}
-<span id="L270" class="ln">   270  </span>	all := struct {
-<span id="L271" class="ln">   271  </span>		CustomLinks []WidgetCustomLink              `json:&#34;custom_links,omitempty&#34;`
-<span id="L272" class="ln">   272  </span>		Filters     *[]string                       `json:&#34;filters&#34;`
-<span id="L273" class="ln">   273  </span>		Service     *string                         `json:&#34;service&#34;`
-<span id="L274" class="ln">   274  </span>		Title       *string                         `json:&#34;title,omitempty&#34;`
-<span id="L275" class="ln">   275  </span>		TitleAlign  *WidgetTextAlign                `json:&#34;title_align,omitempty&#34;`
-<span id="L276" class="ln">   276  </span>		TitleSize   *string                         `json:&#34;title_size,omitempty&#34;`
-<span id="L277" class="ln">   277  </span>		Type        *ServiceMapWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L278" class="ln">   278  </span>	}{}
-<span id="L279" class="ln">   279  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L280" class="ln">   280  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L281" class="ln">   281  </span>		if err != nil {
-<span id="L282" class="ln">   282  </span>			return err
-<span id="L283" class="ln">   283  </span>		}
-<span id="L284" class="ln">   284  </span>		o.UnparsedObject = raw
-<span id="L285" class="ln">   285  </span>		return nil
+<span id="L269" class="ln">   269  </span>	all := struct {
+<span id="L270" class="ln">   270  </span>		CustomLinks []WidgetCustomLink              `json:&#34;custom_links,omitempty&#34;`
+<span id="L271" class="ln">   271  </span>		Filters     *[]string                       `json:&#34;filters&#34;`
+<span id="L272" class="ln">   272  </span>		Service     *string                         `json:&#34;service&#34;`
+<span id="L273" class="ln">   273  </span>		Title       *string                         `json:&#34;title,omitempty&#34;`
+<span id="L274" class="ln">   274  </span>		TitleAlign  *WidgetTextAlign                `json:&#34;title_align,omitempty&#34;`
+<span id="L275" class="ln">   275  </span>		TitleSize   *string                         `json:&#34;title_size,omitempty&#34;`
+<span id="L276" class="ln">   276  </span>		Type        *ServiceMapWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L277" class="ln">   277  </span>	}{}
+<span id="L278" class="ln">   278  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L279" class="ln">   279  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L280" class="ln">   280  </span>	}
+<span id="L281" class="ln">   281  </span>	if all.Filters == nil {
+<span id="L282" class="ln">   282  </span>		return fmt.Errorf(&#34;required field filters missing&#34;)
+<span id="L283" class="ln">   283  </span>	}
+<span id="L284" class="ln">   284  </span>	if all.Service == nil {
+<span id="L285" class="ln">   285  </span>		return fmt.Errorf(&#34;required field service missing&#34;)
 <span id="L286" class="ln">   286  </span>	}
-<span id="L287" class="ln">   287  </span>	if all.Filters == nil {
-<span id="L288" class="ln">   288  </span>		return fmt.Errorf(&#34;required field filters missing&#34;)
+<span id="L287" class="ln">   287  </span>	if all.Type == nil {
+<span id="L288" class="ln">   288  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L289" class="ln">   289  </span>	}
-<span id="L290" class="ln">   290  </span>	if all.Service == nil {
-<span id="L291" class="ln">   291  </span>		return fmt.Errorf(&#34;required field service missing&#34;)
-<span id="L292" class="ln">   292  </span>	}
-<span id="L293" class="ln">   293  </span>	if all.Type == nil {
-<span id="L294" class="ln">   294  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L290" class="ln">   290  </span>	additionalProperties := make(map[string]interface{})
+<span id="L291" class="ln">   291  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L292" class="ln">   292  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;custom_links&#34;, &#34;filters&#34;, &#34;service&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
+<span id="L293" class="ln">   293  </span>	} else {
+<span id="L294" class="ln">   294  </span>		return err
 <span id="L295" class="ln">   295  </span>	}
-<span id="L296" class="ln">   296  </span>	additionalProperties := make(map[string]interface{})
-<span id="L297" class="ln">   297  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L298" class="ln">   298  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;custom_links&#34;, &#34;filters&#34;, &#34;service&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
-<span id="L299" class="ln">   299  </span>	} else {
-<span id="L300" class="ln">   300  </span>		return err
-<span id="L301" class="ln">   301  </span>	}
-<span id="L302" class="ln">   302  </span>
-<span id="L303" class="ln">   303  </span>	hasInvalidField := false
-<span id="L304" class="ln">   304  </span>	o.CustomLinks = all.CustomLinks
-<span id="L305" class="ln">   305  </span>	o.Filters = *all.Filters
-<span id="L306" class="ln">   306  </span>	o.Service = *all.Service
-<span id="L307" class="ln">   307  </span>	o.Title = all.Title
-<span id="L308" class="ln">   308  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L296" class="ln">   296  </span>
+<span id="L297" class="ln">   297  </span>	hasInvalidField := false
+<span id="L298" class="ln">   298  </span>	o.CustomLinks = all.CustomLinks
+<span id="L299" class="ln">   299  </span>	o.Filters = *all.Filters
+<span id="L300" class="ln">   300  </span>	o.Service = *all.Service
+<span id="L301" class="ln">   301  </span>	o.Title = all.Title
+<span id="L302" class="ln">   302  </span>	if all.TitleAlign != nil &amp;&amp; !all.TitleAlign.IsValid() {
+<span id="L303" class="ln">   303  </span>		hasInvalidField = true
+<span id="L304" class="ln">   304  </span>	} else {
+<span id="L305" class="ln">   305  </span>		o.TitleAlign = all.TitleAlign
+<span id="L306" class="ln">   306  </span>	}
+<span id="L307" class="ln">   307  </span>	o.TitleSize = all.TitleSize
+<span id="L308" class="ln">   308  </span>	if !all.Type.IsValid() {
 <span id="L309" class="ln">   309  </span>		hasInvalidField = true
 <span id="L310" class="ln">   310  </span>	} else {
-<span id="L311" class="ln">   311  </span>		o.TitleAlign = all.TitleAlign
+<span id="L311" class="ln">   311  </span>		o.Type = *all.Type
 <span id="L312" class="ln">   312  </span>	}
-<span id="L313" class="ln">   313  </span>	o.TitleSize = all.TitleSize
-<span id="L314" class="ln">   314  </span>	if v := all.Type; !v.IsValid() {
-<span id="L315" class="ln">   315  </span>		hasInvalidField = true
-<span id="L316" class="ln">   316  </span>	} else {
-<span id="L317" class="ln">   317  </span>		o.Type = *all.Type
-<span id="L318" class="ln">   318  </span>	}
-<span id="L319" class="ln">   319  </span>
-<span id="L320" class="ln">   320  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L321" class="ln">   321  </span>		o.AdditionalProperties = additionalProperties
-<span id="L322" class="ln">   322  </span>	}
-<span id="L323" class="ln">   323  </span>
-<span id="L324" class="ln">   324  </span>	if hasInvalidField {
-<span id="L325" class="ln">   325  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L326" class="ln">   326  </span>		if err != nil {
-<span id="L327" class="ln">   327  </span>			return err
-<span id="L328" class="ln">   328  </span>		}
-<span id="L329" class="ln">   329  </span>		o.UnparsedObject = raw
-<span id="L330" class="ln">   330  </span>	}
-<span id="L331" class="ln">   331  </span>
-<span id="L332" class="ln">   332  </span>	return nil
-<span id="L333" class="ln">   333  </span>}
-<span id="L334" class="ln">   334  </span>
+<span id="L313" class="ln">   313  </span>
+<span id="L314" class="ln">   314  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L315" class="ln">   315  </span>		o.AdditionalProperties = additionalProperties
+<span id="L316" class="ln">   316  </span>	}
+<span id="L317" class="ln">   317  </span>
+<span id="L318" class="ln">   318  </span>	if hasInvalidField {
+<span id="L319" class="ln">   319  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L320" class="ln">   320  </span>	}
+<span id="L321" class="ln">   321  </span>
+<span id="L322" class="ln">   322  </span>	return nil
+<span id="L323" class="ln">   323  </span>}
+<span id="L324" class="ln">   324  </span>
 </pre><p></p>
 
 <div id="footer">

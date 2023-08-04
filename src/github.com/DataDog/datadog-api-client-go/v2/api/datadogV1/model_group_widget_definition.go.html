@@ -360,78 +360,68 @@
 <span id="L303" class="ln">   303  </span>
 <span id="L304" class="ln">   304  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L305" class="ln">   305  </span>func (o *GroupWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L306" class="ln">   306  </span>	raw := map[string]interface{}{}
-<span id="L307" class="ln">   307  </span>	all := struct {
-<span id="L308" class="ln">   308  </span>		BackgroundColor *string                    `json:&#34;background_color,omitempty&#34;`
-<span id="L309" class="ln">   309  </span>		BannerImg       *string                    `json:&#34;banner_img,omitempty&#34;`
-<span id="L310" class="ln">   310  </span>		LayoutType      *WidgetLayoutType          `json:&#34;layout_type&#34;`
-<span id="L311" class="ln">   311  </span>		ShowTitle       *bool                      `json:&#34;show_title,omitempty&#34;`
-<span id="L312" class="ln">   312  </span>		Title           *string                    `json:&#34;title,omitempty&#34;`
-<span id="L313" class="ln">   313  </span>		TitleAlign      *WidgetTextAlign           `json:&#34;title_align,omitempty&#34;`
-<span id="L314" class="ln">   314  </span>		Type            *GroupWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L315" class="ln">   315  </span>		Widgets         *[]Widget                  `json:&#34;widgets&#34;`
-<span id="L316" class="ln">   316  </span>	}{}
-<span id="L317" class="ln">   317  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L318" class="ln">   318  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L319" class="ln">   319  </span>		if err != nil {
-<span id="L320" class="ln">   320  </span>			return err
-<span id="L321" class="ln">   321  </span>		}
-<span id="L322" class="ln">   322  </span>		o.UnparsedObject = raw
-<span id="L323" class="ln">   323  </span>		return nil
+<span id="L306" class="ln">   306  </span>	all := struct {
+<span id="L307" class="ln">   307  </span>		BackgroundColor *string                    `json:&#34;background_color,omitempty&#34;`
+<span id="L308" class="ln">   308  </span>		BannerImg       *string                    `json:&#34;banner_img,omitempty&#34;`
+<span id="L309" class="ln">   309  </span>		LayoutType      *WidgetLayoutType          `json:&#34;layout_type&#34;`
+<span id="L310" class="ln">   310  </span>		ShowTitle       *bool                      `json:&#34;show_title,omitempty&#34;`
+<span id="L311" class="ln">   311  </span>		Title           *string                    `json:&#34;title,omitempty&#34;`
+<span id="L312" class="ln">   312  </span>		TitleAlign      *WidgetTextAlign           `json:&#34;title_align,omitempty&#34;`
+<span id="L313" class="ln">   313  </span>		Type            *GroupWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L314" class="ln">   314  </span>		Widgets         *[]Widget                  `json:&#34;widgets&#34;`
+<span id="L315" class="ln">   315  </span>	}{}
+<span id="L316" class="ln">   316  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L317" class="ln">   317  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L318" class="ln">   318  </span>	}
+<span id="L319" class="ln">   319  </span>	if all.LayoutType == nil {
+<span id="L320" class="ln">   320  </span>		return fmt.Errorf(&#34;required field layout_type missing&#34;)
+<span id="L321" class="ln">   321  </span>	}
+<span id="L322" class="ln">   322  </span>	if all.Type == nil {
+<span id="L323" class="ln">   323  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L324" class="ln">   324  </span>	}
-<span id="L325" class="ln">   325  </span>	if all.LayoutType == nil {
-<span id="L326" class="ln">   326  </span>		return fmt.Errorf(&#34;required field layout_type missing&#34;)
+<span id="L325" class="ln">   325  </span>	if all.Widgets == nil {
+<span id="L326" class="ln">   326  </span>		return fmt.Errorf(&#34;required field widgets missing&#34;)
 <span id="L327" class="ln">   327  </span>	}
-<span id="L328" class="ln">   328  </span>	if all.Type == nil {
-<span id="L329" class="ln">   329  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L330" class="ln">   330  </span>	}
-<span id="L331" class="ln">   331  </span>	if all.Widgets == nil {
-<span id="L332" class="ln">   332  </span>		return fmt.Errorf(&#34;required field widgets missing&#34;)
+<span id="L328" class="ln">   328  </span>	additionalProperties := make(map[string]interface{})
+<span id="L329" class="ln">   329  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L330" class="ln">   330  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;background_color&#34;, &#34;banner_img&#34;, &#34;layout_type&#34;, &#34;show_title&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;type&#34;, &#34;widgets&#34;})
+<span id="L331" class="ln">   331  </span>	} else {
+<span id="L332" class="ln">   332  </span>		return err
 <span id="L333" class="ln">   333  </span>	}
-<span id="L334" class="ln">   334  </span>	additionalProperties := make(map[string]interface{})
-<span id="L335" class="ln">   335  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L336" class="ln">   336  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;background_color&#34;, &#34;banner_img&#34;, &#34;layout_type&#34;, &#34;show_title&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;type&#34;, &#34;widgets&#34;})
-<span id="L337" class="ln">   337  </span>	} else {
-<span id="L338" class="ln">   338  </span>		return err
-<span id="L339" class="ln">   339  </span>	}
-<span id="L340" class="ln">   340  </span>
-<span id="L341" class="ln">   341  </span>	hasInvalidField := false
-<span id="L342" class="ln">   342  </span>	o.BackgroundColor = all.BackgroundColor
-<span id="L343" class="ln">   343  </span>	o.BannerImg = all.BannerImg
-<span id="L344" class="ln">   344  </span>	if v := all.LayoutType; !v.IsValid() {
-<span id="L345" class="ln">   345  </span>		hasInvalidField = true
-<span id="L346" class="ln">   346  </span>	} else {
-<span id="L347" class="ln">   347  </span>		o.LayoutType = *all.LayoutType
-<span id="L348" class="ln">   348  </span>	}
-<span id="L349" class="ln">   349  </span>	o.ShowTitle = all.ShowTitle
-<span id="L350" class="ln">   350  </span>	o.Title = all.Title
-<span id="L351" class="ln">   351  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L352" class="ln">   352  </span>		hasInvalidField = true
-<span id="L353" class="ln">   353  </span>	} else {
-<span id="L354" class="ln">   354  </span>		o.TitleAlign = all.TitleAlign
-<span id="L355" class="ln">   355  </span>	}
-<span id="L356" class="ln">   356  </span>	if v := all.Type; !v.IsValid() {
-<span id="L357" class="ln">   357  </span>		hasInvalidField = true
-<span id="L358" class="ln">   358  </span>	} else {
-<span id="L359" class="ln">   359  </span>		o.Type = *all.Type
-<span id="L360" class="ln">   360  </span>	}
-<span id="L361" class="ln">   361  </span>	o.Widgets = *all.Widgets
-<span id="L362" class="ln">   362  </span>
-<span id="L363" class="ln">   363  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L364" class="ln">   364  </span>		o.AdditionalProperties = additionalProperties
-<span id="L365" class="ln">   365  </span>	}
-<span id="L366" class="ln">   366  </span>
-<span id="L367" class="ln">   367  </span>	if hasInvalidField {
-<span id="L368" class="ln">   368  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L369" class="ln">   369  </span>		if err != nil {
-<span id="L370" class="ln">   370  </span>			return err
-<span id="L371" class="ln">   371  </span>		}
-<span id="L372" class="ln">   372  </span>		o.UnparsedObject = raw
-<span id="L373" class="ln">   373  </span>	}
-<span id="L374" class="ln">   374  </span>
-<span id="L375" class="ln">   375  </span>	return nil
-<span id="L376" class="ln">   376  </span>}
-<span id="L377" class="ln">   377  </span>
+<span id="L334" class="ln">   334  </span>
+<span id="L335" class="ln">   335  </span>	hasInvalidField := false
+<span id="L336" class="ln">   336  </span>	o.BackgroundColor = all.BackgroundColor
+<span id="L337" class="ln">   337  </span>	o.BannerImg = all.BannerImg
+<span id="L338" class="ln">   338  </span>	if !all.LayoutType.IsValid() {
+<span id="L339" class="ln">   339  </span>		hasInvalidField = true
+<span id="L340" class="ln">   340  </span>	} else {
+<span id="L341" class="ln">   341  </span>		o.LayoutType = *all.LayoutType
+<span id="L342" class="ln">   342  </span>	}
+<span id="L343" class="ln">   343  </span>	o.ShowTitle = all.ShowTitle
+<span id="L344" class="ln">   344  </span>	o.Title = all.Title
+<span id="L345" class="ln">   345  </span>	if all.TitleAlign != nil &amp;&amp; !all.TitleAlign.IsValid() {
+<span id="L346" class="ln">   346  </span>		hasInvalidField = true
+<span id="L347" class="ln">   347  </span>	} else {
+<span id="L348" class="ln">   348  </span>		o.TitleAlign = all.TitleAlign
+<span id="L349" class="ln">   349  </span>	}
+<span id="L350" class="ln">   350  </span>	if !all.Type.IsValid() {
+<span id="L351" class="ln">   351  </span>		hasInvalidField = true
+<span id="L352" class="ln">   352  </span>	} else {
+<span id="L353" class="ln">   353  </span>		o.Type = *all.Type
+<span id="L354" class="ln">   354  </span>	}
+<span id="L355" class="ln">   355  </span>	o.Widgets = *all.Widgets
+<span id="L356" class="ln">   356  </span>
+<span id="L357" class="ln">   357  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L358" class="ln">   358  </span>		o.AdditionalProperties = additionalProperties
+<span id="L359" class="ln">   359  </span>	}
+<span id="L360" class="ln">   360  </span>
+<span id="L361" class="ln">   361  </span>	if hasInvalidField {
+<span id="L362" class="ln">   362  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L363" class="ln">   363  </span>	}
+<span id="L364" class="ln">   364  </span>
+<span id="L365" class="ln">   365  </span>	return nil
+<span id="L366" class="ln">   366  </span>}
+<span id="L367" class="ln">   367  </span>
 </pre><p></p>
 
 <div id="footer">

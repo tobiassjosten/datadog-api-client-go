@@ -601,77 +601,67 @@
 <span id="L544" class="ln">   544  </span>
 <span id="L545" class="ln">   545  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L546" class="ln">   546  </span>func (o *CloudWorkloadSecurityAgentRuleAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L547" class="ln">   547  </span>	raw := map[string]interface{}{}
-<span id="L548" class="ln">   548  </span>	all := struct {
-<span id="L549" class="ln">   549  </span>		AgentConstraint    *string                                          `json:&#34;agentConstraint,omitempty&#34;`
-<span id="L550" class="ln">   550  </span>		Category           *string                                          `json:&#34;category,omitempty&#34;`
-<span id="L551" class="ln">   551  </span>		CreationAuthorUuId *string                                          `json:&#34;creationAuthorUuId,omitempty&#34;`
-<span id="L552" class="ln">   552  </span>		CreationDate       *int64                                           `json:&#34;creationDate,omitempty&#34;`
-<span id="L553" class="ln">   553  </span>		Creator            *CloudWorkloadSecurityAgentRuleCreatorAttributes `json:&#34;creator,omitempty&#34;`
-<span id="L554" class="ln">   554  </span>		DefaultRule        *bool                                            `json:&#34;defaultRule,omitempty&#34;`
-<span id="L555" class="ln">   555  </span>		Description        *string                                          `json:&#34;description,omitempty&#34;`
-<span id="L556" class="ln">   556  </span>		Enabled            *bool                                            `json:&#34;enabled,omitempty&#34;`
-<span id="L557" class="ln">   557  </span>		Expression         *string                                          `json:&#34;expression,omitempty&#34;`
-<span id="L558" class="ln">   558  </span>		Name               *string                                          `json:&#34;name,omitempty&#34;`
-<span id="L559" class="ln">   559  </span>		UpdateAuthorUuId   *string                                          `json:&#34;updateAuthorUuId,omitempty&#34;`
-<span id="L560" class="ln">   560  </span>		UpdateDate         *int64                                           `json:&#34;updateDate,omitempty&#34;`
-<span id="L561" class="ln">   561  </span>		UpdatedAt          *int64                                           `json:&#34;updatedAt,omitempty&#34;`
-<span id="L562" class="ln">   562  </span>		Updater            *CloudWorkloadSecurityAgentRuleUpdaterAttributes `json:&#34;updater,omitempty&#34;`
-<span id="L563" class="ln">   563  </span>		Version            *int64                                           `json:&#34;version,omitempty&#34;`
-<span id="L564" class="ln">   564  </span>	}{}
-<span id="L565" class="ln">   565  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L566" class="ln">   566  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L567" class="ln">   567  </span>		if err != nil {
-<span id="L568" class="ln">   568  </span>			return err
-<span id="L569" class="ln">   569  </span>		}
-<span id="L570" class="ln">   570  </span>		o.UnparsedObject = raw
-<span id="L571" class="ln">   571  </span>		return nil
+<span id="L547" class="ln">   547  </span>	all := struct {
+<span id="L548" class="ln">   548  </span>		AgentConstraint    *string                                          `json:&#34;agentConstraint,omitempty&#34;`
+<span id="L549" class="ln">   549  </span>		Category           *string                                          `json:&#34;category,omitempty&#34;`
+<span id="L550" class="ln">   550  </span>		CreationAuthorUuId *string                                          `json:&#34;creationAuthorUuId,omitempty&#34;`
+<span id="L551" class="ln">   551  </span>		CreationDate       *int64                                           `json:&#34;creationDate,omitempty&#34;`
+<span id="L552" class="ln">   552  </span>		Creator            *CloudWorkloadSecurityAgentRuleCreatorAttributes `json:&#34;creator,omitempty&#34;`
+<span id="L553" class="ln">   553  </span>		DefaultRule        *bool                                            `json:&#34;defaultRule,omitempty&#34;`
+<span id="L554" class="ln">   554  </span>		Description        *string                                          `json:&#34;description,omitempty&#34;`
+<span id="L555" class="ln">   555  </span>		Enabled            *bool                                            `json:&#34;enabled,omitempty&#34;`
+<span id="L556" class="ln">   556  </span>		Expression         *string                                          `json:&#34;expression,omitempty&#34;`
+<span id="L557" class="ln">   557  </span>		Name               *string                                          `json:&#34;name,omitempty&#34;`
+<span id="L558" class="ln">   558  </span>		UpdateAuthorUuId   *string                                          `json:&#34;updateAuthorUuId,omitempty&#34;`
+<span id="L559" class="ln">   559  </span>		UpdateDate         *int64                                           `json:&#34;updateDate,omitempty&#34;`
+<span id="L560" class="ln">   560  </span>		UpdatedAt          *int64                                           `json:&#34;updatedAt,omitempty&#34;`
+<span id="L561" class="ln">   561  </span>		Updater            *CloudWorkloadSecurityAgentRuleUpdaterAttributes `json:&#34;updater,omitempty&#34;`
+<span id="L562" class="ln">   562  </span>		Version            *int64                                           `json:&#34;version,omitempty&#34;`
+<span id="L563" class="ln">   563  </span>	}{}
+<span id="L564" class="ln">   564  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L565" class="ln">   565  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L566" class="ln">   566  </span>	}
+<span id="L567" class="ln">   567  </span>	additionalProperties := make(map[string]interface{})
+<span id="L568" class="ln">   568  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L569" class="ln">   569  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agentConstraint&#34;, &#34;category&#34;, &#34;creationAuthorUuId&#34;, &#34;creationDate&#34;, &#34;creator&#34;, &#34;defaultRule&#34;, &#34;description&#34;, &#34;enabled&#34;, &#34;expression&#34;, &#34;name&#34;, &#34;updateAuthorUuId&#34;, &#34;updateDate&#34;, &#34;updatedAt&#34;, &#34;updater&#34;, &#34;version&#34;})
+<span id="L570" class="ln">   570  </span>	} else {
+<span id="L571" class="ln">   571  </span>		return err
 <span id="L572" class="ln">   572  </span>	}
-<span id="L573" class="ln">   573  </span>	additionalProperties := make(map[string]interface{})
-<span id="L574" class="ln">   574  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L575" class="ln">   575  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agentConstraint&#34;, &#34;category&#34;, &#34;creationAuthorUuId&#34;, &#34;creationDate&#34;, &#34;creator&#34;, &#34;defaultRule&#34;, &#34;description&#34;, &#34;enabled&#34;, &#34;expression&#34;, &#34;name&#34;, &#34;updateAuthorUuId&#34;, &#34;updateDate&#34;, &#34;updatedAt&#34;, &#34;updater&#34;, &#34;version&#34;})
-<span id="L576" class="ln">   576  </span>	} else {
-<span id="L577" class="ln">   577  </span>		return err
-<span id="L578" class="ln">   578  </span>	}
-<span id="L579" class="ln">   579  </span>
-<span id="L580" class="ln">   580  </span>	hasInvalidField := false
-<span id="L581" class="ln">   581  </span>	o.AgentConstraint = all.AgentConstraint
-<span id="L582" class="ln">   582  </span>	o.Category = all.Category
-<span id="L583" class="ln">   583  </span>	o.CreationAuthorUuId = all.CreationAuthorUuId
-<span id="L584" class="ln">   584  </span>	o.CreationDate = all.CreationDate
-<span id="L585" class="ln">   585  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L586" class="ln">   586  </span>		hasInvalidField = true
-<span id="L587" class="ln">   587  </span>	}
-<span id="L588" class="ln">   588  </span>	o.Creator = all.Creator
-<span id="L589" class="ln">   589  </span>	o.DefaultRule = all.DefaultRule
-<span id="L590" class="ln">   590  </span>	o.Description = all.Description
-<span id="L591" class="ln">   591  </span>	o.Enabled = all.Enabled
-<span id="L592" class="ln">   592  </span>	o.Expression = all.Expression
-<span id="L593" class="ln">   593  </span>	o.Name = all.Name
-<span id="L594" class="ln">   594  </span>	o.UpdateAuthorUuId = all.UpdateAuthorUuId
-<span id="L595" class="ln">   595  </span>	o.UpdateDate = all.UpdateDate
-<span id="L596" class="ln">   596  </span>	o.UpdatedAt = all.UpdatedAt
-<span id="L597" class="ln">   597  </span>	if all.Updater != nil &amp;&amp; all.Updater.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L598" class="ln">   598  </span>		hasInvalidField = true
+<span id="L573" class="ln">   573  </span>
+<span id="L574" class="ln">   574  </span>	hasInvalidField := false
+<span id="L575" class="ln">   575  </span>	o.AgentConstraint = all.AgentConstraint
+<span id="L576" class="ln">   576  </span>	o.Category = all.Category
+<span id="L577" class="ln">   577  </span>	o.CreationAuthorUuId = all.CreationAuthorUuId
+<span id="L578" class="ln">   578  </span>	o.CreationDate = all.CreationDate
+<span id="L579" class="ln">   579  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L580" class="ln">   580  </span>		hasInvalidField = true
+<span id="L581" class="ln">   581  </span>	}
+<span id="L582" class="ln">   582  </span>	o.Creator = all.Creator
+<span id="L583" class="ln">   583  </span>	o.DefaultRule = all.DefaultRule
+<span id="L584" class="ln">   584  </span>	o.Description = all.Description
+<span id="L585" class="ln">   585  </span>	o.Enabled = all.Enabled
+<span id="L586" class="ln">   586  </span>	o.Expression = all.Expression
+<span id="L587" class="ln">   587  </span>	o.Name = all.Name
+<span id="L588" class="ln">   588  </span>	o.UpdateAuthorUuId = all.UpdateAuthorUuId
+<span id="L589" class="ln">   589  </span>	o.UpdateDate = all.UpdateDate
+<span id="L590" class="ln">   590  </span>	o.UpdatedAt = all.UpdatedAt
+<span id="L591" class="ln">   591  </span>	if all.Updater != nil &amp;&amp; all.Updater.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L592" class="ln">   592  </span>		hasInvalidField = true
+<span id="L593" class="ln">   593  </span>	}
+<span id="L594" class="ln">   594  </span>	o.Updater = all.Updater
+<span id="L595" class="ln">   595  </span>	o.Version = all.Version
+<span id="L596" class="ln">   596  </span>
+<span id="L597" class="ln">   597  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L598" class="ln">   598  </span>		o.AdditionalProperties = additionalProperties
 <span id="L599" class="ln">   599  </span>	}
-<span id="L600" class="ln">   600  </span>	o.Updater = all.Updater
-<span id="L601" class="ln">   601  </span>	o.Version = all.Version
-<span id="L602" class="ln">   602  </span>
-<span id="L603" class="ln">   603  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L604" class="ln">   604  </span>		o.AdditionalProperties = additionalProperties
-<span id="L605" class="ln">   605  </span>	}
-<span id="L606" class="ln">   606  </span>
-<span id="L607" class="ln">   607  </span>	if hasInvalidField {
-<span id="L608" class="ln">   608  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L609" class="ln">   609  </span>		if err != nil {
-<span id="L610" class="ln">   610  </span>			return err
-<span id="L611" class="ln">   611  </span>		}
-<span id="L612" class="ln">   612  </span>		o.UnparsedObject = raw
-<span id="L613" class="ln">   613  </span>	}
-<span id="L614" class="ln">   614  </span>
-<span id="L615" class="ln">   615  </span>	return nil
-<span id="L616" class="ln">   616  </span>}
-<span id="L617" class="ln">   617  </span>
+<span id="L600" class="ln">   600  </span>
+<span id="L601" class="ln">   601  </span>	if hasInvalidField {
+<span id="L602" class="ln">   602  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L603" class="ln">   603  </span>	}
+<span id="L604" class="ln">   604  </span>
+<span id="L605" class="ln">   605  </span>	return nil
+<span id="L606" class="ln">   606  </span>}
+<span id="L607" class="ln">   607  </span>
 </pre><p></p>
 
 <div id="footer">

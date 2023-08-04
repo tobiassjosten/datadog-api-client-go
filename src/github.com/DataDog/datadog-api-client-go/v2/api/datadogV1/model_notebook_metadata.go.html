@@ -224,51 +224,41 @@
 <span id="L167" class="ln">   167  </span>
 <span id="L168" class="ln">   168  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L169" class="ln">   169  </span>func (o *NotebookMetadata) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L170" class="ln">   170  </span>	raw := map[string]interface{}{}
-<span id="L171" class="ln">   171  </span>	all := struct {
-<span id="L172" class="ln">   172  </span>		IsTemplate    *bool                        `json:&#34;is_template,omitempty&#34;`
-<span id="L173" class="ln">   173  </span>		TakeSnapshots *bool                        `json:&#34;take_snapshots,omitempty&#34;`
-<span id="L174" class="ln">   174  </span>		Type          NullableNotebookMetadataType `json:&#34;type,omitempty&#34;`
-<span id="L175" class="ln">   175  </span>	}{}
-<span id="L176" class="ln">   176  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L177" class="ln">   177  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L178" class="ln">   178  </span>		if err != nil {
-<span id="L179" class="ln">   179  </span>			return err
-<span id="L180" class="ln">   180  </span>		}
-<span id="L181" class="ln">   181  </span>		o.UnparsedObject = raw
-<span id="L182" class="ln">   182  </span>		return nil
+<span id="L170" class="ln">   170  </span>	all := struct {
+<span id="L171" class="ln">   171  </span>		IsTemplate    *bool                        `json:&#34;is_template,omitempty&#34;`
+<span id="L172" class="ln">   172  </span>		TakeSnapshots *bool                        `json:&#34;take_snapshots,omitempty&#34;`
+<span id="L173" class="ln">   173  </span>		Type          NullableNotebookMetadataType `json:&#34;type,omitempty&#34;`
+<span id="L174" class="ln">   174  </span>	}{}
+<span id="L175" class="ln">   175  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L176" class="ln">   176  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L177" class="ln">   177  </span>	}
+<span id="L178" class="ln">   178  </span>	additionalProperties := make(map[string]interface{})
+<span id="L179" class="ln">   179  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L180" class="ln">   180  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;is_template&#34;, &#34;take_snapshots&#34;, &#34;type&#34;})
+<span id="L181" class="ln">   181  </span>	} else {
+<span id="L182" class="ln">   182  </span>		return err
 <span id="L183" class="ln">   183  </span>	}
-<span id="L184" class="ln">   184  </span>	additionalProperties := make(map[string]interface{})
-<span id="L185" class="ln">   185  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L186" class="ln">   186  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;is_template&#34;, &#34;take_snapshots&#34;, &#34;type&#34;})
-<span id="L187" class="ln">   187  </span>	} else {
-<span id="L188" class="ln">   188  </span>		return err
-<span id="L189" class="ln">   189  </span>	}
-<span id="L190" class="ln">   190  </span>
-<span id="L191" class="ln">   191  </span>	hasInvalidField := false
-<span id="L192" class="ln">   192  </span>	o.IsTemplate = all.IsTemplate
-<span id="L193" class="ln">   193  </span>	o.TakeSnapshots = all.TakeSnapshots
-<span id="L194" class="ln">   194  </span>	if v := all.Type; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L195" class="ln">   195  </span>		hasInvalidField = true
-<span id="L196" class="ln">   196  </span>	} else {
-<span id="L197" class="ln">   197  </span>		o.Type = all.Type
-<span id="L198" class="ln">   198  </span>	}
-<span id="L199" class="ln">   199  </span>
-<span id="L200" class="ln">   200  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L201" class="ln">   201  </span>		o.AdditionalProperties = additionalProperties
-<span id="L202" class="ln">   202  </span>	}
-<span id="L203" class="ln">   203  </span>
-<span id="L204" class="ln">   204  </span>	if hasInvalidField {
-<span id="L205" class="ln">   205  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L206" class="ln">   206  </span>		if err != nil {
-<span id="L207" class="ln">   207  </span>			return err
-<span id="L208" class="ln">   208  </span>		}
-<span id="L209" class="ln">   209  </span>		o.UnparsedObject = raw
-<span id="L210" class="ln">   210  </span>	}
-<span id="L211" class="ln">   211  </span>
-<span id="L212" class="ln">   212  </span>	return nil
-<span id="L213" class="ln">   213  </span>}
-<span id="L214" class="ln">   214  </span>
+<span id="L184" class="ln">   184  </span>
+<span id="L185" class="ln">   185  </span>	hasInvalidField := false
+<span id="L186" class="ln">   186  </span>	o.IsTemplate = all.IsTemplate
+<span id="L187" class="ln">   187  </span>	o.TakeSnapshots = all.TakeSnapshots
+<span id="L188" class="ln">   188  </span>	if all.Type.Get() != nil &amp;&amp; !all.Type.Get().IsValid() {
+<span id="L189" class="ln">   189  </span>		hasInvalidField = true
+<span id="L190" class="ln">   190  </span>	} else {
+<span id="L191" class="ln">   191  </span>		o.Type = all.Type
+<span id="L192" class="ln">   192  </span>	}
+<span id="L193" class="ln">   193  </span>
+<span id="L194" class="ln">   194  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L195" class="ln">   195  </span>		o.AdditionalProperties = additionalProperties
+<span id="L196" class="ln">   196  </span>	}
+<span id="L197" class="ln">   197  </span>
+<span id="L198" class="ln">   198  </span>	if hasInvalidField {
+<span id="L199" class="ln">   199  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L200" class="ln">   200  </span>	}
+<span id="L201" class="ln">   201  </span>
+<span id="L202" class="ln">   202  </span>	return nil
+<span id="L203" class="ln">   203  </span>}
+<span id="L204" class="ln">   204  </span>
 </pre><p></p>
 
 <div id="footer">

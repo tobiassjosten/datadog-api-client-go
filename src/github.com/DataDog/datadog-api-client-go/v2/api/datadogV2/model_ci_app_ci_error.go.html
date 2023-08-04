@@ -271,103 +271,93 @@
 <span id="L214" class="ln">   214  </span>
 <span id="L215" class="ln">   215  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L216" class="ln">   216  </span>func (o *CIAppCIError) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L217" class="ln">   217  </span>	raw := map[string]interface{}{}
-<span id="L218" class="ln">   218  </span>	all := struct {
-<span id="L219" class="ln">   219  </span>		Domain  *CIAppCIErrorDomain    `json:&#34;domain,omitempty&#34;`
-<span id="L220" class="ln">   220  </span>		Message datadog.NullableString `json:&#34;message,omitempty&#34;`
-<span id="L221" class="ln">   221  </span>		Stack   datadog.NullableString `json:&#34;stack,omitempty&#34;`
-<span id="L222" class="ln">   222  </span>		Type    datadog.NullableString `json:&#34;type,omitempty&#34;`
-<span id="L223" class="ln">   223  </span>	}{}
-<span id="L224" class="ln">   224  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L225" class="ln">   225  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L226" class="ln">   226  </span>		if err != nil {
-<span id="L227" class="ln">   227  </span>			return err
-<span id="L228" class="ln">   228  </span>		}
-<span id="L229" class="ln">   229  </span>		o.UnparsedObject = raw
-<span id="L230" class="ln">   230  </span>		return nil
+<span id="L217" class="ln">   217  </span>	all := struct {
+<span id="L218" class="ln">   218  </span>		Domain  *CIAppCIErrorDomain    `json:&#34;domain,omitempty&#34;`
+<span id="L219" class="ln">   219  </span>		Message datadog.NullableString `json:&#34;message,omitempty&#34;`
+<span id="L220" class="ln">   220  </span>		Stack   datadog.NullableString `json:&#34;stack,omitempty&#34;`
+<span id="L221" class="ln">   221  </span>		Type    datadog.NullableString `json:&#34;type,omitempty&#34;`
+<span id="L222" class="ln">   222  </span>	}{}
+<span id="L223" class="ln">   223  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L224" class="ln">   224  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L225" class="ln">   225  </span>	}
+<span id="L226" class="ln">   226  </span>	additionalProperties := make(map[string]interface{})
+<span id="L227" class="ln">   227  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L228" class="ln">   228  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;domain&#34;, &#34;message&#34;, &#34;stack&#34;, &#34;type&#34;})
+<span id="L229" class="ln">   229  </span>	} else {
+<span id="L230" class="ln">   230  </span>		return err
 <span id="L231" class="ln">   231  </span>	}
-<span id="L232" class="ln">   232  </span>	additionalProperties := make(map[string]interface{})
-<span id="L233" class="ln">   233  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L234" class="ln">   234  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;domain&#34;, &#34;message&#34;, &#34;stack&#34;, &#34;type&#34;})
-<span id="L235" class="ln">   235  </span>	} else {
-<span id="L236" class="ln">   236  </span>		return err
-<span id="L237" class="ln">   237  </span>	}
-<span id="L238" class="ln">   238  </span>
-<span id="L239" class="ln">   239  </span>	hasInvalidField := false
-<span id="L240" class="ln">   240  </span>	if v := all.Domain; v != nil &amp;&amp; !v.IsValid() {
-<span id="L241" class="ln">   241  </span>		hasInvalidField = true
-<span id="L242" class="ln">   242  </span>	} else {
-<span id="L243" class="ln">   243  </span>		o.Domain = all.Domain
-<span id="L244" class="ln">   244  </span>	}
-<span id="L245" class="ln">   245  </span>	o.Message = all.Message
-<span id="L246" class="ln">   246  </span>	o.Stack = all.Stack
-<span id="L247" class="ln">   247  </span>	o.Type = all.Type
-<span id="L248" class="ln">   248  </span>
-<span id="L249" class="ln">   249  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L250" class="ln">   250  </span>		o.AdditionalProperties = additionalProperties
-<span id="L251" class="ln">   251  </span>	}
-<span id="L252" class="ln">   252  </span>
-<span id="L253" class="ln">   253  </span>	if hasInvalidField {
-<span id="L254" class="ln">   254  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L255" class="ln">   255  </span>		if err != nil {
-<span id="L256" class="ln">   256  </span>			return err
-<span id="L257" class="ln">   257  </span>		}
-<span id="L258" class="ln">   258  </span>		o.UnparsedObject = raw
-<span id="L259" class="ln">   259  </span>	}
-<span id="L260" class="ln">   260  </span>
-<span id="L261" class="ln">   261  </span>	return nil
-<span id="L262" class="ln">   262  </span>}
-<span id="L263" class="ln">   263  </span>
-<span id="L264" class="ln">   264  </span><span class="comment">// NullableCIAppCIError handles when a null is used for CIAppCIError.</span>
-<span id="L265" class="ln">   265  </span>type NullableCIAppCIError struct {
-<span id="L266" class="ln">   266  </span>	value *CIAppCIError
-<span id="L267" class="ln">   267  </span>	isSet bool
-<span id="L268" class="ln">   268  </span>}
-<span id="L269" class="ln">   269  </span>
-<span id="L270" class="ln">   270  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L271" class="ln">   271  </span>func (v NullableCIAppCIError) Get() *CIAppCIError {
-<span id="L272" class="ln">   272  </span>	return v.value
-<span id="L273" class="ln">   273  </span>}
-<span id="L274" class="ln">   274  </span>
-<span id="L275" class="ln">   275  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L276" class="ln">   276  </span>func (v *NullableCIAppCIError) Set(val *CIAppCIError) {
-<span id="L277" class="ln">   277  </span>	v.value = val
-<span id="L278" class="ln">   278  </span>	v.isSet = true
-<span id="L279" class="ln">   279  </span>}
-<span id="L280" class="ln">   280  </span>
-<span id="L281" class="ln">   281  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L282" class="ln">   282  </span>func (v NullableCIAppCIError) IsSet() bool {
-<span id="L283" class="ln">   283  </span>	return v.isSet
-<span id="L284" class="ln">   284  </span>}
-<span id="L285" class="ln">   285  </span>
-<span id="L286" class="ln">   286  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L287" class="ln">   287  </span>func (v *NullableCIAppCIError) Unset() {
-<span id="L288" class="ln">   288  </span>	v.value = nil
-<span id="L289" class="ln">   289  </span>	v.isSet = false
+<span id="L232" class="ln">   232  </span>
+<span id="L233" class="ln">   233  </span>	hasInvalidField := false
+<span id="L234" class="ln">   234  </span>	if all.Domain != nil &amp;&amp; !all.Domain.IsValid() {
+<span id="L235" class="ln">   235  </span>		hasInvalidField = true
+<span id="L236" class="ln">   236  </span>	} else {
+<span id="L237" class="ln">   237  </span>		o.Domain = all.Domain
+<span id="L238" class="ln">   238  </span>	}
+<span id="L239" class="ln">   239  </span>	o.Message = all.Message
+<span id="L240" class="ln">   240  </span>	o.Stack = all.Stack
+<span id="L241" class="ln">   241  </span>	o.Type = all.Type
+<span id="L242" class="ln">   242  </span>
+<span id="L243" class="ln">   243  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L244" class="ln">   244  </span>		o.AdditionalProperties = additionalProperties
+<span id="L245" class="ln">   245  </span>	}
+<span id="L246" class="ln">   246  </span>
+<span id="L247" class="ln">   247  </span>	if hasInvalidField {
+<span id="L248" class="ln">   248  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L249" class="ln">   249  </span>	}
+<span id="L250" class="ln">   250  </span>
+<span id="L251" class="ln">   251  </span>	return nil
+<span id="L252" class="ln">   252  </span>}
+<span id="L253" class="ln">   253  </span>
+<span id="L254" class="ln">   254  </span><span class="comment">// NullableCIAppCIError handles when a null is used for CIAppCIError.</span>
+<span id="L255" class="ln">   255  </span>type NullableCIAppCIError struct {
+<span id="L256" class="ln">   256  </span>	value *CIAppCIError
+<span id="L257" class="ln">   257  </span>	isSet bool
+<span id="L258" class="ln">   258  </span>}
+<span id="L259" class="ln">   259  </span>
+<span id="L260" class="ln">   260  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L261" class="ln">   261  </span>func (v NullableCIAppCIError) Get() *CIAppCIError {
+<span id="L262" class="ln">   262  </span>	return v.value
+<span id="L263" class="ln">   263  </span>}
+<span id="L264" class="ln">   264  </span>
+<span id="L265" class="ln">   265  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L266" class="ln">   266  </span>func (v *NullableCIAppCIError) Set(val *CIAppCIError) {
+<span id="L267" class="ln">   267  </span>	v.value = val
+<span id="L268" class="ln">   268  </span>	v.isSet = true
+<span id="L269" class="ln">   269  </span>}
+<span id="L270" class="ln">   270  </span>
+<span id="L271" class="ln">   271  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L272" class="ln">   272  </span>func (v NullableCIAppCIError) IsSet() bool {
+<span id="L273" class="ln">   273  </span>	return v.isSet
+<span id="L274" class="ln">   274  </span>}
+<span id="L275" class="ln">   275  </span>
+<span id="L276" class="ln">   276  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L277" class="ln">   277  </span>func (v *NullableCIAppCIError) Unset() {
+<span id="L278" class="ln">   278  </span>	v.value = nil
+<span id="L279" class="ln">   279  </span>	v.isSet = false
+<span id="L280" class="ln">   280  </span>}
+<span id="L281" class="ln">   281  </span>
+<span id="L282" class="ln">   282  </span><span class="comment">// NewNullableCIAppCIError initializes the struct as if Set has been called.</span>
+<span id="L283" class="ln">   283  </span>func NewNullableCIAppCIError(val *CIAppCIError) *NullableCIAppCIError {
+<span id="L284" class="ln">   284  </span>	return &amp;NullableCIAppCIError{value: val, isSet: true}
+<span id="L285" class="ln">   285  </span>}
+<span id="L286" class="ln">   286  </span>
+<span id="L287" class="ln">   287  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L288" class="ln">   288  </span>func (v NullableCIAppCIError) MarshalJSON() ([]byte, error) {
+<span id="L289" class="ln">   289  </span>	return json.Marshal(v.value)
 <span id="L290" class="ln">   290  </span>}
 <span id="L291" class="ln">   291  </span>
-<span id="L292" class="ln">   292  </span><span class="comment">// NewNullableCIAppCIError initializes the struct as if Set has been called.</span>
-<span id="L293" class="ln">   293  </span>func NewNullableCIAppCIError(val *CIAppCIError) *NullableCIAppCIError {
-<span id="L294" class="ln">   294  </span>	return &amp;NullableCIAppCIError{value: val, isSet: true}
-<span id="L295" class="ln">   295  </span>}
-<span id="L296" class="ln">   296  </span>
-<span id="L297" class="ln">   297  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L298" class="ln">   298  </span>func (v NullableCIAppCIError) MarshalJSON() ([]byte, error) {
-<span id="L299" class="ln">   299  </span>	return json.Marshal(v.value)
-<span id="L300" class="ln">   300  </span>}
-<span id="L301" class="ln">   301  </span>
-<span id="L302" class="ln">   302  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L303" class="ln">   303  </span>func (v *NullableCIAppCIError) UnmarshalJSON(src []byte) error {
-<span id="L304" class="ln">   304  </span>	v.isSet = true
-<span id="L305" class="ln">   305  </span>
-<span id="L306" class="ln">   306  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L307" class="ln">   307  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L308" class="ln">   308  </span>		return nil
-<span id="L309" class="ln">   309  </span>	}
-<span id="L310" class="ln">   310  </span>
-<span id="L311" class="ln">   311  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L312" class="ln">   312  </span>}
-<span id="L313" class="ln">   313  </span>
+<span id="L292" class="ln">   292  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L293" class="ln">   293  </span>func (v *NullableCIAppCIError) UnmarshalJSON(src []byte) error {
+<span id="L294" class="ln">   294  </span>	v.isSet = true
+<span id="L295" class="ln">   295  </span>
+<span id="L296" class="ln">   296  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L297" class="ln">   297  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L298" class="ln">   298  </span>		return nil
+<span id="L299" class="ln">   299  </span>	}
+<span id="L300" class="ln">   300  </span>
+<span id="L301" class="ln">   301  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L302" class="ln">   302  </span>}
+<span id="L303" class="ln">   303  </span>
 </pre><p></p>
 
 <div id="footer">

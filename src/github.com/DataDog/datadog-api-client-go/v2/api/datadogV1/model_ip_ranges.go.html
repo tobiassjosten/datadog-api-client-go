@@ -502,95 +502,85 @@
 <span id="L445" class="ln">   445  </span>
 <span id="L446" class="ln">   446  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L447" class="ln">   447  </span>func (o *IPRanges) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L448" class="ln">   448  </span>	raw := map[string]interface{}{}
-<span id="L449" class="ln">   449  </span>	all := struct {
-<span id="L450" class="ln">   450  </span>		Agents                     *IPPrefixesAgents                     `json:&#34;agents,omitempty&#34;`
-<span id="L451" class="ln">   451  </span>		Api                        *IPPrefixesAPI                        `json:&#34;api,omitempty&#34;`
-<span id="L452" class="ln">   452  </span>		Apm                        *IPPrefixesAPM                        `json:&#34;apm,omitempty&#34;`
-<span id="L453" class="ln">   453  </span>		Logs                       *IPPrefixesLogs                       `json:&#34;logs,omitempty&#34;`
-<span id="L454" class="ln">   454  </span>		Modified                   *string                               `json:&#34;modified,omitempty&#34;`
-<span id="L455" class="ln">   455  </span>		Orchestrator               *IPPrefixesOrchestrator               `json:&#34;orchestrator,omitempty&#34;`
-<span id="L456" class="ln">   456  </span>		Process                    *IPPrefixesProcess                    `json:&#34;process,omitempty&#34;`
-<span id="L457" class="ln">   457  </span>		RemoteConfiguration        *IPPrefixesRemoteConfiguration        `json:&#34;remote-configuration,omitempty&#34;`
-<span id="L458" class="ln">   458  </span>		Synthetics                 *IPPrefixesSynthetics                 `json:&#34;synthetics,omitempty&#34;`
-<span id="L459" class="ln">   459  </span>		SyntheticsPrivateLocations *IPPrefixesSyntheticsPrivateLocations `json:&#34;synthetics-private-locations,omitempty&#34;`
-<span id="L460" class="ln">   460  </span>		Version                    *int64                                `json:&#34;version,omitempty&#34;`
-<span id="L461" class="ln">   461  </span>		Webhooks                   *IPPrefixesWebhooks                   `json:&#34;webhooks,omitempty&#34;`
-<span id="L462" class="ln">   462  </span>	}{}
-<span id="L463" class="ln">   463  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L464" class="ln">   464  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L465" class="ln">   465  </span>		if err != nil {
-<span id="L466" class="ln">   466  </span>			return err
-<span id="L467" class="ln">   467  </span>		}
-<span id="L468" class="ln">   468  </span>		o.UnparsedObject = raw
-<span id="L469" class="ln">   469  </span>		return nil
+<span id="L448" class="ln">   448  </span>	all := struct {
+<span id="L449" class="ln">   449  </span>		Agents                     *IPPrefixesAgents                     `json:&#34;agents,omitempty&#34;`
+<span id="L450" class="ln">   450  </span>		Api                        *IPPrefixesAPI                        `json:&#34;api,omitempty&#34;`
+<span id="L451" class="ln">   451  </span>		Apm                        *IPPrefixesAPM                        `json:&#34;apm,omitempty&#34;`
+<span id="L452" class="ln">   452  </span>		Logs                       *IPPrefixesLogs                       `json:&#34;logs,omitempty&#34;`
+<span id="L453" class="ln">   453  </span>		Modified                   *string                               `json:&#34;modified,omitempty&#34;`
+<span id="L454" class="ln">   454  </span>		Orchestrator               *IPPrefixesOrchestrator               `json:&#34;orchestrator,omitempty&#34;`
+<span id="L455" class="ln">   455  </span>		Process                    *IPPrefixesProcess                    `json:&#34;process,omitempty&#34;`
+<span id="L456" class="ln">   456  </span>		RemoteConfiguration        *IPPrefixesRemoteConfiguration        `json:&#34;remote-configuration,omitempty&#34;`
+<span id="L457" class="ln">   457  </span>		Synthetics                 *IPPrefixesSynthetics                 `json:&#34;synthetics,omitempty&#34;`
+<span id="L458" class="ln">   458  </span>		SyntheticsPrivateLocations *IPPrefixesSyntheticsPrivateLocations `json:&#34;synthetics-private-locations,omitempty&#34;`
+<span id="L459" class="ln">   459  </span>		Version                    *int64                                `json:&#34;version,omitempty&#34;`
+<span id="L460" class="ln">   460  </span>		Webhooks                   *IPPrefixesWebhooks                   `json:&#34;webhooks,omitempty&#34;`
+<span id="L461" class="ln">   461  </span>	}{}
+<span id="L462" class="ln">   462  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L463" class="ln">   463  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L464" class="ln">   464  </span>	}
+<span id="L465" class="ln">   465  </span>	additionalProperties := make(map[string]interface{})
+<span id="L466" class="ln">   466  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L467" class="ln">   467  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agents&#34;, &#34;api&#34;, &#34;apm&#34;, &#34;logs&#34;, &#34;modified&#34;, &#34;orchestrator&#34;, &#34;process&#34;, &#34;remote-configuration&#34;, &#34;synthetics&#34;, &#34;synthetics-private-locations&#34;, &#34;version&#34;, &#34;webhooks&#34;})
+<span id="L468" class="ln">   468  </span>	} else {
+<span id="L469" class="ln">   469  </span>		return err
 <span id="L470" class="ln">   470  </span>	}
-<span id="L471" class="ln">   471  </span>	additionalProperties := make(map[string]interface{})
-<span id="L472" class="ln">   472  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L473" class="ln">   473  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agents&#34;, &#34;api&#34;, &#34;apm&#34;, &#34;logs&#34;, &#34;modified&#34;, &#34;orchestrator&#34;, &#34;process&#34;, &#34;remote-configuration&#34;, &#34;synthetics&#34;, &#34;synthetics-private-locations&#34;, &#34;version&#34;, &#34;webhooks&#34;})
-<span id="L474" class="ln">   474  </span>	} else {
-<span id="L475" class="ln">   475  </span>		return err
-<span id="L476" class="ln">   476  </span>	}
-<span id="L477" class="ln">   477  </span>
-<span id="L478" class="ln">   478  </span>	hasInvalidField := false
-<span id="L479" class="ln">   479  </span>	if all.Agents != nil &amp;&amp; all.Agents.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L480" class="ln">   480  </span>		hasInvalidField = true
-<span id="L481" class="ln">   481  </span>	}
-<span id="L482" class="ln">   482  </span>	o.Agents = all.Agents
-<span id="L483" class="ln">   483  </span>	if all.Api != nil &amp;&amp; all.Api.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L484" class="ln">   484  </span>		hasInvalidField = true
-<span id="L485" class="ln">   485  </span>	}
-<span id="L486" class="ln">   486  </span>	o.Api = all.Api
-<span id="L487" class="ln">   487  </span>	if all.Apm != nil &amp;&amp; all.Apm.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L488" class="ln">   488  </span>		hasInvalidField = true
-<span id="L489" class="ln">   489  </span>	}
-<span id="L490" class="ln">   490  </span>	o.Apm = all.Apm
-<span id="L491" class="ln">   491  </span>	if all.Logs != nil &amp;&amp; all.Logs.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L492" class="ln">   492  </span>		hasInvalidField = true
-<span id="L493" class="ln">   493  </span>	}
-<span id="L494" class="ln">   494  </span>	o.Logs = all.Logs
-<span id="L495" class="ln">   495  </span>	o.Modified = all.Modified
-<span id="L496" class="ln">   496  </span>	if all.Orchestrator != nil &amp;&amp; all.Orchestrator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L497" class="ln">   497  </span>		hasInvalidField = true
-<span id="L498" class="ln">   498  </span>	}
-<span id="L499" class="ln">   499  </span>	o.Orchestrator = all.Orchestrator
-<span id="L500" class="ln">   500  </span>	if all.Process != nil &amp;&amp; all.Process.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L501" class="ln">   501  </span>		hasInvalidField = true
-<span id="L502" class="ln">   502  </span>	}
-<span id="L503" class="ln">   503  </span>	o.Process = all.Process
-<span id="L504" class="ln">   504  </span>	if all.RemoteConfiguration != nil &amp;&amp; all.RemoteConfiguration.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L505" class="ln">   505  </span>		hasInvalidField = true
-<span id="L506" class="ln">   506  </span>	}
-<span id="L507" class="ln">   507  </span>	o.RemoteConfiguration = all.RemoteConfiguration
-<span id="L508" class="ln">   508  </span>	if all.Synthetics != nil &amp;&amp; all.Synthetics.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L509" class="ln">   509  </span>		hasInvalidField = true
-<span id="L510" class="ln">   510  </span>	}
-<span id="L511" class="ln">   511  </span>	o.Synthetics = all.Synthetics
-<span id="L512" class="ln">   512  </span>	if all.SyntheticsPrivateLocations != nil &amp;&amp; all.SyntheticsPrivateLocations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L513" class="ln">   513  </span>		hasInvalidField = true
-<span id="L514" class="ln">   514  </span>	}
-<span id="L515" class="ln">   515  </span>	o.SyntheticsPrivateLocations = all.SyntheticsPrivateLocations
-<span id="L516" class="ln">   516  </span>	o.Version = all.Version
-<span id="L517" class="ln">   517  </span>	if all.Webhooks != nil &amp;&amp; all.Webhooks.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L518" class="ln">   518  </span>		hasInvalidField = true
-<span id="L519" class="ln">   519  </span>	}
-<span id="L520" class="ln">   520  </span>	o.Webhooks = all.Webhooks
-<span id="L521" class="ln">   521  </span>
-<span id="L522" class="ln">   522  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L523" class="ln">   523  </span>		o.AdditionalProperties = additionalProperties
-<span id="L524" class="ln">   524  </span>	}
-<span id="L525" class="ln">   525  </span>
-<span id="L526" class="ln">   526  </span>	if hasInvalidField {
-<span id="L527" class="ln">   527  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L528" class="ln">   528  </span>		if err != nil {
-<span id="L529" class="ln">   529  </span>			return err
-<span id="L530" class="ln">   530  </span>		}
-<span id="L531" class="ln">   531  </span>		o.UnparsedObject = raw
-<span id="L532" class="ln">   532  </span>	}
-<span id="L533" class="ln">   533  </span>
-<span id="L534" class="ln">   534  </span>	return nil
-<span id="L535" class="ln">   535  </span>}
-<span id="L536" class="ln">   536  </span>
+<span id="L471" class="ln">   471  </span>
+<span id="L472" class="ln">   472  </span>	hasInvalidField := false
+<span id="L473" class="ln">   473  </span>	if all.Agents != nil &amp;&amp; all.Agents.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L474" class="ln">   474  </span>		hasInvalidField = true
+<span id="L475" class="ln">   475  </span>	}
+<span id="L476" class="ln">   476  </span>	o.Agents = all.Agents
+<span id="L477" class="ln">   477  </span>	if all.Api != nil &amp;&amp; all.Api.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L478" class="ln">   478  </span>		hasInvalidField = true
+<span id="L479" class="ln">   479  </span>	}
+<span id="L480" class="ln">   480  </span>	o.Api = all.Api
+<span id="L481" class="ln">   481  </span>	if all.Apm != nil &amp;&amp; all.Apm.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L482" class="ln">   482  </span>		hasInvalidField = true
+<span id="L483" class="ln">   483  </span>	}
+<span id="L484" class="ln">   484  </span>	o.Apm = all.Apm
+<span id="L485" class="ln">   485  </span>	if all.Logs != nil &amp;&amp; all.Logs.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L486" class="ln">   486  </span>		hasInvalidField = true
+<span id="L487" class="ln">   487  </span>	}
+<span id="L488" class="ln">   488  </span>	o.Logs = all.Logs
+<span id="L489" class="ln">   489  </span>	o.Modified = all.Modified
+<span id="L490" class="ln">   490  </span>	if all.Orchestrator != nil &amp;&amp; all.Orchestrator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L491" class="ln">   491  </span>		hasInvalidField = true
+<span id="L492" class="ln">   492  </span>	}
+<span id="L493" class="ln">   493  </span>	o.Orchestrator = all.Orchestrator
+<span id="L494" class="ln">   494  </span>	if all.Process != nil &amp;&amp; all.Process.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L495" class="ln">   495  </span>		hasInvalidField = true
+<span id="L496" class="ln">   496  </span>	}
+<span id="L497" class="ln">   497  </span>	o.Process = all.Process
+<span id="L498" class="ln">   498  </span>	if all.RemoteConfiguration != nil &amp;&amp; all.RemoteConfiguration.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L499" class="ln">   499  </span>		hasInvalidField = true
+<span id="L500" class="ln">   500  </span>	}
+<span id="L501" class="ln">   501  </span>	o.RemoteConfiguration = all.RemoteConfiguration
+<span id="L502" class="ln">   502  </span>	if all.Synthetics != nil &amp;&amp; all.Synthetics.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L503" class="ln">   503  </span>		hasInvalidField = true
+<span id="L504" class="ln">   504  </span>	}
+<span id="L505" class="ln">   505  </span>	o.Synthetics = all.Synthetics
+<span id="L506" class="ln">   506  </span>	if all.SyntheticsPrivateLocations != nil &amp;&amp; all.SyntheticsPrivateLocations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L507" class="ln">   507  </span>		hasInvalidField = true
+<span id="L508" class="ln">   508  </span>	}
+<span id="L509" class="ln">   509  </span>	o.SyntheticsPrivateLocations = all.SyntheticsPrivateLocations
+<span id="L510" class="ln">   510  </span>	o.Version = all.Version
+<span id="L511" class="ln">   511  </span>	if all.Webhooks != nil &amp;&amp; all.Webhooks.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L512" class="ln">   512  </span>		hasInvalidField = true
+<span id="L513" class="ln">   513  </span>	}
+<span id="L514" class="ln">   514  </span>	o.Webhooks = all.Webhooks
+<span id="L515" class="ln">   515  </span>
+<span id="L516" class="ln">   516  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L517" class="ln">   517  </span>		o.AdditionalProperties = additionalProperties
+<span id="L518" class="ln">   518  </span>	}
+<span id="L519" class="ln">   519  </span>
+<span id="L520" class="ln">   520  </span>	if hasInvalidField {
+<span id="L521" class="ln">   521  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L522" class="ln">   522  </span>	}
+<span id="L523" class="ln">   523  </span>
+<span id="L524" class="ln">   524  </span>	return nil
+<span id="L525" class="ln">   525  </span>}
+<span id="L526" class="ln">   526  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -370,87 +370,77 @@
 <span id="L313" class="ln">   313  </span>
 <span id="L314" class="ln">   314  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L315" class="ln">   315  </span>func (o *CloudConfigurationRuleCreatePayload) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L316" class="ln">   316  </span>	raw := map[string]interface{}{}
-<span id="L317" class="ln">   317  </span>	all := struct {
-<span id="L318" class="ln">   318  </span>		Cases                   *[]CloudConfigurationRuleCaseCreate            `json:&#34;cases&#34;`
-<span id="L319" class="ln">   319  </span>		ComplianceSignalOptions *CloudConfigurationRuleComplianceSignalOptions `json:&#34;complianceSignalOptions&#34;`
-<span id="L320" class="ln">   320  </span>		Filters                 []SecurityMonitoringFilter                     `json:&#34;filters,omitempty&#34;`
-<span id="L321" class="ln">   321  </span>		IsEnabled               *bool                                          `json:&#34;isEnabled&#34;`
-<span id="L322" class="ln">   322  </span>		Message                 *string                                        `json:&#34;message&#34;`
-<span id="L323" class="ln">   323  </span>		Name                    *string                                        `json:&#34;name&#34;`
-<span id="L324" class="ln">   324  </span>		Options                 *CloudConfigurationRuleOptions                 `json:&#34;options&#34;`
-<span id="L325" class="ln">   325  </span>		Tags                    []string                                       `json:&#34;tags,omitempty&#34;`
-<span id="L326" class="ln">   326  </span>		Type                    *CloudConfigurationRuleType                    `json:&#34;type,omitempty&#34;`
-<span id="L327" class="ln">   327  </span>	}{}
-<span id="L328" class="ln">   328  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L329" class="ln">   329  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L330" class="ln">   330  </span>		if err != nil {
-<span id="L331" class="ln">   331  </span>			return err
-<span id="L332" class="ln">   332  </span>		}
-<span id="L333" class="ln">   333  </span>		o.UnparsedObject = raw
-<span id="L334" class="ln">   334  </span>		return nil
+<span id="L316" class="ln">   316  </span>	all := struct {
+<span id="L317" class="ln">   317  </span>		Cases                   *[]CloudConfigurationRuleCaseCreate            `json:&#34;cases&#34;`
+<span id="L318" class="ln">   318  </span>		ComplianceSignalOptions *CloudConfigurationRuleComplianceSignalOptions `json:&#34;complianceSignalOptions&#34;`
+<span id="L319" class="ln">   319  </span>		Filters                 []SecurityMonitoringFilter                     `json:&#34;filters,omitempty&#34;`
+<span id="L320" class="ln">   320  </span>		IsEnabled               *bool                                          `json:&#34;isEnabled&#34;`
+<span id="L321" class="ln">   321  </span>		Message                 *string                                        `json:&#34;message&#34;`
+<span id="L322" class="ln">   322  </span>		Name                    *string                                        `json:&#34;name&#34;`
+<span id="L323" class="ln">   323  </span>		Options                 *CloudConfigurationRuleOptions                 `json:&#34;options&#34;`
+<span id="L324" class="ln">   324  </span>		Tags                    []string                                       `json:&#34;tags,omitempty&#34;`
+<span id="L325" class="ln">   325  </span>		Type                    *CloudConfigurationRuleType                    `json:&#34;type,omitempty&#34;`
+<span id="L326" class="ln">   326  </span>	}{}
+<span id="L327" class="ln">   327  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L328" class="ln">   328  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L329" class="ln">   329  </span>	}
+<span id="L330" class="ln">   330  </span>	if all.Cases == nil {
+<span id="L331" class="ln">   331  </span>		return fmt.Errorf(&#34;required field cases missing&#34;)
+<span id="L332" class="ln">   332  </span>	}
+<span id="L333" class="ln">   333  </span>	if all.ComplianceSignalOptions == nil {
+<span id="L334" class="ln">   334  </span>		return fmt.Errorf(&#34;required field complianceSignalOptions missing&#34;)
 <span id="L335" class="ln">   335  </span>	}
-<span id="L336" class="ln">   336  </span>	if all.Cases == nil {
-<span id="L337" class="ln">   337  </span>		return fmt.Errorf(&#34;required field cases missing&#34;)
+<span id="L336" class="ln">   336  </span>	if all.IsEnabled == nil {
+<span id="L337" class="ln">   337  </span>		return fmt.Errorf(&#34;required field isEnabled missing&#34;)
 <span id="L338" class="ln">   338  </span>	}
-<span id="L339" class="ln">   339  </span>	if all.ComplianceSignalOptions == nil {
-<span id="L340" class="ln">   340  </span>		return fmt.Errorf(&#34;required field complianceSignalOptions missing&#34;)
+<span id="L339" class="ln">   339  </span>	if all.Message == nil {
+<span id="L340" class="ln">   340  </span>		return fmt.Errorf(&#34;required field message missing&#34;)
 <span id="L341" class="ln">   341  </span>	}
-<span id="L342" class="ln">   342  </span>	if all.IsEnabled == nil {
-<span id="L343" class="ln">   343  </span>		return fmt.Errorf(&#34;required field isEnabled missing&#34;)
+<span id="L342" class="ln">   342  </span>	if all.Name == nil {
+<span id="L343" class="ln">   343  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
 <span id="L344" class="ln">   344  </span>	}
-<span id="L345" class="ln">   345  </span>	if all.Message == nil {
-<span id="L346" class="ln">   346  </span>		return fmt.Errorf(&#34;required field message missing&#34;)
+<span id="L345" class="ln">   345  </span>	if all.Options == nil {
+<span id="L346" class="ln">   346  </span>		return fmt.Errorf(&#34;required field options missing&#34;)
 <span id="L347" class="ln">   347  </span>	}
-<span id="L348" class="ln">   348  </span>	if all.Name == nil {
-<span id="L349" class="ln">   349  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
-<span id="L350" class="ln">   350  </span>	}
-<span id="L351" class="ln">   351  </span>	if all.Options == nil {
-<span id="L352" class="ln">   352  </span>		return fmt.Errorf(&#34;required field options missing&#34;)
+<span id="L348" class="ln">   348  </span>	additionalProperties := make(map[string]interface{})
+<span id="L349" class="ln">   349  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L350" class="ln">   350  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cases&#34;, &#34;complianceSignalOptions&#34;, &#34;filters&#34;, &#34;isEnabled&#34;, &#34;message&#34;, &#34;name&#34;, &#34;options&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L351" class="ln">   351  </span>	} else {
+<span id="L352" class="ln">   352  </span>		return err
 <span id="L353" class="ln">   353  </span>	}
-<span id="L354" class="ln">   354  </span>	additionalProperties := make(map[string]interface{})
-<span id="L355" class="ln">   355  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L356" class="ln">   356  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cases&#34;, &#34;complianceSignalOptions&#34;, &#34;filters&#34;, &#34;isEnabled&#34;, &#34;message&#34;, &#34;name&#34;, &#34;options&#34;, &#34;tags&#34;, &#34;type&#34;})
-<span id="L357" class="ln">   357  </span>	} else {
-<span id="L358" class="ln">   358  </span>		return err
+<span id="L354" class="ln">   354  </span>
+<span id="L355" class="ln">   355  </span>	hasInvalidField := false
+<span id="L356" class="ln">   356  </span>	o.Cases = *all.Cases
+<span id="L357" class="ln">   357  </span>	if all.ComplianceSignalOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L358" class="ln">   358  </span>		hasInvalidField = true
 <span id="L359" class="ln">   359  </span>	}
-<span id="L360" class="ln">   360  </span>
-<span id="L361" class="ln">   361  </span>	hasInvalidField := false
-<span id="L362" class="ln">   362  </span>	o.Cases = *all.Cases
-<span id="L363" class="ln">   363  </span>	if all.ComplianceSignalOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L364" class="ln">   364  </span>		hasInvalidField = true
-<span id="L365" class="ln">   365  </span>	}
-<span id="L366" class="ln">   366  </span>	o.ComplianceSignalOptions = *all.ComplianceSignalOptions
-<span id="L367" class="ln">   367  </span>	o.Filters = all.Filters
-<span id="L368" class="ln">   368  </span>	o.IsEnabled = *all.IsEnabled
-<span id="L369" class="ln">   369  </span>	o.Message = *all.Message
-<span id="L370" class="ln">   370  </span>	o.Name = *all.Name
-<span id="L371" class="ln">   371  </span>	if all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L372" class="ln">   372  </span>		hasInvalidField = true
-<span id="L373" class="ln">   373  </span>	}
-<span id="L374" class="ln">   374  </span>	o.Options = *all.Options
-<span id="L375" class="ln">   375  </span>	o.Tags = all.Tags
-<span id="L376" class="ln">   376  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L377" class="ln">   377  </span>		hasInvalidField = true
-<span id="L378" class="ln">   378  </span>	} else {
-<span id="L379" class="ln">   379  </span>		o.Type = all.Type
-<span id="L380" class="ln">   380  </span>	}
-<span id="L381" class="ln">   381  </span>
-<span id="L382" class="ln">   382  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L383" class="ln">   383  </span>		o.AdditionalProperties = additionalProperties
-<span id="L384" class="ln">   384  </span>	}
-<span id="L385" class="ln">   385  </span>
-<span id="L386" class="ln">   386  </span>	if hasInvalidField {
-<span id="L387" class="ln">   387  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L388" class="ln">   388  </span>		if err != nil {
-<span id="L389" class="ln">   389  </span>			return err
-<span id="L390" class="ln">   390  </span>		}
-<span id="L391" class="ln">   391  </span>		o.UnparsedObject = raw
-<span id="L392" class="ln">   392  </span>	}
-<span id="L393" class="ln">   393  </span>
-<span id="L394" class="ln">   394  </span>	return nil
-<span id="L395" class="ln">   395  </span>}
-<span id="L396" class="ln">   396  </span>
+<span id="L360" class="ln">   360  </span>	o.ComplianceSignalOptions = *all.ComplianceSignalOptions
+<span id="L361" class="ln">   361  </span>	o.Filters = all.Filters
+<span id="L362" class="ln">   362  </span>	o.IsEnabled = *all.IsEnabled
+<span id="L363" class="ln">   363  </span>	o.Message = *all.Message
+<span id="L364" class="ln">   364  </span>	o.Name = *all.Name
+<span id="L365" class="ln">   365  </span>	if all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L366" class="ln">   366  </span>		hasInvalidField = true
+<span id="L367" class="ln">   367  </span>	}
+<span id="L368" class="ln">   368  </span>	o.Options = *all.Options
+<span id="L369" class="ln">   369  </span>	o.Tags = all.Tags
+<span id="L370" class="ln">   370  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
+<span id="L371" class="ln">   371  </span>		hasInvalidField = true
+<span id="L372" class="ln">   372  </span>	} else {
+<span id="L373" class="ln">   373  </span>		o.Type = all.Type
+<span id="L374" class="ln">   374  </span>	}
+<span id="L375" class="ln">   375  </span>
+<span id="L376" class="ln">   376  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L377" class="ln">   377  </span>		o.AdditionalProperties = additionalProperties
+<span id="L378" class="ln">   378  </span>	}
+<span id="L379" class="ln">   379  </span>
+<span id="L380" class="ln">   380  </span>	if hasInvalidField {
+<span id="L381" class="ln">   381  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L382" class="ln">   382  </span>	}
+<span id="L383" class="ln">   383  </span>
+<span id="L384" class="ln">   384  </span>	return nil
+<span id="L385" class="ln">   385  </span>}
+<span id="L386" class="ln">   386  </span>
 </pre><p></p>
 
 <div id="footer">

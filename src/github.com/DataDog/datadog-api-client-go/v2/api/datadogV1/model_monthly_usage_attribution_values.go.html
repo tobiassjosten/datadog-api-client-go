@@ -2350,167 +2350,161 @@
 <span id="L2293" class="ln">  2293  </span>
 <span id="L2294" class="ln">  2294  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L2295" class="ln">  2295  </span>func (o *MonthlyUsageAttributionValues) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L2296" class="ln">  2296  </span>	raw := map[string]interface{}{}
-<span id="L2297" class="ln">  2297  </span>	all := struct {
-<span id="L2298" class="ln">  2298  </span>		ApiPercentage                        *float64 `json:&#34;api_percentage,omitempty&#34;`
-<span id="L2299" class="ln">  2299  </span>		ApiUsage                             *float64 `json:&#34;api_usage,omitempty&#34;`
-<span id="L2300" class="ln">  2300  </span>		ApmFargatePercentage                 *float64 `json:&#34;apm_fargate_percentage,omitempty&#34;`
-<span id="L2301" class="ln">  2301  </span>		ApmFargateUsage                      *float64 `json:&#34;apm_fargate_usage,omitempty&#34;`
-<span id="L2302" class="ln">  2302  </span>		ApmHostPercentage                    *float64 `json:&#34;apm_host_percentage,omitempty&#34;`
-<span id="L2303" class="ln">  2303  </span>		ApmHostUsage                         *float64 `json:&#34;apm_host_usage,omitempty&#34;`
-<span id="L2304" class="ln">  2304  </span>		AppsecFargatePercentage              *float64 `json:&#34;appsec_fargate_percentage,omitempty&#34;`
-<span id="L2305" class="ln">  2305  </span>		AppsecFargateUsage                   *float64 `json:&#34;appsec_fargate_usage,omitempty&#34;`
-<span id="L2306" class="ln">  2306  </span>		AppsecPercentage                     *float64 `json:&#34;appsec_percentage,omitempty&#34;`
-<span id="L2307" class="ln">  2307  </span>		AppsecUsage                          *float64 `json:&#34;appsec_usage,omitempty&#34;`
-<span id="L2308" class="ln">  2308  </span>		BrowserPercentage                    *float64 `json:&#34;browser_percentage,omitempty&#34;`
-<span id="L2309" class="ln">  2309  </span>		BrowserUsage                         *float64 `json:&#34;browser_usage,omitempty&#34;`
-<span id="L2310" class="ln">  2310  </span>		CiVisibilityItrPercentage            *float64 `json:&#34;ci_visibility_itr_percentage,omitempty&#34;`
-<span id="L2311" class="ln">  2311  </span>		CiVisibilityItrUsage                 *float64 `json:&#34;ci_visibility_itr_usage,omitempty&#34;`
-<span id="L2312" class="ln">  2312  </span>		ContainerExclAgentPercentage         *float64 `json:&#34;container_excl_agent_percentage,omitempty&#34;`
-<span id="L2313" class="ln">  2313  </span>		ContainerExclAgentUsage              *float64 `json:&#34;container_excl_agent_usage,omitempty&#34;`
-<span id="L2314" class="ln">  2314  </span>		ContainerPercentage                  *float64 `json:&#34;container_percentage,omitempty&#34;`
-<span id="L2315" class="ln">  2315  </span>		ContainerUsage                       *float64 `json:&#34;container_usage,omitempty&#34;`
-<span id="L2316" class="ln">  2316  </span>		CspmContainersPercentage             *float64 `json:&#34;cspm_containers_percentage,omitempty&#34;`
-<span id="L2317" class="ln">  2317  </span>		CspmContainersUsage                  *float64 `json:&#34;cspm_containers_usage,omitempty&#34;`
-<span id="L2318" class="ln">  2318  </span>		CspmHostsPercentage                  *float64 `json:&#34;cspm_hosts_percentage,omitempty&#34;`
-<span id="L2319" class="ln">  2319  </span>		CspmHostsUsage                       *float64 `json:&#34;cspm_hosts_usage,omitempty&#34;`
-<span id="L2320" class="ln">  2320  </span>		CustomIngestedTimeseriesPercentage   *float64 `json:&#34;custom_ingested_timeseries_percentage,omitempty&#34;`
-<span id="L2321" class="ln">  2321  </span>		CustomIngestedTimeseriesUsage        *float64 `json:&#34;custom_ingested_timeseries_usage,omitempty&#34;`
-<span id="L2322" class="ln">  2322  </span>		CustomTimeseriesPercentage           *float64 `json:&#34;custom_timeseries_percentage,omitempty&#34;`
-<span id="L2323" class="ln">  2323  </span>		CustomTimeseriesUsage                *float64 `json:&#34;custom_timeseries_usage,omitempty&#34;`
-<span id="L2324" class="ln">  2324  </span>		CwsContainersPercentage              *float64 `json:&#34;cws_containers_percentage,omitempty&#34;`
-<span id="L2325" class="ln">  2325  </span>		CwsContainersUsage                   *float64 `json:&#34;cws_containers_usage,omitempty&#34;`
-<span id="L2326" class="ln">  2326  </span>		CwsHostsPercentage                   *float64 `json:&#34;cws_hosts_percentage,omitempty&#34;`
-<span id="L2327" class="ln">  2327  </span>		CwsHostsUsage                        *float64 `json:&#34;cws_hosts_usage,omitempty&#34;`
-<span id="L2328" class="ln">  2328  </span>		DbmHostsPercentage                   *float64 `json:&#34;dbm_hosts_percentage,omitempty&#34;`
-<span id="L2329" class="ln">  2329  </span>		DbmHostsUsage                        *float64 `json:&#34;dbm_hosts_usage,omitempty&#34;`
-<span id="L2330" class="ln">  2330  </span>		DbmQueriesPercentage                 *float64 `json:&#34;dbm_queries_percentage,omitempty&#34;`
-<span id="L2331" class="ln">  2331  </span>		DbmQueriesUsage                      *float64 `json:&#34;dbm_queries_usage,omitempty&#34;`
-<span id="L2332" class="ln">  2332  </span>		EstimatedIndexedLogsPercentage       *float64 `json:&#34;estimated_indexed_logs_percentage,omitempty&#34;`
-<span id="L2333" class="ln">  2333  </span>		EstimatedIndexedLogsUsage            *float64 `json:&#34;estimated_indexed_logs_usage,omitempty&#34;`
-<span id="L2334" class="ln">  2334  </span>		EstimatedIndexedSpansPercentage      *float64 `json:&#34;estimated_indexed_spans_percentage,omitempty&#34;`
-<span id="L2335" class="ln">  2335  </span>		EstimatedIndexedSpansUsage           *float64 `json:&#34;estimated_indexed_spans_usage,omitempty&#34;`
-<span id="L2336" class="ln">  2336  </span>		EstimatedIngestedLogsPercentage      *float64 `json:&#34;estimated_ingested_logs_percentage,omitempty&#34;`
-<span id="L2337" class="ln">  2337  </span>		EstimatedIngestedLogsUsage           *float64 `json:&#34;estimated_ingested_logs_usage,omitempty&#34;`
-<span id="L2338" class="ln">  2338  </span>		EstimatedIngestedSpansPercentage     *float64 `json:&#34;estimated_ingested_spans_percentage,omitempty&#34;`
-<span id="L2339" class="ln">  2339  </span>		EstimatedIngestedSpansUsage          *float64 `json:&#34;estimated_ingested_spans_usage,omitempty&#34;`
-<span id="L2340" class="ln">  2340  </span>		EstimatedRumSessionsPercentage       *float64 `json:&#34;estimated_rum_sessions_percentage,omitempty&#34;`
-<span id="L2341" class="ln">  2341  </span>		EstimatedRumSessionsUsage            *float64 `json:&#34;estimated_rum_sessions_usage,omitempty&#34;`
-<span id="L2342" class="ln">  2342  </span>		FargatePercentage                    *float64 `json:&#34;fargate_percentage,omitempty&#34;`
-<span id="L2343" class="ln">  2343  </span>		FargateUsage                         *float64 `json:&#34;fargate_usage,omitempty&#34;`
-<span id="L2344" class="ln">  2344  </span>		FunctionsPercentage                  *float64 `json:&#34;functions_percentage,omitempty&#34;`
-<span id="L2345" class="ln">  2345  </span>		FunctionsUsage                       *float64 `json:&#34;functions_usage,omitempty&#34;`
-<span id="L2346" class="ln">  2346  </span>		InfraHostPercentage                  *float64 `json:&#34;infra_host_percentage,omitempty&#34;`
-<span id="L2347" class="ln">  2347  </span>		InfraHostUsage                       *float64 `json:&#34;infra_host_usage,omitempty&#34;`
-<span id="L2348" class="ln">  2348  </span>		InvocationsPercentage                *float64 `json:&#34;invocations_percentage,omitempty&#34;`
-<span id="L2349" class="ln">  2349  </span>		InvocationsUsage                     *float64 `json:&#34;invocations_usage,omitempty&#34;`
-<span id="L2350" class="ln">  2350  </span>		NpmHostPercentage                    *float64 `json:&#34;npm_host_percentage,omitempty&#34;`
-<span id="L2351" class="ln">  2351  </span>		NpmHostUsage                         *float64 `json:&#34;npm_host_usage,omitempty&#34;`
-<span id="L2352" class="ln">  2352  </span>		ObsPipelineBytesPercentage           *float64 `json:&#34;obs_pipeline_bytes_percentage,omitempty&#34;`
-<span id="L2353" class="ln">  2353  </span>		ObsPipelineBytesUsage                *float64 `json:&#34;obs_pipeline_bytes_usage,omitempty&#34;`
-<span id="L2354" class="ln">  2354  </span>		ProfiledContainerPercentage          *float64 `json:&#34;profiled_container_percentage,omitempty&#34;`
-<span id="L2355" class="ln">  2355  </span>		ProfiledContainerUsage               *float64 `json:&#34;profiled_container_usage,omitempty&#34;`
-<span id="L2356" class="ln">  2356  </span>		ProfiledFargatePercentage            *float64 `json:&#34;profiled_fargate_percentage,omitempty&#34;`
-<span id="L2357" class="ln">  2357  </span>		ProfiledFargateUsage                 *float64 `json:&#34;profiled_fargate_usage,omitempty&#34;`
-<span id="L2358" class="ln">  2358  </span>		ProfiledHostPercentage               *float64 `json:&#34;profiled_host_percentage,omitempty&#34;`
-<span id="L2359" class="ln">  2359  </span>		ProfiledHostUsage                    *float64 `json:&#34;profiled_host_usage,omitempty&#34;`
-<span id="L2360" class="ln">  2360  </span>		SnmpPercentage                       *float64 `json:&#34;snmp_percentage,omitempty&#34;`
-<span id="L2361" class="ln">  2361  </span>		SnmpUsage                            *float64 `json:&#34;snmp_usage,omitempty&#34;`
-<span id="L2362" class="ln">  2362  </span>		UniversalServiceMonitoringPercentage *float64 `json:&#34;universal_service_monitoring_percentage,omitempty&#34;`
-<span id="L2363" class="ln">  2363  </span>		UniversalServiceMonitoringUsage      *float64 `json:&#34;universal_service_monitoring_usage,omitempty&#34;`
-<span id="L2364" class="ln">  2364  </span>		VulnManagementHostsPercentage        *float64 `json:&#34;vuln_management_hosts_percentage,omitempty&#34;`
-<span id="L2365" class="ln">  2365  </span>		VulnManagementHostsUsage             *float64 `json:&#34;vuln_management_hosts_usage,omitempty&#34;`
-<span id="L2366" class="ln">  2366  </span>	}{}
-<span id="L2367" class="ln">  2367  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L2368" class="ln">  2368  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L2369" class="ln">  2369  </span>		if err != nil {
-<span id="L2370" class="ln">  2370  </span>			return err
-<span id="L2371" class="ln">  2371  </span>		}
-<span id="L2372" class="ln">  2372  </span>		o.UnparsedObject = raw
-<span id="L2373" class="ln">  2373  </span>		return nil
+<span id="L2296" class="ln">  2296  </span>	all := struct {
+<span id="L2297" class="ln">  2297  </span>		ApiPercentage                        *float64 `json:&#34;api_percentage,omitempty&#34;`
+<span id="L2298" class="ln">  2298  </span>		ApiUsage                             *float64 `json:&#34;api_usage,omitempty&#34;`
+<span id="L2299" class="ln">  2299  </span>		ApmFargatePercentage                 *float64 `json:&#34;apm_fargate_percentage,omitempty&#34;`
+<span id="L2300" class="ln">  2300  </span>		ApmFargateUsage                      *float64 `json:&#34;apm_fargate_usage,omitempty&#34;`
+<span id="L2301" class="ln">  2301  </span>		ApmHostPercentage                    *float64 `json:&#34;apm_host_percentage,omitempty&#34;`
+<span id="L2302" class="ln">  2302  </span>		ApmHostUsage                         *float64 `json:&#34;apm_host_usage,omitempty&#34;`
+<span id="L2303" class="ln">  2303  </span>		AppsecFargatePercentage              *float64 `json:&#34;appsec_fargate_percentage,omitempty&#34;`
+<span id="L2304" class="ln">  2304  </span>		AppsecFargateUsage                   *float64 `json:&#34;appsec_fargate_usage,omitempty&#34;`
+<span id="L2305" class="ln">  2305  </span>		AppsecPercentage                     *float64 `json:&#34;appsec_percentage,omitempty&#34;`
+<span id="L2306" class="ln">  2306  </span>		AppsecUsage                          *float64 `json:&#34;appsec_usage,omitempty&#34;`
+<span id="L2307" class="ln">  2307  </span>		BrowserPercentage                    *float64 `json:&#34;browser_percentage,omitempty&#34;`
+<span id="L2308" class="ln">  2308  </span>		BrowserUsage                         *float64 `json:&#34;browser_usage,omitempty&#34;`
+<span id="L2309" class="ln">  2309  </span>		CiVisibilityItrPercentage            *float64 `json:&#34;ci_visibility_itr_percentage,omitempty&#34;`
+<span id="L2310" class="ln">  2310  </span>		CiVisibilityItrUsage                 *float64 `json:&#34;ci_visibility_itr_usage,omitempty&#34;`
+<span id="L2311" class="ln">  2311  </span>		ContainerExclAgentPercentage         *float64 `json:&#34;container_excl_agent_percentage,omitempty&#34;`
+<span id="L2312" class="ln">  2312  </span>		ContainerExclAgentUsage              *float64 `json:&#34;container_excl_agent_usage,omitempty&#34;`
+<span id="L2313" class="ln">  2313  </span>		ContainerPercentage                  *float64 `json:&#34;container_percentage,omitempty&#34;`
+<span id="L2314" class="ln">  2314  </span>		ContainerUsage                       *float64 `json:&#34;container_usage,omitempty&#34;`
+<span id="L2315" class="ln">  2315  </span>		CspmContainersPercentage             *float64 `json:&#34;cspm_containers_percentage,omitempty&#34;`
+<span id="L2316" class="ln">  2316  </span>		CspmContainersUsage                  *float64 `json:&#34;cspm_containers_usage,omitempty&#34;`
+<span id="L2317" class="ln">  2317  </span>		CspmHostsPercentage                  *float64 `json:&#34;cspm_hosts_percentage,omitempty&#34;`
+<span id="L2318" class="ln">  2318  </span>		CspmHostsUsage                       *float64 `json:&#34;cspm_hosts_usage,omitempty&#34;`
+<span id="L2319" class="ln">  2319  </span>		CustomIngestedTimeseriesPercentage   *float64 `json:&#34;custom_ingested_timeseries_percentage,omitempty&#34;`
+<span id="L2320" class="ln">  2320  </span>		CustomIngestedTimeseriesUsage        *float64 `json:&#34;custom_ingested_timeseries_usage,omitempty&#34;`
+<span id="L2321" class="ln">  2321  </span>		CustomTimeseriesPercentage           *float64 `json:&#34;custom_timeseries_percentage,omitempty&#34;`
+<span id="L2322" class="ln">  2322  </span>		CustomTimeseriesUsage                *float64 `json:&#34;custom_timeseries_usage,omitempty&#34;`
+<span id="L2323" class="ln">  2323  </span>		CwsContainersPercentage              *float64 `json:&#34;cws_containers_percentage,omitempty&#34;`
+<span id="L2324" class="ln">  2324  </span>		CwsContainersUsage                   *float64 `json:&#34;cws_containers_usage,omitempty&#34;`
+<span id="L2325" class="ln">  2325  </span>		CwsHostsPercentage                   *float64 `json:&#34;cws_hosts_percentage,omitempty&#34;`
+<span id="L2326" class="ln">  2326  </span>		CwsHostsUsage                        *float64 `json:&#34;cws_hosts_usage,omitempty&#34;`
+<span id="L2327" class="ln">  2327  </span>		DbmHostsPercentage                   *float64 `json:&#34;dbm_hosts_percentage,omitempty&#34;`
+<span id="L2328" class="ln">  2328  </span>		DbmHostsUsage                        *float64 `json:&#34;dbm_hosts_usage,omitempty&#34;`
+<span id="L2329" class="ln">  2329  </span>		DbmQueriesPercentage                 *float64 `json:&#34;dbm_queries_percentage,omitempty&#34;`
+<span id="L2330" class="ln">  2330  </span>		DbmQueriesUsage                      *float64 `json:&#34;dbm_queries_usage,omitempty&#34;`
+<span id="L2331" class="ln">  2331  </span>		EstimatedIndexedLogsPercentage       *float64 `json:&#34;estimated_indexed_logs_percentage,omitempty&#34;`
+<span id="L2332" class="ln">  2332  </span>		EstimatedIndexedLogsUsage            *float64 `json:&#34;estimated_indexed_logs_usage,omitempty&#34;`
+<span id="L2333" class="ln">  2333  </span>		EstimatedIndexedSpansPercentage      *float64 `json:&#34;estimated_indexed_spans_percentage,omitempty&#34;`
+<span id="L2334" class="ln">  2334  </span>		EstimatedIndexedSpansUsage           *float64 `json:&#34;estimated_indexed_spans_usage,omitempty&#34;`
+<span id="L2335" class="ln">  2335  </span>		EstimatedIngestedLogsPercentage      *float64 `json:&#34;estimated_ingested_logs_percentage,omitempty&#34;`
+<span id="L2336" class="ln">  2336  </span>		EstimatedIngestedLogsUsage           *float64 `json:&#34;estimated_ingested_logs_usage,omitempty&#34;`
+<span id="L2337" class="ln">  2337  </span>		EstimatedIngestedSpansPercentage     *float64 `json:&#34;estimated_ingested_spans_percentage,omitempty&#34;`
+<span id="L2338" class="ln">  2338  </span>		EstimatedIngestedSpansUsage          *float64 `json:&#34;estimated_ingested_spans_usage,omitempty&#34;`
+<span id="L2339" class="ln">  2339  </span>		EstimatedRumSessionsPercentage       *float64 `json:&#34;estimated_rum_sessions_percentage,omitempty&#34;`
+<span id="L2340" class="ln">  2340  </span>		EstimatedRumSessionsUsage            *float64 `json:&#34;estimated_rum_sessions_usage,omitempty&#34;`
+<span id="L2341" class="ln">  2341  </span>		FargatePercentage                    *float64 `json:&#34;fargate_percentage,omitempty&#34;`
+<span id="L2342" class="ln">  2342  </span>		FargateUsage                         *float64 `json:&#34;fargate_usage,omitempty&#34;`
+<span id="L2343" class="ln">  2343  </span>		FunctionsPercentage                  *float64 `json:&#34;functions_percentage,omitempty&#34;`
+<span id="L2344" class="ln">  2344  </span>		FunctionsUsage                       *float64 `json:&#34;functions_usage,omitempty&#34;`
+<span id="L2345" class="ln">  2345  </span>		InfraHostPercentage                  *float64 `json:&#34;infra_host_percentage,omitempty&#34;`
+<span id="L2346" class="ln">  2346  </span>		InfraHostUsage                       *float64 `json:&#34;infra_host_usage,omitempty&#34;`
+<span id="L2347" class="ln">  2347  </span>		InvocationsPercentage                *float64 `json:&#34;invocations_percentage,omitempty&#34;`
+<span id="L2348" class="ln">  2348  </span>		InvocationsUsage                     *float64 `json:&#34;invocations_usage,omitempty&#34;`
+<span id="L2349" class="ln">  2349  </span>		NpmHostPercentage                    *float64 `json:&#34;npm_host_percentage,omitempty&#34;`
+<span id="L2350" class="ln">  2350  </span>		NpmHostUsage                         *float64 `json:&#34;npm_host_usage,omitempty&#34;`
+<span id="L2351" class="ln">  2351  </span>		ObsPipelineBytesPercentage           *float64 `json:&#34;obs_pipeline_bytes_percentage,omitempty&#34;`
+<span id="L2352" class="ln">  2352  </span>		ObsPipelineBytesUsage                *float64 `json:&#34;obs_pipeline_bytes_usage,omitempty&#34;`
+<span id="L2353" class="ln">  2353  </span>		ProfiledContainerPercentage          *float64 `json:&#34;profiled_container_percentage,omitempty&#34;`
+<span id="L2354" class="ln">  2354  </span>		ProfiledContainerUsage               *float64 `json:&#34;profiled_container_usage,omitempty&#34;`
+<span id="L2355" class="ln">  2355  </span>		ProfiledFargatePercentage            *float64 `json:&#34;profiled_fargate_percentage,omitempty&#34;`
+<span id="L2356" class="ln">  2356  </span>		ProfiledFargateUsage                 *float64 `json:&#34;profiled_fargate_usage,omitempty&#34;`
+<span id="L2357" class="ln">  2357  </span>		ProfiledHostPercentage               *float64 `json:&#34;profiled_host_percentage,omitempty&#34;`
+<span id="L2358" class="ln">  2358  </span>		ProfiledHostUsage                    *float64 `json:&#34;profiled_host_usage,omitempty&#34;`
+<span id="L2359" class="ln">  2359  </span>		SnmpPercentage                       *float64 `json:&#34;snmp_percentage,omitempty&#34;`
+<span id="L2360" class="ln">  2360  </span>		SnmpUsage                            *float64 `json:&#34;snmp_usage,omitempty&#34;`
+<span id="L2361" class="ln">  2361  </span>		UniversalServiceMonitoringPercentage *float64 `json:&#34;universal_service_monitoring_percentage,omitempty&#34;`
+<span id="L2362" class="ln">  2362  </span>		UniversalServiceMonitoringUsage      *float64 `json:&#34;universal_service_monitoring_usage,omitempty&#34;`
+<span id="L2363" class="ln">  2363  </span>		VulnManagementHostsPercentage        *float64 `json:&#34;vuln_management_hosts_percentage,omitempty&#34;`
+<span id="L2364" class="ln">  2364  </span>		VulnManagementHostsUsage             *float64 `json:&#34;vuln_management_hosts_usage,omitempty&#34;`
+<span id="L2365" class="ln">  2365  </span>	}{}
+<span id="L2366" class="ln">  2366  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L2367" class="ln">  2367  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L2368" class="ln">  2368  </span>	}
+<span id="L2369" class="ln">  2369  </span>	additionalProperties := make(map[string]interface{})
+<span id="L2370" class="ln">  2370  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L2371" class="ln">  2371  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;api_percentage&#34;, &#34;api_usage&#34;, &#34;apm_fargate_percentage&#34;, &#34;apm_fargate_usage&#34;, &#34;apm_host_percentage&#34;, &#34;apm_host_usage&#34;, &#34;appsec_fargate_percentage&#34;, &#34;appsec_fargate_usage&#34;, &#34;appsec_percentage&#34;, &#34;appsec_usage&#34;, &#34;browser_percentage&#34;, &#34;browser_usage&#34;, &#34;ci_visibility_itr_percentage&#34;, &#34;ci_visibility_itr_usage&#34;, &#34;container_excl_agent_percentage&#34;, &#34;container_excl_agent_usage&#34;, &#34;container_percentage&#34;, &#34;container_usage&#34;, &#34;cspm_containers_percentage&#34;, &#34;cspm_containers_usage&#34;, &#34;cspm_hosts_percentage&#34;, &#34;cspm_hosts_usage&#34;, &#34;custom_ingested_timeseries_percentage&#34;, &#34;custom_ingested_timeseries_usage&#34;, &#34;custom_timeseries_percentage&#34;, &#34;custom_timeseries_usage&#34;, &#34;cws_containers_percentage&#34;, &#34;cws_containers_usage&#34;, &#34;cws_hosts_percentage&#34;, &#34;cws_hosts_usage&#34;, &#34;dbm_hosts_percentage&#34;, &#34;dbm_hosts_usage&#34;, &#34;dbm_queries_percentage&#34;, &#34;dbm_queries_usage&#34;, &#34;estimated_indexed_logs_percentage&#34;, &#34;estimated_indexed_logs_usage&#34;, &#34;estimated_indexed_spans_percentage&#34;, &#34;estimated_indexed_spans_usage&#34;, &#34;estimated_ingested_logs_percentage&#34;, &#34;estimated_ingested_logs_usage&#34;, &#34;estimated_ingested_spans_percentage&#34;, &#34;estimated_ingested_spans_usage&#34;, &#34;estimated_rum_sessions_percentage&#34;, &#34;estimated_rum_sessions_usage&#34;, &#34;fargate_percentage&#34;, &#34;fargate_usage&#34;, &#34;functions_percentage&#34;, &#34;functions_usage&#34;, &#34;infra_host_percentage&#34;, &#34;infra_host_usage&#34;, &#34;invocations_percentage&#34;, &#34;invocations_usage&#34;, &#34;npm_host_percentage&#34;, &#34;npm_host_usage&#34;, &#34;obs_pipeline_bytes_percentage&#34;, &#34;obs_pipeline_bytes_usage&#34;, &#34;profiled_container_percentage&#34;, &#34;profiled_container_usage&#34;, &#34;profiled_fargate_percentage&#34;, &#34;profiled_fargate_usage&#34;, &#34;profiled_host_percentage&#34;, &#34;profiled_host_usage&#34;, &#34;snmp_percentage&#34;, &#34;snmp_usage&#34;, &#34;universal_service_monitoring_percentage&#34;, &#34;universal_service_monitoring_usage&#34;, &#34;vuln_management_hosts_percentage&#34;, &#34;vuln_management_hosts_usage&#34;})
+<span id="L2372" class="ln">  2372  </span>	} else {
+<span id="L2373" class="ln">  2373  </span>		return err
 <span id="L2374" class="ln">  2374  </span>	}
-<span id="L2375" class="ln">  2375  </span>	additionalProperties := make(map[string]interface{})
-<span id="L2376" class="ln">  2376  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L2377" class="ln">  2377  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;api_percentage&#34;, &#34;api_usage&#34;, &#34;apm_fargate_percentage&#34;, &#34;apm_fargate_usage&#34;, &#34;apm_host_percentage&#34;, &#34;apm_host_usage&#34;, &#34;appsec_fargate_percentage&#34;, &#34;appsec_fargate_usage&#34;, &#34;appsec_percentage&#34;, &#34;appsec_usage&#34;, &#34;browser_percentage&#34;, &#34;browser_usage&#34;, &#34;ci_visibility_itr_percentage&#34;, &#34;ci_visibility_itr_usage&#34;, &#34;container_excl_agent_percentage&#34;, &#34;container_excl_agent_usage&#34;, &#34;container_percentage&#34;, &#34;container_usage&#34;, &#34;cspm_containers_percentage&#34;, &#34;cspm_containers_usage&#34;, &#34;cspm_hosts_percentage&#34;, &#34;cspm_hosts_usage&#34;, &#34;custom_ingested_timeseries_percentage&#34;, &#34;custom_ingested_timeseries_usage&#34;, &#34;custom_timeseries_percentage&#34;, &#34;custom_timeseries_usage&#34;, &#34;cws_containers_percentage&#34;, &#34;cws_containers_usage&#34;, &#34;cws_hosts_percentage&#34;, &#34;cws_hosts_usage&#34;, &#34;dbm_hosts_percentage&#34;, &#34;dbm_hosts_usage&#34;, &#34;dbm_queries_percentage&#34;, &#34;dbm_queries_usage&#34;, &#34;estimated_indexed_logs_percentage&#34;, &#34;estimated_indexed_logs_usage&#34;, &#34;estimated_indexed_spans_percentage&#34;, &#34;estimated_indexed_spans_usage&#34;, &#34;estimated_ingested_logs_percentage&#34;, &#34;estimated_ingested_logs_usage&#34;, &#34;estimated_ingested_spans_percentage&#34;, &#34;estimated_ingested_spans_usage&#34;, &#34;estimated_rum_sessions_percentage&#34;, &#34;estimated_rum_sessions_usage&#34;, &#34;fargate_percentage&#34;, &#34;fargate_usage&#34;, &#34;functions_percentage&#34;, &#34;functions_usage&#34;, &#34;infra_host_percentage&#34;, &#34;infra_host_usage&#34;, &#34;invocations_percentage&#34;, &#34;invocations_usage&#34;, &#34;npm_host_percentage&#34;, &#34;npm_host_usage&#34;, &#34;obs_pipeline_bytes_percentage&#34;, &#34;obs_pipeline_bytes_usage&#34;, &#34;profiled_container_percentage&#34;, &#34;profiled_container_usage&#34;, &#34;profiled_fargate_percentage&#34;, &#34;profiled_fargate_usage&#34;, &#34;profiled_host_percentage&#34;, &#34;profiled_host_usage&#34;, &#34;snmp_percentage&#34;, &#34;snmp_usage&#34;, &#34;universal_service_monitoring_percentage&#34;, &#34;universal_service_monitoring_usage&#34;, &#34;vuln_management_hosts_percentage&#34;, &#34;vuln_management_hosts_usage&#34;})
-<span id="L2378" class="ln">  2378  </span>	} else {
-<span id="L2379" class="ln">  2379  </span>		return err
-<span id="L2380" class="ln">  2380  </span>	}
-<span id="L2381" class="ln">  2381  </span>	o.ApiPercentage = all.ApiPercentage
-<span id="L2382" class="ln">  2382  </span>	o.ApiUsage = all.ApiUsage
-<span id="L2383" class="ln">  2383  </span>	o.ApmFargatePercentage = all.ApmFargatePercentage
-<span id="L2384" class="ln">  2384  </span>	o.ApmFargateUsage = all.ApmFargateUsage
-<span id="L2385" class="ln">  2385  </span>	o.ApmHostPercentage = all.ApmHostPercentage
-<span id="L2386" class="ln">  2386  </span>	o.ApmHostUsage = all.ApmHostUsage
-<span id="L2387" class="ln">  2387  </span>	o.AppsecFargatePercentage = all.AppsecFargatePercentage
-<span id="L2388" class="ln">  2388  </span>	o.AppsecFargateUsage = all.AppsecFargateUsage
-<span id="L2389" class="ln">  2389  </span>	o.AppsecPercentage = all.AppsecPercentage
-<span id="L2390" class="ln">  2390  </span>	o.AppsecUsage = all.AppsecUsage
-<span id="L2391" class="ln">  2391  </span>	o.BrowserPercentage = all.BrowserPercentage
-<span id="L2392" class="ln">  2392  </span>	o.BrowserUsage = all.BrowserUsage
-<span id="L2393" class="ln">  2393  </span>	o.CiVisibilityItrPercentage = all.CiVisibilityItrPercentage
-<span id="L2394" class="ln">  2394  </span>	o.CiVisibilityItrUsage = all.CiVisibilityItrUsage
-<span id="L2395" class="ln">  2395  </span>	o.ContainerExclAgentPercentage = all.ContainerExclAgentPercentage
-<span id="L2396" class="ln">  2396  </span>	o.ContainerExclAgentUsage = all.ContainerExclAgentUsage
-<span id="L2397" class="ln">  2397  </span>	o.ContainerPercentage = all.ContainerPercentage
-<span id="L2398" class="ln">  2398  </span>	o.ContainerUsage = all.ContainerUsage
-<span id="L2399" class="ln">  2399  </span>	o.CspmContainersPercentage = all.CspmContainersPercentage
-<span id="L2400" class="ln">  2400  </span>	o.CspmContainersUsage = all.CspmContainersUsage
-<span id="L2401" class="ln">  2401  </span>	o.CspmHostsPercentage = all.CspmHostsPercentage
-<span id="L2402" class="ln">  2402  </span>	o.CspmHostsUsage = all.CspmHostsUsage
-<span id="L2403" class="ln">  2403  </span>	o.CustomIngestedTimeseriesPercentage = all.CustomIngestedTimeseriesPercentage
-<span id="L2404" class="ln">  2404  </span>	o.CustomIngestedTimeseriesUsage = all.CustomIngestedTimeseriesUsage
-<span id="L2405" class="ln">  2405  </span>	o.CustomTimeseriesPercentage = all.CustomTimeseriesPercentage
-<span id="L2406" class="ln">  2406  </span>	o.CustomTimeseriesUsage = all.CustomTimeseriesUsage
-<span id="L2407" class="ln">  2407  </span>	o.CwsContainersPercentage = all.CwsContainersPercentage
-<span id="L2408" class="ln">  2408  </span>	o.CwsContainersUsage = all.CwsContainersUsage
-<span id="L2409" class="ln">  2409  </span>	o.CwsHostsPercentage = all.CwsHostsPercentage
-<span id="L2410" class="ln">  2410  </span>	o.CwsHostsUsage = all.CwsHostsUsage
-<span id="L2411" class="ln">  2411  </span>	o.DbmHostsPercentage = all.DbmHostsPercentage
-<span id="L2412" class="ln">  2412  </span>	o.DbmHostsUsage = all.DbmHostsUsage
-<span id="L2413" class="ln">  2413  </span>	o.DbmQueriesPercentage = all.DbmQueriesPercentage
-<span id="L2414" class="ln">  2414  </span>	o.DbmQueriesUsage = all.DbmQueriesUsage
-<span id="L2415" class="ln">  2415  </span>	o.EstimatedIndexedLogsPercentage = all.EstimatedIndexedLogsPercentage
-<span id="L2416" class="ln">  2416  </span>	o.EstimatedIndexedLogsUsage = all.EstimatedIndexedLogsUsage
-<span id="L2417" class="ln">  2417  </span>	o.EstimatedIndexedSpansPercentage = all.EstimatedIndexedSpansPercentage
-<span id="L2418" class="ln">  2418  </span>	o.EstimatedIndexedSpansUsage = all.EstimatedIndexedSpansUsage
-<span id="L2419" class="ln">  2419  </span>	o.EstimatedIngestedLogsPercentage = all.EstimatedIngestedLogsPercentage
-<span id="L2420" class="ln">  2420  </span>	o.EstimatedIngestedLogsUsage = all.EstimatedIngestedLogsUsage
-<span id="L2421" class="ln">  2421  </span>	o.EstimatedIngestedSpansPercentage = all.EstimatedIngestedSpansPercentage
-<span id="L2422" class="ln">  2422  </span>	o.EstimatedIngestedSpansUsage = all.EstimatedIngestedSpansUsage
-<span id="L2423" class="ln">  2423  </span>	o.EstimatedRumSessionsPercentage = all.EstimatedRumSessionsPercentage
-<span id="L2424" class="ln">  2424  </span>	o.EstimatedRumSessionsUsage = all.EstimatedRumSessionsUsage
-<span id="L2425" class="ln">  2425  </span>	o.FargatePercentage = all.FargatePercentage
-<span id="L2426" class="ln">  2426  </span>	o.FargateUsage = all.FargateUsage
-<span id="L2427" class="ln">  2427  </span>	o.FunctionsPercentage = all.FunctionsPercentage
-<span id="L2428" class="ln">  2428  </span>	o.FunctionsUsage = all.FunctionsUsage
-<span id="L2429" class="ln">  2429  </span>	o.InfraHostPercentage = all.InfraHostPercentage
-<span id="L2430" class="ln">  2430  </span>	o.InfraHostUsage = all.InfraHostUsage
-<span id="L2431" class="ln">  2431  </span>	o.InvocationsPercentage = all.InvocationsPercentage
-<span id="L2432" class="ln">  2432  </span>	o.InvocationsUsage = all.InvocationsUsage
-<span id="L2433" class="ln">  2433  </span>	o.NpmHostPercentage = all.NpmHostPercentage
-<span id="L2434" class="ln">  2434  </span>	o.NpmHostUsage = all.NpmHostUsage
-<span id="L2435" class="ln">  2435  </span>	o.ObsPipelineBytesPercentage = all.ObsPipelineBytesPercentage
-<span id="L2436" class="ln">  2436  </span>	o.ObsPipelineBytesUsage = all.ObsPipelineBytesUsage
-<span id="L2437" class="ln">  2437  </span>	o.ProfiledContainerPercentage = all.ProfiledContainerPercentage
-<span id="L2438" class="ln">  2438  </span>	o.ProfiledContainerUsage = all.ProfiledContainerUsage
-<span id="L2439" class="ln">  2439  </span>	o.ProfiledFargatePercentage = all.ProfiledFargatePercentage
-<span id="L2440" class="ln">  2440  </span>	o.ProfiledFargateUsage = all.ProfiledFargateUsage
-<span id="L2441" class="ln">  2441  </span>	o.ProfiledHostPercentage = all.ProfiledHostPercentage
-<span id="L2442" class="ln">  2442  </span>	o.ProfiledHostUsage = all.ProfiledHostUsage
-<span id="L2443" class="ln">  2443  </span>	o.SnmpPercentage = all.SnmpPercentage
-<span id="L2444" class="ln">  2444  </span>	o.SnmpUsage = all.SnmpUsage
-<span id="L2445" class="ln">  2445  </span>	o.UniversalServiceMonitoringPercentage = all.UniversalServiceMonitoringPercentage
-<span id="L2446" class="ln">  2446  </span>	o.UniversalServiceMonitoringUsage = all.UniversalServiceMonitoringUsage
-<span id="L2447" class="ln">  2447  </span>	o.VulnManagementHostsPercentage = all.VulnManagementHostsPercentage
-<span id="L2448" class="ln">  2448  </span>	o.VulnManagementHostsUsage = all.VulnManagementHostsUsage
-<span id="L2449" class="ln">  2449  </span>
-<span id="L2450" class="ln">  2450  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L2451" class="ln">  2451  </span>		o.AdditionalProperties = additionalProperties
-<span id="L2452" class="ln">  2452  </span>	}
-<span id="L2453" class="ln">  2453  </span>
-<span id="L2454" class="ln">  2454  </span>	return nil
-<span id="L2455" class="ln">  2455  </span>}
-<span id="L2456" class="ln">  2456  </span>
+<span id="L2375" class="ln">  2375  </span>	o.ApiPercentage = all.ApiPercentage
+<span id="L2376" class="ln">  2376  </span>	o.ApiUsage = all.ApiUsage
+<span id="L2377" class="ln">  2377  </span>	o.ApmFargatePercentage = all.ApmFargatePercentage
+<span id="L2378" class="ln">  2378  </span>	o.ApmFargateUsage = all.ApmFargateUsage
+<span id="L2379" class="ln">  2379  </span>	o.ApmHostPercentage = all.ApmHostPercentage
+<span id="L2380" class="ln">  2380  </span>	o.ApmHostUsage = all.ApmHostUsage
+<span id="L2381" class="ln">  2381  </span>	o.AppsecFargatePercentage = all.AppsecFargatePercentage
+<span id="L2382" class="ln">  2382  </span>	o.AppsecFargateUsage = all.AppsecFargateUsage
+<span id="L2383" class="ln">  2383  </span>	o.AppsecPercentage = all.AppsecPercentage
+<span id="L2384" class="ln">  2384  </span>	o.AppsecUsage = all.AppsecUsage
+<span id="L2385" class="ln">  2385  </span>	o.BrowserPercentage = all.BrowserPercentage
+<span id="L2386" class="ln">  2386  </span>	o.BrowserUsage = all.BrowserUsage
+<span id="L2387" class="ln">  2387  </span>	o.CiVisibilityItrPercentage = all.CiVisibilityItrPercentage
+<span id="L2388" class="ln">  2388  </span>	o.CiVisibilityItrUsage = all.CiVisibilityItrUsage
+<span id="L2389" class="ln">  2389  </span>	o.ContainerExclAgentPercentage = all.ContainerExclAgentPercentage
+<span id="L2390" class="ln">  2390  </span>	o.ContainerExclAgentUsage = all.ContainerExclAgentUsage
+<span id="L2391" class="ln">  2391  </span>	o.ContainerPercentage = all.ContainerPercentage
+<span id="L2392" class="ln">  2392  </span>	o.ContainerUsage = all.ContainerUsage
+<span id="L2393" class="ln">  2393  </span>	o.CspmContainersPercentage = all.CspmContainersPercentage
+<span id="L2394" class="ln">  2394  </span>	o.CspmContainersUsage = all.CspmContainersUsage
+<span id="L2395" class="ln">  2395  </span>	o.CspmHostsPercentage = all.CspmHostsPercentage
+<span id="L2396" class="ln">  2396  </span>	o.CspmHostsUsage = all.CspmHostsUsage
+<span id="L2397" class="ln">  2397  </span>	o.CustomIngestedTimeseriesPercentage = all.CustomIngestedTimeseriesPercentage
+<span id="L2398" class="ln">  2398  </span>	o.CustomIngestedTimeseriesUsage = all.CustomIngestedTimeseriesUsage
+<span id="L2399" class="ln">  2399  </span>	o.CustomTimeseriesPercentage = all.CustomTimeseriesPercentage
+<span id="L2400" class="ln">  2400  </span>	o.CustomTimeseriesUsage = all.CustomTimeseriesUsage
+<span id="L2401" class="ln">  2401  </span>	o.CwsContainersPercentage = all.CwsContainersPercentage
+<span id="L2402" class="ln">  2402  </span>	o.CwsContainersUsage = all.CwsContainersUsage
+<span id="L2403" class="ln">  2403  </span>	o.CwsHostsPercentage = all.CwsHostsPercentage
+<span id="L2404" class="ln">  2404  </span>	o.CwsHostsUsage = all.CwsHostsUsage
+<span id="L2405" class="ln">  2405  </span>	o.DbmHostsPercentage = all.DbmHostsPercentage
+<span id="L2406" class="ln">  2406  </span>	o.DbmHostsUsage = all.DbmHostsUsage
+<span id="L2407" class="ln">  2407  </span>	o.DbmQueriesPercentage = all.DbmQueriesPercentage
+<span id="L2408" class="ln">  2408  </span>	o.DbmQueriesUsage = all.DbmQueriesUsage
+<span id="L2409" class="ln">  2409  </span>	o.EstimatedIndexedLogsPercentage = all.EstimatedIndexedLogsPercentage
+<span id="L2410" class="ln">  2410  </span>	o.EstimatedIndexedLogsUsage = all.EstimatedIndexedLogsUsage
+<span id="L2411" class="ln">  2411  </span>	o.EstimatedIndexedSpansPercentage = all.EstimatedIndexedSpansPercentage
+<span id="L2412" class="ln">  2412  </span>	o.EstimatedIndexedSpansUsage = all.EstimatedIndexedSpansUsage
+<span id="L2413" class="ln">  2413  </span>	o.EstimatedIngestedLogsPercentage = all.EstimatedIngestedLogsPercentage
+<span id="L2414" class="ln">  2414  </span>	o.EstimatedIngestedLogsUsage = all.EstimatedIngestedLogsUsage
+<span id="L2415" class="ln">  2415  </span>	o.EstimatedIngestedSpansPercentage = all.EstimatedIngestedSpansPercentage
+<span id="L2416" class="ln">  2416  </span>	o.EstimatedIngestedSpansUsage = all.EstimatedIngestedSpansUsage
+<span id="L2417" class="ln">  2417  </span>	o.EstimatedRumSessionsPercentage = all.EstimatedRumSessionsPercentage
+<span id="L2418" class="ln">  2418  </span>	o.EstimatedRumSessionsUsage = all.EstimatedRumSessionsUsage
+<span id="L2419" class="ln">  2419  </span>	o.FargatePercentage = all.FargatePercentage
+<span id="L2420" class="ln">  2420  </span>	o.FargateUsage = all.FargateUsage
+<span id="L2421" class="ln">  2421  </span>	o.FunctionsPercentage = all.FunctionsPercentage
+<span id="L2422" class="ln">  2422  </span>	o.FunctionsUsage = all.FunctionsUsage
+<span id="L2423" class="ln">  2423  </span>	o.InfraHostPercentage = all.InfraHostPercentage
+<span id="L2424" class="ln">  2424  </span>	o.InfraHostUsage = all.InfraHostUsage
+<span id="L2425" class="ln">  2425  </span>	o.InvocationsPercentage = all.InvocationsPercentage
+<span id="L2426" class="ln">  2426  </span>	o.InvocationsUsage = all.InvocationsUsage
+<span id="L2427" class="ln">  2427  </span>	o.NpmHostPercentage = all.NpmHostPercentage
+<span id="L2428" class="ln">  2428  </span>	o.NpmHostUsage = all.NpmHostUsage
+<span id="L2429" class="ln">  2429  </span>	o.ObsPipelineBytesPercentage = all.ObsPipelineBytesPercentage
+<span id="L2430" class="ln">  2430  </span>	o.ObsPipelineBytesUsage = all.ObsPipelineBytesUsage
+<span id="L2431" class="ln">  2431  </span>	o.ProfiledContainerPercentage = all.ProfiledContainerPercentage
+<span id="L2432" class="ln">  2432  </span>	o.ProfiledContainerUsage = all.ProfiledContainerUsage
+<span id="L2433" class="ln">  2433  </span>	o.ProfiledFargatePercentage = all.ProfiledFargatePercentage
+<span id="L2434" class="ln">  2434  </span>	o.ProfiledFargateUsage = all.ProfiledFargateUsage
+<span id="L2435" class="ln">  2435  </span>	o.ProfiledHostPercentage = all.ProfiledHostPercentage
+<span id="L2436" class="ln">  2436  </span>	o.ProfiledHostUsage = all.ProfiledHostUsage
+<span id="L2437" class="ln">  2437  </span>	o.SnmpPercentage = all.SnmpPercentage
+<span id="L2438" class="ln">  2438  </span>	o.SnmpUsage = all.SnmpUsage
+<span id="L2439" class="ln">  2439  </span>	o.UniversalServiceMonitoringPercentage = all.UniversalServiceMonitoringPercentage
+<span id="L2440" class="ln">  2440  </span>	o.UniversalServiceMonitoringUsage = all.UniversalServiceMonitoringUsage
+<span id="L2441" class="ln">  2441  </span>	o.VulnManagementHostsPercentage = all.VulnManagementHostsPercentage
+<span id="L2442" class="ln">  2442  </span>	o.VulnManagementHostsUsage = all.VulnManagementHostsUsage
+<span id="L2443" class="ln">  2443  </span>
+<span id="L2444" class="ln">  2444  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L2445" class="ln">  2445  </span>		o.AdditionalProperties = additionalProperties
+<span id="L2446" class="ln">  2446  </span>	}
+<span id="L2447" class="ln">  2447  </span>
+<span id="L2448" class="ln">  2448  </span>	return nil
+<span id="L2449" class="ln">  2449  </span>}
+<span id="L2450" class="ln">  2450  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -288,72 +288,62 @@
 <span id="L231" class="ln">   231  </span>
 <span id="L232" class="ln">   232  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L233" class="ln">   233  </span>func (o *MonitorFormulaAndFunctionEventQueryDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L234" class="ln">   234  </span>	raw := map[string]interface{}{}
-<span id="L235" class="ln">   235  </span>	all := struct {
-<span id="L236" class="ln">   236  </span>		Compute    *MonitorFormulaAndFunctionEventQueryDefinitionCompute `json:&#34;compute&#34;`
-<span id="L237" class="ln">   237  </span>		DataSource *MonitorFormulaAndFunctionEventsDataSource            `json:&#34;data_source&#34;`
-<span id="L238" class="ln">   238  </span>		GroupBy    []MonitorFormulaAndFunctionEventQueryGroupBy          `json:&#34;group_by,omitempty&#34;`
-<span id="L239" class="ln">   239  </span>		Indexes    []string                                              `json:&#34;indexes,omitempty&#34;`
-<span id="L240" class="ln">   240  </span>		Name       *string                                               `json:&#34;name&#34;`
-<span id="L241" class="ln">   241  </span>		Search     *MonitorFormulaAndFunctionEventQueryDefinitionSearch  `json:&#34;search,omitempty&#34;`
-<span id="L242" class="ln">   242  </span>	}{}
-<span id="L243" class="ln">   243  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L244" class="ln">   244  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L245" class="ln">   245  </span>		if err != nil {
-<span id="L246" class="ln">   246  </span>			return err
-<span id="L247" class="ln">   247  </span>		}
-<span id="L248" class="ln">   248  </span>		o.UnparsedObject = raw
-<span id="L249" class="ln">   249  </span>		return nil
+<span id="L234" class="ln">   234  </span>	all := struct {
+<span id="L235" class="ln">   235  </span>		Compute    *MonitorFormulaAndFunctionEventQueryDefinitionCompute `json:&#34;compute&#34;`
+<span id="L236" class="ln">   236  </span>		DataSource *MonitorFormulaAndFunctionEventsDataSource            `json:&#34;data_source&#34;`
+<span id="L237" class="ln">   237  </span>		GroupBy    []MonitorFormulaAndFunctionEventQueryGroupBy          `json:&#34;group_by,omitempty&#34;`
+<span id="L238" class="ln">   238  </span>		Indexes    []string                                              `json:&#34;indexes,omitempty&#34;`
+<span id="L239" class="ln">   239  </span>		Name       *string                                               `json:&#34;name&#34;`
+<span id="L240" class="ln">   240  </span>		Search     *MonitorFormulaAndFunctionEventQueryDefinitionSearch  `json:&#34;search,omitempty&#34;`
+<span id="L241" class="ln">   241  </span>	}{}
+<span id="L242" class="ln">   242  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L243" class="ln">   243  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L244" class="ln">   244  </span>	}
+<span id="L245" class="ln">   245  </span>	if all.Compute == nil {
+<span id="L246" class="ln">   246  </span>		return fmt.Errorf(&#34;required field compute missing&#34;)
+<span id="L247" class="ln">   247  </span>	}
+<span id="L248" class="ln">   248  </span>	if all.DataSource == nil {
+<span id="L249" class="ln">   249  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
 <span id="L250" class="ln">   250  </span>	}
-<span id="L251" class="ln">   251  </span>	if all.Compute == nil {
-<span id="L252" class="ln">   252  </span>		return fmt.Errorf(&#34;required field compute missing&#34;)
+<span id="L251" class="ln">   251  </span>	if all.Name == nil {
+<span id="L252" class="ln">   252  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
 <span id="L253" class="ln">   253  </span>	}
-<span id="L254" class="ln">   254  </span>	if all.DataSource == nil {
-<span id="L255" class="ln">   255  </span>		return fmt.Errorf(&#34;required field data_source missing&#34;)
-<span id="L256" class="ln">   256  </span>	}
-<span id="L257" class="ln">   257  </span>	if all.Name == nil {
-<span id="L258" class="ln">   258  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L254" class="ln">   254  </span>	additionalProperties := make(map[string]interface{})
+<span id="L255" class="ln">   255  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L256" class="ln">   256  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;compute&#34;, &#34;data_source&#34;, &#34;group_by&#34;, &#34;indexes&#34;, &#34;name&#34;, &#34;search&#34;})
+<span id="L257" class="ln">   257  </span>	} else {
+<span id="L258" class="ln">   258  </span>		return err
 <span id="L259" class="ln">   259  </span>	}
-<span id="L260" class="ln">   260  </span>	additionalProperties := make(map[string]interface{})
-<span id="L261" class="ln">   261  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L262" class="ln">   262  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;compute&#34;, &#34;data_source&#34;, &#34;group_by&#34;, &#34;indexes&#34;, &#34;name&#34;, &#34;search&#34;})
-<span id="L263" class="ln">   263  </span>	} else {
-<span id="L264" class="ln">   264  </span>		return err
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>
-<span id="L267" class="ln">   267  </span>	hasInvalidField := false
-<span id="L268" class="ln">   268  </span>	if all.Compute.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L269" class="ln">   269  </span>		hasInvalidField = true
+<span id="L260" class="ln">   260  </span>
+<span id="L261" class="ln">   261  </span>	hasInvalidField := false
+<span id="L262" class="ln">   262  </span>	if all.Compute.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L263" class="ln">   263  </span>		hasInvalidField = true
+<span id="L264" class="ln">   264  </span>	}
+<span id="L265" class="ln">   265  </span>	o.Compute = *all.Compute
+<span id="L266" class="ln">   266  </span>	if !all.DataSource.IsValid() {
+<span id="L267" class="ln">   267  </span>		hasInvalidField = true
+<span id="L268" class="ln">   268  </span>	} else {
+<span id="L269" class="ln">   269  </span>		o.DataSource = *all.DataSource
 <span id="L270" class="ln">   270  </span>	}
-<span id="L271" class="ln">   271  </span>	o.Compute = *all.Compute
-<span id="L272" class="ln">   272  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L273" class="ln">   273  </span>		hasInvalidField = true
-<span id="L274" class="ln">   274  </span>	} else {
-<span id="L275" class="ln">   275  </span>		o.DataSource = *all.DataSource
+<span id="L271" class="ln">   271  </span>	o.GroupBy = all.GroupBy
+<span id="L272" class="ln">   272  </span>	o.Indexes = all.Indexes
+<span id="L273" class="ln">   273  </span>	o.Name = *all.Name
+<span id="L274" class="ln">   274  </span>	if all.Search != nil &amp;&amp; all.Search.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L275" class="ln">   275  </span>		hasInvalidField = true
 <span id="L276" class="ln">   276  </span>	}
-<span id="L277" class="ln">   277  </span>	o.GroupBy = all.GroupBy
-<span id="L278" class="ln">   278  </span>	o.Indexes = all.Indexes
-<span id="L279" class="ln">   279  </span>	o.Name = *all.Name
-<span id="L280" class="ln">   280  </span>	if all.Search != nil &amp;&amp; all.Search.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L281" class="ln">   281  </span>		hasInvalidField = true
-<span id="L282" class="ln">   282  </span>	}
-<span id="L283" class="ln">   283  </span>	o.Search = all.Search
-<span id="L284" class="ln">   284  </span>
-<span id="L285" class="ln">   285  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L286" class="ln">   286  </span>		o.AdditionalProperties = additionalProperties
-<span id="L287" class="ln">   287  </span>	}
-<span id="L288" class="ln">   288  </span>
-<span id="L289" class="ln">   289  </span>	if hasInvalidField {
-<span id="L290" class="ln">   290  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L291" class="ln">   291  </span>		if err != nil {
-<span id="L292" class="ln">   292  </span>			return err
-<span id="L293" class="ln">   293  </span>		}
-<span id="L294" class="ln">   294  </span>		o.UnparsedObject = raw
-<span id="L295" class="ln">   295  </span>	}
-<span id="L296" class="ln">   296  </span>
-<span id="L297" class="ln">   297  </span>	return nil
-<span id="L298" class="ln">   298  </span>}
-<span id="L299" class="ln">   299  </span>
+<span id="L277" class="ln">   277  </span>	o.Search = all.Search
+<span id="L278" class="ln">   278  </span>
+<span id="L279" class="ln">   279  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L280" class="ln">   280  </span>		o.AdditionalProperties = additionalProperties
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>
+<span id="L283" class="ln">   283  </span>	if hasInvalidField {
+<span id="L284" class="ln">   284  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L285" class="ln">   285  </span>	}
+<span id="L286" class="ln">   286  </span>
+<span id="L287" class="ln">   287  </span>	return nil
+<span id="L288" class="ln">   288  </span>}
+<span id="L289" class="ln">   289  </span>
 </pre><p></p>
 
 <div id="footer">

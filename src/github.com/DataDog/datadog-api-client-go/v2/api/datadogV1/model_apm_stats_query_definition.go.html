@@ -309,74 +309,64 @@
 <span id="L252" class="ln">   252  </span>
 <span id="L253" class="ln">   253  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L254" class="ln">   254  </span>func (o *ApmStatsQueryDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L255" class="ln">   255  </span>	raw := map[string]interface{}{}
-<span id="L256" class="ln">   256  </span>	all := struct {
-<span id="L257" class="ln">   257  </span>		Columns    []ApmStatsQueryColumnType `json:&#34;columns,omitempty&#34;`
-<span id="L258" class="ln">   258  </span>		Env        *string                   `json:&#34;env&#34;`
-<span id="L259" class="ln">   259  </span>		Name       *string                   `json:&#34;name&#34;`
-<span id="L260" class="ln">   260  </span>		PrimaryTag *string                   `json:&#34;primary_tag&#34;`
-<span id="L261" class="ln">   261  </span>		Resource   *string                   `json:&#34;resource,omitempty&#34;`
-<span id="L262" class="ln">   262  </span>		RowType    *ApmStatsQueryRowType     `json:&#34;row_type&#34;`
-<span id="L263" class="ln">   263  </span>		Service    *string                   `json:&#34;service&#34;`
-<span id="L264" class="ln">   264  </span>	}{}
-<span id="L265" class="ln">   265  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L266" class="ln">   266  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L267" class="ln">   267  </span>		if err != nil {
-<span id="L268" class="ln">   268  </span>			return err
-<span id="L269" class="ln">   269  </span>		}
-<span id="L270" class="ln">   270  </span>		o.UnparsedObject = raw
-<span id="L271" class="ln">   271  </span>		return nil
+<span id="L255" class="ln">   255  </span>	all := struct {
+<span id="L256" class="ln">   256  </span>		Columns    []ApmStatsQueryColumnType `json:&#34;columns,omitempty&#34;`
+<span id="L257" class="ln">   257  </span>		Env        *string                   `json:&#34;env&#34;`
+<span id="L258" class="ln">   258  </span>		Name       *string                   `json:&#34;name&#34;`
+<span id="L259" class="ln">   259  </span>		PrimaryTag *string                   `json:&#34;primary_tag&#34;`
+<span id="L260" class="ln">   260  </span>		Resource   *string                   `json:&#34;resource,omitempty&#34;`
+<span id="L261" class="ln">   261  </span>		RowType    *ApmStatsQueryRowType     `json:&#34;row_type&#34;`
+<span id="L262" class="ln">   262  </span>		Service    *string                   `json:&#34;service&#34;`
+<span id="L263" class="ln">   263  </span>	}{}
+<span id="L264" class="ln">   264  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L265" class="ln">   265  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L266" class="ln">   266  </span>	}
+<span id="L267" class="ln">   267  </span>	if all.Env == nil {
+<span id="L268" class="ln">   268  </span>		return fmt.Errorf(&#34;required field env missing&#34;)
+<span id="L269" class="ln">   269  </span>	}
+<span id="L270" class="ln">   270  </span>	if all.Name == nil {
+<span id="L271" class="ln">   271  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
 <span id="L272" class="ln">   272  </span>	}
-<span id="L273" class="ln">   273  </span>	if all.Env == nil {
-<span id="L274" class="ln">   274  </span>		return fmt.Errorf(&#34;required field env missing&#34;)
+<span id="L273" class="ln">   273  </span>	if all.PrimaryTag == nil {
+<span id="L274" class="ln">   274  </span>		return fmt.Errorf(&#34;required field primary_tag missing&#34;)
 <span id="L275" class="ln">   275  </span>	}
-<span id="L276" class="ln">   276  </span>	if all.Name == nil {
-<span id="L277" class="ln">   277  </span>		return fmt.Errorf(&#34;required field name missing&#34;)
+<span id="L276" class="ln">   276  </span>	if all.RowType == nil {
+<span id="L277" class="ln">   277  </span>		return fmt.Errorf(&#34;required field row_type missing&#34;)
 <span id="L278" class="ln">   278  </span>	}
-<span id="L279" class="ln">   279  </span>	if all.PrimaryTag == nil {
-<span id="L280" class="ln">   280  </span>		return fmt.Errorf(&#34;required field primary_tag missing&#34;)
+<span id="L279" class="ln">   279  </span>	if all.Service == nil {
+<span id="L280" class="ln">   280  </span>		return fmt.Errorf(&#34;required field service missing&#34;)
 <span id="L281" class="ln">   281  </span>	}
-<span id="L282" class="ln">   282  </span>	if all.RowType == nil {
-<span id="L283" class="ln">   283  </span>		return fmt.Errorf(&#34;required field row_type missing&#34;)
-<span id="L284" class="ln">   284  </span>	}
-<span id="L285" class="ln">   285  </span>	if all.Service == nil {
-<span id="L286" class="ln">   286  </span>		return fmt.Errorf(&#34;required field service missing&#34;)
+<span id="L282" class="ln">   282  </span>	additionalProperties := make(map[string]interface{})
+<span id="L283" class="ln">   283  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L284" class="ln">   284  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;columns&#34;, &#34;env&#34;, &#34;name&#34;, &#34;primary_tag&#34;, &#34;resource&#34;, &#34;row_type&#34;, &#34;service&#34;})
+<span id="L285" class="ln">   285  </span>	} else {
+<span id="L286" class="ln">   286  </span>		return err
 <span id="L287" class="ln">   287  </span>	}
-<span id="L288" class="ln">   288  </span>	additionalProperties := make(map[string]interface{})
-<span id="L289" class="ln">   289  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L290" class="ln">   290  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;columns&#34;, &#34;env&#34;, &#34;name&#34;, &#34;primary_tag&#34;, &#34;resource&#34;, &#34;row_type&#34;, &#34;service&#34;})
-<span id="L291" class="ln">   291  </span>	} else {
-<span id="L292" class="ln">   292  </span>		return err
-<span id="L293" class="ln">   293  </span>	}
-<span id="L294" class="ln">   294  </span>
-<span id="L295" class="ln">   295  </span>	hasInvalidField := false
-<span id="L296" class="ln">   296  </span>	o.Columns = all.Columns
-<span id="L297" class="ln">   297  </span>	o.Env = *all.Env
-<span id="L298" class="ln">   298  </span>	o.Name = *all.Name
-<span id="L299" class="ln">   299  </span>	o.PrimaryTag = *all.PrimaryTag
-<span id="L300" class="ln">   300  </span>	o.Resource = all.Resource
-<span id="L301" class="ln">   301  </span>	if v := all.RowType; !v.IsValid() {
-<span id="L302" class="ln">   302  </span>		hasInvalidField = true
-<span id="L303" class="ln">   303  </span>	} else {
-<span id="L304" class="ln">   304  </span>		o.RowType = *all.RowType
-<span id="L305" class="ln">   305  </span>	}
-<span id="L306" class="ln">   306  </span>	o.Service = *all.Service
-<span id="L307" class="ln">   307  </span>
-<span id="L308" class="ln">   308  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L309" class="ln">   309  </span>		o.AdditionalProperties = additionalProperties
-<span id="L310" class="ln">   310  </span>	}
-<span id="L311" class="ln">   311  </span>
-<span id="L312" class="ln">   312  </span>	if hasInvalidField {
-<span id="L313" class="ln">   313  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L314" class="ln">   314  </span>		if err != nil {
-<span id="L315" class="ln">   315  </span>			return err
-<span id="L316" class="ln">   316  </span>		}
-<span id="L317" class="ln">   317  </span>		o.UnparsedObject = raw
-<span id="L318" class="ln">   318  </span>	}
-<span id="L319" class="ln">   319  </span>
-<span id="L320" class="ln">   320  </span>	return nil
-<span id="L321" class="ln">   321  </span>}
-<span id="L322" class="ln">   322  </span>
+<span id="L288" class="ln">   288  </span>
+<span id="L289" class="ln">   289  </span>	hasInvalidField := false
+<span id="L290" class="ln">   290  </span>	o.Columns = all.Columns
+<span id="L291" class="ln">   291  </span>	o.Env = *all.Env
+<span id="L292" class="ln">   292  </span>	o.Name = *all.Name
+<span id="L293" class="ln">   293  </span>	o.PrimaryTag = *all.PrimaryTag
+<span id="L294" class="ln">   294  </span>	o.Resource = all.Resource
+<span id="L295" class="ln">   295  </span>	if !all.RowType.IsValid() {
+<span id="L296" class="ln">   296  </span>		hasInvalidField = true
+<span id="L297" class="ln">   297  </span>	} else {
+<span id="L298" class="ln">   298  </span>		o.RowType = *all.RowType
+<span id="L299" class="ln">   299  </span>	}
+<span id="L300" class="ln">   300  </span>	o.Service = *all.Service
+<span id="L301" class="ln">   301  </span>
+<span id="L302" class="ln">   302  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L303" class="ln">   303  </span>		o.AdditionalProperties = additionalProperties
+<span id="L304" class="ln">   304  </span>	}
+<span id="L305" class="ln">   305  </span>
+<span id="L306" class="ln">   306  </span>	if hasInvalidField {
+<span id="L307" class="ln">   307  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L308" class="ln">   308  </span>	}
+<span id="L309" class="ln">   309  </span>
+<span id="L310" class="ln">   310  </span>	return nil
+<span id="L311" class="ln">   311  </span>}
+<span id="L312" class="ln">   312  </span>
 </pre><p></p>
 
 <div id="footer">

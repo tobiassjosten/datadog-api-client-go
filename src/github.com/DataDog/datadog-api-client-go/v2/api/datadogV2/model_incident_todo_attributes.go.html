@@ -283,47 +283,41 @@
 <span id="L226" class="ln">   226  </span>
 <span id="L227" class="ln">   227  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L228" class="ln">   228  </span>func (o *IncidentTodoAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L229" class="ln">   229  </span>	raw := map[string]interface{}{}
-<span id="L230" class="ln">   230  </span>	all := struct {
-<span id="L231" class="ln">   231  </span>		Assignees  *[]IncidentTodoAssignee `json:&#34;assignees&#34;`
-<span id="L232" class="ln">   232  </span>		Completed  datadog.NullableString  `json:&#34;completed,omitempty&#34;`
-<span id="L233" class="ln">   233  </span>		Content    *string                 `json:&#34;content&#34;`
-<span id="L234" class="ln">   234  </span>		DueDate    datadog.NullableString  `json:&#34;due_date,omitempty&#34;`
-<span id="L235" class="ln">   235  </span>		IncidentId *string                 `json:&#34;incident_id,omitempty&#34;`
-<span id="L236" class="ln">   236  </span>	}{}
-<span id="L237" class="ln">   237  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L238" class="ln">   238  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L239" class="ln">   239  </span>		if err != nil {
-<span id="L240" class="ln">   240  </span>			return err
-<span id="L241" class="ln">   241  </span>		}
-<span id="L242" class="ln">   242  </span>		o.UnparsedObject = raw
-<span id="L243" class="ln">   243  </span>		return nil
+<span id="L229" class="ln">   229  </span>	all := struct {
+<span id="L230" class="ln">   230  </span>		Assignees  *[]IncidentTodoAssignee `json:&#34;assignees&#34;`
+<span id="L231" class="ln">   231  </span>		Completed  datadog.NullableString  `json:&#34;completed,omitempty&#34;`
+<span id="L232" class="ln">   232  </span>		Content    *string                 `json:&#34;content&#34;`
+<span id="L233" class="ln">   233  </span>		DueDate    datadog.NullableString  `json:&#34;due_date,omitempty&#34;`
+<span id="L234" class="ln">   234  </span>		IncidentId *string                 `json:&#34;incident_id,omitempty&#34;`
+<span id="L235" class="ln">   235  </span>	}{}
+<span id="L236" class="ln">   236  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L237" class="ln">   237  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L238" class="ln">   238  </span>	}
+<span id="L239" class="ln">   239  </span>	if all.Assignees == nil {
+<span id="L240" class="ln">   240  </span>		return fmt.Errorf(&#34;required field assignees missing&#34;)
+<span id="L241" class="ln">   241  </span>	}
+<span id="L242" class="ln">   242  </span>	if all.Content == nil {
+<span id="L243" class="ln">   243  </span>		return fmt.Errorf(&#34;required field content missing&#34;)
 <span id="L244" class="ln">   244  </span>	}
-<span id="L245" class="ln">   245  </span>	if all.Assignees == nil {
-<span id="L246" class="ln">   246  </span>		return fmt.Errorf(&#34;required field assignees missing&#34;)
-<span id="L247" class="ln">   247  </span>	}
-<span id="L248" class="ln">   248  </span>	if all.Content == nil {
-<span id="L249" class="ln">   249  </span>		return fmt.Errorf(&#34;required field content missing&#34;)
+<span id="L245" class="ln">   245  </span>	additionalProperties := make(map[string]interface{})
+<span id="L246" class="ln">   246  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L247" class="ln">   247  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;assignees&#34;, &#34;completed&#34;, &#34;content&#34;, &#34;due_date&#34;, &#34;incident_id&#34;})
+<span id="L248" class="ln">   248  </span>	} else {
+<span id="L249" class="ln">   249  </span>		return err
 <span id="L250" class="ln">   250  </span>	}
-<span id="L251" class="ln">   251  </span>	additionalProperties := make(map[string]interface{})
-<span id="L252" class="ln">   252  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L253" class="ln">   253  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;assignees&#34;, &#34;completed&#34;, &#34;content&#34;, &#34;due_date&#34;, &#34;incident_id&#34;})
-<span id="L254" class="ln">   254  </span>	} else {
-<span id="L255" class="ln">   255  </span>		return err
-<span id="L256" class="ln">   256  </span>	}
-<span id="L257" class="ln">   257  </span>	o.Assignees = *all.Assignees
-<span id="L258" class="ln">   258  </span>	o.Completed = all.Completed
-<span id="L259" class="ln">   259  </span>	o.Content = *all.Content
-<span id="L260" class="ln">   260  </span>	o.DueDate = all.DueDate
-<span id="L261" class="ln">   261  </span>	o.IncidentId = all.IncidentId
-<span id="L262" class="ln">   262  </span>
-<span id="L263" class="ln">   263  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L264" class="ln">   264  </span>		o.AdditionalProperties = additionalProperties
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>
-<span id="L267" class="ln">   267  </span>	return nil
-<span id="L268" class="ln">   268  </span>}
-<span id="L269" class="ln">   269  </span>
+<span id="L251" class="ln">   251  </span>	o.Assignees = *all.Assignees
+<span id="L252" class="ln">   252  </span>	o.Completed = all.Completed
+<span id="L253" class="ln">   253  </span>	o.Content = *all.Content
+<span id="L254" class="ln">   254  </span>	o.DueDate = all.DueDate
+<span id="L255" class="ln">   255  </span>	o.IncidentId = all.IncidentId
+<span id="L256" class="ln">   256  </span>
+<span id="L257" class="ln">   257  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L258" class="ln">   258  </span>		o.AdditionalProperties = additionalProperties
+<span id="L259" class="ln">   259  </span>	}
+<span id="L260" class="ln">   260  </span>
+<span id="L261" class="ln">   261  </span>	return nil
+<span id="L262" class="ln">   262  </span>}
+<span id="L263" class="ln">   263  </span>
 </pre><p></p>
 
 <div id="footer">

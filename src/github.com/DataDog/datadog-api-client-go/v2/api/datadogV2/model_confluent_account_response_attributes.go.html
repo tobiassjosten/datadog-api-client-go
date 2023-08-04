@@ -201,40 +201,34 @@
 <span id="L144" class="ln">   144  </span>
 <span id="L145" class="ln">   145  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L146" class="ln">   146  </span>func (o *ConfluentAccountResponseAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L147" class="ln">   147  </span>	raw := map[string]interface{}{}
-<span id="L148" class="ln">   148  </span>	all := struct {
-<span id="L149" class="ln">   149  </span>		ApiKey    *string                               `json:&#34;api_key&#34;`
-<span id="L150" class="ln">   150  </span>		Resources []ConfluentResourceResponseAttributes `json:&#34;resources,omitempty&#34;`
-<span id="L151" class="ln">   151  </span>		Tags      []string                              `json:&#34;tags,omitempty&#34;`
-<span id="L152" class="ln">   152  </span>	}{}
-<span id="L153" class="ln">   153  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L154" class="ln">   154  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L155" class="ln">   155  </span>		if err != nil {
-<span id="L156" class="ln">   156  </span>			return err
-<span id="L157" class="ln">   157  </span>		}
-<span id="L158" class="ln">   158  </span>		o.UnparsedObject = raw
-<span id="L159" class="ln">   159  </span>		return nil
-<span id="L160" class="ln">   160  </span>	}
-<span id="L161" class="ln">   161  </span>	if all.ApiKey == nil {
-<span id="L162" class="ln">   162  </span>		return fmt.Errorf(&#34;required field api_key missing&#34;)
+<span id="L147" class="ln">   147  </span>	all := struct {
+<span id="L148" class="ln">   148  </span>		ApiKey    *string                               `json:&#34;api_key&#34;`
+<span id="L149" class="ln">   149  </span>		Resources []ConfluentResourceResponseAttributes `json:&#34;resources,omitempty&#34;`
+<span id="L150" class="ln">   150  </span>		Tags      []string                              `json:&#34;tags,omitempty&#34;`
+<span id="L151" class="ln">   151  </span>	}{}
+<span id="L152" class="ln">   152  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L153" class="ln">   153  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L154" class="ln">   154  </span>	}
+<span id="L155" class="ln">   155  </span>	if all.ApiKey == nil {
+<span id="L156" class="ln">   156  </span>		return fmt.Errorf(&#34;required field api_key missing&#34;)
+<span id="L157" class="ln">   157  </span>	}
+<span id="L158" class="ln">   158  </span>	additionalProperties := make(map[string]interface{})
+<span id="L159" class="ln">   159  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L160" class="ln">   160  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;api_key&#34;, &#34;resources&#34;, &#34;tags&#34;})
+<span id="L161" class="ln">   161  </span>	} else {
+<span id="L162" class="ln">   162  </span>		return err
 <span id="L163" class="ln">   163  </span>	}
-<span id="L164" class="ln">   164  </span>	additionalProperties := make(map[string]interface{})
-<span id="L165" class="ln">   165  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L166" class="ln">   166  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;api_key&#34;, &#34;resources&#34;, &#34;tags&#34;})
-<span id="L167" class="ln">   167  </span>	} else {
-<span id="L168" class="ln">   168  </span>		return err
-<span id="L169" class="ln">   169  </span>	}
-<span id="L170" class="ln">   170  </span>	o.ApiKey = *all.ApiKey
-<span id="L171" class="ln">   171  </span>	o.Resources = all.Resources
-<span id="L172" class="ln">   172  </span>	o.Tags = all.Tags
-<span id="L173" class="ln">   173  </span>
-<span id="L174" class="ln">   174  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L175" class="ln">   175  </span>		o.AdditionalProperties = additionalProperties
-<span id="L176" class="ln">   176  </span>	}
-<span id="L177" class="ln">   177  </span>
-<span id="L178" class="ln">   178  </span>	return nil
-<span id="L179" class="ln">   179  </span>}
-<span id="L180" class="ln">   180  </span>
+<span id="L164" class="ln">   164  </span>	o.ApiKey = *all.ApiKey
+<span id="L165" class="ln">   165  </span>	o.Resources = all.Resources
+<span id="L166" class="ln">   166  </span>	o.Tags = all.Tags
+<span id="L167" class="ln">   167  </span>
+<span id="L168" class="ln">   168  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L169" class="ln">   169  </span>		o.AdditionalProperties = additionalProperties
+<span id="L170" class="ln">   170  </span>	}
+<span id="L171" class="ln">   171  </span>
+<span id="L172" class="ln">   172  </span>	return nil
+<span id="L173" class="ln">   173  </span>}
+<span id="L174" class="ln">   174  </span>
 </pre><p></p>
 
 <div id="footer">

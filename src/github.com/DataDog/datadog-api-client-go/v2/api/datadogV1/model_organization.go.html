@@ -378,66 +378,56 @@
 <span id="L321" class="ln">   321  </span>
 <span id="L322" class="ln">   322  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L323" class="ln">   323  </span>func (o *Organization) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L324" class="ln">   324  </span>	raw := map[string]interface{}{}
-<span id="L325" class="ln">   325  </span>	all := struct {
-<span id="L326" class="ln">   326  </span>		Billing      *OrganizationBilling      `json:&#34;billing,omitempty&#34;`
-<span id="L327" class="ln">   327  </span>		Created      *string                   `json:&#34;created,omitempty&#34;`
-<span id="L328" class="ln">   328  </span>		Description  *string                   `json:&#34;description,omitempty&#34;`
-<span id="L329" class="ln">   329  </span>		Name         *string                   `json:&#34;name,omitempty&#34;`
-<span id="L330" class="ln">   330  </span>		PublicId     *string                   `json:&#34;public_id,omitempty&#34;`
-<span id="L331" class="ln">   331  </span>		Settings     *OrganizationSettings     `json:&#34;settings,omitempty&#34;`
-<span id="L332" class="ln">   332  </span>		Subscription *OrganizationSubscription `json:&#34;subscription,omitempty&#34;`
-<span id="L333" class="ln">   333  </span>		Trial        *bool                     `json:&#34;trial,omitempty&#34;`
-<span id="L334" class="ln">   334  </span>	}{}
-<span id="L335" class="ln">   335  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L336" class="ln">   336  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L337" class="ln">   337  </span>		if err != nil {
-<span id="L338" class="ln">   338  </span>			return err
-<span id="L339" class="ln">   339  </span>		}
-<span id="L340" class="ln">   340  </span>		o.UnparsedObject = raw
-<span id="L341" class="ln">   341  </span>		return nil
+<span id="L324" class="ln">   324  </span>	all := struct {
+<span id="L325" class="ln">   325  </span>		Billing      *OrganizationBilling      `json:&#34;billing,omitempty&#34;`
+<span id="L326" class="ln">   326  </span>		Created      *string                   `json:&#34;created,omitempty&#34;`
+<span id="L327" class="ln">   327  </span>		Description  *string                   `json:&#34;description,omitempty&#34;`
+<span id="L328" class="ln">   328  </span>		Name         *string                   `json:&#34;name,omitempty&#34;`
+<span id="L329" class="ln">   329  </span>		PublicId     *string                   `json:&#34;public_id,omitempty&#34;`
+<span id="L330" class="ln">   330  </span>		Settings     *OrganizationSettings     `json:&#34;settings,omitempty&#34;`
+<span id="L331" class="ln">   331  </span>		Subscription *OrganizationSubscription `json:&#34;subscription,omitempty&#34;`
+<span id="L332" class="ln">   332  </span>		Trial        *bool                     `json:&#34;trial,omitempty&#34;`
+<span id="L333" class="ln">   333  </span>	}{}
+<span id="L334" class="ln">   334  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L335" class="ln">   335  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L336" class="ln">   336  </span>	}
+<span id="L337" class="ln">   337  </span>	additionalProperties := make(map[string]interface{})
+<span id="L338" class="ln">   338  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L339" class="ln">   339  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;billing&#34;, &#34;created&#34;, &#34;description&#34;, &#34;name&#34;, &#34;public_id&#34;, &#34;settings&#34;, &#34;subscription&#34;, &#34;trial&#34;})
+<span id="L340" class="ln">   340  </span>	} else {
+<span id="L341" class="ln">   341  </span>		return err
 <span id="L342" class="ln">   342  </span>	}
-<span id="L343" class="ln">   343  </span>	additionalProperties := make(map[string]interface{})
-<span id="L344" class="ln">   344  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L345" class="ln">   345  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;billing&#34;, &#34;created&#34;, &#34;description&#34;, &#34;name&#34;, &#34;public_id&#34;, &#34;settings&#34;, &#34;subscription&#34;, &#34;trial&#34;})
-<span id="L346" class="ln">   346  </span>	} else {
-<span id="L347" class="ln">   347  </span>		return err
-<span id="L348" class="ln">   348  </span>	}
-<span id="L349" class="ln">   349  </span>
-<span id="L350" class="ln">   350  </span>	hasInvalidField := false
-<span id="L351" class="ln">   351  </span>	if all.Billing != nil &amp;&amp; all.Billing.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L352" class="ln">   352  </span>		hasInvalidField = true
-<span id="L353" class="ln">   353  </span>	}
-<span id="L354" class="ln">   354  </span>	o.Billing = all.Billing
-<span id="L355" class="ln">   355  </span>	o.Created = all.Created
-<span id="L356" class="ln">   356  </span>	o.Description = all.Description
-<span id="L357" class="ln">   357  </span>	o.Name = all.Name
-<span id="L358" class="ln">   358  </span>	o.PublicId = all.PublicId
-<span id="L359" class="ln">   359  </span>	if all.Settings != nil &amp;&amp; all.Settings.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L360" class="ln">   360  </span>		hasInvalidField = true
-<span id="L361" class="ln">   361  </span>	}
-<span id="L362" class="ln">   362  </span>	o.Settings = all.Settings
-<span id="L363" class="ln">   363  </span>	if all.Subscription != nil &amp;&amp; all.Subscription.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L364" class="ln">   364  </span>		hasInvalidField = true
+<span id="L343" class="ln">   343  </span>
+<span id="L344" class="ln">   344  </span>	hasInvalidField := false
+<span id="L345" class="ln">   345  </span>	if all.Billing != nil &amp;&amp; all.Billing.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L346" class="ln">   346  </span>		hasInvalidField = true
+<span id="L347" class="ln">   347  </span>	}
+<span id="L348" class="ln">   348  </span>	o.Billing = all.Billing
+<span id="L349" class="ln">   349  </span>	o.Created = all.Created
+<span id="L350" class="ln">   350  </span>	o.Description = all.Description
+<span id="L351" class="ln">   351  </span>	o.Name = all.Name
+<span id="L352" class="ln">   352  </span>	o.PublicId = all.PublicId
+<span id="L353" class="ln">   353  </span>	if all.Settings != nil &amp;&amp; all.Settings.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L354" class="ln">   354  </span>		hasInvalidField = true
+<span id="L355" class="ln">   355  </span>	}
+<span id="L356" class="ln">   356  </span>	o.Settings = all.Settings
+<span id="L357" class="ln">   357  </span>	if all.Subscription != nil &amp;&amp; all.Subscription.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L358" class="ln">   358  </span>		hasInvalidField = true
+<span id="L359" class="ln">   359  </span>	}
+<span id="L360" class="ln">   360  </span>	o.Subscription = all.Subscription
+<span id="L361" class="ln">   361  </span>	o.Trial = all.Trial
+<span id="L362" class="ln">   362  </span>
+<span id="L363" class="ln">   363  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L364" class="ln">   364  </span>		o.AdditionalProperties = additionalProperties
 <span id="L365" class="ln">   365  </span>	}
-<span id="L366" class="ln">   366  </span>	o.Subscription = all.Subscription
-<span id="L367" class="ln">   367  </span>	o.Trial = all.Trial
-<span id="L368" class="ln">   368  </span>
-<span id="L369" class="ln">   369  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L370" class="ln">   370  </span>		o.AdditionalProperties = additionalProperties
-<span id="L371" class="ln">   371  </span>	}
-<span id="L372" class="ln">   372  </span>
-<span id="L373" class="ln">   373  </span>	if hasInvalidField {
-<span id="L374" class="ln">   374  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L375" class="ln">   375  </span>		if err != nil {
-<span id="L376" class="ln">   376  </span>			return err
-<span id="L377" class="ln">   377  </span>		}
-<span id="L378" class="ln">   378  </span>		o.UnparsedObject = raw
-<span id="L379" class="ln">   379  </span>	}
-<span id="L380" class="ln">   380  </span>
-<span id="L381" class="ln">   381  </span>	return nil
-<span id="L382" class="ln">   382  </span>}
-<span id="L383" class="ln">   383  </span>
+<span id="L366" class="ln">   366  </span>
+<span id="L367" class="ln">   367  </span>	if hasInvalidField {
+<span id="L368" class="ln">   368  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L369" class="ln">   369  </span>	}
+<span id="L370" class="ln">   370  </span>
+<span id="L371" class="ln">   371  </span>	return nil
+<span id="L372" class="ln">   372  </span>}
+<span id="L373" class="ln">   373  </span>
 </pre><p></p>
 
 <div id="footer">

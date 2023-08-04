@@ -554,75 +554,65 @@
 <span id="L497" class="ln">   497  </span>
 <span id="L498" class="ln">   498  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L499" class="ln">   499  </span>func (o *Event) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L500" class="ln">   500  </span>	raw := map[string]interface{}{}
-<span id="L501" class="ln">   501  </span>	all := struct {
-<span id="L502" class="ln">   502  </span>		AlertType      *EventAlertType       `json:&#34;alert_type,omitempty&#34;`
-<span id="L503" class="ln">   503  </span>		DateHappened   *int64                `json:&#34;date_happened,omitempty&#34;`
-<span id="L504" class="ln">   504  </span>		DeviceName     *string               `json:&#34;device_name,omitempty&#34;`
-<span id="L505" class="ln">   505  </span>		Host           *string               `json:&#34;host,omitempty&#34;`
-<span id="L506" class="ln">   506  </span>		Id             *int64                `json:&#34;id,omitempty&#34;`
-<span id="L507" class="ln">   507  </span>		IdStr          *string               `json:&#34;id_str,omitempty&#34;`
-<span id="L508" class="ln">   508  </span>		Payload        *string               `json:&#34;payload,omitempty&#34;`
-<span id="L509" class="ln">   509  </span>		Priority       NullableEventPriority `json:&#34;priority,omitempty&#34;`
-<span id="L510" class="ln">   510  </span>		SourceTypeName *string               `json:&#34;source_type_name,omitempty&#34;`
-<span id="L511" class="ln">   511  </span>		Tags           []string              `json:&#34;tags,omitempty&#34;`
-<span id="L512" class="ln">   512  </span>		Text           *string               `json:&#34;text,omitempty&#34;`
-<span id="L513" class="ln">   513  </span>		Title          *string               `json:&#34;title,omitempty&#34;`
-<span id="L514" class="ln">   514  </span>		Url            *string               `json:&#34;url,omitempty&#34;`
-<span id="L515" class="ln">   515  </span>	}{}
-<span id="L516" class="ln">   516  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L517" class="ln">   517  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L518" class="ln">   518  </span>		if err != nil {
-<span id="L519" class="ln">   519  </span>			return err
-<span id="L520" class="ln">   520  </span>		}
-<span id="L521" class="ln">   521  </span>		o.UnparsedObject = raw
-<span id="L522" class="ln">   522  </span>		return nil
+<span id="L500" class="ln">   500  </span>	all := struct {
+<span id="L501" class="ln">   501  </span>		AlertType      *EventAlertType       `json:&#34;alert_type,omitempty&#34;`
+<span id="L502" class="ln">   502  </span>		DateHappened   *int64                `json:&#34;date_happened,omitempty&#34;`
+<span id="L503" class="ln">   503  </span>		DeviceName     *string               `json:&#34;device_name,omitempty&#34;`
+<span id="L504" class="ln">   504  </span>		Host           *string               `json:&#34;host,omitempty&#34;`
+<span id="L505" class="ln">   505  </span>		Id             *int64                `json:&#34;id,omitempty&#34;`
+<span id="L506" class="ln">   506  </span>		IdStr          *string               `json:&#34;id_str,omitempty&#34;`
+<span id="L507" class="ln">   507  </span>		Payload        *string               `json:&#34;payload,omitempty&#34;`
+<span id="L508" class="ln">   508  </span>		Priority       NullableEventPriority `json:&#34;priority,omitempty&#34;`
+<span id="L509" class="ln">   509  </span>		SourceTypeName *string               `json:&#34;source_type_name,omitempty&#34;`
+<span id="L510" class="ln">   510  </span>		Tags           []string              `json:&#34;tags,omitempty&#34;`
+<span id="L511" class="ln">   511  </span>		Text           *string               `json:&#34;text,omitempty&#34;`
+<span id="L512" class="ln">   512  </span>		Title          *string               `json:&#34;title,omitempty&#34;`
+<span id="L513" class="ln">   513  </span>		Url            *string               `json:&#34;url,omitempty&#34;`
+<span id="L514" class="ln">   514  </span>	}{}
+<span id="L515" class="ln">   515  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L516" class="ln">   516  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L517" class="ln">   517  </span>	}
+<span id="L518" class="ln">   518  </span>	additionalProperties := make(map[string]interface{})
+<span id="L519" class="ln">   519  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L520" class="ln">   520  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;alert_type&#34;, &#34;date_happened&#34;, &#34;device_name&#34;, &#34;host&#34;, &#34;id&#34;, &#34;id_str&#34;, &#34;payload&#34;, &#34;priority&#34;, &#34;source_type_name&#34;, &#34;tags&#34;, &#34;text&#34;, &#34;title&#34;, &#34;url&#34;})
+<span id="L521" class="ln">   521  </span>	} else {
+<span id="L522" class="ln">   522  </span>		return err
 <span id="L523" class="ln">   523  </span>	}
-<span id="L524" class="ln">   524  </span>	additionalProperties := make(map[string]interface{})
-<span id="L525" class="ln">   525  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L526" class="ln">   526  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;alert_type&#34;, &#34;date_happened&#34;, &#34;device_name&#34;, &#34;host&#34;, &#34;id&#34;, &#34;id_str&#34;, &#34;payload&#34;, &#34;priority&#34;, &#34;source_type_name&#34;, &#34;tags&#34;, &#34;text&#34;, &#34;title&#34;, &#34;url&#34;})
-<span id="L527" class="ln">   527  </span>	} else {
-<span id="L528" class="ln">   528  </span>		return err
-<span id="L529" class="ln">   529  </span>	}
-<span id="L530" class="ln">   530  </span>
-<span id="L531" class="ln">   531  </span>	hasInvalidField := false
-<span id="L532" class="ln">   532  </span>	if v := all.AlertType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L533" class="ln">   533  </span>		hasInvalidField = true
-<span id="L534" class="ln">   534  </span>	} else {
-<span id="L535" class="ln">   535  </span>		o.AlertType = all.AlertType
-<span id="L536" class="ln">   536  </span>	}
-<span id="L537" class="ln">   537  </span>	o.DateHappened = all.DateHappened
-<span id="L538" class="ln">   538  </span>	o.DeviceName = all.DeviceName
-<span id="L539" class="ln">   539  </span>	o.Host = all.Host
-<span id="L540" class="ln">   540  </span>	o.Id = all.Id
-<span id="L541" class="ln">   541  </span>	o.IdStr = all.IdStr
-<span id="L542" class="ln">   542  </span>	o.Payload = all.Payload
-<span id="L543" class="ln">   543  </span>	if v := all.Priority; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L544" class="ln">   544  </span>		hasInvalidField = true
-<span id="L545" class="ln">   545  </span>	} else {
-<span id="L546" class="ln">   546  </span>		o.Priority = all.Priority
-<span id="L547" class="ln">   547  </span>	}
-<span id="L548" class="ln">   548  </span>	o.SourceTypeName = all.SourceTypeName
-<span id="L549" class="ln">   549  </span>	o.Tags = all.Tags
-<span id="L550" class="ln">   550  </span>	o.Text = all.Text
-<span id="L551" class="ln">   551  </span>	o.Title = all.Title
-<span id="L552" class="ln">   552  </span>	o.Url = all.Url
-<span id="L553" class="ln">   553  </span>
-<span id="L554" class="ln">   554  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L555" class="ln">   555  </span>		o.AdditionalProperties = additionalProperties
-<span id="L556" class="ln">   556  </span>	}
-<span id="L557" class="ln">   557  </span>
-<span id="L558" class="ln">   558  </span>	if hasInvalidField {
-<span id="L559" class="ln">   559  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L560" class="ln">   560  </span>		if err != nil {
-<span id="L561" class="ln">   561  </span>			return err
-<span id="L562" class="ln">   562  </span>		}
-<span id="L563" class="ln">   563  </span>		o.UnparsedObject = raw
-<span id="L564" class="ln">   564  </span>	}
-<span id="L565" class="ln">   565  </span>
-<span id="L566" class="ln">   566  </span>	return nil
-<span id="L567" class="ln">   567  </span>}
-<span id="L568" class="ln">   568  </span>
+<span id="L524" class="ln">   524  </span>
+<span id="L525" class="ln">   525  </span>	hasInvalidField := false
+<span id="L526" class="ln">   526  </span>	if all.AlertType != nil &amp;&amp; !all.AlertType.IsValid() {
+<span id="L527" class="ln">   527  </span>		hasInvalidField = true
+<span id="L528" class="ln">   528  </span>	} else {
+<span id="L529" class="ln">   529  </span>		o.AlertType = all.AlertType
+<span id="L530" class="ln">   530  </span>	}
+<span id="L531" class="ln">   531  </span>	o.DateHappened = all.DateHappened
+<span id="L532" class="ln">   532  </span>	o.DeviceName = all.DeviceName
+<span id="L533" class="ln">   533  </span>	o.Host = all.Host
+<span id="L534" class="ln">   534  </span>	o.Id = all.Id
+<span id="L535" class="ln">   535  </span>	o.IdStr = all.IdStr
+<span id="L536" class="ln">   536  </span>	o.Payload = all.Payload
+<span id="L537" class="ln">   537  </span>	if all.Priority.Get() != nil &amp;&amp; !all.Priority.Get().IsValid() {
+<span id="L538" class="ln">   538  </span>		hasInvalidField = true
+<span id="L539" class="ln">   539  </span>	} else {
+<span id="L540" class="ln">   540  </span>		o.Priority = all.Priority
+<span id="L541" class="ln">   541  </span>	}
+<span id="L542" class="ln">   542  </span>	o.SourceTypeName = all.SourceTypeName
+<span id="L543" class="ln">   543  </span>	o.Tags = all.Tags
+<span id="L544" class="ln">   544  </span>	o.Text = all.Text
+<span id="L545" class="ln">   545  </span>	o.Title = all.Title
+<span id="L546" class="ln">   546  </span>	o.Url = all.Url
+<span id="L547" class="ln">   547  </span>
+<span id="L548" class="ln">   548  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L549" class="ln">   549  </span>		o.AdditionalProperties = additionalProperties
+<span id="L550" class="ln">   550  </span>	}
+<span id="L551" class="ln">   551  </span>
+<span id="L552" class="ln">   552  </span>	if hasInvalidField {
+<span id="L553" class="ln">   553  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L554" class="ln">   554  </span>	}
+<span id="L555" class="ln">   555  </span>
+<span id="L556" class="ln">   556  </span>	return nil
+<span id="L557" class="ln">   557  </span>}
+<span id="L558" class="ln">   558  </span>
 </pre><p></p>
 
 <div id="footer">

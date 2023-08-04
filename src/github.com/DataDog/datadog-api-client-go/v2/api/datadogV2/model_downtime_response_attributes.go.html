@@ -553,69 +553,59 @@
 <span id="L496" class="ln">   496  </span>
 <span id="L497" class="ln">   497  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L498" class="ln">   498  </span>func (o *DowntimeResponseAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L499" class="ln">   499  </span>	raw := map[string]interface{}{}
-<span id="L500" class="ln">   500  </span>	all := struct {
-<span id="L501" class="ln">   501  </span>		Canceled                      datadog.NullableTime            `json:&#34;canceled,omitempty&#34;`
-<span id="L502" class="ln">   502  </span>		Created                       *time.Time                      `json:&#34;created,omitempty&#34;`
-<span id="L503" class="ln">   503  </span>		DisplayTimezone               datadog.NullableString          `json:&#34;display_timezone,omitempty&#34;`
-<span id="L504" class="ln">   504  </span>		Message                       datadog.NullableString          `json:&#34;message,omitempty&#34;`
-<span id="L505" class="ln">   505  </span>		Modified                      *time.Time                      `json:&#34;modified,omitempty&#34;`
-<span id="L506" class="ln">   506  </span>		MonitorIdentifier             *DowntimeMonitorIdentifier      `json:&#34;monitor_identifier,omitempty&#34;`
-<span id="L507" class="ln">   507  </span>		MuteFirstRecoveryNotification *bool                           `json:&#34;mute_first_recovery_notification,omitempty&#34;`
-<span id="L508" class="ln">   508  </span>		NotifyEndStates               []DowntimeNotifyEndStateTypes   `json:&#34;notify_end_states,omitempty&#34;`
-<span id="L509" class="ln">   509  </span>		NotifyEndTypes                []DowntimeNotifyEndStateActions `json:&#34;notify_end_types,omitempty&#34;`
-<span id="L510" class="ln">   510  </span>		Schedule                      *DowntimeScheduleResponse       `json:&#34;schedule,omitempty&#34;`
-<span id="L511" class="ln">   511  </span>		Scope                         *string                         `json:&#34;scope,omitempty&#34;`
-<span id="L512" class="ln">   512  </span>		Status                        *DowntimeStatus                 `json:&#34;status,omitempty&#34;`
-<span id="L513" class="ln">   513  </span>	}{}
-<span id="L514" class="ln">   514  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L515" class="ln">   515  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L516" class="ln">   516  </span>		if err != nil {
-<span id="L517" class="ln">   517  </span>			return err
-<span id="L518" class="ln">   518  </span>		}
-<span id="L519" class="ln">   519  </span>		o.UnparsedObject = raw
-<span id="L520" class="ln">   520  </span>		return nil
+<span id="L499" class="ln">   499  </span>	all := struct {
+<span id="L500" class="ln">   500  </span>		Canceled                      datadog.NullableTime            `json:&#34;canceled,omitempty&#34;`
+<span id="L501" class="ln">   501  </span>		Created                       *time.Time                      `json:&#34;created,omitempty&#34;`
+<span id="L502" class="ln">   502  </span>		DisplayTimezone               datadog.NullableString          `json:&#34;display_timezone,omitempty&#34;`
+<span id="L503" class="ln">   503  </span>		Message                       datadog.NullableString          `json:&#34;message,omitempty&#34;`
+<span id="L504" class="ln">   504  </span>		Modified                      *time.Time                      `json:&#34;modified,omitempty&#34;`
+<span id="L505" class="ln">   505  </span>		MonitorIdentifier             *DowntimeMonitorIdentifier      `json:&#34;monitor_identifier,omitempty&#34;`
+<span id="L506" class="ln">   506  </span>		MuteFirstRecoveryNotification *bool                           `json:&#34;mute_first_recovery_notification,omitempty&#34;`
+<span id="L507" class="ln">   507  </span>		NotifyEndStates               []DowntimeNotifyEndStateTypes   `json:&#34;notify_end_states,omitempty&#34;`
+<span id="L508" class="ln">   508  </span>		NotifyEndTypes                []DowntimeNotifyEndStateActions `json:&#34;notify_end_types,omitempty&#34;`
+<span id="L509" class="ln">   509  </span>		Schedule                      *DowntimeScheduleResponse       `json:&#34;schedule,omitempty&#34;`
+<span id="L510" class="ln">   510  </span>		Scope                         *string                         `json:&#34;scope,omitempty&#34;`
+<span id="L511" class="ln">   511  </span>		Status                        *DowntimeStatus                 `json:&#34;status,omitempty&#34;`
+<span id="L512" class="ln">   512  </span>	}{}
+<span id="L513" class="ln">   513  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L514" class="ln">   514  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L515" class="ln">   515  </span>	}
+<span id="L516" class="ln">   516  </span>	additionalProperties := make(map[string]interface{})
+<span id="L517" class="ln">   517  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L518" class="ln">   518  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;canceled&#34;, &#34;created&#34;, &#34;display_timezone&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;monitor_identifier&#34;, &#34;mute_first_recovery_notification&#34;, &#34;notify_end_states&#34;, &#34;notify_end_types&#34;, &#34;schedule&#34;, &#34;scope&#34;, &#34;status&#34;})
+<span id="L519" class="ln">   519  </span>	} else {
+<span id="L520" class="ln">   520  </span>		return err
 <span id="L521" class="ln">   521  </span>	}
-<span id="L522" class="ln">   522  </span>	additionalProperties := make(map[string]interface{})
-<span id="L523" class="ln">   523  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L524" class="ln">   524  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;canceled&#34;, &#34;created&#34;, &#34;display_timezone&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;monitor_identifier&#34;, &#34;mute_first_recovery_notification&#34;, &#34;notify_end_states&#34;, &#34;notify_end_types&#34;, &#34;schedule&#34;, &#34;scope&#34;, &#34;status&#34;})
-<span id="L525" class="ln">   525  </span>	} else {
-<span id="L526" class="ln">   526  </span>		return err
-<span id="L527" class="ln">   527  </span>	}
-<span id="L528" class="ln">   528  </span>
-<span id="L529" class="ln">   529  </span>	hasInvalidField := false
-<span id="L530" class="ln">   530  </span>	o.Canceled = all.Canceled
-<span id="L531" class="ln">   531  </span>	o.Created = all.Created
-<span id="L532" class="ln">   532  </span>	o.DisplayTimezone = all.DisplayTimezone
-<span id="L533" class="ln">   533  </span>	o.Message = all.Message
-<span id="L534" class="ln">   534  </span>	o.Modified = all.Modified
-<span id="L535" class="ln">   535  </span>	o.MonitorIdentifier = all.MonitorIdentifier
-<span id="L536" class="ln">   536  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
-<span id="L537" class="ln">   537  </span>	o.NotifyEndStates = all.NotifyEndStates
-<span id="L538" class="ln">   538  </span>	o.NotifyEndTypes = all.NotifyEndTypes
-<span id="L539" class="ln">   539  </span>	o.Schedule = all.Schedule
-<span id="L540" class="ln">   540  </span>	o.Scope = all.Scope
-<span id="L541" class="ln">   541  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L542" class="ln">   542  </span>		hasInvalidField = true
-<span id="L543" class="ln">   543  </span>	} else {
-<span id="L544" class="ln">   544  </span>		o.Status = all.Status
-<span id="L545" class="ln">   545  </span>	}
-<span id="L546" class="ln">   546  </span>
-<span id="L547" class="ln">   547  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L548" class="ln">   548  </span>		o.AdditionalProperties = additionalProperties
-<span id="L549" class="ln">   549  </span>	}
-<span id="L550" class="ln">   550  </span>
-<span id="L551" class="ln">   551  </span>	if hasInvalidField {
-<span id="L552" class="ln">   552  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L553" class="ln">   553  </span>		if err != nil {
-<span id="L554" class="ln">   554  </span>			return err
-<span id="L555" class="ln">   555  </span>		}
-<span id="L556" class="ln">   556  </span>		o.UnparsedObject = raw
-<span id="L557" class="ln">   557  </span>	}
-<span id="L558" class="ln">   558  </span>
-<span id="L559" class="ln">   559  </span>	return nil
-<span id="L560" class="ln">   560  </span>}
-<span id="L561" class="ln">   561  </span>
+<span id="L522" class="ln">   522  </span>
+<span id="L523" class="ln">   523  </span>	hasInvalidField := false
+<span id="L524" class="ln">   524  </span>	o.Canceled = all.Canceled
+<span id="L525" class="ln">   525  </span>	o.Created = all.Created
+<span id="L526" class="ln">   526  </span>	o.DisplayTimezone = all.DisplayTimezone
+<span id="L527" class="ln">   527  </span>	o.Message = all.Message
+<span id="L528" class="ln">   528  </span>	o.Modified = all.Modified
+<span id="L529" class="ln">   529  </span>	o.MonitorIdentifier = all.MonitorIdentifier
+<span id="L530" class="ln">   530  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
+<span id="L531" class="ln">   531  </span>	o.NotifyEndStates = all.NotifyEndStates
+<span id="L532" class="ln">   532  </span>	o.NotifyEndTypes = all.NotifyEndTypes
+<span id="L533" class="ln">   533  </span>	o.Schedule = all.Schedule
+<span id="L534" class="ln">   534  </span>	o.Scope = all.Scope
+<span id="L535" class="ln">   535  </span>	if all.Status != nil &amp;&amp; !all.Status.IsValid() {
+<span id="L536" class="ln">   536  </span>		hasInvalidField = true
+<span id="L537" class="ln">   537  </span>	} else {
+<span id="L538" class="ln">   538  </span>		o.Status = all.Status
+<span id="L539" class="ln">   539  </span>	}
+<span id="L540" class="ln">   540  </span>
+<span id="L541" class="ln">   541  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L542" class="ln">   542  </span>		o.AdditionalProperties = additionalProperties
+<span id="L543" class="ln">   543  </span>	}
+<span id="L544" class="ln">   544  </span>
+<span id="L545" class="ln">   545  </span>	if hasInvalidField {
+<span id="L546" class="ln">   546  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L547" class="ln">   547  </span>	}
+<span id="L548" class="ln">   548  </span>
+<span id="L549" class="ln">   549  </span>	return nil
+<span id="L550" class="ln">   550  </span>}
+<span id="L551" class="ln">   551  </span>
 </pre><p></p>
 
 <div id="footer">

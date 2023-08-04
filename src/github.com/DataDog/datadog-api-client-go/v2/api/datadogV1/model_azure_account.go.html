@@ -371,47 +371,41 @@
 <span id="L314" class="ln">   314  </span>
 <span id="L315" class="ln">   315  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L316" class="ln">   316  </span>func (o *AzureAccount) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L317" class="ln">   317  </span>	raw := map[string]interface{}{}
-<span id="L318" class="ln">   318  </span>	all := struct {
-<span id="L319" class="ln">   319  </span>		Automute      *bool    `json:&#34;automute,omitempty&#34;`
-<span id="L320" class="ln">   320  </span>		ClientId      *string  `json:&#34;client_id,omitempty&#34;`
-<span id="L321" class="ln">   321  </span>		ClientSecret  *string  `json:&#34;client_secret,omitempty&#34;`
-<span id="L322" class="ln">   322  </span>		Errors        []string `json:&#34;errors,omitempty&#34;`
-<span id="L323" class="ln">   323  </span>		HostFilters   *string  `json:&#34;host_filters,omitempty&#34;`
-<span id="L324" class="ln">   324  </span>		NewClientId   *string  `json:&#34;new_client_id,omitempty&#34;`
-<span id="L325" class="ln">   325  </span>		NewTenantName *string  `json:&#34;new_tenant_name,omitempty&#34;`
-<span id="L326" class="ln">   326  </span>		TenantName    *string  `json:&#34;tenant_name,omitempty&#34;`
-<span id="L327" class="ln">   327  </span>	}{}
-<span id="L328" class="ln">   328  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L329" class="ln">   329  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L330" class="ln">   330  </span>		if err != nil {
-<span id="L331" class="ln">   331  </span>			return err
-<span id="L332" class="ln">   332  </span>		}
-<span id="L333" class="ln">   333  </span>		o.UnparsedObject = raw
-<span id="L334" class="ln">   334  </span>		return nil
+<span id="L317" class="ln">   317  </span>	all := struct {
+<span id="L318" class="ln">   318  </span>		Automute      *bool    `json:&#34;automute,omitempty&#34;`
+<span id="L319" class="ln">   319  </span>		ClientId      *string  `json:&#34;client_id,omitempty&#34;`
+<span id="L320" class="ln">   320  </span>		ClientSecret  *string  `json:&#34;client_secret,omitempty&#34;`
+<span id="L321" class="ln">   321  </span>		Errors        []string `json:&#34;errors,omitempty&#34;`
+<span id="L322" class="ln">   322  </span>		HostFilters   *string  `json:&#34;host_filters,omitempty&#34;`
+<span id="L323" class="ln">   323  </span>		NewClientId   *string  `json:&#34;new_client_id,omitempty&#34;`
+<span id="L324" class="ln">   324  </span>		NewTenantName *string  `json:&#34;new_tenant_name,omitempty&#34;`
+<span id="L325" class="ln">   325  </span>		TenantName    *string  `json:&#34;tenant_name,omitempty&#34;`
+<span id="L326" class="ln">   326  </span>	}{}
+<span id="L327" class="ln">   327  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L328" class="ln">   328  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L329" class="ln">   329  </span>	}
+<span id="L330" class="ln">   330  </span>	additionalProperties := make(map[string]interface{})
+<span id="L331" class="ln">   331  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L332" class="ln">   332  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;automute&#34;, &#34;client_id&#34;, &#34;client_secret&#34;, &#34;errors&#34;, &#34;host_filters&#34;, &#34;new_client_id&#34;, &#34;new_tenant_name&#34;, &#34;tenant_name&#34;})
+<span id="L333" class="ln">   333  </span>	} else {
+<span id="L334" class="ln">   334  </span>		return err
 <span id="L335" class="ln">   335  </span>	}
-<span id="L336" class="ln">   336  </span>	additionalProperties := make(map[string]interface{})
-<span id="L337" class="ln">   337  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L338" class="ln">   338  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;automute&#34;, &#34;client_id&#34;, &#34;client_secret&#34;, &#34;errors&#34;, &#34;host_filters&#34;, &#34;new_client_id&#34;, &#34;new_tenant_name&#34;, &#34;tenant_name&#34;})
-<span id="L339" class="ln">   339  </span>	} else {
-<span id="L340" class="ln">   340  </span>		return err
-<span id="L341" class="ln">   341  </span>	}
-<span id="L342" class="ln">   342  </span>	o.Automute = all.Automute
-<span id="L343" class="ln">   343  </span>	o.ClientId = all.ClientId
-<span id="L344" class="ln">   344  </span>	o.ClientSecret = all.ClientSecret
-<span id="L345" class="ln">   345  </span>	o.Errors = all.Errors
-<span id="L346" class="ln">   346  </span>	o.HostFilters = all.HostFilters
-<span id="L347" class="ln">   347  </span>	o.NewClientId = all.NewClientId
-<span id="L348" class="ln">   348  </span>	o.NewTenantName = all.NewTenantName
-<span id="L349" class="ln">   349  </span>	o.TenantName = all.TenantName
-<span id="L350" class="ln">   350  </span>
-<span id="L351" class="ln">   351  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L352" class="ln">   352  </span>		o.AdditionalProperties = additionalProperties
-<span id="L353" class="ln">   353  </span>	}
-<span id="L354" class="ln">   354  </span>
-<span id="L355" class="ln">   355  </span>	return nil
-<span id="L356" class="ln">   356  </span>}
-<span id="L357" class="ln">   357  </span>
+<span id="L336" class="ln">   336  </span>	o.Automute = all.Automute
+<span id="L337" class="ln">   337  </span>	o.ClientId = all.ClientId
+<span id="L338" class="ln">   338  </span>	o.ClientSecret = all.ClientSecret
+<span id="L339" class="ln">   339  </span>	o.Errors = all.Errors
+<span id="L340" class="ln">   340  </span>	o.HostFilters = all.HostFilters
+<span id="L341" class="ln">   341  </span>	o.NewClientId = all.NewClientId
+<span id="L342" class="ln">   342  </span>	o.NewTenantName = all.NewTenantName
+<span id="L343" class="ln">   343  </span>	o.TenantName = all.TenantName
+<span id="L344" class="ln">   344  </span>
+<span id="L345" class="ln">   345  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L346" class="ln">   346  </span>		o.AdditionalProperties = additionalProperties
+<span id="L347" class="ln">   347  </span>	}
+<span id="L348" class="ln">   348  </span>
+<span id="L349" class="ln">   349  </span>	return nil
+<span id="L350" class="ln">   350  </span>}
+<span id="L351" class="ln">   351  </span>
 </pre><p></p>
 
 <div id="footer">

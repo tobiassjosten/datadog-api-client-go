@@ -730,68 +730,62 @@
 <span id="L673" class="ln">   673  </span>
 <span id="L674" class="ln">   674  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L675" class="ln">   675  </span>func (o *IncidentResponseAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L676" class="ln">   676  </span>	raw := map[string]interface{}{}
-<span id="L677" class="ln">   677  </span>	all := struct {
-<span id="L678" class="ln">   678  </span>		Created                *time.Time                         `json:&#34;created,omitempty&#34;`
-<span id="L679" class="ln">   679  </span>		CustomerImpactDuration *int64                             `json:&#34;customer_impact_duration,omitempty&#34;`
-<span id="L680" class="ln">   680  </span>		CustomerImpactEnd      datadog.NullableTime               `json:&#34;customer_impact_end,omitempty&#34;`
-<span id="L681" class="ln">   681  </span>		CustomerImpactScope    datadog.NullableString             `json:&#34;customer_impact_scope,omitempty&#34;`
-<span id="L682" class="ln">   682  </span>		CustomerImpactStart    datadog.NullableTime               `json:&#34;customer_impact_start,omitempty&#34;`
-<span id="L683" class="ln">   683  </span>		CustomerImpacted       *bool                              `json:&#34;customer_impacted,omitempty&#34;`
-<span id="L684" class="ln">   684  </span>		Detected               datadog.NullableTime               `json:&#34;detected,omitempty&#34;`
-<span id="L685" class="ln">   685  </span>		Fields                 map[string]IncidentFieldAttributes `json:&#34;fields,omitempty&#34;`
-<span id="L686" class="ln">   686  </span>		Modified               *time.Time                         `json:&#34;modified,omitempty&#34;`
-<span id="L687" class="ln">   687  </span>		NotificationHandles    []IncidentNotificationHandle       `json:&#34;notification_handles,omitempty&#34;`
-<span id="L688" class="ln">   688  </span>		PublicId               *int64                             `json:&#34;public_id,omitempty&#34;`
-<span id="L689" class="ln">   689  </span>		Resolved               datadog.NullableTime               `json:&#34;resolved,omitempty&#34;`
-<span id="L690" class="ln">   690  </span>		TimeToDetect           *int64                             `json:&#34;time_to_detect,omitempty&#34;`
-<span id="L691" class="ln">   691  </span>		TimeToInternalResponse *int64                             `json:&#34;time_to_internal_response,omitempty&#34;`
-<span id="L692" class="ln">   692  </span>		TimeToRepair           *int64                             `json:&#34;time_to_repair,omitempty&#34;`
-<span id="L693" class="ln">   693  </span>		TimeToResolve          *int64                             `json:&#34;time_to_resolve,omitempty&#34;`
-<span id="L694" class="ln">   694  </span>		Title                  *string                            `json:&#34;title&#34;`
-<span id="L695" class="ln">   695  </span>	}{}
-<span id="L696" class="ln">   696  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L697" class="ln">   697  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L698" class="ln">   698  </span>		if err != nil {
-<span id="L699" class="ln">   699  </span>			return err
-<span id="L700" class="ln">   700  </span>		}
-<span id="L701" class="ln">   701  </span>		o.UnparsedObject = raw
-<span id="L702" class="ln">   702  </span>		return nil
-<span id="L703" class="ln">   703  </span>	}
-<span id="L704" class="ln">   704  </span>	if all.Title == nil {
-<span id="L705" class="ln">   705  </span>		return fmt.Errorf(&#34;required field title missing&#34;)
+<span id="L676" class="ln">   676  </span>	all := struct {
+<span id="L677" class="ln">   677  </span>		Created                *time.Time                         `json:&#34;created,omitempty&#34;`
+<span id="L678" class="ln">   678  </span>		CustomerImpactDuration *int64                             `json:&#34;customer_impact_duration,omitempty&#34;`
+<span id="L679" class="ln">   679  </span>		CustomerImpactEnd      datadog.NullableTime               `json:&#34;customer_impact_end,omitempty&#34;`
+<span id="L680" class="ln">   680  </span>		CustomerImpactScope    datadog.NullableString             `json:&#34;customer_impact_scope,omitempty&#34;`
+<span id="L681" class="ln">   681  </span>		CustomerImpactStart    datadog.NullableTime               `json:&#34;customer_impact_start,omitempty&#34;`
+<span id="L682" class="ln">   682  </span>		CustomerImpacted       *bool                              `json:&#34;customer_impacted,omitempty&#34;`
+<span id="L683" class="ln">   683  </span>		Detected               datadog.NullableTime               `json:&#34;detected,omitempty&#34;`
+<span id="L684" class="ln">   684  </span>		Fields                 map[string]IncidentFieldAttributes `json:&#34;fields,omitempty&#34;`
+<span id="L685" class="ln">   685  </span>		Modified               *time.Time                         `json:&#34;modified,omitempty&#34;`
+<span id="L686" class="ln">   686  </span>		NotificationHandles    []IncidentNotificationHandle       `json:&#34;notification_handles,omitempty&#34;`
+<span id="L687" class="ln">   687  </span>		PublicId               *int64                             `json:&#34;public_id,omitempty&#34;`
+<span id="L688" class="ln">   688  </span>		Resolved               datadog.NullableTime               `json:&#34;resolved,omitempty&#34;`
+<span id="L689" class="ln">   689  </span>		TimeToDetect           *int64                             `json:&#34;time_to_detect,omitempty&#34;`
+<span id="L690" class="ln">   690  </span>		TimeToInternalResponse *int64                             `json:&#34;time_to_internal_response,omitempty&#34;`
+<span id="L691" class="ln">   691  </span>		TimeToRepair           *int64                             `json:&#34;time_to_repair,omitempty&#34;`
+<span id="L692" class="ln">   692  </span>		TimeToResolve          *int64                             `json:&#34;time_to_resolve,omitempty&#34;`
+<span id="L693" class="ln">   693  </span>		Title                  *string                            `json:&#34;title&#34;`
+<span id="L694" class="ln">   694  </span>	}{}
+<span id="L695" class="ln">   695  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L696" class="ln">   696  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L697" class="ln">   697  </span>	}
+<span id="L698" class="ln">   698  </span>	if all.Title == nil {
+<span id="L699" class="ln">   699  </span>		return fmt.Errorf(&#34;required field title missing&#34;)
+<span id="L700" class="ln">   700  </span>	}
+<span id="L701" class="ln">   701  </span>	additionalProperties := make(map[string]interface{})
+<span id="L702" class="ln">   702  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L703" class="ln">   703  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;customer_impact_duration&#34;, &#34;customer_impact_end&#34;, &#34;customer_impact_scope&#34;, &#34;customer_impact_start&#34;, &#34;customer_impacted&#34;, &#34;detected&#34;, &#34;fields&#34;, &#34;modified&#34;, &#34;notification_handles&#34;, &#34;public_id&#34;, &#34;resolved&#34;, &#34;time_to_detect&#34;, &#34;time_to_internal_response&#34;, &#34;time_to_repair&#34;, &#34;time_to_resolve&#34;, &#34;title&#34;})
+<span id="L704" class="ln">   704  </span>	} else {
+<span id="L705" class="ln">   705  </span>		return err
 <span id="L706" class="ln">   706  </span>	}
-<span id="L707" class="ln">   707  </span>	additionalProperties := make(map[string]interface{})
-<span id="L708" class="ln">   708  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L709" class="ln">   709  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created&#34;, &#34;customer_impact_duration&#34;, &#34;customer_impact_end&#34;, &#34;customer_impact_scope&#34;, &#34;customer_impact_start&#34;, &#34;customer_impacted&#34;, &#34;detected&#34;, &#34;fields&#34;, &#34;modified&#34;, &#34;notification_handles&#34;, &#34;public_id&#34;, &#34;resolved&#34;, &#34;time_to_detect&#34;, &#34;time_to_internal_response&#34;, &#34;time_to_repair&#34;, &#34;time_to_resolve&#34;, &#34;title&#34;})
-<span id="L710" class="ln">   710  </span>	} else {
-<span id="L711" class="ln">   711  </span>		return err
-<span id="L712" class="ln">   712  </span>	}
-<span id="L713" class="ln">   713  </span>	o.Created = all.Created
-<span id="L714" class="ln">   714  </span>	o.CustomerImpactDuration = all.CustomerImpactDuration
-<span id="L715" class="ln">   715  </span>	o.CustomerImpactEnd = all.CustomerImpactEnd
-<span id="L716" class="ln">   716  </span>	o.CustomerImpactScope = all.CustomerImpactScope
-<span id="L717" class="ln">   717  </span>	o.CustomerImpactStart = all.CustomerImpactStart
-<span id="L718" class="ln">   718  </span>	o.CustomerImpacted = all.CustomerImpacted
-<span id="L719" class="ln">   719  </span>	o.Detected = all.Detected
-<span id="L720" class="ln">   720  </span>	o.Fields = all.Fields
-<span id="L721" class="ln">   721  </span>	o.Modified = all.Modified
-<span id="L722" class="ln">   722  </span>	o.NotificationHandles = all.NotificationHandles
-<span id="L723" class="ln">   723  </span>	o.PublicId = all.PublicId
-<span id="L724" class="ln">   724  </span>	o.Resolved = all.Resolved
-<span id="L725" class="ln">   725  </span>	o.TimeToDetect = all.TimeToDetect
-<span id="L726" class="ln">   726  </span>	o.TimeToInternalResponse = all.TimeToInternalResponse
-<span id="L727" class="ln">   727  </span>	o.TimeToRepair = all.TimeToRepair
-<span id="L728" class="ln">   728  </span>	o.TimeToResolve = all.TimeToResolve
-<span id="L729" class="ln">   729  </span>	o.Title = *all.Title
-<span id="L730" class="ln">   730  </span>
-<span id="L731" class="ln">   731  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L732" class="ln">   732  </span>		o.AdditionalProperties = additionalProperties
-<span id="L733" class="ln">   733  </span>	}
-<span id="L734" class="ln">   734  </span>
-<span id="L735" class="ln">   735  </span>	return nil
-<span id="L736" class="ln">   736  </span>}
-<span id="L737" class="ln">   737  </span>
+<span id="L707" class="ln">   707  </span>	o.Created = all.Created
+<span id="L708" class="ln">   708  </span>	o.CustomerImpactDuration = all.CustomerImpactDuration
+<span id="L709" class="ln">   709  </span>	o.CustomerImpactEnd = all.CustomerImpactEnd
+<span id="L710" class="ln">   710  </span>	o.CustomerImpactScope = all.CustomerImpactScope
+<span id="L711" class="ln">   711  </span>	o.CustomerImpactStart = all.CustomerImpactStart
+<span id="L712" class="ln">   712  </span>	o.CustomerImpacted = all.CustomerImpacted
+<span id="L713" class="ln">   713  </span>	o.Detected = all.Detected
+<span id="L714" class="ln">   714  </span>	o.Fields = all.Fields
+<span id="L715" class="ln">   715  </span>	o.Modified = all.Modified
+<span id="L716" class="ln">   716  </span>	o.NotificationHandles = all.NotificationHandles
+<span id="L717" class="ln">   717  </span>	o.PublicId = all.PublicId
+<span id="L718" class="ln">   718  </span>	o.Resolved = all.Resolved
+<span id="L719" class="ln">   719  </span>	o.TimeToDetect = all.TimeToDetect
+<span id="L720" class="ln">   720  </span>	o.TimeToInternalResponse = all.TimeToInternalResponse
+<span id="L721" class="ln">   721  </span>	o.TimeToRepair = all.TimeToRepair
+<span id="L722" class="ln">   722  </span>	o.TimeToResolve = all.TimeToResolve
+<span id="L723" class="ln">   723  </span>	o.Title = *all.Title
+<span id="L724" class="ln">   724  </span>
+<span id="L725" class="ln">   725  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L726" class="ln">   726  </span>		o.AdditionalProperties = additionalProperties
+<span id="L727" class="ln">   727  </span>	}
+<span id="L728" class="ln">   728  </span>
+<span id="L729" class="ln">   729  </span>	return nil
+<span id="L730" class="ln">   730  </span>}
+<span id="L731" class="ln">   731  </span>
 </pre><p></p>
 
 <div id="footer">

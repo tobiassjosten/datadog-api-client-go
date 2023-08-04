@@ -271,41 +271,35 @@
 <span id="L214" class="ln">   214  </span>
 <span id="L215" class="ln">   215  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L216" class="ln">   216  </span>func (o *IncidentSearchResponseUserFacetData) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L217" class="ln">   217  </span>	raw := map[string]interface{}{}
-<span id="L218" class="ln">   218  </span>	all := struct {
-<span id="L219" class="ln">   219  </span>		Count  *int32  `json:&#34;count,omitempty&#34;`
-<span id="L220" class="ln">   220  </span>		Email  *string `json:&#34;email,omitempty&#34;`
-<span id="L221" class="ln">   221  </span>		Handle *string `json:&#34;handle,omitempty&#34;`
-<span id="L222" class="ln">   222  </span>		Name   *string `json:&#34;name,omitempty&#34;`
-<span id="L223" class="ln">   223  </span>		Uuid   *string `json:&#34;uuid,omitempty&#34;`
-<span id="L224" class="ln">   224  </span>	}{}
-<span id="L225" class="ln">   225  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L226" class="ln">   226  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L227" class="ln">   227  </span>		if err != nil {
-<span id="L228" class="ln">   228  </span>			return err
-<span id="L229" class="ln">   229  </span>		}
-<span id="L230" class="ln">   230  </span>		o.UnparsedObject = raw
-<span id="L231" class="ln">   231  </span>		return nil
+<span id="L217" class="ln">   217  </span>	all := struct {
+<span id="L218" class="ln">   218  </span>		Count  *int32  `json:&#34;count,omitempty&#34;`
+<span id="L219" class="ln">   219  </span>		Email  *string `json:&#34;email,omitempty&#34;`
+<span id="L220" class="ln">   220  </span>		Handle *string `json:&#34;handle,omitempty&#34;`
+<span id="L221" class="ln">   221  </span>		Name   *string `json:&#34;name,omitempty&#34;`
+<span id="L222" class="ln">   222  </span>		Uuid   *string `json:&#34;uuid,omitempty&#34;`
+<span id="L223" class="ln">   223  </span>	}{}
+<span id="L224" class="ln">   224  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L225" class="ln">   225  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L226" class="ln">   226  </span>	}
+<span id="L227" class="ln">   227  </span>	additionalProperties := make(map[string]interface{})
+<span id="L228" class="ln">   228  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L229" class="ln">   229  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;count&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;name&#34;, &#34;uuid&#34;})
+<span id="L230" class="ln">   230  </span>	} else {
+<span id="L231" class="ln">   231  </span>		return err
 <span id="L232" class="ln">   232  </span>	}
-<span id="L233" class="ln">   233  </span>	additionalProperties := make(map[string]interface{})
-<span id="L234" class="ln">   234  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L235" class="ln">   235  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;count&#34;, &#34;email&#34;, &#34;handle&#34;, &#34;name&#34;, &#34;uuid&#34;})
-<span id="L236" class="ln">   236  </span>	} else {
-<span id="L237" class="ln">   237  </span>		return err
-<span id="L238" class="ln">   238  </span>	}
-<span id="L239" class="ln">   239  </span>	o.Count = all.Count
-<span id="L240" class="ln">   240  </span>	o.Email = all.Email
-<span id="L241" class="ln">   241  </span>	o.Handle = all.Handle
-<span id="L242" class="ln">   242  </span>	o.Name = all.Name
-<span id="L243" class="ln">   243  </span>	o.Uuid = all.Uuid
-<span id="L244" class="ln">   244  </span>
-<span id="L245" class="ln">   245  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L246" class="ln">   246  </span>		o.AdditionalProperties = additionalProperties
-<span id="L247" class="ln">   247  </span>	}
-<span id="L248" class="ln">   248  </span>
-<span id="L249" class="ln">   249  </span>	return nil
-<span id="L250" class="ln">   250  </span>}
-<span id="L251" class="ln">   251  </span>
+<span id="L233" class="ln">   233  </span>	o.Count = all.Count
+<span id="L234" class="ln">   234  </span>	o.Email = all.Email
+<span id="L235" class="ln">   235  </span>	o.Handle = all.Handle
+<span id="L236" class="ln">   236  </span>	o.Name = all.Name
+<span id="L237" class="ln">   237  </span>	o.Uuid = all.Uuid
+<span id="L238" class="ln">   238  </span>
+<span id="L239" class="ln">   239  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L240" class="ln">   240  </span>		o.AdditionalProperties = additionalProperties
+<span id="L241" class="ln">   241  </span>	}
+<span id="L242" class="ln">   242  </span>
+<span id="L243" class="ln">   243  </span>	return nil
+<span id="L244" class="ln">   244  </span>}
+<span id="L245" class="ln">   245  </span>
 </pre><p></p>
 
 <div id="footer">

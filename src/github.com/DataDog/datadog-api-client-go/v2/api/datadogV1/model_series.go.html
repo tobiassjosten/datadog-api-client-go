@@ -312,49 +312,43 @@
 <span id="L255" class="ln">   255  </span>
 <span id="L256" class="ln">   256  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L257" class="ln">   257  </span>func (o *Series) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L258" class="ln">   258  </span>	raw := map[string]interface{}{}
-<span id="L259" class="ln">   259  </span>	all := struct {
-<span id="L260" class="ln">   260  </span>		Host     *string               `json:&#34;host,omitempty&#34;`
-<span id="L261" class="ln">   261  </span>		Interval datadog.NullableInt64 `json:&#34;interval,omitempty&#34;`
-<span id="L262" class="ln">   262  </span>		Metric   *string               `json:&#34;metric&#34;`
-<span id="L263" class="ln">   263  </span>		Points   *[][]*float64         `json:&#34;points&#34;`
-<span id="L264" class="ln">   264  </span>		Tags     []string              `json:&#34;tags,omitempty&#34;`
-<span id="L265" class="ln">   265  </span>		Type     *string               `json:&#34;type,omitempty&#34;`
-<span id="L266" class="ln">   266  </span>	}{}
-<span id="L267" class="ln">   267  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L268" class="ln">   268  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L269" class="ln">   269  </span>		if err != nil {
-<span id="L270" class="ln">   270  </span>			return err
-<span id="L271" class="ln">   271  </span>		}
-<span id="L272" class="ln">   272  </span>		o.UnparsedObject = raw
-<span id="L273" class="ln">   273  </span>		return nil
+<span id="L258" class="ln">   258  </span>	all := struct {
+<span id="L259" class="ln">   259  </span>		Host     *string               `json:&#34;host,omitempty&#34;`
+<span id="L260" class="ln">   260  </span>		Interval datadog.NullableInt64 `json:&#34;interval,omitempty&#34;`
+<span id="L261" class="ln">   261  </span>		Metric   *string               `json:&#34;metric&#34;`
+<span id="L262" class="ln">   262  </span>		Points   *[][]*float64         `json:&#34;points&#34;`
+<span id="L263" class="ln">   263  </span>		Tags     []string              `json:&#34;tags,omitempty&#34;`
+<span id="L264" class="ln">   264  </span>		Type     *string               `json:&#34;type,omitempty&#34;`
+<span id="L265" class="ln">   265  </span>	}{}
+<span id="L266" class="ln">   266  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L267" class="ln">   267  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L268" class="ln">   268  </span>	}
+<span id="L269" class="ln">   269  </span>	if all.Metric == nil {
+<span id="L270" class="ln">   270  </span>		return fmt.Errorf(&#34;required field metric missing&#34;)
+<span id="L271" class="ln">   271  </span>	}
+<span id="L272" class="ln">   272  </span>	if all.Points == nil {
+<span id="L273" class="ln">   273  </span>		return fmt.Errorf(&#34;required field points missing&#34;)
 <span id="L274" class="ln">   274  </span>	}
-<span id="L275" class="ln">   275  </span>	if all.Metric == nil {
-<span id="L276" class="ln">   276  </span>		return fmt.Errorf(&#34;required field metric missing&#34;)
-<span id="L277" class="ln">   277  </span>	}
-<span id="L278" class="ln">   278  </span>	if all.Points == nil {
-<span id="L279" class="ln">   279  </span>		return fmt.Errorf(&#34;required field points missing&#34;)
+<span id="L275" class="ln">   275  </span>	additionalProperties := make(map[string]interface{})
+<span id="L276" class="ln">   276  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L277" class="ln">   277  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;host&#34;, &#34;interval&#34;, &#34;metric&#34;, &#34;points&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L278" class="ln">   278  </span>	} else {
+<span id="L279" class="ln">   279  </span>		return err
 <span id="L280" class="ln">   280  </span>	}
-<span id="L281" class="ln">   281  </span>	additionalProperties := make(map[string]interface{})
-<span id="L282" class="ln">   282  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L283" class="ln">   283  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;host&#34;, &#34;interval&#34;, &#34;metric&#34;, &#34;points&#34;, &#34;tags&#34;, &#34;type&#34;})
-<span id="L284" class="ln">   284  </span>	} else {
-<span id="L285" class="ln">   285  </span>		return err
-<span id="L286" class="ln">   286  </span>	}
-<span id="L287" class="ln">   287  </span>	o.Host = all.Host
-<span id="L288" class="ln">   288  </span>	o.Interval = all.Interval
-<span id="L289" class="ln">   289  </span>	o.Metric = *all.Metric
-<span id="L290" class="ln">   290  </span>	o.Points = *all.Points
-<span id="L291" class="ln">   291  </span>	o.Tags = all.Tags
-<span id="L292" class="ln">   292  </span>	o.Type = all.Type
-<span id="L293" class="ln">   293  </span>
-<span id="L294" class="ln">   294  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L295" class="ln">   295  </span>		o.AdditionalProperties = additionalProperties
-<span id="L296" class="ln">   296  </span>	}
-<span id="L297" class="ln">   297  </span>
-<span id="L298" class="ln">   298  </span>	return nil
-<span id="L299" class="ln">   299  </span>}
-<span id="L300" class="ln">   300  </span>
+<span id="L281" class="ln">   281  </span>	o.Host = all.Host
+<span id="L282" class="ln">   282  </span>	o.Interval = all.Interval
+<span id="L283" class="ln">   283  </span>	o.Metric = *all.Metric
+<span id="L284" class="ln">   284  </span>	o.Points = *all.Points
+<span id="L285" class="ln">   285  </span>	o.Tags = all.Tags
+<span id="L286" class="ln">   286  </span>	o.Type = all.Type
+<span id="L287" class="ln">   287  </span>
+<span id="L288" class="ln">   288  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L289" class="ln">   289  </span>		o.AdditionalProperties = additionalProperties
+<span id="L290" class="ln">   290  </span>	}
+<span id="L291" class="ln">   291  </span>
+<span id="L292" class="ln">   292  </span>	return nil
+<span id="L293" class="ln">   293  </span>}
+<span id="L294" class="ln">   294  </span>
 </pre><p></p>
 
 <div id="footer">

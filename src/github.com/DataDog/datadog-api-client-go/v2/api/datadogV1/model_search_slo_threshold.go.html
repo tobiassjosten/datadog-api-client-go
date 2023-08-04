@@ -292,61 +292,51 @@
 <span id="L235" class="ln">   235  </span>
 <span id="L236" class="ln">   236  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L237" class="ln">   237  </span>func (o *SearchSLOThreshold) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L238" class="ln">   238  </span>	raw := map[string]interface{}{}
-<span id="L239" class="ln">   239  </span>	all := struct {
-<span id="L240" class="ln">   240  </span>		Target         *float64                `json:&#34;target&#34;`
-<span id="L241" class="ln">   241  </span>		TargetDisplay  *string                 `json:&#34;target_display,omitempty&#34;`
-<span id="L242" class="ln">   242  </span>		Timeframe      *SearchSLOTimeframe     `json:&#34;timeframe&#34;`
-<span id="L243" class="ln">   243  </span>		Warning        datadog.NullableFloat64 `json:&#34;warning,omitempty&#34;`
-<span id="L244" class="ln">   244  </span>		WarningDisplay datadog.NullableString  `json:&#34;warning_display,omitempty&#34;`
-<span id="L245" class="ln">   245  </span>	}{}
-<span id="L246" class="ln">   246  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L247" class="ln">   247  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L248" class="ln">   248  </span>		if err != nil {
-<span id="L249" class="ln">   249  </span>			return err
-<span id="L250" class="ln">   250  </span>		}
-<span id="L251" class="ln">   251  </span>		o.UnparsedObject = raw
-<span id="L252" class="ln">   252  </span>		return nil
+<span id="L238" class="ln">   238  </span>	all := struct {
+<span id="L239" class="ln">   239  </span>		Target         *float64                `json:&#34;target&#34;`
+<span id="L240" class="ln">   240  </span>		TargetDisplay  *string                 `json:&#34;target_display,omitempty&#34;`
+<span id="L241" class="ln">   241  </span>		Timeframe      *SearchSLOTimeframe     `json:&#34;timeframe&#34;`
+<span id="L242" class="ln">   242  </span>		Warning        datadog.NullableFloat64 `json:&#34;warning,omitempty&#34;`
+<span id="L243" class="ln">   243  </span>		WarningDisplay datadog.NullableString  `json:&#34;warning_display,omitempty&#34;`
+<span id="L244" class="ln">   244  </span>	}{}
+<span id="L245" class="ln">   245  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L246" class="ln">   246  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L247" class="ln">   247  </span>	}
+<span id="L248" class="ln">   248  </span>	if all.Target == nil {
+<span id="L249" class="ln">   249  </span>		return fmt.Errorf(&#34;required field target missing&#34;)
+<span id="L250" class="ln">   250  </span>	}
+<span id="L251" class="ln">   251  </span>	if all.Timeframe == nil {
+<span id="L252" class="ln">   252  </span>		return fmt.Errorf(&#34;required field timeframe missing&#34;)
 <span id="L253" class="ln">   253  </span>	}
-<span id="L254" class="ln">   254  </span>	if all.Target == nil {
-<span id="L255" class="ln">   255  </span>		return fmt.Errorf(&#34;required field target missing&#34;)
-<span id="L256" class="ln">   256  </span>	}
-<span id="L257" class="ln">   257  </span>	if all.Timeframe == nil {
-<span id="L258" class="ln">   258  </span>		return fmt.Errorf(&#34;required field timeframe missing&#34;)
+<span id="L254" class="ln">   254  </span>	additionalProperties := make(map[string]interface{})
+<span id="L255" class="ln">   255  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L256" class="ln">   256  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;target&#34;, &#34;target_display&#34;, &#34;timeframe&#34;, &#34;warning&#34;, &#34;warning_display&#34;})
+<span id="L257" class="ln">   257  </span>	} else {
+<span id="L258" class="ln">   258  </span>		return err
 <span id="L259" class="ln">   259  </span>	}
-<span id="L260" class="ln">   260  </span>	additionalProperties := make(map[string]interface{})
-<span id="L261" class="ln">   261  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L262" class="ln">   262  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;target&#34;, &#34;target_display&#34;, &#34;timeframe&#34;, &#34;warning&#34;, &#34;warning_display&#34;})
-<span id="L263" class="ln">   263  </span>	} else {
-<span id="L264" class="ln">   264  </span>		return err
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>
-<span id="L267" class="ln">   267  </span>	hasInvalidField := false
-<span id="L268" class="ln">   268  </span>	o.Target = *all.Target
-<span id="L269" class="ln">   269  </span>	o.TargetDisplay = all.TargetDisplay
-<span id="L270" class="ln">   270  </span>	if v := all.Timeframe; !v.IsValid() {
-<span id="L271" class="ln">   271  </span>		hasInvalidField = true
-<span id="L272" class="ln">   272  </span>	} else {
-<span id="L273" class="ln">   273  </span>		o.Timeframe = *all.Timeframe
+<span id="L260" class="ln">   260  </span>
+<span id="L261" class="ln">   261  </span>	hasInvalidField := false
+<span id="L262" class="ln">   262  </span>	o.Target = *all.Target
+<span id="L263" class="ln">   263  </span>	o.TargetDisplay = all.TargetDisplay
+<span id="L264" class="ln">   264  </span>	if !all.Timeframe.IsValid() {
+<span id="L265" class="ln">   265  </span>		hasInvalidField = true
+<span id="L266" class="ln">   266  </span>	} else {
+<span id="L267" class="ln">   267  </span>		o.Timeframe = *all.Timeframe
+<span id="L268" class="ln">   268  </span>	}
+<span id="L269" class="ln">   269  </span>	o.Warning = all.Warning
+<span id="L270" class="ln">   270  </span>	o.WarningDisplay = all.WarningDisplay
+<span id="L271" class="ln">   271  </span>
+<span id="L272" class="ln">   272  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L273" class="ln">   273  </span>		o.AdditionalProperties = additionalProperties
 <span id="L274" class="ln">   274  </span>	}
-<span id="L275" class="ln">   275  </span>	o.Warning = all.Warning
-<span id="L276" class="ln">   276  </span>	o.WarningDisplay = all.WarningDisplay
-<span id="L277" class="ln">   277  </span>
-<span id="L278" class="ln">   278  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L279" class="ln">   279  </span>		o.AdditionalProperties = additionalProperties
-<span id="L280" class="ln">   280  </span>	}
-<span id="L281" class="ln">   281  </span>
-<span id="L282" class="ln">   282  </span>	if hasInvalidField {
-<span id="L283" class="ln">   283  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L284" class="ln">   284  </span>		if err != nil {
-<span id="L285" class="ln">   285  </span>			return err
-<span id="L286" class="ln">   286  </span>		}
-<span id="L287" class="ln">   287  </span>		o.UnparsedObject = raw
-<span id="L288" class="ln">   288  </span>	}
-<span id="L289" class="ln">   289  </span>
-<span id="L290" class="ln">   290  </span>	return nil
-<span id="L291" class="ln">   291  </span>}
-<span id="L292" class="ln">   292  </span>
+<span id="L275" class="ln">   275  </span>
+<span id="L276" class="ln">   276  </span>	if hasInvalidField {
+<span id="L277" class="ln">   277  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L278" class="ln">   278  </span>	}
+<span id="L279" class="ln">   279  </span>
+<span id="L280" class="ln">   280  </span>	return nil
+<span id="L281" class="ln">   281  </span>}
+<span id="L282" class="ln">   282  </span>
 </pre><p></p>
 
 <div id="footer">

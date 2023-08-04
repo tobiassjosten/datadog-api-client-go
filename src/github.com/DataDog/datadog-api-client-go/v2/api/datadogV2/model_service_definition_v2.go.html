@@ -461,76 +461,66 @@
 <span id="L404" class="ln">   404  </span>
 <span id="L405" class="ln">   405  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L406" class="ln">   406  </span>func (o *ServiceDefinitionV2) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L407" class="ln">   407  </span>	raw := map[string]interface{}{}
-<span id="L408" class="ln">   408  </span>	all := struct {
-<span id="L409" class="ln">   409  </span>		Contacts      []ServiceDefinitionV2Contact     `json:&#34;contacts,omitempty&#34;`
-<span id="L410" class="ln">   410  </span>		DdService     *string                          `json:&#34;dd-service&#34;`
-<span id="L411" class="ln">   411  </span>		DdTeam        *string                          `json:&#34;dd-team,omitempty&#34;`
-<span id="L412" class="ln">   412  </span>		Docs          []ServiceDefinitionV2Doc         `json:&#34;docs,omitempty&#34;`
-<span id="L413" class="ln">   413  </span>		Extensions    map[string]interface{}           `json:&#34;extensions,omitempty&#34;`
-<span id="L414" class="ln">   414  </span>		Integrations  *ServiceDefinitionV2Integrations `json:&#34;integrations,omitempty&#34;`
-<span id="L415" class="ln">   415  </span>		Links         []ServiceDefinitionV2Link        `json:&#34;links,omitempty&#34;`
-<span id="L416" class="ln">   416  </span>		Repos         []ServiceDefinitionV2Repo        `json:&#34;repos,omitempty&#34;`
-<span id="L417" class="ln">   417  </span>		SchemaVersion *ServiceDefinitionV2Version      `json:&#34;schema-version&#34;`
-<span id="L418" class="ln">   418  </span>		Tags          []string                         `json:&#34;tags,omitempty&#34;`
-<span id="L419" class="ln">   419  </span>		Team          *string                          `json:&#34;team,omitempty&#34;`
-<span id="L420" class="ln">   420  </span>	}{}
-<span id="L421" class="ln">   421  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L422" class="ln">   422  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L423" class="ln">   423  </span>		if err != nil {
-<span id="L424" class="ln">   424  </span>			return err
-<span id="L425" class="ln">   425  </span>		}
-<span id="L426" class="ln">   426  </span>		o.UnparsedObject = raw
-<span id="L427" class="ln">   427  </span>		return nil
+<span id="L407" class="ln">   407  </span>	all := struct {
+<span id="L408" class="ln">   408  </span>		Contacts      []ServiceDefinitionV2Contact     `json:&#34;contacts,omitempty&#34;`
+<span id="L409" class="ln">   409  </span>		DdService     *string                          `json:&#34;dd-service&#34;`
+<span id="L410" class="ln">   410  </span>		DdTeam        *string                          `json:&#34;dd-team,omitempty&#34;`
+<span id="L411" class="ln">   411  </span>		Docs          []ServiceDefinitionV2Doc         `json:&#34;docs,omitempty&#34;`
+<span id="L412" class="ln">   412  </span>		Extensions    map[string]interface{}           `json:&#34;extensions,omitempty&#34;`
+<span id="L413" class="ln">   413  </span>		Integrations  *ServiceDefinitionV2Integrations `json:&#34;integrations,omitempty&#34;`
+<span id="L414" class="ln">   414  </span>		Links         []ServiceDefinitionV2Link        `json:&#34;links,omitempty&#34;`
+<span id="L415" class="ln">   415  </span>		Repos         []ServiceDefinitionV2Repo        `json:&#34;repos,omitempty&#34;`
+<span id="L416" class="ln">   416  </span>		SchemaVersion *ServiceDefinitionV2Version      `json:&#34;schema-version&#34;`
+<span id="L417" class="ln">   417  </span>		Tags          []string                         `json:&#34;tags,omitempty&#34;`
+<span id="L418" class="ln">   418  </span>		Team          *string                          `json:&#34;team,omitempty&#34;`
+<span id="L419" class="ln">   419  </span>	}{}
+<span id="L420" class="ln">   420  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L421" class="ln">   421  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L422" class="ln">   422  </span>	}
+<span id="L423" class="ln">   423  </span>	if all.DdService == nil {
+<span id="L424" class="ln">   424  </span>		return fmt.Errorf(&#34;required field dd-service missing&#34;)
+<span id="L425" class="ln">   425  </span>	}
+<span id="L426" class="ln">   426  </span>	if all.SchemaVersion == nil {
+<span id="L427" class="ln">   427  </span>		return fmt.Errorf(&#34;required field schema-version missing&#34;)
 <span id="L428" class="ln">   428  </span>	}
-<span id="L429" class="ln">   429  </span>	if all.DdService == nil {
-<span id="L430" class="ln">   430  </span>		return fmt.Errorf(&#34;required field dd-service missing&#34;)
-<span id="L431" class="ln">   431  </span>	}
-<span id="L432" class="ln">   432  </span>	if all.SchemaVersion == nil {
-<span id="L433" class="ln">   433  </span>		return fmt.Errorf(&#34;required field schema-version missing&#34;)
+<span id="L429" class="ln">   429  </span>	additionalProperties := make(map[string]interface{})
+<span id="L430" class="ln">   430  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L431" class="ln">   431  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;contacts&#34;, &#34;dd-service&#34;, &#34;dd-team&#34;, &#34;docs&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;links&#34;, &#34;repos&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;})
+<span id="L432" class="ln">   432  </span>	} else {
+<span id="L433" class="ln">   433  </span>		return err
 <span id="L434" class="ln">   434  </span>	}
-<span id="L435" class="ln">   435  </span>	additionalProperties := make(map[string]interface{})
-<span id="L436" class="ln">   436  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L437" class="ln">   437  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;contacts&#34;, &#34;dd-service&#34;, &#34;dd-team&#34;, &#34;docs&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;links&#34;, &#34;repos&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;})
-<span id="L438" class="ln">   438  </span>	} else {
-<span id="L439" class="ln">   439  </span>		return err
-<span id="L440" class="ln">   440  </span>	}
-<span id="L441" class="ln">   441  </span>
-<span id="L442" class="ln">   442  </span>	hasInvalidField := false
-<span id="L443" class="ln">   443  </span>	o.Contacts = all.Contacts
-<span id="L444" class="ln">   444  </span>	o.DdService = *all.DdService
-<span id="L445" class="ln">   445  </span>	o.DdTeam = all.DdTeam
-<span id="L446" class="ln">   446  </span>	o.Docs = all.Docs
-<span id="L447" class="ln">   447  </span>	o.Extensions = all.Extensions
-<span id="L448" class="ln">   448  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L435" class="ln">   435  </span>
+<span id="L436" class="ln">   436  </span>	hasInvalidField := false
+<span id="L437" class="ln">   437  </span>	o.Contacts = all.Contacts
+<span id="L438" class="ln">   438  </span>	o.DdService = *all.DdService
+<span id="L439" class="ln">   439  </span>	o.DdTeam = all.DdTeam
+<span id="L440" class="ln">   440  </span>	o.Docs = all.Docs
+<span id="L441" class="ln">   441  </span>	o.Extensions = all.Extensions
+<span id="L442" class="ln">   442  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L443" class="ln">   443  </span>		hasInvalidField = true
+<span id="L444" class="ln">   444  </span>	}
+<span id="L445" class="ln">   445  </span>	o.Integrations = all.Integrations
+<span id="L446" class="ln">   446  </span>	o.Links = all.Links
+<span id="L447" class="ln">   447  </span>	o.Repos = all.Repos
+<span id="L448" class="ln">   448  </span>	if !all.SchemaVersion.IsValid() {
 <span id="L449" class="ln">   449  </span>		hasInvalidField = true
-<span id="L450" class="ln">   450  </span>	}
-<span id="L451" class="ln">   451  </span>	o.Integrations = all.Integrations
-<span id="L452" class="ln">   452  </span>	o.Links = all.Links
-<span id="L453" class="ln">   453  </span>	o.Repos = all.Repos
-<span id="L454" class="ln">   454  </span>	if v := all.SchemaVersion; !v.IsValid() {
-<span id="L455" class="ln">   455  </span>		hasInvalidField = true
-<span id="L456" class="ln">   456  </span>	} else {
-<span id="L457" class="ln">   457  </span>		o.SchemaVersion = *all.SchemaVersion
+<span id="L450" class="ln">   450  </span>	} else {
+<span id="L451" class="ln">   451  </span>		o.SchemaVersion = *all.SchemaVersion
+<span id="L452" class="ln">   452  </span>	}
+<span id="L453" class="ln">   453  </span>	o.Tags = all.Tags
+<span id="L454" class="ln">   454  </span>	o.Team = all.Team
+<span id="L455" class="ln">   455  </span>
+<span id="L456" class="ln">   456  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L457" class="ln">   457  </span>		o.AdditionalProperties = additionalProperties
 <span id="L458" class="ln">   458  </span>	}
-<span id="L459" class="ln">   459  </span>	o.Tags = all.Tags
-<span id="L460" class="ln">   460  </span>	o.Team = all.Team
-<span id="L461" class="ln">   461  </span>
-<span id="L462" class="ln">   462  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L463" class="ln">   463  </span>		o.AdditionalProperties = additionalProperties
-<span id="L464" class="ln">   464  </span>	}
-<span id="L465" class="ln">   465  </span>
-<span id="L466" class="ln">   466  </span>	if hasInvalidField {
-<span id="L467" class="ln">   467  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L468" class="ln">   468  </span>		if err != nil {
-<span id="L469" class="ln">   469  </span>			return err
-<span id="L470" class="ln">   470  </span>		}
-<span id="L471" class="ln">   471  </span>		o.UnparsedObject = raw
-<span id="L472" class="ln">   472  </span>	}
-<span id="L473" class="ln">   473  </span>
-<span id="L474" class="ln">   474  </span>	return nil
-<span id="L475" class="ln">   475  </span>}
-<span id="L476" class="ln">   476  </span>
+<span id="L459" class="ln">   459  </span>
+<span id="L460" class="ln">   460  </span>	if hasInvalidField {
+<span id="L461" class="ln">   461  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L462" class="ln">   462  </span>	}
+<span id="L463" class="ln">   463  </span>
+<span id="L464" class="ln">   464  </span>	return nil
+<span id="L465" class="ln">   465  </span>}
+<span id="L466" class="ln">   466  </span>
 </pre><p></p>
 
 <div id="footer">

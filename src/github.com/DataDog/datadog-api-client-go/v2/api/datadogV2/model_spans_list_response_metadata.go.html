@@ -272,58 +272,48 @@
 <span id="L215" class="ln">   215  </span>
 <span id="L216" class="ln">   216  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L217" class="ln">   217  </span>func (o *SpansListResponseMetadata) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L218" class="ln">   218  </span>	raw := map[string]interface{}{}
-<span id="L219" class="ln">   219  </span>	all := struct {
-<span id="L220" class="ln">   220  </span>		Elapsed   *int64                        `json:&#34;elapsed,omitempty&#34;`
-<span id="L221" class="ln">   221  </span>		Page      *SpansResponseMetadataPage    `json:&#34;page,omitempty&#34;`
-<span id="L222" class="ln">   222  </span>		RequestId *string                       `json:&#34;request_id,omitempty&#34;`
-<span id="L223" class="ln">   223  </span>		Status    *SpansAggregateResponseStatus `json:&#34;status,omitempty&#34;`
-<span id="L224" class="ln">   224  </span>		Warnings  []SpansWarning                `json:&#34;warnings,omitempty&#34;`
-<span id="L225" class="ln">   225  </span>	}{}
-<span id="L226" class="ln">   226  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L227" class="ln">   227  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L228" class="ln">   228  </span>		if err != nil {
-<span id="L229" class="ln">   229  </span>			return err
-<span id="L230" class="ln">   230  </span>		}
-<span id="L231" class="ln">   231  </span>		o.UnparsedObject = raw
-<span id="L232" class="ln">   232  </span>		return nil
+<span id="L218" class="ln">   218  </span>	all := struct {
+<span id="L219" class="ln">   219  </span>		Elapsed   *int64                        `json:&#34;elapsed,omitempty&#34;`
+<span id="L220" class="ln">   220  </span>		Page      *SpansResponseMetadataPage    `json:&#34;page,omitempty&#34;`
+<span id="L221" class="ln">   221  </span>		RequestId *string                       `json:&#34;request_id,omitempty&#34;`
+<span id="L222" class="ln">   222  </span>		Status    *SpansAggregateResponseStatus `json:&#34;status,omitempty&#34;`
+<span id="L223" class="ln">   223  </span>		Warnings  []SpansWarning                `json:&#34;warnings,omitempty&#34;`
+<span id="L224" class="ln">   224  </span>	}{}
+<span id="L225" class="ln">   225  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L226" class="ln">   226  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L227" class="ln">   227  </span>	}
+<span id="L228" class="ln">   228  </span>	additionalProperties := make(map[string]interface{})
+<span id="L229" class="ln">   229  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L230" class="ln">   230  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;elapsed&#34;, &#34;page&#34;, &#34;request_id&#34;, &#34;status&#34;, &#34;warnings&#34;})
+<span id="L231" class="ln">   231  </span>	} else {
+<span id="L232" class="ln">   232  </span>		return err
 <span id="L233" class="ln">   233  </span>	}
-<span id="L234" class="ln">   234  </span>	additionalProperties := make(map[string]interface{})
-<span id="L235" class="ln">   235  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L236" class="ln">   236  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;elapsed&#34;, &#34;page&#34;, &#34;request_id&#34;, &#34;status&#34;, &#34;warnings&#34;})
-<span id="L237" class="ln">   237  </span>	} else {
-<span id="L238" class="ln">   238  </span>		return err
+<span id="L234" class="ln">   234  </span>
+<span id="L235" class="ln">   235  </span>	hasInvalidField := false
+<span id="L236" class="ln">   236  </span>	o.Elapsed = all.Elapsed
+<span id="L237" class="ln">   237  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L238" class="ln">   238  </span>		hasInvalidField = true
 <span id="L239" class="ln">   239  </span>	}
-<span id="L240" class="ln">   240  </span>
-<span id="L241" class="ln">   241  </span>	hasInvalidField := false
-<span id="L242" class="ln">   242  </span>	o.Elapsed = all.Elapsed
-<span id="L243" class="ln">   243  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L244" class="ln">   244  </span>		hasInvalidField = true
-<span id="L245" class="ln">   245  </span>	}
-<span id="L246" class="ln">   246  </span>	o.Page = all.Page
-<span id="L247" class="ln">   247  </span>	o.RequestId = all.RequestId
-<span id="L248" class="ln">   248  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L249" class="ln">   249  </span>		hasInvalidField = true
-<span id="L250" class="ln">   250  </span>	} else {
-<span id="L251" class="ln">   251  </span>		o.Status = all.Status
-<span id="L252" class="ln">   252  </span>	}
-<span id="L253" class="ln">   253  </span>	o.Warnings = all.Warnings
-<span id="L254" class="ln">   254  </span>
-<span id="L255" class="ln">   255  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L256" class="ln">   256  </span>		o.AdditionalProperties = additionalProperties
-<span id="L257" class="ln">   257  </span>	}
-<span id="L258" class="ln">   258  </span>
-<span id="L259" class="ln">   259  </span>	if hasInvalidField {
-<span id="L260" class="ln">   260  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L261" class="ln">   261  </span>		if err != nil {
-<span id="L262" class="ln">   262  </span>			return err
-<span id="L263" class="ln">   263  </span>		}
-<span id="L264" class="ln">   264  </span>		o.UnparsedObject = raw
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>
-<span id="L267" class="ln">   267  </span>	return nil
-<span id="L268" class="ln">   268  </span>}
-<span id="L269" class="ln">   269  </span>
+<span id="L240" class="ln">   240  </span>	o.Page = all.Page
+<span id="L241" class="ln">   241  </span>	o.RequestId = all.RequestId
+<span id="L242" class="ln">   242  </span>	if all.Status != nil &amp;&amp; !all.Status.IsValid() {
+<span id="L243" class="ln">   243  </span>		hasInvalidField = true
+<span id="L244" class="ln">   244  </span>	} else {
+<span id="L245" class="ln">   245  </span>		o.Status = all.Status
+<span id="L246" class="ln">   246  </span>	}
+<span id="L247" class="ln">   247  </span>	o.Warnings = all.Warnings
+<span id="L248" class="ln">   248  </span>
+<span id="L249" class="ln">   249  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L250" class="ln">   250  </span>		o.AdditionalProperties = additionalProperties
+<span id="L251" class="ln">   251  </span>	}
+<span id="L252" class="ln">   252  </span>
+<span id="L253" class="ln">   253  </span>	if hasInvalidField {
+<span id="L254" class="ln">   254  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L255" class="ln">   255  </span>	}
+<span id="L256" class="ln">   256  </span>
+<span id="L257" class="ln">   257  </span>	return nil
+<span id="L258" class="ln">   258  </span>}
+<span id="L259" class="ln">   259  </span>
 </pre><p></p>
 
 <div id="footer">

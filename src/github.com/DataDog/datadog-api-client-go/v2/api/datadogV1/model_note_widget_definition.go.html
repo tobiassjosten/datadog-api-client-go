@@ -432,83 +432,73 @@
 <span id="L375" class="ln">   375  </span>
 <span id="L376" class="ln">   376  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L377" class="ln">   377  </span>func (o *NoteWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L378" class="ln">   378  </span>	raw := map[string]interface{}{}
-<span id="L379" class="ln">   379  </span>	all := struct {
-<span id="L380" class="ln">   380  </span>		BackgroundColor *string                   `json:&#34;background_color,omitempty&#34;`
-<span id="L381" class="ln">   381  </span>		Content         *string                   `json:&#34;content&#34;`
-<span id="L382" class="ln">   382  </span>		FontSize        *string                   `json:&#34;font_size,omitempty&#34;`
-<span id="L383" class="ln">   383  </span>		HasPadding      *bool                     `json:&#34;has_padding,omitempty&#34;`
-<span id="L384" class="ln">   384  </span>		ShowTick        *bool                     `json:&#34;show_tick,omitempty&#34;`
-<span id="L385" class="ln">   385  </span>		TextAlign       *WidgetTextAlign          `json:&#34;text_align,omitempty&#34;`
-<span id="L386" class="ln">   386  </span>		TickEdge        *WidgetTickEdge           `json:&#34;tick_edge,omitempty&#34;`
-<span id="L387" class="ln">   387  </span>		TickPos         *string                   `json:&#34;tick_pos,omitempty&#34;`
-<span id="L388" class="ln">   388  </span>		Type            *NoteWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L389" class="ln">   389  </span>		VerticalAlign   *WidgetVerticalAlign      `json:&#34;vertical_align,omitempty&#34;`
-<span id="L390" class="ln">   390  </span>	}{}
-<span id="L391" class="ln">   391  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L392" class="ln">   392  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L393" class="ln">   393  </span>		if err != nil {
-<span id="L394" class="ln">   394  </span>			return err
-<span id="L395" class="ln">   395  </span>		}
-<span id="L396" class="ln">   396  </span>		o.UnparsedObject = raw
-<span id="L397" class="ln">   397  </span>		return nil
+<span id="L378" class="ln">   378  </span>	all := struct {
+<span id="L379" class="ln">   379  </span>		BackgroundColor *string                   `json:&#34;background_color,omitempty&#34;`
+<span id="L380" class="ln">   380  </span>		Content         *string                   `json:&#34;content&#34;`
+<span id="L381" class="ln">   381  </span>		FontSize        *string                   `json:&#34;font_size,omitempty&#34;`
+<span id="L382" class="ln">   382  </span>		HasPadding      *bool                     `json:&#34;has_padding,omitempty&#34;`
+<span id="L383" class="ln">   383  </span>		ShowTick        *bool                     `json:&#34;show_tick,omitempty&#34;`
+<span id="L384" class="ln">   384  </span>		TextAlign       *WidgetTextAlign          `json:&#34;text_align,omitempty&#34;`
+<span id="L385" class="ln">   385  </span>		TickEdge        *WidgetTickEdge           `json:&#34;tick_edge,omitempty&#34;`
+<span id="L386" class="ln">   386  </span>		TickPos         *string                   `json:&#34;tick_pos,omitempty&#34;`
+<span id="L387" class="ln">   387  </span>		Type            *NoteWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L388" class="ln">   388  </span>		VerticalAlign   *WidgetVerticalAlign      `json:&#34;vertical_align,omitempty&#34;`
+<span id="L389" class="ln">   389  </span>	}{}
+<span id="L390" class="ln">   390  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L391" class="ln">   391  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L392" class="ln">   392  </span>	}
+<span id="L393" class="ln">   393  </span>	if all.Content == nil {
+<span id="L394" class="ln">   394  </span>		return fmt.Errorf(&#34;required field content missing&#34;)
+<span id="L395" class="ln">   395  </span>	}
+<span id="L396" class="ln">   396  </span>	if all.Type == nil {
+<span id="L397" class="ln">   397  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L398" class="ln">   398  </span>	}
-<span id="L399" class="ln">   399  </span>	if all.Content == nil {
-<span id="L400" class="ln">   400  </span>		return fmt.Errorf(&#34;required field content missing&#34;)
-<span id="L401" class="ln">   401  </span>	}
-<span id="L402" class="ln">   402  </span>	if all.Type == nil {
-<span id="L403" class="ln">   403  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L399" class="ln">   399  </span>	additionalProperties := make(map[string]interface{})
+<span id="L400" class="ln">   400  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L401" class="ln">   401  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;background_color&#34;, &#34;content&#34;, &#34;font_size&#34;, &#34;has_padding&#34;, &#34;show_tick&#34;, &#34;text_align&#34;, &#34;tick_edge&#34;, &#34;tick_pos&#34;, &#34;type&#34;, &#34;vertical_align&#34;})
+<span id="L402" class="ln">   402  </span>	} else {
+<span id="L403" class="ln">   403  </span>		return err
 <span id="L404" class="ln">   404  </span>	}
-<span id="L405" class="ln">   405  </span>	additionalProperties := make(map[string]interface{})
-<span id="L406" class="ln">   406  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L407" class="ln">   407  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;background_color&#34;, &#34;content&#34;, &#34;font_size&#34;, &#34;has_padding&#34;, &#34;show_tick&#34;, &#34;text_align&#34;, &#34;tick_edge&#34;, &#34;tick_pos&#34;, &#34;type&#34;, &#34;vertical_align&#34;})
-<span id="L408" class="ln">   408  </span>	} else {
-<span id="L409" class="ln">   409  </span>		return err
-<span id="L410" class="ln">   410  </span>	}
-<span id="L411" class="ln">   411  </span>
-<span id="L412" class="ln">   412  </span>	hasInvalidField := false
-<span id="L413" class="ln">   413  </span>	o.BackgroundColor = all.BackgroundColor
-<span id="L414" class="ln">   414  </span>	o.Content = *all.Content
-<span id="L415" class="ln">   415  </span>	o.FontSize = all.FontSize
-<span id="L416" class="ln">   416  </span>	o.HasPadding = all.HasPadding
-<span id="L417" class="ln">   417  </span>	o.ShowTick = all.ShowTick
-<span id="L418" class="ln">   418  </span>	if v := all.TextAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L419" class="ln">   419  </span>		hasInvalidField = true
-<span id="L420" class="ln">   420  </span>	} else {
-<span id="L421" class="ln">   421  </span>		o.TextAlign = all.TextAlign
-<span id="L422" class="ln">   422  </span>	}
-<span id="L423" class="ln">   423  </span>	if v := all.TickEdge; v != nil &amp;&amp; !v.IsValid() {
+<span id="L405" class="ln">   405  </span>
+<span id="L406" class="ln">   406  </span>	hasInvalidField := false
+<span id="L407" class="ln">   407  </span>	o.BackgroundColor = all.BackgroundColor
+<span id="L408" class="ln">   408  </span>	o.Content = *all.Content
+<span id="L409" class="ln">   409  </span>	o.FontSize = all.FontSize
+<span id="L410" class="ln">   410  </span>	o.HasPadding = all.HasPadding
+<span id="L411" class="ln">   411  </span>	o.ShowTick = all.ShowTick
+<span id="L412" class="ln">   412  </span>	if all.TextAlign != nil &amp;&amp; !all.TextAlign.IsValid() {
+<span id="L413" class="ln">   413  </span>		hasInvalidField = true
+<span id="L414" class="ln">   414  </span>	} else {
+<span id="L415" class="ln">   415  </span>		o.TextAlign = all.TextAlign
+<span id="L416" class="ln">   416  </span>	}
+<span id="L417" class="ln">   417  </span>	if all.TickEdge != nil &amp;&amp; !all.TickEdge.IsValid() {
+<span id="L418" class="ln">   418  </span>		hasInvalidField = true
+<span id="L419" class="ln">   419  </span>	} else {
+<span id="L420" class="ln">   420  </span>		o.TickEdge = all.TickEdge
+<span id="L421" class="ln">   421  </span>	}
+<span id="L422" class="ln">   422  </span>	o.TickPos = all.TickPos
+<span id="L423" class="ln">   423  </span>	if !all.Type.IsValid() {
 <span id="L424" class="ln">   424  </span>		hasInvalidField = true
 <span id="L425" class="ln">   425  </span>	} else {
-<span id="L426" class="ln">   426  </span>		o.TickEdge = all.TickEdge
+<span id="L426" class="ln">   426  </span>		o.Type = *all.Type
 <span id="L427" class="ln">   427  </span>	}
-<span id="L428" class="ln">   428  </span>	o.TickPos = all.TickPos
-<span id="L429" class="ln">   429  </span>	if v := all.Type; !v.IsValid() {
-<span id="L430" class="ln">   430  </span>		hasInvalidField = true
-<span id="L431" class="ln">   431  </span>	} else {
-<span id="L432" class="ln">   432  </span>		o.Type = *all.Type
-<span id="L433" class="ln">   433  </span>	}
-<span id="L434" class="ln">   434  </span>	if v := all.VerticalAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L435" class="ln">   435  </span>		hasInvalidField = true
-<span id="L436" class="ln">   436  </span>	} else {
-<span id="L437" class="ln">   437  </span>		o.VerticalAlign = all.VerticalAlign
-<span id="L438" class="ln">   438  </span>	}
-<span id="L439" class="ln">   439  </span>
-<span id="L440" class="ln">   440  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L441" class="ln">   441  </span>		o.AdditionalProperties = additionalProperties
-<span id="L442" class="ln">   442  </span>	}
-<span id="L443" class="ln">   443  </span>
-<span id="L444" class="ln">   444  </span>	if hasInvalidField {
-<span id="L445" class="ln">   445  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L446" class="ln">   446  </span>		if err != nil {
-<span id="L447" class="ln">   447  </span>			return err
-<span id="L448" class="ln">   448  </span>		}
-<span id="L449" class="ln">   449  </span>		o.UnparsedObject = raw
-<span id="L450" class="ln">   450  </span>	}
-<span id="L451" class="ln">   451  </span>
-<span id="L452" class="ln">   452  </span>	return nil
-<span id="L453" class="ln">   453  </span>}
-<span id="L454" class="ln">   454  </span>
+<span id="L428" class="ln">   428  </span>	if all.VerticalAlign != nil &amp;&amp; !all.VerticalAlign.IsValid() {
+<span id="L429" class="ln">   429  </span>		hasInvalidField = true
+<span id="L430" class="ln">   430  </span>	} else {
+<span id="L431" class="ln">   431  </span>		o.VerticalAlign = all.VerticalAlign
+<span id="L432" class="ln">   432  </span>	}
+<span id="L433" class="ln">   433  </span>
+<span id="L434" class="ln">   434  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L435" class="ln">   435  </span>		o.AdditionalProperties = additionalProperties
+<span id="L436" class="ln">   436  </span>	}
+<span id="L437" class="ln">   437  </span>
+<span id="L438" class="ln">   438  </span>	if hasInvalidField {
+<span id="L439" class="ln">   439  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L440" class="ln">   440  </span>	}
+<span id="L441" class="ln">   441  </span>
+<span id="L442" class="ln">   442  </span>	return nil
+<span id="L443" class="ln">   443  </span>}
+<span id="L444" class="ln">   444  </span>
 </pre><p></p>
 
 <div id="footer">

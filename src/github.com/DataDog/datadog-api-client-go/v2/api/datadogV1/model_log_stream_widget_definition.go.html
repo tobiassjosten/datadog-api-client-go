@@ -537,88 +537,78 @@
 <span id="L480" class="ln">   480  </span>
 <span id="L481" class="ln">   481  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L482" class="ln">   482  </span>func (o *LogStreamWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L483" class="ln">   483  </span>	raw := map[string]interface{}{}
-<span id="L484" class="ln">   484  </span>	all := struct {
-<span id="L485" class="ln">   485  </span>		Columns           []string                       `json:&#34;columns,omitempty&#34;`
-<span id="L486" class="ln">   486  </span>		Indexes           []string                       `json:&#34;indexes,omitempty&#34;`
-<span id="L487" class="ln">   487  </span>		Logset            *string                        `json:&#34;logset,omitempty&#34;`
-<span id="L488" class="ln">   488  </span>		MessageDisplay    *WidgetMessageDisplay          `json:&#34;message_display,omitempty&#34;`
-<span id="L489" class="ln">   489  </span>		Query             *string                        `json:&#34;query,omitempty&#34;`
-<span id="L490" class="ln">   490  </span>		ShowDateColumn    *bool                          `json:&#34;show_date_column,omitempty&#34;`
-<span id="L491" class="ln">   491  </span>		ShowMessageColumn *bool                          `json:&#34;show_message_column,omitempty&#34;`
-<span id="L492" class="ln">   492  </span>		Sort              *WidgetFieldSort               `json:&#34;sort,omitempty&#34;`
-<span id="L493" class="ln">   493  </span>		Time              *WidgetTime                    `json:&#34;time,omitempty&#34;`
-<span id="L494" class="ln">   494  </span>		Title             *string                        `json:&#34;title,omitempty&#34;`
-<span id="L495" class="ln">   495  </span>		TitleAlign        *WidgetTextAlign               `json:&#34;title_align,omitempty&#34;`
-<span id="L496" class="ln">   496  </span>		TitleSize         *string                        `json:&#34;title_size,omitempty&#34;`
-<span id="L497" class="ln">   497  </span>		Type              *LogStreamWidgetDefinitionType `json:&#34;type&#34;`
-<span id="L498" class="ln">   498  </span>	}{}
-<span id="L499" class="ln">   499  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L500" class="ln">   500  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L501" class="ln">   501  </span>		if err != nil {
-<span id="L502" class="ln">   502  </span>			return err
-<span id="L503" class="ln">   503  </span>		}
-<span id="L504" class="ln">   504  </span>		o.UnparsedObject = raw
-<span id="L505" class="ln">   505  </span>		return nil
-<span id="L506" class="ln">   506  </span>	}
-<span id="L507" class="ln">   507  </span>	if all.Type == nil {
-<span id="L508" class="ln">   508  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L483" class="ln">   483  </span>	all := struct {
+<span id="L484" class="ln">   484  </span>		Columns           []string                       `json:&#34;columns,omitempty&#34;`
+<span id="L485" class="ln">   485  </span>		Indexes           []string                       `json:&#34;indexes,omitempty&#34;`
+<span id="L486" class="ln">   486  </span>		Logset            *string                        `json:&#34;logset,omitempty&#34;`
+<span id="L487" class="ln">   487  </span>		MessageDisplay    *WidgetMessageDisplay          `json:&#34;message_display,omitempty&#34;`
+<span id="L488" class="ln">   488  </span>		Query             *string                        `json:&#34;query,omitempty&#34;`
+<span id="L489" class="ln">   489  </span>		ShowDateColumn    *bool                          `json:&#34;show_date_column,omitempty&#34;`
+<span id="L490" class="ln">   490  </span>		ShowMessageColumn *bool                          `json:&#34;show_message_column,omitempty&#34;`
+<span id="L491" class="ln">   491  </span>		Sort              *WidgetFieldSort               `json:&#34;sort,omitempty&#34;`
+<span id="L492" class="ln">   492  </span>		Time              *WidgetTime                    `json:&#34;time,omitempty&#34;`
+<span id="L493" class="ln">   493  </span>		Title             *string                        `json:&#34;title,omitempty&#34;`
+<span id="L494" class="ln">   494  </span>		TitleAlign        *WidgetTextAlign               `json:&#34;title_align,omitempty&#34;`
+<span id="L495" class="ln">   495  </span>		TitleSize         *string                        `json:&#34;title_size,omitempty&#34;`
+<span id="L496" class="ln">   496  </span>		Type              *LogStreamWidgetDefinitionType `json:&#34;type&#34;`
+<span id="L497" class="ln">   497  </span>	}{}
+<span id="L498" class="ln">   498  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L499" class="ln">   499  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L500" class="ln">   500  </span>	}
+<span id="L501" class="ln">   501  </span>	if all.Type == nil {
+<span id="L502" class="ln">   502  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
+<span id="L503" class="ln">   503  </span>	}
+<span id="L504" class="ln">   504  </span>	additionalProperties := make(map[string]interface{})
+<span id="L505" class="ln">   505  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L506" class="ln">   506  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;columns&#34;, &#34;indexes&#34;, &#34;logset&#34;, &#34;message_display&#34;, &#34;query&#34;, &#34;show_date_column&#34;, &#34;show_message_column&#34;, &#34;sort&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
+<span id="L507" class="ln">   507  </span>	} else {
+<span id="L508" class="ln">   508  </span>		return err
 <span id="L509" class="ln">   509  </span>	}
-<span id="L510" class="ln">   510  </span>	additionalProperties := make(map[string]interface{})
-<span id="L511" class="ln">   511  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L512" class="ln">   512  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;columns&#34;, &#34;indexes&#34;, &#34;logset&#34;, &#34;message_display&#34;, &#34;query&#34;, &#34;show_date_column&#34;, &#34;show_message_column&#34;, &#34;sort&#34;, &#34;time&#34;, &#34;title&#34;, &#34;title_align&#34;, &#34;title_size&#34;, &#34;type&#34;})
-<span id="L513" class="ln">   513  </span>	} else {
-<span id="L514" class="ln">   514  </span>		return err
-<span id="L515" class="ln">   515  </span>	}
-<span id="L516" class="ln">   516  </span>
-<span id="L517" class="ln">   517  </span>	hasInvalidField := false
-<span id="L518" class="ln">   518  </span>	o.Columns = all.Columns
-<span id="L519" class="ln">   519  </span>	o.Indexes = all.Indexes
-<span id="L520" class="ln">   520  </span>	o.Logset = all.Logset
-<span id="L521" class="ln">   521  </span>	if v := all.MessageDisplay; v != nil &amp;&amp; !v.IsValid() {
-<span id="L522" class="ln">   522  </span>		hasInvalidField = true
-<span id="L523" class="ln">   523  </span>	} else {
-<span id="L524" class="ln">   524  </span>		o.MessageDisplay = all.MessageDisplay
+<span id="L510" class="ln">   510  </span>
+<span id="L511" class="ln">   511  </span>	hasInvalidField := false
+<span id="L512" class="ln">   512  </span>	o.Columns = all.Columns
+<span id="L513" class="ln">   513  </span>	o.Indexes = all.Indexes
+<span id="L514" class="ln">   514  </span>	o.Logset = all.Logset
+<span id="L515" class="ln">   515  </span>	if all.MessageDisplay != nil &amp;&amp; !all.MessageDisplay.IsValid() {
+<span id="L516" class="ln">   516  </span>		hasInvalidField = true
+<span id="L517" class="ln">   517  </span>	} else {
+<span id="L518" class="ln">   518  </span>		o.MessageDisplay = all.MessageDisplay
+<span id="L519" class="ln">   519  </span>	}
+<span id="L520" class="ln">   520  </span>	o.Query = all.Query
+<span id="L521" class="ln">   521  </span>	o.ShowDateColumn = all.ShowDateColumn
+<span id="L522" class="ln">   522  </span>	o.ShowMessageColumn = all.ShowMessageColumn
+<span id="L523" class="ln">   523  </span>	if all.Sort != nil &amp;&amp; all.Sort.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L524" class="ln">   524  </span>		hasInvalidField = true
 <span id="L525" class="ln">   525  </span>	}
-<span id="L526" class="ln">   526  </span>	o.Query = all.Query
-<span id="L527" class="ln">   527  </span>	o.ShowDateColumn = all.ShowDateColumn
-<span id="L528" class="ln">   528  </span>	o.ShowMessageColumn = all.ShowMessageColumn
-<span id="L529" class="ln">   529  </span>	if all.Sort != nil &amp;&amp; all.Sort.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L530" class="ln">   530  </span>		hasInvalidField = true
-<span id="L531" class="ln">   531  </span>	}
-<span id="L532" class="ln">   532  </span>	o.Sort = all.Sort
-<span id="L533" class="ln">   533  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L534" class="ln">   534  </span>		hasInvalidField = true
-<span id="L535" class="ln">   535  </span>	}
-<span id="L536" class="ln">   536  </span>	o.Time = all.Time
-<span id="L537" class="ln">   537  </span>	o.Title = all.Title
-<span id="L538" class="ln">   538  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L526" class="ln">   526  </span>	o.Sort = all.Sort
+<span id="L527" class="ln">   527  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L528" class="ln">   528  </span>		hasInvalidField = true
+<span id="L529" class="ln">   529  </span>	}
+<span id="L530" class="ln">   530  </span>	o.Time = all.Time
+<span id="L531" class="ln">   531  </span>	o.Title = all.Title
+<span id="L532" class="ln">   532  </span>	if all.TitleAlign != nil &amp;&amp; !all.TitleAlign.IsValid() {
+<span id="L533" class="ln">   533  </span>		hasInvalidField = true
+<span id="L534" class="ln">   534  </span>	} else {
+<span id="L535" class="ln">   535  </span>		o.TitleAlign = all.TitleAlign
+<span id="L536" class="ln">   536  </span>	}
+<span id="L537" class="ln">   537  </span>	o.TitleSize = all.TitleSize
+<span id="L538" class="ln">   538  </span>	if !all.Type.IsValid() {
 <span id="L539" class="ln">   539  </span>		hasInvalidField = true
 <span id="L540" class="ln">   540  </span>	} else {
-<span id="L541" class="ln">   541  </span>		o.TitleAlign = all.TitleAlign
+<span id="L541" class="ln">   541  </span>		o.Type = *all.Type
 <span id="L542" class="ln">   542  </span>	}
-<span id="L543" class="ln">   543  </span>	o.TitleSize = all.TitleSize
-<span id="L544" class="ln">   544  </span>	if v := all.Type; !v.IsValid() {
-<span id="L545" class="ln">   545  </span>		hasInvalidField = true
-<span id="L546" class="ln">   546  </span>	} else {
-<span id="L547" class="ln">   547  </span>		o.Type = *all.Type
-<span id="L548" class="ln">   548  </span>	}
-<span id="L549" class="ln">   549  </span>
-<span id="L550" class="ln">   550  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L551" class="ln">   551  </span>		o.AdditionalProperties = additionalProperties
-<span id="L552" class="ln">   552  </span>	}
-<span id="L553" class="ln">   553  </span>
-<span id="L554" class="ln">   554  </span>	if hasInvalidField {
-<span id="L555" class="ln">   555  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L556" class="ln">   556  </span>		if err != nil {
-<span id="L557" class="ln">   557  </span>			return err
-<span id="L558" class="ln">   558  </span>		}
-<span id="L559" class="ln">   559  </span>		o.UnparsedObject = raw
-<span id="L560" class="ln">   560  </span>	}
-<span id="L561" class="ln">   561  </span>
-<span id="L562" class="ln">   562  </span>	return nil
-<span id="L563" class="ln">   563  </span>}
-<span id="L564" class="ln">   564  </span>
+<span id="L543" class="ln">   543  </span>
+<span id="L544" class="ln">   544  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L545" class="ln">   545  </span>		o.AdditionalProperties = additionalProperties
+<span id="L546" class="ln">   546  </span>	}
+<span id="L547" class="ln">   547  </span>
+<span id="L548" class="ln">   548  </span>	if hasInvalidField {
+<span id="L549" class="ln">   549  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L550" class="ln">   550  </span>	}
+<span id="L551" class="ln">   551  </span>
+<span id="L552" class="ln">   552  </span>	return nil
+<span id="L553" class="ln">   553  </span>}
+<span id="L554" class="ln">   554  </span>
 </pre><p></p>
 
 <div id="footer">

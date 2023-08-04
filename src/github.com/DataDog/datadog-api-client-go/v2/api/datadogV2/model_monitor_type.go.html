@@ -469,103 +469,97 @@
 <span id="L412" class="ln">   412  </span>
 <span id="L413" class="ln">   413  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L414" class="ln">   414  </span>func (o *MonitorType) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L415" class="ln">   415  </span>	raw := map[string]interface{}{}
-<span id="L416" class="ln">   416  </span>	all := struct {
-<span id="L417" class="ln">   417  </span>		CreatedAt     *int64   `json:&#34;created_at,omitempty&#34;`
-<span id="L418" class="ln">   418  </span>		GroupStatus   *int32   `json:&#34;group_status,omitempty&#34;`
-<span id="L419" class="ln">   419  </span>		Groups        []string `json:&#34;groups,omitempty&#34;`
-<span id="L420" class="ln">   420  </span>		Id            *int64   `json:&#34;id,omitempty&#34;`
-<span id="L421" class="ln">   421  </span>		Message       *string  `json:&#34;message,omitempty&#34;`
-<span id="L422" class="ln">   422  </span>		Modified      *int64   `json:&#34;modified,omitempty&#34;`
-<span id="L423" class="ln">   423  </span>		Name          *string  `json:&#34;name,omitempty&#34;`
-<span id="L424" class="ln">   424  </span>		Query         *string  `json:&#34;query,omitempty&#34;`
-<span id="L425" class="ln">   425  </span>		Tags          []string `json:&#34;tags,omitempty&#34;`
-<span id="L426" class="ln">   426  </span>		TemplatedName *string  `json:&#34;templated_name,omitempty&#34;`
-<span id="L427" class="ln">   427  </span>		Type          *string  `json:&#34;type,omitempty&#34;`
-<span id="L428" class="ln">   428  </span>	}{}
-<span id="L429" class="ln">   429  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L430" class="ln">   430  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L431" class="ln">   431  </span>		if err != nil {
-<span id="L432" class="ln">   432  </span>			return err
-<span id="L433" class="ln">   433  </span>		}
-<span id="L434" class="ln">   434  </span>		o.UnparsedObject = raw
-<span id="L435" class="ln">   435  </span>		return nil
+<span id="L415" class="ln">   415  </span>	all := struct {
+<span id="L416" class="ln">   416  </span>		CreatedAt     *int64   `json:&#34;created_at,omitempty&#34;`
+<span id="L417" class="ln">   417  </span>		GroupStatus   *int32   `json:&#34;group_status,omitempty&#34;`
+<span id="L418" class="ln">   418  </span>		Groups        []string `json:&#34;groups,omitempty&#34;`
+<span id="L419" class="ln">   419  </span>		Id            *int64   `json:&#34;id,omitempty&#34;`
+<span id="L420" class="ln">   420  </span>		Message       *string  `json:&#34;message,omitempty&#34;`
+<span id="L421" class="ln">   421  </span>		Modified      *int64   `json:&#34;modified,omitempty&#34;`
+<span id="L422" class="ln">   422  </span>		Name          *string  `json:&#34;name,omitempty&#34;`
+<span id="L423" class="ln">   423  </span>		Query         *string  `json:&#34;query,omitempty&#34;`
+<span id="L424" class="ln">   424  </span>		Tags          []string `json:&#34;tags,omitempty&#34;`
+<span id="L425" class="ln">   425  </span>		TemplatedName *string  `json:&#34;templated_name,omitempty&#34;`
+<span id="L426" class="ln">   426  </span>		Type          *string  `json:&#34;type,omitempty&#34;`
+<span id="L427" class="ln">   427  </span>	}{}
+<span id="L428" class="ln">   428  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L429" class="ln">   429  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L430" class="ln">   430  </span>	}
+<span id="L431" class="ln">   431  </span>	additionalProperties := make(map[string]interface{})
+<span id="L432" class="ln">   432  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L433" class="ln">   433  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;group_status&#34;, &#34;groups&#34;, &#34;id&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;name&#34;, &#34;query&#34;, &#34;tags&#34;, &#34;templated_name&#34;, &#34;type&#34;})
+<span id="L434" class="ln">   434  </span>	} else {
+<span id="L435" class="ln">   435  </span>		return err
 <span id="L436" class="ln">   436  </span>	}
-<span id="L437" class="ln">   437  </span>	additionalProperties := make(map[string]interface{})
-<span id="L438" class="ln">   438  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L439" class="ln">   439  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;group_status&#34;, &#34;groups&#34;, &#34;id&#34;, &#34;message&#34;, &#34;modified&#34;, &#34;name&#34;, &#34;query&#34;, &#34;tags&#34;, &#34;templated_name&#34;, &#34;type&#34;})
-<span id="L440" class="ln">   440  </span>	} else {
-<span id="L441" class="ln">   441  </span>		return err
-<span id="L442" class="ln">   442  </span>	}
-<span id="L443" class="ln">   443  </span>	o.CreatedAt = all.CreatedAt
-<span id="L444" class="ln">   444  </span>	o.GroupStatus = all.GroupStatus
-<span id="L445" class="ln">   445  </span>	o.Groups = all.Groups
-<span id="L446" class="ln">   446  </span>	o.Id = all.Id
-<span id="L447" class="ln">   447  </span>	o.Message = all.Message
-<span id="L448" class="ln">   448  </span>	o.Modified = all.Modified
-<span id="L449" class="ln">   449  </span>	o.Name = all.Name
-<span id="L450" class="ln">   450  </span>	o.Query = all.Query
-<span id="L451" class="ln">   451  </span>	o.Tags = all.Tags
-<span id="L452" class="ln">   452  </span>	o.TemplatedName = all.TemplatedName
-<span id="L453" class="ln">   453  </span>	o.Type = all.Type
-<span id="L454" class="ln">   454  </span>
-<span id="L455" class="ln">   455  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L456" class="ln">   456  </span>		o.AdditionalProperties = additionalProperties
-<span id="L457" class="ln">   457  </span>	}
-<span id="L458" class="ln">   458  </span>
-<span id="L459" class="ln">   459  </span>	return nil
+<span id="L437" class="ln">   437  </span>	o.CreatedAt = all.CreatedAt
+<span id="L438" class="ln">   438  </span>	o.GroupStatus = all.GroupStatus
+<span id="L439" class="ln">   439  </span>	o.Groups = all.Groups
+<span id="L440" class="ln">   440  </span>	o.Id = all.Id
+<span id="L441" class="ln">   441  </span>	o.Message = all.Message
+<span id="L442" class="ln">   442  </span>	o.Modified = all.Modified
+<span id="L443" class="ln">   443  </span>	o.Name = all.Name
+<span id="L444" class="ln">   444  </span>	o.Query = all.Query
+<span id="L445" class="ln">   445  </span>	o.Tags = all.Tags
+<span id="L446" class="ln">   446  </span>	o.TemplatedName = all.TemplatedName
+<span id="L447" class="ln">   447  </span>	o.Type = all.Type
+<span id="L448" class="ln">   448  </span>
+<span id="L449" class="ln">   449  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L450" class="ln">   450  </span>		o.AdditionalProperties = additionalProperties
+<span id="L451" class="ln">   451  </span>	}
+<span id="L452" class="ln">   452  </span>
+<span id="L453" class="ln">   453  </span>	return nil
+<span id="L454" class="ln">   454  </span>}
+<span id="L455" class="ln">   455  </span>
+<span id="L456" class="ln">   456  </span><span class="comment">// NullableMonitorType handles when a null is used for MonitorType.</span>
+<span id="L457" class="ln">   457  </span>type NullableMonitorType struct {
+<span id="L458" class="ln">   458  </span>	value *MonitorType
+<span id="L459" class="ln">   459  </span>	isSet bool
 <span id="L460" class="ln">   460  </span>}
 <span id="L461" class="ln">   461  </span>
-<span id="L462" class="ln">   462  </span><span class="comment">// NullableMonitorType handles when a null is used for MonitorType.</span>
-<span id="L463" class="ln">   463  </span>type NullableMonitorType struct {
-<span id="L464" class="ln">   464  </span>	value *MonitorType
-<span id="L465" class="ln">   465  </span>	isSet bool
-<span id="L466" class="ln">   466  </span>}
-<span id="L467" class="ln">   467  </span>
-<span id="L468" class="ln">   468  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L469" class="ln">   469  </span>func (v NullableMonitorType) Get() *MonitorType {
-<span id="L470" class="ln">   470  </span>	return v.value
+<span id="L462" class="ln">   462  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L463" class="ln">   463  </span>func (v NullableMonitorType) Get() *MonitorType {
+<span id="L464" class="ln">   464  </span>	return v.value
+<span id="L465" class="ln">   465  </span>}
+<span id="L466" class="ln">   466  </span>
+<span id="L467" class="ln">   467  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L468" class="ln">   468  </span>func (v *NullableMonitorType) Set(val *MonitorType) {
+<span id="L469" class="ln">   469  </span>	v.value = val
+<span id="L470" class="ln">   470  </span>	v.isSet = true
 <span id="L471" class="ln">   471  </span>}
 <span id="L472" class="ln">   472  </span>
-<span id="L473" class="ln">   473  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L474" class="ln">   474  </span>func (v *NullableMonitorType) Set(val *MonitorType) {
-<span id="L475" class="ln">   475  </span>	v.value = val
-<span id="L476" class="ln">   476  </span>	v.isSet = true
-<span id="L477" class="ln">   477  </span>}
-<span id="L478" class="ln">   478  </span>
-<span id="L479" class="ln">   479  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L480" class="ln">   480  </span>func (v NullableMonitorType) IsSet() bool {
-<span id="L481" class="ln">   481  </span>	return v.isSet
+<span id="L473" class="ln">   473  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L474" class="ln">   474  </span>func (v NullableMonitorType) IsSet() bool {
+<span id="L475" class="ln">   475  </span>	return v.isSet
+<span id="L476" class="ln">   476  </span>}
+<span id="L477" class="ln">   477  </span>
+<span id="L478" class="ln">   478  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L479" class="ln">   479  </span>func (v *NullableMonitorType) Unset() {
+<span id="L480" class="ln">   480  </span>	v.value = nil
+<span id="L481" class="ln">   481  </span>	v.isSet = false
 <span id="L482" class="ln">   482  </span>}
 <span id="L483" class="ln">   483  </span>
-<span id="L484" class="ln">   484  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L485" class="ln">   485  </span>func (v *NullableMonitorType) Unset() {
-<span id="L486" class="ln">   486  </span>	v.value = nil
-<span id="L487" class="ln">   487  </span>	v.isSet = false
-<span id="L488" class="ln">   488  </span>}
-<span id="L489" class="ln">   489  </span>
-<span id="L490" class="ln">   490  </span><span class="comment">// NewNullableMonitorType initializes the struct as if Set has been called.</span>
-<span id="L491" class="ln">   491  </span>func NewNullableMonitorType(val *MonitorType) *NullableMonitorType {
-<span id="L492" class="ln">   492  </span>	return &amp;NullableMonitorType{value: val, isSet: true}
-<span id="L493" class="ln">   493  </span>}
-<span id="L494" class="ln">   494  </span>
-<span id="L495" class="ln">   495  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L496" class="ln">   496  </span>func (v NullableMonitorType) MarshalJSON() ([]byte, error) {
-<span id="L497" class="ln">   497  </span>	return json.Marshal(v.value)
-<span id="L498" class="ln">   498  </span>}
-<span id="L499" class="ln">   499  </span>
-<span id="L500" class="ln">   500  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L501" class="ln">   501  </span>func (v *NullableMonitorType) UnmarshalJSON(src []byte) error {
-<span id="L502" class="ln">   502  </span>	v.isSet = true
-<span id="L503" class="ln">   503  </span>
-<span id="L504" class="ln">   504  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L505" class="ln">   505  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L506" class="ln">   506  </span>		return nil
-<span id="L507" class="ln">   507  </span>	}
-<span id="L508" class="ln">   508  </span>
-<span id="L509" class="ln">   509  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L510" class="ln">   510  </span>}
-<span id="L511" class="ln">   511  </span>
+<span id="L484" class="ln">   484  </span><span class="comment">// NewNullableMonitorType initializes the struct as if Set has been called.</span>
+<span id="L485" class="ln">   485  </span>func NewNullableMonitorType(val *MonitorType) *NullableMonitorType {
+<span id="L486" class="ln">   486  </span>	return &amp;NullableMonitorType{value: val, isSet: true}
+<span id="L487" class="ln">   487  </span>}
+<span id="L488" class="ln">   488  </span>
+<span id="L489" class="ln">   489  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L490" class="ln">   490  </span>func (v NullableMonitorType) MarshalJSON() ([]byte, error) {
+<span id="L491" class="ln">   491  </span>	return json.Marshal(v.value)
+<span id="L492" class="ln">   492  </span>}
+<span id="L493" class="ln">   493  </span>
+<span id="L494" class="ln">   494  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L495" class="ln">   495  </span>func (v *NullableMonitorType) UnmarshalJSON(src []byte) error {
+<span id="L496" class="ln">   496  </span>	v.isSet = true
+<span id="L497" class="ln">   497  </span>
+<span id="L498" class="ln">   498  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L499" class="ln">   499  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L500" class="ln">   500  </span>		return nil
+<span id="L501" class="ln">   501  </span>	}
+<span id="L502" class="ln">   502  </span>
+<span id="L503" class="ln">   503  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L504" class="ln">   504  </span>}
+<span id="L505" class="ln">   505  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -227,37 +227,31 @@
 <span id="L170" class="ln">   170  </span>
 <span id="L171" class="ln">   171  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L172" class="ln">   172  </span>func (o *UsageTopAvgMetricsPagination) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L173" class="ln">   173  </span>	raw := map[string]interface{}{}
-<span id="L174" class="ln">   174  </span>	all := struct {
-<span id="L175" class="ln">   175  </span>		Limit                *int64                 `json:&#34;limit,omitempty&#34;`
-<span id="L176" class="ln">   176  </span>		NextRecordId         datadog.NullableString `json:&#34;next_record_id,omitempty&#34;`
-<span id="L177" class="ln">   177  </span>		TotalNumberOfRecords datadog.NullableInt64  `json:&#34;total_number_of_records,omitempty&#34;`
-<span id="L178" class="ln">   178  </span>	}{}
-<span id="L179" class="ln">   179  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L180" class="ln">   180  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L181" class="ln">   181  </span>		if err != nil {
-<span id="L182" class="ln">   182  </span>			return err
-<span id="L183" class="ln">   183  </span>		}
-<span id="L184" class="ln">   184  </span>		o.UnparsedObject = raw
-<span id="L185" class="ln">   185  </span>		return nil
+<span id="L173" class="ln">   173  </span>	all := struct {
+<span id="L174" class="ln">   174  </span>		Limit                *int64                 `json:&#34;limit,omitempty&#34;`
+<span id="L175" class="ln">   175  </span>		NextRecordId         datadog.NullableString `json:&#34;next_record_id,omitempty&#34;`
+<span id="L176" class="ln">   176  </span>		TotalNumberOfRecords datadog.NullableInt64  `json:&#34;total_number_of_records,omitempty&#34;`
+<span id="L177" class="ln">   177  </span>	}{}
+<span id="L178" class="ln">   178  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L179" class="ln">   179  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L180" class="ln">   180  </span>	}
+<span id="L181" class="ln">   181  </span>	additionalProperties := make(map[string]interface{})
+<span id="L182" class="ln">   182  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L183" class="ln">   183  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;limit&#34;, &#34;next_record_id&#34;, &#34;total_number_of_records&#34;})
+<span id="L184" class="ln">   184  </span>	} else {
+<span id="L185" class="ln">   185  </span>		return err
 <span id="L186" class="ln">   186  </span>	}
-<span id="L187" class="ln">   187  </span>	additionalProperties := make(map[string]interface{})
-<span id="L188" class="ln">   188  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L189" class="ln">   189  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;limit&#34;, &#34;next_record_id&#34;, &#34;total_number_of_records&#34;})
-<span id="L190" class="ln">   190  </span>	} else {
-<span id="L191" class="ln">   191  </span>		return err
-<span id="L192" class="ln">   192  </span>	}
-<span id="L193" class="ln">   193  </span>	o.Limit = all.Limit
-<span id="L194" class="ln">   194  </span>	o.NextRecordId = all.NextRecordId
-<span id="L195" class="ln">   195  </span>	o.TotalNumberOfRecords = all.TotalNumberOfRecords
-<span id="L196" class="ln">   196  </span>
-<span id="L197" class="ln">   197  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L198" class="ln">   198  </span>		o.AdditionalProperties = additionalProperties
-<span id="L199" class="ln">   199  </span>	}
-<span id="L200" class="ln">   200  </span>
-<span id="L201" class="ln">   201  </span>	return nil
-<span id="L202" class="ln">   202  </span>}
-<span id="L203" class="ln">   203  </span>
+<span id="L187" class="ln">   187  </span>	o.Limit = all.Limit
+<span id="L188" class="ln">   188  </span>	o.NextRecordId = all.NextRecordId
+<span id="L189" class="ln">   189  </span>	o.TotalNumberOfRecords = all.TotalNumberOfRecords
+<span id="L190" class="ln">   190  </span>
+<span id="L191" class="ln">   191  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L192" class="ln">   192  </span>		o.AdditionalProperties = additionalProperties
+<span id="L193" class="ln">   193  </span>	}
+<span id="L194" class="ln">   194  </span>
+<span id="L195" class="ln">   195  </span>	return nil
+<span id="L196" class="ln">   196  </span>}
+<span id="L197" class="ln">   197  </span>
 </pre><p></p>
 
 <div id="footer">

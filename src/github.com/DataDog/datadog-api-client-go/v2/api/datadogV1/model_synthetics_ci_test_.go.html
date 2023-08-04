@@ -564,78 +564,68 @@
 <span id="L507" class="ln">   507  </span>
 <span id="L508" class="ln">   508  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L509" class="ln">   509  </span>func (o *SyntheticsCITest) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L510" class="ln">   510  </span>	raw := map[string]interface{}{}
-<span id="L511" class="ln">   511  </span>	all := struct {
-<span id="L512" class="ln">   512  </span>		AllowInsecureCertificates *bool                       `json:&#34;allowInsecureCertificates,omitempty&#34;`
-<span id="L513" class="ln">   513  </span>		BasicAuth                 *SyntheticsBasicAuth        `json:&#34;basicAuth,omitempty&#34;`
-<span id="L514" class="ln">   514  </span>		Body                      *string                     `json:&#34;body,omitempty&#34;`
-<span id="L515" class="ln">   515  </span>		BodyType                  *string                     `json:&#34;bodyType,omitempty&#34;`
-<span id="L516" class="ln">   516  </span>		Cookies                   *string                     `json:&#34;cookies,omitempty&#34;`
-<span id="L517" class="ln">   517  </span>		DeviceIds                 []SyntheticsDeviceID        `json:&#34;deviceIds,omitempty&#34;`
-<span id="L518" class="ln">   518  </span>		FollowRedirects           *bool                       `json:&#34;followRedirects,omitempty&#34;`
-<span id="L519" class="ln">   519  </span>		Headers                   map[string]string           `json:&#34;headers,omitempty&#34;`
-<span id="L520" class="ln">   520  </span>		Locations                 []string                    `json:&#34;locations,omitempty&#34;`
-<span id="L521" class="ln">   521  </span>		Metadata                  *SyntheticsCIBatchMetadata  `json:&#34;metadata,omitempty&#34;`
-<span id="L522" class="ln">   522  </span>		PublicId                  *string                     `json:&#34;public_id&#34;`
-<span id="L523" class="ln">   523  </span>		Retry                     *SyntheticsTestOptionsRetry `json:&#34;retry,omitempty&#34;`
-<span id="L524" class="ln">   524  </span>		StartUrl                  *string                     `json:&#34;startUrl,omitempty&#34;`
-<span id="L525" class="ln">   525  </span>		Variables                 map[string]string           `json:&#34;variables,omitempty&#34;`
-<span id="L526" class="ln">   526  </span>	}{}
-<span id="L527" class="ln">   527  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L528" class="ln">   528  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L529" class="ln">   529  </span>		if err != nil {
-<span id="L530" class="ln">   530  </span>			return err
-<span id="L531" class="ln">   531  </span>		}
-<span id="L532" class="ln">   532  </span>		o.UnparsedObject = raw
-<span id="L533" class="ln">   533  </span>		return nil
-<span id="L534" class="ln">   534  </span>	}
-<span id="L535" class="ln">   535  </span>	if all.PublicId == nil {
-<span id="L536" class="ln">   536  </span>		return fmt.Errorf(&#34;required field public_id missing&#34;)
+<span id="L510" class="ln">   510  </span>	all := struct {
+<span id="L511" class="ln">   511  </span>		AllowInsecureCertificates *bool                       `json:&#34;allowInsecureCertificates,omitempty&#34;`
+<span id="L512" class="ln">   512  </span>		BasicAuth                 *SyntheticsBasicAuth        `json:&#34;basicAuth,omitempty&#34;`
+<span id="L513" class="ln">   513  </span>		Body                      *string                     `json:&#34;body,omitempty&#34;`
+<span id="L514" class="ln">   514  </span>		BodyType                  *string                     `json:&#34;bodyType,omitempty&#34;`
+<span id="L515" class="ln">   515  </span>		Cookies                   *string                     `json:&#34;cookies,omitempty&#34;`
+<span id="L516" class="ln">   516  </span>		DeviceIds                 []SyntheticsDeviceID        `json:&#34;deviceIds,omitempty&#34;`
+<span id="L517" class="ln">   517  </span>		FollowRedirects           *bool                       `json:&#34;followRedirects,omitempty&#34;`
+<span id="L518" class="ln">   518  </span>		Headers                   map[string]string           `json:&#34;headers,omitempty&#34;`
+<span id="L519" class="ln">   519  </span>		Locations                 []string                    `json:&#34;locations,omitempty&#34;`
+<span id="L520" class="ln">   520  </span>		Metadata                  *SyntheticsCIBatchMetadata  `json:&#34;metadata,omitempty&#34;`
+<span id="L521" class="ln">   521  </span>		PublicId                  *string                     `json:&#34;public_id&#34;`
+<span id="L522" class="ln">   522  </span>		Retry                     *SyntheticsTestOptionsRetry `json:&#34;retry,omitempty&#34;`
+<span id="L523" class="ln">   523  </span>		StartUrl                  *string                     `json:&#34;startUrl,omitempty&#34;`
+<span id="L524" class="ln">   524  </span>		Variables                 map[string]string           `json:&#34;variables,omitempty&#34;`
+<span id="L525" class="ln">   525  </span>	}{}
+<span id="L526" class="ln">   526  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L527" class="ln">   527  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L528" class="ln">   528  </span>	}
+<span id="L529" class="ln">   529  </span>	if all.PublicId == nil {
+<span id="L530" class="ln">   530  </span>		return fmt.Errorf(&#34;required field public_id missing&#34;)
+<span id="L531" class="ln">   531  </span>	}
+<span id="L532" class="ln">   532  </span>	additionalProperties := make(map[string]interface{})
+<span id="L533" class="ln">   533  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L534" class="ln">   534  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;allowInsecureCertificates&#34;, &#34;basicAuth&#34;, &#34;body&#34;, &#34;bodyType&#34;, &#34;cookies&#34;, &#34;deviceIds&#34;, &#34;followRedirects&#34;, &#34;headers&#34;, &#34;locations&#34;, &#34;metadata&#34;, &#34;public_id&#34;, &#34;retry&#34;, &#34;startUrl&#34;, &#34;variables&#34;})
+<span id="L535" class="ln">   535  </span>	} else {
+<span id="L536" class="ln">   536  </span>		return err
 <span id="L537" class="ln">   537  </span>	}
-<span id="L538" class="ln">   538  </span>	additionalProperties := make(map[string]interface{})
-<span id="L539" class="ln">   539  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L540" class="ln">   540  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;allowInsecureCertificates&#34;, &#34;basicAuth&#34;, &#34;body&#34;, &#34;bodyType&#34;, &#34;cookies&#34;, &#34;deviceIds&#34;, &#34;followRedirects&#34;, &#34;headers&#34;, &#34;locations&#34;, &#34;metadata&#34;, &#34;public_id&#34;, &#34;retry&#34;, &#34;startUrl&#34;, &#34;variables&#34;})
-<span id="L541" class="ln">   541  </span>	} else {
-<span id="L542" class="ln">   542  </span>		return err
-<span id="L543" class="ln">   543  </span>	}
-<span id="L544" class="ln">   544  </span>
-<span id="L545" class="ln">   545  </span>	hasInvalidField := false
-<span id="L546" class="ln">   546  </span>	o.AllowInsecureCertificates = all.AllowInsecureCertificates
-<span id="L547" class="ln">   547  </span>	o.BasicAuth = all.BasicAuth
-<span id="L548" class="ln">   548  </span>	o.Body = all.Body
-<span id="L549" class="ln">   549  </span>	o.BodyType = all.BodyType
-<span id="L550" class="ln">   550  </span>	o.Cookies = all.Cookies
-<span id="L551" class="ln">   551  </span>	o.DeviceIds = all.DeviceIds
-<span id="L552" class="ln">   552  </span>	o.FollowRedirects = all.FollowRedirects
-<span id="L553" class="ln">   553  </span>	o.Headers = all.Headers
-<span id="L554" class="ln">   554  </span>	o.Locations = all.Locations
-<span id="L555" class="ln">   555  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L556" class="ln">   556  </span>		hasInvalidField = true
-<span id="L557" class="ln">   557  </span>	}
-<span id="L558" class="ln">   558  </span>	o.Metadata = all.Metadata
-<span id="L559" class="ln">   559  </span>	o.PublicId = *all.PublicId
-<span id="L560" class="ln">   560  </span>	if all.Retry != nil &amp;&amp; all.Retry.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L561" class="ln">   561  </span>		hasInvalidField = true
-<span id="L562" class="ln">   562  </span>	}
-<span id="L563" class="ln">   563  </span>	o.Retry = all.Retry
-<span id="L564" class="ln">   564  </span>	o.StartUrl = all.StartUrl
-<span id="L565" class="ln">   565  </span>	o.Variables = all.Variables
-<span id="L566" class="ln">   566  </span>
-<span id="L567" class="ln">   567  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L568" class="ln">   568  </span>		o.AdditionalProperties = additionalProperties
-<span id="L569" class="ln">   569  </span>	}
-<span id="L570" class="ln">   570  </span>
-<span id="L571" class="ln">   571  </span>	if hasInvalidField {
-<span id="L572" class="ln">   572  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L573" class="ln">   573  </span>		if err != nil {
-<span id="L574" class="ln">   574  </span>			return err
-<span id="L575" class="ln">   575  </span>		}
-<span id="L576" class="ln">   576  </span>		o.UnparsedObject = raw
-<span id="L577" class="ln">   577  </span>	}
-<span id="L578" class="ln">   578  </span>
-<span id="L579" class="ln">   579  </span>	return nil
-<span id="L580" class="ln">   580  </span>}
-<span id="L581" class="ln">   581  </span>
+<span id="L538" class="ln">   538  </span>
+<span id="L539" class="ln">   539  </span>	hasInvalidField := false
+<span id="L540" class="ln">   540  </span>	o.AllowInsecureCertificates = all.AllowInsecureCertificates
+<span id="L541" class="ln">   541  </span>	o.BasicAuth = all.BasicAuth
+<span id="L542" class="ln">   542  </span>	o.Body = all.Body
+<span id="L543" class="ln">   543  </span>	o.BodyType = all.BodyType
+<span id="L544" class="ln">   544  </span>	o.Cookies = all.Cookies
+<span id="L545" class="ln">   545  </span>	o.DeviceIds = all.DeviceIds
+<span id="L546" class="ln">   546  </span>	o.FollowRedirects = all.FollowRedirects
+<span id="L547" class="ln">   547  </span>	o.Headers = all.Headers
+<span id="L548" class="ln">   548  </span>	o.Locations = all.Locations
+<span id="L549" class="ln">   549  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L550" class="ln">   550  </span>		hasInvalidField = true
+<span id="L551" class="ln">   551  </span>	}
+<span id="L552" class="ln">   552  </span>	o.Metadata = all.Metadata
+<span id="L553" class="ln">   553  </span>	o.PublicId = *all.PublicId
+<span id="L554" class="ln">   554  </span>	if all.Retry != nil &amp;&amp; all.Retry.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L555" class="ln">   555  </span>		hasInvalidField = true
+<span id="L556" class="ln">   556  </span>	}
+<span id="L557" class="ln">   557  </span>	o.Retry = all.Retry
+<span id="L558" class="ln">   558  </span>	o.StartUrl = all.StartUrl
+<span id="L559" class="ln">   559  </span>	o.Variables = all.Variables
+<span id="L560" class="ln">   560  </span>
+<span id="L561" class="ln">   561  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L562" class="ln">   562  </span>		o.AdditionalProperties = additionalProperties
+<span id="L563" class="ln">   563  </span>	}
+<span id="L564" class="ln">   564  </span>
+<span id="L565" class="ln">   565  </span>	if hasInvalidField {
+<span id="L566" class="ln">   566  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L567" class="ln">   567  </span>	}
+<span id="L568" class="ln">   568  </span>
+<span id="L569" class="ln">   569  </span>	return nil
+<span id="L570" class="ln">   570  </span>}
+<span id="L571" class="ln">   571  </span>
 </pre><p></p>
 
 <div id="footer">

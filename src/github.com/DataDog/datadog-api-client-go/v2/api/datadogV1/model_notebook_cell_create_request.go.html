@@ -158,45 +158,35 @@
 <span id="L101" class="ln">   101  </span>
 <span id="L102" class="ln">   102  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L103" class="ln">   103  </span>func (o *NotebookCellCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L104" class="ln">   104  </span>	raw := map[string]interface{}{}
-<span id="L105" class="ln">   105  </span>	all := struct {
-<span id="L106" class="ln">   106  </span>		Attributes *NotebookCellCreateRequestAttributes `json:&#34;attributes&#34;`
-<span id="L107" class="ln">   107  </span>		Type       *NotebookCellResourceType            `json:&#34;type&#34;`
-<span id="L108" class="ln">   108  </span>	}{}
-<span id="L109" class="ln">   109  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L110" class="ln">   110  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L111" class="ln">   111  </span>		if err != nil {
-<span id="L112" class="ln">   112  </span>			return err
-<span id="L113" class="ln">   113  </span>		}
-<span id="L114" class="ln">   114  </span>		o.UnparsedObject = raw
-<span id="L115" class="ln">   115  </span>		return nil
+<span id="L104" class="ln">   104  </span>	all := struct {
+<span id="L105" class="ln">   105  </span>		Attributes *NotebookCellCreateRequestAttributes `json:&#34;attributes&#34;`
+<span id="L106" class="ln">   106  </span>		Type       *NotebookCellResourceType            `json:&#34;type&#34;`
+<span id="L107" class="ln">   107  </span>	}{}
+<span id="L108" class="ln">   108  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L109" class="ln">   109  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L110" class="ln">   110  </span>	}
+<span id="L111" class="ln">   111  </span>	if all.Attributes == nil {
+<span id="L112" class="ln">   112  </span>		return fmt.Errorf(&#34;required field attributes missing&#34;)
+<span id="L113" class="ln">   113  </span>	}
+<span id="L114" class="ln">   114  </span>	if all.Type == nil {
+<span id="L115" class="ln">   115  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
 <span id="L116" class="ln">   116  </span>	}
-<span id="L117" class="ln">   117  </span>	if all.Attributes == nil {
-<span id="L118" class="ln">   118  </span>		return fmt.Errorf(&#34;required field attributes missing&#34;)
-<span id="L119" class="ln">   119  </span>	}
-<span id="L120" class="ln">   120  </span>	if all.Type == nil {
-<span id="L121" class="ln">   121  </span>		return fmt.Errorf(&#34;required field type missing&#34;)
-<span id="L122" class="ln">   122  </span>	}
-<span id="L123" class="ln">   123  </span>
-<span id="L124" class="ln">   124  </span>	hasInvalidField := false
-<span id="L125" class="ln">   125  </span>	o.Attributes = *all.Attributes
-<span id="L126" class="ln">   126  </span>	if v := all.Type; !v.IsValid() {
-<span id="L127" class="ln">   127  </span>		hasInvalidField = true
-<span id="L128" class="ln">   128  </span>	} else {
-<span id="L129" class="ln">   129  </span>		o.Type = *all.Type
-<span id="L130" class="ln">   130  </span>	}
-<span id="L131" class="ln">   131  </span>
-<span id="L132" class="ln">   132  </span>	if hasInvalidField {
-<span id="L133" class="ln">   133  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L134" class="ln">   134  </span>		if err != nil {
-<span id="L135" class="ln">   135  </span>			return err
-<span id="L136" class="ln">   136  </span>		}
-<span id="L137" class="ln">   137  </span>		o.UnparsedObject = raw
-<span id="L138" class="ln">   138  </span>	}
-<span id="L139" class="ln">   139  </span>
-<span id="L140" class="ln">   140  </span>	return nil
-<span id="L141" class="ln">   141  </span>}
-<span id="L142" class="ln">   142  </span>
+<span id="L117" class="ln">   117  </span>
+<span id="L118" class="ln">   118  </span>	hasInvalidField := false
+<span id="L119" class="ln">   119  </span>	o.Attributes = *all.Attributes
+<span id="L120" class="ln">   120  </span>	if !all.Type.IsValid() {
+<span id="L121" class="ln">   121  </span>		hasInvalidField = true
+<span id="L122" class="ln">   122  </span>	} else {
+<span id="L123" class="ln">   123  </span>		o.Type = *all.Type
+<span id="L124" class="ln">   124  </span>	}
+<span id="L125" class="ln">   125  </span>
+<span id="L126" class="ln">   126  </span>	if hasInvalidField {
+<span id="L127" class="ln">   127  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L128" class="ln">   128  </span>	}
+<span id="L129" class="ln">   129  </span>
+<span id="L130" class="ln">   130  </span>	return nil
+<span id="L131" class="ln">   131  </span>}
+<span id="L132" class="ln">   132  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -250,39 +250,33 @@
 <span id="L193" class="ln">   193  </span>
 <span id="L194" class="ln">   194  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L195" class="ln">   195  </span>func (o *DistributionWidgetXAxis) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L196" class="ln">   196  </span>	raw := map[string]interface{}{}
-<span id="L197" class="ln">   197  </span>	all := struct {
-<span id="L198" class="ln">   198  </span>		IncludeZero *bool   `json:&#34;include_zero,omitempty&#34;`
-<span id="L199" class="ln">   199  </span>		Max         *string `json:&#34;max,omitempty&#34;`
-<span id="L200" class="ln">   200  </span>		Min         *string `json:&#34;min,omitempty&#34;`
-<span id="L201" class="ln">   201  </span>		Scale       *string `json:&#34;scale,omitempty&#34;`
-<span id="L202" class="ln">   202  </span>	}{}
-<span id="L203" class="ln">   203  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L204" class="ln">   204  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L205" class="ln">   205  </span>		if err != nil {
-<span id="L206" class="ln">   206  </span>			return err
-<span id="L207" class="ln">   207  </span>		}
-<span id="L208" class="ln">   208  </span>		o.UnparsedObject = raw
-<span id="L209" class="ln">   209  </span>		return nil
+<span id="L196" class="ln">   196  </span>	all := struct {
+<span id="L197" class="ln">   197  </span>		IncludeZero *bool   `json:&#34;include_zero,omitempty&#34;`
+<span id="L198" class="ln">   198  </span>		Max         *string `json:&#34;max,omitempty&#34;`
+<span id="L199" class="ln">   199  </span>		Min         *string `json:&#34;min,omitempty&#34;`
+<span id="L200" class="ln">   200  </span>		Scale       *string `json:&#34;scale,omitempty&#34;`
+<span id="L201" class="ln">   201  </span>	}{}
+<span id="L202" class="ln">   202  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L203" class="ln">   203  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L204" class="ln">   204  </span>	}
+<span id="L205" class="ln">   205  </span>	additionalProperties := make(map[string]interface{})
+<span id="L206" class="ln">   206  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L207" class="ln">   207  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;include_zero&#34;, &#34;max&#34;, &#34;min&#34;, &#34;scale&#34;})
+<span id="L208" class="ln">   208  </span>	} else {
+<span id="L209" class="ln">   209  </span>		return err
 <span id="L210" class="ln">   210  </span>	}
-<span id="L211" class="ln">   211  </span>	additionalProperties := make(map[string]interface{})
-<span id="L212" class="ln">   212  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L213" class="ln">   213  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;include_zero&#34;, &#34;max&#34;, &#34;min&#34;, &#34;scale&#34;})
-<span id="L214" class="ln">   214  </span>	} else {
-<span id="L215" class="ln">   215  </span>		return err
-<span id="L216" class="ln">   216  </span>	}
-<span id="L217" class="ln">   217  </span>	o.IncludeZero = all.IncludeZero
-<span id="L218" class="ln">   218  </span>	o.Max = all.Max
-<span id="L219" class="ln">   219  </span>	o.Min = all.Min
-<span id="L220" class="ln">   220  </span>	o.Scale = all.Scale
-<span id="L221" class="ln">   221  </span>
-<span id="L222" class="ln">   222  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L223" class="ln">   223  </span>		o.AdditionalProperties = additionalProperties
-<span id="L224" class="ln">   224  </span>	}
-<span id="L225" class="ln">   225  </span>
-<span id="L226" class="ln">   226  </span>	return nil
-<span id="L227" class="ln">   227  </span>}
-<span id="L228" class="ln">   228  </span>
+<span id="L211" class="ln">   211  </span>	o.IncludeZero = all.IncludeZero
+<span id="L212" class="ln">   212  </span>	o.Max = all.Max
+<span id="L213" class="ln">   213  </span>	o.Min = all.Min
+<span id="L214" class="ln">   214  </span>	o.Scale = all.Scale
+<span id="L215" class="ln">   215  </span>
+<span id="L216" class="ln">   216  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L217" class="ln">   217  </span>		o.AdditionalProperties = additionalProperties
+<span id="L218" class="ln">   218  </span>	}
+<span id="L219" class="ln">   219  </span>
+<span id="L220" class="ln">   220  </span>	return nil
+<span id="L221" class="ln">   221  </span>}
+<span id="L222" class="ln">   222  </span>
 </pre><p></p>
 
 <div id="footer">

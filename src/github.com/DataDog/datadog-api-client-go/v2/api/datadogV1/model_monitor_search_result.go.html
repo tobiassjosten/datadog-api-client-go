@@ -549,78 +549,68 @@
 <span id="L492" class="ln">   492  </span>
 <span id="L493" class="ln">   493  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L494" class="ln">   494  </span>func (o *MonitorSearchResult) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L495" class="ln">   495  </span>	raw := map[string]interface{}{}
-<span id="L496" class="ln">   496  </span>	all := struct {
-<span id="L497" class="ln">   497  </span>		Classification  *string                           `json:&#34;classification,omitempty&#34;`
-<span id="L498" class="ln">   498  </span>		Creator         *Creator                          `json:&#34;creator,omitempty&#34;`
-<span id="L499" class="ln">   499  </span>		Id              *int64                            `json:&#34;id,omitempty&#34;`
-<span id="L500" class="ln">   500  </span>		LastTriggeredTs datadog.NullableInt64             `json:&#34;last_triggered_ts,omitempty&#34;`
-<span id="L501" class="ln">   501  </span>		Metrics         []string                          `json:&#34;metrics,omitempty&#34;`
-<span id="L502" class="ln">   502  </span>		Name            *string                           `json:&#34;name,omitempty&#34;`
-<span id="L503" class="ln">   503  </span>		Notifications   []MonitorSearchResultNotification `json:&#34;notifications,omitempty&#34;`
-<span id="L504" class="ln">   504  </span>		OrgId           *int64                            `json:&#34;org_id,omitempty&#34;`
-<span id="L505" class="ln">   505  </span>		Query           *string                           `json:&#34;query,omitempty&#34;`
-<span id="L506" class="ln">   506  </span>		Scopes          []string                          `json:&#34;scopes,omitempty&#34;`
-<span id="L507" class="ln">   507  </span>		Status          *MonitorOverallStates             `json:&#34;status,omitempty&#34;`
-<span id="L508" class="ln">   508  </span>		Tags            []string                          `json:&#34;tags,omitempty&#34;`
-<span id="L509" class="ln">   509  </span>		Type            *MonitorType                      `json:&#34;type,omitempty&#34;`
-<span id="L510" class="ln">   510  </span>	}{}
-<span id="L511" class="ln">   511  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L512" class="ln">   512  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L513" class="ln">   513  </span>		if err != nil {
-<span id="L514" class="ln">   514  </span>			return err
-<span id="L515" class="ln">   515  </span>		}
-<span id="L516" class="ln">   516  </span>		o.UnparsedObject = raw
-<span id="L517" class="ln">   517  </span>		return nil
+<span id="L495" class="ln">   495  </span>	all := struct {
+<span id="L496" class="ln">   496  </span>		Classification  *string                           `json:&#34;classification,omitempty&#34;`
+<span id="L497" class="ln">   497  </span>		Creator         *Creator                          `json:&#34;creator,omitempty&#34;`
+<span id="L498" class="ln">   498  </span>		Id              *int64                            `json:&#34;id,omitempty&#34;`
+<span id="L499" class="ln">   499  </span>		LastTriggeredTs datadog.NullableInt64             `json:&#34;last_triggered_ts,omitempty&#34;`
+<span id="L500" class="ln">   500  </span>		Metrics         []string                          `json:&#34;metrics,omitempty&#34;`
+<span id="L501" class="ln">   501  </span>		Name            *string                           `json:&#34;name,omitempty&#34;`
+<span id="L502" class="ln">   502  </span>		Notifications   []MonitorSearchResultNotification `json:&#34;notifications,omitempty&#34;`
+<span id="L503" class="ln">   503  </span>		OrgId           *int64                            `json:&#34;org_id,omitempty&#34;`
+<span id="L504" class="ln">   504  </span>		Query           *string                           `json:&#34;query,omitempty&#34;`
+<span id="L505" class="ln">   505  </span>		Scopes          []string                          `json:&#34;scopes,omitempty&#34;`
+<span id="L506" class="ln">   506  </span>		Status          *MonitorOverallStates             `json:&#34;status,omitempty&#34;`
+<span id="L507" class="ln">   507  </span>		Tags            []string                          `json:&#34;tags,omitempty&#34;`
+<span id="L508" class="ln">   508  </span>		Type            *MonitorType                      `json:&#34;type,omitempty&#34;`
+<span id="L509" class="ln">   509  </span>	}{}
+<span id="L510" class="ln">   510  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L511" class="ln">   511  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L512" class="ln">   512  </span>	}
+<span id="L513" class="ln">   513  </span>	additionalProperties := make(map[string]interface{})
+<span id="L514" class="ln">   514  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L515" class="ln">   515  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;classification&#34;, &#34;creator&#34;, &#34;id&#34;, &#34;last_triggered_ts&#34;, &#34;metrics&#34;, &#34;name&#34;, &#34;notifications&#34;, &#34;org_id&#34;, &#34;query&#34;, &#34;scopes&#34;, &#34;status&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L516" class="ln">   516  </span>	} else {
+<span id="L517" class="ln">   517  </span>		return err
 <span id="L518" class="ln">   518  </span>	}
-<span id="L519" class="ln">   519  </span>	additionalProperties := make(map[string]interface{})
-<span id="L520" class="ln">   520  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L521" class="ln">   521  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;classification&#34;, &#34;creator&#34;, &#34;id&#34;, &#34;last_triggered_ts&#34;, &#34;metrics&#34;, &#34;name&#34;, &#34;notifications&#34;, &#34;org_id&#34;, &#34;query&#34;, &#34;scopes&#34;, &#34;status&#34;, &#34;tags&#34;, &#34;type&#34;})
-<span id="L522" class="ln">   522  </span>	} else {
-<span id="L523" class="ln">   523  </span>		return err
+<span id="L519" class="ln">   519  </span>
+<span id="L520" class="ln">   520  </span>	hasInvalidField := false
+<span id="L521" class="ln">   521  </span>	o.Classification = all.Classification
+<span id="L522" class="ln">   522  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L523" class="ln">   523  </span>		hasInvalidField = true
 <span id="L524" class="ln">   524  </span>	}
-<span id="L525" class="ln">   525  </span>
-<span id="L526" class="ln">   526  </span>	hasInvalidField := false
-<span id="L527" class="ln">   527  </span>	o.Classification = all.Classification
-<span id="L528" class="ln">   528  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L529" class="ln">   529  </span>		hasInvalidField = true
-<span id="L530" class="ln">   530  </span>	}
-<span id="L531" class="ln">   531  </span>	o.Creator = all.Creator
-<span id="L532" class="ln">   532  </span>	o.Id = all.Id
-<span id="L533" class="ln">   533  </span>	o.LastTriggeredTs = all.LastTriggeredTs
-<span id="L534" class="ln">   534  </span>	o.Metrics = all.Metrics
-<span id="L535" class="ln">   535  </span>	o.Name = all.Name
-<span id="L536" class="ln">   536  </span>	o.Notifications = all.Notifications
-<span id="L537" class="ln">   537  </span>	o.OrgId = all.OrgId
-<span id="L538" class="ln">   538  </span>	o.Query = all.Query
-<span id="L539" class="ln">   539  </span>	o.Scopes = all.Scopes
-<span id="L540" class="ln">   540  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L525" class="ln">   525  </span>	o.Creator = all.Creator
+<span id="L526" class="ln">   526  </span>	o.Id = all.Id
+<span id="L527" class="ln">   527  </span>	o.LastTriggeredTs = all.LastTriggeredTs
+<span id="L528" class="ln">   528  </span>	o.Metrics = all.Metrics
+<span id="L529" class="ln">   529  </span>	o.Name = all.Name
+<span id="L530" class="ln">   530  </span>	o.Notifications = all.Notifications
+<span id="L531" class="ln">   531  </span>	o.OrgId = all.OrgId
+<span id="L532" class="ln">   532  </span>	o.Query = all.Query
+<span id="L533" class="ln">   533  </span>	o.Scopes = all.Scopes
+<span id="L534" class="ln">   534  </span>	if all.Status != nil &amp;&amp; !all.Status.IsValid() {
+<span id="L535" class="ln">   535  </span>		hasInvalidField = true
+<span id="L536" class="ln">   536  </span>	} else {
+<span id="L537" class="ln">   537  </span>		o.Status = all.Status
+<span id="L538" class="ln">   538  </span>	}
+<span id="L539" class="ln">   539  </span>	o.Tags = all.Tags
+<span id="L540" class="ln">   540  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
 <span id="L541" class="ln">   541  </span>		hasInvalidField = true
 <span id="L542" class="ln">   542  </span>	} else {
-<span id="L543" class="ln">   543  </span>		o.Status = all.Status
+<span id="L543" class="ln">   543  </span>		o.Type = all.Type
 <span id="L544" class="ln">   544  </span>	}
-<span id="L545" class="ln">   545  </span>	o.Tags = all.Tags
-<span id="L546" class="ln">   546  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L547" class="ln">   547  </span>		hasInvalidField = true
-<span id="L548" class="ln">   548  </span>	} else {
-<span id="L549" class="ln">   549  </span>		o.Type = all.Type
-<span id="L550" class="ln">   550  </span>	}
-<span id="L551" class="ln">   551  </span>
-<span id="L552" class="ln">   552  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L553" class="ln">   553  </span>		o.AdditionalProperties = additionalProperties
-<span id="L554" class="ln">   554  </span>	}
-<span id="L555" class="ln">   555  </span>
-<span id="L556" class="ln">   556  </span>	if hasInvalidField {
-<span id="L557" class="ln">   557  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L558" class="ln">   558  </span>		if err != nil {
-<span id="L559" class="ln">   559  </span>			return err
-<span id="L560" class="ln">   560  </span>		}
-<span id="L561" class="ln">   561  </span>		o.UnparsedObject = raw
-<span id="L562" class="ln">   562  </span>	}
-<span id="L563" class="ln">   563  </span>
-<span id="L564" class="ln">   564  </span>	return nil
-<span id="L565" class="ln">   565  </span>}
-<span id="L566" class="ln">   566  </span>
+<span id="L545" class="ln">   545  </span>
+<span id="L546" class="ln">   546  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L547" class="ln">   547  </span>		o.AdditionalProperties = additionalProperties
+<span id="L548" class="ln">   548  </span>	}
+<span id="L549" class="ln">   549  </span>
+<span id="L550" class="ln">   550  </span>	if hasInvalidField {
+<span id="L551" class="ln">   551  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L552" class="ln">   552  </span>	}
+<span id="L553" class="ln">   553  </span>
+<span id="L554" class="ln">   554  </span>	return nil
+<span id="L555" class="ln">   555  </span>}
+<span id="L556" class="ln">   556  </span>
 </pre><p></p>
 
 <div id="footer">

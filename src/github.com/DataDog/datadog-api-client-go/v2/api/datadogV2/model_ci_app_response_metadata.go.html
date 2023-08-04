@@ -239,53 +239,43 @@
 <span id="L182" class="ln">   182  </span>
 <span id="L183" class="ln">   183  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L184" class="ln">   184  </span>func (o *CIAppResponseMetadata) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L185" class="ln">   185  </span>	raw := map[string]interface{}{}
-<span id="L186" class="ln">   186  </span>	all := struct {
-<span id="L187" class="ln">   187  </span>		Elapsed   *int64               `json:&#34;elapsed,omitempty&#34;`
-<span id="L188" class="ln">   188  </span>		RequestId *string              `json:&#34;request_id,omitempty&#34;`
-<span id="L189" class="ln">   189  </span>		Status    *CIAppResponseStatus `json:&#34;status,omitempty&#34;`
-<span id="L190" class="ln">   190  </span>		Warnings  []CIAppWarning       `json:&#34;warnings,omitempty&#34;`
-<span id="L191" class="ln">   191  </span>	}{}
-<span id="L192" class="ln">   192  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L193" class="ln">   193  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L194" class="ln">   194  </span>		if err != nil {
-<span id="L195" class="ln">   195  </span>			return err
-<span id="L196" class="ln">   196  </span>		}
-<span id="L197" class="ln">   197  </span>		o.UnparsedObject = raw
-<span id="L198" class="ln">   198  </span>		return nil
+<span id="L185" class="ln">   185  </span>	all := struct {
+<span id="L186" class="ln">   186  </span>		Elapsed   *int64               `json:&#34;elapsed,omitempty&#34;`
+<span id="L187" class="ln">   187  </span>		RequestId *string              `json:&#34;request_id,omitempty&#34;`
+<span id="L188" class="ln">   188  </span>		Status    *CIAppResponseStatus `json:&#34;status,omitempty&#34;`
+<span id="L189" class="ln">   189  </span>		Warnings  []CIAppWarning       `json:&#34;warnings,omitempty&#34;`
+<span id="L190" class="ln">   190  </span>	}{}
+<span id="L191" class="ln">   191  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L192" class="ln">   192  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L193" class="ln">   193  </span>	}
+<span id="L194" class="ln">   194  </span>	additionalProperties := make(map[string]interface{})
+<span id="L195" class="ln">   195  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L196" class="ln">   196  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;elapsed&#34;, &#34;request_id&#34;, &#34;status&#34;, &#34;warnings&#34;})
+<span id="L197" class="ln">   197  </span>	} else {
+<span id="L198" class="ln">   198  </span>		return err
 <span id="L199" class="ln">   199  </span>	}
-<span id="L200" class="ln">   200  </span>	additionalProperties := make(map[string]interface{})
-<span id="L201" class="ln">   201  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L202" class="ln">   202  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;elapsed&#34;, &#34;request_id&#34;, &#34;status&#34;, &#34;warnings&#34;})
-<span id="L203" class="ln">   203  </span>	} else {
-<span id="L204" class="ln">   204  </span>		return err
-<span id="L205" class="ln">   205  </span>	}
-<span id="L206" class="ln">   206  </span>
-<span id="L207" class="ln">   207  </span>	hasInvalidField := false
-<span id="L208" class="ln">   208  </span>	o.Elapsed = all.Elapsed
-<span id="L209" class="ln">   209  </span>	o.RequestId = all.RequestId
-<span id="L210" class="ln">   210  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L211" class="ln">   211  </span>		hasInvalidField = true
-<span id="L212" class="ln">   212  </span>	} else {
-<span id="L213" class="ln">   213  </span>		o.Status = all.Status
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>	o.Warnings = all.Warnings
-<span id="L216" class="ln">   216  </span>
-<span id="L217" class="ln">   217  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L218" class="ln">   218  </span>		o.AdditionalProperties = additionalProperties
-<span id="L219" class="ln">   219  </span>	}
-<span id="L220" class="ln">   220  </span>
-<span id="L221" class="ln">   221  </span>	if hasInvalidField {
-<span id="L222" class="ln">   222  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L223" class="ln">   223  </span>		if err != nil {
-<span id="L224" class="ln">   224  </span>			return err
-<span id="L225" class="ln">   225  </span>		}
-<span id="L226" class="ln">   226  </span>		o.UnparsedObject = raw
-<span id="L227" class="ln">   227  </span>	}
-<span id="L228" class="ln">   228  </span>
-<span id="L229" class="ln">   229  </span>	return nil
-<span id="L230" class="ln">   230  </span>}
-<span id="L231" class="ln">   231  </span>
+<span id="L200" class="ln">   200  </span>
+<span id="L201" class="ln">   201  </span>	hasInvalidField := false
+<span id="L202" class="ln">   202  </span>	o.Elapsed = all.Elapsed
+<span id="L203" class="ln">   203  </span>	o.RequestId = all.RequestId
+<span id="L204" class="ln">   204  </span>	if all.Status != nil &amp;&amp; !all.Status.IsValid() {
+<span id="L205" class="ln">   205  </span>		hasInvalidField = true
+<span id="L206" class="ln">   206  </span>	} else {
+<span id="L207" class="ln">   207  </span>		o.Status = all.Status
+<span id="L208" class="ln">   208  </span>	}
+<span id="L209" class="ln">   209  </span>	o.Warnings = all.Warnings
+<span id="L210" class="ln">   210  </span>
+<span id="L211" class="ln">   211  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L212" class="ln">   212  </span>		o.AdditionalProperties = additionalProperties
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>
+<span id="L215" class="ln">   215  </span>	if hasInvalidField {
+<span id="L216" class="ln">   216  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L217" class="ln">   217  </span>	}
+<span id="L218" class="ln">   218  </span>
+<span id="L219" class="ln">   219  </span>	return nil
+<span id="L220" class="ln">   220  </span>}
+<span id="L221" class="ln">   221  </span>
 </pre><p></p>
 
 <div id="footer">

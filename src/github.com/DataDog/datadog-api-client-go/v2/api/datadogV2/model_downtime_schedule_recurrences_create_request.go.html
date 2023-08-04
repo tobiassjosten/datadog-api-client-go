@@ -172,38 +172,32 @@
 <span id="L115" class="ln">   115  </span>
 <span id="L116" class="ln">   116  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L117" class="ln">   117  </span>func (o *DowntimeScheduleRecurrencesCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L118" class="ln">   118  </span>	raw := map[string]interface{}{}
-<span id="L119" class="ln">   119  </span>	all := struct {
-<span id="L120" class="ln">   120  </span>		Recurrences *[]DowntimeScheduleRecurrenceCreateUpdateRequest `json:&#34;recurrences&#34;`
-<span id="L121" class="ln">   121  </span>		Timezone    *string                                          `json:&#34;timezone,omitempty&#34;`
-<span id="L122" class="ln">   122  </span>	}{}
-<span id="L123" class="ln">   123  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L124" class="ln">   124  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L125" class="ln">   125  </span>		if err != nil {
-<span id="L126" class="ln">   126  </span>			return err
-<span id="L127" class="ln">   127  </span>		}
-<span id="L128" class="ln">   128  </span>		o.UnparsedObject = raw
-<span id="L129" class="ln">   129  </span>		return nil
-<span id="L130" class="ln">   130  </span>	}
-<span id="L131" class="ln">   131  </span>	if all.Recurrences == nil {
-<span id="L132" class="ln">   132  </span>		return fmt.Errorf(&#34;required field recurrences missing&#34;)
+<span id="L118" class="ln">   118  </span>	all := struct {
+<span id="L119" class="ln">   119  </span>		Recurrences *[]DowntimeScheduleRecurrenceCreateUpdateRequest `json:&#34;recurrences&#34;`
+<span id="L120" class="ln">   120  </span>		Timezone    *string                                          `json:&#34;timezone,omitempty&#34;`
+<span id="L121" class="ln">   121  </span>	}{}
+<span id="L122" class="ln">   122  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L123" class="ln">   123  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L124" class="ln">   124  </span>	}
+<span id="L125" class="ln">   125  </span>	if all.Recurrences == nil {
+<span id="L126" class="ln">   126  </span>		return fmt.Errorf(&#34;required field recurrences missing&#34;)
+<span id="L127" class="ln">   127  </span>	}
+<span id="L128" class="ln">   128  </span>	additionalProperties := make(map[string]interface{})
+<span id="L129" class="ln">   129  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L130" class="ln">   130  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;recurrences&#34;, &#34;timezone&#34;})
+<span id="L131" class="ln">   131  </span>	} else {
+<span id="L132" class="ln">   132  </span>		return err
 <span id="L133" class="ln">   133  </span>	}
-<span id="L134" class="ln">   134  </span>	additionalProperties := make(map[string]interface{})
-<span id="L135" class="ln">   135  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L136" class="ln">   136  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;recurrences&#34;, &#34;timezone&#34;})
-<span id="L137" class="ln">   137  </span>	} else {
-<span id="L138" class="ln">   138  </span>		return err
+<span id="L134" class="ln">   134  </span>	o.Recurrences = *all.Recurrences
+<span id="L135" class="ln">   135  </span>	o.Timezone = all.Timezone
+<span id="L136" class="ln">   136  </span>
+<span id="L137" class="ln">   137  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L138" class="ln">   138  </span>		o.AdditionalProperties = additionalProperties
 <span id="L139" class="ln">   139  </span>	}
-<span id="L140" class="ln">   140  </span>	o.Recurrences = *all.Recurrences
-<span id="L141" class="ln">   141  </span>	o.Timezone = all.Timezone
-<span id="L142" class="ln">   142  </span>
-<span id="L143" class="ln">   143  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L144" class="ln">   144  </span>		o.AdditionalProperties = additionalProperties
-<span id="L145" class="ln">   145  </span>	}
-<span id="L146" class="ln">   146  </span>
-<span id="L147" class="ln">   147  </span>	return nil
-<span id="L148" class="ln">   148  </span>}
-<span id="L149" class="ln">   149  </span>
+<span id="L140" class="ln">   140  </span>
+<span id="L141" class="ln">   141  </span>	return nil
+<span id="L142" class="ln">   142  </span>}
+<span id="L143" class="ln">   143  </span>
 </pre><p></p>
 
 <div id="footer">

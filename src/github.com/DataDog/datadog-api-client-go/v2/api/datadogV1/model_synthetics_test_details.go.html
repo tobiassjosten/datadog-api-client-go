@@ -537,88 +537,78 @@
 <span id="L480" class="ln">   480  </span>
 <span id="L481" class="ln">   481  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L482" class="ln">   482  </span>func (o *SyntheticsTestDetails) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L483" class="ln">   483  </span>	raw := map[string]interface{}{}
-<span id="L484" class="ln">   484  </span>	all := struct {
-<span id="L485" class="ln">   485  </span>		Config    *SyntheticsTestConfig         `json:&#34;config,omitempty&#34;`
-<span id="L486" class="ln">   486  </span>		Creator   *Creator                      `json:&#34;creator,omitempty&#34;`
-<span id="L487" class="ln">   487  </span>		Locations []string                      `json:&#34;locations,omitempty&#34;`
-<span id="L488" class="ln">   488  </span>		Message   *string                       `json:&#34;message,omitempty&#34;`
-<span id="L489" class="ln">   489  </span>		MonitorId *int64                        `json:&#34;monitor_id,omitempty&#34;`
-<span id="L490" class="ln">   490  </span>		Name      *string                       `json:&#34;name,omitempty&#34;`
-<span id="L491" class="ln">   491  </span>		Options   *SyntheticsTestOptions        `json:&#34;options,omitempty&#34;`
-<span id="L492" class="ln">   492  </span>		PublicId  *string                       `json:&#34;public_id,omitempty&#34;`
-<span id="L493" class="ln">   493  </span>		Status    *SyntheticsTestPauseStatus    `json:&#34;status,omitempty&#34;`
-<span id="L494" class="ln">   494  </span>		Steps     []SyntheticsStep              `json:&#34;steps,omitempty&#34;`
-<span id="L495" class="ln">   495  </span>		Subtype   *SyntheticsTestDetailsSubType `json:&#34;subtype,omitempty&#34;`
-<span id="L496" class="ln">   496  </span>		Tags      []string                      `json:&#34;tags,omitempty&#34;`
-<span id="L497" class="ln">   497  </span>		Type      *SyntheticsTestDetailsType    `json:&#34;type,omitempty&#34;`
-<span id="L498" class="ln">   498  </span>	}{}
-<span id="L499" class="ln">   499  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L500" class="ln">   500  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L501" class="ln">   501  </span>		if err != nil {
-<span id="L502" class="ln">   502  </span>			return err
-<span id="L503" class="ln">   503  </span>		}
-<span id="L504" class="ln">   504  </span>		o.UnparsedObject = raw
-<span id="L505" class="ln">   505  </span>		return nil
+<span id="L483" class="ln">   483  </span>	all := struct {
+<span id="L484" class="ln">   484  </span>		Config    *SyntheticsTestConfig         `json:&#34;config,omitempty&#34;`
+<span id="L485" class="ln">   485  </span>		Creator   *Creator                      `json:&#34;creator,omitempty&#34;`
+<span id="L486" class="ln">   486  </span>		Locations []string                      `json:&#34;locations,omitempty&#34;`
+<span id="L487" class="ln">   487  </span>		Message   *string                       `json:&#34;message,omitempty&#34;`
+<span id="L488" class="ln">   488  </span>		MonitorId *int64                        `json:&#34;monitor_id,omitempty&#34;`
+<span id="L489" class="ln">   489  </span>		Name      *string                       `json:&#34;name,omitempty&#34;`
+<span id="L490" class="ln">   490  </span>		Options   *SyntheticsTestOptions        `json:&#34;options,omitempty&#34;`
+<span id="L491" class="ln">   491  </span>		PublicId  *string                       `json:&#34;public_id,omitempty&#34;`
+<span id="L492" class="ln">   492  </span>		Status    *SyntheticsTestPauseStatus    `json:&#34;status,omitempty&#34;`
+<span id="L493" class="ln">   493  </span>		Steps     []SyntheticsStep              `json:&#34;steps,omitempty&#34;`
+<span id="L494" class="ln">   494  </span>		Subtype   *SyntheticsTestDetailsSubType `json:&#34;subtype,omitempty&#34;`
+<span id="L495" class="ln">   495  </span>		Tags      []string                      `json:&#34;tags,omitempty&#34;`
+<span id="L496" class="ln">   496  </span>		Type      *SyntheticsTestDetailsType    `json:&#34;type,omitempty&#34;`
+<span id="L497" class="ln">   497  </span>	}{}
+<span id="L498" class="ln">   498  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L499" class="ln">   499  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L500" class="ln">   500  </span>	}
+<span id="L501" class="ln">   501  </span>	additionalProperties := make(map[string]interface{})
+<span id="L502" class="ln">   502  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L503" class="ln">   503  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;config&#34;, &#34;creator&#34;, &#34;locations&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;name&#34;, &#34;options&#34;, &#34;public_id&#34;, &#34;status&#34;, &#34;steps&#34;, &#34;subtype&#34;, &#34;tags&#34;, &#34;type&#34;})
+<span id="L504" class="ln">   504  </span>	} else {
+<span id="L505" class="ln">   505  </span>		return err
 <span id="L506" class="ln">   506  </span>	}
-<span id="L507" class="ln">   507  </span>	additionalProperties := make(map[string]interface{})
-<span id="L508" class="ln">   508  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L509" class="ln">   509  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;config&#34;, &#34;creator&#34;, &#34;locations&#34;, &#34;message&#34;, &#34;monitor_id&#34;, &#34;name&#34;, &#34;options&#34;, &#34;public_id&#34;, &#34;status&#34;, &#34;steps&#34;, &#34;subtype&#34;, &#34;tags&#34;, &#34;type&#34;})
-<span id="L510" class="ln">   510  </span>	} else {
-<span id="L511" class="ln">   511  </span>		return err
-<span id="L512" class="ln">   512  </span>	}
-<span id="L513" class="ln">   513  </span>
-<span id="L514" class="ln">   514  </span>	hasInvalidField := false
-<span id="L515" class="ln">   515  </span>	if all.Config != nil &amp;&amp; all.Config.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L516" class="ln">   516  </span>		hasInvalidField = true
-<span id="L517" class="ln">   517  </span>	}
-<span id="L518" class="ln">   518  </span>	o.Config = all.Config
-<span id="L519" class="ln">   519  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L520" class="ln">   520  </span>		hasInvalidField = true
-<span id="L521" class="ln">   521  </span>	}
-<span id="L522" class="ln">   522  </span>	o.Creator = all.Creator
-<span id="L523" class="ln">   523  </span>	o.Locations = all.Locations
-<span id="L524" class="ln">   524  </span>	o.Message = all.Message
-<span id="L525" class="ln">   525  </span>	o.MonitorId = all.MonitorId
-<span id="L526" class="ln">   526  </span>	o.Name = all.Name
-<span id="L527" class="ln">   527  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L528" class="ln">   528  </span>		hasInvalidField = true
-<span id="L529" class="ln">   529  </span>	}
-<span id="L530" class="ln">   530  </span>	o.Options = all.Options
-<span id="L531" class="ln">   531  </span>	o.PublicId = all.PublicId
-<span id="L532" class="ln">   532  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L507" class="ln">   507  </span>
+<span id="L508" class="ln">   508  </span>	hasInvalidField := false
+<span id="L509" class="ln">   509  </span>	if all.Config != nil &amp;&amp; all.Config.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L510" class="ln">   510  </span>		hasInvalidField = true
+<span id="L511" class="ln">   511  </span>	}
+<span id="L512" class="ln">   512  </span>	o.Config = all.Config
+<span id="L513" class="ln">   513  </span>	if all.Creator != nil &amp;&amp; all.Creator.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L514" class="ln">   514  </span>		hasInvalidField = true
+<span id="L515" class="ln">   515  </span>	}
+<span id="L516" class="ln">   516  </span>	o.Creator = all.Creator
+<span id="L517" class="ln">   517  </span>	o.Locations = all.Locations
+<span id="L518" class="ln">   518  </span>	o.Message = all.Message
+<span id="L519" class="ln">   519  </span>	o.MonitorId = all.MonitorId
+<span id="L520" class="ln">   520  </span>	o.Name = all.Name
+<span id="L521" class="ln">   521  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L522" class="ln">   522  </span>		hasInvalidField = true
+<span id="L523" class="ln">   523  </span>	}
+<span id="L524" class="ln">   524  </span>	o.Options = all.Options
+<span id="L525" class="ln">   525  </span>	o.PublicId = all.PublicId
+<span id="L526" class="ln">   526  </span>	if all.Status != nil &amp;&amp; !all.Status.IsValid() {
+<span id="L527" class="ln">   527  </span>		hasInvalidField = true
+<span id="L528" class="ln">   528  </span>	} else {
+<span id="L529" class="ln">   529  </span>		o.Status = all.Status
+<span id="L530" class="ln">   530  </span>	}
+<span id="L531" class="ln">   531  </span>	o.Steps = all.Steps
+<span id="L532" class="ln">   532  </span>	if all.Subtype != nil &amp;&amp; !all.Subtype.IsValid() {
 <span id="L533" class="ln">   533  </span>		hasInvalidField = true
 <span id="L534" class="ln">   534  </span>	} else {
-<span id="L535" class="ln">   535  </span>		o.Status = all.Status
+<span id="L535" class="ln">   535  </span>		o.Subtype = all.Subtype
 <span id="L536" class="ln">   536  </span>	}
-<span id="L537" class="ln">   537  </span>	o.Steps = all.Steps
-<span id="L538" class="ln">   538  </span>	if v := all.Subtype; v != nil &amp;&amp; !v.IsValid() {
+<span id="L537" class="ln">   537  </span>	o.Tags = all.Tags
+<span id="L538" class="ln">   538  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
 <span id="L539" class="ln">   539  </span>		hasInvalidField = true
 <span id="L540" class="ln">   540  </span>	} else {
-<span id="L541" class="ln">   541  </span>		o.Subtype = all.Subtype
+<span id="L541" class="ln">   541  </span>		o.Type = all.Type
 <span id="L542" class="ln">   542  </span>	}
-<span id="L543" class="ln">   543  </span>	o.Tags = all.Tags
-<span id="L544" class="ln">   544  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L545" class="ln">   545  </span>		hasInvalidField = true
-<span id="L546" class="ln">   546  </span>	} else {
-<span id="L547" class="ln">   547  </span>		o.Type = all.Type
-<span id="L548" class="ln">   548  </span>	}
-<span id="L549" class="ln">   549  </span>
-<span id="L550" class="ln">   550  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L551" class="ln">   551  </span>		o.AdditionalProperties = additionalProperties
-<span id="L552" class="ln">   552  </span>	}
-<span id="L553" class="ln">   553  </span>
-<span id="L554" class="ln">   554  </span>	if hasInvalidField {
-<span id="L555" class="ln">   555  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L556" class="ln">   556  </span>		if err != nil {
-<span id="L557" class="ln">   557  </span>			return err
-<span id="L558" class="ln">   558  </span>		}
-<span id="L559" class="ln">   559  </span>		o.UnparsedObject = raw
-<span id="L560" class="ln">   560  </span>	}
-<span id="L561" class="ln">   561  </span>
-<span id="L562" class="ln">   562  </span>	return nil
-<span id="L563" class="ln">   563  </span>}
-<span id="L564" class="ln">   564  </span>
+<span id="L543" class="ln">   543  </span>
+<span id="L544" class="ln">   544  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L545" class="ln">   545  </span>		o.AdditionalProperties = additionalProperties
+<span id="L546" class="ln">   546  </span>	}
+<span id="L547" class="ln">   547  </span>
+<span id="L548" class="ln">   548  </span>	if hasInvalidField {
+<span id="L549" class="ln">   549  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L550" class="ln">   550  </span>	}
+<span id="L551" class="ln">   551  </span>
+<span id="L552" class="ln">   552  </span>	return nil
+<span id="L553" class="ln">   553  </span>}
+<span id="L554" class="ln">   554  </span>
 </pre><p></p>
 
 <div id="footer">

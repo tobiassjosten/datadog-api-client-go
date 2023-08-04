@@ -325,43 +325,37 @@
 <span id="L268" class="ln">   268  </span>
 <span id="L269" class="ln">   269  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L270" class="ln">   270  </span>func (o *SharedDashboardInvitesDataObjectAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L271" class="ln">   271  </span>	raw := map[string]interface{}{}
-<span id="L272" class="ln">   272  </span>	all := struct {
-<span id="L273" class="ln">   273  </span>		CreatedAt        *time.Time           `json:&#34;created_at,omitempty&#34;`
-<span id="L274" class="ln">   274  </span>		Email            *string              `json:&#34;email,omitempty&#34;`
-<span id="L275" class="ln">   275  </span>		HasSession       *bool                `json:&#34;has_session,omitempty&#34;`
-<span id="L276" class="ln">   276  </span>		InvitationExpiry *time.Time           `json:&#34;invitation_expiry,omitempty&#34;`
-<span id="L277" class="ln">   277  </span>		SessionExpiry    datadog.NullableTime `json:&#34;session_expiry,omitempty&#34;`
-<span id="L278" class="ln">   278  </span>		ShareToken       *string              `json:&#34;share_token,omitempty&#34;`
-<span id="L279" class="ln">   279  </span>	}{}
-<span id="L280" class="ln">   280  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L281" class="ln">   281  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L282" class="ln">   282  </span>		if err != nil {
-<span id="L283" class="ln">   283  </span>			return err
-<span id="L284" class="ln">   284  </span>		}
-<span id="L285" class="ln">   285  </span>		o.UnparsedObject = raw
-<span id="L286" class="ln">   286  </span>		return nil
+<span id="L271" class="ln">   271  </span>	all := struct {
+<span id="L272" class="ln">   272  </span>		CreatedAt        *time.Time           `json:&#34;created_at,omitempty&#34;`
+<span id="L273" class="ln">   273  </span>		Email            *string              `json:&#34;email,omitempty&#34;`
+<span id="L274" class="ln">   274  </span>		HasSession       *bool                `json:&#34;has_session,omitempty&#34;`
+<span id="L275" class="ln">   275  </span>		InvitationExpiry *time.Time           `json:&#34;invitation_expiry,omitempty&#34;`
+<span id="L276" class="ln">   276  </span>		SessionExpiry    datadog.NullableTime `json:&#34;session_expiry,omitempty&#34;`
+<span id="L277" class="ln">   277  </span>		ShareToken       *string              `json:&#34;share_token,omitempty&#34;`
+<span id="L278" class="ln">   278  </span>	}{}
+<span id="L279" class="ln">   279  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L280" class="ln">   280  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>	additionalProperties := make(map[string]interface{})
+<span id="L283" class="ln">   283  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L284" class="ln">   284  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;email&#34;, &#34;has_session&#34;, &#34;invitation_expiry&#34;, &#34;session_expiry&#34;, &#34;share_token&#34;})
+<span id="L285" class="ln">   285  </span>	} else {
+<span id="L286" class="ln">   286  </span>		return err
 <span id="L287" class="ln">   287  </span>	}
-<span id="L288" class="ln">   288  </span>	additionalProperties := make(map[string]interface{})
-<span id="L289" class="ln">   289  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L290" class="ln">   290  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;created_at&#34;, &#34;email&#34;, &#34;has_session&#34;, &#34;invitation_expiry&#34;, &#34;session_expiry&#34;, &#34;share_token&#34;})
-<span id="L291" class="ln">   291  </span>	} else {
-<span id="L292" class="ln">   292  </span>		return err
-<span id="L293" class="ln">   293  </span>	}
-<span id="L294" class="ln">   294  </span>	o.CreatedAt = all.CreatedAt
-<span id="L295" class="ln">   295  </span>	o.Email = all.Email
-<span id="L296" class="ln">   296  </span>	o.HasSession = all.HasSession
-<span id="L297" class="ln">   297  </span>	o.InvitationExpiry = all.InvitationExpiry
-<span id="L298" class="ln">   298  </span>	o.SessionExpiry = all.SessionExpiry
-<span id="L299" class="ln">   299  </span>	o.ShareToken = all.ShareToken
-<span id="L300" class="ln">   300  </span>
-<span id="L301" class="ln">   301  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L302" class="ln">   302  </span>		o.AdditionalProperties = additionalProperties
-<span id="L303" class="ln">   303  </span>	}
-<span id="L304" class="ln">   304  </span>
-<span id="L305" class="ln">   305  </span>	return nil
-<span id="L306" class="ln">   306  </span>}
-<span id="L307" class="ln">   307  </span>
+<span id="L288" class="ln">   288  </span>	o.CreatedAt = all.CreatedAt
+<span id="L289" class="ln">   289  </span>	o.Email = all.Email
+<span id="L290" class="ln">   290  </span>	o.HasSession = all.HasSession
+<span id="L291" class="ln">   291  </span>	o.InvitationExpiry = all.InvitationExpiry
+<span id="L292" class="ln">   292  </span>	o.SessionExpiry = all.SessionExpiry
+<span id="L293" class="ln">   293  </span>	o.ShareToken = all.ShareToken
+<span id="L294" class="ln">   294  </span>
+<span id="L295" class="ln">   295  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L296" class="ln">   296  </span>		o.AdditionalProperties = additionalProperties
+<span id="L297" class="ln">   297  </span>	}
+<span id="L298" class="ln">   298  </span>
+<span id="L299" class="ln">   299  </span>	return nil
+<span id="L300" class="ln">   300  </span>}
+<span id="L301" class="ln">   301  </span>
 </pre><p></p>
 
 <div id="footer">

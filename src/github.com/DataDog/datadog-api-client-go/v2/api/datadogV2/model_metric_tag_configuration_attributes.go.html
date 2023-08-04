@@ -334,57 +334,47 @@
 <span id="L277" class="ln">   277  </span>
 <span id="L278" class="ln">   278  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L279" class="ln">   279  </span>func (o *MetricTagConfigurationAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L280" class="ln">   280  </span>	raw := map[string]interface{}{}
-<span id="L281" class="ln">   281  </span>	all := struct {
-<span id="L282" class="ln">   282  </span>		Aggregations       []MetricCustomAggregation          `json:&#34;aggregations,omitempty&#34;`
-<span id="L283" class="ln">   283  </span>		CreatedAt          *time.Time                         `json:&#34;created_at,omitempty&#34;`
-<span id="L284" class="ln">   284  </span>		IncludePercentiles *bool                              `json:&#34;include_percentiles,omitempty&#34;`
-<span id="L285" class="ln">   285  </span>		MetricType         *MetricTagConfigurationMetricTypes `json:&#34;metric_type,omitempty&#34;`
-<span id="L286" class="ln">   286  </span>		ModifiedAt         *time.Time                         `json:&#34;modified_at,omitempty&#34;`
-<span id="L287" class="ln">   287  </span>		Tags               []string                           `json:&#34;tags,omitempty&#34;`
-<span id="L288" class="ln">   288  </span>	}{}
-<span id="L289" class="ln">   289  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L290" class="ln">   290  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L291" class="ln">   291  </span>		if err != nil {
-<span id="L292" class="ln">   292  </span>			return err
-<span id="L293" class="ln">   293  </span>		}
-<span id="L294" class="ln">   294  </span>		o.UnparsedObject = raw
-<span id="L295" class="ln">   295  </span>		return nil
+<span id="L280" class="ln">   280  </span>	all := struct {
+<span id="L281" class="ln">   281  </span>		Aggregations       []MetricCustomAggregation          `json:&#34;aggregations,omitempty&#34;`
+<span id="L282" class="ln">   282  </span>		CreatedAt          *time.Time                         `json:&#34;created_at,omitempty&#34;`
+<span id="L283" class="ln">   283  </span>		IncludePercentiles *bool                              `json:&#34;include_percentiles,omitempty&#34;`
+<span id="L284" class="ln">   284  </span>		MetricType         *MetricTagConfigurationMetricTypes `json:&#34;metric_type,omitempty&#34;`
+<span id="L285" class="ln">   285  </span>		ModifiedAt         *time.Time                         `json:&#34;modified_at,omitempty&#34;`
+<span id="L286" class="ln">   286  </span>		Tags               []string                           `json:&#34;tags,omitempty&#34;`
+<span id="L287" class="ln">   287  </span>	}{}
+<span id="L288" class="ln">   288  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L289" class="ln">   289  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L290" class="ln">   290  </span>	}
+<span id="L291" class="ln">   291  </span>	additionalProperties := make(map[string]interface{})
+<span id="L292" class="ln">   292  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L293" class="ln">   293  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregations&#34;, &#34;created_at&#34;, &#34;include_percentiles&#34;, &#34;metric_type&#34;, &#34;modified_at&#34;, &#34;tags&#34;})
+<span id="L294" class="ln">   294  </span>	} else {
+<span id="L295" class="ln">   295  </span>		return err
 <span id="L296" class="ln">   296  </span>	}
-<span id="L297" class="ln">   297  </span>	additionalProperties := make(map[string]interface{})
-<span id="L298" class="ln">   298  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L299" class="ln">   299  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregations&#34;, &#34;created_at&#34;, &#34;include_percentiles&#34;, &#34;metric_type&#34;, &#34;modified_at&#34;, &#34;tags&#34;})
-<span id="L300" class="ln">   300  </span>	} else {
-<span id="L301" class="ln">   301  </span>		return err
-<span id="L302" class="ln">   302  </span>	}
-<span id="L303" class="ln">   303  </span>
-<span id="L304" class="ln">   304  </span>	hasInvalidField := false
-<span id="L305" class="ln">   305  </span>	o.Aggregations = all.Aggregations
-<span id="L306" class="ln">   306  </span>	o.CreatedAt = all.CreatedAt
-<span id="L307" class="ln">   307  </span>	o.IncludePercentiles = all.IncludePercentiles
-<span id="L308" class="ln">   308  </span>	if v := all.MetricType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L309" class="ln">   309  </span>		hasInvalidField = true
-<span id="L310" class="ln">   310  </span>	} else {
-<span id="L311" class="ln">   311  </span>		o.MetricType = all.MetricType
+<span id="L297" class="ln">   297  </span>
+<span id="L298" class="ln">   298  </span>	hasInvalidField := false
+<span id="L299" class="ln">   299  </span>	o.Aggregations = all.Aggregations
+<span id="L300" class="ln">   300  </span>	o.CreatedAt = all.CreatedAt
+<span id="L301" class="ln">   301  </span>	o.IncludePercentiles = all.IncludePercentiles
+<span id="L302" class="ln">   302  </span>	if all.MetricType != nil &amp;&amp; !all.MetricType.IsValid() {
+<span id="L303" class="ln">   303  </span>		hasInvalidField = true
+<span id="L304" class="ln">   304  </span>	} else {
+<span id="L305" class="ln">   305  </span>		o.MetricType = all.MetricType
+<span id="L306" class="ln">   306  </span>	}
+<span id="L307" class="ln">   307  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L308" class="ln">   308  </span>	o.Tags = all.Tags
+<span id="L309" class="ln">   309  </span>
+<span id="L310" class="ln">   310  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L311" class="ln">   311  </span>		o.AdditionalProperties = additionalProperties
 <span id="L312" class="ln">   312  </span>	}
-<span id="L313" class="ln">   313  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L314" class="ln">   314  </span>	o.Tags = all.Tags
-<span id="L315" class="ln">   315  </span>
-<span id="L316" class="ln">   316  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L317" class="ln">   317  </span>		o.AdditionalProperties = additionalProperties
-<span id="L318" class="ln">   318  </span>	}
-<span id="L319" class="ln">   319  </span>
-<span id="L320" class="ln">   320  </span>	if hasInvalidField {
-<span id="L321" class="ln">   321  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L322" class="ln">   322  </span>		if err != nil {
-<span id="L323" class="ln">   323  </span>			return err
-<span id="L324" class="ln">   324  </span>		}
-<span id="L325" class="ln">   325  </span>		o.UnparsedObject = raw
-<span id="L326" class="ln">   326  </span>	}
-<span id="L327" class="ln">   327  </span>
-<span id="L328" class="ln">   328  </span>	return nil
-<span id="L329" class="ln">   329  </span>}
-<span id="L330" class="ln">   330  </span>
+<span id="L313" class="ln">   313  </span>
+<span id="L314" class="ln">   314  </span>	if hasInvalidField {
+<span id="L315" class="ln">   315  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L316" class="ln">   316  </span>	}
+<span id="L317" class="ln">   317  </span>
+<span id="L318" class="ln">   318  </span>	return nil
+<span id="L319" class="ln">   319  </span>}
+<span id="L320" class="ln">   320  </span>
 </pre><p></p>
 
 <div id="footer">

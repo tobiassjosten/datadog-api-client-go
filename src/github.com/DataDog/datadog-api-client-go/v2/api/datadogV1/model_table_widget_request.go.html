@@ -733,118 +733,108 @@
 <span id="L676" class="ln">   676  </span>
 <span id="L677" class="ln">   677  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L678" class="ln">   678  </span>func (o *TableWidgetRequest) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L679" class="ln">   679  </span>	raw := map[string]interface{}{}
-<span id="L680" class="ln">   680  </span>	all := struct {
-<span id="L681" class="ln">   681  </span>		Aggregator          *WidgetAggregator                   `json:&#34;aggregator,omitempty&#34;`
-<span id="L682" class="ln">   682  </span>		Alias               *string                             `json:&#34;alias,omitempty&#34;`
-<span id="L683" class="ln">   683  </span>		ApmQuery            *LogQueryDefinition                 `json:&#34;apm_query,omitempty&#34;`
-<span id="L684" class="ln">   684  </span>		ApmStatsQuery       *ApmStatsQueryDefinition            `json:&#34;apm_stats_query,omitempty&#34;`
-<span id="L685" class="ln">   685  </span>		CellDisplayMode     []TableWidgetCellDisplayMode        `json:&#34;cell_display_mode,omitempty&#34;`
-<span id="L686" class="ln">   686  </span>		ConditionalFormats  []WidgetConditionalFormat           `json:&#34;conditional_formats,omitempty&#34;`
-<span id="L687" class="ln">   687  </span>		EventQuery          *LogQueryDefinition                 `json:&#34;event_query,omitempty&#34;`
-<span id="L688" class="ln">   688  </span>		Formulas            []WidgetFormula                     `json:&#34;formulas,omitempty&#34;`
-<span id="L689" class="ln">   689  </span>		Limit               *int64                              `json:&#34;limit,omitempty&#34;`
-<span id="L690" class="ln">   690  </span>		LogQuery            *LogQueryDefinition                 `json:&#34;log_query,omitempty&#34;`
-<span id="L691" class="ln">   691  </span>		NetworkQuery        *LogQueryDefinition                 `json:&#34;network_query,omitempty&#34;`
-<span id="L692" class="ln">   692  </span>		Order               *WidgetSort                         `json:&#34;order,omitempty&#34;`
-<span id="L693" class="ln">   693  </span>		ProcessQuery        *ProcessQueryDefinition             `json:&#34;process_query,omitempty&#34;`
-<span id="L694" class="ln">   694  </span>		ProfileMetricsQuery *LogQueryDefinition                 `json:&#34;profile_metrics_query,omitempty&#34;`
-<span id="L695" class="ln">   695  </span>		Q                   *string                             `json:&#34;q,omitempty&#34;`
-<span id="L696" class="ln">   696  </span>		Queries             []FormulaAndFunctionQueryDefinition `json:&#34;queries,omitempty&#34;`
-<span id="L697" class="ln">   697  </span>		ResponseFormat      *FormulaAndFunctionResponseFormat   `json:&#34;response_format,omitempty&#34;`
-<span id="L698" class="ln">   698  </span>		RumQuery            *LogQueryDefinition                 `json:&#34;rum_query,omitempty&#34;`
-<span id="L699" class="ln">   699  </span>		SecurityQuery       *LogQueryDefinition                 `json:&#34;security_query,omitempty&#34;`
-<span id="L700" class="ln">   700  </span>	}{}
-<span id="L701" class="ln">   701  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L702" class="ln">   702  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L703" class="ln">   703  </span>		if err != nil {
-<span id="L704" class="ln">   704  </span>			return err
-<span id="L705" class="ln">   705  </span>		}
-<span id="L706" class="ln">   706  </span>		o.UnparsedObject = raw
-<span id="L707" class="ln">   707  </span>		return nil
+<span id="L679" class="ln">   679  </span>	all := struct {
+<span id="L680" class="ln">   680  </span>		Aggregator          *WidgetAggregator                   `json:&#34;aggregator,omitempty&#34;`
+<span id="L681" class="ln">   681  </span>		Alias               *string                             `json:&#34;alias,omitempty&#34;`
+<span id="L682" class="ln">   682  </span>		ApmQuery            *LogQueryDefinition                 `json:&#34;apm_query,omitempty&#34;`
+<span id="L683" class="ln">   683  </span>		ApmStatsQuery       *ApmStatsQueryDefinition            `json:&#34;apm_stats_query,omitempty&#34;`
+<span id="L684" class="ln">   684  </span>		CellDisplayMode     []TableWidgetCellDisplayMode        `json:&#34;cell_display_mode,omitempty&#34;`
+<span id="L685" class="ln">   685  </span>		ConditionalFormats  []WidgetConditionalFormat           `json:&#34;conditional_formats,omitempty&#34;`
+<span id="L686" class="ln">   686  </span>		EventQuery          *LogQueryDefinition                 `json:&#34;event_query,omitempty&#34;`
+<span id="L687" class="ln">   687  </span>		Formulas            []WidgetFormula                     `json:&#34;formulas,omitempty&#34;`
+<span id="L688" class="ln">   688  </span>		Limit               *int64                              `json:&#34;limit,omitempty&#34;`
+<span id="L689" class="ln">   689  </span>		LogQuery            *LogQueryDefinition                 `json:&#34;log_query,omitempty&#34;`
+<span id="L690" class="ln">   690  </span>		NetworkQuery        *LogQueryDefinition                 `json:&#34;network_query,omitempty&#34;`
+<span id="L691" class="ln">   691  </span>		Order               *WidgetSort                         `json:&#34;order,omitempty&#34;`
+<span id="L692" class="ln">   692  </span>		ProcessQuery        *ProcessQueryDefinition             `json:&#34;process_query,omitempty&#34;`
+<span id="L693" class="ln">   693  </span>		ProfileMetricsQuery *LogQueryDefinition                 `json:&#34;profile_metrics_query,omitempty&#34;`
+<span id="L694" class="ln">   694  </span>		Q                   *string                             `json:&#34;q,omitempty&#34;`
+<span id="L695" class="ln">   695  </span>		Queries             []FormulaAndFunctionQueryDefinition `json:&#34;queries,omitempty&#34;`
+<span id="L696" class="ln">   696  </span>		ResponseFormat      *FormulaAndFunctionResponseFormat   `json:&#34;response_format,omitempty&#34;`
+<span id="L697" class="ln">   697  </span>		RumQuery            *LogQueryDefinition                 `json:&#34;rum_query,omitempty&#34;`
+<span id="L698" class="ln">   698  </span>		SecurityQuery       *LogQueryDefinition                 `json:&#34;security_query,omitempty&#34;`
+<span id="L699" class="ln">   699  </span>	}{}
+<span id="L700" class="ln">   700  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L701" class="ln">   701  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L702" class="ln">   702  </span>	}
+<span id="L703" class="ln">   703  </span>	additionalProperties := make(map[string]interface{})
+<span id="L704" class="ln">   704  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L705" class="ln">   705  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregator&#34;, &#34;alias&#34;, &#34;apm_query&#34;, &#34;apm_stats_query&#34;, &#34;cell_display_mode&#34;, &#34;conditional_formats&#34;, &#34;event_query&#34;, &#34;formulas&#34;, &#34;limit&#34;, &#34;log_query&#34;, &#34;network_query&#34;, &#34;order&#34;, &#34;process_query&#34;, &#34;profile_metrics_query&#34;, &#34;q&#34;, &#34;queries&#34;, &#34;response_format&#34;, &#34;rum_query&#34;, &#34;security_query&#34;})
+<span id="L706" class="ln">   706  </span>	} else {
+<span id="L707" class="ln">   707  </span>		return err
 <span id="L708" class="ln">   708  </span>	}
-<span id="L709" class="ln">   709  </span>	additionalProperties := make(map[string]interface{})
-<span id="L710" class="ln">   710  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L711" class="ln">   711  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;aggregator&#34;, &#34;alias&#34;, &#34;apm_query&#34;, &#34;apm_stats_query&#34;, &#34;cell_display_mode&#34;, &#34;conditional_formats&#34;, &#34;event_query&#34;, &#34;formulas&#34;, &#34;limit&#34;, &#34;log_query&#34;, &#34;network_query&#34;, &#34;order&#34;, &#34;process_query&#34;, &#34;profile_metrics_query&#34;, &#34;q&#34;, &#34;queries&#34;, &#34;response_format&#34;, &#34;rum_query&#34;, &#34;security_query&#34;})
-<span id="L712" class="ln">   712  </span>	} else {
-<span id="L713" class="ln">   713  </span>		return err
-<span id="L714" class="ln">   714  </span>	}
-<span id="L715" class="ln">   715  </span>
-<span id="L716" class="ln">   716  </span>	hasInvalidField := false
-<span id="L717" class="ln">   717  </span>	if v := all.Aggregator; v != nil &amp;&amp; !v.IsValid() {
+<span id="L709" class="ln">   709  </span>
+<span id="L710" class="ln">   710  </span>	hasInvalidField := false
+<span id="L711" class="ln">   711  </span>	if all.Aggregator != nil &amp;&amp; !all.Aggregator.IsValid() {
+<span id="L712" class="ln">   712  </span>		hasInvalidField = true
+<span id="L713" class="ln">   713  </span>	} else {
+<span id="L714" class="ln">   714  </span>		o.Aggregator = all.Aggregator
+<span id="L715" class="ln">   715  </span>	}
+<span id="L716" class="ln">   716  </span>	o.Alias = all.Alias
+<span id="L717" class="ln">   717  </span>	if all.ApmQuery != nil &amp;&amp; all.ApmQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L718" class="ln">   718  </span>		hasInvalidField = true
-<span id="L719" class="ln">   719  </span>	} else {
-<span id="L720" class="ln">   720  </span>		o.Aggregator = all.Aggregator
-<span id="L721" class="ln">   721  </span>	}
-<span id="L722" class="ln">   722  </span>	o.Alias = all.Alias
-<span id="L723" class="ln">   723  </span>	if all.ApmQuery != nil &amp;&amp; all.ApmQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L724" class="ln">   724  </span>		hasInvalidField = true
-<span id="L725" class="ln">   725  </span>	}
-<span id="L726" class="ln">   726  </span>	o.ApmQuery = all.ApmQuery
-<span id="L727" class="ln">   727  </span>	if all.ApmStatsQuery != nil &amp;&amp; all.ApmStatsQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L719" class="ln">   719  </span>	}
+<span id="L720" class="ln">   720  </span>	o.ApmQuery = all.ApmQuery
+<span id="L721" class="ln">   721  </span>	if all.ApmStatsQuery != nil &amp;&amp; all.ApmStatsQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L722" class="ln">   722  </span>		hasInvalidField = true
+<span id="L723" class="ln">   723  </span>	}
+<span id="L724" class="ln">   724  </span>	o.ApmStatsQuery = all.ApmStatsQuery
+<span id="L725" class="ln">   725  </span>	o.CellDisplayMode = all.CellDisplayMode
+<span id="L726" class="ln">   726  </span>	o.ConditionalFormats = all.ConditionalFormats
+<span id="L727" class="ln">   727  </span>	if all.EventQuery != nil &amp;&amp; all.EventQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L728" class="ln">   728  </span>		hasInvalidField = true
 <span id="L729" class="ln">   729  </span>	}
-<span id="L730" class="ln">   730  </span>	o.ApmStatsQuery = all.ApmStatsQuery
-<span id="L731" class="ln">   731  </span>	o.CellDisplayMode = all.CellDisplayMode
-<span id="L732" class="ln">   732  </span>	o.ConditionalFormats = all.ConditionalFormats
-<span id="L733" class="ln">   733  </span>	if all.EventQuery != nil &amp;&amp; all.EventQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L730" class="ln">   730  </span>	o.EventQuery = all.EventQuery
+<span id="L731" class="ln">   731  </span>	o.Formulas = all.Formulas
+<span id="L732" class="ln">   732  </span>	o.Limit = all.Limit
+<span id="L733" class="ln">   733  </span>	if all.LogQuery != nil &amp;&amp; all.LogQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
 <span id="L734" class="ln">   734  </span>		hasInvalidField = true
 <span id="L735" class="ln">   735  </span>	}
-<span id="L736" class="ln">   736  </span>	o.EventQuery = all.EventQuery
-<span id="L737" class="ln">   737  </span>	o.Formulas = all.Formulas
-<span id="L738" class="ln">   738  </span>	o.Limit = all.Limit
-<span id="L739" class="ln">   739  </span>	if all.LogQuery != nil &amp;&amp; all.LogQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L740" class="ln">   740  </span>		hasInvalidField = true
-<span id="L741" class="ln">   741  </span>	}
-<span id="L742" class="ln">   742  </span>	o.LogQuery = all.LogQuery
-<span id="L743" class="ln">   743  </span>	if all.NetworkQuery != nil &amp;&amp; all.NetworkQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L744" class="ln">   744  </span>		hasInvalidField = true
+<span id="L736" class="ln">   736  </span>	o.LogQuery = all.LogQuery
+<span id="L737" class="ln">   737  </span>	if all.NetworkQuery != nil &amp;&amp; all.NetworkQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L738" class="ln">   738  </span>		hasInvalidField = true
+<span id="L739" class="ln">   739  </span>	}
+<span id="L740" class="ln">   740  </span>	o.NetworkQuery = all.NetworkQuery
+<span id="L741" class="ln">   741  </span>	if all.Order != nil &amp;&amp; !all.Order.IsValid() {
+<span id="L742" class="ln">   742  </span>		hasInvalidField = true
+<span id="L743" class="ln">   743  </span>	} else {
+<span id="L744" class="ln">   744  </span>		o.Order = all.Order
 <span id="L745" class="ln">   745  </span>	}
-<span id="L746" class="ln">   746  </span>	o.NetworkQuery = all.NetworkQuery
-<span id="L747" class="ln">   747  </span>	if v := all.Order; v != nil &amp;&amp; !v.IsValid() {
-<span id="L748" class="ln">   748  </span>		hasInvalidField = true
-<span id="L749" class="ln">   749  </span>	} else {
-<span id="L750" class="ln">   750  </span>		o.Order = all.Order
-<span id="L751" class="ln">   751  </span>	}
-<span id="L752" class="ln">   752  </span>	if all.ProcessQuery != nil &amp;&amp; all.ProcessQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L753" class="ln">   753  </span>		hasInvalidField = true
-<span id="L754" class="ln">   754  </span>	}
-<span id="L755" class="ln">   755  </span>	o.ProcessQuery = all.ProcessQuery
-<span id="L756" class="ln">   756  </span>	if all.ProfileMetricsQuery != nil &amp;&amp; all.ProfileMetricsQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L746" class="ln">   746  </span>	if all.ProcessQuery != nil &amp;&amp; all.ProcessQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L747" class="ln">   747  </span>		hasInvalidField = true
+<span id="L748" class="ln">   748  </span>	}
+<span id="L749" class="ln">   749  </span>	o.ProcessQuery = all.ProcessQuery
+<span id="L750" class="ln">   750  </span>	if all.ProfileMetricsQuery != nil &amp;&amp; all.ProfileMetricsQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L751" class="ln">   751  </span>		hasInvalidField = true
+<span id="L752" class="ln">   752  </span>	}
+<span id="L753" class="ln">   753  </span>	o.ProfileMetricsQuery = all.ProfileMetricsQuery
+<span id="L754" class="ln">   754  </span>	o.Q = all.Q
+<span id="L755" class="ln">   755  </span>	o.Queries = all.Queries
+<span id="L756" class="ln">   756  </span>	if all.ResponseFormat != nil &amp;&amp; !all.ResponseFormat.IsValid() {
 <span id="L757" class="ln">   757  </span>		hasInvalidField = true
-<span id="L758" class="ln">   758  </span>	}
-<span id="L759" class="ln">   759  </span>	o.ProfileMetricsQuery = all.ProfileMetricsQuery
-<span id="L760" class="ln">   760  </span>	o.Q = all.Q
-<span id="L761" class="ln">   761  </span>	o.Queries = all.Queries
-<span id="L762" class="ln">   762  </span>	if v := all.ResponseFormat; v != nil &amp;&amp; !v.IsValid() {
-<span id="L763" class="ln">   763  </span>		hasInvalidField = true
-<span id="L764" class="ln">   764  </span>	} else {
-<span id="L765" class="ln">   765  </span>		o.ResponseFormat = all.ResponseFormat
-<span id="L766" class="ln">   766  </span>	}
-<span id="L767" class="ln">   767  </span>	if all.RumQuery != nil &amp;&amp; all.RumQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L768" class="ln">   768  </span>		hasInvalidField = true
-<span id="L769" class="ln">   769  </span>	}
-<span id="L770" class="ln">   770  </span>	o.RumQuery = all.RumQuery
-<span id="L771" class="ln">   771  </span>	if all.SecurityQuery != nil &amp;&amp; all.SecurityQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L772" class="ln">   772  </span>		hasInvalidField = true
-<span id="L773" class="ln">   773  </span>	}
-<span id="L774" class="ln">   774  </span>	o.SecurityQuery = all.SecurityQuery
-<span id="L775" class="ln">   775  </span>
-<span id="L776" class="ln">   776  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L777" class="ln">   777  </span>		o.AdditionalProperties = additionalProperties
-<span id="L778" class="ln">   778  </span>	}
-<span id="L779" class="ln">   779  </span>
-<span id="L780" class="ln">   780  </span>	if hasInvalidField {
-<span id="L781" class="ln">   781  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L782" class="ln">   782  </span>		if err != nil {
-<span id="L783" class="ln">   783  </span>			return err
-<span id="L784" class="ln">   784  </span>		}
-<span id="L785" class="ln">   785  </span>		o.UnparsedObject = raw
-<span id="L786" class="ln">   786  </span>	}
-<span id="L787" class="ln">   787  </span>
-<span id="L788" class="ln">   788  </span>	return nil
-<span id="L789" class="ln">   789  </span>}
-<span id="L790" class="ln">   790  </span>
+<span id="L758" class="ln">   758  </span>	} else {
+<span id="L759" class="ln">   759  </span>		o.ResponseFormat = all.ResponseFormat
+<span id="L760" class="ln">   760  </span>	}
+<span id="L761" class="ln">   761  </span>	if all.RumQuery != nil &amp;&amp; all.RumQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L762" class="ln">   762  </span>		hasInvalidField = true
+<span id="L763" class="ln">   763  </span>	}
+<span id="L764" class="ln">   764  </span>	o.RumQuery = all.RumQuery
+<span id="L765" class="ln">   765  </span>	if all.SecurityQuery != nil &amp;&amp; all.SecurityQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L766" class="ln">   766  </span>		hasInvalidField = true
+<span id="L767" class="ln">   767  </span>	}
+<span id="L768" class="ln">   768  </span>	o.SecurityQuery = all.SecurityQuery
+<span id="L769" class="ln">   769  </span>
+<span id="L770" class="ln">   770  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L771" class="ln">   771  </span>		o.AdditionalProperties = additionalProperties
+<span id="L772" class="ln">   772  </span>	}
+<span id="L773" class="ln">   773  </span>
+<span id="L774" class="ln">   774  </span>	if hasInvalidField {
+<span id="L775" class="ln">   775  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L776" class="ln">   776  </span>	}
+<span id="L777" class="ln">   777  </span>
+<span id="L778" class="ln">   778  </span>	return nil
+<span id="L779" class="ln">   779  </span>}
+<span id="L780" class="ln">   780  </span>
 </pre><p></p>
 
 <div id="footer">

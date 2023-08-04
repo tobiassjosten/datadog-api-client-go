@@ -512,71 +512,61 @@
 <span id="L455" class="ln">   455  </span>
 <span id="L456" class="ln">   456  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L457" class="ln">   457  </span>func (o *SyntheticsSSLCertificate) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L458" class="ln">   458  </span>	raw := map[string]interface{}{}
-<span id="L459" class="ln">   459  </span>	all := struct {
-<span id="L460" class="ln">   460  </span>		Cipher         *string                          `json:&#34;cipher,omitempty&#34;`
-<span id="L461" class="ln">   461  </span>		Exponent       *float64                         `json:&#34;exponent,omitempty&#34;`
-<span id="L462" class="ln">   462  </span>		ExtKeyUsage    []string                         `json:&#34;extKeyUsage,omitempty&#34;`
-<span id="L463" class="ln">   463  </span>		Fingerprint    *string                          `json:&#34;fingerprint,omitempty&#34;`
-<span id="L464" class="ln">   464  </span>		Fingerprint256 *string                          `json:&#34;fingerprint256,omitempty&#34;`
-<span id="L465" class="ln">   465  </span>		Issuer         *SyntheticsSSLCertificateIssuer  `json:&#34;issuer,omitempty&#34;`
-<span id="L466" class="ln">   466  </span>		Modulus        *string                          `json:&#34;modulus,omitempty&#34;`
-<span id="L467" class="ln">   467  </span>		Protocol       *string                          `json:&#34;protocol,omitempty&#34;`
-<span id="L468" class="ln">   468  </span>		SerialNumber   *string                          `json:&#34;serialNumber,omitempty&#34;`
-<span id="L469" class="ln">   469  </span>		Subject        *SyntheticsSSLCertificateSubject `json:&#34;subject,omitempty&#34;`
-<span id="L470" class="ln">   470  </span>		ValidFrom      *time.Time                       `json:&#34;validFrom,omitempty&#34;`
-<span id="L471" class="ln">   471  </span>		ValidTo        *time.Time                       `json:&#34;validTo,omitempty&#34;`
-<span id="L472" class="ln">   472  </span>	}{}
-<span id="L473" class="ln">   473  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L474" class="ln">   474  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L475" class="ln">   475  </span>		if err != nil {
-<span id="L476" class="ln">   476  </span>			return err
-<span id="L477" class="ln">   477  </span>		}
-<span id="L478" class="ln">   478  </span>		o.UnparsedObject = raw
-<span id="L479" class="ln">   479  </span>		return nil
+<span id="L458" class="ln">   458  </span>	all := struct {
+<span id="L459" class="ln">   459  </span>		Cipher         *string                          `json:&#34;cipher,omitempty&#34;`
+<span id="L460" class="ln">   460  </span>		Exponent       *float64                         `json:&#34;exponent,omitempty&#34;`
+<span id="L461" class="ln">   461  </span>		ExtKeyUsage    []string                         `json:&#34;extKeyUsage,omitempty&#34;`
+<span id="L462" class="ln">   462  </span>		Fingerprint    *string                          `json:&#34;fingerprint,omitempty&#34;`
+<span id="L463" class="ln">   463  </span>		Fingerprint256 *string                          `json:&#34;fingerprint256,omitempty&#34;`
+<span id="L464" class="ln">   464  </span>		Issuer         *SyntheticsSSLCertificateIssuer  `json:&#34;issuer,omitempty&#34;`
+<span id="L465" class="ln">   465  </span>		Modulus        *string                          `json:&#34;modulus,omitempty&#34;`
+<span id="L466" class="ln">   466  </span>		Protocol       *string                          `json:&#34;protocol,omitempty&#34;`
+<span id="L467" class="ln">   467  </span>		SerialNumber   *string                          `json:&#34;serialNumber,omitempty&#34;`
+<span id="L468" class="ln">   468  </span>		Subject        *SyntheticsSSLCertificateSubject `json:&#34;subject,omitempty&#34;`
+<span id="L469" class="ln">   469  </span>		ValidFrom      *time.Time                       `json:&#34;validFrom,omitempty&#34;`
+<span id="L470" class="ln">   470  </span>		ValidTo        *time.Time                       `json:&#34;validTo,omitempty&#34;`
+<span id="L471" class="ln">   471  </span>	}{}
+<span id="L472" class="ln">   472  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L473" class="ln">   473  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L474" class="ln">   474  </span>	}
+<span id="L475" class="ln">   475  </span>	additionalProperties := make(map[string]interface{})
+<span id="L476" class="ln">   476  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L477" class="ln">   477  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cipher&#34;, &#34;exponent&#34;, &#34;extKeyUsage&#34;, &#34;fingerprint&#34;, &#34;fingerprint256&#34;, &#34;issuer&#34;, &#34;modulus&#34;, &#34;protocol&#34;, &#34;serialNumber&#34;, &#34;subject&#34;, &#34;validFrom&#34;, &#34;validTo&#34;})
+<span id="L478" class="ln">   478  </span>	} else {
+<span id="L479" class="ln">   479  </span>		return err
 <span id="L480" class="ln">   480  </span>	}
-<span id="L481" class="ln">   481  </span>	additionalProperties := make(map[string]interface{})
-<span id="L482" class="ln">   482  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L483" class="ln">   483  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;cipher&#34;, &#34;exponent&#34;, &#34;extKeyUsage&#34;, &#34;fingerprint&#34;, &#34;fingerprint256&#34;, &#34;issuer&#34;, &#34;modulus&#34;, &#34;protocol&#34;, &#34;serialNumber&#34;, &#34;subject&#34;, &#34;validFrom&#34;, &#34;validTo&#34;})
-<span id="L484" class="ln">   484  </span>	} else {
-<span id="L485" class="ln">   485  </span>		return err
-<span id="L486" class="ln">   486  </span>	}
-<span id="L487" class="ln">   487  </span>
-<span id="L488" class="ln">   488  </span>	hasInvalidField := false
-<span id="L489" class="ln">   489  </span>	o.Cipher = all.Cipher
-<span id="L490" class="ln">   490  </span>	o.Exponent = all.Exponent
-<span id="L491" class="ln">   491  </span>	o.ExtKeyUsage = all.ExtKeyUsage
-<span id="L492" class="ln">   492  </span>	o.Fingerprint = all.Fingerprint
-<span id="L493" class="ln">   493  </span>	o.Fingerprint256 = all.Fingerprint256
-<span id="L494" class="ln">   494  </span>	if all.Issuer != nil &amp;&amp; all.Issuer.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L495" class="ln">   495  </span>		hasInvalidField = true
-<span id="L496" class="ln">   496  </span>	}
-<span id="L497" class="ln">   497  </span>	o.Issuer = all.Issuer
-<span id="L498" class="ln">   498  </span>	o.Modulus = all.Modulus
-<span id="L499" class="ln">   499  </span>	o.Protocol = all.Protocol
-<span id="L500" class="ln">   500  </span>	o.SerialNumber = all.SerialNumber
-<span id="L501" class="ln">   501  </span>	if all.Subject != nil &amp;&amp; all.Subject.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L502" class="ln">   502  </span>		hasInvalidField = true
-<span id="L503" class="ln">   503  </span>	}
-<span id="L504" class="ln">   504  </span>	o.Subject = all.Subject
-<span id="L505" class="ln">   505  </span>	o.ValidFrom = all.ValidFrom
-<span id="L506" class="ln">   506  </span>	o.ValidTo = all.ValidTo
-<span id="L507" class="ln">   507  </span>
-<span id="L508" class="ln">   508  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L509" class="ln">   509  </span>		o.AdditionalProperties = additionalProperties
-<span id="L510" class="ln">   510  </span>	}
-<span id="L511" class="ln">   511  </span>
-<span id="L512" class="ln">   512  </span>	if hasInvalidField {
-<span id="L513" class="ln">   513  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L514" class="ln">   514  </span>		if err != nil {
-<span id="L515" class="ln">   515  </span>			return err
-<span id="L516" class="ln">   516  </span>		}
-<span id="L517" class="ln">   517  </span>		o.UnparsedObject = raw
-<span id="L518" class="ln">   518  </span>	}
-<span id="L519" class="ln">   519  </span>
-<span id="L520" class="ln">   520  </span>	return nil
-<span id="L521" class="ln">   521  </span>}
-<span id="L522" class="ln">   522  </span>
+<span id="L481" class="ln">   481  </span>
+<span id="L482" class="ln">   482  </span>	hasInvalidField := false
+<span id="L483" class="ln">   483  </span>	o.Cipher = all.Cipher
+<span id="L484" class="ln">   484  </span>	o.Exponent = all.Exponent
+<span id="L485" class="ln">   485  </span>	o.ExtKeyUsage = all.ExtKeyUsage
+<span id="L486" class="ln">   486  </span>	o.Fingerprint = all.Fingerprint
+<span id="L487" class="ln">   487  </span>	o.Fingerprint256 = all.Fingerprint256
+<span id="L488" class="ln">   488  </span>	if all.Issuer != nil &amp;&amp; all.Issuer.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L489" class="ln">   489  </span>		hasInvalidField = true
+<span id="L490" class="ln">   490  </span>	}
+<span id="L491" class="ln">   491  </span>	o.Issuer = all.Issuer
+<span id="L492" class="ln">   492  </span>	o.Modulus = all.Modulus
+<span id="L493" class="ln">   493  </span>	o.Protocol = all.Protocol
+<span id="L494" class="ln">   494  </span>	o.SerialNumber = all.SerialNumber
+<span id="L495" class="ln">   495  </span>	if all.Subject != nil &amp;&amp; all.Subject.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L496" class="ln">   496  </span>		hasInvalidField = true
+<span id="L497" class="ln">   497  </span>	}
+<span id="L498" class="ln">   498  </span>	o.Subject = all.Subject
+<span id="L499" class="ln">   499  </span>	o.ValidFrom = all.ValidFrom
+<span id="L500" class="ln">   500  </span>	o.ValidTo = all.ValidTo
+<span id="L501" class="ln">   501  </span>
+<span id="L502" class="ln">   502  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L503" class="ln">   503  </span>		o.AdditionalProperties = additionalProperties
+<span id="L504" class="ln">   504  </span>	}
+<span id="L505" class="ln">   505  </span>
+<span id="L506" class="ln">   506  </span>	if hasInvalidField {
+<span id="L507" class="ln">   507  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L508" class="ln">   508  </span>	}
+<span id="L509" class="ln">   509  </span>
+<span id="L510" class="ln">   510  </span>	return nil
+<span id="L511" class="ln">   511  </span>}
+<span id="L512" class="ln">   512  </span>
 </pre><p></p>
 
 <div id="footer">

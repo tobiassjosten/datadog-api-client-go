@@ -601,74 +601,64 @@
 <span id="L544" class="ln">   544  </span>
 <span id="L545" class="ln">   545  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L546" class="ln">   546  </span>func (o *HostMeta) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L547" class="ln">   547  </span>	raw := map[string]interface{}{}
-<span id="L548" class="ln">   548  </span>	all := struct {
-<span id="L549" class="ln">   549  </span>		AgentChecks    [][]interface{}        `json:&#34;agent_checks,omitempty&#34;`
-<span id="L550" class="ln">   550  </span>		AgentVersion   *string                `json:&#34;agent_version,omitempty&#34;`
-<span id="L551" class="ln">   551  </span>		CpuCores       *int64                 `json:&#34;cpuCores,omitempty&#34;`
-<span id="L552" class="ln">   552  </span>		FbsdV          []interface{}          `json:&#34;fbsdV,omitempty&#34;`
-<span id="L553" class="ln">   553  </span>		Gohai          *string                `json:&#34;gohai,omitempty&#34;`
-<span id="L554" class="ln">   554  </span>		InstallMethod  *HostMetaInstallMethod `json:&#34;install_method,omitempty&#34;`
-<span id="L555" class="ln">   555  </span>		MacV           []interface{}          `json:&#34;macV,omitempty&#34;`
-<span id="L556" class="ln">   556  </span>		Machine        *string                `json:&#34;machine,omitempty&#34;`
-<span id="L557" class="ln">   557  </span>		NixV           []interface{}          `json:&#34;nixV,omitempty&#34;`
-<span id="L558" class="ln">   558  </span>		Platform       *string                `json:&#34;platform,omitempty&#34;`
-<span id="L559" class="ln">   559  </span>		Processor      *string                `json:&#34;processor,omitempty&#34;`
-<span id="L560" class="ln">   560  </span>		PythonV        *string                `json:&#34;pythonV,omitempty&#34;`
-<span id="L561" class="ln">   561  </span>		SocketFqdn     *string                `json:&#34;socket-fqdn,omitempty&#34;`
-<span id="L562" class="ln">   562  </span>		SocketHostname *string                `json:&#34;socket-hostname,omitempty&#34;`
-<span id="L563" class="ln">   563  </span>		WinV           []interface{}          `json:&#34;winV,omitempty&#34;`
-<span id="L564" class="ln">   564  </span>	}{}
-<span id="L565" class="ln">   565  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L566" class="ln">   566  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L567" class="ln">   567  </span>		if err != nil {
-<span id="L568" class="ln">   568  </span>			return err
-<span id="L569" class="ln">   569  </span>		}
-<span id="L570" class="ln">   570  </span>		o.UnparsedObject = raw
-<span id="L571" class="ln">   571  </span>		return nil
+<span id="L547" class="ln">   547  </span>	all := struct {
+<span id="L548" class="ln">   548  </span>		AgentChecks    [][]interface{}        `json:&#34;agent_checks,omitempty&#34;`
+<span id="L549" class="ln">   549  </span>		AgentVersion   *string                `json:&#34;agent_version,omitempty&#34;`
+<span id="L550" class="ln">   550  </span>		CpuCores       *int64                 `json:&#34;cpuCores,omitempty&#34;`
+<span id="L551" class="ln">   551  </span>		FbsdV          []interface{}          `json:&#34;fbsdV,omitempty&#34;`
+<span id="L552" class="ln">   552  </span>		Gohai          *string                `json:&#34;gohai,omitempty&#34;`
+<span id="L553" class="ln">   553  </span>		InstallMethod  *HostMetaInstallMethod `json:&#34;install_method,omitempty&#34;`
+<span id="L554" class="ln">   554  </span>		MacV           []interface{}          `json:&#34;macV,omitempty&#34;`
+<span id="L555" class="ln">   555  </span>		Machine        *string                `json:&#34;machine,omitempty&#34;`
+<span id="L556" class="ln">   556  </span>		NixV           []interface{}          `json:&#34;nixV,omitempty&#34;`
+<span id="L557" class="ln">   557  </span>		Platform       *string                `json:&#34;platform,omitempty&#34;`
+<span id="L558" class="ln">   558  </span>		Processor      *string                `json:&#34;processor,omitempty&#34;`
+<span id="L559" class="ln">   559  </span>		PythonV        *string                `json:&#34;pythonV,omitempty&#34;`
+<span id="L560" class="ln">   560  </span>		SocketFqdn     *string                `json:&#34;socket-fqdn,omitempty&#34;`
+<span id="L561" class="ln">   561  </span>		SocketHostname *string                `json:&#34;socket-hostname,omitempty&#34;`
+<span id="L562" class="ln">   562  </span>		WinV           []interface{}          `json:&#34;winV,omitempty&#34;`
+<span id="L563" class="ln">   563  </span>	}{}
+<span id="L564" class="ln">   564  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L565" class="ln">   565  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L566" class="ln">   566  </span>	}
+<span id="L567" class="ln">   567  </span>	additionalProperties := make(map[string]interface{})
+<span id="L568" class="ln">   568  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L569" class="ln">   569  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agent_checks&#34;, &#34;agent_version&#34;, &#34;cpuCores&#34;, &#34;fbsdV&#34;, &#34;gohai&#34;, &#34;install_method&#34;, &#34;macV&#34;, &#34;machine&#34;, &#34;nixV&#34;, &#34;platform&#34;, &#34;processor&#34;, &#34;pythonV&#34;, &#34;socket-fqdn&#34;, &#34;socket-hostname&#34;, &#34;winV&#34;})
+<span id="L570" class="ln">   570  </span>	} else {
+<span id="L571" class="ln">   571  </span>		return err
 <span id="L572" class="ln">   572  </span>	}
-<span id="L573" class="ln">   573  </span>	additionalProperties := make(map[string]interface{})
-<span id="L574" class="ln">   574  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L575" class="ln">   575  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;agent_checks&#34;, &#34;agent_version&#34;, &#34;cpuCores&#34;, &#34;fbsdV&#34;, &#34;gohai&#34;, &#34;install_method&#34;, &#34;macV&#34;, &#34;machine&#34;, &#34;nixV&#34;, &#34;platform&#34;, &#34;processor&#34;, &#34;pythonV&#34;, &#34;socket-fqdn&#34;, &#34;socket-hostname&#34;, &#34;winV&#34;})
-<span id="L576" class="ln">   576  </span>	} else {
-<span id="L577" class="ln">   577  </span>		return err
-<span id="L578" class="ln">   578  </span>	}
-<span id="L579" class="ln">   579  </span>
-<span id="L580" class="ln">   580  </span>	hasInvalidField := false
-<span id="L581" class="ln">   581  </span>	o.AgentChecks = all.AgentChecks
-<span id="L582" class="ln">   582  </span>	o.AgentVersion = all.AgentVersion
-<span id="L583" class="ln">   583  </span>	o.CpuCores = all.CpuCores
-<span id="L584" class="ln">   584  </span>	o.FbsdV = all.FbsdV
-<span id="L585" class="ln">   585  </span>	o.Gohai = all.Gohai
-<span id="L586" class="ln">   586  </span>	if all.InstallMethod != nil &amp;&amp; all.InstallMethod.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L587" class="ln">   587  </span>		hasInvalidField = true
-<span id="L588" class="ln">   588  </span>	}
-<span id="L589" class="ln">   589  </span>	o.InstallMethod = all.InstallMethod
-<span id="L590" class="ln">   590  </span>	o.MacV = all.MacV
-<span id="L591" class="ln">   591  </span>	o.Machine = all.Machine
-<span id="L592" class="ln">   592  </span>	o.NixV = all.NixV
-<span id="L593" class="ln">   593  </span>	o.Platform = all.Platform
-<span id="L594" class="ln">   594  </span>	o.Processor = all.Processor
-<span id="L595" class="ln">   595  </span>	o.PythonV = all.PythonV
-<span id="L596" class="ln">   596  </span>	o.SocketFqdn = all.SocketFqdn
-<span id="L597" class="ln">   597  </span>	o.SocketHostname = all.SocketHostname
-<span id="L598" class="ln">   598  </span>	o.WinV = all.WinV
-<span id="L599" class="ln">   599  </span>
-<span id="L600" class="ln">   600  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L601" class="ln">   601  </span>		o.AdditionalProperties = additionalProperties
-<span id="L602" class="ln">   602  </span>	}
-<span id="L603" class="ln">   603  </span>
-<span id="L604" class="ln">   604  </span>	if hasInvalidField {
-<span id="L605" class="ln">   605  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L606" class="ln">   606  </span>		if err != nil {
-<span id="L607" class="ln">   607  </span>			return err
-<span id="L608" class="ln">   608  </span>		}
-<span id="L609" class="ln">   609  </span>		o.UnparsedObject = raw
-<span id="L610" class="ln">   610  </span>	}
-<span id="L611" class="ln">   611  </span>
-<span id="L612" class="ln">   612  </span>	return nil
-<span id="L613" class="ln">   613  </span>}
-<span id="L614" class="ln">   614  </span>
+<span id="L573" class="ln">   573  </span>
+<span id="L574" class="ln">   574  </span>	hasInvalidField := false
+<span id="L575" class="ln">   575  </span>	o.AgentChecks = all.AgentChecks
+<span id="L576" class="ln">   576  </span>	o.AgentVersion = all.AgentVersion
+<span id="L577" class="ln">   577  </span>	o.CpuCores = all.CpuCores
+<span id="L578" class="ln">   578  </span>	o.FbsdV = all.FbsdV
+<span id="L579" class="ln">   579  </span>	o.Gohai = all.Gohai
+<span id="L580" class="ln">   580  </span>	if all.InstallMethod != nil &amp;&amp; all.InstallMethod.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L581" class="ln">   581  </span>		hasInvalidField = true
+<span id="L582" class="ln">   582  </span>	}
+<span id="L583" class="ln">   583  </span>	o.InstallMethod = all.InstallMethod
+<span id="L584" class="ln">   584  </span>	o.MacV = all.MacV
+<span id="L585" class="ln">   585  </span>	o.Machine = all.Machine
+<span id="L586" class="ln">   586  </span>	o.NixV = all.NixV
+<span id="L587" class="ln">   587  </span>	o.Platform = all.Platform
+<span id="L588" class="ln">   588  </span>	o.Processor = all.Processor
+<span id="L589" class="ln">   589  </span>	o.PythonV = all.PythonV
+<span id="L590" class="ln">   590  </span>	o.SocketFqdn = all.SocketFqdn
+<span id="L591" class="ln">   591  </span>	o.SocketHostname = all.SocketHostname
+<span id="L592" class="ln">   592  </span>	o.WinV = all.WinV
+<span id="L593" class="ln">   593  </span>
+<span id="L594" class="ln">   594  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L595" class="ln">   595  </span>		o.AdditionalProperties = additionalProperties
+<span id="L596" class="ln">   596  </span>	}
+<span id="L597" class="ln">   597  </span>
+<span id="L598" class="ln">   598  </span>	if hasInvalidField {
+<span id="L599" class="ln">   599  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L600" class="ln">   600  </span>	}
+<span id="L601" class="ln">   601  </span>
+<span id="L602" class="ln">   602  </span>	return nil
+<span id="L603" class="ln">   603  </span>}
+<span id="L604" class="ln">   604  </span>
 </pre><p></p>
 
 <div id="footer">
