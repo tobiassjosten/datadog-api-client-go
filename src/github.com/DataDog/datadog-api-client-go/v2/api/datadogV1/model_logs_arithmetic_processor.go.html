@@ -84,12 +84,12 @@
 <span id="L27" class="ln">    27  </span><span class="comment">//</span>
 <span id="L28" class="ln">    28  </span><span class="comment">// *Notes*:</span>
 <span id="L29" class="ln">    29  </span><span class="comment">//</span>
-<span id="L30" class="ln">    30  </span><span class="comment">// - The operator `-` needs to be space split in the formula as it can also be contained in attribute names.</span>
-<span id="L31" class="ln">    31  </span><span class="comment">// - If the target attribute already exists, it is overwritten by the result of the formula.</span>
-<span id="L32" class="ln">    32  </span><span class="comment">// - Results are rounded up to the 9th decimal. For example, if the result of the formula is `0.1234567891`,</span>
-<span id="L33" class="ln">    33  </span><span class="comment">//   the actual value stored for the attribute is `0.123456789`.</span>
-<span id="L34" class="ln">    34  </span><span class="comment">// - If you need to scale a unit of measure,</span>
-<span id="L35" class="ln">    35  </span><span class="comment">//   see [Scale Filter](https://docs.datadoghq.com/logs/log_configuration/parsing/?tab=filter#matcher-and-filter).</span>
+<span id="L30" class="ln">    30  </span><span class="comment">//   - The operator `-` needs to be space split in the formula as it can also be contained in attribute names.</span>
+<span id="L31" class="ln">    31  </span><span class="comment">//   - If the target attribute already exists, it is overwritten by the result of the formula.</span>
+<span id="L32" class="ln">    32  </span><span class="comment">//   - Results are rounded up to the 9th decimal. For example, if the result of the formula is `0.1234567891`,</span>
+<span id="L33" class="ln">    33  </span><span class="comment">//     the actual value stored for the attribute is `0.123456789`.</span>
+<span id="L34" class="ln">    34  </span><span class="comment">//   - If you need to scale a unit of measure,</span>
+<span id="L35" class="ln">    35  </span><span class="comment">//     see [Scale Filter](https://docs.datadoghq.com/logs/log_configuration/parsing/?tab=filter#matcher-and-filter).</span>
 <span id="L36" class="ln">    36  </span>type LogsArithmeticProcessor struct {
 <span id="L37" class="ln">    37  </span>	<span class="comment">// Arithmetic operation between one or more log attributes.</span>
 <span id="L38" class="ln">    38  </span>	Expression string `json:&#34;expression&#34;`

@@ -158,11 +158,11 @@
 <span id="L101" class="ln">   101  </span><span class="comment">// Done async, so can be repeatedly polled in a non-blocking fashion until</span>
 <span id="L102" class="ln">   102  </span><span class="comment">// the async request completes.</span>
 <span id="L103" class="ln">   103  </span><span class="comment">//</span>
-<span id="L104" class="ln">   104  </span><span class="comment">// - Returns a status of `created` when it&#39;s checking if the permissions exists</span>
-<span id="L105" class="ln">   105  </span><span class="comment">//   in the AWS account.</span>
-<span id="L106" class="ln">   106  </span><span class="comment">// - Returns a status of `waiting` while checking.</span>
-<span id="L107" class="ln">   107  </span><span class="comment">// - Returns a status of `checked and ok` if the Lambda exists.</span>
-<span id="L108" class="ln">   108  </span><span class="comment">// - Returns a status of `error` if the Lambda does not exist.</span>
+<span id="L104" class="ln">   104  </span><span class="comment">//   - Returns a status of `created` when it&#39;s checking if the permissions exists</span>
+<span id="L105" class="ln">   105  </span><span class="comment">//     in the AWS account.</span>
+<span id="L106" class="ln">   106  </span><span class="comment">//   - Returns a status of `waiting` while checking.</span>
+<span id="L107" class="ln">   107  </span><span class="comment">//   - Returns a status of `checked and ok` if the Lambda exists.</span>
+<span id="L108" class="ln">   108  </span><span class="comment">//   - Returns a status of `error` if the Lambda does not exist.</span>
 <span id="L109" class="ln">   109  </span>func (a *AWSLogsIntegrationApi) CheckAWSLogsServicesAsync(ctx _context.Context, body AWSLogsServicesRequest) (AWSLogsAsyncResponse, *_nethttp.Response, error) {
 <span id="L110" class="ln">   110  </span>	var (
 <span id="L111" class="ln">   111  </span>		localVarHTTPMethod  = _nethttp.MethodPost

@@ -77,11 +77,11 @@
 <span id="L20" class="ln">    20  </span><span class="comment">//</span>
 <span id="L21" class="ln">    21  </span><span class="comment">// **Notes**:</span>
 <span id="L22" class="ln">    22  </span><span class="comment">//</span>
-<span id="L23" class="ln">    23  </span><span class="comment">// - The processor only accepts attributes with values or an array of values in the blocks.</span>
-<span id="L24" class="ln">    24  </span><span class="comment">// - If an attribute cannot be used (object or array of object),</span>
-<span id="L25" class="ln">    25  </span><span class="comment">//   it is replaced by an empty string or the entire operation is skipped depending on your selection.</span>
-<span id="L26" class="ln">    26  </span><span class="comment">// - If the target attribute already exists, it is overwritten by the result of the template.</span>
-<span id="L27" class="ln">    27  </span><span class="comment">// - Results of the template cannot exceed 256 characters.</span>
+<span id="L23" class="ln">    23  </span><span class="comment">//   - The processor only accepts attributes with values or an array of values in the blocks.</span>
+<span id="L24" class="ln">    24  </span><span class="comment">//   - If an attribute cannot be used (object or array of object),</span>
+<span id="L25" class="ln">    25  </span><span class="comment">//     it is replaced by an empty string or the entire operation is skipped depending on your selection.</span>
+<span id="L26" class="ln">    26  </span><span class="comment">//   - If the target attribute already exists, it is overwritten by the result of the template.</span>
+<span id="L27" class="ln">    27  </span><span class="comment">//   - Results of the template cannot exceed 256 characters.</span>
 <span id="L28" class="ln">    28  </span>type LogsStringBuilderProcessor struct {
 <span id="L29" class="ln">    29  </span>	<span class="comment">// Whether or not the processor is enabled.</span>
 <span id="L30" class="ln">    30  </span>	IsEnabled *bool `json:&#34;is_enabled,omitempty&#34;`

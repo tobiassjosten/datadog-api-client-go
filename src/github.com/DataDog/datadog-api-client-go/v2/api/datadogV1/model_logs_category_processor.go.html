@@ -75,13 +75,13 @@
 <span id="L18" class="ln">    18  </span><span class="comment">//</span>
 <span id="L19" class="ln">    19  </span><span class="comment">// **Notes**:</span>
 <span id="L20" class="ln">    20  </span><span class="comment">//</span>
-<span id="L21" class="ln">    21  </span><span class="comment">// - The syntax of the query is the one of Logs Explorer search bar.</span>
-<span id="L22" class="ln">    22  </span><span class="comment">//   The query can be done on any log attribute or tag, whether it is a facet or not.</span>
-<span id="L23" class="ln">    23  </span><span class="comment">//   Wildcards can also be used inside your query.</span>
-<span id="L24" class="ln">    24  </span><span class="comment">// - Once the log has matched one of the Processor queries, it stops.</span>
-<span id="L25" class="ln">    25  </span><span class="comment">//   Make sure they are properly ordered in case a log could match several queries.</span>
-<span id="L26" class="ln">    26  </span><span class="comment">// - The names of the categories must be unique.</span>
-<span id="L27" class="ln">    27  </span><span class="comment">// - Once defined in the Category Processor, you can map categories to log status using the Log Status Remapper.</span>
+<span id="L21" class="ln">    21  </span><span class="comment">//   - The syntax of the query is the one of Logs Explorer search bar.</span>
+<span id="L22" class="ln">    22  </span><span class="comment">//     The query can be done on any log attribute or tag, whether it is a facet or not.</span>
+<span id="L23" class="ln">    23  </span><span class="comment">//     Wildcards can also be used inside your query.</span>
+<span id="L24" class="ln">    24  </span><span class="comment">//   - Once the log has matched one of the Processor queries, it stops.</span>
+<span id="L25" class="ln">    25  </span><span class="comment">//     Make sure they are properly ordered in case a log could match several queries.</span>
+<span id="L26" class="ln">    26  </span><span class="comment">//   - The names of the categories must be unique.</span>
+<span id="L27" class="ln">    27  </span><span class="comment">//   - Once defined in the Category Processor, you can map categories to log status using the Log Status Remapper.</span>
 <span id="L28" class="ln">    28  </span>type LogsCategoryProcessor struct {
 <span id="L29" class="ln">    29  </span>	<span class="comment">// Array of filters to match or not a log and their</span>
 <span id="L30" class="ln">    30  </span>	<span class="comment">// corresponding `name` to assign a custom value to the log.</span>

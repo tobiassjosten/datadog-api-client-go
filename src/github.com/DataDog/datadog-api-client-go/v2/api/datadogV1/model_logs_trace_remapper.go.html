@@ -71,10 +71,10 @@
 <span id="L14" class="ln">    14  </span>
 <span id="L15" class="ln">    15  </span><span class="comment">// LogsTraceRemapper There are two ways to improve correlation between application traces and logs.</span>
 <span id="L16" class="ln">    16  </span><span class="comment">//</span>
-<span id="L17" class="ln">    17  </span><span class="comment">//   1. Follow the documentation on [how to inject a trace ID in the application logs](https://docs.datadoghq.com/tracing/connect_logs_and_traces)</span>
-<span id="L18" class="ln">    18  </span><span class="comment">//   and by default log integrations take care of all the rest of the setup.</span>
+<span id="L17" class="ln">    17  </span><span class="comment">//  1. Follow the documentation on [how to inject a trace ID in the application logs](https://docs.datadoghq.com/tracing/connect_logs_and_traces)</span>
+<span id="L18" class="ln">    18  </span><span class="comment">//     and by default log integrations take care of all the rest of the setup.</span>
 <span id="L19" class="ln">    19  </span><span class="comment">//</span>
-<span id="L20" class="ln">    20  </span><span class="comment">//   2. Use the Trace remapper processor to define a log attribute as its associated trace ID.</span>
+<span id="L20" class="ln">    20  </span><span class="comment">//  2. Use the Trace remapper processor to define a log attribute as its associated trace ID.</span>
 <span id="L21" class="ln">    21  </span>type LogsTraceRemapper struct {
 <span id="L22" class="ln">    22  </span>	<span class="comment">// Whether or not the processor is enabled.</span>
 <span id="L23" class="ln">    23  </span>	IsEnabled *bool `json:&#34;is_enabled,omitempty&#34;`
