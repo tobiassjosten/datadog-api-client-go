@@ -633,35 +633,42 @@
 <span id="L576" class="ln">   576  </span>	} else {
 <span id="L577" class="ln">   577  </span>		return err
 <span id="L578" class="ln">   578  </span>	}
-<span id="L579" class="ln">   579  </span>	o.AgentChecks = all.AgentChecks
-<span id="L580" class="ln">   580  </span>	o.AgentVersion = all.AgentVersion
-<span id="L581" class="ln">   581  </span>	o.CpuCores = all.CpuCores
-<span id="L582" class="ln">   582  </span>	o.FbsdV = all.FbsdV
-<span id="L583" class="ln">   583  </span>	o.Gohai = all.Gohai
-<span id="L584" class="ln">   584  </span>	if all.InstallMethod != nil &amp;&amp; all.InstallMethod.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L585" class="ln">   585  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L586" class="ln">   586  </span>		if err != nil {
-<span id="L587" class="ln">   587  </span>			return err
-<span id="L588" class="ln">   588  </span>		}
-<span id="L589" class="ln">   589  </span>		o.UnparsedObject = raw
-<span id="L590" class="ln">   590  </span>	}
-<span id="L591" class="ln">   591  </span>	o.InstallMethod = all.InstallMethod
-<span id="L592" class="ln">   592  </span>	o.MacV = all.MacV
-<span id="L593" class="ln">   593  </span>	o.Machine = all.Machine
-<span id="L594" class="ln">   594  </span>	o.NixV = all.NixV
-<span id="L595" class="ln">   595  </span>	o.Platform = all.Platform
-<span id="L596" class="ln">   596  </span>	o.Processor = all.Processor
-<span id="L597" class="ln">   597  </span>	o.PythonV = all.PythonV
-<span id="L598" class="ln">   598  </span>	o.SocketFqdn = all.SocketFqdn
-<span id="L599" class="ln">   599  </span>	o.SocketHostname = all.SocketHostname
-<span id="L600" class="ln">   600  </span>	o.WinV = all.WinV
-<span id="L601" class="ln">   601  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L602" class="ln">   602  </span>		o.AdditionalProperties = additionalProperties
-<span id="L603" class="ln">   603  </span>	}
-<span id="L604" class="ln">   604  </span>
-<span id="L605" class="ln">   605  </span>	return nil
-<span id="L606" class="ln">   606  </span>}
-<span id="L607" class="ln">   607  </span>
+<span id="L579" class="ln">   579  </span>
+<span id="L580" class="ln">   580  </span>	hasInvalidField := false
+<span id="L581" class="ln">   581  </span>	o.AgentChecks = all.AgentChecks
+<span id="L582" class="ln">   582  </span>	o.AgentVersion = all.AgentVersion
+<span id="L583" class="ln">   583  </span>	o.CpuCores = all.CpuCores
+<span id="L584" class="ln">   584  </span>	o.FbsdV = all.FbsdV
+<span id="L585" class="ln">   585  </span>	o.Gohai = all.Gohai
+<span id="L586" class="ln">   586  </span>	if all.InstallMethod != nil &amp;&amp; all.InstallMethod.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L587" class="ln">   587  </span>		hasInvalidField = true
+<span id="L588" class="ln">   588  </span>	}
+<span id="L589" class="ln">   589  </span>	o.InstallMethod = all.InstallMethod
+<span id="L590" class="ln">   590  </span>	o.MacV = all.MacV
+<span id="L591" class="ln">   591  </span>	o.Machine = all.Machine
+<span id="L592" class="ln">   592  </span>	o.NixV = all.NixV
+<span id="L593" class="ln">   593  </span>	o.Platform = all.Platform
+<span id="L594" class="ln">   594  </span>	o.Processor = all.Processor
+<span id="L595" class="ln">   595  </span>	o.PythonV = all.PythonV
+<span id="L596" class="ln">   596  </span>	o.SocketFqdn = all.SocketFqdn
+<span id="L597" class="ln">   597  </span>	o.SocketHostname = all.SocketHostname
+<span id="L598" class="ln">   598  </span>	o.WinV = all.WinV
+<span id="L599" class="ln">   599  </span>
+<span id="L600" class="ln">   600  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L601" class="ln">   601  </span>		o.AdditionalProperties = additionalProperties
+<span id="L602" class="ln">   602  </span>	}
+<span id="L603" class="ln">   603  </span>
+<span id="L604" class="ln">   604  </span>	if hasInvalidField {
+<span id="L605" class="ln">   605  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L606" class="ln">   606  </span>		if err != nil {
+<span id="L607" class="ln">   607  </span>			return err
+<span id="L608" class="ln">   608  </span>		}
+<span id="L609" class="ln">   609  </span>		o.UnparsedObject = raw
+<span id="L610" class="ln">   610  </span>	}
+<span id="L611" class="ln">   611  </span>
+<span id="L612" class="ln">   612  </span>	return nil
+<span id="L613" class="ln">   613  </span>}
+<span id="L614" class="ln">   614  </span>
 </pre><p></p>
 
 <div id="footer">

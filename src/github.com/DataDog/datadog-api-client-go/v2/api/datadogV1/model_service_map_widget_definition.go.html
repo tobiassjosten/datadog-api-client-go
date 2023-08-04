@@ -356,36 +356,39 @@
 <span id="L299" class="ln">   299  </span>	} else {
 <span id="L300" class="ln">   300  </span>		return err
 <span id="L301" class="ln">   301  </span>	}
-<span id="L302" class="ln">   302  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L303" class="ln">   303  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L304" class="ln">   304  </span>		if err != nil {
-<span id="L305" class="ln">   305  </span>			return err
-<span id="L306" class="ln">   306  </span>		}
-<span id="L307" class="ln">   307  </span>		o.UnparsedObject = raw
-<span id="L308" class="ln">   308  </span>		return nil
-<span id="L309" class="ln">   309  </span>	}
-<span id="L310" class="ln">   310  </span>	if v := all.Type; !v.IsValid() {
-<span id="L311" class="ln">   311  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L312" class="ln">   312  </span>		if err != nil {
-<span id="L313" class="ln">   313  </span>			return err
-<span id="L314" class="ln">   314  </span>		}
-<span id="L315" class="ln">   315  </span>		o.UnparsedObject = raw
-<span id="L316" class="ln">   316  </span>		return nil
-<span id="L317" class="ln">   317  </span>	}
-<span id="L318" class="ln">   318  </span>	o.CustomLinks = all.CustomLinks
-<span id="L319" class="ln">   319  </span>	o.Filters = *all.Filters
-<span id="L320" class="ln">   320  </span>	o.Service = *all.Service
-<span id="L321" class="ln">   321  </span>	o.Title = all.Title
-<span id="L322" class="ln">   322  </span>	o.TitleAlign = all.TitleAlign
-<span id="L323" class="ln">   323  </span>	o.TitleSize = all.TitleSize
-<span id="L324" class="ln">   324  </span>	o.Type = *all.Type
-<span id="L325" class="ln">   325  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L326" class="ln">   326  </span>		o.AdditionalProperties = additionalProperties
-<span id="L327" class="ln">   327  </span>	}
-<span id="L328" class="ln">   328  </span>
-<span id="L329" class="ln">   329  </span>	return nil
-<span id="L330" class="ln">   330  </span>}
+<span id="L302" class="ln">   302  </span>
+<span id="L303" class="ln">   303  </span>	hasInvalidField := false
+<span id="L304" class="ln">   304  </span>	o.CustomLinks = all.CustomLinks
+<span id="L305" class="ln">   305  </span>	o.Filters = *all.Filters
+<span id="L306" class="ln">   306  </span>	o.Service = *all.Service
+<span id="L307" class="ln">   307  </span>	o.Title = all.Title
+<span id="L308" class="ln">   308  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L309" class="ln">   309  </span>		hasInvalidField = true
+<span id="L310" class="ln">   310  </span>	} else {
+<span id="L311" class="ln">   311  </span>		o.TitleAlign = all.TitleAlign
+<span id="L312" class="ln">   312  </span>	}
+<span id="L313" class="ln">   313  </span>	o.TitleSize = all.TitleSize
+<span id="L314" class="ln">   314  </span>	if v := all.Type; !v.IsValid() {
+<span id="L315" class="ln">   315  </span>		hasInvalidField = true
+<span id="L316" class="ln">   316  </span>	} else {
+<span id="L317" class="ln">   317  </span>		o.Type = *all.Type
+<span id="L318" class="ln">   318  </span>	}
+<span id="L319" class="ln">   319  </span>
+<span id="L320" class="ln">   320  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L321" class="ln">   321  </span>		o.AdditionalProperties = additionalProperties
+<span id="L322" class="ln">   322  </span>	}
+<span id="L323" class="ln">   323  </span>
+<span id="L324" class="ln">   324  </span>	if hasInvalidField {
+<span id="L325" class="ln">   325  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L326" class="ln">   326  </span>		if err != nil {
+<span id="L327" class="ln">   327  </span>			return err
+<span id="L328" class="ln">   328  </span>		}
+<span id="L329" class="ln">   329  </span>		o.UnparsedObject = raw
+<span id="L330" class="ln">   330  </span>	}
 <span id="L331" class="ln">   331  </span>
+<span id="L332" class="ln">   332  </span>	return nil
+<span id="L333" class="ln">   333  </span>}
+<span id="L334" class="ln">   334  </span>
 </pre><p></p>
 
 <div id="footer">

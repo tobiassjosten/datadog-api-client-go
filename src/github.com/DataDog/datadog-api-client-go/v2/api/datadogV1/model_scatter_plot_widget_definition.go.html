@@ -461,67 +461,54 @@
 <span id="L404" class="ln">   404  </span>	} else {
 <span id="L405" class="ln">   405  </span>		return err
 <span id="L406" class="ln">   406  </span>	}
-<span id="L407" class="ln">   407  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L408" class="ln">   408  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L409" class="ln">   409  </span>		if err != nil {
-<span id="L410" class="ln">   410  </span>			return err
-<span id="L411" class="ln">   411  </span>		}
-<span id="L412" class="ln">   412  </span>		o.UnparsedObject = raw
-<span id="L413" class="ln">   413  </span>		return nil
-<span id="L414" class="ln">   414  </span>	}
-<span id="L415" class="ln">   415  </span>	if v := all.Type; !v.IsValid() {
-<span id="L416" class="ln">   416  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L417" class="ln">   417  </span>		if err != nil {
-<span id="L418" class="ln">   418  </span>			return err
-<span id="L419" class="ln">   419  </span>		}
-<span id="L420" class="ln">   420  </span>		o.UnparsedObject = raw
-<span id="L421" class="ln">   421  </span>		return nil
-<span id="L422" class="ln">   422  </span>	}
-<span id="L423" class="ln">   423  </span>	o.ColorByGroups = all.ColorByGroups
-<span id="L424" class="ln">   424  </span>	o.CustomLinks = all.CustomLinks
-<span id="L425" class="ln">   425  </span>	if all.Requests.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L426" class="ln">   426  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L427" class="ln">   427  </span>		if err != nil {
-<span id="L428" class="ln">   428  </span>			return err
-<span id="L429" class="ln">   429  </span>		}
-<span id="L430" class="ln">   430  </span>		o.UnparsedObject = raw
-<span id="L431" class="ln">   431  </span>	}
-<span id="L432" class="ln">   432  </span>	o.Requests = *all.Requests
-<span id="L433" class="ln">   433  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L434" class="ln">   434  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L435" class="ln">   435  </span>		if err != nil {
-<span id="L436" class="ln">   436  </span>			return err
-<span id="L437" class="ln">   437  </span>		}
-<span id="L438" class="ln">   438  </span>		o.UnparsedObject = raw
-<span id="L439" class="ln">   439  </span>	}
-<span id="L440" class="ln">   440  </span>	o.Time = all.Time
-<span id="L441" class="ln">   441  </span>	o.Title = all.Title
-<span id="L442" class="ln">   442  </span>	o.TitleAlign = all.TitleAlign
-<span id="L443" class="ln">   443  </span>	o.TitleSize = all.TitleSize
-<span id="L444" class="ln">   444  </span>	o.Type = *all.Type
-<span id="L445" class="ln">   445  </span>	if all.Xaxis != nil &amp;&amp; all.Xaxis.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L446" class="ln">   446  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L447" class="ln">   447  </span>		if err != nil {
-<span id="L448" class="ln">   448  </span>			return err
-<span id="L449" class="ln">   449  </span>		}
-<span id="L450" class="ln">   450  </span>		o.UnparsedObject = raw
-<span id="L451" class="ln">   451  </span>	}
-<span id="L452" class="ln">   452  </span>	o.Xaxis = all.Xaxis
-<span id="L453" class="ln">   453  </span>	if all.Yaxis != nil &amp;&amp; all.Yaxis.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L454" class="ln">   454  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L455" class="ln">   455  </span>		if err != nil {
-<span id="L456" class="ln">   456  </span>			return err
-<span id="L457" class="ln">   457  </span>		}
-<span id="L458" class="ln">   458  </span>		o.UnparsedObject = raw
-<span id="L459" class="ln">   459  </span>	}
-<span id="L460" class="ln">   460  </span>	o.Yaxis = all.Yaxis
-<span id="L461" class="ln">   461  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L462" class="ln">   462  </span>		o.AdditionalProperties = additionalProperties
-<span id="L463" class="ln">   463  </span>	}
-<span id="L464" class="ln">   464  </span>
-<span id="L465" class="ln">   465  </span>	return nil
-<span id="L466" class="ln">   466  </span>}
-<span id="L467" class="ln">   467  </span>
+<span id="L407" class="ln">   407  </span>
+<span id="L408" class="ln">   408  </span>	hasInvalidField := false
+<span id="L409" class="ln">   409  </span>	o.ColorByGroups = all.ColorByGroups
+<span id="L410" class="ln">   410  </span>	o.CustomLinks = all.CustomLinks
+<span id="L411" class="ln">   411  </span>	if all.Requests.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L412" class="ln">   412  </span>		hasInvalidField = true
+<span id="L413" class="ln">   413  </span>	}
+<span id="L414" class="ln">   414  </span>	o.Requests = *all.Requests
+<span id="L415" class="ln">   415  </span>	if all.Time != nil &amp;&amp; all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L416" class="ln">   416  </span>		hasInvalidField = true
+<span id="L417" class="ln">   417  </span>	}
+<span id="L418" class="ln">   418  </span>	o.Time = all.Time
+<span id="L419" class="ln">   419  </span>	o.Title = all.Title
+<span id="L420" class="ln">   420  </span>	if v := all.TitleAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L421" class="ln">   421  </span>		hasInvalidField = true
+<span id="L422" class="ln">   422  </span>	} else {
+<span id="L423" class="ln">   423  </span>		o.TitleAlign = all.TitleAlign
+<span id="L424" class="ln">   424  </span>	}
+<span id="L425" class="ln">   425  </span>	o.TitleSize = all.TitleSize
+<span id="L426" class="ln">   426  </span>	if v := all.Type; !v.IsValid() {
+<span id="L427" class="ln">   427  </span>		hasInvalidField = true
+<span id="L428" class="ln">   428  </span>	} else {
+<span id="L429" class="ln">   429  </span>		o.Type = *all.Type
+<span id="L430" class="ln">   430  </span>	}
+<span id="L431" class="ln">   431  </span>	if all.Xaxis != nil &amp;&amp; all.Xaxis.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L432" class="ln">   432  </span>		hasInvalidField = true
+<span id="L433" class="ln">   433  </span>	}
+<span id="L434" class="ln">   434  </span>	o.Xaxis = all.Xaxis
+<span id="L435" class="ln">   435  </span>	if all.Yaxis != nil &amp;&amp; all.Yaxis.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L436" class="ln">   436  </span>		hasInvalidField = true
+<span id="L437" class="ln">   437  </span>	}
+<span id="L438" class="ln">   438  </span>	o.Yaxis = all.Yaxis
+<span id="L439" class="ln">   439  </span>
+<span id="L440" class="ln">   440  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L441" class="ln">   441  </span>		o.AdditionalProperties = additionalProperties
+<span id="L442" class="ln">   442  </span>	}
+<span id="L443" class="ln">   443  </span>
+<span id="L444" class="ln">   444  </span>	if hasInvalidField {
+<span id="L445" class="ln">   445  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L446" class="ln">   446  </span>		if err != nil {
+<span id="L447" class="ln">   447  </span>			return err
+<span id="L448" class="ln">   448  </span>		}
+<span id="L449" class="ln">   449  </span>		o.UnparsedObject = raw
+<span id="L450" class="ln">   450  </span>	}
+<span id="L451" class="ln">   451  </span>
+<span id="L452" class="ln">   452  </span>	return nil
+<span id="L453" class="ln">   453  </span>}
+<span id="L454" class="ln">   454  </span>
 </pre><p></p>
 
 <div id="footer">

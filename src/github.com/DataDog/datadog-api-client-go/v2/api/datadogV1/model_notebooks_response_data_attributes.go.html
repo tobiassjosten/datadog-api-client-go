@@ -407,43 +407,42 @@
 <span id="L350" class="ln">   350  </span>	} else {
 <span id="L351" class="ln">   351  </span>		return err
 <span id="L352" class="ln">   352  </span>	}
-<span id="L353" class="ln">   353  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L354" class="ln">   354  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L355" class="ln">   355  </span>		if err != nil {
-<span id="L356" class="ln">   356  </span>			return err
-<span id="L357" class="ln">   357  </span>		}
-<span id="L358" class="ln">   358  </span>		o.UnparsedObject = raw
-<span id="L359" class="ln">   359  </span>		return nil
-<span id="L360" class="ln">   360  </span>	}
-<span id="L361" class="ln">   361  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L362" class="ln">   362  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L363" class="ln">   363  </span>		if err != nil {
-<span id="L364" class="ln">   364  </span>			return err
-<span id="L365" class="ln">   365  </span>		}
-<span id="L366" class="ln">   366  </span>		o.UnparsedObject = raw
-<span id="L367" class="ln">   367  </span>	}
-<span id="L368" class="ln">   368  </span>	o.Author = all.Author
-<span id="L369" class="ln">   369  </span>	o.Cells = all.Cells
-<span id="L370" class="ln">   370  </span>	o.Created = all.Created
-<span id="L371" class="ln">   371  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L372" class="ln">   372  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L373" class="ln">   373  </span>		if err != nil {
-<span id="L374" class="ln">   374  </span>			return err
-<span id="L375" class="ln">   375  </span>		}
-<span id="L376" class="ln">   376  </span>		o.UnparsedObject = raw
-<span id="L377" class="ln">   377  </span>	}
-<span id="L378" class="ln">   378  </span>	o.Metadata = all.Metadata
-<span id="L379" class="ln">   379  </span>	o.Modified = all.Modified
-<span id="L380" class="ln">   380  </span>	o.Name = *all.Name
-<span id="L381" class="ln">   381  </span>	o.Status = all.Status
-<span id="L382" class="ln">   382  </span>	o.Time = all.Time
-<span id="L383" class="ln">   383  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L384" class="ln">   384  </span>		o.AdditionalProperties = additionalProperties
-<span id="L385" class="ln">   385  </span>	}
-<span id="L386" class="ln">   386  </span>
-<span id="L387" class="ln">   387  </span>	return nil
-<span id="L388" class="ln">   388  </span>}
-<span id="L389" class="ln">   389  </span>
+<span id="L353" class="ln">   353  </span>
+<span id="L354" class="ln">   354  </span>	hasInvalidField := false
+<span id="L355" class="ln">   355  </span>	if all.Author != nil &amp;&amp; all.Author.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L356" class="ln">   356  </span>		hasInvalidField = true
+<span id="L357" class="ln">   357  </span>	}
+<span id="L358" class="ln">   358  </span>	o.Author = all.Author
+<span id="L359" class="ln">   359  </span>	o.Cells = all.Cells
+<span id="L360" class="ln">   360  </span>	o.Created = all.Created
+<span id="L361" class="ln">   361  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L362" class="ln">   362  </span>		hasInvalidField = true
+<span id="L363" class="ln">   363  </span>	}
+<span id="L364" class="ln">   364  </span>	o.Metadata = all.Metadata
+<span id="L365" class="ln">   365  </span>	o.Modified = all.Modified
+<span id="L366" class="ln">   366  </span>	o.Name = *all.Name
+<span id="L367" class="ln">   367  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L368" class="ln">   368  </span>		hasInvalidField = true
+<span id="L369" class="ln">   369  </span>	} else {
+<span id="L370" class="ln">   370  </span>		o.Status = all.Status
+<span id="L371" class="ln">   371  </span>	}
+<span id="L372" class="ln">   372  </span>	o.Time = all.Time
+<span id="L373" class="ln">   373  </span>
+<span id="L374" class="ln">   374  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L375" class="ln">   375  </span>		o.AdditionalProperties = additionalProperties
+<span id="L376" class="ln">   376  </span>	}
+<span id="L377" class="ln">   377  </span>
+<span id="L378" class="ln">   378  </span>	if hasInvalidField {
+<span id="L379" class="ln">   379  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L380" class="ln">   380  </span>		if err != nil {
+<span id="L381" class="ln">   381  </span>			return err
+<span id="L382" class="ln">   382  </span>		}
+<span id="L383" class="ln">   383  </span>		o.UnparsedObject = raw
+<span id="L384" class="ln">   384  </span>	}
+<span id="L385" class="ln">   385  </span>
+<span id="L386" class="ln">   386  </span>	return nil
+<span id="L387" class="ln">   387  </span>}
+<span id="L388" class="ln">   388  </span>
 </pre><p></p>
 
 <div id="footer">

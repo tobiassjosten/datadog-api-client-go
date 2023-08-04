@@ -410,28 +410,35 @@
 <span id="L353" class="ln">   353  </span>	} else {
 <span id="L354" class="ln">   354  </span>		return err
 <span id="L355" class="ln">   355  </span>	}
-<span id="L356" class="ln">   356  </span>	o.Month = all.Month
-<span id="L357" class="ln">   357  </span>	o.OrgName = all.OrgName
-<span id="L358" class="ln">   358  </span>	o.PublicId = all.PublicId
-<span id="L359" class="ln">   359  </span>	o.Region = all.Region
-<span id="L360" class="ln">   360  </span>	o.TagConfigSource = all.TagConfigSource
-<span id="L361" class="ln">   361  </span>	o.Tags = all.Tags
-<span id="L362" class="ln">   362  </span>	o.UpdatedAt = all.UpdatedAt
-<span id="L363" class="ln">   363  </span>	if all.Values != nil &amp;&amp; all.Values.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L364" class="ln">   364  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L365" class="ln">   365  </span>		if err != nil {
-<span id="L366" class="ln">   366  </span>			return err
-<span id="L367" class="ln">   367  </span>		}
-<span id="L368" class="ln">   368  </span>		o.UnparsedObject = raw
-<span id="L369" class="ln">   369  </span>	}
-<span id="L370" class="ln">   370  </span>	o.Values = all.Values
-<span id="L371" class="ln">   371  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L372" class="ln">   372  </span>		o.AdditionalProperties = additionalProperties
-<span id="L373" class="ln">   373  </span>	}
-<span id="L374" class="ln">   374  </span>
-<span id="L375" class="ln">   375  </span>	return nil
-<span id="L376" class="ln">   376  </span>}
-<span id="L377" class="ln">   377  </span>
+<span id="L356" class="ln">   356  </span>
+<span id="L357" class="ln">   357  </span>	hasInvalidField := false
+<span id="L358" class="ln">   358  </span>	o.Month = all.Month
+<span id="L359" class="ln">   359  </span>	o.OrgName = all.OrgName
+<span id="L360" class="ln">   360  </span>	o.PublicId = all.PublicId
+<span id="L361" class="ln">   361  </span>	o.Region = all.Region
+<span id="L362" class="ln">   362  </span>	o.TagConfigSource = all.TagConfigSource
+<span id="L363" class="ln">   363  </span>	o.Tags = all.Tags
+<span id="L364" class="ln">   364  </span>	o.UpdatedAt = all.UpdatedAt
+<span id="L365" class="ln">   365  </span>	if all.Values != nil &amp;&amp; all.Values.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L366" class="ln">   366  </span>		hasInvalidField = true
+<span id="L367" class="ln">   367  </span>	}
+<span id="L368" class="ln">   368  </span>	o.Values = all.Values
+<span id="L369" class="ln">   369  </span>
+<span id="L370" class="ln">   370  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L371" class="ln">   371  </span>		o.AdditionalProperties = additionalProperties
+<span id="L372" class="ln">   372  </span>	}
+<span id="L373" class="ln">   373  </span>
+<span id="L374" class="ln">   374  </span>	if hasInvalidField {
+<span id="L375" class="ln">   375  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L376" class="ln">   376  </span>		if err != nil {
+<span id="L377" class="ln">   377  </span>			return err
+<span id="L378" class="ln">   378  </span>		}
+<span id="L379" class="ln">   379  </span>		o.UnparsedObject = raw
+<span id="L380" class="ln">   380  </span>	}
+<span id="L381" class="ln">   381  </span>
+<span id="L382" class="ln">   382  </span>	return nil
+<span id="L383" class="ln">   383  </span>}
+<span id="L384" class="ln">   384  </span>
 </pre><p></p>
 
 <div id="footer">

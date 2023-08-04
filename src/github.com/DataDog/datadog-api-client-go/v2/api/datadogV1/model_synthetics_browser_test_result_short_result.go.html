@@ -293,25 +293,32 @@
 <span id="L236" class="ln">   236  </span>	} else {
 <span id="L237" class="ln">   237  </span>		return err
 <span id="L238" class="ln">   238  </span>	}
-<span id="L239" class="ln">   239  </span>	if all.Device != nil &amp;&amp; all.Device.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L240" class="ln">   240  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L241" class="ln">   241  </span>		if err != nil {
-<span id="L242" class="ln">   242  </span>			return err
-<span id="L243" class="ln">   243  </span>		}
-<span id="L244" class="ln">   244  </span>		o.UnparsedObject = raw
-<span id="L245" class="ln">   245  </span>	}
-<span id="L246" class="ln">   246  </span>	o.Device = all.Device
-<span id="L247" class="ln">   247  </span>	o.Duration = all.Duration
-<span id="L248" class="ln">   248  </span>	o.ErrorCount = all.ErrorCount
-<span id="L249" class="ln">   249  </span>	o.StepCountCompleted = all.StepCountCompleted
-<span id="L250" class="ln">   250  </span>	o.StepCountTotal = all.StepCountTotal
-<span id="L251" class="ln">   251  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L252" class="ln">   252  </span>		o.AdditionalProperties = additionalProperties
-<span id="L253" class="ln">   253  </span>	}
-<span id="L254" class="ln">   254  </span>
-<span id="L255" class="ln">   255  </span>	return nil
-<span id="L256" class="ln">   256  </span>}
-<span id="L257" class="ln">   257  </span>
+<span id="L239" class="ln">   239  </span>
+<span id="L240" class="ln">   240  </span>	hasInvalidField := false
+<span id="L241" class="ln">   241  </span>	if all.Device != nil &amp;&amp; all.Device.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L242" class="ln">   242  </span>		hasInvalidField = true
+<span id="L243" class="ln">   243  </span>	}
+<span id="L244" class="ln">   244  </span>	o.Device = all.Device
+<span id="L245" class="ln">   245  </span>	o.Duration = all.Duration
+<span id="L246" class="ln">   246  </span>	o.ErrorCount = all.ErrorCount
+<span id="L247" class="ln">   247  </span>	o.StepCountCompleted = all.StepCountCompleted
+<span id="L248" class="ln">   248  </span>	o.StepCountTotal = all.StepCountTotal
+<span id="L249" class="ln">   249  </span>
+<span id="L250" class="ln">   250  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L251" class="ln">   251  </span>		o.AdditionalProperties = additionalProperties
+<span id="L252" class="ln">   252  </span>	}
+<span id="L253" class="ln">   253  </span>
+<span id="L254" class="ln">   254  </span>	if hasInvalidField {
+<span id="L255" class="ln">   255  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L256" class="ln">   256  </span>		if err != nil {
+<span id="L257" class="ln">   257  </span>			return err
+<span id="L258" class="ln">   258  </span>		}
+<span id="L259" class="ln">   259  </span>		o.UnparsedObject = raw
+<span id="L260" class="ln">   260  </span>	}
+<span id="L261" class="ln">   261  </span>
+<span id="L262" class="ln">   262  </span>	return nil
+<span id="L263" class="ln">   263  </span>}
+<span id="L264" class="ln">   264  </span>
 </pre><p></p>
 
 <div id="footer">

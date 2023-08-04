@@ -331,34 +331,37 @@
 <span id="L274" class="ln">   274  </span>	} else {
 <span id="L275" class="ln">   275  </span>		return err
 <span id="L276" class="ln">   276  </span>	}
-<span id="L277" class="ln">   277  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
-<span id="L278" class="ln">   278  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L279" class="ln">   279  </span>		if err != nil {
-<span id="L280" class="ln">   280  </span>			return err
-<span id="L281" class="ln">   281  </span>		}
-<span id="L282" class="ln">   282  </span>		o.UnparsedObject = raw
-<span id="L283" class="ln">   283  </span>		return nil
-<span id="L284" class="ln">   284  </span>	}
-<span id="L285" class="ln">   285  </span>	o.Index = all.Index
-<span id="L286" class="ln">   286  </span>	o.Limit = all.Limit
-<span id="L287" class="ln">   287  </span>	o.Query = all.Query
-<span id="L288" class="ln">   288  </span>	o.Sort = all.Sort
-<span id="L289" class="ln">   289  </span>	o.StartAt = all.StartAt
-<span id="L290" class="ln">   290  </span>	if all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L291" class="ln">   291  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L292" class="ln">   292  </span>		if err != nil {
-<span id="L293" class="ln">   293  </span>			return err
-<span id="L294" class="ln">   294  </span>		}
-<span id="L295" class="ln">   295  </span>		o.UnparsedObject = raw
-<span id="L296" class="ln">   296  </span>	}
-<span id="L297" class="ln">   297  </span>	o.Time = *all.Time
-<span id="L298" class="ln">   298  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L299" class="ln">   299  </span>		o.AdditionalProperties = additionalProperties
-<span id="L300" class="ln">   300  </span>	}
-<span id="L301" class="ln">   301  </span>
-<span id="L302" class="ln">   302  </span>	return nil
-<span id="L303" class="ln">   303  </span>}
+<span id="L277" class="ln">   277  </span>
+<span id="L278" class="ln">   278  </span>	hasInvalidField := false
+<span id="L279" class="ln">   279  </span>	o.Index = all.Index
+<span id="L280" class="ln">   280  </span>	o.Limit = all.Limit
+<span id="L281" class="ln">   281  </span>	o.Query = all.Query
+<span id="L282" class="ln">   282  </span>	if v := all.Sort; v != nil &amp;&amp; !v.IsValid() {
+<span id="L283" class="ln">   283  </span>		hasInvalidField = true
+<span id="L284" class="ln">   284  </span>	} else {
+<span id="L285" class="ln">   285  </span>		o.Sort = all.Sort
+<span id="L286" class="ln">   286  </span>	}
+<span id="L287" class="ln">   287  </span>	o.StartAt = all.StartAt
+<span id="L288" class="ln">   288  </span>	if all.Time.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L289" class="ln">   289  </span>		hasInvalidField = true
+<span id="L290" class="ln">   290  </span>	}
+<span id="L291" class="ln">   291  </span>	o.Time = *all.Time
+<span id="L292" class="ln">   292  </span>
+<span id="L293" class="ln">   293  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L294" class="ln">   294  </span>		o.AdditionalProperties = additionalProperties
+<span id="L295" class="ln">   295  </span>	}
+<span id="L296" class="ln">   296  </span>
+<span id="L297" class="ln">   297  </span>	if hasInvalidField {
+<span id="L298" class="ln">   298  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L299" class="ln">   299  </span>		if err != nil {
+<span id="L300" class="ln">   300  </span>			return err
+<span id="L301" class="ln">   301  </span>		}
+<span id="L302" class="ln">   302  </span>		o.UnparsedObject = raw
+<span id="L303" class="ln">   303  </span>	}
 <span id="L304" class="ln">   304  </span>
+<span id="L305" class="ln">   305  </span>	return nil
+<span id="L306" class="ln">   306  </span>}
+<span id="L307" class="ln">   307  </span>
 </pre><p></p>
 
 <div id="footer">

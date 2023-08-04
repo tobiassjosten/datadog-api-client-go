@@ -280,26 +280,33 @@
 <span id="L223" class="ln">   223  </span>	} else {
 <span id="L224" class="ln">   224  </span>		return err
 <span id="L225" class="ln">   225  </span>	}
-<span id="L226" class="ln">   226  </span>	if v := all.FilteredDataType; !v.IsValid() {
-<span id="L227" class="ln">   227  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L228" class="ln">   228  </span>		if err != nil {
-<span id="L229" class="ln">   229  </span>			return err
-<span id="L230" class="ln">   230  </span>		}
-<span id="L231" class="ln">   231  </span>		o.UnparsedObject = raw
-<span id="L232" class="ln">   232  </span>		return nil
+<span id="L226" class="ln">   226  </span>
+<span id="L227" class="ln">   227  </span>	hasInvalidField := false
+<span id="L228" class="ln">   228  </span>	o.ExclusionFilters = *all.ExclusionFilters
+<span id="L229" class="ln">   229  </span>	if v := all.FilteredDataType; !v.IsValid() {
+<span id="L230" class="ln">   230  </span>		hasInvalidField = true
+<span id="L231" class="ln">   231  </span>	} else {
+<span id="L232" class="ln">   232  </span>		o.FilteredDataType = *all.FilteredDataType
 <span id="L233" class="ln">   233  </span>	}
-<span id="L234" class="ln">   234  </span>	o.ExclusionFilters = *all.ExclusionFilters
-<span id="L235" class="ln">   235  </span>	o.FilteredDataType = *all.FilteredDataType
-<span id="L236" class="ln">   236  </span>	o.IsEnabled = *all.IsEnabled
-<span id="L237" class="ln">   237  </span>	o.Name = *all.Name
-<span id="L238" class="ln">   238  </span>	o.Query = *all.Query
-<span id="L239" class="ln">   239  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L240" class="ln">   240  </span>		o.AdditionalProperties = additionalProperties
-<span id="L241" class="ln">   241  </span>	}
-<span id="L242" class="ln">   242  </span>
-<span id="L243" class="ln">   243  </span>	return nil
-<span id="L244" class="ln">   244  </span>}
-<span id="L245" class="ln">   245  </span>
+<span id="L234" class="ln">   234  </span>	o.IsEnabled = *all.IsEnabled
+<span id="L235" class="ln">   235  </span>	o.Name = *all.Name
+<span id="L236" class="ln">   236  </span>	o.Query = *all.Query
+<span id="L237" class="ln">   237  </span>
+<span id="L238" class="ln">   238  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L239" class="ln">   239  </span>		o.AdditionalProperties = additionalProperties
+<span id="L240" class="ln">   240  </span>	}
+<span id="L241" class="ln">   241  </span>
+<span id="L242" class="ln">   242  </span>	if hasInvalidField {
+<span id="L243" class="ln">   243  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L244" class="ln">   244  </span>		if err != nil {
+<span id="L245" class="ln">   245  </span>			return err
+<span id="L246" class="ln">   246  </span>		}
+<span id="L247" class="ln">   247  </span>		o.UnparsedObject = raw
+<span id="L248" class="ln">   248  </span>	}
+<span id="L249" class="ln">   249  </span>
+<span id="L250" class="ln">   250  </span>	return nil
+<span id="L251" class="ln">   251  </span>}
+<span id="L252" class="ln">   252  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -325,41 +325,40 @@
 <span id="L268" class="ln">   268  </span>	} else {
 <span id="L269" class="ln">   269  </span>		return err
 <span id="L270" class="ln">   270  </span>	}
-<span id="L271" class="ln">   271  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L272" class="ln">   272  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L273" class="ln">   273  </span>		if err != nil {
-<span id="L274" class="ln">   274  </span>			return err
-<span id="L275" class="ln">   275  </span>		}
-<span id="L276" class="ln">   276  </span>		o.UnparsedObject = raw
-<span id="L277" class="ln">   277  </span>		return nil
-<span id="L278" class="ln">   278  </span>	}
-<span id="L279" class="ln">   279  </span>	if all.Compute.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L280" class="ln">   280  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L281" class="ln">   281  </span>		if err != nil {
-<span id="L282" class="ln">   282  </span>			return err
-<span id="L283" class="ln">   283  </span>		}
-<span id="L284" class="ln">   284  </span>		o.UnparsedObject = raw
-<span id="L285" class="ln">   285  </span>	}
-<span id="L286" class="ln">   286  </span>	o.Compute = *all.Compute
-<span id="L287" class="ln">   287  </span>	o.DataSource = *all.DataSource
-<span id="L288" class="ln">   288  </span>	o.GroupBy = all.GroupBy
-<span id="L289" class="ln">   289  </span>	o.Indexes = all.Indexes
-<span id="L290" class="ln">   290  </span>	o.Name = all.Name
-<span id="L291" class="ln">   291  </span>	if all.Search != nil &amp;&amp; all.Search.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L292" class="ln">   292  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L293" class="ln">   293  </span>		if err != nil {
-<span id="L294" class="ln">   294  </span>			return err
-<span id="L295" class="ln">   295  </span>		}
-<span id="L296" class="ln">   296  </span>		o.UnparsedObject = raw
-<span id="L297" class="ln">   297  </span>	}
-<span id="L298" class="ln">   298  </span>	o.Search = all.Search
-<span id="L299" class="ln">   299  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L300" class="ln">   300  </span>		o.AdditionalProperties = additionalProperties
-<span id="L301" class="ln">   301  </span>	}
-<span id="L302" class="ln">   302  </span>
-<span id="L303" class="ln">   303  </span>	return nil
-<span id="L304" class="ln">   304  </span>}
-<span id="L305" class="ln">   305  </span>
+<span id="L271" class="ln">   271  </span>
+<span id="L272" class="ln">   272  </span>	hasInvalidField := false
+<span id="L273" class="ln">   273  </span>	if all.Compute.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L274" class="ln">   274  </span>		hasInvalidField = true
+<span id="L275" class="ln">   275  </span>	}
+<span id="L276" class="ln">   276  </span>	o.Compute = *all.Compute
+<span id="L277" class="ln">   277  </span>	if v := all.DataSource; !v.IsValid() {
+<span id="L278" class="ln">   278  </span>		hasInvalidField = true
+<span id="L279" class="ln">   279  </span>	} else {
+<span id="L280" class="ln">   280  </span>		o.DataSource = *all.DataSource
+<span id="L281" class="ln">   281  </span>	}
+<span id="L282" class="ln">   282  </span>	o.GroupBy = all.GroupBy
+<span id="L283" class="ln">   283  </span>	o.Indexes = all.Indexes
+<span id="L284" class="ln">   284  </span>	o.Name = all.Name
+<span id="L285" class="ln">   285  </span>	if all.Search != nil &amp;&amp; all.Search.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L286" class="ln">   286  </span>		hasInvalidField = true
+<span id="L287" class="ln">   287  </span>	}
+<span id="L288" class="ln">   288  </span>	o.Search = all.Search
+<span id="L289" class="ln">   289  </span>
+<span id="L290" class="ln">   290  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L291" class="ln">   291  </span>		o.AdditionalProperties = additionalProperties
+<span id="L292" class="ln">   292  </span>	}
+<span id="L293" class="ln">   293  </span>
+<span id="L294" class="ln">   294  </span>	if hasInvalidField {
+<span id="L295" class="ln">   295  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L296" class="ln">   296  </span>		if err != nil {
+<span id="L297" class="ln">   297  </span>			return err
+<span id="L298" class="ln">   298  </span>		}
+<span id="L299" class="ln">   299  </span>		o.UnparsedObject = raw
+<span id="L300" class="ln">   300  </span>	}
+<span id="L301" class="ln">   301  </span>
+<span id="L302" class="ln">   302  </span>	return nil
+<span id="L303" class="ln">   303  </span>}
+<span id="L304" class="ln">   304  </span>
 </pre><p></p>
 
 <div id="footer">

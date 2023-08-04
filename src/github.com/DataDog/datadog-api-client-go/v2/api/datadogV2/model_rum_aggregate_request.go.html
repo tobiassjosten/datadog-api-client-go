@@ -294,39 +294,38 @@
 <span id="L237" class="ln">   237  </span>	} else {
 <span id="L238" class="ln">   238  </span>		return err
 <span id="L239" class="ln">   239  </span>	}
-<span id="L240" class="ln">   240  </span>	o.Compute = all.Compute
-<span id="L241" class="ln">   241  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L242" class="ln">   242  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L243" class="ln">   243  </span>		if err != nil {
-<span id="L244" class="ln">   244  </span>			return err
-<span id="L245" class="ln">   245  </span>		}
-<span id="L246" class="ln">   246  </span>		o.UnparsedObject = raw
-<span id="L247" class="ln">   247  </span>	}
-<span id="L248" class="ln">   248  </span>	o.Filter = all.Filter
-<span id="L249" class="ln">   249  </span>	o.GroupBy = all.GroupBy
-<span id="L250" class="ln">   250  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L251" class="ln">   251  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L252" class="ln">   252  </span>		if err != nil {
-<span id="L253" class="ln">   253  </span>			return err
-<span id="L254" class="ln">   254  </span>		}
-<span id="L255" class="ln">   255  </span>		o.UnparsedObject = raw
-<span id="L256" class="ln">   256  </span>	}
-<span id="L257" class="ln">   257  </span>	o.Options = all.Options
-<span id="L258" class="ln">   258  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L259" class="ln">   259  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L260" class="ln">   260  </span>		if err != nil {
-<span id="L261" class="ln">   261  </span>			return err
-<span id="L262" class="ln">   262  </span>		}
-<span id="L263" class="ln">   263  </span>		o.UnparsedObject = raw
-<span id="L264" class="ln">   264  </span>	}
-<span id="L265" class="ln">   265  </span>	o.Page = all.Page
-<span id="L266" class="ln">   266  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L267" class="ln">   267  </span>		o.AdditionalProperties = additionalProperties
-<span id="L268" class="ln">   268  </span>	}
-<span id="L269" class="ln">   269  </span>
-<span id="L270" class="ln">   270  </span>	return nil
-<span id="L271" class="ln">   271  </span>}
-<span id="L272" class="ln">   272  </span>
+<span id="L240" class="ln">   240  </span>
+<span id="L241" class="ln">   241  </span>	hasInvalidField := false
+<span id="L242" class="ln">   242  </span>	o.Compute = all.Compute
+<span id="L243" class="ln">   243  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L244" class="ln">   244  </span>		hasInvalidField = true
+<span id="L245" class="ln">   245  </span>	}
+<span id="L246" class="ln">   246  </span>	o.Filter = all.Filter
+<span id="L247" class="ln">   247  </span>	o.GroupBy = all.GroupBy
+<span id="L248" class="ln">   248  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L249" class="ln">   249  </span>		hasInvalidField = true
+<span id="L250" class="ln">   250  </span>	}
+<span id="L251" class="ln">   251  </span>	o.Options = all.Options
+<span id="L252" class="ln">   252  </span>	if all.Page != nil &amp;&amp; all.Page.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L253" class="ln">   253  </span>		hasInvalidField = true
+<span id="L254" class="ln">   254  </span>	}
+<span id="L255" class="ln">   255  </span>	o.Page = all.Page
+<span id="L256" class="ln">   256  </span>
+<span id="L257" class="ln">   257  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L258" class="ln">   258  </span>		o.AdditionalProperties = additionalProperties
+<span id="L259" class="ln">   259  </span>	}
+<span id="L260" class="ln">   260  </span>
+<span id="L261" class="ln">   261  </span>	if hasInvalidField {
+<span id="L262" class="ln">   262  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L263" class="ln">   263  </span>		if err != nil {
+<span id="L264" class="ln">   264  </span>			return err
+<span id="L265" class="ln">   265  </span>		}
+<span id="L266" class="ln">   266  </span>		o.UnparsedObject = raw
+<span id="L267" class="ln">   267  </span>	}
+<span id="L268" class="ln">   268  </span>
+<span id="L269" class="ln">   269  </span>	return nil
+<span id="L270" class="ln">   270  </span>}
+<span id="L271" class="ln">   271  </span>
 </pre><p></p>
 
 <div id="footer">

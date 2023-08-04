@@ -417,28 +417,35 @@
 <span id="L360" class="ln">   360  </span>	} else {
 <span id="L361" class="ln">   361  </span>		return err
 <span id="L362" class="ln">   362  </span>	}
-<span id="L363" class="ln">   363  </span>	if v := all.State; v != nil &amp;&amp; !v.IsValid() {
-<span id="L364" class="ln">   364  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L365" class="ln">   365  </span>		if err != nil {
-<span id="L366" class="ln">   366  </span>			return err
-<span id="L367" class="ln">   367  </span>		}
-<span id="L368" class="ln">   368  </span>		o.UnparsedObject = raw
-<span id="L369" class="ln">   369  </span>		return nil
-<span id="L370" class="ln">   370  </span>	}
-<span id="L371" class="ln">   371  </span>	o.CalculationError = all.CalculationError
-<span id="L372" class="ln">   372  </span>	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
-<span id="L373" class="ln">   373  </span>	o.IndexedAt = all.IndexedAt
-<span id="L374" class="ln">   374  </span>	o.RawErrorBudgetRemaining = all.RawErrorBudgetRemaining
-<span id="L375" class="ln">   375  </span>	o.Sli = all.Sli
-<span id="L376" class="ln">   376  </span>	o.SpanPrecision = all.SpanPrecision
-<span id="L377" class="ln">   377  </span>	o.State = all.State
-<span id="L378" class="ln">   378  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L379" class="ln">   379  </span>		o.AdditionalProperties = additionalProperties
-<span id="L380" class="ln">   380  </span>	}
-<span id="L381" class="ln">   381  </span>
-<span id="L382" class="ln">   382  </span>	return nil
-<span id="L383" class="ln">   383  </span>}
-<span id="L384" class="ln">   384  </span>
+<span id="L363" class="ln">   363  </span>
+<span id="L364" class="ln">   364  </span>	hasInvalidField := false
+<span id="L365" class="ln">   365  </span>	o.CalculationError = all.CalculationError
+<span id="L366" class="ln">   366  </span>	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
+<span id="L367" class="ln">   367  </span>	o.IndexedAt = all.IndexedAt
+<span id="L368" class="ln">   368  </span>	o.RawErrorBudgetRemaining = all.RawErrorBudgetRemaining
+<span id="L369" class="ln">   369  </span>	o.Sli = all.Sli
+<span id="L370" class="ln">   370  </span>	o.SpanPrecision = all.SpanPrecision
+<span id="L371" class="ln">   371  </span>	if v := all.State; v != nil &amp;&amp; !v.IsValid() {
+<span id="L372" class="ln">   372  </span>		hasInvalidField = true
+<span id="L373" class="ln">   373  </span>	} else {
+<span id="L374" class="ln">   374  </span>		o.State = all.State
+<span id="L375" class="ln">   375  </span>	}
+<span id="L376" class="ln">   376  </span>
+<span id="L377" class="ln">   377  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L378" class="ln">   378  </span>		o.AdditionalProperties = additionalProperties
+<span id="L379" class="ln">   379  </span>	}
+<span id="L380" class="ln">   380  </span>
+<span id="L381" class="ln">   381  </span>	if hasInvalidField {
+<span id="L382" class="ln">   382  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L383" class="ln">   383  </span>		if err != nil {
+<span id="L384" class="ln">   384  </span>			return err
+<span id="L385" class="ln">   385  </span>		}
+<span id="L386" class="ln">   386  </span>		o.UnparsedObject = raw
+<span id="L387" class="ln">   387  </span>	}
+<span id="L388" class="ln">   388  </span>
+<span id="L389" class="ln">   389  </span>	return nil
+<span id="L390" class="ln">   390  </span>}
+<span id="L391" class="ln">   391  </span>
 </pre><p></p>
 
 <div id="footer">

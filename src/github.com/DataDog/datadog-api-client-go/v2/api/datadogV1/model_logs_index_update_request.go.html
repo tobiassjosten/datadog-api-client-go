@@ -300,25 +300,32 @@
 <span id="L243" class="ln">   243  </span>	} else {
 <span id="L244" class="ln">   244  </span>		return err
 <span id="L245" class="ln">   245  </span>	}
-<span id="L246" class="ln">   246  </span>	o.DailyLimit = all.DailyLimit
-<span id="L247" class="ln">   247  </span>	o.DisableDailyLimit = all.DisableDailyLimit
-<span id="L248" class="ln">   248  </span>	o.ExclusionFilters = all.ExclusionFilters
-<span id="L249" class="ln">   249  </span>	if all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L250" class="ln">   250  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L251" class="ln">   251  </span>		if err != nil {
-<span id="L252" class="ln">   252  </span>			return err
-<span id="L253" class="ln">   253  </span>		}
-<span id="L254" class="ln">   254  </span>		o.UnparsedObject = raw
-<span id="L255" class="ln">   255  </span>	}
-<span id="L256" class="ln">   256  </span>	o.Filter = *all.Filter
-<span id="L257" class="ln">   257  </span>	o.NumRetentionDays = all.NumRetentionDays
-<span id="L258" class="ln">   258  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L259" class="ln">   259  </span>		o.AdditionalProperties = additionalProperties
-<span id="L260" class="ln">   260  </span>	}
-<span id="L261" class="ln">   261  </span>
-<span id="L262" class="ln">   262  </span>	return nil
-<span id="L263" class="ln">   263  </span>}
-<span id="L264" class="ln">   264  </span>
+<span id="L246" class="ln">   246  </span>
+<span id="L247" class="ln">   247  </span>	hasInvalidField := false
+<span id="L248" class="ln">   248  </span>	o.DailyLimit = all.DailyLimit
+<span id="L249" class="ln">   249  </span>	o.DisableDailyLimit = all.DisableDailyLimit
+<span id="L250" class="ln">   250  </span>	o.ExclusionFilters = all.ExclusionFilters
+<span id="L251" class="ln">   251  </span>	if all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L252" class="ln">   252  </span>		hasInvalidField = true
+<span id="L253" class="ln">   253  </span>	}
+<span id="L254" class="ln">   254  </span>	o.Filter = *all.Filter
+<span id="L255" class="ln">   255  </span>	o.NumRetentionDays = all.NumRetentionDays
+<span id="L256" class="ln">   256  </span>
+<span id="L257" class="ln">   257  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L258" class="ln">   258  </span>		o.AdditionalProperties = additionalProperties
+<span id="L259" class="ln">   259  </span>	}
+<span id="L260" class="ln">   260  </span>
+<span id="L261" class="ln">   261  </span>	if hasInvalidField {
+<span id="L262" class="ln">   262  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L263" class="ln">   263  </span>		if err != nil {
+<span id="L264" class="ln">   264  </span>			return err
+<span id="L265" class="ln">   265  </span>		}
+<span id="L266" class="ln">   266  </span>		o.UnparsedObject = raw
+<span id="L267" class="ln">   267  </span>	}
+<span id="L268" class="ln">   268  </span>
+<span id="L269" class="ln">   269  </span>	return nil
+<span id="L270" class="ln">   270  </span>}
+<span id="L271" class="ln">   271  </span>
 </pre><p></p>
 
 <div id="footer">

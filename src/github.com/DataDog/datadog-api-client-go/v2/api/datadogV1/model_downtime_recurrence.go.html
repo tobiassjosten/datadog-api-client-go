@@ -375,63 +375,64 @@
 <span id="L318" class="ln">   318  </span>	o.UntilDate = all.UntilDate
 <span id="L319" class="ln">   319  </span>	o.UntilOccurrences = all.UntilOccurrences
 <span id="L320" class="ln">   320  </span>	o.WeekDays = all.WeekDays
-<span id="L321" class="ln">   321  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L322" class="ln">   322  </span>		o.AdditionalProperties = additionalProperties
-<span id="L323" class="ln">   323  </span>	}
-<span id="L324" class="ln">   324  </span>
-<span id="L325" class="ln">   325  </span>	return nil
-<span id="L326" class="ln">   326  </span>}
-<span id="L327" class="ln">   327  </span>
-<span id="L328" class="ln">   328  </span><span class="comment">// NullableDowntimeRecurrence handles when a null is used for DowntimeRecurrence.</span>
-<span id="L329" class="ln">   329  </span>type NullableDowntimeRecurrence struct {
-<span id="L330" class="ln">   330  </span>	value *DowntimeRecurrence
-<span id="L331" class="ln">   331  </span>	isSet bool
-<span id="L332" class="ln">   332  </span>}
-<span id="L333" class="ln">   333  </span>
-<span id="L334" class="ln">   334  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L335" class="ln">   335  </span>func (v NullableDowntimeRecurrence) Get() *DowntimeRecurrence {
-<span id="L336" class="ln">   336  </span>	return v.value
-<span id="L337" class="ln">   337  </span>}
-<span id="L338" class="ln">   338  </span>
-<span id="L339" class="ln">   339  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L340" class="ln">   340  </span>func (v *NullableDowntimeRecurrence) Set(val *DowntimeRecurrence) {
-<span id="L341" class="ln">   341  </span>	v.value = val
-<span id="L342" class="ln">   342  </span>	v.isSet = true
-<span id="L343" class="ln">   343  </span>}
-<span id="L344" class="ln">   344  </span>
-<span id="L345" class="ln">   345  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L346" class="ln">   346  </span>func (v NullableDowntimeRecurrence) IsSet() bool {
-<span id="L347" class="ln">   347  </span>	return v.isSet
-<span id="L348" class="ln">   348  </span>}
-<span id="L349" class="ln">   349  </span>
-<span id="L350" class="ln">   350  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L351" class="ln">   351  </span>func (v *NullableDowntimeRecurrence) Unset() {
-<span id="L352" class="ln">   352  </span>	v.value = nil
-<span id="L353" class="ln">   353  </span>	v.isSet = false
-<span id="L354" class="ln">   354  </span>}
-<span id="L355" class="ln">   355  </span>
-<span id="L356" class="ln">   356  </span><span class="comment">// NewNullableDowntimeRecurrence initializes the struct as if Set has been called.</span>
-<span id="L357" class="ln">   357  </span>func NewNullableDowntimeRecurrence(val *DowntimeRecurrence) *NullableDowntimeRecurrence {
-<span id="L358" class="ln">   358  </span>	return &amp;NullableDowntimeRecurrence{value: val, isSet: true}
-<span id="L359" class="ln">   359  </span>}
-<span id="L360" class="ln">   360  </span>
-<span id="L361" class="ln">   361  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L362" class="ln">   362  </span>func (v NullableDowntimeRecurrence) MarshalJSON() ([]byte, error) {
-<span id="L363" class="ln">   363  </span>	return json.Marshal(v.value)
-<span id="L364" class="ln">   364  </span>}
-<span id="L365" class="ln">   365  </span>
-<span id="L366" class="ln">   366  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L367" class="ln">   367  </span>func (v *NullableDowntimeRecurrence) UnmarshalJSON(src []byte) error {
-<span id="L368" class="ln">   368  </span>	v.isSet = true
-<span id="L369" class="ln">   369  </span>
-<span id="L370" class="ln">   370  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L371" class="ln">   371  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L372" class="ln">   372  </span>		return nil
-<span id="L373" class="ln">   373  </span>	}
-<span id="L374" class="ln">   374  </span>
-<span id="L375" class="ln">   375  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L376" class="ln">   376  </span>}
-<span id="L377" class="ln">   377  </span>
+<span id="L321" class="ln">   321  </span>
+<span id="L322" class="ln">   322  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L323" class="ln">   323  </span>		o.AdditionalProperties = additionalProperties
+<span id="L324" class="ln">   324  </span>	}
+<span id="L325" class="ln">   325  </span>
+<span id="L326" class="ln">   326  </span>	return nil
+<span id="L327" class="ln">   327  </span>}
+<span id="L328" class="ln">   328  </span>
+<span id="L329" class="ln">   329  </span><span class="comment">// NullableDowntimeRecurrence handles when a null is used for DowntimeRecurrence.</span>
+<span id="L330" class="ln">   330  </span>type NullableDowntimeRecurrence struct {
+<span id="L331" class="ln">   331  </span>	value *DowntimeRecurrence
+<span id="L332" class="ln">   332  </span>	isSet bool
+<span id="L333" class="ln">   333  </span>}
+<span id="L334" class="ln">   334  </span>
+<span id="L335" class="ln">   335  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L336" class="ln">   336  </span>func (v NullableDowntimeRecurrence) Get() *DowntimeRecurrence {
+<span id="L337" class="ln">   337  </span>	return v.value
+<span id="L338" class="ln">   338  </span>}
+<span id="L339" class="ln">   339  </span>
+<span id="L340" class="ln">   340  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L341" class="ln">   341  </span>func (v *NullableDowntimeRecurrence) Set(val *DowntimeRecurrence) {
+<span id="L342" class="ln">   342  </span>	v.value = val
+<span id="L343" class="ln">   343  </span>	v.isSet = true
+<span id="L344" class="ln">   344  </span>}
+<span id="L345" class="ln">   345  </span>
+<span id="L346" class="ln">   346  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L347" class="ln">   347  </span>func (v NullableDowntimeRecurrence) IsSet() bool {
+<span id="L348" class="ln">   348  </span>	return v.isSet
+<span id="L349" class="ln">   349  </span>}
+<span id="L350" class="ln">   350  </span>
+<span id="L351" class="ln">   351  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L352" class="ln">   352  </span>func (v *NullableDowntimeRecurrence) Unset() {
+<span id="L353" class="ln">   353  </span>	v.value = nil
+<span id="L354" class="ln">   354  </span>	v.isSet = false
+<span id="L355" class="ln">   355  </span>}
+<span id="L356" class="ln">   356  </span>
+<span id="L357" class="ln">   357  </span><span class="comment">// NewNullableDowntimeRecurrence initializes the struct as if Set has been called.</span>
+<span id="L358" class="ln">   358  </span>func NewNullableDowntimeRecurrence(val *DowntimeRecurrence) *NullableDowntimeRecurrence {
+<span id="L359" class="ln">   359  </span>	return &amp;NullableDowntimeRecurrence{value: val, isSet: true}
+<span id="L360" class="ln">   360  </span>}
+<span id="L361" class="ln">   361  </span>
+<span id="L362" class="ln">   362  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L363" class="ln">   363  </span>func (v NullableDowntimeRecurrence) MarshalJSON() ([]byte, error) {
+<span id="L364" class="ln">   364  </span>	return json.Marshal(v.value)
+<span id="L365" class="ln">   365  </span>}
+<span id="L366" class="ln">   366  </span>
+<span id="L367" class="ln">   367  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L368" class="ln">   368  </span>func (v *NullableDowntimeRecurrence) UnmarshalJSON(src []byte) error {
+<span id="L369" class="ln">   369  </span>	v.isSet = true
+<span id="L370" class="ln">   370  </span>
+<span id="L371" class="ln">   371  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L372" class="ln">   372  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L373" class="ln">   373  </span>		return nil
+<span id="L374" class="ln">   374  </span>	}
+<span id="L375" class="ln">   375  </span>
+<span id="L376" class="ln">   376  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L377" class="ln">   377  </span>}
+<span id="L378" class="ln">   378  </span>
 </pre><p></p>
 
 <div id="footer">

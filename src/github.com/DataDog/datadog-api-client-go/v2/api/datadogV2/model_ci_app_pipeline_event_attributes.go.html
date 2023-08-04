@@ -225,24 +225,31 @@
 <span id="L168" class="ln">   168  </span>	} else {
 <span id="L169" class="ln">   169  </span>		return err
 <span id="L170" class="ln">   170  </span>	}
-<span id="L171" class="ln">   171  </span>	if v := all.CiLevel; v != nil &amp;&amp; !v.IsValid() {
-<span id="L172" class="ln">   172  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L173" class="ln">   173  </span>		if err != nil {
-<span id="L174" class="ln">   174  </span>			return err
-<span id="L175" class="ln">   175  </span>		}
-<span id="L176" class="ln">   176  </span>		o.UnparsedObject = raw
-<span id="L177" class="ln">   177  </span>		return nil
+<span id="L171" class="ln">   171  </span>
+<span id="L172" class="ln">   172  </span>	hasInvalidField := false
+<span id="L173" class="ln">   173  </span>	o.Attributes = all.Attributes
+<span id="L174" class="ln">   174  </span>	if v := all.CiLevel; v != nil &amp;&amp; !v.IsValid() {
+<span id="L175" class="ln">   175  </span>		hasInvalidField = true
+<span id="L176" class="ln">   176  </span>	} else {
+<span id="L177" class="ln">   177  </span>		o.CiLevel = all.CiLevel
 <span id="L178" class="ln">   178  </span>	}
-<span id="L179" class="ln">   179  </span>	o.Attributes = all.Attributes
-<span id="L180" class="ln">   180  </span>	o.CiLevel = all.CiLevel
-<span id="L181" class="ln">   181  </span>	o.Tags = all.Tags
-<span id="L182" class="ln">   182  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L183" class="ln">   183  </span>		o.AdditionalProperties = additionalProperties
-<span id="L184" class="ln">   184  </span>	}
-<span id="L185" class="ln">   185  </span>
-<span id="L186" class="ln">   186  </span>	return nil
-<span id="L187" class="ln">   187  </span>}
-<span id="L188" class="ln">   188  </span>
+<span id="L179" class="ln">   179  </span>	o.Tags = all.Tags
+<span id="L180" class="ln">   180  </span>
+<span id="L181" class="ln">   181  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L182" class="ln">   182  </span>		o.AdditionalProperties = additionalProperties
+<span id="L183" class="ln">   183  </span>	}
+<span id="L184" class="ln">   184  </span>
+<span id="L185" class="ln">   185  </span>	if hasInvalidField {
+<span id="L186" class="ln">   186  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L187" class="ln">   187  </span>		if err != nil {
+<span id="L188" class="ln">   188  </span>			return err
+<span id="L189" class="ln">   189  </span>		}
+<span id="L190" class="ln">   190  </span>		o.UnparsedObject = raw
+<span id="L191" class="ln">   191  </span>	}
+<span id="L192" class="ln">   192  </span>
+<span id="L193" class="ln">   193  </span>	return nil
+<span id="L194" class="ln">   194  </span>}
+<span id="L195" class="ln">   195  </span>
 </pre><p></p>
 
 <div id="footer">

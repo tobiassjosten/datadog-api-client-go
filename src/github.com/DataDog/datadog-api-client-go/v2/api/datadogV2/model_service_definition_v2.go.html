@@ -495,39 +495,42 @@
 <span id="L438" class="ln">   438  </span>	} else {
 <span id="L439" class="ln">   439  </span>		return err
 <span id="L440" class="ln">   440  </span>	}
-<span id="L441" class="ln">   441  </span>	if v := all.SchemaVersion; !v.IsValid() {
-<span id="L442" class="ln">   442  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L443" class="ln">   443  </span>		if err != nil {
-<span id="L444" class="ln">   444  </span>			return err
-<span id="L445" class="ln">   445  </span>		}
-<span id="L446" class="ln">   446  </span>		o.UnparsedObject = raw
-<span id="L447" class="ln">   447  </span>		return nil
-<span id="L448" class="ln">   448  </span>	}
-<span id="L449" class="ln">   449  </span>	o.Contacts = all.Contacts
-<span id="L450" class="ln">   450  </span>	o.DdService = *all.DdService
-<span id="L451" class="ln">   451  </span>	o.DdTeam = all.DdTeam
-<span id="L452" class="ln">   452  </span>	o.Docs = all.Docs
-<span id="L453" class="ln">   453  </span>	o.Extensions = all.Extensions
-<span id="L454" class="ln">   454  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L455" class="ln">   455  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L456" class="ln">   456  </span>		if err != nil {
-<span id="L457" class="ln">   457  </span>			return err
-<span id="L458" class="ln">   458  </span>		}
-<span id="L459" class="ln">   459  </span>		o.UnparsedObject = raw
-<span id="L460" class="ln">   460  </span>	}
-<span id="L461" class="ln">   461  </span>	o.Integrations = all.Integrations
-<span id="L462" class="ln">   462  </span>	o.Links = all.Links
-<span id="L463" class="ln">   463  </span>	o.Repos = all.Repos
-<span id="L464" class="ln">   464  </span>	o.SchemaVersion = *all.SchemaVersion
-<span id="L465" class="ln">   465  </span>	o.Tags = all.Tags
-<span id="L466" class="ln">   466  </span>	o.Team = all.Team
-<span id="L467" class="ln">   467  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L468" class="ln">   468  </span>		o.AdditionalProperties = additionalProperties
-<span id="L469" class="ln">   469  </span>	}
-<span id="L470" class="ln">   470  </span>
-<span id="L471" class="ln">   471  </span>	return nil
-<span id="L472" class="ln">   472  </span>}
+<span id="L441" class="ln">   441  </span>
+<span id="L442" class="ln">   442  </span>	hasInvalidField := false
+<span id="L443" class="ln">   443  </span>	o.Contacts = all.Contacts
+<span id="L444" class="ln">   444  </span>	o.DdService = *all.DdService
+<span id="L445" class="ln">   445  </span>	o.DdTeam = all.DdTeam
+<span id="L446" class="ln">   446  </span>	o.Docs = all.Docs
+<span id="L447" class="ln">   447  </span>	o.Extensions = all.Extensions
+<span id="L448" class="ln">   448  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L449" class="ln">   449  </span>		hasInvalidField = true
+<span id="L450" class="ln">   450  </span>	}
+<span id="L451" class="ln">   451  </span>	o.Integrations = all.Integrations
+<span id="L452" class="ln">   452  </span>	o.Links = all.Links
+<span id="L453" class="ln">   453  </span>	o.Repos = all.Repos
+<span id="L454" class="ln">   454  </span>	if v := all.SchemaVersion; !v.IsValid() {
+<span id="L455" class="ln">   455  </span>		hasInvalidField = true
+<span id="L456" class="ln">   456  </span>	} else {
+<span id="L457" class="ln">   457  </span>		o.SchemaVersion = *all.SchemaVersion
+<span id="L458" class="ln">   458  </span>	}
+<span id="L459" class="ln">   459  </span>	o.Tags = all.Tags
+<span id="L460" class="ln">   460  </span>	o.Team = all.Team
+<span id="L461" class="ln">   461  </span>
+<span id="L462" class="ln">   462  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L463" class="ln">   463  </span>		o.AdditionalProperties = additionalProperties
+<span id="L464" class="ln">   464  </span>	}
+<span id="L465" class="ln">   465  </span>
+<span id="L466" class="ln">   466  </span>	if hasInvalidField {
+<span id="L467" class="ln">   467  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L468" class="ln">   468  </span>		if err != nil {
+<span id="L469" class="ln">   469  </span>			return err
+<span id="L470" class="ln">   470  </span>		}
+<span id="L471" class="ln">   471  </span>		o.UnparsedObject = raw
+<span id="L472" class="ln">   472  </span>	}
 <span id="L473" class="ln">   473  </span>
+<span id="L474" class="ln">   474  </span>	return nil
+<span id="L475" class="ln">   475  </span>}
+<span id="L476" class="ln">   476  </span>
 </pre><p></p>
 
 <div id="footer">

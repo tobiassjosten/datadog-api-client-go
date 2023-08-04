@@ -465,55 +465,50 @@
 <span id="L408" class="ln">   408  </span>	} else {
 <span id="L409" class="ln">   409  </span>		return err
 <span id="L410" class="ln">   410  </span>	}
-<span id="L411" class="ln">   411  </span>	if v := all.TextAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L412" class="ln">   412  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L413" class="ln">   413  </span>		if err != nil {
-<span id="L414" class="ln">   414  </span>			return err
-<span id="L415" class="ln">   415  </span>		}
-<span id="L416" class="ln">   416  </span>		o.UnparsedObject = raw
-<span id="L417" class="ln">   417  </span>		return nil
-<span id="L418" class="ln">   418  </span>	}
-<span id="L419" class="ln">   419  </span>	if v := all.TickEdge; v != nil &amp;&amp; !v.IsValid() {
-<span id="L420" class="ln">   420  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L421" class="ln">   421  </span>		if err != nil {
-<span id="L422" class="ln">   422  </span>			return err
-<span id="L423" class="ln">   423  </span>		}
-<span id="L424" class="ln">   424  </span>		o.UnparsedObject = raw
-<span id="L425" class="ln">   425  </span>		return nil
-<span id="L426" class="ln">   426  </span>	}
-<span id="L427" class="ln">   427  </span>	if v := all.Type; !v.IsValid() {
-<span id="L428" class="ln">   428  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L429" class="ln">   429  </span>		if err != nil {
-<span id="L430" class="ln">   430  </span>			return err
-<span id="L431" class="ln">   431  </span>		}
-<span id="L432" class="ln">   432  </span>		o.UnparsedObject = raw
-<span id="L433" class="ln">   433  </span>		return nil
-<span id="L434" class="ln">   434  </span>	}
-<span id="L435" class="ln">   435  </span>	if v := all.VerticalAlign; v != nil &amp;&amp; !v.IsValid() {
-<span id="L436" class="ln">   436  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L437" class="ln">   437  </span>		if err != nil {
-<span id="L438" class="ln">   438  </span>			return err
-<span id="L439" class="ln">   439  </span>		}
-<span id="L440" class="ln">   440  </span>		o.UnparsedObject = raw
-<span id="L441" class="ln">   441  </span>		return nil
+<span id="L411" class="ln">   411  </span>
+<span id="L412" class="ln">   412  </span>	hasInvalidField := false
+<span id="L413" class="ln">   413  </span>	o.BackgroundColor = all.BackgroundColor
+<span id="L414" class="ln">   414  </span>	o.Content = *all.Content
+<span id="L415" class="ln">   415  </span>	o.FontSize = all.FontSize
+<span id="L416" class="ln">   416  </span>	o.HasPadding = all.HasPadding
+<span id="L417" class="ln">   417  </span>	o.ShowTick = all.ShowTick
+<span id="L418" class="ln">   418  </span>	if v := all.TextAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L419" class="ln">   419  </span>		hasInvalidField = true
+<span id="L420" class="ln">   420  </span>	} else {
+<span id="L421" class="ln">   421  </span>		o.TextAlign = all.TextAlign
+<span id="L422" class="ln">   422  </span>	}
+<span id="L423" class="ln">   423  </span>	if v := all.TickEdge; v != nil &amp;&amp; !v.IsValid() {
+<span id="L424" class="ln">   424  </span>		hasInvalidField = true
+<span id="L425" class="ln">   425  </span>	} else {
+<span id="L426" class="ln">   426  </span>		o.TickEdge = all.TickEdge
+<span id="L427" class="ln">   427  </span>	}
+<span id="L428" class="ln">   428  </span>	o.TickPos = all.TickPos
+<span id="L429" class="ln">   429  </span>	if v := all.Type; !v.IsValid() {
+<span id="L430" class="ln">   430  </span>		hasInvalidField = true
+<span id="L431" class="ln">   431  </span>	} else {
+<span id="L432" class="ln">   432  </span>		o.Type = *all.Type
+<span id="L433" class="ln">   433  </span>	}
+<span id="L434" class="ln">   434  </span>	if v := all.VerticalAlign; v != nil &amp;&amp; !v.IsValid() {
+<span id="L435" class="ln">   435  </span>		hasInvalidField = true
+<span id="L436" class="ln">   436  </span>	} else {
+<span id="L437" class="ln">   437  </span>		o.VerticalAlign = all.VerticalAlign
+<span id="L438" class="ln">   438  </span>	}
+<span id="L439" class="ln">   439  </span>
+<span id="L440" class="ln">   440  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L441" class="ln">   441  </span>		o.AdditionalProperties = additionalProperties
 <span id="L442" class="ln">   442  </span>	}
-<span id="L443" class="ln">   443  </span>	o.BackgroundColor = all.BackgroundColor
-<span id="L444" class="ln">   444  </span>	o.Content = *all.Content
-<span id="L445" class="ln">   445  </span>	o.FontSize = all.FontSize
-<span id="L446" class="ln">   446  </span>	o.HasPadding = all.HasPadding
-<span id="L447" class="ln">   447  </span>	o.ShowTick = all.ShowTick
-<span id="L448" class="ln">   448  </span>	o.TextAlign = all.TextAlign
-<span id="L449" class="ln">   449  </span>	o.TickEdge = all.TickEdge
-<span id="L450" class="ln">   450  </span>	o.TickPos = all.TickPos
-<span id="L451" class="ln">   451  </span>	o.Type = *all.Type
-<span id="L452" class="ln">   452  </span>	o.VerticalAlign = all.VerticalAlign
-<span id="L453" class="ln">   453  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L454" class="ln">   454  </span>		o.AdditionalProperties = additionalProperties
-<span id="L455" class="ln">   455  </span>	}
-<span id="L456" class="ln">   456  </span>
-<span id="L457" class="ln">   457  </span>	return nil
-<span id="L458" class="ln">   458  </span>}
-<span id="L459" class="ln">   459  </span>
+<span id="L443" class="ln">   443  </span>
+<span id="L444" class="ln">   444  </span>	if hasInvalidField {
+<span id="L445" class="ln">   445  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L446" class="ln">   446  </span>		if err != nil {
+<span id="L447" class="ln">   447  </span>			return err
+<span id="L448" class="ln">   448  </span>		}
+<span id="L449" class="ln">   449  </span>		o.UnparsedObject = raw
+<span id="L450" class="ln">   450  </span>	}
+<span id="L451" class="ln">   451  </span>
+<span id="L452" class="ln">   452  </span>	return nil
+<span id="L453" class="ln">   453  </span>}
+<span id="L454" class="ln">   454  </span>
 </pre><p></p>
 
 <div id="footer">

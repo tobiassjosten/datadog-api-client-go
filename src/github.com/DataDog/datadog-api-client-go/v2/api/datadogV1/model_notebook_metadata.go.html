@@ -244,24 +244,31 @@
 <span id="L187" class="ln">   187  </span>	} else {
 <span id="L188" class="ln">   188  </span>		return err
 <span id="L189" class="ln">   189  </span>	}
-<span id="L190" class="ln">   190  </span>	if v := all.Type; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L191" class="ln">   191  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L192" class="ln">   192  </span>		if err != nil {
-<span id="L193" class="ln">   193  </span>			return err
-<span id="L194" class="ln">   194  </span>		}
-<span id="L195" class="ln">   195  </span>		o.UnparsedObject = raw
-<span id="L196" class="ln">   196  </span>		return nil
-<span id="L197" class="ln">   197  </span>	}
-<span id="L198" class="ln">   198  </span>	o.IsTemplate = all.IsTemplate
-<span id="L199" class="ln">   199  </span>	o.TakeSnapshots = all.TakeSnapshots
-<span id="L200" class="ln">   200  </span>	o.Type = all.Type
-<span id="L201" class="ln">   201  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L202" class="ln">   202  </span>		o.AdditionalProperties = additionalProperties
-<span id="L203" class="ln">   203  </span>	}
-<span id="L204" class="ln">   204  </span>
-<span id="L205" class="ln">   205  </span>	return nil
-<span id="L206" class="ln">   206  </span>}
-<span id="L207" class="ln">   207  </span>
+<span id="L190" class="ln">   190  </span>
+<span id="L191" class="ln">   191  </span>	hasInvalidField := false
+<span id="L192" class="ln">   192  </span>	o.IsTemplate = all.IsTemplate
+<span id="L193" class="ln">   193  </span>	o.TakeSnapshots = all.TakeSnapshots
+<span id="L194" class="ln">   194  </span>	if v := all.Type; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
+<span id="L195" class="ln">   195  </span>		hasInvalidField = true
+<span id="L196" class="ln">   196  </span>	} else {
+<span id="L197" class="ln">   197  </span>		o.Type = all.Type
+<span id="L198" class="ln">   198  </span>	}
+<span id="L199" class="ln">   199  </span>
+<span id="L200" class="ln">   200  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L201" class="ln">   201  </span>		o.AdditionalProperties = additionalProperties
+<span id="L202" class="ln">   202  </span>	}
+<span id="L203" class="ln">   203  </span>
+<span id="L204" class="ln">   204  </span>	if hasInvalidField {
+<span id="L205" class="ln">   205  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L206" class="ln">   206  </span>		if err != nil {
+<span id="L207" class="ln">   207  </span>			return err
+<span id="L208" class="ln">   208  </span>		}
+<span id="L209" class="ln">   209  </span>		o.UnparsedObject = raw
+<span id="L210" class="ln">   210  </span>	}
+<span id="L211" class="ln">   211  </span>
+<span id="L212" class="ln">   212  </span>	return nil
+<span id="L213" class="ln">   213  </span>}
+<span id="L214" class="ln">   214  </span>
 </pre><p></p>
 
 <div id="footer">

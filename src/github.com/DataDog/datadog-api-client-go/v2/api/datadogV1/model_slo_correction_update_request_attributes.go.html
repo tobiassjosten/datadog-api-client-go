@@ -362,28 +362,35 @@
 <span id="L305" class="ln">   305  </span>	} else {
 <span id="L306" class="ln">   306  </span>		return err
 <span id="L307" class="ln">   307  </span>	}
-<span id="L308" class="ln">   308  </span>	if v := all.Category; v != nil &amp;&amp; !v.IsValid() {
-<span id="L309" class="ln">   309  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L310" class="ln">   310  </span>		if err != nil {
-<span id="L311" class="ln">   311  </span>			return err
-<span id="L312" class="ln">   312  </span>		}
-<span id="L313" class="ln">   313  </span>		o.UnparsedObject = raw
-<span id="L314" class="ln">   314  </span>		return nil
-<span id="L315" class="ln">   315  </span>	}
-<span id="L316" class="ln">   316  </span>	o.Category = all.Category
-<span id="L317" class="ln">   317  </span>	o.Description = all.Description
-<span id="L318" class="ln">   318  </span>	o.Duration = all.Duration
-<span id="L319" class="ln">   319  </span>	o.End = all.End
-<span id="L320" class="ln">   320  </span>	o.Rrule = all.Rrule
-<span id="L321" class="ln">   321  </span>	o.Start = all.Start
-<span id="L322" class="ln">   322  </span>	o.Timezone = all.Timezone
-<span id="L323" class="ln">   323  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L324" class="ln">   324  </span>		o.AdditionalProperties = additionalProperties
-<span id="L325" class="ln">   325  </span>	}
-<span id="L326" class="ln">   326  </span>
-<span id="L327" class="ln">   327  </span>	return nil
-<span id="L328" class="ln">   328  </span>}
-<span id="L329" class="ln">   329  </span>
+<span id="L308" class="ln">   308  </span>
+<span id="L309" class="ln">   309  </span>	hasInvalidField := false
+<span id="L310" class="ln">   310  </span>	if v := all.Category; v != nil &amp;&amp; !v.IsValid() {
+<span id="L311" class="ln">   311  </span>		hasInvalidField = true
+<span id="L312" class="ln">   312  </span>	} else {
+<span id="L313" class="ln">   313  </span>		o.Category = all.Category
+<span id="L314" class="ln">   314  </span>	}
+<span id="L315" class="ln">   315  </span>	o.Description = all.Description
+<span id="L316" class="ln">   316  </span>	o.Duration = all.Duration
+<span id="L317" class="ln">   317  </span>	o.End = all.End
+<span id="L318" class="ln">   318  </span>	o.Rrule = all.Rrule
+<span id="L319" class="ln">   319  </span>	o.Start = all.Start
+<span id="L320" class="ln">   320  </span>	o.Timezone = all.Timezone
+<span id="L321" class="ln">   321  </span>
+<span id="L322" class="ln">   322  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L323" class="ln">   323  </span>		o.AdditionalProperties = additionalProperties
+<span id="L324" class="ln">   324  </span>	}
+<span id="L325" class="ln">   325  </span>
+<span id="L326" class="ln">   326  </span>	if hasInvalidField {
+<span id="L327" class="ln">   327  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L328" class="ln">   328  </span>		if err != nil {
+<span id="L329" class="ln">   329  </span>			return err
+<span id="L330" class="ln">   330  </span>		}
+<span id="L331" class="ln">   331  </span>		o.UnparsedObject = raw
+<span id="L332" class="ln">   332  </span>	}
+<span id="L333" class="ln">   333  </span>
+<span id="L334" class="ln">   334  </span>	return nil
+<span id="L335" class="ln">   335  </span>}
+<span id="L336" class="ln">   336  </span>
 </pre><p></p>
 
 <div id="footer">

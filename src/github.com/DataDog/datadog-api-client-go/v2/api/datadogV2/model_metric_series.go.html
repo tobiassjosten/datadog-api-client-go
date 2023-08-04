@@ -426,37 +426,40 @@
 <span id="L369" class="ln">   369  </span>	} else {
 <span id="L370" class="ln">   370  </span>		return err
 <span id="L371" class="ln">   371  </span>	}
-<span id="L372" class="ln">   372  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L373" class="ln">   373  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L374" class="ln">   374  </span>		if err != nil {
-<span id="L375" class="ln">   375  </span>			return err
-<span id="L376" class="ln">   376  </span>		}
-<span id="L377" class="ln">   377  </span>		o.UnparsedObject = raw
-<span id="L378" class="ln">   378  </span>		return nil
-<span id="L379" class="ln">   379  </span>	}
-<span id="L380" class="ln">   380  </span>	o.Interval = all.Interval
-<span id="L381" class="ln">   381  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L382" class="ln">   382  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L383" class="ln">   383  </span>		if err != nil {
-<span id="L384" class="ln">   384  </span>			return err
-<span id="L385" class="ln">   385  </span>		}
-<span id="L386" class="ln">   386  </span>		o.UnparsedObject = raw
-<span id="L387" class="ln">   387  </span>	}
-<span id="L388" class="ln">   388  </span>	o.Metadata = all.Metadata
-<span id="L389" class="ln">   389  </span>	o.Metric = *all.Metric
-<span id="L390" class="ln">   390  </span>	o.Points = *all.Points
-<span id="L391" class="ln">   391  </span>	o.Resources = all.Resources
-<span id="L392" class="ln">   392  </span>	o.SourceTypeName = all.SourceTypeName
-<span id="L393" class="ln">   393  </span>	o.Tags = all.Tags
-<span id="L394" class="ln">   394  </span>	o.Type = all.Type
-<span id="L395" class="ln">   395  </span>	o.Unit = all.Unit
-<span id="L396" class="ln">   396  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L397" class="ln">   397  </span>		o.AdditionalProperties = additionalProperties
-<span id="L398" class="ln">   398  </span>	}
-<span id="L399" class="ln">   399  </span>
-<span id="L400" class="ln">   400  </span>	return nil
-<span id="L401" class="ln">   401  </span>}
+<span id="L372" class="ln">   372  </span>
+<span id="L373" class="ln">   373  </span>	hasInvalidField := false
+<span id="L374" class="ln">   374  </span>	o.Interval = all.Interval
+<span id="L375" class="ln">   375  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L376" class="ln">   376  </span>		hasInvalidField = true
+<span id="L377" class="ln">   377  </span>	}
+<span id="L378" class="ln">   378  </span>	o.Metadata = all.Metadata
+<span id="L379" class="ln">   379  </span>	o.Metric = *all.Metric
+<span id="L380" class="ln">   380  </span>	o.Points = *all.Points
+<span id="L381" class="ln">   381  </span>	o.Resources = all.Resources
+<span id="L382" class="ln">   382  </span>	o.SourceTypeName = all.SourceTypeName
+<span id="L383" class="ln">   383  </span>	o.Tags = all.Tags
+<span id="L384" class="ln">   384  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L385" class="ln">   385  </span>		hasInvalidField = true
+<span id="L386" class="ln">   386  </span>	} else {
+<span id="L387" class="ln">   387  </span>		o.Type = all.Type
+<span id="L388" class="ln">   388  </span>	}
+<span id="L389" class="ln">   389  </span>	o.Unit = all.Unit
+<span id="L390" class="ln">   390  </span>
+<span id="L391" class="ln">   391  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L392" class="ln">   392  </span>		o.AdditionalProperties = additionalProperties
+<span id="L393" class="ln">   393  </span>	}
+<span id="L394" class="ln">   394  </span>
+<span id="L395" class="ln">   395  </span>	if hasInvalidField {
+<span id="L396" class="ln">   396  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L397" class="ln">   397  </span>		if err != nil {
+<span id="L398" class="ln">   398  </span>			return err
+<span id="L399" class="ln">   399  </span>		}
+<span id="L400" class="ln">   400  </span>		o.UnparsedObject = raw
+<span id="L401" class="ln">   401  </span>	}
 <span id="L402" class="ln">   402  </span>
+<span id="L403" class="ln">   403  </span>	return nil
+<span id="L404" class="ln">   404  </span>}
+<span id="L405" class="ln">   405  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -444,39 +444,42 @@
 <span id="L387" class="ln">   387  </span>	} else {
 <span id="L388" class="ln">   388  </span>		return err
 <span id="L389" class="ln">   389  </span>	}
-<span id="L390" class="ln">   390  </span>	if v := all.DataSource; !v.IsValid() {
-<span id="L391" class="ln">   391  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L392" class="ln">   392  </span>		if err != nil {
-<span id="L393" class="ln">   393  </span>			return err
-<span id="L394" class="ln">   394  </span>		}
-<span id="L395" class="ln">   395  </span>		o.UnparsedObject = raw
-<span id="L396" class="ln">   396  </span>		return nil
-<span id="L397" class="ln">   397  </span>	}
-<span id="L398" class="ln">   398  </span>	if v := all.Stat; !v.IsValid() {
-<span id="L399" class="ln">   399  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L400" class="ln">   400  </span>		if err != nil {
-<span id="L401" class="ln">   401  </span>			return err
-<span id="L402" class="ln">   402  </span>		}
-<span id="L403" class="ln">   403  </span>		o.UnparsedObject = raw
-<span id="L404" class="ln">   404  </span>		return nil
-<span id="L405" class="ln">   405  </span>	}
-<span id="L406" class="ln">   406  </span>	o.DataSource = *all.DataSource
-<span id="L407" class="ln">   407  </span>	o.Env = *all.Env
-<span id="L408" class="ln">   408  </span>	o.IsUpstream = all.IsUpstream
-<span id="L409" class="ln">   409  </span>	o.Name = *all.Name
-<span id="L410" class="ln">   410  </span>	o.OperationName = *all.OperationName
-<span id="L411" class="ln">   411  </span>	o.PrimaryTagName = all.PrimaryTagName
-<span id="L412" class="ln">   412  </span>	o.PrimaryTagValue = all.PrimaryTagValue
-<span id="L413" class="ln">   413  </span>	o.ResourceName = *all.ResourceName
-<span id="L414" class="ln">   414  </span>	o.Service = *all.Service
-<span id="L415" class="ln">   415  </span>	o.Stat = *all.Stat
-<span id="L416" class="ln">   416  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L417" class="ln">   417  </span>		o.AdditionalProperties = additionalProperties
-<span id="L418" class="ln">   418  </span>	}
-<span id="L419" class="ln">   419  </span>
-<span id="L420" class="ln">   420  </span>	return nil
-<span id="L421" class="ln">   421  </span>}
+<span id="L390" class="ln">   390  </span>
+<span id="L391" class="ln">   391  </span>	hasInvalidField := false
+<span id="L392" class="ln">   392  </span>	if v := all.DataSource; !v.IsValid() {
+<span id="L393" class="ln">   393  </span>		hasInvalidField = true
+<span id="L394" class="ln">   394  </span>	} else {
+<span id="L395" class="ln">   395  </span>		o.DataSource = *all.DataSource
+<span id="L396" class="ln">   396  </span>	}
+<span id="L397" class="ln">   397  </span>	o.Env = *all.Env
+<span id="L398" class="ln">   398  </span>	o.IsUpstream = all.IsUpstream
+<span id="L399" class="ln">   399  </span>	o.Name = *all.Name
+<span id="L400" class="ln">   400  </span>	o.OperationName = *all.OperationName
+<span id="L401" class="ln">   401  </span>	o.PrimaryTagName = all.PrimaryTagName
+<span id="L402" class="ln">   402  </span>	o.PrimaryTagValue = all.PrimaryTagValue
+<span id="L403" class="ln">   403  </span>	o.ResourceName = *all.ResourceName
+<span id="L404" class="ln">   404  </span>	o.Service = *all.Service
+<span id="L405" class="ln">   405  </span>	if v := all.Stat; !v.IsValid() {
+<span id="L406" class="ln">   406  </span>		hasInvalidField = true
+<span id="L407" class="ln">   407  </span>	} else {
+<span id="L408" class="ln">   408  </span>		o.Stat = *all.Stat
+<span id="L409" class="ln">   409  </span>	}
+<span id="L410" class="ln">   410  </span>
+<span id="L411" class="ln">   411  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L412" class="ln">   412  </span>		o.AdditionalProperties = additionalProperties
+<span id="L413" class="ln">   413  </span>	}
+<span id="L414" class="ln">   414  </span>
+<span id="L415" class="ln">   415  </span>	if hasInvalidField {
+<span id="L416" class="ln">   416  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L417" class="ln">   417  </span>		if err != nil {
+<span id="L418" class="ln">   418  </span>			return err
+<span id="L419" class="ln">   419  </span>		}
+<span id="L420" class="ln">   420  </span>		o.UnparsedObject = raw
+<span id="L421" class="ln">   421  </span>	}
 <span id="L422" class="ln">   422  </span>
+<span id="L423" class="ln">   423  </span>	return nil
+<span id="L424" class="ln">   424  </span>}
+<span id="L425" class="ln">   425  </span>
 </pre><p></p>
 
 <div id="footer">

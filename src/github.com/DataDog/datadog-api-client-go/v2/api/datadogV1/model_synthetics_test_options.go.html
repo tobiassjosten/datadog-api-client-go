@@ -884,78 +884,65 @@
 <span id="L827" class="ln">   827  </span>	} else {
 <span id="L828" class="ln">   828  </span>		return err
 <span id="L829" class="ln">   829  </span>	}
-<span id="L830" class="ln">   830  </span>	if v := all.HttpVersion; v != nil &amp;&amp; !v.IsValid() {
-<span id="L831" class="ln">   831  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L832" class="ln">   832  </span>		if err != nil {
-<span id="L833" class="ln">   833  </span>			return err
-<span id="L834" class="ln">   834  </span>		}
-<span id="L835" class="ln">   835  </span>		o.UnparsedObject = raw
-<span id="L836" class="ln">   836  </span>		return nil
+<span id="L830" class="ln">   830  </span>
+<span id="L831" class="ln">   831  </span>	hasInvalidField := false
+<span id="L832" class="ln">   832  </span>	o.AcceptSelfSigned = all.AcceptSelfSigned
+<span id="L833" class="ln">   833  </span>	o.AllowInsecure = all.AllowInsecure
+<span id="L834" class="ln">   834  </span>	o.CheckCertificateRevocation = all.CheckCertificateRevocation
+<span id="L835" class="ln">   835  </span>	if all.Ci != nil &amp;&amp; all.Ci.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L836" class="ln">   836  </span>		hasInvalidField = true
 <span id="L837" class="ln">   837  </span>	}
-<span id="L838" class="ln">   838  </span>	o.AcceptSelfSigned = all.AcceptSelfSigned
-<span id="L839" class="ln">   839  </span>	o.AllowInsecure = all.AllowInsecure
-<span id="L840" class="ln">   840  </span>	o.CheckCertificateRevocation = all.CheckCertificateRevocation
-<span id="L841" class="ln">   841  </span>	if all.Ci != nil &amp;&amp; all.Ci.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L842" class="ln">   842  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L843" class="ln">   843  </span>		if err != nil {
-<span id="L844" class="ln">   844  </span>			return err
-<span id="L845" class="ln">   845  </span>		}
-<span id="L846" class="ln">   846  </span>		o.UnparsedObject = raw
+<span id="L838" class="ln">   838  </span>	o.Ci = all.Ci
+<span id="L839" class="ln">   839  </span>	o.DeviceIds = all.DeviceIds
+<span id="L840" class="ln">   840  </span>	o.DisableCors = all.DisableCors
+<span id="L841" class="ln">   841  </span>	o.DisableCsp = all.DisableCsp
+<span id="L842" class="ln">   842  </span>	o.FollowRedirects = all.FollowRedirects
+<span id="L843" class="ln">   843  </span>	if v := all.HttpVersion; v != nil &amp;&amp; !v.IsValid() {
+<span id="L844" class="ln">   844  </span>		hasInvalidField = true
+<span id="L845" class="ln">   845  </span>	} else {
+<span id="L846" class="ln">   846  </span>		o.HttpVersion = all.HttpVersion
 <span id="L847" class="ln">   847  </span>	}
-<span id="L848" class="ln">   848  </span>	o.Ci = all.Ci
-<span id="L849" class="ln">   849  </span>	o.DeviceIds = all.DeviceIds
-<span id="L850" class="ln">   850  </span>	o.DisableCors = all.DisableCors
-<span id="L851" class="ln">   851  </span>	o.DisableCsp = all.DisableCsp
-<span id="L852" class="ln">   852  </span>	o.FollowRedirects = all.FollowRedirects
-<span id="L853" class="ln">   853  </span>	o.HttpVersion = all.HttpVersion
-<span id="L854" class="ln">   854  </span>	o.IgnoreServerCertificateError = all.IgnoreServerCertificateError
-<span id="L855" class="ln">   855  </span>	o.InitialNavigationTimeout = all.InitialNavigationTimeout
-<span id="L856" class="ln">   856  </span>	o.MinFailureDuration = all.MinFailureDuration
-<span id="L857" class="ln">   857  </span>	o.MinLocationFailed = all.MinLocationFailed
-<span id="L858" class="ln">   858  </span>	o.MonitorName = all.MonitorName
-<span id="L859" class="ln">   859  </span>	if all.MonitorOptions != nil &amp;&amp; all.MonitorOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L860" class="ln">   860  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L861" class="ln">   861  </span>		if err != nil {
-<span id="L862" class="ln">   862  </span>			return err
-<span id="L863" class="ln">   863  </span>		}
-<span id="L864" class="ln">   864  </span>		o.UnparsedObject = raw
-<span id="L865" class="ln">   865  </span>	}
-<span id="L866" class="ln">   866  </span>	o.MonitorOptions = all.MonitorOptions
-<span id="L867" class="ln">   867  </span>	o.MonitorPriority = all.MonitorPriority
-<span id="L868" class="ln">   868  </span>	o.NoScreenshot = all.NoScreenshot
-<span id="L869" class="ln">   869  </span>	o.RestrictedRoles = all.RestrictedRoles
-<span id="L870" class="ln">   870  </span>	if all.Retry != nil &amp;&amp; all.Retry.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L871" class="ln">   871  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L872" class="ln">   872  </span>		if err != nil {
-<span id="L873" class="ln">   873  </span>			return err
-<span id="L874" class="ln">   874  </span>		}
-<span id="L875" class="ln">   875  </span>		o.UnparsedObject = raw
+<span id="L848" class="ln">   848  </span>	o.IgnoreServerCertificateError = all.IgnoreServerCertificateError
+<span id="L849" class="ln">   849  </span>	o.InitialNavigationTimeout = all.InitialNavigationTimeout
+<span id="L850" class="ln">   850  </span>	o.MinFailureDuration = all.MinFailureDuration
+<span id="L851" class="ln">   851  </span>	o.MinLocationFailed = all.MinLocationFailed
+<span id="L852" class="ln">   852  </span>	o.MonitorName = all.MonitorName
+<span id="L853" class="ln">   853  </span>	if all.MonitorOptions != nil &amp;&amp; all.MonitorOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L854" class="ln">   854  </span>		hasInvalidField = true
+<span id="L855" class="ln">   855  </span>	}
+<span id="L856" class="ln">   856  </span>	o.MonitorOptions = all.MonitorOptions
+<span id="L857" class="ln">   857  </span>	o.MonitorPriority = all.MonitorPriority
+<span id="L858" class="ln">   858  </span>	o.NoScreenshot = all.NoScreenshot
+<span id="L859" class="ln">   859  </span>	o.RestrictedRoles = all.RestrictedRoles
+<span id="L860" class="ln">   860  </span>	if all.Retry != nil &amp;&amp; all.Retry.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L861" class="ln">   861  </span>		hasInvalidField = true
+<span id="L862" class="ln">   862  </span>	}
+<span id="L863" class="ln">   863  </span>	o.Retry = all.Retry
+<span id="L864" class="ln">   864  </span>	if all.RumSettings != nil &amp;&amp; all.RumSettings.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L865" class="ln">   865  </span>		hasInvalidField = true
+<span id="L866" class="ln">   866  </span>	}
+<span id="L867" class="ln">   867  </span>	o.RumSettings = all.RumSettings
+<span id="L868" class="ln">   868  </span>	if all.Scheduling != nil &amp;&amp; all.Scheduling.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L869" class="ln">   869  </span>		hasInvalidField = true
+<span id="L870" class="ln">   870  </span>	}
+<span id="L871" class="ln">   871  </span>	o.Scheduling = all.Scheduling
+<span id="L872" class="ln">   872  </span>	o.TickEvery = all.TickEvery
+<span id="L873" class="ln">   873  </span>
+<span id="L874" class="ln">   874  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L875" class="ln">   875  </span>		o.AdditionalProperties = additionalProperties
 <span id="L876" class="ln">   876  </span>	}
-<span id="L877" class="ln">   877  </span>	o.Retry = all.Retry
-<span id="L878" class="ln">   878  </span>	if all.RumSettings != nil &amp;&amp; all.RumSettings.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L877" class="ln">   877  </span>
+<span id="L878" class="ln">   878  </span>	if hasInvalidField {
 <span id="L879" class="ln">   879  </span>		err = json.Unmarshal(bytes, &amp;raw)
 <span id="L880" class="ln">   880  </span>		if err != nil {
 <span id="L881" class="ln">   881  </span>			return err
 <span id="L882" class="ln">   882  </span>		}
 <span id="L883" class="ln">   883  </span>		o.UnparsedObject = raw
 <span id="L884" class="ln">   884  </span>	}
-<span id="L885" class="ln">   885  </span>	o.RumSettings = all.RumSettings
-<span id="L886" class="ln">   886  </span>	if all.Scheduling != nil &amp;&amp; all.Scheduling.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L887" class="ln">   887  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L888" class="ln">   888  </span>		if err != nil {
-<span id="L889" class="ln">   889  </span>			return err
-<span id="L890" class="ln">   890  </span>		}
-<span id="L891" class="ln">   891  </span>		o.UnparsedObject = raw
-<span id="L892" class="ln">   892  </span>	}
-<span id="L893" class="ln">   893  </span>	o.Scheduling = all.Scheduling
-<span id="L894" class="ln">   894  </span>	o.TickEvery = all.TickEvery
-<span id="L895" class="ln">   895  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L896" class="ln">   896  </span>		o.AdditionalProperties = additionalProperties
-<span id="L897" class="ln">   897  </span>	}
-<span id="L898" class="ln">   898  </span>
-<span id="L899" class="ln">   899  </span>	return nil
-<span id="L900" class="ln">   900  </span>}
-<span id="L901" class="ln">   901  </span>
+<span id="L885" class="ln">   885  </span>
+<span id="L886" class="ln">   886  </span>	return nil
+<span id="L887" class="ln">   887  </span>}
+<span id="L888" class="ln">   888  </span>
 </pre><p></p>
 
 <div id="footer">

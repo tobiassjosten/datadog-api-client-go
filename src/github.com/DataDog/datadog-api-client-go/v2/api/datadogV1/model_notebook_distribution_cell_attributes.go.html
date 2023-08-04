@@ -271,39 +271,38 @@
 <span id="L214" class="ln">   214  </span>	} else {
 <span id="L215" class="ln">   215  </span>		return err
 <span id="L216" class="ln">   216  </span>	}
-<span id="L217" class="ln">   217  </span>	if v := all.GraphSize; v != nil &amp;&amp; !v.IsValid() {
-<span id="L218" class="ln">   218  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L219" class="ln">   219  </span>		if err != nil {
-<span id="L220" class="ln">   220  </span>			return err
-<span id="L221" class="ln">   221  </span>		}
-<span id="L222" class="ln">   222  </span>		o.UnparsedObject = raw
-<span id="L223" class="ln">   223  </span>		return nil
-<span id="L224" class="ln">   224  </span>	}
-<span id="L225" class="ln">   225  </span>	if all.Definition.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L226" class="ln">   226  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L227" class="ln">   227  </span>		if err != nil {
-<span id="L228" class="ln">   228  </span>			return err
-<span id="L229" class="ln">   229  </span>		}
-<span id="L230" class="ln">   230  </span>		o.UnparsedObject = raw
-<span id="L231" class="ln">   231  </span>	}
-<span id="L232" class="ln">   232  </span>	o.Definition = *all.Definition
-<span id="L233" class="ln">   233  </span>	o.GraphSize = all.GraphSize
-<span id="L234" class="ln">   234  </span>	if all.SplitBy != nil &amp;&amp; all.SplitBy.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L235" class="ln">   235  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L236" class="ln">   236  </span>		if err != nil {
-<span id="L237" class="ln">   237  </span>			return err
-<span id="L238" class="ln">   238  </span>		}
-<span id="L239" class="ln">   239  </span>		o.UnparsedObject = raw
-<span id="L240" class="ln">   240  </span>	}
-<span id="L241" class="ln">   241  </span>	o.SplitBy = all.SplitBy
-<span id="L242" class="ln">   242  </span>	o.Time = all.Time
-<span id="L243" class="ln">   243  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L244" class="ln">   244  </span>		o.AdditionalProperties = additionalProperties
-<span id="L245" class="ln">   245  </span>	}
-<span id="L246" class="ln">   246  </span>
-<span id="L247" class="ln">   247  </span>	return nil
-<span id="L248" class="ln">   248  </span>}
-<span id="L249" class="ln">   249  </span>
+<span id="L217" class="ln">   217  </span>
+<span id="L218" class="ln">   218  </span>	hasInvalidField := false
+<span id="L219" class="ln">   219  </span>	if all.Definition.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L220" class="ln">   220  </span>		hasInvalidField = true
+<span id="L221" class="ln">   221  </span>	}
+<span id="L222" class="ln">   222  </span>	o.Definition = *all.Definition
+<span id="L223" class="ln">   223  </span>	if v := all.GraphSize; v != nil &amp;&amp; !v.IsValid() {
+<span id="L224" class="ln">   224  </span>		hasInvalidField = true
+<span id="L225" class="ln">   225  </span>	} else {
+<span id="L226" class="ln">   226  </span>		o.GraphSize = all.GraphSize
+<span id="L227" class="ln">   227  </span>	}
+<span id="L228" class="ln">   228  </span>	if all.SplitBy != nil &amp;&amp; all.SplitBy.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L229" class="ln">   229  </span>		hasInvalidField = true
+<span id="L230" class="ln">   230  </span>	}
+<span id="L231" class="ln">   231  </span>	o.SplitBy = all.SplitBy
+<span id="L232" class="ln">   232  </span>	o.Time = all.Time
+<span id="L233" class="ln">   233  </span>
+<span id="L234" class="ln">   234  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L235" class="ln">   235  </span>		o.AdditionalProperties = additionalProperties
+<span id="L236" class="ln">   236  </span>	}
+<span id="L237" class="ln">   237  </span>
+<span id="L238" class="ln">   238  </span>	if hasInvalidField {
+<span id="L239" class="ln">   239  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L240" class="ln">   240  </span>		if err != nil {
+<span id="L241" class="ln">   241  </span>			return err
+<span id="L242" class="ln">   242  </span>		}
+<span id="L243" class="ln">   243  </span>		o.UnparsedObject = raw
+<span id="L244" class="ln">   244  </span>	}
+<span id="L245" class="ln">   245  </span>
+<span id="L246" class="ln">   246  </span>	return nil
+<span id="L247" class="ln">   247  </span>}
+<span id="L248" class="ln">   248  </span>
 </pre><p></p>
 
 <div id="footer">

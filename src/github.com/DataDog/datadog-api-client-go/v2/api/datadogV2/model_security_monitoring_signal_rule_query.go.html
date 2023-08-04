@@ -326,27 +326,34 @@
 <span id="L269" class="ln">   269  </span>	} else {
 <span id="L270" class="ln">   270  </span>		return err
 <span id="L271" class="ln">   271  </span>	}
-<span id="L272" class="ln">   272  </span>	if v := all.Aggregation; v != nil &amp;&amp; !v.IsValid() {
-<span id="L273" class="ln">   273  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L274" class="ln">   274  </span>		if err != nil {
-<span id="L275" class="ln">   275  </span>			return err
-<span id="L276" class="ln">   276  </span>		}
-<span id="L277" class="ln">   277  </span>		o.UnparsedObject = raw
-<span id="L278" class="ln">   278  </span>		return nil
-<span id="L279" class="ln">   279  </span>	}
-<span id="L280" class="ln">   280  </span>	o.Aggregation = all.Aggregation
-<span id="L281" class="ln">   281  </span>	o.CorrelatedByFields = all.CorrelatedByFields
-<span id="L282" class="ln">   282  </span>	o.CorrelatedQueryIndex = all.CorrelatedQueryIndex
-<span id="L283" class="ln">   283  </span>	o.Metrics = all.Metrics
-<span id="L284" class="ln">   284  </span>	o.Name = all.Name
-<span id="L285" class="ln">   285  </span>	o.RuleId = *all.RuleId
-<span id="L286" class="ln">   286  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L287" class="ln">   287  </span>		o.AdditionalProperties = additionalProperties
-<span id="L288" class="ln">   288  </span>	}
-<span id="L289" class="ln">   289  </span>
-<span id="L290" class="ln">   290  </span>	return nil
-<span id="L291" class="ln">   291  </span>}
-<span id="L292" class="ln">   292  </span>
+<span id="L272" class="ln">   272  </span>
+<span id="L273" class="ln">   273  </span>	hasInvalidField := false
+<span id="L274" class="ln">   274  </span>	if v := all.Aggregation; v != nil &amp;&amp; !v.IsValid() {
+<span id="L275" class="ln">   275  </span>		hasInvalidField = true
+<span id="L276" class="ln">   276  </span>	} else {
+<span id="L277" class="ln">   277  </span>		o.Aggregation = all.Aggregation
+<span id="L278" class="ln">   278  </span>	}
+<span id="L279" class="ln">   279  </span>	o.CorrelatedByFields = all.CorrelatedByFields
+<span id="L280" class="ln">   280  </span>	o.CorrelatedQueryIndex = all.CorrelatedQueryIndex
+<span id="L281" class="ln">   281  </span>	o.Metrics = all.Metrics
+<span id="L282" class="ln">   282  </span>	o.Name = all.Name
+<span id="L283" class="ln">   283  </span>	o.RuleId = *all.RuleId
+<span id="L284" class="ln">   284  </span>
+<span id="L285" class="ln">   285  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L286" class="ln">   286  </span>		o.AdditionalProperties = additionalProperties
+<span id="L287" class="ln">   287  </span>	}
+<span id="L288" class="ln">   288  </span>
+<span id="L289" class="ln">   289  </span>	if hasInvalidField {
+<span id="L290" class="ln">   290  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L291" class="ln">   291  </span>		if err != nil {
+<span id="L292" class="ln">   292  </span>			return err
+<span id="L293" class="ln">   293  </span>		}
+<span id="L294" class="ln">   294  </span>		o.UnparsedObject = raw
+<span id="L295" class="ln">   295  </span>	}
+<span id="L296" class="ln">   296  </span>
+<span id="L297" class="ln">   297  </span>	return nil
+<span id="L298" class="ln">   298  </span>}
+<span id="L299" class="ln">   299  </span>
 </pre><p></p>
 
 <div id="footer">

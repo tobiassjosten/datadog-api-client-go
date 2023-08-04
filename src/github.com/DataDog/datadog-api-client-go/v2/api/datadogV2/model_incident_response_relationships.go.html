@@ -293,53 +293,44 @@
 <span id="L236" class="ln">   236  </span>	} else {
 <span id="L237" class="ln">   237  </span>		return err
 <span id="L238" class="ln">   238  </span>	}
-<span id="L239" class="ln">   239  </span>	if all.Attachments != nil &amp;&amp; all.Attachments.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L240" class="ln">   240  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L241" class="ln">   241  </span>		if err != nil {
-<span id="L242" class="ln">   242  </span>			return err
-<span id="L243" class="ln">   243  </span>		}
-<span id="L244" class="ln">   244  </span>		o.UnparsedObject = raw
-<span id="L245" class="ln">   245  </span>	}
-<span id="L246" class="ln">   246  </span>	o.Attachments = all.Attachments
-<span id="L247" class="ln">   247  </span>	if all.CommanderUser != nil &amp;&amp; all.CommanderUser.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L248" class="ln">   248  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L249" class="ln">   249  </span>		if err != nil {
-<span id="L250" class="ln">   250  </span>			return err
-<span id="L251" class="ln">   251  </span>		}
-<span id="L252" class="ln">   252  </span>		o.UnparsedObject = raw
-<span id="L253" class="ln">   253  </span>	}
-<span id="L254" class="ln">   254  </span>	o.CommanderUser = all.CommanderUser
-<span id="L255" class="ln">   255  </span>	if all.CreatedByUser != nil &amp;&amp; all.CreatedByUser.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L256" class="ln">   256  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L257" class="ln">   257  </span>		if err != nil {
-<span id="L258" class="ln">   258  </span>			return err
-<span id="L259" class="ln">   259  </span>		}
-<span id="L260" class="ln">   260  </span>		o.UnparsedObject = raw
-<span id="L261" class="ln">   261  </span>	}
-<span id="L262" class="ln">   262  </span>	o.CreatedByUser = all.CreatedByUser
-<span id="L263" class="ln">   263  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L264" class="ln">   264  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L265" class="ln">   265  </span>		if err != nil {
-<span id="L266" class="ln">   266  </span>			return err
-<span id="L267" class="ln">   267  </span>		}
-<span id="L268" class="ln">   268  </span>		o.UnparsedObject = raw
-<span id="L269" class="ln">   269  </span>	}
-<span id="L270" class="ln">   270  </span>	o.Integrations = all.Integrations
-<span id="L271" class="ln">   271  </span>	if all.LastModifiedByUser != nil &amp;&amp; all.LastModifiedByUser.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L272" class="ln">   272  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L273" class="ln">   273  </span>		if err != nil {
-<span id="L274" class="ln">   274  </span>			return err
-<span id="L275" class="ln">   275  </span>		}
-<span id="L276" class="ln">   276  </span>		o.UnparsedObject = raw
-<span id="L277" class="ln">   277  </span>	}
-<span id="L278" class="ln">   278  </span>	o.LastModifiedByUser = all.LastModifiedByUser
-<span id="L279" class="ln">   279  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L280" class="ln">   280  </span>		o.AdditionalProperties = additionalProperties
-<span id="L281" class="ln">   281  </span>	}
-<span id="L282" class="ln">   282  </span>
-<span id="L283" class="ln">   283  </span>	return nil
-<span id="L284" class="ln">   284  </span>}
-<span id="L285" class="ln">   285  </span>
+<span id="L239" class="ln">   239  </span>
+<span id="L240" class="ln">   240  </span>	hasInvalidField := false
+<span id="L241" class="ln">   241  </span>	if all.Attachments != nil &amp;&amp; all.Attachments.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L242" class="ln">   242  </span>		hasInvalidField = true
+<span id="L243" class="ln">   243  </span>	}
+<span id="L244" class="ln">   244  </span>	o.Attachments = all.Attachments
+<span id="L245" class="ln">   245  </span>	if all.CommanderUser != nil &amp;&amp; all.CommanderUser.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L246" class="ln">   246  </span>		hasInvalidField = true
+<span id="L247" class="ln">   247  </span>	}
+<span id="L248" class="ln">   248  </span>	o.CommanderUser = all.CommanderUser
+<span id="L249" class="ln">   249  </span>	if all.CreatedByUser != nil &amp;&amp; all.CreatedByUser.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L250" class="ln">   250  </span>		hasInvalidField = true
+<span id="L251" class="ln">   251  </span>	}
+<span id="L252" class="ln">   252  </span>	o.CreatedByUser = all.CreatedByUser
+<span id="L253" class="ln">   253  </span>	if all.Integrations != nil &amp;&amp; all.Integrations.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L254" class="ln">   254  </span>		hasInvalidField = true
+<span id="L255" class="ln">   255  </span>	}
+<span id="L256" class="ln">   256  </span>	o.Integrations = all.Integrations
+<span id="L257" class="ln">   257  </span>	if all.LastModifiedByUser != nil &amp;&amp; all.LastModifiedByUser.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L258" class="ln">   258  </span>		hasInvalidField = true
+<span id="L259" class="ln">   259  </span>	}
+<span id="L260" class="ln">   260  </span>	o.LastModifiedByUser = all.LastModifiedByUser
+<span id="L261" class="ln">   261  </span>
+<span id="L262" class="ln">   262  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L263" class="ln">   263  </span>		o.AdditionalProperties = additionalProperties
+<span id="L264" class="ln">   264  </span>	}
+<span id="L265" class="ln">   265  </span>
+<span id="L266" class="ln">   266  </span>	if hasInvalidField {
+<span id="L267" class="ln">   267  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L268" class="ln">   268  </span>		if err != nil {
+<span id="L269" class="ln">   269  </span>			return err
+<span id="L270" class="ln">   270  </span>		}
+<span id="L271" class="ln">   271  </span>		o.UnparsedObject = raw
+<span id="L272" class="ln">   272  </span>	}
+<span id="L273" class="ln">   273  </span>
+<span id="L274" class="ln">   274  </span>	return nil
+<span id="L275" class="ln">   275  </span>}
+<span id="L276" class="ln">   276  </span>
 </pre><p></p>
 
 <div id="footer">

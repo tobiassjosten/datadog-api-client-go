@@ -497,38 +497,41 @@
 <span id="L440" class="ln">   440  </span>	} else {
 <span id="L441" class="ln">   441  </span>		return err
 <span id="L442" class="ln">   442  </span>	}
-<span id="L443" class="ln">   443  </span>	o.Cases = all.Cases
-<span id="L444" class="ln">   444  </span>	if all.ComplianceSignalOptions != nil &amp;&amp; all.ComplianceSignalOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L445" class="ln">   445  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L446" class="ln">   446  </span>		if err != nil {
-<span id="L447" class="ln">   447  </span>			return err
-<span id="L448" class="ln">   448  </span>		}
-<span id="L449" class="ln">   449  </span>		o.UnparsedObject = raw
-<span id="L450" class="ln">   450  </span>	}
-<span id="L451" class="ln">   451  </span>	o.ComplianceSignalOptions = all.ComplianceSignalOptions
-<span id="L452" class="ln">   452  </span>	o.Filters = all.Filters
-<span id="L453" class="ln">   453  </span>	o.HasExtendedTitle = all.HasExtendedTitle
-<span id="L454" class="ln">   454  </span>	o.IsEnabled = all.IsEnabled
-<span id="L455" class="ln">   455  </span>	o.Message = all.Message
-<span id="L456" class="ln">   456  </span>	o.Name = all.Name
-<span id="L457" class="ln">   457  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L458" class="ln">   458  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L459" class="ln">   459  </span>		if err != nil {
-<span id="L460" class="ln">   460  </span>			return err
-<span id="L461" class="ln">   461  </span>		}
-<span id="L462" class="ln">   462  </span>		o.UnparsedObject = raw
-<span id="L463" class="ln">   463  </span>	}
-<span id="L464" class="ln">   464  </span>	o.Options = all.Options
-<span id="L465" class="ln">   465  </span>	o.Queries = all.Queries
-<span id="L466" class="ln">   466  </span>	o.Tags = all.Tags
-<span id="L467" class="ln">   467  </span>	o.Version = all.Version
-<span id="L468" class="ln">   468  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L469" class="ln">   469  </span>		o.AdditionalProperties = additionalProperties
-<span id="L470" class="ln">   470  </span>	}
-<span id="L471" class="ln">   471  </span>
-<span id="L472" class="ln">   472  </span>	return nil
-<span id="L473" class="ln">   473  </span>}
+<span id="L443" class="ln">   443  </span>
+<span id="L444" class="ln">   444  </span>	hasInvalidField := false
+<span id="L445" class="ln">   445  </span>	o.Cases = all.Cases
+<span id="L446" class="ln">   446  </span>	if all.ComplianceSignalOptions != nil &amp;&amp; all.ComplianceSignalOptions.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L447" class="ln">   447  </span>		hasInvalidField = true
+<span id="L448" class="ln">   448  </span>	}
+<span id="L449" class="ln">   449  </span>	o.ComplianceSignalOptions = all.ComplianceSignalOptions
+<span id="L450" class="ln">   450  </span>	o.Filters = all.Filters
+<span id="L451" class="ln">   451  </span>	o.HasExtendedTitle = all.HasExtendedTitle
+<span id="L452" class="ln">   452  </span>	o.IsEnabled = all.IsEnabled
+<span id="L453" class="ln">   453  </span>	o.Message = all.Message
+<span id="L454" class="ln">   454  </span>	o.Name = all.Name
+<span id="L455" class="ln">   455  </span>	if all.Options != nil &amp;&amp; all.Options.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L456" class="ln">   456  </span>		hasInvalidField = true
+<span id="L457" class="ln">   457  </span>	}
+<span id="L458" class="ln">   458  </span>	o.Options = all.Options
+<span id="L459" class="ln">   459  </span>	o.Queries = all.Queries
+<span id="L460" class="ln">   460  </span>	o.Tags = all.Tags
+<span id="L461" class="ln">   461  </span>	o.Version = all.Version
+<span id="L462" class="ln">   462  </span>
+<span id="L463" class="ln">   463  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L464" class="ln">   464  </span>		o.AdditionalProperties = additionalProperties
+<span id="L465" class="ln">   465  </span>	}
+<span id="L466" class="ln">   466  </span>
+<span id="L467" class="ln">   467  </span>	if hasInvalidField {
+<span id="L468" class="ln">   468  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L469" class="ln">   469  </span>		if err != nil {
+<span id="L470" class="ln">   470  </span>			return err
+<span id="L471" class="ln">   471  </span>		}
+<span id="L472" class="ln">   472  </span>		o.UnparsedObject = raw
+<span id="L473" class="ln">   473  </span>	}
 <span id="L474" class="ln">   474  </span>
+<span id="L475" class="ln">   475  </span>	return nil
+<span id="L476" class="ln">   476  </span>}
+<span id="L477" class="ln">   477  </span>
 </pre><p></p>
 
 <div id="footer">

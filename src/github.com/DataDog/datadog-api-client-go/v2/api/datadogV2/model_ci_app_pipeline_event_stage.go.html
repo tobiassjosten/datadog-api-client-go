@@ -723,45 +723,48 @@
 <span id="L666" class="ln">   666  </span>	} else {
 <span id="L667" class="ln">   667  </span>		return err
 <span id="L668" class="ln">   668  </span>	}
-<span id="L669" class="ln">   669  </span>	if v := all.Level; !v.IsValid() {
-<span id="L670" class="ln">   670  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L671" class="ln">   671  </span>		if err != nil {
-<span id="L672" class="ln">   672  </span>			return err
-<span id="L673" class="ln">   673  </span>		}
-<span id="L674" class="ln">   674  </span>		o.UnparsedObject = raw
-<span id="L675" class="ln">   675  </span>		return nil
-<span id="L676" class="ln">   676  </span>	}
-<span id="L677" class="ln">   677  </span>	if v := all.Status; !v.IsValid() {
-<span id="L678" class="ln">   678  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L679" class="ln">   679  </span>		if err != nil {
-<span id="L680" class="ln">   680  </span>			return err
-<span id="L681" class="ln">   681  </span>		}
-<span id="L682" class="ln">   682  </span>		o.UnparsedObject = raw
-<span id="L683" class="ln">   683  </span>		return nil
-<span id="L684" class="ln">   684  </span>	}
-<span id="L685" class="ln">   685  </span>	o.Dependencies = all.Dependencies
-<span id="L686" class="ln">   686  </span>	o.End = *all.End
-<span id="L687" class="ln">   687  </span>	o.Error = all.Error
-<span id="L688" class="ln">   688  </span>	o.Git = all.Git
-<span id="L689" class="ln">   689  </span>	o.Id = *all.Id
-<span id="L690" class="ln">   690  </span>	o.Level = *all.Level
-<span id="L691" class="ln">   691  </span>	o.Metrics = all.Metrics
-<span id="L692" class="ln">   692  </span>	o.Name = *all.Name
-<span id="L693" class="ln">   693  </span>	o.Node = all.Node
-<span id="L694" class="ln">   694  </span>	o.Parameters = all.Parameters
-<span id="L695" class="ln">   695  </span>	o.PipelineName = *all.PipelineName
-<span id="L696" class="ln">   696  </span>	o.PipelineUniqueId = *all.PipelineUniqueId
-<span id="L697" class="ln">   697  </span>	o.QueueTime = all.QueueTime
-<span id="L698" class="ln">   698  </span>	o.Start = *all.Start
-<span id="L699" class="ln">   699  </span>	o.Status = *all.Status
-<span id="L700" class="ln">   700  </span>	o.Tags = all.Tags
-<span id="L701" class="ln">   701  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L702" class="ln">   702  </span>		o.AdditionalProperties = additionalProperties
-<span id="L703" class="ln">   703  </span>	}
-<span id="L704" class="ln">   704  </span>
-<span id="L705" class="ln">   705  </span>	return nil
-<span id="L706" class="ln">   706  </span>}
+<span id="L669" class="ln">   669  </span>
+<span id="L670" class="ln">   670  </span>	hasInvalidField := false
+<span id="L671" class="ln">   671  </span>	o.Dependencies = all.Dependencies
+<span id="L672" class="ln">   672  </span>	o.End = *all.End
+<span id="L673" class="ln">   673  </span>	o.Error = all.Error
+<span id="L674" class="ln">   674  </span>	o.Git = all.Git
+<span id="L675" class="ln">   675  </span>	o.Id = *all.Id
+<span id="L676" class="ln">   676  </span>	if v := all.Level; !v.IsValid() {
+<span id="L677" class="ln">   677  </span>		hasInvalidField = true
+<span id="L678" class="ln">   678  </span>	} else {
+<span id="L679" class="ln">   679  </span>		o.Level = *all.Level
+<span id="L680" class="ln">   680  </span>	}
+<span id="L681" class="ln">   681  </span>	o.Metrics = all.Metrics
+<span id="L682" class="ln">   682  </span>	o.Name = *all.Name
+<span id="L683" class="ln">   683  </span>	o.Node = all.Node
+<span id="L684" class="ln">   684  </span>	o.Parameters = all.Parameters
+<span id="L685" class="ln">   685  </span>	o.PipelineName = *all.PipelineName
+<span id="L686" class="ln">   686  </span>	o.PipelineUniqueId = *all.PipelineUniqueId
+<span id="L687" class="ln">   687  </span>	o.QueueTime = all.QueueTime
+<span id="L688" class="ln">   688  </span>	o.Start = *all.Start
+<span id="L689" class="ln">   689  </span>	if v := all.Status; !v.IsValid() {
+<span id="L690" class="ln">   690  </span>		hasInvalidField = true
+<span id="L691" class="ln">   691  </span>	} else {
+<span id="L692" class="ln">   692  </span>		o.Status = *all.Status
+<span id="L693" class="ln">   693  </span>	}
+<span id="L694" class="ln">   694  </span>	o.Tags = all.Tags
+<span id="L695" class="ln">   695  </span>
+<span id="L696" class="ln">   696  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L697" class="ln">   697  </span>		o.AdditionalProperties = additionalProperties
+<span id="L698" class="ln">   698  </span>	}
+<span id="L699" class="ln">   699  </span>
+<span id="L700" class="ln">   700  </span>	if hasInvalidField {
+<span id="L701" class="ln">   701  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L702" class="ln">   702  </span>		if err != nil {
+<span id="L703" class="ln">   703  </span>			return err
+<span id="L704" class="ln">   704  </span>		}
+<span id="L705" class="ln">   705  </span>		o.UnparsedObject = raw
+<span id="L706" class="ln">   706  </span>	}
 <span id="L707" class="ln">   707  </span>
+<span id="L708" class="ln">   708  </span>	return nil
+<span id="L709" class="ln">   709  </span>}
+<span id="L710" class="ln">   710  </span>
 </pre><p></p>
 
 <div id="footer">

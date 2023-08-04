@@ -289,25 +289,32 @@
 <span id="L232" class="ln">   232  </span>	} else {
 <span id="L233" class="ln">   233  </span>		return err
 <span id="L234" class="ln">   234  </span>	}
-<span id="L235" class="ln">   235  </span>	o.Assertions = *all.Assertions
-<span id="L236" class="ln">   236  </span>	o.ConfigVariables = all.ConfigVariables
-<span id="L237" class="ln">   237  </span>	if all.Request.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L238" class="ln">   238  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L239" class="ln">   239  </span>		if err != nil {
-<span id="L240" class="ln">   240  </span>			return err
-<span id="L241" class="ln">   241  </span>		}
-<span id="L242" class="ln">   242  </span>		o.UnparsedObject = raw
-<span id="L243" class="ln">   243  </span>	}
-<span id="L244" class="ln">   244  </span>	o.Request = *all.Request
-<span id="L245" class="ln">   245  </span>	o.SetCookie = all.SetCookie
-<span id="L246" class="ln">   246  </span>	o.Variables = all.Variables
-<span id="L247" class="ln">   247  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L248" class="ln">   248  </span>		o.AdditionalProperties = additionalProperties
-<span id="L249" class="ln">   249  </span>	}
-<span id="L250" class="ln">   250  </span>
-<span id="L251" class="ln">   251  </span>	return nil
-<span id="L252" class="ln">   252  </span>}
-<span id="L253" class="ln">   253  </span>
+<span id="L235" class="ln">   235  </span>
+<span id="L236" class="ln">   236  </span>	hasInvalidField := false
+<span id="L237" class="ln">   237  </span>	o.Assertions = *all.Assertions
+<span id="L238" class="ln">   238  </span>	o.ConfigVariables = all.ConfigVariables
+<span id="L239" class="ln">   239  </span>	if all.Request.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L240" class="ln">   240  </span>		hasInvalidField = true
+<span id="L241" class="ln">   241  </span>	}
+<span id="L242" class="ln">   242  </span>	o.Request = *all.Request
+<span id="L243" class="ln">   243  </span>	o.SetCookie = all.SetCookie
+<span id="L244" class="ln">   244  </span>	o.Variables = all.Variables
+<span id="L245" class="ln">   245  </span>
+<span id="L246" class="ln">   246  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L247" class="ln">   247  </span>		o.AdditionalProperties = additionalProperties
+<span id="L248" class="ln">   248  </span>	}
+<span id="L249" class="ln">   249  </span>
+<span id="L250" class="ln">   250  </span>	if hasInvalidField {
+<span id="L251" class="ln">   251  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L252" class="ln">   252  </span>		if err != nil {
+<span id="L253" class="ln">   253  </span>			return err
+<span id="L254" class="ln">   254  </span>		}
+<span id="L255" class="ln">   255  </span>		o.UnparsedObject = raw
+<span id="L256" class="ln">   256  </span>	}
+<span id="L257" class="ln">   257  </span>
+<span id="L258" class="ln">   258  </span>	return nil
+<span id="L259" class="ln">   259  </span>}
+<span id="L260" class="ln">   260  </span>
 </pre><p></p>
 
 <div id="footer">

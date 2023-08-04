@@ -457,39 +457,42 @@
 <span id="L400" class="ln">   400  </span>	} else {
 <span id="L401" class="ln">   401  </span>		return err
 <span id="L402" class="ln">   402  </span>	}
-<span id="L403" class="ln">   403  </span>	if v := all.TokenApiAuthentication; !v.IsValid() {
-<span id="L404" class="ln">   404  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L405" class="ln">   405  </span>		if err != nil {
-<span id="L406" class="ln">   406  </span>			return err
-<span id="L407" class="ln">   407  </span>		}
-<span id="L408" class="ln">   408  </span>		o.UnparsedObject = raw
-<span id="L409" class="ln">   409  </span>		return nil
-<span id="L410" class="ln">   410  </span>	}
-<span id="L411" class="ln">   411  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L412" class="ln">   412  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L413" class="ln">   413  </span>		if err != nil {
-<span id="L414" class="ln">   414  </span>			return err
-<span id="L415" class="ln">   415  </span>		}
-<span id="L416" class="ln">   416  </span>		o.UnparsedObject = raw
-<span id="L417" class="ln">   417  </span>		return nil
-<span id="L418" class="ln">   418  </span>	}
-<span id="L419" class="ln">   419  </span>	o.AccessTokenUrl = *all.AccessTokenUrl
-<span id="L420" class="ln">   420  </span>	o.Audience = all.Audience
-<span id="L421" class="ln">   421  </span>	o.ClientId = all.ClientId
-<span id="L422" class="ln">   422  </span>	o.ClientSecret = all.ClientSecret
-<span id="L423" class="ln">   423  </span>	o.Password = *all.Password
-<span id="L424" class="ln">   424  </span>	o.Resource = all.Resource
-<span id="L425" class="ln">   425  </span>	o.Scope = all.Scope
-<span id="L426" class="ln">   426  </span>	o.TokenApiAuthentication = *all.TokenApiAuthentication
-<span id="L427" class="ln">   427  </span>	o.Type = all.Type
-<span id="L428" class="ln">   428  </span>	o.Username = *all.Username
-<span id="L429" class="ln">   429  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L430" class="ln">   430  </span>		o.AdditionalProperties = additionalProperties
-<span id="L431" class="ln">   431  </span>	}
-<span id="L432" class="ln">   432  </span>
-<span id="L433" class="ln">   433  </span>	return nil
-<span id="L434" class="ln">   434  </span>}
+<span id="L403" class="ln">   403  </span>
+<span id="L404" class="ln">   404  </span>	hasInvalidField := false
+<span id="L405" class="ln">   405  </span>	o.AccessTokenUrl = *all.AccessTokenUrl
+<span id="L406" class="ln">   406  </span>	o.Audience = all.Audience
+<span id="L407" class="ln">   407  </span>	o.ClientId = all.ClientId
+<span id="L408" class="ln">   408  </span>	o.ClientSecret = all.ClientSecret
+<span id="L409" class="ln">   409  </span>	o.Password = *all.Password
+<span id="L410" class="ln">   410  </span>	o.Resource = all.Resource
+<span id="L411" class="ln">   411  </span>	o.Scope = all.Scope
+<span id="L412" class="ln">   412  </span>	if v := all.TokenApiAuthentication; !v.IsValid() {
+<span id="L413" class="ln">   413  </span>		hasInvalidField = true
+<span id="L414" class="ln">   414  </span>	} else {
+<span id="L415" class="ln">   415  </span>		o.TokenApiAuthentication = *all.TokenApiAuthentication
+<span id="L416" class="ln">   416  </span>	}
+<span id="L417" class="ln">   417  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L418" class="ln">   418  </span>		hasInvalidField = true
+<span id="L419" class="ln">   419  </span>	} else {
+<span id="L420" class="ln">   420  </span>		o.Type = all.Type
+<span id="L421" class="ln">   421  </span>	}
+<span id="L422" class="ln">   422  </span>	o.Username = *all.Username
+<span id="L423" class="ln">   423  </span>
+<span id="L424" class="ln">   424  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L425" class="ln">   425  </span>		o.AdditionalProperties = additionalProperties
+<span id="L426" class="ln">   426  </span>	}
+<span id="L427" class="ln">   427  </span>
+<span id="L428" class="ln">   428  </span>	if hasInvalidField {
+<span id="L429" class="ln">   429  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L430" class="ln">   430  </span>		if err != nil {
+<span id="L431" class="ln">   431  </span>			return err
+<span id="L432" class="ln">   432  </span>		}
+<span id="L433" class="ln">   433  </span>		o.UnparsedObject = raw
+<span id="L434" class="ln">   434  </span>	}
 <span id="L435" class="ln">   435  </span>
+<span id="L436" class="ln">   436  </span>	return nil
+<span id="L437" class="ln">   437  </span>}
+<span id="L438" class="ln">   438  </span>
 </pre><p></p>
 
 <div id="footer">

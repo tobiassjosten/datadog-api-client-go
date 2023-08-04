@@ -880,63 +880,64 @@
 <span id="L823" class="ln">   823  </span>	o.Start = all.Start
 <span id="L824" class="ln">   824  </span>	o.Timezone = all.Timezone
 <span id="L825" class="ln">   825  </span>	o.UpdaterId = all.UpdaterId
-<span id="L826" class="ln">   826  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L827" class="ln">   827  </span>		o.AdditionalProperties = additionalProperties
-<span id="L828" class="ln">   828  </span>	}
-<span id="L829" class="ln">   829  </span>
-<span id="L830" class="ln">   830  </span>	return nil
-<span id="L831" class="ln">   831  </span>}
-<span id="L832" class="ln">   832  </span>
-<span id="L833" class="ln">   833  </span><span class="comment">// NullableDowntimeChild handles when a null is used for DowntimeChild.</span>
-<span id="L834" class="ln">   834  </span>type NullableDowntimeChild struct {
-<span id="L835" class="ln">   835  </span>	value *DowntimeChild
-<span id="L836" class="ln">   836  </span>	isSet bool
-<span id="L837" class="ln">   837  </span>}
-<span id="L838" class="ln">   838  </span>
-<span id="L839" class="ln">   839  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L840" class="ln">   840  </span>func (v NullableDowntimeChild) Get() *DowntimeChild {
-<span id="L841" class="ln">   841  </span>	return v.value
-<span id="L842" class="ln">   842  </span>}
-<span id="L843" class="ln">   843  </span>
-<span id="L844" class="ln">   844  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L845" class="ln">   845  </span>func (v *NullableDowntimeChild) Set(val *DowntimeChild) {
-<span id="L846" class="ln">   846  </span>	v.value = val
-<span id="L847" class="ln">   847  </span>	v.isSet = true
-<span id="L848" class="ln">   848  </span>}
-<span id="L849" class="ln">   849  </span>
-<span id="L850" class="ln">   850  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L851" class="ln">   851  </span>func (v NullableDowntimeChild) IsSet() bool {
-<span id="L852" class="ln">   852  </span>	return v.isSet
-<span id="L853" class="ln">   853  </span>}
-<span id="L854" class="ln">   854  </span>
-<span id="L855" class="ln">   855  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L856" class="ln">   856  </span>func (v *NullableDowntimeChild) Unset() {
-<span id="L857" class="ln">   857  </span>	v.value = nil
-<span id="L858" class="ln">   858  </span>	v.isSet = false
-<span id="L859" class="ln">   859  </span>}
-<span id="L860" class="ln">   860  </span>
-<span id="L861" class="ln">   861  </span><span class="comment">// NewNullableDowntimeChild initializes the struct as if Set has been called.</span>
-<span id="L862" class="ln">   862  </span>func NewNullableDowntimeChild(val *DowntimeChild) *NullableDowntimeChild {
-<span id="L863" class="ln">   863  </span>	return &amp;NullableDowntimeChild{value: val, isSet: true}
-<span id="L864" class="ln">   864  </span>}
-<span id="L865" class="ln">   865  </span>
-<span id="L866" class="ln">   866  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L867" class="ln">   867  </span>func (v NullableDowntimeChild) MarshalJSON() ([]byte, error) {
-<span id="L868" class="ln">   868  </span>	return json.Marshal(v.value)
-<span id="L869" class="ln">   869  </span>}
-<span id="L870" class="ln">   870  </span>
-<span id="L871" class="ln">   871  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L872" class="ln">   872  </span>func (v *NullableDowntimeChild) UnmarshalJSON(src []byte) error {
-<span id="L873" class="ln">   873  </span>	v.isSet = true
-<span id="L874" class="ln">   874  </span>
-<span id="L875" class="ln">   875  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L876" class="ln">   876  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L877" class="ln">   877  </span>		return nil
-<span id="L878" class="ln">   878  </span>	}
-<span id="L879" class="ln">   879  </span>
-<span id="L880" class="ln">   880  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L881" class="ln">   881  </span>}
-<span id="L882" class="ln">   882  </span>
+<span id="L826" class="ln">   826  </span>
+<span id="L827" class="ln">   827  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L828" class="ln">   828  </span>		o.AdditionalProperties = additionalProperties
+<span id="L829" class="ln">   829  </span>	}
+<span id="L830" class="ln">   830  </span>
+<span id="L831" class="ln">   831  </span>	return nil
+<span id="L832" class="ln">   832  </span>}
+<span id="L833" class="ln">   833  </span>
+<span id="L834" class="ln">   834  </span><span class="comment">// NullableDowntimeChild handles when a null is used for DowntimeChild.</span>
+<span id="L835" class="ln">   835  </span>type NullableDowntimeChild struct {
+<span id="L836" class="ln">   836  </span>	value *DowntimeChild
+<span id="L837" class="ln">   837  </span>	isSet bool
+<span id="L838" class="ln">   838  </span>}
+<span id="L839" class="ln">   839  </span>
+<span id="L840" class="ln">   840  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L841" class="ln">   841  </span>func (v NullableDowntimeChild) Get() *DowntimeChild {
+<span id="L842" class="ln">   842  </span>	return v.value
+<span id="L843" class="ln">   843  </span>}
+<span id="L844" class="ln">   844  </span>
+<span id="L845" class="ln">   845  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L846" class="ln">   846  </span>func (v *NullableDowntimeChild) Set(val *DowntimeChild) {
+<span id="L847" class="ln">   847  </span>	v.value = val
+<span id="L848" class="ln">   848  </span>	v.isSet = true
+<span id="L849" class="ln">   849  </span>}
+<span id="L850" class="ln">   850  </span>
+<span id="L851" class="ln">   851  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L852" class="ln">   852  </span>func (v NullableDowntimeChild) IsSet() bool {
+<span id="L853" class="ln">   853  </span>	return v.isSet
+<span id="L854" class="ln">   854  </span>}
+<span id="L855" class="ln">   855  </span>
+<span id="L856" class="ln">   856  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L857" class="ln">   857  </span>func (v *NullableDowntimeChild) Unset() {
+<span id="L858" class="ln">   858  </span>	v.value = nil
+<span id="L859" class="ln">   859  </span>	v.isSet = false
+<span id="L860" class="ln">   860  </span>}
+<span id="L861" class="ln">   861  </span>
+<span id="L862" class="ln">   862  </span><span class="comment">// NewNullableDowntimeChild initializes the struct as if Set has been called.</span>
+<span id="L863" class="ln">   863  </span>func NewNullableDowntimeChild(val *DowntimeChild) *NullableDowntimeChild {
+<span id="L864" class="ln">   864  </span>	return &amp;NullableDowntimeChild{value: val, isSet: true}
+<span id="L865" class="ln">   865  </span>}
+<span id="L866" class="ln">   866  </span>
+<span id="L867" class="ln">   867  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L868" class="ln">   868  </span>func (v NullableDowntimeChild) MarshalJSON() ([]byte, error) {
+<span id="L869" class="ln">   869  </span>	return json.Marshal(v.value)
+<span id="L870" class="ln">   870  </span>}
+<span id="L871" class="ln">   871  </span>
+<span id="L872" class="ln">   872  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L873" class="ln">   873  </span>func (v *NullableDowntimeChild) UnmarshalJSON(src []byte) error {
+<span id="L874" class="ln">   874  </span>	v.isSet = true
+<span id="L875" class="ln">   875  </span>
+<span id="L876" class="ln">   876  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L877" class="ln">   877  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L878" class="ln">   878  </span>		return nil
+<span id="L879" class="ln">   879  </span>	}
+<span id="L880" class="ln">   880  </span>
+<span id="L881" class="ln">   881  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L882" class="ln">   882  </span>}
+<span id="L883" class="ln">   883  </span>
 </pre><p></p>
 
 <div id="footer">

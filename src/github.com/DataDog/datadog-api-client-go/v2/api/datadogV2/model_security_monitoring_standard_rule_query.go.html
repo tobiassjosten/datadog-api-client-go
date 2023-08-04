@@ -366,28 +366,35 @@
 <span id="L309" class="ln">   309  </span>	} else {
 <span id="L310" class="ln">   310  </span>		return err
 <span id="L311" class="ln">   311  </span>	}
-<span id="L312" class="ln">   312  </span>	if v := all.Aggregation; v != nil &amp;&amp; !v.IsValid() {
-<span id="L313" class="ln">   313  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L314" class="ln">   314  </span>		if err != nil {
-<span id="L315" class="ln">   315  </span>			return err
-<span id="L316" class="ln">   316  </span>		}
-<span id="L317" class="ln">   317  </span>		o.UnparsedObject = raw
-<span id="L318" class="ln">   318  </span>		return nil
-<span id="L319" class="ln">   319  </span>	}
-<span id="L320" class="ln">   320  </span>	o.Aggregation = all.Aggregation
-<span id="L321" class="ln">   321  </span>	o.DistinctFields = all.DistinctFields
-<span id="L322" class="ln">   322  </span>	o.GroupByFields = all.GroupByFields
-<span id="L323" class="ln">   323  </span>	o.Metric = all.Metric
-<span id="L324" class="ln">   324  </span>	o.Metrics = all.Metrics
-<span id="L325" class="ln">   325  </span>	o.Name = all.Name
-<span id="L326" class="ln">   326  </span>	o.Query = all.Query
-<span id="L327" class="ln">   327  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L328" class="ln">   328  </span>		o.AdditionalProperties = additionalProperties
-<span id="L329" class="ln">   329  </span>	}
-<span id="L330" class="ln">   330  </span>
-<span id="L331" class="ln">   331  </span>	return nil
-<span id="L332" class="ln">   332  </span>}
-<span id="L333" class="ln">   333  </span>
+<span id="L312" class="ln">   312  </span>
+<span id="L313" class="ln">   313  </span>	hasInvalidField := false
+<span id="L314" class="ln">   314  </span>	if v := all.Aggregation; v != nil &amp;&amp; !v.IsValid() {
+<span id="L315" class="ln">   315  </span>		hasInvalidField = true
+<span id="L316" class="ln">   316  </span>	} else {
+<span id="L317" class="ln">   317  </span>		o.Aggregation = all.Aggregation
+<span id="L318" class="ln">   318  </span>	}
+<span id="L319" class="ln">   319  </span>	o.DistinctFields = all.DistinctFields
+<span id="L320" class="ln">   320  </span>	o.GroupByFields = all.GroupByFields
+<span id="L321" class="ln">   321  </span>	o.Metric = all.Metric
+<span id="L322" class="ln">   322  </span>	o.Metrics = all.Metrics
+<span id="L323" class="ln">   323  </span>	o.Name = all.Name
+<span id="L324" class="ln">   324  </span>	o.Query = all.Query
+<span id="L325" class="ln">   325  </span>
+<span id="L326" class="ln">   326  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L327" class="ln">   327  </span>		o.AdditionalProperties = additionalProperties
+<span id="L328" class="ln">   328  </span>	}
+<span id="L329" class="ln">   329  </span>
+<span id="L330" class="ln">   330  </span>	if hasInvalidField {
+<span id="L331" class="ln">   331  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L332" class="ln">   332  </span>		if err != nil {
+<span id="L333" class="ln">   333  </span>			return err
+<span id="L334" class="ln">   334  </span>		}
+<span id="L335" class="ln">   335  </span>		o.UnparsedObject = raw
+<span id="L336" class="ln">   336  </span>	}
+<span id="L337" class="ln">   337  </span>
+<span id="L338" class="ln">   338  </span>	return nil
+<span id="L339" class="ln">   339  </span>}
+<span id="L340" class="ln">   340  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -263,63 +263,64 @@
 <span id="L206" class="ln">   206  </span>	o.Labels = all.Labels
 <span id="L207" class="ln">   207  </span>	o.Name = all.Name
 <span id="L208" class="ln">   208  </span>	o.Workspace = all.Workspace
-<span id="L209" class="ln">   209  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L210" class="ln">   210  </span>		o.AdditionalProperties = additionalProperties
-<span id="L211" class="ln">   211  </span>	}
-<span id="L212" class="ln">   212  </span>
-<span id="L213" class="ln">   213  </span>	return nil
-<span id="L214" class="ln">   214  </span>}
-<span id="L215" class="ln">   215  </span>
-<span id="L216" class="ln">   216  </span><span class="comment">// NullableCIAppHostInfo handles when a null is used for CIAppHostInfo.</span>
-<span id="L217" class="ln">   217  </span>type NullableCIAppHostInfo struct {
-<span id="L218" class="ln">   218  </span>	value *CIAppHostInfo
-<span id="L219" class="ln">   219  </span>	isSet bool
-<span id="L220" class="ln">   220  </span>}
-<span id="L221" class="ln">   221  </span>
-<span id="L222" class="ln">   222  </span><span class="comment">// Get returns the associated value.</span>
-<span id="L223" class="ln">   223  </span>func (v NullableCIAppHostInfo) Get() *CIAppHostInfo {
-<span id="L224" class="ln">   224  </span>	return v.value
-<span id="L225" class="ln">   225  </span>}
-<span id="L226" class="ln">   226  </span>
-<span id="L227" class="ln">   227  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
-<span id="L228" class="ln">   228  </span>func (v *NullableCIAppHostInfo) Set(val *CIAppHostInfo) {
-<span id="L229" class="ln">   229  </span>	v.value = val
-<span id="L230" class="ln">   230  </span>	v.isSet = true
-<span id="L231" class="ln">   231  </span>}
-<span id="L232" class="ln">   232  </span>
-<span id="L233" class="ln">   233  </span><span class="comment">// IsSet returns whether Set has been called.</span>
-<span id="L234" class="ln">   234  </span>func (v NullableCIAppHostInfo) IsSet() bool {
-<span id="L235" class="ln">   235  </span>	return v.isSet
-<span id="L236" class="ln">   236  </span>}
-<span id="L237" class="ln">   237  </span>
-<span id="L238" class="ln">   238  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
-<span id="L239" class="ln">   239  </span>func (v *NullableCIAppHostInfo) Unset() {
-<span id="L240" class="ln">   240  </span>	v.value = nil
-<span id="L241" class="ln">   241  </span>	v.isSet = false
-<span id="L242" class="ln">   242  </span>}
-<span id="L243" class="ln">   243  </span>
-<span id="L244" class="ln">   244  </span><span class="comment">// NewNullableCIAppHostInfo initializes the struct as if Set has been called.</span>
-<span id="L245" class="ln">   245  </span>func NewNullableCIAppHostInfo(val *CIAppHostInfo) *NullableCIAppHostInfo {
-<span id="L246" class="ln">   246  </span>	return &amp;NullableCIAppHostInfo{value: val, isSet: true}
-<span id="L247" class="ln">   247  </span>}
-<span id="L248" class="ln">   248  </span>
-<span id="L249" class="ln">   249  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
-<span id="L250" class="ln">   250  </span>func (v NullableCIAppHostInfo) MarshalJSON() ([]byte, error) {
-<span id="L251" class="ln">   251  </span>	return json.Marshal(v.value)
-<span id="L252" class="ln">   252  </span>}
-<span id="L253" class="ln">   253  </span>
-<span id="L254" class="ln">   254  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
-<span id="L255" class="ln">   255  </span>func (v *NullableCIAppHostInfo) UnmarshalJSON(src []byte) error {
-<span id="L256" class="ln">   256  </span>	v.isSet = true
-<span id="L257" class="ln">   257  </span>
-<span id="L258" class="ln">   258  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
-<span id="L259" class="ln">   259  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
-<span id="L260" class="ln">   260  </span>		return nil
-<span id="L261" class="ln">   261  </span>	}
-<span id="L262" class="ln">   262  </span>
-<span id="L263" class="ln">   263  </span>	return json.Unmarshal(src, &amp;v.value)
-<span id="L264" class="ln">   264  </span>}
-<span id="L265" class="ln">   265  </span>
+<span id="L209" class="ln">   209  </span>
+<span id="L210" class="ln">   210  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L211" class="ln">   211  </span>		o.AdditionalProperties = additionalProperties
+<span id="L212" class="ln">   212  </span>	}
+<span id="L213" class="ln">   213  </span>
+<span id="L214" class="ln">   214  </span>	return nil
+<span id="L215" class="ln">   215  </span>}
+<span id="L216" class="ln">   216  </span>
+<span id="L217" class="ln">   217  </span><span class="comment">// NullableCIAppHostInfo handles when a null is used for CIAppHostInfo.</span>
+<span id="L218" class="ln">   218  </span>type NullableCIAppHostInfo struct {
+<span id="L219" class="ln">   219  </span>	value *CIAppHostInfo
+<span id="L220" class="ln">   220  </span>	isSet bool
+<span id="L221" class="ln">   221  </span>}
+<span id="L222" class="ln">   222  </span>
+<span id="L223" class="ln">   223  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L224" class="ln">   224  </span>func (v NullableCIAppHostInfo) Get() *CIAppHostInfo {
+<span id="L225" class="ln">   225  </span>	return v.value
+<span id="L226" class="ln">   226  </span>}
+<span id="L227" class="ln">   227  </span>
+<span id="L228" class="ln">   228  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L229" class="ln">   229  </span>func (v *NullableCIAppHostInfo) Set(val *CIAppHostInfo) {
+<span id="L230" class="ln">   230  </span>	v.value = val
+<span id="L231" class="ln">   231  </span>	v.isSet = true
+<span id="L232" class="ln">   232  </span>}
+<span id="L233" class="ln">   233  </span>
+<span id="L234" class="ln">   234  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L235" class="ln">   235  </span>func (v NullableCIAppHostInfo) IsSet() bool {
+<span id="L236" class="ln">   236  </span>	return v.isSet
+<span id="L237" class="ln">   237  </span>}
+<span id="L238" class="ln">   238  </span>
+<span id="L239" class="ln">   239  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L240" class="ln">   240  </span>func (v *NullableCIAppHostInfo) Unset() {
+<span id="L241" class="ln">   241  </span>	v.value = nil
+<span id="L242" class="ln">   242  </span>	v.isSet = false
+<span id="L243" class="ln">   243  </span>}
+<span id="L244" class="ln">   244  </span>
+<span id="L245" class="ln">   245  </span><span class="comment">// NewNullableCIAppHostInfo initializes the struct as if Set has been called.</span>
+<span id="L246" class="ln">   246  </span>func NewNullableCIAppHostInfo(val *CIAppHostInfo) *NullableCIAppHostInfo {
+<span id="L247" class="ln">   247  </span>	return &amp;NullableCIAppHostInfo{value: val, isSet: true}
+<span id="L248" class="ln">   248  </span>}
+<span id="L249" class="ln">   249  </span>
+<span id="L250" class="ln">   250  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L251" class="ln">   251  </span>func (v NullableCIAppHostInfo) MarshalJSON() ([]byte, error) {
+<span id="L252" class="ln">   252  </span>	return json.Marshal(v.value)
+<span id="L253" class="ln">   253  </span>}
+<span id="L254" class="ln">   254  </span>
+<span id="L255" class="ln">   255  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L256" class="ln">   256  </span>func (v *NullableCIAppHostInfo) UnmarshalJSON(src []byte) error {
+<span id="L257" class="ln">   257  </span>	v.isSet = true
+<span id="L258" class="ln">   258  </span>
+<span id="L259" class="ln">   259  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L260" class="ln">   260  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L261" class="ln">   261  </span>		return nil
+<span id="L262" class="ln">   262  </span>	}
+<span id="L263" class="ln">   263  </span>
+<span id="L264" class="ln">   264  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L265" class="ln">   265  </span>}
+<span id="L266" class="ln">   266  </span>
 </pre><p></p>
 
 <div id="footer">

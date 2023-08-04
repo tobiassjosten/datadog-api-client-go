@@ -519,47 +519,46 @@
 <span id="L462" class="ln">   462  </span>	} else {
 <span id="L463" class="ln">   463  </span>		return err
 <span id="L464" class="ln">   464  </span>	}
-<span id="L465" class="ln">   465  </span>	if v := all.Timeframe; v != nil &amp;&amp; !v.IsValid() {
-<span id="L466" class="ln">   466  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L467" class="ln">   467  </span>		if err != nil {
-<span id="L468" class="ln">   468  </span>			return err
-<span id="L469" class="ln">   469  </span>		}
-<span id="L470" class="ln">   470  </span>		o.UnparsedObject = raw
-<span id="L471" class="ln">   471  </span>		return nil
-<span id="L472" class="ln">   472  </span>	}
-<span id="L473" class="ln">   473  </span>	if v := all.Type; !v.IsValid() {
-<span id="L474" class="ln">   474  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L475" class="ln">   475  </span>		if err != nil {
-<span id="L476" class="ln">   476  </span>			return err
-<span id="L477" class="ln">   477  </span>		}
-<span id="L478" class="ln">   478  </span>		o.UnparsedObject = raw
-<span id="L479" class="ln">   479  </span>		return nil
-<span id="L480" class="ln">   480  </span>	}
-<span id="L481" class="ln">   481  </span>	o.Description = all.Description
-<span id="L482" class="ln">   482  </span>	o.Groups = all.Groups
-<span id="L483" class="ln">   483  </span>	o.MonitorIds = all.MonitorIds
-<span id="L484" class="ln">   484  </span>	o.Name = *all.Name
-<span id="L485" class="ln">   485  </span>	if all.Query != nil &amp;&amp; all.Query.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L486" class="ln">   486  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L487" class="ln">   487  </span>		if err != nil {
-<span id="L488" class="ln">   488  </span>			return err
-<span id="L489" class="ln">   489  </span>		}
-<span id="L490" class="ln">   490  </span>		o.UnparsedObject = raw
-<span id="L491" class="ln">   491  </span>	}
-<span id="L492" class="ln">   492  </span>	o.Query = all.Query
-<span id="L493" class="ln">   493  </span>	o.Tags = all.Tags
-<span id="L494" class="ln">   494  </span>	o.TargetThreshold = all.TargetThreshold
-<span id="L495" class="ln">   495  </span>	o.Thresholds = *all.Thresholds
-<span id="L496" class="ln">   496  </span>	o.Timeframe = all.Timeframe
-<span id="L497" class="ln">   497  </span>	o.Type = *all.Type
-<span id="L498" class="ln">   498  </span>	o.WarningThreshold = all.WarningThreshold
-<span id="L499" class="ln">   499  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L500" class="ln">   500  </span>		o.AdditionalProperties = additionalProperties
-<span id="L501" class="ln">   501  </span>	}
-<span id="L502" class="ln">   502  </span>
-<span id="L503" class="ln">   503  </span>	return nil
-<span id="L504" class="ln">   504  </span>}
-<span id="L505" class="ln">   505  </span>
+<span id="L465" class="ln">   465  </span>
+<span id="L466" class="ln">   466  </span>	hasInvalidField := false
+<span id="L467" class="ln">   467  </span>	o.Description = all.Description
+<span id="L468" class="ln">   468  </span>	o.Groups = all.Groups
+<span id="L469" class="ln">   469  </span>	o.MonitorIds = all.MonitorIds
+<span id="L470" class="ln">   470  </span>	o.Name = *all.Name
+<span id="L471" class="ln">   471  </span>	if all.Query != nil &amp;&amp; all.Query.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L472" class="ln">   472  </span>		hasInvalidField = true
+<span id="L473" class="ln">   473  </span>	}
+<span id="L474" class="ln">   474  </span>	o.Query = all.Query
+<span id="L475" class="ln">   475  </span>	o.Tags = all.Tags
+<span id="L476" class="ln">   476  </span>	o.TargetThreshold = all.TargetThreshold
+<span id="L477" class="ln">   477  </span>	o.Thresholds = *all.Thresholds
+<span id="L478" class="ln">   478  </span>	if v := all.Timeframe; v != nil &amp;&amp; !v.IsValid() {
+<span id="L479" class="ln">   479  </span>		hasInvalidField = true
+<span id="L480" class="ln">   480  </span>	} else {
+<span id="L481" class="ln">   481  </span>		o.Timeframe = all.Timeframe
+<span id="L482" class="ln">   482  </span>	}
+<span id="L483" class="ln">   483  </span>	if v := all.Type; !v.IsValid() {
+<span id="L484" class="ln">   484  </span>		hasInvalidField = true
+<span id="L485" class="ln">   485  </span>	} else {
+<span id="L486" class="ln">   486  </span>		o.Type = *all.Type
+<span id="L487" class="ln">   487  </span>	}
+<span id="L488" class="ln">   488  </span>	o.WarningThreshold = all.WarningThreshold
+<span id="L489" class="ln">   489  </span>
+<span id="L490" class="ln">   490  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L491" class="ln">   491  </span>		o.AdditionalProperties = additionalProperties
+<span id="L492" class="ln">   492  </span>	}
+<span id="L493" class="ln">   493  </span>
+<span id="L494" class="ln">   494  </span>	if hasInvalidField {
+<span id="L495" class="ln">   495  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L496" class="ln">   496  </span>		if err != nil {
+<span id="L497" class="ln">   497  </span>			return err
+<span id="L498" class="ln">   498  </span>		}
+<span id="L499" class="ln">   499  </span>		o.UnparsedObject = raw
+<span id="L500" class="ln">   500  </span>	}
+<span id="L501" class="ln">   501  </span>
+<span id="L502" class="ln">   502  </span>	return nil
+<span id="L503" class="ln">   503  </span>}
+<span id="L504" class="ln">   504  </span>
 </pre><p></p>
 
 <div id="footer">

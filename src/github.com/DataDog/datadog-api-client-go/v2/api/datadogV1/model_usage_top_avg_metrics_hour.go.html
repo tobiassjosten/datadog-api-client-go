@@ -259,25 +259,32 @@
 <span id="L202" class="ln">   202  </span>	} else {
 <span id="L203" class="ln">   203  </span>		return err
 <span id="L204" class="ln">   204  </span>	}
-<span id="L205" class="ln">   205  </span>	if v := all.MetricCategory; v != nil &amp;&amp; !v.IsValid() {
-<span id="L206" class="ln">   206  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L207" class="ln">   207  </span>		if err != nil {
-<span id="L208" class="ln">   208  </span>			return err
-<span id="L209" class="ln">   209  </span>		}
-<span id="L210" class="ln">   210  </span>		o.UnparsedObject = raw
-<span id="L211" class="ln">   211  </span>		return nil
-<span id="L212" class="ln">   212  </span>	}
-<span id="L213" class="ln">   213  </span>	o.AvgMetricHour = all.AvgMetricHour
-<span id="L214" class="ln">   214  </span>	o.MaxMetricHour = all.MaxMetricHour
-<span id="L215" class="ln">   215  </span>	o.MetricCategory = all.MetricCategory
-<span id="L216" class="ln">   216  </span>	o.MetricName = all.MetricName
-<span id="L217" class="ln">   217  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L218" class="ln">   218  </span>		o.AdditionalProperties = additionalProperties
-<span id="L219" class="ln">   219  </span>	}
-<span id="L220" class="ln">   220  </span>
-<span id="L221" class="ln">   221  </span>	return nil
-<span id="L222" class="ln">   222  </span>}
-<span id="L223" class="ln">   223  </span>
+<span id="L205" class="ln">   205  </span>
+<span id="L206" class="ln">   206  </span>	hasInvalidField := false
+<span id="L207" class="ln">   207  </span>	o.AvgMetricHour = all.AvgMetricHour
+<span id="L208" class="ln">   208  </span>	o.MaxMetricHour = all.MaxMetricHour
+<span id="L209" class="ln">   209  </span>	if v := all.MetricCategory; v != nil &amp;&amp; !v.IsValid() {
+<span id="L210" class="ln">   210  </span>		hasInvalidField = true
+<span id="L211" class="ln">   211  </span>	} else {
+<span id="L212" class="ln">   212  </span>		o.MetricCategory = all.MetricCategory
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>	o.MetricName = all.MetricName
+<span id="L215" class="ln">   215  </span>
+<span id="L216" class="ln">   216  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L217" class="ln">   217  </span>		o.AdditionalProperties = additionalProperties
+<span id="L218" class="ln">   218  </span>	}
+<span id="L219" class="ln">   219  </span>
+<span id="L220" class="ln">   220  </span>	if hasInvalidField {
+<span id="L221" class="ln">   221  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L222" class="ln">   222  </span>		if err != nil {
+<span id="L223" class="ln">   223  </span>			return err
+<span id="L224" class="ln">   224  </span>		}
+<span id="L225" class="ln">   225  </span>		o.UnparsedObject = raw
+<span id="L226" class="ln">   226  </span>	}
+<span id="L227" class="ln">   227  </span>
+<span id="L228" class="ln">   228  </span>	return nil
+<span id="L229" class="ln">   229  </span>}
+<span id="L230" class="ln">   230  </span>
 </pre><p></p>
 
 <div id="footer">

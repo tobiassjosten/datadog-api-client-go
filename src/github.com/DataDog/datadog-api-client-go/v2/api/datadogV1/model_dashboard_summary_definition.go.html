@@ -450,30 +450,37 @@
 <span id="L393" class="ln">   393  </span>	} else {
 <span id="L394" class="ln">   394  </span>		return err
 <span id="L395" class="ln">   395  </span>	}
-<span id="L396" class="ln">   396  </span>	if v := all.LayoutType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L397" class="ln">   397  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L398" class="ln">   398  </span>		if err != nil {
-<span id="L399" class="ln">   399  </span>			return err
-<span id="L400" class="ln">   400  </span>		}
-<span id="L401" class="ln">   401  </span>		o.UnparsedObject = raw
-<span id="L402" class="ln">   402  </span>		return nil
-<span id="L403" class="ln">   403  </span>	}
-<span id="L404" class="ln">   404  </span>	o.AuthorHandle = all.AuthorHandle
-<span id="L405" class="ln">   405  </span>	o.CreatedAt = all.CreatedAt
-<span id="L406" class="ln">   406  </span>	o.Description = all.Description
-<span id="L407" class="ln">   407  </span>	o.Id = all.Id
-<span id="L408" class="ln">   408  </span>	o.IsReadOnly = all.IsReadOnly
-<span id="L409" class="ln">   409  </span>	o.LayoutType = all.LayoutType
-<span id="L410" class="ln">   410  </span>	o.ModifiedAt = all.ModifiedAt
-<span id="L411" class="ln">   411  </span>	o.Title = all.Title
-<span id="L412" class="ln">   412  </span>	o.Url = all.Url
-<span id="L413" class="ln">   413  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L414" class="ln">   414  </span>		o.AdditionalProperties = additionalProperties
-<span id="L415" class="ln">   415  </span>	}
-<span id="L416" class="ln">   416  </span>
-<span id="L417" class="ln">   417  </span>	return nil
-<span id="L418" class="ln">   418  </span>}
-<span id="L419" class="ln">   419  </span>
+<span id="L396" class="ln">   396  </span>
+<span id="L397" class="ln">   397  </span>	hasInvalidField := false
+<span id="L398" class="ln">   398  </span>	o.AuthorHandle = all.AuthorHandle
+<span id="L399" class="ln">   399  </span>	o.CreatedAt = all.CreatedAt
+<span id="L400" class="ln">   400  </span>	o.Description = all.Description
+<span id="L401" class="ln">   401  </span>	o.Id = all.Id
+<span id="L402" class="ln">   402  </span>	o.IsReadOnly = all.IsReadOnly
+<span id="L403" class="ln">   403  </span>	if v := all.LayoutType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L404" class="ln">   404  </span>		hasInvalidField = true
+<span id="L405" class="ln">   405  </span>	} else {
+<span id="L406" class="ln">   406  </span>		o.LayoutType = all.LayoutType
+<span id="L407" class="ln">   407  </span>	}
+<span id="L408" class="ln">   408  </span>	o.ModifiedAt = all.ModifiedAt
+<span id="L409" class="ln">   409  </span>	o.Title = all.Title
+<span id="L410" class="ln">   410  </span>	o.Url = all.Url
+<span id="L411" class="ln">   411  </span>
+<span id="L412" class="ln">   412  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L413" class="ln">   413  </span>		o.AdditionalProperties = additionalProperties
+<span id="L414" class="ln">   414  </span>	}
+<span id="L415" class="ln">   415  </span>
+<span id="L416" class="ln">   416  </span>	if hasInvalidField {
+<span id="L417" class="ln">   417  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L418" class="ln">   418  </span>		if err != nil {
+<span id="L419" class="ln">   419  </span>			return err
+<span id="L420" class="ln">   420  </span>		}
+<span id="L421" class="ln">   421  </span>		o.UnparsedObject = raw
+<span id="L422" class="ln">   422  </span>	}
+<span id="L423" class="ln">   423  </span>
+<span id="L424" class="ln">   424  </span>	return nil
+<span id="L425" class="ln">   425  </span>}
+<span id="L426" class="ln">   426  </span>
 </pre><p></p>
 
 <div id="footer">

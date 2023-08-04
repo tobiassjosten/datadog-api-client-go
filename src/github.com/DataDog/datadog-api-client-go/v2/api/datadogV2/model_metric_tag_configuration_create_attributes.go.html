@@ -273,25 +273,32 @@
 <span id="L216" class="ln">   216  </span>	} else {
 <span id="L217" class="ln">   217  </span>		return err
 <span id="L218" class="ln">   218  </span>	}
-<span id="L219" class="ln">   219  </span>	if v := all.MetricType; !v.IsValid() {
-<span id="L220" class="ln">   220  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L221" class="ln">   221  </span>		if err != nil {
-<span id="L222" class="ln">   222  </span>			return err
-<span id="L223" class="ln">   223  </span>		}
-<span id="L224" class="ln">   224  </span>		o.UnparsedObject = raw
-<span id="L225" class="ln">   225  </span>		return nil
-<span id="L226" class="ln">   226  </span>	}
-<span id="L227" class="ln">   227  </span>	o.Aggregations = all.Aggregations
-<span id="L228" class="ln">   228  </span>	o.IncludePercentiles = all.IncludePercentiles
-<span id="L229" class="ln">   229  </span>	o.MetricType = *all.MetricType
-<span id="L230" class="ln">   230  </span>	o.Tags = *all.Tags
-<span id="L231" class="ln">   231  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L232" class="ln">   232  </span>		o.AdditionalProperties = additionalProperties
-<span id="L233" class="ln">   233  </span>	}
-<span id="L234" class="ln">   234  </span>
-<span id="L235" class="ln">   235  </span>	return nil
-<span id="L236" class="ln">   236  </span>}
-<span id="L237" class="ln">   237  </span>
+<span id="L219" class="ln">   219  </span>
+<span id="L220" class="ln">   220  </span>	hasInvalidField := false
+<span id="L221" class="ln">   221  </span>	o.Aggregations = all.Aggregations
+<span id="L222" class="ln">   222  </span>	o.IncludePercentiles = all.IncludePercentiles
+<span id="L223" class="ln">   223  </span>	if v := all.MetricType; !v.IsValid() {
+<span id="L224" class="ln">   224  </span>		hasInvalidField = true
+<span id="L225" class="ln">   225  </span>	} else {
+<span id="L226" class="ln">   226  </span>		o.MetricType = *all.MetricType
+<span id="L227" class="ln">   227  </span>	}
+<span id="L228" class="ln">   228  </span>	o.Tags = *all.Tags
+<span id="L229" class="ln">   229  </span>
+<span id="L230" class="ln">   230  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L231" class="ln">   231  </span>		o.AdditionalProperties = additionalProperties
+<span id="L232" class="ln">   232  </span>	}
+<span id="L233" class="ln">   233  </span>
+<span id="L234" class="ln">   234  </span>	if hasInvalidField {
+<span id="L235" class="ln">   235  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L236" class="ln">   236  </span>		if err != nil {
+<span id="L237" class="ln">   237  </span>			return err
+<span id="L238" class="ln">   238  </span>		}
+<span id="L239" class="ln">   239  </span>		o.UnparsedObject = raw
+<span id="L240" class="ln">   240  </span>	}
+<span id="L241" class="ln">   241  </span>
+<span id="L242" class="ln">   242  </span>	return nil
+<span id="L243" class="ln">   243  </span>}
+<span id="L244" class="ln">   244  </span>
 </pre><p></p>
 
 <div id="footer">

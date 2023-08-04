@@ -565,97 +565,68 @@
 <span id="L508" class="ln">   508  </span>	} else {
 <span id="L509" class="ln">   509  </span>		return err
 <span id="L510" class="ln">   510  </span>	}
-<span id="L511" class="ln">   511  </span>	if v := all.ResponseFormat; v != nil &amp;&amp; !v.IsValid() {
-<span id="L512" class="ln">   512  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L513" class="ln">   513  </span>		if err != nil {
-<span id="L514" class="ln">   514  </span>			return err
-<span id="L515" class="ln">   515  </span>		}
-<span id="L516" class="ln">   516  </span>		o.UnparsedObject = raw
-<span id="L517" class="ln">   517  </span>		return nil
-<span id="L518" class="ln">   518  </span>	}
-<span id="L519" class="ln">   519  </span>	if all.ApmQuery != nil &amp;&amp; all.ApmQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L520" class="ln">   520  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L521" class="ln">   521  </span>		if err != nil {
-<span id="L522" class="ln">   522  </span>			return err
-<span id="L523" class="ln">   523  </span>		}
-<span id="L524" class="ln">   524  </span>		o.UnparsedObject = raw
-<span id="L525" class="ln">   525  </span>	}
-<span id="L526" class="ln">   526  </span>	o.ApmQuery = all.ApmQuery
-<span id="L527" class="ln">   527  </span>	if all.AuditQuery != nil &amp;&amp; all.AuditQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L528" class="ln">   528  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L529" class="ln">   529  </span>		if err != nil {
-<span id="L530" class="ln">   530  </span>			return err
-<span id="L531" class="ln">   531  </span>		}
-<span id="L532" class="ln">   532  </span>		o.UnparsedObject = raw
-<span id="L533" class="ln">   533  </span>	}
-<span id="L534" class="ln">   534  </span>	o.AuditQuery = all.AuditQuery
-<span id="L535" class="ln">   535  </span>	if all.EventQuery != nil &amp;&amp; all.EventQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L536" class="ln">   536  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L537" class="ln">   537  </span>		if err != nil {
-<span id="L538" class="ln">   538  </span>			return err
-<span id="L539" class="ln">   539  </span>		}
-<span id="L540" class="ln">   540  </span>		o.UnparsedObject = raw
-<span id="L541" class="ln">   541  </span>	}
-<span id="L542" class="ln">   542  </span>	o.EventQuery = all.EventQuery
-<span id="L543" class="ln">   543  </span>	o.Formulas = all.Formulas
-<span id="L544" class="ln">   544  </span>	if all.LogQuery != nil &amp;&amp; all.LogQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L545" class="ln">   545  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L546" class="ln">   546  </span>		if err != nil {
-<span id="L547" class="ln">   547  </span>			return err
-<span id="L548" class="ln">   548  </span>		}
-<span id="L549" class="ln">   549  </span>		o.UnparsedObject = raw
-<span id="L550" class="ln">   550  </span>	}
-<span id="L551" class="ln">   551  </span>	o.LogQuery = all.LogQuery
-<span id="L552" class="ln">   552  </span>	if all.NetworkQuery != nil &amp;&amp; all.NetworkQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L553" class="ln">   553  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L554" class="ln">   554  </span>		if err != nil {
-<span id="L555" class="ln">   555  </span>			return err
-<span id="L556" class="ln">   556  </span>		}
-<span id="L557" class="ln">   557  </span>		o.UnparsedObject = raw
-<span id="L558" class="ln">   558  </span>	}
-<span id="L559" class="ln">   559  </span>	o.NetworkQuery = all.NetworkQuery
-<span id="L560" class="ln">   560  </span>	if all.ProcessQuery != nil &amp;&amp; all.ProcessQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L561" class="ln">   561  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L562" class="ln">   562  </span>		if err != nil {
-<span id="L563" class="ln">   563  </span>			return err
-<span id="L564" class="ln">   564  </span>		}
-<span id="L565" class="ln">   565  </span>		o.UnparsedObject = raw
-<span id="L566" class="ln">   566  </span>	}
-<span id="L567" class="ln">   567  </span>	o.ProcessQuery = all.ProcessQuery
-<span id="L568" class="ln">   568  </span>	if all.ProfileMetricsQuery != nil &amp;&amp; all.ProfileMetricsQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L569" class="ln">   569  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L570" class="ln">   570  </span>		if err != nil {
-<span id="L571" class="ln">   571  </span>			return err
-<span id="L572" class="ln">   572  </span>		}
-<span id="L573" class="ln">   573  </span>		o.UnparsedObject = raw
-<span id="L574" class="ln">   574  </span>	}
-<span id="L575" class="ln">   575  </span>	o.ProfileMetricsQuery = all.ProfileMetricsQuery
-<span id="L576" class="ln">   576  </span>	o.Q = all.Q
-<span id="L577" class="ln">   577  </span>	o.Queries = all.Queries
-<span id="L578" class="ln">   578  </span>	o.ResponseFormat = all.ResponseFormat
-<span id="L579" class="ln">   579  </span>	if all.RumQuery != nil &amp;&amp; all.RumQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L580" class="ln">   580  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L581" class="ln">   581  </span>		if err != nil {
-<span id="L582" class="ln">   582  </span>			return err
-<span id="L583" class="ln">   583  </span>		}
-<span id="L584" class="ln">   584  </span>		o.UnparsedObject = raw
-<span id="L585" class="ln">   585  </span>	}
-<span id="L586" class="ln">   586  </span>	o.RumQuery = all.RumQuery
-<span id="L587" class="ln">   587  </span>	if all.SecurityQuery != nil &amp;&amp; all.SecurityQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L588" class="ln">   588  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L589" class="ln">   589  </span>		if err != nil {
-<span id="L590" class="ln">   590  </span>			return err
-<span id="L591" class="ln">   591  </span>		}
-<span id="L592" class="ln">   592  </span>		o.UnparsedObject = raw
-<span id="L593" class="ln">   593  </span>	}
-<span id="L594" class="ln">   594  </span>	o.SecurityQuery = all.SecurityQuery
-<span id="L595" class="ln">   595  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L596" class="ln">   596  </span>		o.AdditionalProperties = additionalProperties
-<span id="L597" class="ln">   597  </span>	}
-<span id="L598" class="ln">   598  </span>
-<span id="L599" class="ln">   599  </span>	return nil
-<span id="L600" class="ln">   600  </span>}
-<span id="L601" class="ln">   601  </span>
+<span id="L511" class="ln">   511  </span>
+<span id="L512" class="ln">   512  </span>	hasInvalidField := false
+<span id="L513" class="ln">   513  </span>	if all.ApmQuery != nil &amp;&amp; all.ApmQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L514" class="ln">   514  </span>		hasInvalidField = true
+<span id="L515" class="ln">   515  </span>	}
+<span id="L516" class="ln">   516  </span>	o.ApmQuery = all.ApmQuery
+<span id="L517" class="ln">   517  </span>	if all.AuditQuery != nil &amp;&amp; all.AuditQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L518" class="ln">   518  </span>		hasInvalidField = true
+<span id="L519" class="ln">   519  </span>	}
+<span id="L520" class="ln">   520  </span>	o.AuditQuery = all.AuditQuery
+<span id="L521" class="ln">   521  </span>	if all.EventQuery != nil &amp;&amp; all.EventQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L522" class="ln">   522  </span>		hasInvalidField = true
+<span id="L523" class="ln">   523  </span>	}
+<span id="L524" class="ln">   524  </span>	o.EventQuery = all.EventQuery
+<span id="L525" class="ln">   525  </span>	o.Formulas = all.Formulas
+<span id="L526" class="ln">   526  </span>	if all.LogQuery != nil &amp;&amp; all.LogQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L527" class="ln">   527  </span>		hasInvalidField = true
+<span id="L528" class="ln">   528  </span>	}
+<span id="L529" class="ln">   529  </span>	o.LogQuery = all.LogQuery
+<span id="L530" class="ln">   530  </span>	if all.NetworkQuery != nil &amp;&amp; all.NetworkQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L531" class="ln">   531  </span>		hasInvalidField = true
+<span id="L532" class="ln">   532  </span>	}
+<span id="L533" class="ln">   533  </span>	o.NetworkQuery = all.NetworkQuery
+<span id="L534" class="ln">   534  </span>	if all.ProcessQuery != nil &amp;&amp; all.ProcessQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L535" class="ln">   535  </span>		hasInvalidField = true
+<span id="L536" class="ln">   536  </span>	}
+<span id="L537" class="ln">   537  </span>	o.ProcessQuery = all.ProcessQuery
+<span id="L538" class="ln">   538  </span>	if all.ProfileMetricsQuery != nil &amp;&amp; all.ProfileMetricsQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L539" class="ln">   539  </span>		hasInvalidField = true
+<span id="L540" class="ln">   540  </span>	}
+<span id="L541" class="ln">   541  </span>	o.ProfileMetricsQuery = all.ProfileMetricsQuery
+<span id="L542" class="ln">   542  </span>	o.Q = all.Q
+<span id="L543" class="ln">   543  </span>	o.Queries = all.Queries
+<span id="L544" class="ln">   544  </span>	if v := all.ResponseFormat; v != nil &amp;&amp; !v.IsValid() {
+<span id="L545" class="ln">   545  </span>		hasInvalidField = true
+<span id="L546" class="ln">   546  </span>	} else {
+<span id="L547" class="ln">   547  </span>		o.ResponseFormat = all.ResponseFormat
+<span id="L548" class="ln">   548  </span>	}
+<span id="L549" class="ln">   549  </span>	if all.RumQuery != nil &amp;&amp; all.RumQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L550" class="ln">   550  </span>		hasInvalidField = true
+<span id="L551" class="ln">   551  </span>	}
+<span id="L552" class="ln">   552  </span>	o.RumQuery = all.RumQuery
+<span id="L553" class="ln">   553  </span>	if all.SecurityQuery != nil &amp;&amp; all.SecurityQuery.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L554" class="ln">   554  </span>		hasInvalidField = true
+<span id="L555" class="ln">   555  </span>	}
+<span id="L556" class="ln">   556  </span>	o.SecurityQuery = all.SecurityQuery
+<span id="L557" class="ln">   557  </span>
+<span id="L558" class="ln">   558  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L559" class="ln">   559  </span>		o.AdditionalProperties = additionalProperties
+<span id="L560" class="ln">   560  </span>	}
+<span id="L561" class="ln">   561  </span>
+<span id="L562" class="ln">   562  </span>	if hasInvalidField {
+<span id="L563" class="ln">   563  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L564" class="ln">   564  </span>		if err != nil {
+<span id="L565" class="ln">   565  </span>			return err
+<span id="L566" class="ln">   566  </span>		}
+<span id="L567" class="ln">   567  </span>		o.UnparsedObject = raw
+<span id="L568" class="ln">   568  </span>	}
+<span id="L569" class="ln">   569  </span>
+<span id="L570" class="ln">   570  </span>	return nil
+<span id="L571" class="ln">   571  </span>}
+<span id="L572" class="ln">   572  </span>
 </pre><p></p>
 
 <div id="footer">

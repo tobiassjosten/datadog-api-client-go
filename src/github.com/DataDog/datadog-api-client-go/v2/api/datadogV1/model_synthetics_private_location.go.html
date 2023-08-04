@@ -320,33 +320,36 @@
 <span id="L263" class="ln">   263  </span>	} else {
 <span id="L264" class="ln">   264  </span>		return err
 <span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	o.Description = *all.Description
-<span id="L267" class="ln">   267  </span>	o.Id = all.Id
-<span id="L268" class="ln">   268  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L269" class="ln">   269  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L270" class="ln">   270  </span>		if err != nil {
-<span id="L271" class="ln">   271  </span>			return err
-<span id="L272" class="ln">   272  </span>		}
-<span id="L273" class="ln">   273  </span>		o.UnparsedObject = raw
-<span id="L274" class="ln">   274  </span>	}
-<span id="L275" class="ln">   275  </span>	o.Metadata = all.Metadata
-<span id="L276" class="ln">   276  </span>	o.Name = *all.Name
-<span id="L277" class="ln">   277  </span>	if all.Secrets != nil &amp;&amp; all.Secrets.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L278" class="ln">   278  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L279" class="ln">   279  </span>		if err != nil {
-<span id="L280" class="ln">   280  </span>			return err
-<span id="L281" class="ln">   281  </span>		}
-<span id="L282" class="ln">   282  </span>		o.UnparsedObject = raw
+<span id="L266" class="ln">   266  </span>
+<span id="L267" class="ln">   267  </span>	hasInvalidField := false
+<span id="L268" class="ln">   268  </span>	o.Description = *all.Description
+<span id="L269" class="ln">   269  </span>	o.Id = all.Id
+<span id="L270" class="ln">   270  </span>	if all.Metadata != nil &amp;&amp; all.Metadata.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L271" class="ln">   271  </span>		hasInvalidField = true
+<span id="L272" class="ln">   272  </span>	}
+<span id="L273" class="ln">   273  </span>	o.Metadata = all.Metadata
+<span id="L274" class="ln">   274  </span>	o.Name = *all.Name
+<span id="L275" class="ln">   275  </span>	if all.Secrets != nil &amp;&amp; all.Secrets.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L276" class="ln">   276  </span>		hasInvalidField = true
+<span id="L277" class="ln">   277  </span>	}
+<span id="L278" class="ln">   278  </span>	o.Secrets = all.Secrets
+<span id="L279" class="ln">   279  </span>	o.Tags = *all.Tags
+<span id="L280" class="ln">   280  </span>
+<span id="L281" class="ln">   281  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L282" class="ln">   282  </span>		o.AdditionalProperties = additionalProperties
 <span id="L283" class="ln">   283  </span>	}
-<span id="L284" class="ln">   284  </span>	o.Secrets = all.Secrets
-<span id="L285" class="ln">   285  </span>	o.Tags = *all.Tags
-<span id="L286" class="ln">   286  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L287" class="ln">   287  </span>		o.AdditionalProperties = additionalProperties
-<span id="L288" class="ln">   288  </span>	}
-<span id="L289" class="ln">   289  </span>
-<span id="L290" class="ln">   290  </span>	return nil
-<span id="L291" class="ln">   291  </span>}
+<span id="L284" class="ln">   284  </span>
+<span id="L285" class="ln">   285  </span>	if hasInvalidField {
+<span id="L286" class="ln">   286  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L287" class="ln">   287  </span>		if err != nil {
+<span id="L288" class="ln">   288  </span>			return err
+<span id="L289" class="ln">   289  </span>		}
+<span id="L290" class="ln">   290  </span>		o.UnparsedObject = raw
+<span id="L291" class="ln">   291  </span>	}
 <span id="L292" class="ln">   292  </span>
+<span id="L293" class="ln">   293  </span>	return nil
+<span id="L294" class="ln">   294  </span>}
+<span id="L295" class="ln">   295  </span>
 </pre><p></p>
 
 <div id="footer">

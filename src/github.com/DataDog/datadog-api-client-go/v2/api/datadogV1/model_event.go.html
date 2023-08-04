@@ -584,42 +584,45 @@
 <span id="L527" class="ln">   527  </span>	} else {
 <span id="L528" class="ln">   528  </span>		return err
 <span id="L529" class="ln">   529  </span>	}
-<span id="L530" class="ln">   530  </span>	if v := all.AlertType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L531" class="ln">   531  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L532" class="ln">   532  </span>		if err != nil {
-<span id="L533" class="ln">   533  </span>			return err
-<span id="L534" class="ln">   534  </span>		}
-<span id="L535" class="ln">   535  </span>		o.UnparsedObject = raw
-<span id="L536" class="ln">   536  </span>		return nil
-<span id="L537" class="ln">   537  </span>	}
-<span id="L538" class="ln">   538  </span>	if v := all.Priority; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
-<span id="L539" class="ln">   539  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L540" class="ln">   540  </span>		if err != nil {
-<span id="L541" class="ln">   541  </span>			return err
-<span id="L542" class="ln">   542  </span>		}
-<span id="L543" class="ln">   543  </span>		o.UnparsedObject = raw
-<span id="L544" class="ln">   544  </span>		return nil
-<span id="L545" class="ln">   545  </span>	}
-<span id="L546" class="ln">   546  </span>	o.AlertType = all.AlertType
-<span id="L547" class="ln">   547  </span>	o.DateHappened = all.DateHappened
-<span id="L548" class="ln">   548  </span>	o.DeviceName = all.DeviceName
-<span id="L549" class="ln">   549  </span>	o.Host = all.Host
-<span id="L550" class="ln">   550  </span>	o.Id = all.Id
-<span id="L551" class="ln">   551  </span>	o.IdStr = all.IdStr
-<span id="L552" class="ln">   552  </span>	o.Payload = all.Payload
-<span id="L553" class="ln">   553  </span>	o.Priority = all.Priority
-<span id="L554" class="ln">   554  </span>	o.SourceTypeName = all.SourceTypeName
-<span id="L555" class="ln">   555  </span>	o.Tags = all.Tags
-<span id="L556" class="ln">   556  </span>	o.Text = all.Text
-<span id="L557" class="ln">   557  </span>	o.Title = all.Title
-<span id="L558" class="ln">   558  </span>	o.Url = all.Url
-<span id="L559" class="ln">   559  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L560" class="ln">   560  </span>		o.AdditionalProperties = additionalProperties
-<span id="L561" class="ln">   561  </span>	}
-<span id="L562" class="ln">   562  </span>
-<span id="L563" class="ln">   563  </span>	return nil
-<span id="L564" class="ln">   564  </span>}
+<span id="L530" class="ln">   530  </span>
+<span id="L531" class="ln">   531  </span>	hasInvalidField := false
+<span id="L532" class="ln">   532  </span>	if v := all.AlertType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L533" class="ln">   533  </span>		hasInvalidField = true
+<span id="L534" class="ln">   534  </span>	} else {
+<span id="L535" class="ln">   535  </span>		o.AlertType = all.AlertType
+<span id="L536" class="ln">   536  </span>	}
+<span id="L537" class="ln">   537  </span>	o.DateHappened = all.DateHappened
+<span id="L538" class="ln">   538  </span>	o.DeviceName = all.DeviceName
+<span id="L539" class="ln">   539  </span>	o.Host = all.Host
+<span id="L540" class="ln">   540  </span>	o.Id = all.Id
+<span id="L541" class="ln">   541  </span>	o.IdStr = all.IdStr
+<span id="L542" class="ln">   542  </span>	o.Payload = all.Payload
+<span id="L543" class="ln">   543  </span>	if v := all.Priority; v.Get() != nil &amp;&amp; !v.Get().IsValid() {
+<span id="L544" class="ln">   544  </span>		hasInvalidField = true
+<span id="L545" class="ln">   545  </span>	} else {
+<span id="L546" class="ln">   546  </span>		o.Priority = all.Priority
+<span id="L547" class="ln">   547  </span>	}
+<span id="L548" class="ln">   548  </span>	o.SourceTypeName = all.SourceTypeName
+<span id="L549" class="ln">   549  </span>	o.Tags = all.Tags
+<span id="L550" class="ln">   550  </span>	o.Text = all.Text
+<span id="L551" class="ln">   551  </span>	o.Title = all.Title
+<span id="L552" class="ln">   552  </span>	o.Url = all.Url
+<span id="L553" class="ln">   553  </span>
+<span id="L554" class="ln">   554  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L555" class="ln">   555  </span>		o.AdditionalProperties = additionalProperties
+<span id="L556" class="ln">   556  </span>	}
+<span id="L557" class="ln">   557  </span>
+<span id="L558" class="ln">   558  </span>	if hasInvalidField {
+<span id="L559" class="ln">   559  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L560" class="ln">   560  </span>		if err != nil {
+<span id="L561" class="ln">   561  </span>			return err
+<span id="L562" class="ln">   562  </span>		}
+<span id="L563" class="ln">   563  </span>		o.UnparsedObject = raw
+<span id="L564" class="ln">   564  </span>	}
 <span id="L565" class="ln">   565  </span>
+<span id="L566" class="ln">   566  </span>	return nil
+<span id="L567" class="ln">   567  </span>}
+<span id="L568" class="ln">   568  </span>
 </pre><p></p>
 
 <div id="footer">

@@ -364,27 +364,34 @@
 <span id="L307" class="ln">   307  </span>	} else {
 <span id="L308" class="ln">   308  </span>		return err
 <span id="L309" class="ln">   309  </span>	}
-<span id="L310" class="ln">   310  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L311" class="ln">   311  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L312" class="ln">   312  </span>		if err != nil {
-<span id="L313" class="ln">   313  </span>			return err
-<span id="L314" class="ln">   314  </span>		}
-<span id="L315" class="ln">   315  </span>		o.UnparsedObject = raw
-<span id="L316" class="ln">   316  </span>	}
-<span id="L317" class="ln">   317  </span>	o.Filter = all.Filter
-<span id="L318" class="ln">   318  </span>	o.Id = all.Id
-<span id="L319" class="ln">   319  </span>	o.IsEnabled = all.IsEnabled
-<span id="L320" class="ln">   320  </span>	o.IsReadOnly = all.IsReadOnly
-<span id="L321" class="ln">   321  </span>	o.Name = *all.Name
-<span id="L322" class="ln">   322  </span>	o.Processors = all.Processors
-<span id="L323" class="ln">   323  </span>	o.Type = all.Type
-<span id="L324" class="ln">   324  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L325" class="ln">   325  </span>		o.AdditionalProperties = additionalProperties
-<span id="L326" class="ln">   326  </span>	}
-<span id="L327" class="ln">   327  </span>
-<span id="L328" class="ln">   328  </span>	return nil
-<span id="L329" class="ln">   329  </span>}
-<span id="L330" class="ln">   330  </span>
+<span id="L310" class="ln">   310  </span>
+<span id="L311" class="ln">   311  </span>	hasInvalidField := false
+<span id="L312" class="ln">   312  </span>	if all.Filter != nil &amp;&amp; all.Filter.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L313" class="ln">   313  </span>		hasInvalidField = true
+<span id="L314" class="ln">   314  </span>	}
+<span id="L315" class="ln">   315  </span>	o.Filter = all.Filter
+<span id="L316" class="ln">   316  </span>	o.Id = all.Id
+<span id="L317" class="ln">   317  </span>	o.IsEnabled = all.IsEnabled
+<span id="L318" class="ln">   318  </span>	o.IsReadOnly = all.IsReadOnly
+<span id="L319" class="ln">   319  </span>	o.Name = *all.Name
+<span id="L320" class="ln">   320  </span>	o.Processors = all.Processors
+<span id="L321" class="ln">   321  </span>	o.Type = all.Type
+<span id="L322" class="ln">   322  </span>
+<span id="L323" class="ln">   323  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L324" class="ln">   324  </span>		o.AdditionalProperties = additionalProperties
+<span id="L325" class="ln">   325  </span>	}
+<span id="L326" class="ln">   326  </span>
+<span id="L327" class="ln">   327  </span>	if hasInvalidField {
+<span id="L328" class="ln">   328  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L329" class="ln">   329  </span>		if err != nil {
+<span id="L330" class="ln">   330  </span>			return err
+<span id="L331" class="ln">   331  </span>		}
+<span id="L332" class="ln">   332  </span>		o.UnparsedObject = raw
+<span id="L333" class="ln">   333  </span>	}
+<span id="L334" class="ln">   334  </span>
+<span id="L335" class="ln">   335  </span>	return nil
+<span id="L336" class="ln">   336  </span>}
+<span id="L337" class="ln">   337  </span>
 </pre><p></p>
 
 <div id="footer">

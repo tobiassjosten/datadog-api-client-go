@@ -702,54 +702,53 @@
 <span id="L645" class="ln">   645  </span>	} else {
 <span id="L646" class="ln">   646  </span>		return err
 <span id="L647" class="ln">   647  </span>	}
-<span id="L648" class="ln">   648  </span>	if v := all.CheckType; v != nil &amp;&amp; !v.IsValid() {
-<span id="L649" class="ln">   649  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L650" class="ln">   650  </span>		if err != nil {
-<span id="L651" class="ln">   651  </span>			return err
-<span id="L652" class="ln">   652  </span>		}
-<span id="L653" class="ln">   653  </span>		o.UnparsedObject = raw
-<span id="L654" class="ln">   654  </span>		return nil
+<span id="L648" class="ln">   648  </span>
+<span id="L649" class="ln">   649  </span>	hasInvalidField := false
+<span id="L650" class="ln">   650  </span>	o.BrowserErrors = all.BrowserErrors
+<span id="L651" class="ln">   651  </span>	if v := all.CheckType; v != nil &amp;&amp; !v.IsValid() {
+<span id="L652" class="ln">   652  </span>		hasInvalidField = true
+<span id="L653" class="ln">   653  </span>	} else {
+<span id="L654" class="ln">   654  </span>		o.CheckType = all.CheckType
 <span id="L655" class="ln">   655  </span>	}
-<span id="L656" class="ln">   656  </span>	if v := all.PlayingTab; v != nil &amp;&amp; !v.IsValid() {
-<span id="L657" class="ln">   657  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L658" class="ln">   658  </span>		if err != nil {
-<span id="L659" class="ln">   659  </span>			return err
-<span id="L660" class="ln">   660  </span>		}
-<span id="L661" class="ln">   661  </span>		o.UnparsedObject = raw
-<span id="L662" class="ln">   662  </span>		return nil
+<span id="L656" class="ln">   656  </span>	o.Description = all.Description
+<span id="L657" class="ln">   657  </span>	o.Duration = all.Duration
+<span id="L658" class="ln">   658  </span>	o.Error = all.Error
+<span id="L659" class="ln">   659  </span>	if v := all.PlayingTab; v != nil &amp;&amp; !v.IsValid() {
+<span id="L660" class="ln">   660  </span>		hasInvalidField = true
+<span id="L661" class="ln">   661  </span>	} else {
+<span id="L662" class="ln">   662  </span>		o.PlayingTab = all.PlayingTab
 <span id="L663" class="ln">   663  </span>	}
-<span id="L664" class="ln">   664  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
-<span id="L665" class="ln">   665  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L666" class="ln">   666  </span>		if err != nil {
-<span id="L667" class="ln">   667  </span>			return err
-<span id="L668" class="ln">   668  </span>		}
-<span id="L669" class="ln">   669  </span>		o.UnparsedObject = raw
-<span id="L670" class="ln">   670  </span>		return nil
-<span id="L671" class="ln">   671  </span>	}
-<span id="L672" class="ln">   672  </span>	o.BrowserErrors = all.BrowserErrors
-<span id="L673" class="ln">   673  </span>	o.CheckType = all.CheckType
-<span id="L674" class="ln">   674  </span>	o.Description = all.Description
-<span id="L675" class="ln">   675  </span>	o.Duration = all.Duration
-<span id="L676" class="ln">   676  </span>	o.Error = all.Error
-<span id="L677" class="ln">   677  </span>	o.PlayingTab = all.PlayingTab
-<span id="L678" class="ln">   678  </span>	o.ScreenshotBucketKey = all.ScreenshotBucketKey
-<span id="L679" class="ln">   679  </span>	o.Skipped = all.Skipped
-<span id="L680" class="ln">   680  </span>	o.SnapshotBucketKey = all.SnapshotBucketKey
-<span id="L681" class="ln">   681  </span>	o.StepId = all.StepId
-<span id="L682" class="ln">   682  </span>	o.SubTestStepDetails = all.SubTestStepDetails
-<span id="L683" class="ln">   683  </span>	o.TimeToInteractive = all.TimeToInteractive
-<span id="L684" class="ln">   684  </span>	o.Type = all.Type
-<span id="L685" class="ln">   685  </span>	o.Url = all.Url
-<span id="L686" class="ln">   686  </span>	o.Value = all.Value
-<span id="L687" class="ln">   687  </span>	o.VitalsMetrics = all.VitalsMetrics
-<span id="L688" class="ln">   688  </span>	o.Warnings = all.Warnings
-<span id="L689" class="ln">   689  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L690" class="ln">   690  </span>		o.AdditionalProperties = additionalProperties
-<span id="L691" class="ln">   691  </span>	}
-<span id="L692" class="ln">   692  </span>
-<span id="L693" class="ln">   693  </span>	return nil
-<span id="L694" class="ln">   694  </span>}
-<span id="L695" class="ln">   695  </span>
+<span id="L664" class="ln">   664  </span>	o.ScreenshotBucketKey = all.ScreenshotBucketKey
+<span id="L665" class="ln">   665  </span>	o.Skipped = all.Skipped
+<span id="L666" class="ln">   666  </span>	o.SnapshotBucketKey = all.SnapshotBucketKey
+<span id="L667" class="ln">   667  </span>	o.StepId = all.StepId
+<span id="L668" class="ln">   668  </span>	o.SubTestStepDetails = all.SubTestStepDetails
+<span id="L669" class="ln">   669  </span>	o.TimeToInteractive = all.TimeToInteractive
+<span id="L670" class="ln">   670  </span>	if v := all.Type; v != nil &amp;&amp; !v.IsValid() {
+<span id="L671" class="ln">   671  </span>		hasInvalidField = true
+<span id="L672" class="ln">   672  </span>	} else {
+<span id="L673" class="ln">   673  </span>		o.Type = all.Type
+<span id="L674" class="ln">   674  </span>	}
+<span id="L675" class="ln">   675  </span>	o.Url = all.Url
+<span id="L676" class="ln">   676  </span>	o.Value = all.Value
+<span id="L677" class="ln">   677  </span>	o.VitalsMetrics = all.VitalsMetrics
+<span id="L678" class="ln">   678  </span>	o.Warnings = all.Warnings
+<span id="L679" class="ln">   679  </span>
+<span id="L680" class="ln">   680  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L681" class="ln">   681  </span>		o.AdditionalProperties = additionalProperties
+<span id="L682" class="ln">   682  </span>	}
+<span id="L683" class="ln">   683  </span>
+<span id="L684" class="ln">   684  </span>	if hasInvalidField {
+<span id="L685" class="ln">   685  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L686" class="ln">   686  </span>		if err != nil {
+<span id="L687" class="ln">   687  </span>			return err
+<span id="L688" class="ln">   688  </span>		}
+<span id="L689" class="ln">   689  </span>		o.UnparsedObject = raw
+<span id="L690" class="ln">   690  </span>	}
+<span id="L691" class="ln">   691  </span>
+<span id="L692" class="ln">   692  </span>	return nil
+<span id="L693" class="ln">   693  </span>}
+<span id="L694" class="ln">   694  </span>
 </pre><p></p>
 
 <div id="footer">

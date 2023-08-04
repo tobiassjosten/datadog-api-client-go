@@ -250,22 +250,28 @@
 <span id="L193" class="ln">   193  </span>		o.UnparsedObject = raw
 <span id="L194" class="ln">   194  </span>		return nil
 <span id="L195" class="ln">   195  </span>	}
-<span id="L196" class="ln">   196  </span>	if v := all.Reason; v != nil &amp;&amp; !v.IsValid() {
-<span id="L197" class="ln">   197  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L198" class="ln">   198  </span>		if err != nil {
-<span id="L199" class="ln">   199  </span>			return err
-<span id="L200" class="ln">   200  </span>		}
-<span id="L201" class="ln">   201  </span>		o.UnparsedObject = raw
-<span id="L202" class="ln">   202  </span>		return nil
-<span id="L203" class="ln">   203  </span>	}
-<span id="L204" class="ln">   204  </span>	o.Description = all.Description
-<span id="L205" class="ln">   205  </span>	o.ExpirationDate = all.ExpirationDate
-<span id="L206" class="ln">   206  </span>	o.Muted = all.Muted
-<span id="L207" class="ln">   207  </span>	o.Reason = all.Reason
-<span id="L208" class="ln">   208  </span>
-<span id="L209" class="ln">   209  </span>	return nil
-<span id="L210" class="ln">   210  </span>}
-<span id="L211" class="ln">   211  </span>
+<span id="L196" class="ln">   196  </span>
+<span id="L197" class="ln">   197  </span>	hasInvalidField := false
+<span id="L198" class="ln">   198  </span>	o.Description = all.Description
+<span id="L199" class="ln">   199  </span>	o.ExpirationDate = all.ExpirationDate
+<span id="L200" class="ln">   200  </span>	o.Muted = all.Muted
+<span id="L201" class="ln">   201  </span>	if v := all.Reason; v != nil &amp;&amp; !v.IsValid() {
+<span id="L202" class="ln">   202  </span>		hasInvalidField = true
+<span id="L203" class="ln">   203  </span>	} else {
+<span id="L204" class="ln">   204  </span>		o.Reason = all.Reason
+<span id="L205" class="ln">   205  </span>	}
+<span id="L206" class="ln">   206  </span>
+<span id="L207" class="ln">   207  </span>	if hasInvalidField {
+<span id="L208" class="ln">   208  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L209" class="ln">   209  </span>		if err != nil {
+<span id="L210" class="ln">   210  </span>			return err
+<span id="L211" class="ln">   211  </span>		}
+<span id="L212" class="ln">   212  </span>		o.UnparsedObject = raw
+<span id="L213" class="ln">   213  </span>	}
+<span id="L214" class="ln">   214  </span>
+<span id="L215" class="ln">   215  </span>	return nil
+<span id="L216" class="ln">   216  </span>}
+<span id="L217" class="ln">   217  </span>
 </pre><p></p>
 
 <div id="footer">

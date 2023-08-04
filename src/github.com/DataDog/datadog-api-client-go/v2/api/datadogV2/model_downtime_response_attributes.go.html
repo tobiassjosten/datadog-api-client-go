@@ -582,33 +582,40 @@
 <span id="L525" class="ln">   525  </span>	} else {
 <span id="L526" class="ln">   526  </span>		return err
 <span id="L527" class="ln">   527  </span>	}
-<span id="L528" class="ln">   528  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
-<span id="L529" class="ln">   529  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L530" class="ln">   530  </span>		if err != nil {
-<span id="L531" class="ln">   531  </span>			return err
-<span id="L532" class="ln">   532  </span>		}
-<span id="L533" class="ln">   533  </span>		o.UnparsedObject = raw
-<span id="L534" class="ln">   534  </span>		return nil
-<span id="L535" class="ln">   535  </span>	}
-<span id="L536" class="ln">   536  </span>	o.Canceled = all.Canceled
-<span id="L537" class="ln">   537  </span>	o.Created = all.Created
-<span id="L538" class="ln">   538  </span>	o.DisplayTimezone = all.DisplayTimezone
-<span id="L539" class="ln">   539  </span>	o.Message = all.Message
-<span id="L540" class="ln">   540  </span>	o.Modified = all.Modified
-<span id="L541" class="ln">   541  </span>	o.MonitorIdentifier = all.MonitorIdentifier
-<span id="L542" class="ln">   542  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
-<span id="L543" class="ln">   543  </span>	o.NotifyEndStates = all.NotifyEndStates
-<span id="L544" class="ln">   544  </span>	o.NotifyEndTypes = all.NotifyEndTypes
-<span id="L545" class="ln">   545  </span>	o.Schedule = all.Schedule
-<span id="L546" class="ln">   546  </span>	o.Scope = all.Scope
-<span id="L547" class="ln">   547  </span>	o.Status = all.Status
-<span id="L548" class="ln">   548  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L549" class="ln">   549  </span>		o.AdditionalProperties = additionalProperties
-<span id="L550" class="ln">   550  </span>	}
-<span id="L551" class="ln">   551  </span>
-<span id="L552" class="ln">   552  </span>	return nil
-<span id="L553" class="ln">   553  </span>}
-<span id="L554" class="ln">   554  </span>
+<span id="L528" class="ln">   528  </span>
+<span id="L529" class="ln">   529  </span>	hasInvalidField := false
+<span id="L530" class="ln">   530  </span>	o.Canceled = all.Canceled
+<span id="L531" class="ln">   531  </span>	o.Created = all.Created
+<span id="L532" class="ln">   532  </span>	o.DisplayTimezone = all.DisplayTimezone
+<span id="L533" class="ln">   533  </span>	o.Message = all.Message
+<span id="L534" class="ln">   534  </span>	o.Modified = all.Modified
+<span id="L535" class="ln">   535  </span>	o.MonitorIdentifier = all.MonitorIdentifier
+<span id="L536" class="ln">   536  </span>	o.MuteFirstRecoveryNotification = all.MuteFirstRecoveryNotification
+<span id="L537" class="ln">   537  </span>	o.NotifyEndStates = all.NotifyEndStates
+<span id="L538" class="ln">   538  </span>	o.NotifyEndTypes = all.NotifyEndTypes
+<span id="L539" class="ln">   539  </span>	o.Schedule = all.Schedule
+<span id="L540" class="ln">   540  </span>	o.Scope = all.Scope
+<span id="L541" class="ln">   541  </span>	if v := all.Status; v != nil &amp;&amp; !v.IsValid() {
+<span id="L542" class="ln">   542  </span>		hasInvalidField = true
+<span id="L543" class="ln">   543  </span>	} else {
+<span id="L544" class="ln">   544  </span>		o.Status = all.Status
+<span id="L545" class="ln">   545  </span>	}
+<span id="L546" class="ln">   546  </span>
+<span id="L547" class="ln">   547  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L548" class="ln">   548  </span>		o.AdditionalProperties = additionalProperties
+<span id="L549" class="ln">   549  </span>	}
+<span id="L550" class="ln">   550  </span>
+<span id="L551" class="ln">   551  </span>	if hasInvalidField {
+<span id="L552" class="ln">   552  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L553" class="ln">   553  </span>		if err != nil {
+<span id="L554" class="ln">   554  </span>			return err
+<span id="L555" class="ln">   555  </span>		}
+<span id="L556" class="ln">   556  </span>		o.UnparsedObject = raw
+<span id="L557" class="ln">   557  </span>	}
+<span id="L558" class="ln">   558  </span>
+<span id="L559" class="ln">   559  </span>	return nil
+<span id="L560" class="ln">   560  </span>}
+<span id="L561" class="ln">   561  </span>
 </pre><p></p>
 
 <div id="footer">

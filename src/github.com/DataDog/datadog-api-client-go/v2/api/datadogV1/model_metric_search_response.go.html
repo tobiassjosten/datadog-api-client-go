@@ -157,21 +157,28 @@
 <span id="L100" class="ln">   100  </span>	} else {
 <span id="L101" class="ln">   101  </span>		return err
 <span id="L102" class="ln">   102  </span>	}
-<span id="L103" class="ln">   103  </span>	if all.Results != nil &amp;&amp; all.Results.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L104" class="ln">   104  </span>		err = json.Unmarshal(bytes, &amp;raw)
-<span id="L105" class="ln">   105  </span>		if err != nil {
-<span id="L106" class="ln">   106  </span>			return err
-<span id="L107" class="ln">   107  </span>		}
-<span id="L108" class="ln">   108  </span>		o.UnparsedObject = raw
-<span id="L109" class="ln">   109  </span>	}
-<span id="L110" class="ln">   110  </span>	o.Results = all.Results
-<span id="L111" class="ln">   111  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L112" class="ln">   112  </span>		o.AdditionalProperties = additionalProperties
-<span id="L113" class="ln">   113  </span>	}
-<span id="L114" class="ln">   114  </span>
-<span id="L115" class="ln">   115  </span>	return nil
-<span id="L116" class="ln">   116  </span>}
-<span id="L117" class="ln">   117  </span>
+<span id="L103" class="ln">   103  </span>
+<span id="L104" class="ln">   104  </span>	hasInvalidField := false
+<span id="L105" class="ln">   105  </span>	if all.Results != nil &amp;&amp; all.Results.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
+<span id="L106" class="ln">   106  </span>		hasInvalidField = true
+<span id="L107" class="ln">   107  </span>	}
+<span id="L108" class="ln">   108  </span>	o.Results = all.Results
+<span id="L109" class="ln">   109  </span>
+<span id="L110" class="ln">   110  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L111" class="ln">   111  </span>		o.AdditionalProperties = additionalProperties
+<span id="L112" class="ln">   112  </span>	}
+<span id="L113" class="ln">   113  </span>
+<span id="L114" class="ln">   114  </span>	if hasInvalidField {
+<span id="L115" class="ln">   115  </span>		err = json.Unmarshal(bytes, &amp;raw)
+<span id="L116" class="ln">   116  </span>		if err != nil {
+<span id="L117" class="ln">   117  </span>			return err
+<span id="L118" class="ln">   118  </span>		}
+<span id="L119" class="ln">   119  </span>		o.UnparsedObject = raw
+<span id="L120" class="ln">   120  </span>	}
+<span id="L121" class="ln">   121  </span>
+<span id="L122" class="ln">   122  </span>	return nil
+<span id="L123" class="ln">   123  </span>}
+<span id="L124" class="ln">   124  </span>
 </pre><p></p>
 
 <div id="footer">
