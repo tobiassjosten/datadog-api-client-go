@@ -76,7 +76,7 @@
 <span id="L19" class="ln">    19  </span>	<span class="comment">// The rules for the group by</span>
 <span id="L20" class="ln">    20  </span>	GroupBy []LogsGroupBy `json:&#34;group_by,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// Global query options that are used during the query.</span>
-<span id="L22" class="ln">    22  </span>	<span class="comment">// Note: You should only supply timezone or time offset but not both otherwise the query will fail.</span>
+<span id="L22" class="ln">    22  </span>	<span class="comment">// Note: you should supply either timezone or time offset, but not both. Otherwise, the query will fail.</span>
 <span id="L23" class="ln">    23  </span>	Options *LogsQueryOptions `json:&#34;options,omitempty&#34;`
 <span id="L24" class="ln">    24  </span>	<span class="comment">// Paging settings</span>
 <span id="L25" class="ln">    25  </span>	Page *LogsAggregateRequestPage `json:&#34;page,omitempty&#34;`
