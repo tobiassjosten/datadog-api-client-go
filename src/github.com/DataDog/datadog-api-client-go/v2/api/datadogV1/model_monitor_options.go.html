@@ -158,7 +158,7 @@
 <span id="L101" class="ln">   101  </span>	RequireFullWindow *bool `json:&#34;require_full_window,omitempty&#34;`
 <span id="L102" class="ln">   102  </span>	<span class="comment">// Configuration options for scheduling.</span>
 <span id="L103" class="ln">   103  </span>	SchedulingOptions *MonitorOptionsSchedulingOptions `json:&#34;scheduling_options,omitempty&#34;`
-<span id="L104" class="ln">   104  </span>	<span class="comment">// Information about the downtime applied to the monitor.</span>
+<span id="L104" class="ln">   104  </span>	<span class="comment">// Information about the downtime applied to the monitor. Only shows v1 downtimes.</span>
 <span id="L105" class="ln">   105  </span>	<span class="comment">// Deprecated</span>
 <span id="L106" class="ln">   106  </span>	Silenced map[string]int64 `json:&#34;silenced,omitempty&#34;`
 <span id="L107" class="ln">   107  </span>	<span class="comment">// ID of the corresponding Synthetic check.</span>
