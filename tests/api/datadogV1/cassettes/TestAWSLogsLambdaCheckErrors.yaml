@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"account_id":"","lambda_arn":""}
+- id: 0
+  request:
+    body: '{"account_id":"","lambda_arn":""}
+
+      '
     form: {}
     headers:
       Accept:
@@ -12,11 +12,14 @@ interactions:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs/check_async
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs/check_async
   response:
-    body: |
-      {"status":"error","code":502,"errors":["Bad Gateway"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+    body: '{"status":"error","code":502,"errors":["Bad Gateway"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+
+      '
+    code: 502
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -29,11 +32,11 @@ interactions:
       Via:
       - 1.1 haproxy
     status: 502 Bad Gateway
-    code: 502
-    duration: ""
-- request:
-    body: |
-      {"account_id":"","lambda_arn":""}
+- id: 1
+  request:
+    body: '{"account_id":"","lambda_arn":""}
+
+      '
     form: {}
     headers:
       Accept:
@@ -42,11 +45,14 @@ interactions:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs/check_async
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs/check_async
   response:
-    body: |
-      {"status":"error","code":502,"errors":["Bad Gateway"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+    body: '{"status":"error","code":502,"errors":["Bad Gateway"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+
+      '
+    code: 502
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -59,5 +65,4 @@ interactions:
       Via:
       - 1.1 haproxy
     status: 502 Bad Gateway
-    code: 502
-    duration: ""
+version: 2

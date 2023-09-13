@@ -1,37 +1,40 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"email":"notanemail"}
+- id: 0
+  request:
+    body: '{"email":"notanemail"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "23"
+      - '23'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.14.1+dev (go go1.19.9; os darwin; arch arm64)
       X-Datadog-Parent-Id:
-      - "5570086195809054790"
+      - '5570086195809054790'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "5172472303537009867"
-    url: https://api.datadoghq.com/api/v1/user/notahandle
+      - '5172472303537009867'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/user/notahandle
   response:
-    body: |
-      {"status":"error","code":403,"errors":["Forbidden"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+    body: '{"status":"error","code":403,"errors":["Forbidden"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+
+      '
+    code: 403
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "170"
+      - '170'
       Content-Type:
       - application/json
       Date:
@@ -39,5 +42,4 @@ interactions:
       Via:
       - haproxy
     status: 403 Forbidden
-    code: 403
-    duration: ""
+version: 2

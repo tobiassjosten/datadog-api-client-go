@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,15 +9,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/2.5.1+dev (go go1.19; os darwin; arch arm64)
       X-Datadog-Parent-Id:
-      - "7384854714580948314"
+      - '7384854714580948314'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "4605861229392013972"
-    url: https://api.datadoghq.com/api/v2/processes?from=1000&page%5Blimit%5D=1000&to=1000
+      - '4605861229392013972'
     method: GET
+    url: https://api.datadoghq.com/api/v2/processes?from=1000&page%5Blimit%5D=1000&to=1000
   response:
     body: '{"errors":["Only data from the past 36 hours are available"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -39,15 +40,14 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "100"
+      - '100'
       X-Ratelimit-Name:
       - processes_get_all
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "98"
+      - '98'
       X-Ratelimit-Reset:
-      - "1"
+      - '1'
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

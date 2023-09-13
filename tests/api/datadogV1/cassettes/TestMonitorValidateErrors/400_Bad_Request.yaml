@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"query":"","type":""}
+- id: 0
+  request:
+    body: '{"query":"","type":""}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,22 +13,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.23+dev (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4686663554825780490"
+      - '4686663554825780490'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6271838085627377523"
-    url: https://api.datadoghq.com/api/v1/monitor/validate
+      - '6271838085627377523'
     method: POST
+    url: https://api.datadoghq.com/api/v1/monitor/validate
   response:
     body: '{"errors": ["The parameter ''type'' is required"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "48"
+      - '48'
       Content-Type:
       - application/json
       Date:
@@ -40,9 +42,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4563132"
+      - '35.4563132'
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

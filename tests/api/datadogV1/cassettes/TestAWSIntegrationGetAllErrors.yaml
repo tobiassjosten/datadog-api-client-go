@@ -1,26 +1,27 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws
     method: GET
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{"errors": ["AWS Integration not yet installed. Please manually install
       it to add AWS accounts."]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "98"
+      - '98'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -34,31 +35,32 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2348946"
+      - '35.2348946'
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws
     method: GET
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{"errors": ["API key required"]}'
+    code: 403
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "32"
+      - '32'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -72,9 +74,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2348946"
+      - '35.2348946'
       X-Frame-Options:
       - SAMEORIGIN
     status: 403 Forbidden
-    code: 403
-    duration: ""
+version: 2

@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,13 +9,13 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "3021890209662747482"
+      - '3021890209662747482'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "8283890382284663190"
-    url: https://api.datadoghq.com/api/v1/dashboard
+      - '8283890382284663190'
     method: GET
+    url: https://api.datadoghq.com/api/v1/dashboard
   response:
     body: '{"dashboards":[{"created_at":"2021-03-26T09:34:03.667460+00:00","author_handle":"frog@datadoghq.com","is_read_only":false,"description":"Various
       stats from CI runs of generated API clients","title":"Datadog API Clients CI","url":"/dashboard/wve-q29-wf9/datadog-api-clients-ci","layout_type":"free","modified_at":"2021-03-26T10:26:24.091171+00:00","id":"wve-q29-wf9"},{"created_at":"2020-12-09T04:18:00.388550+00:00","author_handle":"gregory.zussa@datadoghq.com","is_read_only":false,"description":"Created
@@ -146,6 +145,8 @@ interactions:
       dashboard list tests - DO NOT DELETE","url":"/dashboard/4n7-s4g-dqv/for-dashboard-list-tests---do-not-delete","layout_type":"free","modified_at":"2020-04-08T17:54:25.574039+00:00","id":"4n7-s4g-dqv"},{"created_at":"2020-03-30T14:53:43.725253+00:00","author_handle":"nicholas.muesch@datadoghq.com","is_read_only":false,"description":"Test
       dashboard for Java client","title":"Java Client Test ORDERED Dashboard","url":"/dashboard/kve-y2v-kuh/java-client-test-ordered-dashboard","layout_type":"ordered","modified_at":"2020-03-30T14:53:43.725253+00:00","id":"kve-y2v-kuh"},{"created_at":"2020-02-11T13:48:52.362473+00:00","author_handle":"hippolyte.henry@datadoghq.com","is_read_only":false,"description":null,"title":"For
       dashboard list tests - DO NOT DELETE","url":"/dashboard/q5j-nti-fv6/for-dashboard-list-tests---do-not-delete","layout_type":"ordered","modified_at":"2020-02-11T13:49:16.919666+00:00","id":"q5j-nti-fv6"}]}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -166,17 +167,16 @@ interactions:
       X-Dd-Debug:
       - dCmL/3rURV6BPeaqeP3Rxigq41m5CAb17XjrRE42uZ01zpr07HVhbL5/3TWMkvgu
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "60"
+      - '60'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "59"
+      - '59'
       X-Ratelimit-Reset:
-      - "16"
+      - '16'
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

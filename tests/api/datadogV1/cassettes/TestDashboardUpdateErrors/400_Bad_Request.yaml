@@ -1,30 +1,34 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"layout_type":"","title":"","widgets":null}
+- id: 0
+  request:
+    body: '{"layout_type":"","title":"","widgets":null}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "45"
+      - '45'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.14.1+dev (go go1.18; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "1614008910974154033"
+      - '1614008910974154033'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "2587836233113552455"
-    url: https://api.datadoghq.com/api/v1/dashboard/123-abc-xyz
+      - '2587836233113552455'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/dashboard/123-abc-xyz
   response:
-    body: |
-      {"errors":["Value of parameter 'layout_type' should be any of these ['ordered', 'free']"]}
+    body: '{"errors":["Value of parameter ''layout_type'' should be any of these [''ordered'',
+      ''free'']"]}
+
+      '
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -45,13 +49,12 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11369"
+      - '11369'
       X-Ratelimit-Reset:
-      - "42"
+      - '42'
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"override":true}
+- id: 0
+  request:
+    body: '{"override":true}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8140234333968291009"
+      - '8140234333968291009'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "4103332164446682344"
-    url: https://api.datadoghq.com/api/v1/host/Test-TestHostsMuteErrors-1618220970/mute
+      - '4103332164446682344'
     method: POST
+    url: https://api.datadoghq.com/api/v1/host/Test-TestHostsMuteErrors-1618220970/mute
   response:
     body: '{"action":"Muted","downtime_id":1217084957,"hostname":"Test-TestHostsMuteErrors-1618220970"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -42,14 +44,13 @@ interactions:
       X-Dd-Debug:
       - 25u1gDlL724DHllbjFT4BhOLorBTilh+aah2uWAUEjFC/+rjczJdiyWrV/HwLwe/
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -57,15 +58,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7971305955890213767"
+      - '7971305955890213767'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "4103332164446682344"
-    url: https://api.datadoghq.com/api/v1/host/Test-TestHostsMuteErrors-1618220970/unmute
+      - '4103332164446682344'
     method: POST
+    url: https://api.datadoghq.com/api/v1/host/Test-TestHostsMuteErrors-1618220970/unmute
   response:
     body: '{"action":"Unmuted","downtime_id":1217084957,"hostname":"Test-TestHostsMuteErrors-1618220970"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -86,9 +89,8 @@ interactions:
       X-Dd-Debug:
       - tpRCH6w417YjBovRJ8VmtuXmNONVYiRp2c8d2AxjPdGBn8PCtgG4vAztrx3qUZAN
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

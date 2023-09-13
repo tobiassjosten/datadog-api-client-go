@@ -71,8 +71,10 @@ var testUpdateMonitor = datadogV1.MonitorUpdateRequest{
 func TestMonitorValidation(t *testing.T) {
 	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
-	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
-	defer finish()
+	ctx, err := tests.WithClock(ctx, tests.SecurePath(t.Name()))
+	if err != nil {
+		t.Fatalf("could not setup clock: %v", err)
+	}
 
 	testCases := map[string]struct {
 		Monitor            datadogV1.Monitor

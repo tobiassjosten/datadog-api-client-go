@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -12,17 +12,19 @@ interactions:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/metrics/ametric
     method: PUT
+    url: https://api.datadoghq.com/api/v1/metrics/ametric
   response:
     body: '{"errors": ["metric_name not found"]}'
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "37"
+      - '37'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -36,17 +38,16 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2368573"
+      - '35.2368573'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "2000"
+      - '2000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "1999"
+      - '1999'
       X-Ratelimit-Reset:
-      - "55"
+      - '55'
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2

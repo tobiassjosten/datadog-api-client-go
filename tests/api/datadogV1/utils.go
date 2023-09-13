@@ -130,7 +130,7 @@ func WithRecorder(ctx context.Context, t *testing.T) (context.Context, func()) {
 
 	r, err := tests.Recorder(ctx, tests.SecurePath(t.Name()))
 	if err != nil {
-		t.Fatalf("could not setup recorder: %v", err)
+		t.Fatalf("could not setup recorder: %v %s %s", err, tests.SecurePath(t.Name()), t.Name())
 	}
 	client.GetConfig().HTTPClient = &http.Client{Transport: tests.WrapRoundTripper(r)}
 

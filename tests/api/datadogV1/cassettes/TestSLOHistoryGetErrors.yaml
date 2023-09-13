@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"description":"Make sure we don't have too many failed HTTP responses.","name":"Test-TestSLOHistoryGetErrors-1618221236","query":{"denominator":"sum:httpservice.hits{!code:3xx}.as_count()","numerator":"sum:httpservice.hits{code:2xx}.as_count()"},"tags":["app:httpd"],"thresholds":[{"target":95,"timeframe":"7d","warning":98}],"type":"metric"}
+- id: 0
+  request:
+    body: '{"description":"Make sure we don''t have too many failed HTTP responses.","name":"Test-TestSLOHistoryGetErrors-1618221236","query":{"denominator":"sum:httpservice.hits{!code:3xx}.as_count()","numerator":"sum:httpservice.hits{code:2xx}.as_count()"},"tags":["app:httpd"],"thresholds":[{"target":95,"timeframe":"7d","warning":98}],"type":"metric"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,16 +13,18 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6613700978002786312"
+      - '6613700978002786312'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6993440312228467011"
-    url: https://api.datadoghq.com/api/v1/slo
+      - '6993440312228467011'
     method: POST
+    url: https://api.datadoghq.com/api/v1/slo
   response:
     body: '{"data":[{"description":"Make sure we don''t have too many failed HTTP
       responses.","monitor_tags":[],"creator":{"handle":"frog@datadoghq.com","name":null,"email":"frog@datadoghq.com"},"thresholds":[{"warning":98.0,"warning_display":"98.","target":95.0,"target_display":"95.","timeframe":"7d"}],"type_id":1,"query":{"denominator":"sum:httpservice.hits{!code:3xx}.as_count()","numerator":"sum:httpservice.hits{code:2xx}.as_count()"},"id":"c61ec4bd0ce457c8b9a1cee6791b55d3","name":"Test-TestSLOHistoryGetErrors-1618221236","created_at":1618221236,"tags":["app:httpd"],"modified_at":1618221236,"type":"metric"}],"error":null}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -41,22 +43,21 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "500"
+      - '500'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "494"
+      - '494'
       X-Ratelimit-Reset:
-      - "4"
+      - '4'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -64,15 +65,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6691715470595264142"
+      - '6691715470595264142'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6993440312228467011"
-    url: https://api.datadoghq.com/api/v1/slo/c61ec4bd0ce457c8b9a1cee6791b55d3
+      - '6993440312228467011'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/slo/c61ec4bd0ce457c8b9a1cee6791b55d3
   response:
     body: '{"data":["c61ec4bd0ce457c8b9a1cee6791b55d3"],"error":null}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -91,17 +94,16 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "3000"
+      - '3000'
       X-Ratelimit-Period:
-      - "10"
+      - '10'
       X-Ratelimit-Remaining:
-      - "2992"
+      - '2992'
       X-Ratelimit-Reset:
-      - "4"
+      - '4'
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

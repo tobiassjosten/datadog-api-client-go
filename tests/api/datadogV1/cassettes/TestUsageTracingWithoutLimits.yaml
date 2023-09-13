@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,15 +9,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.8+dev (go go1.14.6; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "9201875215711832420"
+      - '9201875215711832420'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7740002817025996275"
-    url: https://api.datadoghq.com/api/v1/usage/tracing-without-limits?end_hr=2020-07-13T00%3A00%3A00Z&start_hr=2020-07-12T00%3A00%3A00Z
+      - '7740002817025996275'
     method: GET
+    url: https://api.datadoghq.com/api/v1/usage/tracing-without-limits?end_hr=2020-07-13T00%3A00%3A00Z&start_hr=2020-07-12T00%3A00%3A00Z
   response:
     body: '{"usage":[{"ingested_events_bytes":0,"hour":"2020-07-12T00:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T01:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T02:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T03:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T04:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T05:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T06:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T07:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T08:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T09:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T10:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T11:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T12:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T13:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T14:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T15:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T16:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T17:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T18:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T19:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T20:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T21:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T22:00:00+00:00"},{"ingested_events_bytes":0,"hour":"2020-07-12T23:00:00+00:00"}]}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -44,17 +45,16 @@ interactions:
       X-Dd-Debug:
       - ks6TYG2WFSBr2qT+ZTFJB8BB7VWuwPmODDq52A4JjLzCAAitR8HQc9JBq+LHjJu4
       X-Dd-Version:
-      - "35.2959254"
+      - '35.2959254'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "3600"
+      - '3600'
       X-Ratelimit-Remaining:
-      - "10318"
+      - '10318'
       X-Ratelimit-Reset:
-      - "1176"
+      - '1176'
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

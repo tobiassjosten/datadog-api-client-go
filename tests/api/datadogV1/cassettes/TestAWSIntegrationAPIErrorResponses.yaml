@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -12,17 +12,19 @@ interactions:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws/generate_new_external_id
     method: PUT
+    url: https://api.datadoghq.com/api/v1/integration/aws/generate_new_external_id
   response:
     body: '{"errors": ["Required parameter ''account_id'' is missing"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "58"
+      - '58'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -38,15 +40,15 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2348553"
+      - '35.2348553'
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
-- request:
-    body: |
-      {}
+- id: 1
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -55,17 +57,19 @@ interactions:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{"errors": ["Required parameter ''account_id'' is missing"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "58"
+      - '58'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -81,9 +85,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2348553"
+      - '35.2348553'
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

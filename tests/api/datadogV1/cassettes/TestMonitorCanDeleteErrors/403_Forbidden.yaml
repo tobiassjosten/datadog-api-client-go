@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,23 +9,26 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.4.1+dev (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4899357802052646101"
+      - '4899357802052646101'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "8338263538961228440"
-    url: https://api.datadoghq.com/api/v1/monitor/can_delete?monitor_ids=1234
+      - '8338263538961228440'
     method: GET
+    url: https://api.datadoghq.com/api/v1/monitor/can_delete?monitor_ids=1234
   response:
-    body: |
-      {"status":"error","code":403,"errors":["Forbidden"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+    body: '{"status":"error","code":403,"errors":["Forbidden"],"statuspage":"http://status.datadoghq.com","twitter":"http://twitter.com/datadogops","email":"support@datadoghq.com"}
+
+      '
+    code: 403
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "170"
+      - '170'
       Content-Type:
       - application/json
       Date:
@@ -34,5 +36,4 @@ interactions:
       Via:
       - haproxy
     status: 403 Forbidden
-    code: 403
-    duration: ""
+version: 2

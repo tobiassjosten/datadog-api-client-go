@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"access_role":"ro","email":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","handle":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestCreateUser-1618221306"}
+- id: 0
+  request:
+    body: '{"access_role":"ro","email":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","handle":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestCreateUser-1618221306"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "9025269647539524763"
+      - '9025269647539524763'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2342967557303662521"
-    url: https://api.datadoghq.com/api/v1/user
+      - '2342967557303662521'
     method: POST
+    url: https://api.datadoghq.com/api/v1/user
   response:
     body: '{"user":{"disabled":false,"handle":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestCreateUser-1618221306","title":null,"is_admin":false,"role":null,"access_role":"ro","verified":false,"email":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","icon":"https://secure.gravatar.com/avatar/dcadc52c10ee69577fa48b4e553e1d90?s=48&d=retro"}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -42,14 +44,13 @@ interactions:
       X-Dd-Debug:
       - 25u1gDlL724DHllbjFT4BhOLorBTilh+aah2uWAUEjFC/+rjczJdiyWrV/HwLwe/
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -57,13 +58,13 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "2168105159965066864"
+      - '2168105159965066864'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2342967557303662521"
-    url: https://api.datadoghq.com/api/v1/user/test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com
+      - '2342967557303662521'
     method: GET
+    url: https://api.datadoghq.com/api/v1/user/test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com
   response:
     body: '{"user":{"handle":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com","access_role":"ro","disabled":false,"is_admin":false,"icon":"https://secure.gravatar.com/avatar/dcadc52c10ee69577fa48b4e553e1d90?s=48&d=retro","verified":false,"name":"Test-TestCreateUser-1618221306","roles":[{"uuid":"94172444-be03-11e9-a77a-db1879185210","created_at":"2019-08-13T19:50:19.111007","name":"Datadog
       Read Only Role","last_modified":"2019-08-13T19:50:19.111007","id":904117,"permissions":[{"display_name":"Logs
@@ -88,6 +89,8 @@ interactions:
       Service Ingestion","description":"The ability to access Service Ingestion pages.
       A user with this permission can view the service ingestion page, list of root
       service, their statistics, and creation info.","restricted":false,"created_at":"2020-11-23T20:55:57.768261","name":"apm_service_ingest_read","uuid":"4916eebe-2dce-11eb-84c0-271cb2c672e8"}]}],"title":null,"role":null,"email":"test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com"}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -108,14 +111,13 @@ interactions:
       X-Dd-Debug:
       - L3ULR3HwCWYmEqCWGz2Yob3chcH4pjowBacBXkncP7o+/uPqKt9yGEYf/g1AJPzQ
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 2
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -123,16 +125,18 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "479748998681175011"
+      - '479748998681175011'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2342967557303662521"
-    url: https://api.datadoghq.com/api/v1/user/test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com
+      - '2342967557303662521'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/user/test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com
   response:
     body: '{"message":"User test-testcreateuser-1618221306@integration-tests-accnt-for-sdk-ci.com
       disabled"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -153,9 +157,8 @@ interactions:
       X-Dd-Debug:
       - twvpGlmuom5y6A0pjGtXzTf554cmwJgTcCZ71fK4H/RDi+v5ehBK0zQiRcTJQG5C
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

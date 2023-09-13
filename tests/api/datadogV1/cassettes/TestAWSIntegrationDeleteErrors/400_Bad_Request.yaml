@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,22 +13,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.2.0 (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6103854401900391525"
+      - '6103854401900391525'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "448986216027556638"
-    url: https://api.datadoghq.com/api/v1/integration/aws
+      - '448986216027556638'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{"errors": ["Required parameter ''account_id'' is missing"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "58"
+      - '58'
       Content-Type:
       - application/json
       Date:
@@ -42,5 +44,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

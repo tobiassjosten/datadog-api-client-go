@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,22 +13,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.2.0 (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8619642044753718259"
+      - '8619642044753718259'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3498630006380460798"
-    url: https://api.datadoghq.com/api/v1/integration/aws/generate_new_external_id
+      - '3498630006380460798'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/integration/aws/generate_new_external_id
   response:
     body: '{"errors": ["Required parameter ''account_id'' is missing"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "58"
+      - '58'
       Content-Type:
       - application/json
       Date:
@@ -42,5 +44,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

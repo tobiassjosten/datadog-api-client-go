@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"query":"query","type":"log alert"}
+- id: 0
+  request:
+    body: '{"query":"query","type":"log alert"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,23 +13,25 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.23+dev (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6289784557798820789"
+      - '6289784557798820789'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3336577315275890306"
-    url: https://api.datadoghq.com/api/v1/monitor
+      - '3336577315275890306'
     method: POST
+    url: https://api.datadoghq.com/api/v1/monitor
   response:
     body: '{"errors": ["The value provided for parameter ''query'' is invalid: invalid
       operator specified: "]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "97"
+      - '97'
       Content-Type:
       - application/json
       Date:
@@ -41,17 +43,16 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4563132"
+      - '35.4563132'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "500"
+      - '500'
       X-Ratelimit-Period:
-      - "10"
+      - '10'
       X-Ratelimit-Remaining:
-      - "499"
+      - '499'
       X-Ratelimit-Reset:
-      - "4"
+      - '4'
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

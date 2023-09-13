@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"account_id":"","lambda_arn":""}
+- id: 0
+  request:
+    body: '{"account_id":"","lambda_arn":""}
+
+      '
     form: {}
     headers:
       Accept:
@@ -12,17 +12,19 @@ interactions:
       - application/json
       User-Agent:
       - DataDog/0.1.0/go-experimental
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs
   response:
     body: '{}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "2"
+      - '2'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -43,9 +45,8 @@ interactions:
       X-Dd-Debug:
       - A5a5htKhTUF1FdBQZRUZl4RVawKwk2RUtaZz3EDBmdXc0X6i0O7TBEBWn4bIBQ01
       X-Dd-Version:
-      - "35.2349284"
+      - '35.2349284'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

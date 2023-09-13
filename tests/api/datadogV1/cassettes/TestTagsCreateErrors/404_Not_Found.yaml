@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8976442401706295451"
+      - '8976442401706295451'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "5710850498657388280"
-    url: https://api.datadoghq.com/api/v1/tags/hosts/notahostname1234
+      - '5710850498657388280'
     method: POST
+    url: https://api.datadoghq.com/api/v1/tags/hosts/notahostname1234
   response:
     body: '{"errors": ["No host matches that host_id"]}'
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -40,9 +42,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2

@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,22 +9,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "2624291185590715894"
+      - '2624291185590715894'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "5518665295142486159"
-    url: https://api.datadoghq.com/api/v1/logs/config/pipelines/id
+      - '5518665295142486159'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/logs/config/pipelines/id
   response:
     body: '{"error":{"code":"InvalidArgument","message":"This pipeline does not exist"}}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "77"
+      - '77'
       Content-Type:
       - application/json
       Date:
@@ -37,17 +38,16 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "100"
+      - '100'
       X-Ratelimit-Period:
-      - "3600"
+      - '3600'
       X-Ratelimit-Remaining:
-      - "61"
+      - '61'
       X-Ratelimit-Reset:
-      - "444"
+      - '444'
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

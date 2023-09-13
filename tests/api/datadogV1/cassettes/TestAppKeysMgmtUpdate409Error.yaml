@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301"}
+- id: 0
+  request:
+    body: '{"name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8259353548509314240"
+      - '8259353548509314240'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3804734264721055524"
-    url: https://api.datadoghq.com/api/v1/application_key
+      - '3804734264721055524'
     method: POST
+    url: https://api.datadoghq.com/api/v1/application_key
   response:
     body: '{"application_key":{"owner":"slavek.kabrda@datadoghq.com","org_id":321813,"hash":"870d807119e9864960bcbfd127f99040835c6bcd","name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301","revoked":false}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -49,15 +51,15 @@ interactions:
       X-Dd-Debug:
       - aq7EAvMMXGdldXT5eVhOcqdveqp5VDY6MoO0A/xKTuSa7v4Cc6HWT9iWUnYD+m1F
       X-Dd-Version:
-      - "35.2492943"
+      - '35.2492943'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301-2"}
+- id: 1
+  request:
+    body: '{"name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301-2"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -67,15 +69,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6566124923299564054"
+      - '6566124923299564054'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3804734264721055524"
-    url: https://api.datadoghq.com/api/v1/application_key
+      - '3804734264721055524'
     method: POST
+    url: https://api.datadoghq.com/api/v1/application_key
   response:
     body: '{"application_key":{"owner":"slavek.kabrda@datadoghq.com","org_id":321813,"hash":"c1963d4bdec8fee5f92239cc8aebe906c5f6e5ae","name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301-2","revoked":false}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -103,15 +107,15 @@ interactions:
       X-Dd-Debug:
       - 0Ldh7zbvTvxG6fwW0tw8N7mZPnI2XNOUoKCE8H0O1+b4UJVtdo0G52qWoFveZXDz
       X-Dd-Version:
-      - "35.2492943"
+      - '35.2492943'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301-2"}
+- id: 2
+  request:
+    body: '{"name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301-2"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -121,23 +125,25 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7413043757426784108"
+      - '7413043757426784108'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3804734264721055524"
-    url: https://api.datadoghq.com/api/v1/application_key/870d807119e9864960bcbfd127f99040835c6bcd
+      - '3804734264721055524'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/application_key/870d807119e9864960bcbfd127f99040835c6bcd
   response:
     body: '{"errors": ["An application key with the name go-TestAppKeysMgmtUpdate409Error-local-1589290301-2
       already exists"]}'
+    code: 409
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "115"
+      - '115'
       Content-Security-Policy:
       - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
       Content-Type:
@@ -156,14 +162,13 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2493025"
+      - '35.2493025'
       X-Frame-Options:
       - SAMEORIGIN
     status: 409 Conflict
-    code: 409
-    duration: ""
-- request:
-    body: ""
+- id: 3
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -171,15 +176,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7964760716231435946"
+      - '7964760716231435946'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3804734264721055524"
-    url: https://api.datadoghq.com/api/v1/application_key/c1963d4bdec8fee5f92239cc8aebe906c5f6e5ae
+      - '3804734264721055524'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/application_key/c1963d4bdec8fee5f92239cc8aebe906c5f6e5ae
   response:
     body: '{"application_key":{"owner":"slavek.kabrda@datadoghq.com","org_id":321813,"hash":"c1963d4bdec8fee5f92239cc8aebe906c5f6e5ae","name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301-2","revoked":true}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -207,14 +214,13 @@ interactions:
       X-Dd-Debug:
       - jety+2H6BA1H4x31+wzy5BjqI2NDwh54fgbjSYyrLU0p2tWQPCCTKspX7sHO7u1n
       X-Dd-Version:
-      - "35.2492943"
+      - '35.2492943'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 4
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -222,15 +228,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7213680482130771437"
+      - '7213680482130771437'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3804734264721055524"
-    url: https://api.datadoghq.com/api/v1/application_key/870d807119e9864960bcbfd127f99040835c6bcd
+      - '3804734264721055524'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/application_key/870d807119e9864960bcbfd127f99040835c6bcd
   response:
     body: '{"application_key":{"owner":"slavek.kabrda@datadoghq.com","org_id":321813,"hash":"870d807119e9864960bcbfd127f99040835c6bcd","name":"go-TestAppKeysMgmtUpdate409Error-local-1589290301","revoked":true}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -258,9 +266,8 @@ interactions:
       X-Dd-Debug:
       - HIunaScoW4AWw8tnSbk8zc5V6c9XLV6++/KbgzaC4HIb212+evjUYL1yRLeLtS2T
       X-Dd-Version:
-      - "35.2492943"
+      - '35.2492943'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

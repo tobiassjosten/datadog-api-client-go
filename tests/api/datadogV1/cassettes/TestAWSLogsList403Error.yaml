@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,15 +9,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.2.0 (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8608455875991602965"
+      - '8608455875991602965'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "8608455875991602965"
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs
+      - '8608455875991602965'
     method: GET
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs
   response:
     body: '{"errors": ["Forbidden"]}'
+    code: 403
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -39,5 +40,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 403 Forbidden
-    code: 403
-    duration: ""
+version: 2

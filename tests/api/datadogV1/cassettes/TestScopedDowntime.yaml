@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"message":"Test-TestScopedDowntime-1618220934","scope":["test:client-TestScopedDowntime-1618220934243596000","test:go-TestScopedDowntime-1618220934243596000"],"start":1618220934,"timezone":"Etc/UTC"}
+- id: 0
+  request:
+    body: '{"message":"Test-TestScopedDowntime-1618220934","scope":["test:client-TestScopedDowntime-1618220934243596000","test:go-TestScopedDowntime-1618220934243596000"],"start":1618220934,"timezone":"Etc/UTC"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "157782604544765031"
+      - '157782604544765031'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
-    url: https://api.datadoghq.com/api/v1/downtime
+      - '2265901221613562569'
     method: POST
+    url: https://api.datadoghq.com/api/v1/downtime
   response:
     body: '{"recurrence":null,"end":null,"monitor_tags":["*"],"child_id":null,"canceled":null,"monitor_id":null,"org_id":321813,"disabled":false,"start":1618220934,"creator_id":1445416,"parent_id":null,"timezone":"Etc/UTC","active":true,"scope":["test:client-TestScopedDowntime-1618220934243596000","test:go-TestScopedDowntime-1618220934243596000"],"message":"Test-TestScopedDowntime-1618220934","downtime_type":2,"id":1217084547,"updater_id":null}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -40,15 +42,15 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"message":"Test-TestScopedDowntime-1618220934","scope":["test:go-TestScopedDowntime-1618220934243596000"],"start":1618220934,"timezone":"Etc/UTC"}
+- id: 1
+  request:
+    body: '{"message":"Test-TestScopedDowntime-1618220934","scope":["test:go-TestScopedDowntime-1618220934243596000"],"start":1618220934,"timezone":"Etc/UTC"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -58,15 +60,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "3260780116595882165"
+      - '3260780116595882165'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
-    url: https://api.datadoghq.com/api/v1/downtime
+      - '2265901221613562569'
     method: POST
+    url: https://api.datadoghq.com/api/v1/downtime
   response:
     body: '{"recurrence":null,"end":null,"monitor_tags":["*"],"child_id":null,"canceled":null,"monitor_id":null,"org_id":321813,"disabled":false,"start":1618220934,"creator_id":1445416,"parent_id":null,"timezone":"Etc/UTC","active":true,"scope":["test:go-TestScopedDowntime-1618220934243596000"],"message":"Test-TestScopedDowntime-1618220934","downtime_type":2,"id":1217084562,"updater_id":null}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -85,15 +89,15 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"message":"Test-TestScopedDowntime-1618220934","scope":["test:client-TestScopedDowntime-1618220934243596000"],"start":1618220934,"timezone":"Etc/UTC"}
+- id: 2
+  request:
+    body: '{"message":"Test-TestScopedDowntime-1618220934","scope":["test:client-TestScopedDowntime-1618220934243596000"],"start":1618220934,"timezone":"Etc/UTC"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -103,15 +107,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6627485485335414017"
+      - '6627485485335414017'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
-    url: https://api.datadoghq.com/api/v1/downtime
+      - '2265901221613562569'
     method: POST
+    url: https://api.datadoghq.com/api/v1/downtime
   response:
     body: '{"recurrence":null,"end":null,"monitor_tags":["*"],"child_id":null,"canceled":null,"monitor_id":null,"org_id":321813,"disabled":false,"start":1618220934,"creator_id":1445416,"parent_id":null,"timezone":"Etc/UTC","active":true,"scope":["test:client-TestScopedDowntime-1618220934243596000"],"message":"Test-TestScopedDowntime-1618220934","downtime_type":2,"id":1217084563,"updater_id":null}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -130,15 +136,15 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"scope":"test:go-TestScopedDowntime-1618220934243596000"}
+- id: 3
+  request:
+    body: '{"scope":"test:go-TestScopedDowntime-1618220934243596000"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -148,15 +154,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4588972320985143042"
+      - '4588972320985143042'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
-    url: https://api.datadoghq.com/api/v1/downtime/cancel/by_scope
+      - '2265901221613562569'
     method: POST
+    url: https://api.datadoghq.com/api/v1/downtime/cancel/by_scope
   response:
     body: '{"cancelled_ids":[1217084562]}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -175,14 +183,13 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 4
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -190,22 +197,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "5226581518470505760"
+      - '5226581518470505760'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
+      - '2265901221613562569'
+    method: DELETE
     url: https://api.datadoghq.com/api/v1/downtime/1217084563
-    method: DELETE
   response:
-    body: ""
+    body: ''
+    code: 204
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "0"
+      - '0'
       Content-Type:
       - application/json
       Date:
@@ -217,14 +226,13 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 204 No Content
-    code: 204
-    duration: ""
-- request:
-    body: ""
+- id: 5
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -232,22 +240,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "3928051112608317916"
+      - '3928051112608317916'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
+      - '2265901221613562569'
+    method: DELETE
     url: https://api.datadoghq.com/api/v1/downtime/1217084562
-    method: DELETE
   response:
-    body: ""
+    body: ''
+    code: 204
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "0"
+      - '0'
       Content-Type:
       - application/json
       Date:
@@ -259,14 +269,13 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 204 No Content
-    code: 204
-    duration: ""
-- request:
-    body: ""
+- id: 6
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -274,22 +283,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "1285976419244503498"
+      - '1285976419244503498'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "2265901221613562569"
-    url: https://api.datadoghq.com/api/v1/downtime/1217084547
+      - '2265901221613562569'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/downtime/1217084547
   response:
-    body: ""
+    body: ''
+    code: 204
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "0"
+      - '0'
       Content-Type:
       - application/json
       Date:
@@ -301,9 +312,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 204 No Content
-    code: 204
-    duration: ""
+version: 2

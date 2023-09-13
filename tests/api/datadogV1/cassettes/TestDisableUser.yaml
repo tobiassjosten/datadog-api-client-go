@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"access_role":"ro","email":"test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com","handle":"test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestDisableUser-1618221310"}
+- id: 0
+  request:
+    body: '{"access_role":"ro","email":"test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com","handle":"test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestDisableUser-1618221310"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "5376827723572242302"
+      - '5376827723572242302'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "1479756275052095391"
-    url: https://api.datadoghq.com/api/v1/user
+      - '1479756275052095391'
     method: POST
+    url: https://api.datadoghq.com/api/v1/user
   response:
     body: '{"user":{"disabled":false,"handle":"test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestDisableUser-1618221310","title":null,"is_admin":false,"role":null,"access_role":"ro","verified":false,"email":"test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com","icon":"https://secure.gravatar.com/avatar/07fc2c855d274a6f5b87b98c4bcd78bb?s=48&d=retro"}}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -42,14 +44,13 @@ interactions:
       X-Dd-Debug:
       - JpIJLwIH2nFlZOC+u71rq7aAOL43MLZN3MUsL+gpYHdZz5QLUOG8Jysf8kVK6tPU
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -57,16 +58,18 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8316443912383344192"
+      - '8316443912383344192'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "1479756275052095391"
-    url: https://api.datadoghq.com/api/v1/user/test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com
+      - '1479756275052095391'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/user/test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com
   response:
     body: '{"message":"User test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com
       disabled"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -87,14 +90,13 @@ interactions:
       X-Dd-Debug:
       - dCmL/3rURV6BPeaqeP3Rxigq41m5CAb17XjrRE42uZ01zpr07HVhbL5/3TWMkvgu
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 2
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -102,22 +104,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7695424375009638185"
+      - '7695424375009638185'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "1479756275052095391"
-    url: https://api.datadoghq.com/api/v1/user/test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com
+      - '1479756275052095391'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/user/test-testdisableuser-1618221310@integration-tests-accnt-for-sdk-ci.com
   response:
     body: '{"errors": ["User is already disabled"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "40"
+      - '40'
       Content-Type:
       - application/json
       Date:
@@ -129,9 +133,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

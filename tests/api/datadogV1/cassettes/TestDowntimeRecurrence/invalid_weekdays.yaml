@@ -1,37 +1,40 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"end":1634720427,"message":"Test-TestDowntimeRecurrence_invalid_weekdays-1634716829; invalid weekdays","recurrence":{"period":1,"type":"weeks","week_days":["mon","tue"]},"scope":["*"],"start":1634716827,"timezone":"Etc/UTC"}
+- id: 0
+  request:
+    body: '{"end":1634720427,"message":"Test-TestDowntimeRecurrence_invalid_weekdays-1634716829;
+      invalid weekdays","recurrence":{"period":1,"type":"weeks","week_days":["mon","tue"]},"scope":["*"],"start":1634716827,"timezone":"Etc/UTC"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "226"
+      - '226'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.5.1+dev (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6663947136986118989"
+      - '6663947136986118989'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "4390740353989189401"
-    url: https://api.datadoghq.com/api/v1/downtime
+      - '4390740353989189401'
     method: POST
+    url: https://api.datadoghq.com/api/v1/downtime
   response:
     body: '{"errors": ["Invalid set of days in week_days. Be sure that the first letter
       is capitalized."]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "95"
+      - '95'
       Content-Type:
       - application/json
       Date:
@@ -45,5 +48,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

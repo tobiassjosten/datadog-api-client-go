@@ -1,29 +1,31 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"account_id":"661646648260","account_specific_namespace_rules":{"opsworks":true},"filter_tags":["testTag","test:Tag2"],"host_tags":["filter:one","filtertwo"],"role_name":"DatadogAWSIntegrationRole"}
+- id: 0
+  request:
+    body: '{"account_id":"661646648260","account_specific_namespace_rules":{"opsworks":true},"filter_tags":["testTag","test:Tag2"],"host_tags":["filter:one","filtertwo"],"role_name":"DatadogAWSIntegrationRole"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "200"
+      - '200'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7774060054349715531"
+      - '7774060054349715531'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
-    url: https://api.datadoghq.com/api/v1/integration/aws
+      - '3475068698147208756'
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{"external_id":"f6cf9369c49644f6992f597026005d33"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -44,46 +46,48 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11989"
+      - '11989'
       X-Ratelimit-Reset:
-      - "20"
+      - '20'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"account_id":"661646648260","lambda_arn":"arn:aws:lambda:us-east-1:123456789101:function:GoClientTest"}
+- id: 1
+  request:
+    body: '{"account_id":"661646648260","lambda_arn":"arn:aws:lambda:us-east-1:123456789101:function:GoClientTest"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "105"
+      - '105'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8241966517597261585"
+      - '8241966517597261585'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs
+      - '3475068698147208756'
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs
   response:
     body: '{}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "2"
+      - '2'
       Content-Type:
       - application/json
       Date:
@@ -97,46 +101,48 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11988"
+      - '11988'
       X-Ratelimit-Reset:
-      - "19"
+      - '19'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"account_id":"661646648260","services":["s3","elb","elbv2","cloudfront","redshift","lambda"]}
+- id: 2
+  request:
+    body: '{"account_id":"661646648260","services":["s3","elb","elbv2","cloudfront","redshift","lambda"]}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "95"
+      - '95'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4085737201196006784"
+      - '4085737201196006784'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
+      - '3475068698147208756'
+    method: POST
     url: https://api.datadoghq.com/api/v1/integration/aws/logs/services
-    method: POST
   response:
     body: '{}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "2"
+      - '2'
       Content-Type:
       - application/json
       Date:
@@ -150,18 +156,17 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11987"
+      - '11987'
       X-Ratelimit-Reset:
-      - "19"
+      - '19'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 3
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -169,15 +174,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "344296496493489278"
+      - '344296496493489278'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs
+      - '3475068698147208756'
     method: GET
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs
   response:
     body: '[{"account_id":"5355535356524948","touched":false,"services":[],"synced_by_service_id":{},"services_with_triggers_present":{},"lambdas":[]},{"account_id":"661646648260","touched":false,"services":["s3","elb","elbv2","cloudfront","redshift","lambda"],"synced_by_service_id":{},"services_with_triggers_present":{},"lambdas":[{"arn":"arn:aws:lambda:us-east-1:123456789101:function:GoClientTest"}]}]'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -198,46 +205,48 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11986"
+      - '11986'
       X-Ratelimit-Reset:
-      - "19"
+      - '19'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"account_id":"661646648260","lambda_arn":"arn:aws:lambda:us-east-1:123456789101:function:GoClientTest"}
+- id: 4
+  request:
+    body: '{"account_id":"661646648260","lambda_arn":"arn:aws:lambda:us-east-1:123456789101:function:GoClientTest"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "105"
+      - '105'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "5547964470285703197"
+      - '5547964470285703197'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs
+      - '3475068698147208756'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs
   response:
     body: '{}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "2"
+      - '2'
       Content-Type:
       - application/json
       Date:
@@ -251,18 +260,17 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11985"
+      - '11985'
       X-Ratelimit-Reset:
-      - "19"
+      - '19'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 5
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -270,15 +278,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "793138963519321449"
+      - '793138963519321449'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
-    url: https://api.datadoghq.com/api/v1/integration/aws/logs
+      - '3475068698147208756'
     method: GET
+    url: https://api.datadoghq.com/api/v1/integration/aws/logs
   response:
     body: '[{"account_id":"5355535356524948","touched":false,"services":[],"synced_by_service_id":{},"services_with_triggers_present":{},"lambdas":[]},{"account_id":"661646648260","touched":false,"services":["s3","elb","elbv2","cloudfront","redshift","lambda"],"synced_by_service_id":{},"services_with_triggers_present":{},"lambdas":[]}]'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -299,46 +309,48 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11984"
+      - '11984'
       X-Ratelimit-Reset:
-      - "19"
+      - '19'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"account_id":"661646648260","role_name":"DatadogAWSIntegrationRole"}
+- id: 6
+  request:
+    body: '{"account_id":"661646648260","role_name":"DatadogAWSIntegrationRole"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "70"
+      - '70'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.10.1+dev (go go1.17.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4063391020628170735"
+      - '4063391020628170735'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3475068698147208756"
-    url: https://api.datadoghq.com/api/v1/integration/aws
+      - '3475068698147208756'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "2"
+      - '2'
       Content-Type:
       - application/json
       Date:
@@ -352,13 +364,12 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11983"
+      - '11983'
       X-Ratelimit-Reset:
-      - "18"
+      - '18'
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

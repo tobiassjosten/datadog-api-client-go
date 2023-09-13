@@ -1,30 +1,33 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"access_role":"ro","email":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","handle":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestUpdateUser-1688715462"}
+- id: 0
+  request:
+    body: '{"access_role":"ro","email":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","handle":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestUpdateUser-1688715462"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "222"
+      - '222'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.14.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "6011082293873275192"
+      - '6011082293873275192'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "1682356872111751629"
-    url: https://api.datadoghq.com/api/v1/user
+      - '1682356872111751629'
     method: POST
+    url: https://api.datadoghq.com/api/v1/user
   response:
-    body: |
-      {"user":{"handle":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestUpdateUser-1688715462","role":null,"title":null,"email":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","disabled":false,"access_role":"ro","is_admin":false,"icon":"https://secure.gravatar.com/avatar/7e8ef7dc9924b77102bfb989982479e9?s=48&d=retro","verified":false}}
+    body: '{"user":{"handle":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestUpdateUser-1688715462","role":null,"title":null,"email":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","disabled":false,"access_role":"ro","is_admin":false,"icon":"https://secure.gravatar.com/avatar/7e8ef7dc9924b77102bfb989982479e9?s=48&d=retro","verified":false}}
+
+      '
+    code: 200
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
@@ -41,42 +44,45 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "100"
+      - '100'
       X-Ratelimit-Name:
       - create_user_api
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "99"
+      - '99'
       X-Ratelimit-Reset:
-      - "18"
+      - '18'
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"disabled":true,"name":"Test-TestUpdateUser-1688715462"}
+- id: 1
+  request:
+    body: '{"disabled":true,"name":"Test-TestUpdateUser-1688715462"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "58"
+      - '58'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.14.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "5741595584397718207"
+      - '5741595584397718207'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "1682356872111751629"
-    url: https://api.datadoghq.com/api/v1/user/test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com
+      - '1682356872111751629'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/user/test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com
   response:
-    body: |
-      {"user":{"handle":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestUpdateUser-1688715462","role":null,"title":null,"email":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","disabled":true,"access_role":"ro","is_admin":false,"icon":"https://secure.gravatar.com/avatar/7e8ef7dc9924b77102bfb989982479e9?s=48&d=retro","verified":false}}
+    body: '{"user":{"handle":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","name":"Test-TestUpdateUser-1688715462","role":null,"title":null,"email":"test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com","disabled":true,"access_role":"ro","is_admin":false,"icon":"https://secure.gravatar.com/avatar/7e8ef7dc9924b77102bfb989982479e9?s=48&d=retro","verified":false}}
+
+      '
+    code: 200
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
@@ -93,10 +99,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 2
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -104,15 +109,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/2.14.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "7616468708468020709"
+      - '7616468708468020709'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "1682356872111751629"
-    url: https://api.datadoghq.com/api/v1/user/test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com
+      - '1682356872111751629'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/user/test-testupdateuser-1688715462@integration-tests-accnt-for-sdk-ci.com
   response:
     body: '{"errors":["User is already disabled"]}'
+    code: 400
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
@@ -129,5 +136,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

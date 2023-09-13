@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"service_key":"deadbeef","service_name":"Test-TestPagerDutyServicesUpdateErrors-1618221229"}
+- id: 0
+  request:
+    body: '{"service_key":"deadbeef","service_name":"Test-TestPagerDutyServicesUpdateErrors-1618221229"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,22 +13,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8314021695553247482"
+      - '8314021695553247482'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3028726552415369948"
-    url: https://api.datadoghq.com/api/v1/integration/pagerduty/configuration/services
+      - '3028726552415369948'
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/pagerduty/configuration/services
   response:
     body: '{"service_name":"Test-TestPagerDutyServicesUpdateErrors-1618221229"}'
+    code: 201
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "68"
+      - '68'
       Content-Type:
       - application/json
       Date:
@@ -42,14 +44,13 @@ interactions:
       X-Dd-Debug:
       - dPySkcOzIZtKyMKDAAzuysY3gNGGj6RtYogGuSb76E8mPvoqzREyRp6lPYm91hQU
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 201 Created
-    code: 201
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -57,22 +58,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "1371728619558563775"
+      - '1371728619558563775'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3028726552415369948"
-    url: https://api.datadoghq.com/api/v1/integration/pagerduty/configuration/services/Test-TestPagerDutyServicesUpdateErrors-1618221229
+      - '3028726552415369948'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/pagerduty/configuration/services/Test-TestPagerDutyServicesUpdateErrors-1618221229
   response:
-    body: "null"
+    body: 'null'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "4"
+      - '4'
       Content-Type:
       - application/json
       Date:
@@ -86,9 +89,8 @@ interactions:
       X-Dd-Debug:
       - 5gfwVh/5HZ+AnGd/Di93w3NEWC6KMHT9KzmHEiRJmNdOjBtAsbOcgVFyqEChw71h
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

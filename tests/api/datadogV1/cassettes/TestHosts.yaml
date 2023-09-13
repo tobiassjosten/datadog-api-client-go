@@ -1,7 +1,6 @@
----
-version: 1
 interactions:
-- request:
+- id: 0
+  request:
     body: '{"series": [{"host": "Test-TestHosts-1618220958", "metric": "go.client.test.metric",
       "points": [[1618220958.000000, 0]]}]}'
     form: {}
@@ -9,20 +8,22 @@ interactions:
       Content-Type:
       - application/json
       X-Datadog-Parent-Id:
-      - "7059091138369093847"
+      - '7059091138369093847'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7059091138369093847"
-    url: https://api.datadoghq.com/api/v1/series
+      - '7059091138369093847'
     method: POST
+    url: https://api.datadoghq.com/api/v1/series
   response:
     body: '{"status": "ok"}'
+    code: 202
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - "16"
+      - '16'
       Content-Type:
       - text/json
       Date:
@@ -34,10 +35,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 202 Accepted
-    code: 202
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -45,15 +45,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "3475150746812712215"
+      - '3475150746812712215'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7911988242809974022"
-    url: https://api.datadoghq.com/api/v1/tags/hosts/Test-TestHosts-1618220958
+      - '7911988242809974022'
     method: GET
+    url: https://api.datadoghq.com/api/v1/tags/hosts/Test-TestHosts-1618220958
   response:
     body: '{"errors": ["No host matches that host_id"]}'
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -72,14 +74,13 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: ""
+- id: 2
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -87,22 +88,24 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "148349830145053232"
+      - '148349830145053232'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7911988242809974022"
-    url: https://api.datadoghq.com/api/v1/tags/hosts/Test-TestHosts-1618220958
+      - '7911988242809974022'
     method: GET
+    url: https://api.datadoghq.com/api/v1/tags/hosts/Test-TestHosts-1618220958
   response:
     body: '{"tags":[]}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "11"
+      - '11'
       Content-Type:
       - application/json
       Date:
@@ -116,15 +119,15 @@ interactions:
       X-Dd-Debug:
       - LcgNasIYBRkNppmD6mCKE9J6iv0eEjosuuHR5V5zw2fWbR54i39C8dhdK8zDq/40
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"end":1618221018,"message":"muting for test"}
+- id: 3
+  request:
+    body: '{"end":1618221018,"message":"muting for test"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -134,16 +137,18 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7129755127456016857"
+      - '7129755127456016857'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7911988242809974022"
-    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/mute
+      - '7911988242809974022'
     method: POST
+    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/mute
   response:
     body: '{"action":"Muted","downtime_id":1217084953,"hostname":"Test-TestHosts-1618220958","end":1618221018,"message":"muting
       for test"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -164,15 +169,15 @@ interactions:
       X-Dd-Debug:
       - bgHykj7A9bfZx0Y5ZO3swhhp5tGUSNJHqFWR868+qg087CYrDOd5hQslC+noiEtH
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"end":1618221078,"message":"muting for test override"}
+- id: 4
+  request:
+    body: '{"end":1618221078,"message":"muting for test override"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -182,23 +187,25 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4007319475250607689"
+      - '4007319475250607689'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7911988242809974022"
-    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/mute
+      - '7911988242809974022'
     method: POST
+    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/mute
   response:
     body: '{"errors": ["host:Test-TestHosts-1618220958 is already muted. To mute this
       host with a different end timestamp, add ?override=true to your request."]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "150"
+      - '150'
       Content-Type:
       - application/json
       Date:
@@ -210,15 +217,15 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
-- request:
-    body: |
-      {"end":1618221078,"message":"muting for test override","override":true}
+- id: 5
+  request:
+    body: '{"end":1618221078,"message":"muting for test override","override":true}
+
+      '
     form: {}
     headers:
       Accept:
@@ -228,16 +235,18 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8699338487999460629"
+      - '8699338487999460629'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7911988242809974022"
-    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/mute
+      - '7911988242809974022'
     method: POST
+    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/mute
   response:
     body: '{"action":"Muted","downtime_id":1217084956,"hostname":"Test-TestHosts-1618220958","end":1618221078,"message":"muting
       for test override"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -258,14 +267,13 @@ interactions:
       X-Dd-Debug:
       - HbtaOKlJ6OCrx9tMXO6ivMTrEM+g0c93HDp08trmOmgdHozC5J+vn10F0H4WPjCU
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 6
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -273,15 +281,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7174799016774909083"
+      - '7174799016774909083'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7911988242809974022"
-    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/unmute
+      - '7911988242809974022'
     method: POST
+    url: https://api.datadoghq.com/api/v1/host/Test-TestHosts-1618220958/unmute
   response:
     body: '{"action":"Unmuted","downtime_id":1217084956,"hostname":"Test-TestHosts-1618220958"}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -302,9 +312,8 @@ interactions:
       X-Dd-Debug:
       - bgHykj7A9bfZx0Y5ZO3swhhp5tGUSNJHqFWR868+qg087CYrDOd5hQslC+noiEtH
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

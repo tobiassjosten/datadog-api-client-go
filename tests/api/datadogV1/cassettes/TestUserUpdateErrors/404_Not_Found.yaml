@@ -1,34 +1,36 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"email":"notanemail"}
+- id: 0
+  request:
+    body: '{"email":"notanemail"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "23"
+      - '23'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.14.1+dev (go go1.19.9; os darwin; arch arm64)
       X-Datadog-Parent-Id:
-      - "7330689759881619138"
+      - '7330689759881619138'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "5172472303537009867"
-    url: https://api.datadoghq.com/api/v1/user/notahandle
+      - '5172472303537009867'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/user/notahandle
   response:
     body: '{"errors":["user not found"]}'
+    code: 404
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - "29"
+      - '29'
       Content-Type:
       - application/json
       Date:
@@ -40,5 +42,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2

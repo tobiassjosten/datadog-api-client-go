@@ -1,29 +1,31 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "3"
+      - '3'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.3.2+dev (go go1.19; os darwin; arch arm64)
       X-Datadog-Parent-Id:
-      - "2191743101087759750"
+      - '2191743101087759750'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "8621029196901817525"
-    url: https://api.datadoghq.com/api/v1/downtime/1234
+      - '8621029196901817525'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/downtime/1234
   response:
     body: '{"errors":["Downtime not found"]}'
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -44,13 +46,12 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11998"
+      - '11998'
       X-Ratelimit-Reset:
-      - "52"
+      - '52'
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2

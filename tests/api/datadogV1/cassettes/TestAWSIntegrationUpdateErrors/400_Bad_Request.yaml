@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {}
+- id: 0
+  request:
+    body: '{}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,23 +13,25 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.2.0 (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "5343199684033685906"
+      - '5343199684033685906'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "4160144965592551544"
-    url: https://api.datadoghq.com/api/v1/integration/aws
+      - '4160144965592551544'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/integration/aws
   response:
     body: '{"errors": ["At least one of the following parameters is required: account_id,
       role_name, access_key_id, secret_access_key, host_tags, filter_tags, account_specific_namespace_rules"]}'
+    code: 400
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "183"
+      - '183'
       Content-Type:
       - application/json
       Date:
@@ -43,5 +45,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

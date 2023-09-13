@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"name":"Test-TestDashboardListLifecycle-1618220920"}
+- id: 0
+  request:
+    body: '{"name":"Test-TestDashboardListLifecycle-1618220920"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "3773922593630754935"
+      - '3773922593630754935'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6399169194470265181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual
+      - '6399169194470265181'
     method: POST
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual
   response:
     body: '{"is_favorite":false,"name":"Test-TestDashboardListLifecycle-1618220920","dashboard_count":0,"author":{"handle":"frog@datadoghq.com","name":null},"created":"2021-04-12T09:48:40.710240+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2021-04-12T09:48:40.710260+00:00","id":191752}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -42,15 +44,15 @@ interactions:
       X-Dd-Debug:
       - twvpGlmuom5y6A0pjGtXzTf554cmwJgTcCZ71fK4H/RDi+v5ehBK0zQiRcTJQG5C
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"name":"Test-TestDashboardListLifecycle-1618220920-updated"}
+- id: 1
+  request:
+    body: '{"name":"Test-TestDashboardListLifecycle-1618220920-updated"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -60,15 +62,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "1223905165908994139"
+      - '1223905165908994139'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6399169194470265181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
+      - '6399169194470265181'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
   response:
     body: '{"is_favorite":false,"name":"Test-TestDashboardListLifecycle-1618220920-updated","dashboard_count":0,"author":{"handle":"frog@datadoghq.com","name":null},"created":"2021-04-12T09:48:40.710240+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2021-04-12T09:48:40.847629+00:00","id":191752}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -89,14 +93,13 @@ interactions:
       X-Dd-Debug:
       - dPySkcOzIZtKyMKDAAzuysY3gNGGj6RtYogGuSb76E8mPvoqzREyRp6lPYm91hQU
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 2
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -104,15 +107,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "6053816594454443192"
+      - '6053816594454443192'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6399169194470265181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
+      - '6399169194470265181'
     method: GET
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
   response:
     body: '{"is_favorite":false,"name":"Test-TestDashboardListLifecycle-1618220920-updated","dashboard_count":0,"author":{"handle":"frog@datadoghq.com","name":null},"created":"2021-04-12T09:48:40.710240+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2021-04-12T09:48:40.847629+00:00","id":191752}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -133,14 +138,13 @@ interactions:
       X-Dd-Debug:
       - l8RQo2maZqJf6GFThBbKNE6dvthz6njusVtau3dPXJWL2RLFoN81H+BLPB/1xgs1
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 3
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -148,16 +152,18 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4755828679024833810"
+      - '4755828679024833810'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6399169194470265181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual
+      - '6399169194470265181'
     method: GET
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual
   response:
     body: '{"dashboard_lists":[{"is_favorite":true,"name":"frog''s List","dashboard_count":0,"author":{"handle":"frog@datadoghq.com","name":null},"created":"2020-09-08T07:12:57.679027+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2020-09-09T08:48:11.523877+00:00","id":126798},{"is_favorite":false,"name":"Test-TestDashboardListLifecycle-1618220920-updated","dashboard_count":0,"author":{"handle":"frog@datadoghq.com","name":null},"created":"2021-04-12T09:48:40.710240+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2021-04-12T09:48:40.847629+00:00","id":191752},{"is_favorite":false,"name":"tf-TestAccDatadogDashboardListDatasource-57561-1618207797","dashboard_count":0,"author":{"handle":"slavek.kabrda@datadoghq.com","name":"Slavek
       Kabrda"},"created":"2021-04-12T06:09:57.872026+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2021-04-12T06:09:57.872044+00:00","id":191666}]}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -178,14 +184,13 @@ interactions:
       X-Dd-Debug:
       - B1nwy/pPNqX+q4pQT22cdp1QCexE35IF8qwSHy0Nf7IW0Y881qtn4tXN1lpmzaKc
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 4
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -193,15 +198,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "9102829930532302613"
+      - '9102829930532302613'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6399169194470265181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
+      - '6399169194470265181'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
   response:
     body: '{"deleted_dashboard_list_id":191752}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -222,14 +229,13 @@ interactions:
       X-Dd-Debug:
       - fIO2C4qGDheGHy4YbS+r3a3CXbh4cbRo7roILOimQyiHGjQdOat0cIpWCkupM1uX
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 5
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -237,15 +243,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4045769265528138670"
+      - '4045769265528138670'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "6399169194470265181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
+      - '6399169194470265181'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191752
   response:
     body: '{"errors": ["Manual Dashboard List with id 191752 not found"]}'
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -264,9 +272,8 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2

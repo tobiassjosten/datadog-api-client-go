@@ -1,9 +1,9 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"name":"Test-TestDashboardListDeleteItemsErrors-1618220884"}
+- id: 0
+  request:
+    body: '{"name":"Test-TestDashboardListDeleteItemsErrors-1618220884"}
+
+      '
     form: {}
     headers:
       Accept:
@@ -13,15 +13,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "3782900478992963181"
+      - '3782900478992963181'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "3782900478992963181"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual
+      - '3782900478992963181'
     method: POST
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual
   response:
     body: '{"is_favorite":false,"name":"Test-TestDashboardListDeleteItemsErrors-1618220884","dashboard_count":0,"author":{"handle":"frog@datadoghq.com","name":null},"created":"2021-04-12T09:48:04.388565+00:00","type":"manual_dashboard_list","dashboards":null,"modified":"2021-04-12T09:48:04.388583+00:00","id":191751}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -42,14 +44,13 @@ interactions:
       X-Dd-Debug:
       - bgHykj7A9bfZx0Y5ZO3swhhp5tGUSNJHqFWR868+qg087CYrDOd5hQslC+noiEtH
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -57,15 +58,17 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "7747543966590089692"
+      - '7747543966590089692'
       X-Datadog-Sampling-Priority:
-      - "1"
+      - '1'
       X-Datadog-Trace-Id:
-      - "7747543966590089692"
-    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191751
+      - '7747543966590089692'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/dashboard/lists/manual/191751
   response:
     body: '{"deleted_dashboard_list_id":191751}'
+    code: 200
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -86,9 +89,8 @@ interactions:
       X-Dd-Debug:
       - l8RQo2maZqJf6GFThBbKNE6dvthz6njusVtau3dPXJWL2RLFoN81H+BLPB/1xgs1
       X-Dd-Version:
-      - "35.4287331"
+      - '35.4287331'
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
+version: 2

@@ -67,8 +67,10 @@ func TestPagerDutyLifecycle(t *testing.T) {
 func TestPagerDutyServicesCreateErrors(t *testing.T) {
 	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
-	ctx, finish = WithRecorder(ctx, t)
-	defer finish()
+	ctx, err := tests.WithClock(ctx, tests.SecurePath(t.Name()))
+	if err != nil {
+		t.Fatalf("could not setup clock: %v", err)
+	}
 
 	pgService := generatePagerDutyService(ctx, t)
 

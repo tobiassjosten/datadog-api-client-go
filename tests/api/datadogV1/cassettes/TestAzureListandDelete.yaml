@@ -1,35 +1,38 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"client_id":"testc7f6-1234-5678-9101-tt1692864904","client_secret":"testingx./Sw*g/Y33t..R1cH+hScMDt","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee"}
+- id: 0
+  request:
+    body: '{"client_id":"testc7f6-1234-5678-9101-tt1692864904","client_secret":"testingx./Sw*g/Y33t..R1cH+hScMDt","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "157"
+      - '157'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.16.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "1767590789407948788"
+      - '1767590789407948788'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3735991913634290079"
-    url: https://api.datadoghq.com/api/v1/integration/azure
+      - '3735991913634290079'
     method: POST
+    url: https://api.datadoghq.com/api/v1/integration/azure
   response:
-    body: |
-      {}
+    body: '{}
+
+      '
+    code: 200
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - "3"
+      - '3'
       Content-Type:
       - application/json
       Date:
@@ -41,10 +44,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
+- id: 1
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -52,16 +54,19 @@ interactions:
       User-Agent:
       - datadog-api-client-go/2.16.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "1727166978423307032"
+      - '1727166978423307032'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3735991913634290079"
-    url: https://api.datadoghq.com/api/v1/integration/azure
+      - '3735991913634290079'
     method: GET
+    url: https://api.datadoghq.com/api/v1/integration/azure
   response:
-    body: |
-      [{"tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee","client_id":"testc7f6-1234-5678-9101-tt1692864904","host_filters":"","app_service_plan_filters":"","automute":true,"cspm_enabled":false,"custom_metrics_enabled":false,"errors":[],"warnings":[]}]
+    body: '[{"tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee","client_id":"testc7f6-1234-5678-9101-tt1692864904","host_filters":"","app_service_plan_filters":"","automute":true,"cspm_enabled":false,"custom_metrics_enabled":false,"errors":[],"warnings":[]}]
+
+      '
+    code: 200
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
@@ -78,37 +83,40 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"client_id":"testc7f6-1234-5678-9101-tt1692864904","client_secret":"testingx./Sw*g/Y33t..R1cH+hScMDt","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee"}
+- id: 2
+  request:
+    body: '{"client_id":"testc7f6-1234-5678-9101-tt1692864904","client_secret":"testingx./Sw*g/Y33t..R1cH+hScMDt","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "157"
+      - '157'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.16.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "554097172529471676"
+      - '554097172529471676'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3735991913634290079"
-    url: https://api.datadoghq.com/api/v1/integration/azure
+      - '3735991913634290079'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/azure
   response:
-    body: |
-      {}
+    body: '{}
+
+      '
+    code: 200
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - "3"
+      - '3'
       Content-Type:
       - application/json
       Date:
@@ -120,32 +128,34 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |
-      {"client_id":"testc7f6-1234-5678-9101-uu1692864904","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ff"}
+- id: 3
+  request:
+    body: '{"client_id":"testc7f6-1234-5678-9101-uu1692864904","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ff"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "106"
+      - '106'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.16.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "4982743346472074692"
+      - '4982743346472074692'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3735991913634290079"
-    url: https://api.datadoghq.com/api/v1/integration/azure
+      - '3735991913634290079'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/azure
   response:
     body: '{"errors":["Azure Integration not yet installed. Please install before
       performing this action."]}'
+    code: 400
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
@@ -162,32 +172,34 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
-- request:
-    body: |
-      {"client_id":"testc7f6-1234-5678-9101-tt1692864904","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee"}
+- id: 4
+  request:
+    body: '{"client_id":"testc7f6-1234-5678-9101-tt1692864904","tenant_name":"aaaaaaaa-bbbb-cccc-dddd-1692864904ee"}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "106"
+      - '106'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/2.16.1+dev (go go1.18.1; os linux; arch amd64)
       X-Datadog-Parent-Id:
-      - "395493981674492845"
+      - '395493981674492845'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "3735991913634290079"
-    url: https://api.datadoghq.com/api/v1/integration/azure
+      - '3735991913634290079'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/integration/azure
   response:
     body: '{"errors":["Azure Integration not yet installed. Please install before
       performing this action."]}'
+    code: 400
+    duration: 100ms
     headers:
       Connection:
       - keep-alive
@@ -204,5 +216,4 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request
-    code: 400
-    duration: ""
+version: 2

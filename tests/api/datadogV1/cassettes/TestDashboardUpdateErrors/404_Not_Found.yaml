@@ -1,30 +1,33 @@
----
-version: 1
 interactions:
-- request:
-    body: |
-      {"is_read_only":false,"layout_type":"free","title":"","widgets":[]}
+- id: 0
+  request:
+    body: '{"is_read_only":false,"layout_type":"free","title":"","widgets":[]}
+
+      '
     form: {}
     headers:
       Accept:
       - application/json
       Content-Length:
-      - "68"
+      - '68'
       Content-Type:
       - application/json
       User-Agent:
       - datadog-api-client-go/1.14.1+dev (go go1.18; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8930548845596972026"
+      - '8930548845596972026'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "2587836233113552455"
-    url: https://api.datadoghq.com/api/v1/dashboard/123-abc-xyz
+      - '2587836233113552455'
     method: PUT
+    url: https://api.datadoghq.com/api/v1/dashboard/123-abc-xyz
   response:
-    body: |
-      {"errors":["Dashboard with ID 123-abc-xyz not found"]}
+    body: '{"errors":["Dashboard with ID 123-abc-xyz not found"]}
+
+      '
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -45,13 +48,12 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "11357"
+      - '11357'
       X-Ratelimit-Reset:
-      - "42"
+      - '42'
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2

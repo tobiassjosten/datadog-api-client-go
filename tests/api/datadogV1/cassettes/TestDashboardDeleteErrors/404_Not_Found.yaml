@@ -1,8 +1,7 @@
----
-version: 1
 interactions:
-- request:
-    body: ""
+- id: 0
+  request:
+    body: ''
     form: {}
     headers:
       Accept:
@@ -10,16 +9,19 @@ interactions:
       User-Agent:
       - datadog-api-client-go/1.14.1+dev (go go1.18; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "1517834622925349084"
+      - '1517834622925349084'
       X-Datadog-Sampling-Priority:
-      - "2"
+      - '2'
       X-Datadog-Trace-Id:
-      - "4133238888630975704"
-    url: https://api.datadoghq.com/api/v1/dashboard/123-abc-xyz
+      - '4133238888630975704'
     method: DELETE
+    url: https://api.datadoghq.com/api/v1/dashboard/123-abc-xyz
   response:
-    body: |
-      {"errors":["Dashboard with ID 123-abc-xyz not found"]}
+    body: '{"errors":["Dashboard with ID 123-abc-xyz not found"]}
+
+      '
+    code: 404
+    duration: 100ms
     headers:
       Cache-Control:
       - no-cache
@@ -40,13 +42,12 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "12000"
+      - '12000'
       X-Ratelimit-Period:
-      - "60"
+      - '60'
       X-Ratelimit-Remaining:
-      - "10826"
+      - '10826'
       X-Ratelimit-Reset:
-      - "32"
+      - '32'
     status: 404 Not Found
-    code: 404
-    duration: ""
+version: 2
