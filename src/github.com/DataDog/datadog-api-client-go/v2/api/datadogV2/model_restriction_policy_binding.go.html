@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span><span class="comment">// RestrictionPolicyBinding Specifies which principals are associated with a relation.</span>
 <span id="L16" class="ln">    16  </span>type RestrictionPolicyBinding struct {
 <span id="L17" class="ln">    17  </span>	<span class="comment">// An array of principals. A principal is a subject or group of subjects.</span>
-<span id="L18" class="ln">    18  </span>	<span class="comment">// Each principal is formatted as `type:id`. Supported types: `role`, `team` (beta), `user` (beta), and `org`.</span>
+<span id="L18" class="ln">    18  </span>	<span class="comment">// Each principal is formatted as `type:id`. Supported types: `role`, `team`, `user`, and `org`.</span>
 <span id="L19" class="ln">    19  </span>	<span class="comment">// The org ID can be obtained through the api/v2/current_user API.</span>
 <span id="L20" class="ln">    20  </span>	<span class="comment">// The user principal type accepts service account IDs.</span>
 <span id="L21" class="ln">    21  </span>	Principals []string `json:&#34;principals&#34;`
