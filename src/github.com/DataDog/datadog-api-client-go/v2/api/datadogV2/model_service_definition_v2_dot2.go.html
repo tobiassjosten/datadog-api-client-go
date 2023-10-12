@@ -91,14 +91,14 @@
 <span id="L34" class="ln">    34  </span>	Links []ServiceDefinitionV2Dot2Link `json:&#34;links,omitempty&#34;`
 <span id="L35" class="ln">    35  </span>	<span class="comment">// Schema version being used.</span>
 <span id="L36" class="ln">    36  </span>	SchemaVersion ServiceDefinitionV2Dot2Version `json:&#34;schema-version&#34;`
-<span id="L37" class="ln">    37  </span>	<span class="comment">// The type of service. Datadog recognizes the following service types: `database`, `cache`, `function`, `web`, `browser`, and `mobile`.</span>
-<span id="L38" class="ln">    38  </span>	ServiceType *string `json:&#34;service-type,omitempty&#34;`
-<span id="L39" class="ln">    39  </span>	<span class="comment">// A set of custom tags.</span>
-<span id="L40" class="ln">    40  </span>	Tags []string `json:&#34;tags,omitempty&#34;`
-<span id="L41" class="ln">    41  </span>	<span class="comment">// Team that owns the service. It is used to locate a team defined in Datadog Teams if it exists.</span>
-<span id="L42" class="ln">    42  </span>	Team *string `json:&#34;team,omitempty&#34;`
-<span id="L43" class="ln">    43  </span>	<span class="comment">// Importance of the service.</span>
-<span id="L44" class="ln">    44  </span>	Tier *string `json:&#34;tier,omitempty&#34;`
+<span id="L37" class="ln">    37  </span>	<span class="comment">// A set of custom tags.</span>
+<span id="L38" class="ln">    38  </span>	Tags []string `json:&#34;tags,omitempty&#34;`
+<span id="L39" class="ln">    39  </span>	<span class="comment">// Team that owns the service. It is used to locate a team defined in Datadog Teams if it exists.</span>
+<span id="L40" class="ln">    40  </span>	Team *string `json:&#34;team,omitempty&#34;`
+<span id="L41" class="ln">    41  </span>	<span class="comment">// Importance of the service.</span>
+<span id="L42" class="ln">    42  </span>	Tier *string `json:&#34;tier,omitempty&#34;`
+<span id="L43" class="ln">    43  </span>	<span class="comment">// The type of service.</span>
+<span id="L44" class="ln">    44  </span>	Type *ServiceDefinitionV2Dot2Type `json:&#34;type,omitempty&#34;`
 <span id="L45" class="ln">    45  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L46" class="ln">    46  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
 <span id="L47" class="ln">    47  </span>	AdditionalProperties map[string]interface{}
@@ -395,116 +395,116 @@
 <span id="L338" class="ln">   338  </span>	o.SchemaVersion = v
 <span id="L339" class="ln">   339  </span>}
 <span id="L340" class="ln">   340  </span>
-<span id="L341" class="ln">   341  </span><span class="comment">// GetServiceType returns the ServiceType field value if set, zero value otherwise.</span>
-<span id="L342" class="ln">   342  </span>func (o *ServiceDefinitionV2Dot2) GetServiceType() string {
-<span id="L343" class="ln">   343  </span>	if o == nil || o.ServiceType == nil {
-<span id="L344" class="ln">   344  </span>		var ret string
+<span id="L341" class="ln">   341  </span><span class="comment">// GetTags returns the Tags field value if set, zero value otherwise.</span>
+<span id="L342" class="ln">   342  </span>func (o *ServiceDefinitionV2Dot2) GetTags() []string {
+<span id="L343" class="ln">   343  </span>	if o == nil || o.Tags == nil {
+<span id="L344" class="ln">   344  </span>		var ret []string
 <span id="L345" class="ln">   345  </span>		return ret
 <span id="L346" class="ln">   346  </span>	}
-<span id="L347" class="ln">   347  </span>	return *o.ServiceType
+<span id="L347" class="ln">   347  </span>	return o.Tags
 <span id="L348" class="ln">   348  </span>}
 <span id="L349" class="ln">   349  </span>
-<span id="L350" class="ln">   350  </span><span class="comment">// GetServiceTypeOk returns a tuple with the ServiceType field value if set, nil otherwise</span>
+<span id="L350" class="ln">   350  </span><span class="comment">// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise</span>
 <span id="L351" class="ln">   351  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L352" class="ln">   352  </span>func (o *ServiceDefinitionV2Dot2) GetServiceTypeOk() (*string, bool) {
-<span id="L353" class="ln">   353  </span>	if o == nil || o.ServiceType == nil {
+<span id="L352" class="ln">   352  </span>func (o *ServiceDefinitionV2Dot2) GetTagsOk() (*[]string, bool) {
+<span id="L353" class="ln">   353  </span>	if o == nil || o.Tags == nil {
 <span id="L354" class="ln">   354  </span>		return nil, false
 <span id="L355" class="ln">   355  </span>	}
-<span id="L356" class="ln">   356  </span>	return o.ServiceType, true
+<span id="L356" class="ln">   356  </span>	return &amp;o.Tags, true
 <span id="L357" class="ln">   357  </span>}
 <span id="L358" class="ln">   358  </span>
-<span id="L359" class="ln">   359  </span><span class="comment">// HasServiceType returns a boolean if a field has been set.</span>
-<span id="L360" class="ln">   360  </span>func (o *ServiceDefinitionV2Dot2) HasServiceType() bool {
-<span id="L361" class="ln">   361  </span>	return o != nil &amp;&amp; o.ServiceType != nil
+<span id="L359" class="ln">   359  </span><span class="comment">// HasTags returns a boolean if a field has been set.</span>
+<span id="L360" class="ln">   360  </span>func (o *ServiceDefinitionV2Dot2) HasTags() bool {
+<span id="L361" class="ln">   361  </span>	return o != nil &amp;&amp; o.Tags != nil
 <span id="L362" class="ln">   362  </span>}
 <span id="L363" class="ln">   363  </span>
-<span id="L364" class="ln">   364  </span><span class="comment">// SetServiceType gets a reference to the given string and assigns it to the ServiceType field.</span>
-<span id="L365" class="ln">   365  </span>func (o *ServiceDefinitionV2Dot2) SetServiceType(v string) {
-<span id="L366" class="ln">   366  </span>	o.ServiceType = &amp;v
+<span id="L364" class="ln">   364  </span><span class="comment">// SetTags gets a reference to the given []string and assigns it to the Tags field.</span>
+<span id="L365" class="ln">   365  </span>func (o *ServiceDefinitionV2Dot2) SetTags(v []string) {
+<span id="L366" class="ln">   366  </span>	o.Tags = v
 <span id="L367" class="ln">   367  </span>}
 <span id="L368" class="ln">   368  </span>
-<span id="L369" class="ln">   369  </span><span class="comment">// GetTags returns the Tags field value if set, zero value otherwise.</span>
-<span id="L370" class="ln">   370  </span>func (o *ServiceDefinitionV2Dot2) GetTags() []string {
-<span id="L371" class="ln">   371  </span>	if o == nil || o.Tags == nil {
-<span id="L372" class="ln">   372  </span>		var ret []string
+<span id="L369" class="ln">   369  </span><span class="comment">// GetTeam returns the Team field value if set, zero value otherwise.</span>
+<span id="L370" class="ln">   370  </span>func (o *ServiceDefinitionV2Dot2) GetTeam() string {
+<span id="L371" class="ln">   371  </span>	if o == nil || o.Team == nil {
+<span id="L372" class="ln">   372  </span>		var ret string
 <span id="L373" class="ln">   373  </span>		return ret
 <span id="L374" class="ln">   374  </span>	}
-<span id="L375" class="ln">   375  </span>	return o.Tags
+<span id="L375" class="ln">   375  </span>	return *o.Team
 <span id="L376" class="ln">   376  </span>}
 <span id="L377" class="ln">   377  </span>
-<span id="L378" class="ln">   378  </span><span class="comment">// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise</span>
+<span id="L378" class="ln">   378  </span><span class="comment">// GetTeamOk returns a tuple with the Team field value if set, nil otherwise</span>
 <span id="L379" class="ln">   379  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L380" class="ln">   380  </span>func (o *ServiceDefinitionV2Dot2) GetTagsOk() (*[]string, bool) {
-<span id="L381" class="ln">   381  </span>	if o == nil || o.Tags == nil {
+<span id="L380" class="ln">   380  </span>func (o *ServiceDefinitionV2Dot2) GetTeamOk() (*string, bool) {
+<span id="L381" class="ln">   381  </span>	if o == nil || o.Team == nil {
 <span id="L382" class="ln">   382  </span>		return nil, false
 <span id="L383" class="ln">   383  </span>	}
-<span id="L384" class="ln">   384  </span>	return &amp;o.Tags, true
+<span id="L384" class="ln">   384  </span>	return o.Team, true
 <span id="L385" class="ln">   385  </span>}
 <span id="L386" class="ln">   386  </span>
-<span id="L387" class="ln">   387  </span><span class="comment">// HasTags returns a boolean if a field has been set.</span>
-<span id="L388" class="ln">   388  </span>func (o *ServiceDefinitionV2Dot2) HasTags() bool {
-<span id="L389" class="ln">   389  </span>	return o != nil &amp;&amp; o.Tags != nil
+<span id="L387" class="ln">   387  </span><span class="comment">// HasTeam returns a boolean if a field has been set.</span>
+<span id="L388" class="ln">   388  </span>func (o *ServiceDefinitionV2Dot2) HasTeam() bool {
+<span id="L389" class="ln">   389  </span>	return o != nil &amp;&amp; o.Team != nil
 <span id="L390" class="ln">   390  </span>}
 <span id="L391" class="ln">   391  </span>
-<span id="L392" class="ln">   392  </span><span class="comment">// SetTags gets a reference to the given []string and assigns it to the Tags field.</span>
-<span id="L393" class="ln">   393  </span>func (o *ServiceDefinitionV2Dot2) SetTags(v []string) {
-<span id="L394" class="ln">   394  </span>	o.Tags = v
+<span id="L392" class="ln">   392  </span><span class="comment">// SetTeam gets a reference to the given string and assigns it to the Team field.</span>
+<span id="L393" class="ln">   393  </span>func (o *ServiceDefinitionV2Dot2) SetTeam(v string) {
+<span id="L394" class="ln">   394  </span>	o.Team = &amp;v
 <span id="L395" class="ln">   395  </span>}
 <span id="L396" class="ln">   396  </span>
-<span id="L397" class="ln">   397  </span><span class="comment">// GetTeam returns the Team field value if set, zero value otherwise.</span>
-<span id="L398" class="ln">   398  </span>func (o *ServiceDefinitionV2Dot2) GetTeam() string {
-<span id="L399" class="ln">   399  </span>	if o == nil || o.Team == nil {
+<span id="L397" class="ln">   397  </span><span class="comment">// GetTier returns the Tier field value if set, zero value otherwise.</span>
+<span id="L398" class="ln">   398  </span>func (o *ServiceDefinitionV2Dot2) GetTier() string {
+<span id="L399" class="ln">   399  </span>	if o == nil || o.Tier == nil {
 <span id="L400" class="ln">   400  </span>		var ret string
 <span id="L401" class="ln">   401  </span>		return ret
 <span id="L402" class="ln">   402  </span>	}
-<span id="L403" class="ln">   403  </span>	return *o.Team
+<span id="L403" class="ln">   403  </span>	return *o.Tier
 <span id="L404" class="ln">   404  </span>}
 <span id="L405" class="ln">   405  </span>
-<span id="L406" class="ln">   406  </span><span class="comment">// GetTeamOk returns a tuple with the Team field value if set, nil otherwise</span>
+<span id="L406" class="ln">   406  </span><span class="comment">// GetTierOk returns a tuple with the Tier field value if set, nil otherwise</span>
 <span id="L407" class="ln">   407  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L408" class="ln">   408  </span>func (o *ServiceDefinitionV2Dot2) GetTeamOk() (*string, bool) {
-<span id="L409" class="ln">   409  </span>	if o == nil || o.Team == nil {
+<span id="L408" class="ln">   408  </span>func (o *ServiceDefinitionV2Dot2) GetTierOk() (*string, bool) {
+<span id="L409" class="ln">   409  </span>	if o == nil || o.Tier == nil {
 <span id="L410" class="ln">   410  </span>		return nil, false
 <span id="L411" class="ln">   411  </span>	}
-<span id="L412" class="ln">   412  </span>	return o.Team, true
+<span id="L412" class="ln">   412  </span>	return o.Tier, true
 <span id="L413" class="ln">   413  </span>}
 <span id="L414" class="ln">   414  </span>
-<span id="L415" class="ln">   415  </span><span class="comment">// HasTeam returns a boolean if a field has been set.</span>
-<span id="L416" class="ln">   416  </span>func (o *ServiceDefinitionV2Dot2) HasTeam() bool {
-<span id="L417" class="ln">   417  </span>	return o != nil &amp;&amp; o.Team != nil
+<span id="L415" class="ln">   415  </span><span class="comment">// HasTier returns a boolean if a field has been set.</span>
+<span id="L416" class="ln">   416  </span>func (o *ServiceDefinitionV2Dot2) HasTier() bool {
+<span id="L417" class="ln">   417  </span>	return o != nil &amp;&amp; o.Tier != nil
 <span id="L418" class="ln">   418  </span>}
 <span id="L419" class="ln">   419  </span>
-<span id="L420" class="ln">   420  </span><span class="comment">// SetTeam gets a reference to the given string and assigns it to the Team field.</span>
-<span id="L421" class="ln">   421  </span>func (o *ServiceDefinitionV2Dot2) SetTeam(v string) {
-<span id="L422" class="ln">   422  </span>	o.Team = &amp;v
+<span id="L420" class="ln">   420  </span><span class="comment">// SetTier gets a reference to the given string and assigns it to the Tier field.</span>
+<span id="L421" class="ln">   421  </span>func (o *ServiceDefinitionV2Dot2) SetTier(v string) {
+<span id="L422" class="ln">   422  </span>	o.Tier = &amp;v
 <span id="L423" class="ln">   423  </span>}
 <span id="L424" class="ln">   424  </span>
-<span id="L425" class="ln">   425  </span><span class="comment">// GetTier returns the Tier field value if set, zero value otherwise.</span>
-<span id="L426" class="ln">   426  </span>func (o *ServiceDefinitionV2Dot2) GetTier() string {
-<span id="L427" class="ln">   427  </span>	if o == nil || o.Tier == nil {
-<span id="L428" class="ln">   428  </span>		var ret string
+<span id="L425" class="ln">   425  </span><span class="comment">// GetType returns the Type field value if set, zero value otherwise.</span>
+<span id="L426" class="ln">   426  </span>func (o *ServiceDefinitionV2Dot2) GetType() ServiceDefinitionV2Dot2Type {
+<span id="L427" class="ln">   427  </span>	if o == nil || o.Type == nil {
+<span id="L428" class="ln">   428  </span>		var ret ServiceDefinitionV2Dot2Type
 <span id="L429" class="ln">   429  </span>		return ret
 <span id="L430" class="ln">   430  </span>	}
-<span id="L431" class="ln">   431  </span>	return *o.Tier
+<span id="L431" class="ln">   431  </span>	return *o.Type
 <span id="L432" class="ln">   432  </span>}
 <span id="L433" class="ln">   433  </span>
-<span id="L434" class="ln">   434  </span><span class="comment">// GetTierOk returns a tuple with the Tier field value if set, nil otherwise</span>
+<span id="L434" class="ln">   434  </span><span class="comment">// GetTypeOk returns a tuple with the Type field value if set, nil otherwise</span>
 <span id="L435" class="ln">   435  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L436" class="ln">   436  </span>func (o *ServiceDefinitionV2Dot2) GetTierOk() (*string, bool) {
-<span id="L437" class="ln">   437  </span>	if o == nil || o.Tier == nil {
+<span id="L436" class="ln">   436  </span>func (o *ServiceDefinitionV2Dot2) GetTypeOk() (*ServiceDefinitionV2Dot2Type, bool) {
+<span id="L437" class="ln">   437  </span>	if o == nil || o.Type == nil {
 <span id="L438" class="ln">   438  </span>		return nil, false
 <span id="L439" class="ln">   439  </span>	}
-<span id="L440" class="ln">   440  </span>	return o.Tier, true
+<span id="L440" class="ln">   440  </span>	return o.Type, true
 <span id="L441" class="ln">   441  </span>}
 <span id="L442" class="ln">   442  </span>
-<span id="L443" class="ln">   443  </span><span class="comment">// HasTier returns a boolean if a field has been set.</span>
-<span id="L444" class="ln">   444  </span>func (o *ServiceDefinitionV2Dot2) HasTier() bool {
-<span id="L445" class="ln">   445  </span>	return o != nil &amp;&amp; o.Tier != nil
+<span id="L443" class="ln">   443  </span><span class="comment">// HasType returns a boolean if a field has been set.</span>
+<span id="L444" class="ln">   444  </span>func (o *ServiceDefinitionV2Dot2) HasType() bool {
+<span id="L445" class="ln">   445  </span>	return o != nil &amp;&amp; o.Type != nil
 <span id="L446" class="ln">   446  </span>}
 <span id="L447" class="ln">   447  </span>
-<span id="L448" class="ln">   448  </span><span class="comment">// SetTier gets a reference to the given string and assigns it to the Tier field.</span>
-<span id="L449" class="ln">   449  </span>func (o *ServiceDefinitionV2Dot2) SetTier(v string) {
-<span id="L450" class="ln">   450  </span>	o.Tier = &amp;v
+<span id="L448" class="ln">   448  </span><span class="comment">// SetType gets a reference to the given ServiceDefinitionV2Dot2Type and assigns it to the Type field.</span>
+<span id="L449" class="ln">   449  </span>func (o *ServiceDefinitionV2Dot2) SetType(v ServiceDefinitionV2Dot2Type) {
+<span id="L450" class="ln">   450  </span>	o.Type = &amp;v
 <span id="L451" class="ln">   451  </span>}
 <span id="L452" class="ln">   452  </span>
 <span id="L453" class="ln">   453  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
@@ -539,17 +539,17 @@
 <span id="L482" class="ln">   482  </span>		toSerialize[&#34;links&#34;] = o.Links
 <span id="L483" class="ln">   483  </span>	}
 <span id="L484" class="ln">   484  </span>	toSerialize[&#34;schema-version&#34;] = o.SchemaVersion
-<span id="L485" class="ln">   485  </span>	if o.ServiceType != nil {
-<span id="L486" class="ln">   486  </span>		toSerialize[&#34;service-type&#34;] = o.ServiceType
+<span id="L485" class="ln">   485  </span>	if o.Tags != nil {
+<span id="L486" class="ln">   486  </span>		toSerialize[&#34;tags&#34;] = o.Tags
 <span id="L487" class="ln">   487  </span>	}
-<span id="L488" class="ln">   488  </span>	if o.Tags != nil {
-<span id="L489" class="ln">   489  </span>		toSerialize[&#34;tags&#34;] = o.Tags
+<span id="L488" class="ln">   488  </span>	if o.Team != nil {
+<span id="L489" class="ln">   489  </span>		toSerialize[&#34;team&#34;] = o.Team
 <span id="L490" class="ln">   490  </span>	}
-<span id="L491" class="ln">   491  </span>	if o.Team != nil {
-<span id="L492" class="ln">   492  </span>		toSerialize[&#34;team&#34;] = o.Team
+<span id="L491" class="ln">   491  </span>	if o.Tier != nil {
+<span id="L492" class="ln">   492  </span>		toSerialize[&#34;tier&#34;] = o.Tier
 <span id="L493" class="ln">   493  </span>	}
-<span id="L494" class="ln">   494  </span>	if o.Tier != nil {
-<span id="L495" class="ln">   495  </span>		toSerialize[&#34;tier&#34;] = o.Tier
+<span id="L494" class="ln">   494  </span>	if o.Type != nil {
+<span id="L495" class="ln">   495  </span>		toSerialize[&#34;type&#34;] = o.Type
 <span id="L496" class="ln">   496  </span>	}
 <span id="L497" class="ln">   497  </span>
 <span id="L498" class="ln">   498  </span>	for key, value := range o.AdditionalProperties {
@@ -571,10 +571,10 @@
 <span id="L514" class="ln">   514  </span>		Lifecycle     *string                              `json:&#34;lifecycle,omitempty&#34;`
 <span id="L515" class="ln">   515  </span>		Links         []ServiceDefinitionV2Dot2Link        `json:&#34;links,omitempty&#34;`
 <span id="L516" class="ln">   516  </span>		SchemaVersion *ServiceDefinitionV2Dot2Version      `json:&#34;schema-version&#34;`
-<span id="L517" class="ln">   517  </span>		ServiceType   *string                              `json:&#34;service-type,omitempty&#34;`
-<span id="L518" class="ln">   518  </span>		Tags          []string                             `json:&#34;tags,omitempty&#34;`
-<span id="L519" class="ln">   519  </span>		Team          *string                              `json:&#34;team,omitempty&#34;`
-<span id="L520" class="ln">   520  </span>		Tier          *string                              `json:&#34;tier,omitempty&#34;`
+<span id="L517" class="ln">   517  </span>		Tags          []string                             `json:&#34;tags,omitempty&#34;`
+<span id="L518" class="ln">   518  </span>		Team          *string                              `json:&#34;team,omitempty&#34;`
+<span id="L519" class="ln">   519  </span>		Tier          *string                              `json:&#34;tier,omitempty&#34;`
+<span id="L520" class="ln">   520  </span>		Type          *ServiceDefinitionV2Dot2Type         `json:&#34;type,omitempty&#34;`
 <span id="L521" class="ln">   521  </span>	}{}
 <span id="L522" class="ln">   522  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
 <span id="L523" class="ln">   523  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
@@ -587,7 +587,7 @@
 <span id="L530" class="ln">   530  </span>	}
 <span id="L531" class="ln">   531  </span>	additionalProperties := make(map[string]interface{})
 <span id="L532" class="ln">   532  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L533" class="ln">   533  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application&#34;, &#34;contacts&#34;, &#34;dd-service&#34;, &#34;description&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;langauges&#34;, &#34;lifecycle&#34;, &#34;links&#34;, &#34;schema-version&#34;, &#34;service-type&#34;, &#34;tags&#34;, &#34;team&#34;, &#34;tier&#34;})
+<span id="L533" class="ln">   533  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application&#34;, &#34;contacts&#34;, &#34;dd-service&#34;, &#34;description&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;langauges&#34;, &#34;lifecycle&#34;, &#34;links&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;, &#34;tier&#34;, &#34;type&#34;})
 <span id="L534" class="ln">   534  </span>	} else {
 <span id="L535" class="ln">   535  </span>		return err
 <span id="L536" class="ln">   536  </span>	}
@@ -610,22 +610,26 @@
 <span id="L553" class="ln">   553  </span>	} else {
 <span id="L554" class="ln">   554  </span>		o.SchemaVersion = *all.SchemaVersion
 <span id="L555" class="ln">   555  </span>	}
-<span id="L556" class="ln">   556  </span>	o.ServiceType = all.ServiceType
-<span id="L557" class="ln">   557  </span>	o.Tags = all.Tags
-<span id="L558" class="ln">   558  </span>	o.Team = all.Team
-<span id="L559" class="ln">   559  </span>	o.Tier = all.Tier
-<span id="L560" class="ln">   560  </span>
-<span id="L561" class="ln">   561  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L562" class="ln">   562  </span>		o.AdditionalProperties = additionalProperties
+<span id="L556" class="ln">   556  </span>	o.Tags = all.Tags
+<span id="L557" class="ln">   557  </span>	o.Team = all.Team
+<span id="L558" class="ln">   558  </span>	o.Tier = all.Tier
+<span id="L559" class="ln">   559  </span>	if all.Type != nil &amp;&amp; !all.Type.IsValid() {
+<span id="L560" class="ln">   560  </span>		hasInvalidField = true
+<span id="L561" class="ln">   561  </span>	} else {
+<span id="L562" class="ln">   562  </span>		o.Type = all.Type
 <span id="L563" class="ln">   563  </span>	}
 <span id="L564" class="ln">   564  </span>
-<span id="L565" class="ln">   565  </span>	if hasInvalidField {
-<span id="L566" class="ln">   566  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L565" class="ln">   565  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L566" class="ln">   566  </span>		o.AdditionalProperties = additionalProperties
 <span id="L567" class="ln">   567  </span>	}
 <span id="L568" class="ln">   568  </span>
-<span id="L569" class="ln">   569  </span>	return nil
-<span id="L570" class="ln">   570  </span>}
-<span id="L571" class="ln">   571  </span>
+<span id="L569" class="ln">   569  </span>	if hasInvalidField {
+<span id="L570" class="ln">   570  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L571" class="ln">   571  </span>	}
+<span id="L572" class="ln">   572  </span>
+<span id="L573" class="ln">   573  </span>	return nil
+<span id="L574" class="ln">   574  </span>}
+<span id="L575" class="ln">   575  </span>
 </pre><p></p>
 
 <div id="footer">
