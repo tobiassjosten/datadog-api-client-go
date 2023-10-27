@@ -73,7 +73,7 @@
 <span id="L16" class="ln">    16  </span><span class="comment">// associated values.</span>
 <span id="L17" class="ln">    17  </span>type SecurityMonitoringSignalAttributes struct {
 <span id="L18" class="ln">    18  </span>	<span class="comment">// A JSON object of attributes in the security signal.</span>
-<span id="L19" class="ln">    19  </span>	Attributes map[string]interface{} `json:&#34;attributes,omitempty&#34;`
+<span id="L19" class="ln">    19  </span>	Custom map[string]interface{} `json:&#34;custom,omitempty&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// The message in the security signal defined by the rule that generated the signal.</span>
 <span id="L21" class="ln">    21  </span>	Message *string `json:&#34;message,omitempty&#34;`
 <span id="L22" class="ln">    22  </span>	<span class="comment">// An array of tags associated with the security signal.</span>
@@ -102,32 +102,32 @@
 <span id="L45" class="ln">    45  </span>	return &amp;this
 <span id="L46" class="ln">    46  </span>}
 <span id="L47" class="ln">    47  </span>
-<span id="L48" class="ln">    48  </span><span class="comment">// GetAttributes returns the Attributes field value if set, zero value otherwise.</span>
-<span id="L49" class="ln">    49  </span>func (o *SecurityMonitoringSignalAttributes) GetAttributes() map[string]interface{} {
-<span id="L50" class="ln">    50  </span>	if o == nil || o.Attributes == nil {
+<span id="L48" class="ln">    48  </span><span class="comment">// GetCustom returns the Custom field value if set, zero value otherwise.</span>
+<span id="L49" class="ln">    49  </span>func (o *SecurityMonitoringSignalAttributes) GetCustom() map[string]interface{} {
+<span id="L50" class="ln">    50  </span>	if o == nil || o.Custom == nil {
 <span id="L51" class="ln">    51  </span>		var ret map[string]interface{}
 <span id="L52" class="ln">    52  </span>		return ret
 <span id="L53" class="ln">    53  </span>	}
-<span id="L54" class="ln">    54  </span>	return o.Attributes
+<span id="L54" class="ln">    54  </span>	return o.Custom
 <span id="L55" class="ln">    55  </span>}
 <span id="L56" class="ln">    56  </span>
-<span id="L57" class="ln">    57  </span><span class="comment">// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise</span>
+<span id="L57" class="ln">    57  </span><span class="comment">// GetCustomOk returns a tuple with the Custom field value if set, nil otherwise</span>
 <span id="L58" class="ln">    58  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L59" class="ln">    59  </span>func (o *SecurityMonitoringSignalAttributes) GetAttributesOk() (*map[string]interface{}, bool) {
-<span id="L60" class="ln">    60  </span>	if o == nil || o.Attributes == nil {
+<span id="L59" class="ln">    59  </span>func (o *SecurityMonitoringSignalAttributes) GetCustomOk() (*map[string]interface{}, bool) {
+<span id="L60" class="ln">    60  </span>	if o == nil || o.Custom == nil {
 <span id="L61" class="ln">    61  </span>		return nil, false
 <span id="L62" class="ln">    62  </span>	}
-<span id="L63" class="ln">    63  </span>	return &amp;o.Attributes, true
+<span id="L63" class="ln">    63  </span>	return &amp;o.Custom, true
 <span id="L64" class="ln">    64  </span>}
 <span id="L65" class="ln">    65  </span>
-<span id="L66" class="ln">    66  </span><span class="comment">// HasAttributes returns a boolean if a field has been set.</span>
-<span id="L67" class="ln">    67  </span>func (o *SecurityMonitoringSignalAttributes) HasAttributes() bool {
-<span id="L68" class="ln">    68  </span>	return o != nil &amp;&amp; o.Attributes != nil
+<span id="L66" class="ln">    66  </span><span class="comment">// HasCustom returns a boolean if a field has been set.</span>
+<span id="L67" class="ln">    67  </span>func (o *SecurityMonitoringSignalAttributes) HasCustom() bool {
+<span id="L68" class="ln">    68  </span>	return o != nil &amp;&amp; o.Custom != nil
 <span id="L69" class="ln">    69  </span>}
 <span id="L70" class="ln">    70  </span>
-<span id="L71" class="ln">    71  </span><span class="comment">// SetAttributes gets a reference to the given map[string]interface{} and assigns it to the Attributes field.</span>
-<span id="L72" class="ln">    72  </span>func (o *SecurityMonitoringSignalAttributes) SetAttributes(v map[string]interface{}) {
-<span id="L73" class="ln">    73  </span>	o.Attributes = v
+<span id="L71" class="ln">    71  </span><span class="comment">// SetCustom gets a reference to the given map[string]interface{} and assigns it to the Custom field.</span>
+<span id="L72" class="ln">    72  </span>func (o *SecurityMonitoringSignalAttributes) SetCustom(v map[string]interface{}) {
+<span id="L73" class="ln">    73  </span>	o.Custom = v
 <span id="L74" class="ln">    74  </span>}
 <span id="L75" class="ln">    75  </span>
 <span id="L76" class="ln">    76  </span><span class="comment">// GetMessage returns the Message field value if set, zero value otherwise.</span>
@@ -220,8 +220,8 @@
 <span id="L163" class="ln">   163  </span>	if o.UnparsedObject != nil {
 <span id="L164" class="ln">   164  </span>		return json.Marshal(o.UnparsedObject)
 <span id="L165" class="ln">   165  </span>	}
-<span id="L166" class="ln">   166  </span>	if o.Attributes != nil {
-<span id="L167" class="ln">   167  </span>		toSerialize[&#34;attributes&#34;] = o.Attributes
+<span id="L166" class="ln">   166  </span>	if o.Custom != nil {
+<span id="L167" class="ln">   167  </span>		toSerialize[&#34;custom&#34;] = o.Custom
 <span id="L168" class="ln">   168  </span>	}
 <span id="L169" class="ln">   169  </span>	if o.Message != nil {
 <span id="L170" class="ln">   170  </span>		toSerialize[&#34;message&#34;] = o.Message
@@ -246,21 +246,21 @@
 <span id="L189" class="ln">   189  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L190" class="ln">   190  </span>func (o *SecurityMonitoringSignalAttributes) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L191" class="ln">   191  </span>	all := struct {
-<span id="L192" class="ln">   192  </span>		Attributes map[string]interface{} `json:&#34;attributes,omitempty&#34;`
-<span id="L193" class="ln">   193  </span>		Message    *string                `json:&#34;message,omitempty&#34;`
-<span id="L194" class="ln">   194  </span>		Tags       []string               `json:&#34;tags,omitempty&#34;`
-<span id="L195" class="ln">   195  </span>		Timestamp  *time.Time             `json:&#34;timestamp,omitempty&#34;`
+<span id="L192" class="ln">   192  </span>		Custom    map[string]interface{} `json:&#34;custom,omitempty&#34;`
+<span id="L193" class="ln">   193  </span>		Message   *string                `json:&#34;message,omitempty&#34;`
+<span id="L194" class="ln">   194  </span>		Tags      []string               `json:&#34;tags,omitempty&#34;`
+<span id="L195" class="ln">   195  </span>		Timestamp *time.Time             `json:&#34;timestamp,omitempty&#34;`
 <span id="L196" class="ln">   196  </span>	}{}
 <span id="L197" class="ln">   197  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
 <span id="L198" class="ln">   198  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L199" class="ln">   199  </span>	}
 <span id="L200" class="ln">   200  </span>	additionalProperties := make(map[string]interface{})
 <span id="L201" class="ln">   201  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L202" class="ln">   202  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;attributes&#34;, &#34;message&#34;, &#34;tags&#34;, &#34;timestamp&#34;})
+<span id="L202" class="ln">   202  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;custom&#34;, &#34;message&#34;, &#34;tags&#34;, &#34;timestamp&#34;})
 <span id="L203" class="ln">   203  </span>	} else {
 <span id="L204" class="ln">   204  </span>		return err
 <span id="L205" class="ln">   205  </span>	}
-<span id="L206" class="ln">   206  </span>	o.Attributes = all.Attributes
+<span id="L206" class="ln">   206  </span>	o.Custom = all.Custom
 <span id="L207" class="ln">   207  </span>	o.Message = all.Message
 <span id="L208" class="ln">   208  </span>	o.Tags = all.Tags
 <span id="L209" class="ln">   209  </span>	o.Timestamp = all.Timestamp
