@@ -404,7 +404,7 @@
 <span id="L347" class="ln">   347  </span>			resp, _, err := a.ListPowerpacks(ctx, o...)
 <span id="L348" class="ln">   348  </span>			if err != nil {
 <span id="L349" class="ln">   349  </span>				var returnItem PowerpackData
-<span id="L350" class="ln">   350  </span>				items &lt;- datadog.PaginationResult[PowerpackData]{returnItem, err}
+<span id="L350" class="ln">   350  </span>				items &lt;- datadog.PaginationResult[PowerpackData]{Item: returnItem, Error: err}
 <span id="L351" class="ln">   351  </span>				break
 <span id="L352" class="ln">   352  </span>			}
 <span id="L353" class="ln">   353  </span>			respData, ok := resp.GetDataOk()
@@ -415,7 +415,7 @@
 <span id="L358" class="ln">   358  </span>
 <span id="L359" class="ln">   359  </span>			for _, item := range results {
 <span id="L360" class="ln">   360  </span>				select {
-<span id="L361" class="ln">   361  </span>				case items &lt;- datadog.PaginationResult[PowerpackData]{item, nil}:
+<span id="L361" class="ln">   361  </span>				case items &lt;- datadog.PaginationResult[PowerpackData]{Item: item, Error: nil}:
 <span id="L362" class="ln">   362  </span>				case &lt;-ctx.Done():
 <span id="L363" class="ln">   363  </span>					close(items)
 <span id="L364" class="ln">   364  </span>					return

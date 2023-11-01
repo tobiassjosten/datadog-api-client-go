@@ -237,7 +237,7 @@
 <span id="L180" class="ln">   180  </span>			resp, _, err := a.ListContainerImages(ctx, o...)
 <span id="L181" class="ln">   181  </span>			if err != nil {
 <span id="L182" class="ln">   182  </span>				var returnItem ContainerImageItem
-<span id="L183" class="ln">   183  </span>				items &lt;- datadog.PaginationResult[ContainerImageItem]{returnItem, err}
+<span id="L183" class="ln">   183  </span>				items &lt;- datadog.PaginationResult[ContainerImageItem]{Item: returnItem, Error: err}
 <span id="L184" class="ln">   184  </span>				break
 <span id="L185" class="ln">   185  </span>			}
 <span id="L186" class="ln">   186  </span>			respData, ok := resp.GetDataOk()
@@ -248,7 +248,7 @@
 <span id="L191" class="ln">   191  </span>
 <span id="L192" class="ln">   192  </span>			for _, item := range results {
 <span id="L193" class="ln">   193  </span>				select {
-<span id="L194" class="ln">   194  </span>				case items &lt;- datadog.PaginationResult[ContainerImageItem]{item, nil}:
+<span id="L194" class="ln">   194  </span>				case items &lt;- datadog.PaginationResult[ContainerImageItem]{Item: item, Error: nil}:
 <span id="L195" class="ln">   195  </span>				case &lt;-ctx.Done():
 <span id="L196" class="ln">   196  </span>					close(items)
 <span id="L197" class="ln">   197  </span>					return

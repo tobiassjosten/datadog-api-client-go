@@ -315,7 +315,7 @@
 <span id="L258" class="ln">   258  </span>			resp, _, err := a.ListCIAppTestEvents(ctx, o...)
 <span id="L259" class="ln">   259  </span>			if err != nil {
 <span id="L260" class="ln">   260  </span>				var returnItem CIAppTestEvent
-<span id="L261" class="ln">   261  </span>				items &lt;- datadog.PaginationResult[CIAppTestEvent]{returnItem, err}
+<span id="L261" class="ln">   261  </span>				items &lt;- datadog.PaginationResult[CIAppTestEvent]{Item: returnItem, Error: err}
 <span id="L262" class="ln">   262  </span>				break
 <span id="L263" class="ln">   263  </span>			}
 <span id="L264" class="ln">   264  </span>			respData, ok := resp.GetDataOk()
@@ -326,7 +326,7 @@
 <span id="L269" class="ln">   269  </span>
 <span id="L270" class="ln">   270  </span>			for _, item := range results {
 <span id="L271" class="ln">   271  </span>				select {
-<span id="L272" class="ln">   272  </span>				case items &lt;- datadog.PaginationResult[CIAppTestEvent]{item, nil}:
+<span id="L272" class="ln">   272  </span>				case items &lt;- datadog.PaginationResult[CIAppTestEvent]{Item: item, Error: nil}:
 <span id="L273" class="ln">   273  </span>				case &lt;-ctx.Done():
 <span id="L274" class="ln">   274  </span>					close(items)
 <span id="L275" class="ln">   275  </span>					return
@@ -482,7 +482,7 @@
 <span id="L425" class="ln">   425  </span>			resp, _, err := a.SearchCIAppTestEvents(ctx, o...)
 <span id="L426" class="ln">   426  </span>			if err != nil {
 <span id="L427" class="ln">   427  </span>				var returnItem CIAppTestEvent
-<span id="L428" class="ln">   428  </span>				items &lt;- datadog.PaginationResult[CIAppTestEvent]{returnItem, err}
+<span id="L428" class="ln">   428  </span>				items &lt;- datadog.PaginationResult[CIAppTestEvent]{Item: returnItem, Error: err}
 <span id="L429" class="ln">   429  </span>				break
 <span id="L430" class="ln">   430  </span>			}
 <span id="L431" class="ln">   431  </span>			respData, ok := resp.GetDataOk()
@@ -493,7 +493,7 @@
 <span id="L436" class="ln">   436  </span>
 <span id="L437" class="ln">   437  </span>			for _, item := range results {
 <span id="L438" class="ln">   438  </span>				select {
-<span id="L439" class="ln">   439  </span>				case items &lt;- datadog.PaginationResult[CIAppTestEvent]{item, nil}:
+<span id="L439" class="ln">   439  </span>				case items &lt;- datadog.PaginationResult[CIAppTestEvent]{Item: item, Error: nil}:
 <span id="L440" class="ln">   440  </span>				case &lt;-ctx.Done():
 <span id="L441" class="ln">   441  </span>					close(items)
 <span id="L442" class="ln">   442  </span>					return

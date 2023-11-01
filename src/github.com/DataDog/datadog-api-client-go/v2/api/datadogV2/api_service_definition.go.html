@@ -442,7 +442,7 @@
 <span id="L385" class="ln">   385  </span>			resp, _, err := a.ListServiceDefinitions(ctx, o...)
 <span id="L386" class="ln">   386  </span>			if err != nil {
 <span id="L387" class="ln">   387  </span>				var returnItem ServiceDefinitionData
-<span id="L388" class="ln">   388  </span>				items &lt;- datadog.PaginationResult[ServiceDefinitionData]{returnItem, err}
+<span id="L388" class="ln">   388  </span>				items &lt;- datadog.PaginationResult[ServiceDefinitionData]{Item: returnItem, Error: err}
 <span id="L389" class="ln">   389  </span>				break
 <span id="L390" class="ln">   390  </span>			}
 <span id="L391" class="ln">   391  </span>			respData, ok := resp.GetDataOk()
@@ -453,7 +453,7 @@
 <span id="L396" class="ln">   396  </span>
 <span id="L397" class="ln">   397  </span>			for _, item := range results {
 <span id="L398" class="ln">   398  </span>				select {
-<span id="L399" class="ln">   399  </span>				case items &lt;- datadog.PaginationResult[ServiceDefinitionData]{item, nil}:
+<span id="L399" class="ln">   399  </span>				case items &lt;- datadog.PaginationResult[ServiceDefinitionData]{Item: item, Error: nil}:
 <span id="L400" class="ln">   400  </span>				case &lt;-ctx.Done():
 <span id="L401" class="ln">   401  </span>					close(items)
 <span id="L402" class="ln">   402  </span>					return

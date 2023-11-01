@@ -1153,7 +1153,7 @@
 <span id="L1096" class="ln">  1096  </span>			resp, _, err := a.ListFindings(ctx, o...)
 <span id="L1097" class="ln">  1097  </span>			if err != nil {
 <span id="L1098" class="ln">  1098  </span>				var returnItem Finding
-<span id="L1099" class="ln">  1099  </span>				items &lt;- datadog.PaginationResult[Finding]{returnItem, err}
+<span id="L1099" class="ln">  1099  </span>				items &lt;- datadog.PaginationResult[Finding]{Item: returnItem, Error: err}
 <span id="L1100" class="ln">  1100  </span>				break
 <span id="L1101" class="ln">  1101  </span>			}
 <span id="L1102" class="ln">  1102  </span>			respData, ok := resp.GetDataOk()
@@ -1164,7 +1164,7 @@
 <span id="L1107" class="ln">  1107  </span>
 <span id="L1108" class="ln">  1108  </span>			for _, item := range results {
 <span id="L1109" class="ln">  1109  </span>				select {
-<span id="L1110" class="ln">  1110  </span>				case items &lt;- datadog.PaginationResult[Finding]{item, nil}:
+<span id="L1110" class="ln">  1110  </span>				case items &lt;- datadog.PaginationResult[Finding]{Item: item, Error: nil}:
 <span id="L1111" class="ln">  1111  </span>				case &lt;-ctx.Done():
 <span id="L1112" class="ln">  1112  </span>					close(items)
 <span id="L1113" class="ln">  1113  </span>					return
@@ -1539,7 +1539,7 @@
 <span id="L1482" class="ln">  1482  </span>			resp, _, err := a.ListSecurityMonitoringSignals(ctx, o...)
 <span id="L1483" class="ln">  1483  </span>			if err != nil {
 <span id="L1484" class="ln">  1484  </span>				var returnItem SecurityMonitoringSignal
-<span id="L1485" class="ln">  1485  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{returnItem, err}
+<span id="L1485" class="ln">  1485  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{Item: returnItem, Error: err}
 <span id="L1486" class="ln">  1486  </span>				break
 <span id="L1487" class="ln">  1487  </span>			}
 <span id="L1488" class="ln">  1488  </span>			respData, ok := resp.GetDataOk()
@@ -1550,7 +1550,7 @@
 <span id="L1493" class="ln">  1493  </span>
 <span id="L1494" class="ln">  1494  </span>			for _, item := range results {
 <span id="L1495" class="ln">  1495  </span>				select {
-<span id="L1496" class="ln">  1496  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{item, nil}:
+<span id="L1496" class="ln">  1496  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{Item: item, Error: nil}:
 <span id="L1497" class="ln">  1497  </span>				case &lt;-ctx.Done():
 <span id="L1498" class="ln">  1498  </span>					close(items)
 <span id="L1499" class="ln">  1499  </span>					return
@@ -1785,7 +1785,7 @@
 <span id="L1728" class="ln">  1728  </span>			resp, _, err := a.SearchSecurityMonitoringSignals(ctx, o...)
 <span id="L1729" class="ln">  1729  </span>			if err != nil {
 <span id="L1730" class="ln">  1730  </span>				var returnItem SecurityMonitoringSignal
-<span id="L1731" class="ln">  1731  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{returnItem, err}
+<span id="L1731" class="ln">  1731  </span>				items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{Item: returnItem, Error: err}
 <span id="L1732" class="ln">  1732  </span>				break
 <span id="L1733" class="ln">  1733  </span>			}
 <span id="L1734" class="ln">  1734  </span>			respData, ok := resp.GetDataOk()
@@ -1796,7 +1796,7 @@
 <span id="L1739" class="ln">  1739  </span>
 <span id="L1740" class="ln">  1740  </span>			for _, item := range results {
 <span id="L1741" class="ln">  1741  </span>				select {
-<span id="L1742" class="ln">  1742  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{item, nil}:
+<span id="L1742" class="ln">  1742  </span>				case items &lt;- datadog.PaginationResult[SecurityMonitoringSignal]{Item: item, Error: nil}:
 <span id="L1743" class="ln">  1743  </span>				case &lt;-ctx.Done():
 <span id="L1744" class="ln">  1744  </span>					close(items)
 <span id="L1745" class="ln">  1745  </span>					return

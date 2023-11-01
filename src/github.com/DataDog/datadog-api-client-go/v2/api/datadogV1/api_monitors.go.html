@@ -803,14 +803,14 @@
 <span id="L746" class="ln">   746  </span>			resp, _, err := a.ListMonitors(ctx, o...)
 <span id="L747" class="ln">   747  </span>			if err != nil {
 <span id="L748" class="ln">   748  </span>				var returnItem Monitor
-<span id="L749" class="ln">   749  </span>				items &lt;- datadog.PaginationResult[Monitor]{returnItem, err}
+<span id="L749" class="ln">   749  </span>				items &lt;- datadog.PaginationResult[Monitor]{Item: returnItem, Error: err}
 <span id="L750" class="ln">   750  </span>				break
 <span id="L751" class="ln">   751  </span>			}
 <span id="L752" class="ln">   752  </span>			results := resp
 <span id="L753" class="ln">   753  </span>
 <span id="L754" class="ln">   754  </span>			for _, item := range results {
 <span id="L755" class="ln">   755  </span>				select {
-<span id="L756" class="ln">   756  </span>				case items &lt;- datadog.PaginationResult[Monitor]{item, nil}:
+<span id="L756" class="ln">   756  </span>				case items &lt;- datadog.PaginationResult[Monitor]{Item: item, Error: nil}:
 <span id="L757" class="ln">   757  </span>				case &lt;-ctx.Done():
 <span id="L758" class="ln">   758  </span>					close(items)
 <span id="L759" class="ln">   759  </span>					return

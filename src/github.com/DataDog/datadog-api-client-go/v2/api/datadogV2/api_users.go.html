@@ -663,7 +663,7 @@
 <span id="L606" class="ln">   606  </span>			resp, _, err := a.ListUsers(ctx, o...)
 <span id="L607" class="ln">   607  </span>			if err != nil {
 <span id="L608" class="ln">   608  </span>				var returnItem User
-<span id="L609" class="ln">   609  </span>				items &lt;- datadog.PaginationResult[User]{returnItem, err}
+<span id="L609" class="ln">   609  </span>				items &lt;- datadog.PaginationResult[User]{Item: returnItem, Error: err}
 <span id="L610" class="ln">   610  </span>				break
 <span id="L611" class="ln">   611  </span>			}
 <span id="L612" class="ln">   612  </span>			respData, ok := resp.GetDataOk()
@@ -674,7 +674,7 @@
 <span id="L617" class="ln">   617  </span>
 <span id="L618" class="ln">   618  </span>			for _, item := range results {
 <span id="L619" class="ln">   619  </span>				select {
-<span id="L620" class="ln">   620  </span>				case items &lt;- datadog.PaginationResult[User]{item, nil}:
+<span id="L620" class="ln">   620  </span>				case items &lt;- datadog.PaginationResult[User]{Item: item, Error: nil}:
 <span id="L621" class="ln">   621  </span>				case &lt;-ctx.Done():
 <span id="L622" class="ln">   622  </span>					close(items)
 <span id="L623" class="ln">   623  </span>					return

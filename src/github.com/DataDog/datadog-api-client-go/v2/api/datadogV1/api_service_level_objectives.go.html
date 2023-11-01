@@ -869,7 +869,7 @@
 <span id="L812" class="ln">   812  </span>			resp, _, err := a.ListSLOs(ctx, o...)
 <span id="L813" class="ln">   813  </span>			if err != nil {
 <span id="L814" class="ln">   814  </span>				var returnItem ServiceLevelObjective
-<span id="L815" class="ln">   815  </span>				items &lt;- datadog.PaginationResult[ServiceLevelObjective]{returnItem, err}
+<span id="L815" class="ln">   815  </span>				items &lt;- datadog.PaginationResult[ServiceLevelObjective]{Item: returnItem, Error: err}
 <span id="L816" class="ln">   816  </span>				break
 <span id="L817" class="ln">   817  </span>			}
 <span id="L818" class="ln">   818  </span>			respData, ok := resp.GetDataOk()
@@ -880,7 +880,7 @@
 <span id="L823" class="ln">   823  </span>
 <span id="L824" class="ln">   824  </span>			for _, item := range results {
 <span id="L825" class="ln">   825  </span>				select {
-<span id="L826" class="ln">   826  </span>				case items &lt;- datadog.PaginationResult[ServiceLevelObjective]{item, nil}:
+<span id="L826" class="ln">   826  </span>				case items &lt;- datadog.PaginationResult[ServiceLevelObjective]{Item: item, Error: nil}:
 <span id="L827" class="ln">   827  </span>				case &lt;-ctx.Done():
 <span id="L828" class="ln">   828  </span>					close(items)
 <span id="L829" class="ln">   829  </span>					return

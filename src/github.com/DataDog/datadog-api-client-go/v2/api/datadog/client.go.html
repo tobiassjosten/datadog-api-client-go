@@ -315,7 +315,7 @@
 <span id="L258" class="ln">   258  </span>						return nil, err
 <span id="L259" class="ln">   259  </span>					}
 <span id="L260" class="ln">   260  </span>				} else { <span class="comment">// form value</span>
-<span id="L261" class="ln">   261  </span>					w.WriteField(k, iv)
+<span id="L261" class="ln">   261  </span>					_ = w.WriteField(k, iv)
 <span id="L262" class="ln">   262  </span>				}
 <span id="L263" class="ln">   263  </span>			}
 <span id="L264" class="ln">   264  </span>		}

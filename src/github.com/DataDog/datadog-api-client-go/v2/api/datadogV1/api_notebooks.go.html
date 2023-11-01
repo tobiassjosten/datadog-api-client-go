@@ -485,7 +485,7 @@
 <span id="L428" class="ln">   428  </span>			resp, _, err := a.ListNotebooks(ctx, o...)
 <span id="L429" class="ln">   429  </span>			if err != nil {
 <span id="L430" class="ln">   430  </span>				var returnItem NotebooksResponseData
-<span id="L431" class="ln">   431  </span>				items &lt;- datadog.PaginationResult[NotebooksResponseData]{returnItem, err}
+<span id="L431" class="ln">   431  </span>				items &lt;- datadog.PaginationResult[NotebooksResponseData]{Item: returnItem, Error: err}
 <span id="L432" class="ln">   432  </span>				break
 <span id="L433" class="ln">   433  </span>			}
 <span id="L434" class="ln">   434  </span>			respData, ok := resp.GetDataOk()
@@ -496,7 +496,7 @@
 <span id="L439" class="ln">   439  </span>
 <span id="L440" class="ln">   440  </span>			for _, item := range results {
 <span id="L441" class="ln">   441  </span>				select {
-<span id="L442" class="ln">   442  </span>				case items &lt;- datadog.PaginationResult[NotebooksResponseData]{item, nil}:
+<span id="L442" class="ln">   442  </span>				case items &lt;- datadog.PaginationResult[NotebooksResponseData]{Item: item, Error: nil}:
 <span id="L443" class="ln">   443  </span>				case &lt;-ctx.Done():
 <span id="L444" class="ln">   444  </span>					close(items)
 <span id="L445" class="ln">   445  </span>					return

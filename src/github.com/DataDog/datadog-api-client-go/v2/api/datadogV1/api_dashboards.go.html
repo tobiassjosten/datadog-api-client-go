@@ -889,7 +889,7 @@
 <span id="L832" class="ln">   832  </span>			resp, _, err := a.ListDashboards(ctx, o...)
 <span id="L833" class="ln">   833  </span>			if err != nil {
 <span id="L834" class="ln">   834  </span>				var returnItem DashboardSummaryDefinition
-<span id="L835" class="ln">   835  </span>				items &lt;- datadog.PaginationResult[DashboardSummaryDefinition]{returnItem, err}
+<span id="L835" class="ln">   835  </span>				items &lt;- datadog.PaginationResult[DashboardSummaryDefinition]{Item: returnItem, Error: err}
 <span id="L836" class="ln">   836  </span>				break
 <span id="L837" class="ln">   837  </span>			}
 <span id="L838" class="ln">   838  </span>			respDashboards, ok := resp.GetDashboardsOk()
@@ -900,7 +900,7 @@
 <span id="L843" class="ln">   843  </span>
 <span id="L844" class="ln">   844  </span>			for _, item := range results {
 <span id="L845" class="ln">   845  </span>				select {
-<span id="L846" class="ln">   846  </span>				case items &lt;- datadog.PaginationResult[DashboardSummaryDefinition]{item, nil}:
+<span id="L846" class="ln">   846  </span>				case items &lt;- datadog.PaginationResult[DashboardSummaryDefinition]{Item: item, Error: nil}:
 <span id="L847" class="ln">   847  </span>				case &lt;-ctx.Done():
 <span id="L848" class="ln">   848  </span>					close(items)
 <span id="L849" class="ln">   849  </span>					return

@@ -251,7 +251,7 @@
 <span id="L194" class="ln">   194  </span>			resp, _, err := a.ListSpans(ctx, body)
 <span id="L195" class="ln">   195  </span>			if err != nil {
 <span id="L196" class="ln">   196  </span>				var returnItem Span
-<span id="L197" class="ln">   197  </span>				items &lt;- datadog.PaginationResult[Span]{returnItem, err}
+<span id="L197" class="ln">   197  </span>				items &lt;- datadog.PaginationResult[Span]{Item: returnItem, Error: err}
 <span id="L198" class="ln">   198  </span>				break
 <span id="L199" class="ln">   199  </span>			}
 <span id="L200" class="ln">   200  </span>			respData, ok := resp.GetDataOk()
@@ -262,7 +262,7 @@
 <span id="L205" class="ln">   205  </span>
 <span id="L206" class="ln">   206  </span>			for _, item := range results {
 <span id="L207" class="ln">   207  </span>				select {
-<span id="L208" class="ln">   208  </span>				case items &lt;- datadog.PaginationResult[Span]{item, nil}:
+<span id="L208" class="ln">   208  </span>				case items &lt;- datadog.PaginationResult[Span]{Item: item, Error: nil}:
 <span id="L209" class="ln">   209  </span>				case &lt;-ctx.Done():
 <span id="L210" class="ln">   210  </span>					close(items)
 <span id="L211" class="ln">   211  </span>					return
@@ -463,7 +463,7 @@
 <span id="L406" class="ln">   406  </span>			resp, _, err := a.ListSpansGet(ctx, o...)
 <span id="L407" class="ln">   407  </span>			if err != nil {
 <span id="L408" class="ln">   408  </span>				var returnItem Span
-<span id="L409" class="ln">   409  </span>				items &lt;- datadog.PaginationResult[Span]{returnItem, err}
+<span id="L409" class="ln">   409  </span>				items &lt;- datadog.PaginationResult[Span]{Item: returnItem, Error: err}
 <span id="L410" class="ln">   410  </span>				break
 <span id="L411" class="ln">   411  </span>			}
 <span id="L412" class="ln">   412  </span>			respData, ok := resp.GetDataOk()
@@ -474,7 +474,7 @@
 <span id="L417" class="ln">   417  </span>
 <span id="L418" class="ln">   418  </span>			for _, item := range results {
 <span id="L419" class="ln">   419  </span>				select {
-<span id="L420" class="ln">   420  </span>				case items &lt;- datadog.PaginationResult[Span]{item, nil}:
+<span id="L420" class="ln">   420  </span>				case items &lt;- datadog.PaginationResult[Span]{Item: item, Error: nil}:
 <span id="L421" class="ln">   421  </span>				case &lt;-ctx.Done():
 <span id="L422" class="ln">   422  </span>					close(items)
 <span id="L423" class="ln">   423  </span>					return
