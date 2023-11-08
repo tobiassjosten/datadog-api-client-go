@@ -84,7 +84,7 @@
 <span id="L27" class="ln">    27  </span>	<span class="comment">// Third party integrations that Datadog supports.</span>
 <span id="L28" class="ln">    28  </span>	Integrations *ServiceDefinitionV2Dot2Integrations `json:&#34;integrations,omitempty&#34;`
 <span id="L29" class="ln">    29  </span>	<span class="comment">// The service&#39;s programming language. Datadog recognizes the following languages: `dotnet`, `go`, `java`, `js`, `php`, `python`, `ruby`, and `c++`.</span>
-<span id="L30" class="ln">    30  </span>	Langauges []string `json:&#34;langauges,omitempty&#34;`
+<span id="L30" class="ln">    30  </span>	Languages []string `json:&#34;languages,omitempty&#34;`
 <span id="L31" class="ln">    31  </span>	<span class="comment">// The current life cycle phase of the service.</span>
 <span id="L32" class="ln">    32  </span>	Lifecycle *string `json:&#34;lifecycle,omitempty&#34;`
 <span id="L33" class="ln">    33  </span>	<span class="comment">// A list of links related to the services.</span>
@@ -288,32 +288,32 @@
 <span id="L231" class="ln">   231  </span>	o.Integrations = &amp;v
 <span id="L232" class="ln">   232  </span>}
 <span id="L233" class="ln">   233  </span>
-<span id="L234" class="ln">   234  </span><span class="comment">// GetLangauges returns the Langauges field value if set, zero value otherwise.</span>
-<span id="L235" class="ln">   235  </span>func (o *ServiceDefinitionV2Dot2) GetLangauges() []string {
-<span id="L236" class="ln">   236  </span>	if o == nil || o.Langauges == nil {
+<span id="L234" class="ln">   234  </span><span class="comment">// GetLanguages returns the Languages field value if set, zero value otherwise.</span>
+<span id="L235" class="ln">   235  </span>func (o *ServiceDefinitionV2Dot2) GetLanguages() []string {
+<span id="L236" class="ln">   236  </span>	if o == nil || o.Languages == nil {
 <span id="L237" class="ln">   237  </span>		var ret []string
 <span id="L238" class="ln">   238  </span>		return ret
 <span id="L239" class="ln">   239  </span>	}
-<span id="L240" class="ln">   240  </span>	return o.Langauges
+<span id="L240" class="ln">   240  </span>	return o.Languages
 <span id="L241" class="ln">   241  </span>}
 <span id="L242" class="ln">   242  </span>
-<span id="L243" class="ln">   243  </span><span class="comment">// GetLangaugesOk returns a tuple with the Langauges field value if set, nil otherwise</span>
+<span id="L243" class="ln">   243  </span><span class="comment">// GetLanguagesOk returns a tuple with the Languages field value if set, nil otherwise</span>
 <span id="L244" class="ln">   244  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L245" class="ln">   245  </span>func (o *ServiceDefinitionV2Dot2) GetLangaugesOk() (*[]string, bool) {
-<span id="L246" class="ln">   246  </span>	if o == nil || o.Langauges == nil {
+<span id="L245" class="ln">   245  </span>func (o *ServiceDefinitionV2Dot2) GetLanguagesOk() (*[]string, bool) {
+<span id="L246" class="ln">   246  </span>	if o == nil || o.Languages == nil {
 <span id="L247" class="ln">   247  </span>		return nil, false
 <span id="L248" class="ln">   248  </span>	}
-<span id="L249" class="ln">   249  </span>	return &amp;o.Langauges, true
+<span id="L249" class="ln">   249  </span>	return &amp;o.Languages, true
 <span id="L250" class="ln">   250  </span>}
 <span id="L251" class="ln">   251  </span>
-<span id="L252" class="ln">   252  </span><span class="comment">// HasLangauges returns a boolean if a field has been set.</span>
-<span id="L253" class="ln">   253  </span>func (o *ServiceDefinitionV2Dot2) HasLangauges() bool {
-<span id="L254" class="ln">   254  </span>	return o != nil &amp;&amp; o.Langauges != nil
+<span id="L252" class="ln">   252  </span><span class="comment">// HasLanguages returns a boolean if a field has been set.</span>
+<span id="L253" class="ln">   253  </span>func (o *ServiceDefinitionV2Dot2) HasLanguages() bool {
+<span id="L254" class="ln">   254  </span>	return o != nil &amp;&amp; o.Languages != nil
 <span id="L255" class="ln">   255  </span>}
 <span id="L256" class="ln">   256  </span>
-<span id="L257" class="ln">   257  </span><span class="comment">// SetLangauges gets a reference to the given []string and assigns it to the Langauges field.</span>
-<span id="L258" class="ln">   258  </span>func (o *ServiceDefinitionV2Dot2) SetLangauges(v []string) {
-<span id="L259" class="ln">   259  </span>	o.Langauges = v
+<span id="L257" class="ln">   257  </span><span class="comment">// SetLanguages gets a reference to the given []string and assigns it to the Languages field.</span>
+<span id="L258" class="ln">   258  </span>func (o *ServiceDefinitionV2Dot2) SetLanguages(v []string) {
+<span id="L259" class="ln">   259  </span>	o.Languages = v
 <span id="L260" class="ln">   260  </span>}
 <span id="L261" class="ln">   261  </span>
 <span id="L262" class="ln">   262  </span><span class="comment">// GetLifecycle returns the Lifecycle field value if set, zero value otherwise.</span>
@@ -529,8 +529,8 @@
 <span id="L472" class="ln">   472  </span>	if o.Integrations != nil {
 <span id="L473" class="ln">   473  </span>		toSerialize[&#34;integrations&#34;] = o.Integrations
 <span id="L474" class="ln">   474  </span>	}
-<span id="L475" class="ln">   475  </span>	if o.Langauges != nil {
-<span id="L476" class="ln">   476  </span>		toSerialize[&#34;langauges&#34;] = o.Langauges
+<span id="L475" class="ln">   475  </span>	if o.Languages != nil {
+<span id="L476" class="ln">   476  </span>		toSerialize[&#34;languages&#34;] = o.Languages
 <span id="L477" class="ln">   477  </span>	}
 <span id="L478" class="ln">   478  </span>	if o.Lifecycle != nil {
 <span id="L479" class="ln">   479  </span>		toSerialize[&#34;lifecycle&#34;] = o.Lifecycle
@@ -567,7 +567,7 @@
 <span id="L510" class="ln">   510  </span>		Description   *string                              `json:&#34;description,omitempty&#34;`
 <span id="L511" class="ln">   511  </span>		Extensions    map[string]interface{}               `json:&#34;extensions,omitempty&#34;`
 <span id="L512" class="ln">   512  </span>		Integrations  *ServiceDefinitionV2Dot2Integrations `json:&#34;integrations,omitempty&#34;`
-<span id="L513" class="ln">   513  </span>		Langauges     []string                             `json:&#34;langauges,omitempty&#34;`
+<span id="L513" class="ln">   513  </span>		Languages     []string                             `json:&#34;languages,omitempty&#34;`
 <span id="L514" class="ln">   514  </span>		Lifecycle     *string                              `json:&#34;lifecycle,omitempty&#34;`
 <span id="L515" class="ln">   515  </span>		Links         []ServiceDefinitionV2Dot2Link        `json:&#34;links,omitempty&#34;`
 <span id="L516" class="ln">   516  </span>		SchemaVersion *ServiceDefinitionV2Dot2Version      `json:&#34;schema-version&#34;`
@@ -587,7 +587,7 @@
 <span id="L530" class="ln">   530  </span>	}
 <span id="L531" class="ln">   531  </span>	additionalProperties := make(map[string]interface{})
 <span id="L532" class="ln">   532  </span>	if err = json.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L533" class="ln">   533  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application&#34;, &#34;contacts&#34;, &#34;dd-service&#34;, &#34;description&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;langauges&#34;, &#34;lifecycle&#34;, &#34;links&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;, &#34;tier&#34;, &#34;type&#34;})
+<span id="L533" class="ln">   533  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;application&#34;, &#34;contacts&#34;, &#34;dd-service&#34;, &#34;description&#34;, &#34;extensions&#34;, &#34;integrations&#34;, &#34;languages&#34;, &#34;lifecycle&#34;, &#34;links&#34;, &#34;schema-version&#34;, &#34;tags&#34;, &#34;team&#34;, &#34;tier&#34;, &#34;type&#34;})
 <span id="L534" class="ln">   534  </span>	} else {
 <span id="L535" class="ln">   535  </span>		return err
 <span id="L536" class="ln">   536  </span>	}
@@ -602,7 +602,7 @@
 <span id="L545" class="ln">   545  </span>		hasInvalidField = true
 <span id="L546" class="ln">   546  </span>	}
 <span id="L547" class="ln">   547  </span>	o.Integrations = all.Integrations
-<span id="L548" class="ln">   548  </span>	o.Langauges = all.Langauges
+<span id="L548" class="ln">   548  </span>	o.Languages = all.Languages
 <span id="L549" class="ln">   549  </span>	o.Lifecycle = all.Lifecycle
 <span id="L550" class="ln">   550  </span>	o.Links = all.Links
 <span id="L551" class="ln">   551  </span>	if !all.SchemaVersion.IsValid() {
