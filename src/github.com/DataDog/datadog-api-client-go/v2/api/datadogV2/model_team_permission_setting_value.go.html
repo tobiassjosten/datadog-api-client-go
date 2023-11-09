@@ -64,7 +64,7 @@
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	&#34;fmt&#34;
 <span id="L9" class="ln">     9  </span>
-<span id="L10" class="ln">    10  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// TeamPermissionSettingValue What type of user is allowed to perform the specified action</span>
@@ -95,7 +95,7 @@
 <span id="L38" class="ln">    38  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L39" class="ln">    39  </span>func (v *TeamPermissionSettingValue) UnmarshalJSON(src []byte) error {
 <span id="L40" class="ln">    40  </span>	var value string
-<span id="L41" class="ln">    41  </span>	err := json.Unmarshal(src, &amp;value)
+<span id="L41" class="ln">    41  </span>	err := datadog.Unmarshal(src, &amp;value)
 <span id="L42" class="ln">    42  </span>	if err != nil {
 <span id="L43" class="ln">    43  </span>		return err
 <span id="L44" class="ln">    44  </span>	}

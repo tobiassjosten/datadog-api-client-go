@@ -64,7 +64,7 @@
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	&#34;fmt&#34;
 <span id="L9" class="ln">     9  </span>
-<span id="L10" class="ln">    10  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// SyntheticsAssertionType Type of the assertion.</span>
@@ -123,7 +123,7 @@
 <span id="L66" class="ln">    66  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L67" class="ln">    67  </span>func (v *SyntheticsAssertionType) UnmarshalJSON(src []byte) error {
 <span id="L68" class="ln">    68  </span>	var value string
-<span id="L69" class="ln">    69  </span>	err := json.Unmarshal(src, &amp;value)
+<span id="L69" class="ln">    69  </span>	err := datadog.Unmarshal(src, &amp;value)
 <span id="L70" class="ln">    70  </span>	if err != nil {
 <span id="L71" class="ln">    71  </span>		return err
 <span id="L72" class="ln">    72  </span>	}

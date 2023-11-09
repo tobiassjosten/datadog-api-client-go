@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV2
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// SecurityMonitoringRuleQuery - Query for matching rule.</span>
@@ -89,10 +89,10 @@
 <span id="L32" class="ln">    32  </span>	var err error
 <span id="L33" class="ln">    33  </span>	match := 0
 <span id="L34" class="ln">    34  </span>	<span class="comment">// try to unmarshal data into SecurityMonitoringStandardRuleQuery</span>
-<span id="L35" class="ln">    35  </span>	err = json.Unmarshal(data, &amp;obj.SecurityMonitoringStandardRuleQuery)
+<span id="L35" class="ln">    35  </span>	err = datadog.Unmarshal(data, &amp;obj.SecurityMonitoringStandardRuleQuery)
 <span id="L36" class="ln">    36  </span>	if err == nil {
 <span id="L37" class="ln">    37  </span>		if obj.SecurityMonitoringStandardRuleQuery != nil &amp;&amp; obj.SecurityMonitoringStandardRuleQuery.UnparsedObject == nil {
-<span id="L38" class="ln">    38  </span>			jsonSecurityMonitoringStandardRuleQuery, _ := json.Marshal(obj.SecurityMonitoringStandardRuleQuery)
+<span id="L38" class="ln">    38  </span>			jsonSecurityMonitoringStandardRuleQuery, _ := datadog.Marshal(obj.SecurityMonitoringStandardRuleQuery)
 <span id="L39" class="ln">    39  </span>			if string(jsonSecurityMonitoringStandardRuleQuery) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L40" class="ln">    40  </span>				obj.SecurityMonitoringStandardRuleQuery = nil
 <span id="L41" class="ln">    41  </span>			} else {
@@ -106,10 +106,10 @@
 <span id="L49" class="ln">    49  </span>	}
 <span id="L50" class="ln">    50  </span>
 <span id="L51" class="ln">    51  </span>	<span class="comment">// try to unmarshal data into SecurityMonitoringSignalRuleQuery</span>
-<span id="L52" class="ln">    52  </span>	err = json.Unmarshal(data, &amp;obj.SecurityMonitoringSignalRuleQuery)
+<span id="L52" class="ln">    52  </span>	err = datadog.Unmarshal(data, &amp;obj.SecurityMonitoringSignalRuleQuery)
 <span id="L53" class="ln">    53  </span>	if err == nil {
 <span id="L54" class="ln">    54  </span>		if obj.SecurityMonitoringSignalRuleQuery != nil &amp;&amp; obj.SecurityMonitoringSignalRuleQuery.UnparsedObject == nil {
-<span id="L55" class="ln">    55  </span>			jsonSecurityMonitoringSignalRuleQuery, _ := json.Marshal(obj.SecurityMonitoringSignalRuleQuery)
+<span id="L55" class="ln">    55  </span>			jsonSecurityMonitoringSignalRuleQuery, _ := datadog.Marshal(obj.SecurityMonitoringSignalRuleQuery)
 <span id="L56" class="ln">    56  </span>			if string(jsonSecurityMonitoringSignalRuleQuery) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L57" class="ln">    57  </span>				obj.SecurityMonitoringSignalRuleQuery = nil
 <span id="L58" class="ln">    58  </span>			} else {
@@ -126,7 +126,7 @@
 <span id="L69" class="ln">    69  </span>		<span class="comment">// reset to nil</span>
 <span id="L70" class="ln">    70  </span>		obj.SecurityMonitoringStandardRuleQuery = nil
 <span id="L71" class="ln">    71  </span>		obj.SecurityMonitoringSignalRuleQuery = nil
-<span id="L72" class="ln">    72  </span>		return json.Unmarshal(data, &amp;obj.UnparsedObject)
+<span id="L72" class="ln">    72  </span>		return datadog.Unmarshal(data, &amp;obj.UnparsedObject)
 <span id="L73" class="ln">    73  </span>	}
 <span id="L74" class="ln">    74  </span>	return nil <span class="comment">// exactly one match</span>
 <span id="L75" class="ln">    75  </span>}
@@ -134,15 +134,15 @@
 <span id="L77" class="ln">    77  </span><span class="comment">// MarshalJSON turns data from the first non-nil pointers in the struct to JSON.</span>
 <span id="L78" class="ln">    78  </span>func (obj SecurityMonitoringRuleQuery) MarshalJSON() ([]byte, error) {
 <span id="L79" class="ln">    79  </span>	if obj.SecurityMonitoringStandardRuleQuery != nil {
-<span id="L80" class="ln">    80  </span>		return json.Marshal(&amp;obj.SecurityMonitoringStandardRuleQuery)
+<span id="L80" class="ln">    80  </span>		return datadog.Marshal(&amp;obj.SecurityMonitoringStandardRuleQuery)
 <span id="L81" class="ln">    81  </span>	}
 <span id="L82" class="ln">    82  </span>
 <span id="L83" class="ln">    83  </span>	if obj.SecurityMonitoringSignalRuleQuery != nil {
-<span id="L84" class="ln">    84  </span>		return json.Marshal(&amp;obj.SecurityMonitoringSignalRuleQuery)
+<span id="L84" class="ln">    84  </span>		return datadog.Marshal(&amp;obj.SecurityMonitoringSignalRuleQuery)
 <span id="L85" class="ln">    85  </span>	}
 <span id="L86" class="ln">    86  </span>
 <span id="L87" class="ln">    87  </span>	if obj.UnparsedObject != nil {
-<span id="L88" class="ln">    88  </span>		return json.Marshal(obj.UnparsedObject)
+<span id="L88" class="ln">    88  </span>		return datadog.Marshal(obj.UnparsedObject)
 <span id="L89" class="ln">    89  </span>	}
 <span id="L90" class="ln">    90  </span>	return nil, nil <span class="comment">// no data in oneOf schemas</span>
 <span id="L91" class="ln">    91  </span>}

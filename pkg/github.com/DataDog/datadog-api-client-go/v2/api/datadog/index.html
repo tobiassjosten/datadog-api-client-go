@@ -116,7 +116,16 @@
 				<dd><a href="#DeleteKeys">func DeleteKeys[V any](obj map[string]V, keysToDelete *[]string)</a></dd>
 			
 				
+				<dd><a href="#Marshal">func Marshal(v interface{}) ([]byte, error)</a></dd>
+			
+				
+				<dd><a href="#NewDecoder">func NewDecoder(r io.Reader) *json.Decoder</a></dd>
+			
+				
 				<dd><a href="#NewDefaultContext">func NewDefaultContext(ctx context.Context) context.Context</a></dd>
+			
+				
+				<dd><a href="#NewEncoder">func NewEncoder(w io.Writer) *json.Encoder</a></dd>
 			
 				
 				<dd><a href="#ParameterToString">func ParameterToString(obj interface{}, collectionFormat string) string</a></dd>
@@ -156,6 +165,9 @@
 			
 				
 				<dd><a href="#Strlen">func Strlen(s string) int</a></dd>
+			
+				
+				<dd><a href="#Unmarshal">func Unmarshal(data []byte, v interface{}) error</a></dd>
 			
 			
 				
@@ -518,6 +530,8 @@
 			
 				<a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/configuration.go">configuration.go</a>
 			
+				<a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/encoding_json.go">encoding_json.go</a>
+			
 				<a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go">utils.go</a>
 			
 				<a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/zstd.go">zstd.go</a>
@@ -568,7 +582,7 @@
 		
 			
 			
-			<h2 id="ContainsUnparsedObject">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L453">ContainsUnparsedObject</a>
+			<h2 id="ContainsUnparsedObject">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L451">ContainsUnparsedObject</a>
 				<a class="permalink" href="#ContainsUnparsedObject">&#xb6;</a>
 				
 				
@@ -582,7 +596,7 @@
 		
 			
 			
-			<h2 id="DeleteKeys">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L446">DeleteKeys</a>
+			<h2 id="DeleteKeys">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L444">DeleteKeys</a>
 				<a class="permalink" href="#DeleteKeys">&#xb6;</a>
 				
 				
@@ -590,6 +604,32 @@
 			<pre>func DeleteKeys[V <a href="https://pkg.go.dev/builtin/#any">any</a>](obj map[<a href="https://pkg.go.dev/builtin/#string">string</a>]V, keysToDelete *[]<a href="https://pkg.go.dev/builtin/#string">string</a>)</pre>
 			<p>DeleteKeys helper method to delete keys from a map
 
+			
+			
+
+		
+			
+			
+			<h2 id="Marshal">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/encoding_json.go#L14">Marshal</a>
+				<a class="permalink" href="#Marshal">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Marshal(v interface{}) ([]<a href="https://pkg.go.dev/builtin/#byte">byte</a>, <a href="https://pkg.go.dev/builtin/#error">error</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="NewDecoder">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/encoding_json.go#L26">NewDecoder</a>
+				<a class="permalink" href="#NewDecoder">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func NewDecoder(r <a href="https://pkg.go.dev/io/">io</a>.<a href="https://pkg.go.dev/io/#Reader">Reader</a>) *<a href="https://pkg.go.dev/encoding/json/">json</a>.<a href="https://pkg.go.dev/encoding/json/#Decoder">Decoder</a></pre>
+			
 			
 			
 
@@ -610,7 +650,20 @@
 		
 			
 			
-			<h2 id="ParameterToString">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L98">ParameterToString</a>
+			<h2 id="NewEncoder">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/encoding_json.go#L22">NewEncoder</a>
+				<a class="permalink" href="#NewEncoder">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func NewEncoder(w <a href="https://pkg.go.dev/io/">io</a>.<a href="https://pkg.go.dev/io/#Writer">Writer</a>) *<a href="https://pkg.go.dev/encoding/json/">json</a>.<a href="https://pkg.go.dev/encoding/json/#Encoder">Encoder</a></pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="ParameterToString">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L97">ParameterToString</a>
 				<a class="permalink" href="#ParameterToString">&#xb6;</a>
 				
 				
@@ -624,7 +677,7 @@
 		
 			
 			
-			<h2 id="PtrBool">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L20">PtrBool</a>
+			<h2 id="PtrBool">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L18">PtrBool</a>
 				<a class="permalink" href="#PtrBool">&#xb6;</a>
 				
 				
@@ -638,7 +691,7 @@
 		
 			
 			
-			<h2 id="PtrFloat32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L32">PtrFloat32</a>
+			<h2 id="PtrFloat32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L30">PtrFloat32</a>
 				<a class="permalink" href="#PtrFloat32">&#xb6;</a>
 				
 				
@@ -652,7 +705,7 @@
 		
 			
 			
-			<h2 id="PtrFloat64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L35">PtrFloat64</a>
+			<h2 id="PtrFloat64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L33">PtrFloat64</a>
 				<a class="permalink" href="#PtrFloat64">&#xb6;</a>
 				
 				
@@ -666,7 +719,7 @@
 		
 			
 			
-			<h2 id="PtrInt">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L23">PtrInt</a>
+			<h2 id="PtrInt">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L21">PtrInt</a>
 				<a class="permalink" href="#PtrInt">&#xb6;</a>
 				
 				
@@ -680,7 +733,7 @@
 		
 			
 			
-			<h2 id="PtrInt32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L26">PtrInt32</a>
+			<h2 id="PtrInt32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L24">PtrInt32</a>
 				<a class="permalink" href="#PtrInt32">&#xb6;</a>
 				
 				
@@ -694,7 +747,7 @@
 		
 			
 			
-			<h2 id="PtrInt64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L29">PtrInt64</a>
+			<h2 id="PtrInt64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L27">PtrInt64</a>
 				<a class="permalink" href="#PtrInt64">&#xb6;</a>
 				
 				
@@ -708,7 +761,7 @@
 		
 			
 			
-			<h2 id="PtrString">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L38">PtrString</a>
+			<h2 id="PtrString">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L36">PtrString</a>
 				<a class="permalink" href="#PtrString">&#xb6;</a>
 				
 				
@@ -722,7 +775,7 @@
 		
 			
 			
-			<h2 id="PtrTime">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L41">PtrTime</a>
+			<h2 id="PtrTime">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L39">PtrTime</a>
 				<a class="permalink" href="#PtrTime">&#xb6;</a>
 				
 				
@@ -736,7 +789,7 @@
 		
 			
 			
-			<h2 id="ReadBody">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L72">ReadBody</a>
+			<h2 id="ReadBody">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L71">ReadBody</a>
 				<a class="permalink" href="#ReadBody">&#xb6;</a>
 				
 				
@@ -750,7 +803,7 @@
 		
 			
 			
-			<h2 id="ReportError">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L458">ReportError</a>
+			<h2 id="ReportError">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L457">ReportError</a>
 				<a class="permalink" href="#ReportError">&#xb6;</a>
 				
 				
@@ -764,7 +817,7 @@
 		
 			
 			
-			<h2 id="SetAuthKeys">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L59">SetAuthKeys</a>
+			<h2 id="SetAuthKeys">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L58">SetAuthKeys</a>
 				<a class="permalink" href="#SetAuthKeys">&#xb6;</a>
 				
 				
@@ -778,7 +831,7 @@
 		
 			
 			
-			<h2 id="Strlen">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L502">Strlen</a>
+			<h2 id="Strlen">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L500">Strlen</a>
 				<a class="permalink" href="#Strlen">&#xb6;</a>
 				
 				
@@ -790,10 +843,23 @@
 			
 
 		
+			
+			
+			<h2 id="Unmarshal">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/encoding_json.go#L18">Unmarshal</a>
+				<a class="permalink" href="#Unmarshal">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Unmarshal(data []<a href="https://pkg.go.dev/builtin/#byte">byte</a>, v interface{}) <a href="https://pkg.go.dev/builtin/#error">error</a></pre>
+			
+			
+			
+
+		
 		
 			
 			
-			<h2 id="APIClient">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L42">APIClient</a>
+			<h2 id="APIClient">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L41">APIClient</a>
 				<a class="permalink" href="#APIClient">&#xb6;</a>
 				
 				
@@ -816,7 +882,7 @@ In most cases there should be only one, shared, APIClient.
 
 			
 				
-				<h3 id="NewAPIClient">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L81">NewAPIClient</a>
+				<h3 id="NewAPIClient">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L80">NewAPIClient</a>
 					<a class="permalink" href="#NewAPIClient">&#xb6;</a>
 					
 					
@@ -831,7 +897,7 @@ optionally a custom http.Client to allow for advanced features such as caching.
 
 			
 				
-				<h3 id="APIClient.CallAPI">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L125">CallAPI</a>
+				<h3 id="APIClient.CallAPI">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L124">CallAPI</a>
 					<a class="permalink" href="#APIClient.CallAPI">&#xb6;</a>
 					
 					
@@ -844,7 +910,7 @@ optionally a custom http.Client to allow for advanced features such as caching.
 				
 			
 				
-				<h3 id="APIClient.Decode">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L412">Decode</a>
+				<h3 id="APIClient.Decode">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L411">Decode</a>
 					<a class="permalink" href="#APIClient.Decode">&#xb6;</a>
 					
 					
@@ -857,7 +923,7 @@ optionally a custom http.Client to allow for advanced features such as caching.
 				
 			
 				
-				<h3 id="APIClient.GetConfig">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L215">GetConfig</a>
+				<h3 id="APIClient.GetConfig">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L214">GetConfig</a>
 					<a class="permalink" href="#APIClient.GetConfig">&#xb6;</a>
 					
 					
@@ -871,7 +937,7 @@ Caution: modifying the configuration while live can cause data races and potenti
 				
 			
 				
-				<h3 id="APIClient.PrepareRequest">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L220">PrepareRequest</a>
+				<h3 id="APIClient.PrepareRequest">func (*APIClient) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L219">PrepareRequest</a>
 					<a class="permalink" href="#APIClient.PrepareRequest">&#xb6;</a>
 					
 					
@@ -1092,7 +1158,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="FormFile">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L47">FormFile</a>
+			<h2 id="FormFile">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L46">FormFile</a>
 				<a class="permalink" href="#FormFile">&#xb6;</a>
 				
 				
@@ -1120,7 +1186,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="GenericOpenAPIError">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L520">GenericOpenAPIError</a>
+			<h2 id="GenericOpenAPIError">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L519">GenericOpenAPIError</a>
 				<a class="permalink" href="#GenericOpenAPIError">&#xb6;</a>
 				
 				
@@ -1146,7 +1212,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="GenericOpenAPIError.Body">func (GenericOpenAPIError) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L532">Body</a>
+				<h3 id="GenericOpenAPIError.Body">func (GenericOpenAPIError) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L531">Body</a>
 					<a class="permalink" href="#GenericOpenAPIError.Body">&#xb6;</a>
 					
 					
@@ -1159,7 +1225,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="GenericOpenAPIError.Error">func (GenericOpenAPIError) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L527">Error</a>
+				<h3 id="GenericOpenAPIError.Error">func (GenericOpenAPIError) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L526">Error</a>
 					<a class="permalink" href="#GenericOpenAPIError.Error">&#xb6;</a>
 					
 					
@@ -1172,7 +1238,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="GenericOpenAPIError.Model">func (GenericOpenAPIError) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L537">Model</a>
+				<h3 id="GenericOpenAPIError.Model">func (GenericOpenAPIError) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L536">Model</a>
 					<a class="permalink" href="#GenericOpenAPIError.Model">&#xb6;</a>
 					
 					
@@ -1187,7 +1253,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableBool">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L50">NullableBool</a>
+			<h2 id="NullableBool">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L48">NullableBool</a>
 				<a class="permalink" href="#NullableBool">&#xb6;</a>
 				
 				
@@ -1209,7 +1275,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableBool">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L78">NewNullableBool</a>
+				<h3 id="NewNullableBool">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L76">NewNullableBool</a>
 					<a class="permalink" href="#NewNullableBool">&#xb6;</a>
 					
 					
@@ -1223,7 +1289,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableBool.Get">func (NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L56">Get</a>
+				<h3 id="NullableBool.Get">func (NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L54">Get</a>
 					<a class="permalink" href="#NullableBool.Get">&#xb6;</a>
 					
 					
@@ -1236,7 +1302,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableBool.IsSet">func (NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L67">IsSet</a>
+				<h3 id="NullableBool.IsSet">func (NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L65">IsSet</a>
 					<a class="permalink" href="#NullableBool.IsSet">&#xb6;</a>
 					
 					
@@ -1249,7 +1315,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableBool.MarshalJSON">func (NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L83">MarshalJSON</a>
+				<h3 id="NullableBool.MarshalJSON">func (NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L81">MarshalJSON</a>
 					<a class="permalink" href="#NullableBool.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1262,7 +1328,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableBool.Set">func (*NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L61">Set</a>
+				<h3 id="NullableBool.Set">func (*NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L59">Set</a>
 					<a class="permalink" href="#NullableBool.Set">&#xb6;</a>
 					
 					
@@ -1275,7 +1341,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableBool.UnmarshalJSON">func (*NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L88">UnmarshalJSON</a>
+				<h3 id="NullableBool.UnmarshalJSON">func (*NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L86">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableBool.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1288,7 +1354,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableBool.Unset">func (*NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L72">Unset</a>
+				<h3 id="NullableBool.Unset">func (*NullableBool) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L70">Unset</a>
 					<a class="permalink" href="#NullableBool.Unset">&#xb6;</a>
 					
 					
@@ -1303,7 +1369,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableFloat32">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L226">NullableFloat32</a>
+			<h2 id="NullableFloat32">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L224">NullableFloat32</a>
 				<a class="permalink" href="#NullableFloat32">&#xb6;</a>
 				
 				
@@ -1325,7 +1391,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableFloat32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L254">NewNullableFloat32</a>
+				<h3 id="NewNullableFloat32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L252">NewNullableFloat32</a>
 					<a class="permalink" href="#NewNullableFloat32">&#xb6;</a>
 					
 					
@@ -1339,7 +1405,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableFloat32.Get">func (NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L232">Get</a>
+				<h3 id="NullableFloat32.Get">func (NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L230">Get</a>
 					<a class="permalink" href="#NullableFloat32.Get">&#xb6;</a>
 					
 					
@@ -1352,7 +1418,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat32.IsSet">func (NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L243">IsSet</a>
+				<h3 id="NullableFloat32.IsSet">func (NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L241">IsSet</a>
 					<a class="permalink" href="#NullableFloat32.IsSet">&#xb6;</a>
 					
 					
@@ -1365,7 +1431,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat32.MarshalJSON">func (NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L259">MarshalJSON</a>
+				<h3 id="NullableFloat32.MarshalJSON">func (NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L257">MarshalJSON</a>
 					<a class="permalink" href="#NullableFloat32.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1378,7 +1444,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat32.Set">func (*NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L237">Set</a>
+				<h3 id="NullableFloat32.Set">func (*NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L235">Set</a>
 					<a class="permalink" href="#NullableFloat32.Set">&#xb6;</a>
 					
 					
@@ -1391,7 +1457,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat32.UnmarshalJSON">func (*NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L264">UnmarshalJSON</a>
+				<h3 id="NullableFloat32.UnmarshalJSON">func (*NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L262">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableFloat32.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1404,7 +1470,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat32.Unset">func (*NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L248">Unset</a>
+				<h3 id="NullableFloat32.Unset">func (*NullableFloat32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L246">Unset</a>
 					<a class="permalink" href="#NullableFloat32.Unset">&#xb6;</a>
 					
 					
@@ -1419,7 +1485,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableFloat64">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L270">NullableFloat64</a>
+			<h2 id="NullableFloat64">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L268">NullableFloat64</a>
 				<a class="permalink" href="#NullableFloat64">&#xb6;</a>
 				
 				
@@ -1441,7 +1507,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableFloat64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L298">NewNullableFloat64</a>
+				<h3 id="NewNullableFloat64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L296">NewNullableFloat64</a>
 					<a class="permalink" href="#NewNullableFloat64">&#xb6;</a>
 					
 					
@@ -1455,7 +1521,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableFloat64.Get">func (NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L276">Get</a>
+				<h3 id="NullableFloat64.Get">func (NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L274">Get</a>
 					<a class="permalink" href="#NullableFloat64.Get">&#xb6;</a>
 					
 					
@@ -1468,7 +1534,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat64.IsSet">func (NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L287">IsSet</a>
+				<h3 id="NullableFloat64.IsSet">func (NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L285">IsSet</a>
 					<a class="permalink" href="#NullableFloat64.IsSet">&#xb6;</a>
 					
 					
@@ -1481,7 +1547,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat64.MarshalJSON">func (NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L303">MarshalJSON</a>
+				<h3 id="NullableFloat64.MarshalJSON">func (NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L301">MarshalJSON</a>
 					<a class="permalink" href="#NullableFloat64.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1494,7 +1560,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat64.Set">func (*NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L281">Set</a>
+				<h3 id="NullableFloat64.Set">func (*NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L279">Set</a>
 					<a class="permalink" href="#NullableFloat64.Set">&#xb6;</a>
 					
 					
@@ -1507,7 +1573,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat64.UnmarshalJSON">func (*NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L308">UnmarshalJSON</a>
+				<h3 id="NullableFloat64.UnmarshalJSON">func (*NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L306">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableFloat64.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1520,7 +1586,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableFloat64.Unset">func (*NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L292">Unset</a>
+				<h3 id="NullableFloat64.Unset">func (*NullableFloat64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L290">Unset</a>
 					<a class="permalink" href="#NullableFloat64.Unset">&#xb6;</a>
 					
 					
@@ -1535,7 +1601,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableInt">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L94">NullableInt</a>
+			<h2 id="NullableInt">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L92">NullableInt</a>
 				<a class="permalink" href="#NullableInt">&#xb6;</a>
 				
 				
@@ -1557,7 +1623,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableInt">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L122">NewNullableInt</a>
+				<h3 id="NewNullableInt">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L120">NewNullableInt</a>
 					<a class="permalink" href="#NewNullableInt">&#xb6;</a>
 					
 					
@@ -1571,7 +1637,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableInt.Get">func (NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L100">Get</a>
+				<h3 id="NullableInt.Get">func (NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L98">Get</a>
 					<a class="permalink" href="#NullableInt.Get">&#xb6;</a>
 					
 					
@@ -1584,7 +1650,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt.IsSet">func (NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L111">IsSet</a>
+				<h3 id="NullableInt.IsSet">func (NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L109">IsSet</a>
 					<a class="permalink" href="#NullableInt.IsSet">&#xb6;</a>
 					
 					
@@ -1597,7 +1663,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt.MarshalJSON">func (NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L127">MarshalJSON</a>
+				<h3 id="NullableInt.MarshalJSON">func (NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L125">MarshalJSON</a>
 					<a class="permalink" href="#NullableInt.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1610,7 +1676,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt.Set">func (*NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L105">Set</a>
+				<h3 id="NullableInt.Set">func (*NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L103">Set</a>
 					<a class="permalink" href="#NullableInt.Set">&#xb6;</a>
 					
 					
@@ -1623,7 +1689,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt.UnmarshalJSON">func (*NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L132">UnmarshalJSON</a>
+				<h3 id="NullableInt.UnmarshalJSON">func (*NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L130">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableInt.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1636,7 +1702,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt.Unset">func (*NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L116">Unset</a>
+				<h3 id="NullableInt.Unset">func (*NullableInt) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L114">Unset</a>
 					<a class="permalink" href="#NullableInt.Unset">&#xb6;</a>
 					
 					
@@ -1651,7 +1717,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableInt32">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L138">NullableInt32</a>
+			<h2 id="NullableInt32">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L136">NullableInt32</a>
 				<a class="permalink" href="#NullableInt32">&#xb6;</a>
 				
 				
@@ -1673,7 +1739,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableInt32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L166">NewNullableInt32</a>
+				<h3 id="NewNullableInt32">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L164">NewNullableInt32</a>
 					<a class="permalink" href="#NewNullableInt32">&#xb6;</a>
 					
 					
@@ -1687,7 +1753,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableInt32.Get">func (NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L144">Get</a>
+				<h3 id="NullableInt32.Get">func (NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L142">Get</a>
 					<a class="permalink" href="#NullableInt32.Get">&#xb6;</a>
 					
 					
@@ -1700,7 +1766,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt32.IsSet">func (NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L155">IsSet</a>
+				<h3 id="NullableInt32.IsSet">func (NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L153">IsSet</a>
 					<a class="permalink" href="#NullableInt32.IsSet">&#xb6;</a>
 					
 					
@@ -1713,7 +1779,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt32.MarshalJSON">func (NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L171">MarshalJSON</a>
+				<h3 id="NullableInt32.MarshalJSON">func (NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L169">MarshalJSON</a>
 					<a class="permalink" href="#NullableInt32.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1726,7 +1792,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt32.Set">func (*NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L149">Set</a>
+				<h3 id="NullableInt32.Set">func (*NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L147">Set</a>
 					<a class="permalink" href="#NullableInt32.Set">&#xb6;</a>
 					
 					
@@ -1739,7 +1805,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt32.UnmarshalJSON">func (*NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L176">UnmarshalJSON</a>
+				<h3 id="NullableInt32.UnmarshalJSON">func (*NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L174">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableInt32.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1752,7 +1818,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt32.Unset">func (*NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L160">Unset</a>
+				<h3 id="NullableInt32.Unset">func (*NullableInt32) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L158">Unset</a>
 					<a class="permalink" href="#NullableInt32.Unset">&#xb6;</a>
 					
 					
@@ -1767,7 +1833,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableInt64">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L182">NullableInt64</a>
+			<h2 id="NullableInt64">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L180">NullableInt64</a>
 				<a class="permalink" href="#NullableInt64">&#xb6;</a>
 				
 				
@@ -1789,7 +1855,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableInt64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L210">NewNullableInt64</a>
+				<h3 id="NewNullableInt64">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L208">NewNullableInt64</a>
 					<a class="permalink" href="#NewNullableInt64">&#xb6;</a>
 					
 					
@@ -1803,7 +1869,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableInt64.Get">func (NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L188">Get</a>
+				<h3 id="NullableInt64.Get">func (NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L186">Get</a>
 					<a class="permalink" href="#NullableInt64.Get">&#xb6;</a>
 					
 					
@@ -1816,7 +1882,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt64.IsSet">func (NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L199">IsSet</a>
+				<h3 id="NullableInt64.IsSet">func (NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L197">IsSet</a>
 					<a class="permalink" href="#NullableInt64.IsSet">&#xb6;</a>
 					
 					
@@ -1829,7 +1895,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt64.MarshalJSON">func (NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L215">MarshalJSON</a>
+				<h3 id="NullableInt64.MarshalJSON">func (NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L213">MarshalJSON</a>
 					<a class="permalink" href="#NullableInt64.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1842,7 +1908,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt64.Set">func (*NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L193">Set</a>
+				<h3 id="NullableInt64.Set">func (*NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L191">Set</a>
 					<a class="permalink" href="#NullableInt64.Set">&#xb6;</a>
 					
 					
@@ -1855,7 +1921,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt64.UnmarshalJSON">func (*NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L220">UnmarshalJSON</a>
+				<h3 id="NullableInt64.UnmarshalJSON">func (*NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L218">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableInt64.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1868,7 +1934,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableInt64.Unset">func (*NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L204">Unset</a>
+				<h3 id="NullableInt64.Unset">func (*NullableInt64) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L202">Unset</a>
 					<a class="permalink" href="#NullableInt64.Unset">&#xb6;</a>
 					
 					
@@ -1883,7 +1949,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableList">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L402">NullableList</a>
+			<h2 id="NullableList">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L400">NullableList</a>
 				<a class="permalink" href="#NullableList">&#xb6;</a>
 				
 				
@@ -1905,7 +1971,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableList">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L430">NewNullableList</a>
+				<h3 id="NewNullableList">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L428">NewNullableList</a>
 					<a class="permalink" href="#NewNullableList">&#xb6;</a>
 					
 					
@@ -1919,7 +1985,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableList.Get">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L408">Get</a>
+				<h3 id="NullableList.Get">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L406">Get</a>
 					<a class="permalink" href="#NullableList.Get">&#xb6;</a>
 					
 					
@@ -1932,7 +1998,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableList.IsSet">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L419">IsSet</a>
+				<h3 id="NullableList.IsSet">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L417">IsSet</a>
 					<a class="permalink" href="#NullableList.IsSet">&#xb6;</a>
 					
 					
@@ -1945,7 +2011,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableList.MarshalJSON">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L435">MarshalJSON</a>
+				<h3 id="NullableList.MarshalJSON">func (NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L433">MarshalJSON</a>
 					<a class="permalink" href="#NullableList.MarshalJSON">&#xb6;</a>
 					
 					
@@ -1958,7 +2024,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableList.Set">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L413">Set</a>
+				<h3 id="NullableList.Set">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L411">Set</a>
 					<a class="permalink" href="#NullableList.Set">&#xb6;</a>
 					
 					
@@ -1971,7 +2037,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableList.UnmarshalJSON">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L440">UnmarshalJSON</a>
+				<h3 id="NullableList.UnmarshalJSON">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L438">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableList.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -1984,7 +2050,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableList.Unset">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L424">Unset</a>
+				<h3 id="NullableList.Unset">func (*NullableList[T]) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L422">Unset</a>
 					<a class="permalink" href="#NullableList.Unset">&#xb6;</a>
 					
 					
@@ -1999,7 +2065,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableString">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L314">NullableString</a>
+			<h2 id="NullableString">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L312">NullableString</a>
 				<a class="permalink" href="#NullableString">&#xb6;</a>
 				
 				
@@ -2021,7 +2087,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableString">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L342">NewNullableString</a>
+				<h3 id="NewNullableString">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L340">NewNullableString</a>
 					<a class="permalink" href="#NewNullableString">&#xb6;</a>
 					
 					
@@ -2035,7 +2101,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableString.Get">func (NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L320">Get</a>
+				<h3 id="NullableString.Get">func (NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L318">Get</a>
 					<a class="permalink" href="#NullableString.Get">&#xb6;</a>
 					
 					
@@ -2048,7 +2114,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableString.IsSet">func (NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L331">IsSet</a>
+				<h3 id="NullableString.IsSet">func (NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L329">IsSet</a>
 					<a class="permalink" href="#NullableString.IsSet">&#xb6;</a>
 					
 					
@@ -2061,7 +2127,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableString.MarshalJSON">func (NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L347">MarshalJSON</a>
+				<h3 id="NullableString.MarshalJSON">func (NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L345">MarshalJSON</a>
 					<a class="permalink" href="#NullableString.MarshalJSON">&#xb6;</a>
 					
 					
@@ -2074,7 +2140,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableString.Set">func (*NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L325">Set</a>
+				<h3 id="NullableString.Set">func (*NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L323">Set</a>
 					<a class="permalink" href="#NullableString.Set">&#xb6;</a>
 					
 					
@@ -2087,7 +2153,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableString.UnmarshalJSON">func (*NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L352">UnmarshalJSON</a>
+				<h3 id="NullableString.UnmarshalJSON">func (*NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L350">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableString.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -2100,7 +2166,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableString.Unset">func (*NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L336">Unset</a>
+				<h3 id="NullableString.Unset">func (*NullableString) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L334">Unset</a>
 					<a class="permalink" href="#NullableString.Unset">&#xb6;</a>
 					
 					
@@ -2115,7 +2181,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="NullableTime">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L358">NullableTime</a>
+			<h2 id="NullableTime">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L356">NullableTime</a>
 				<a class="permalink" href="#NullableTime">&#xb6;</a>
 				
 				
@@ -2137,7 +2203,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NewNullableTime">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L386">NewNullableTime</a>
+				<h3 id="NewNullableTime">func <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L384">NewNullableTime</a>
 					<a class="permalink" href="#NewNullableTime">&#xb6;</a>
 					
 					
@@ -2151,7 +2217,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 
 			
 				
-				<h3 id="NullableTime.Get">func (NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L364">Get</a>
+				<h3 id="NullableTime.Get">func (NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L362">Get</a>
 					<a class="permalink" href="#NullableTime.Get">&#xb6;</a>
 					
 					
@@ -2164,7 +2230,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableTime.IsSet">func (NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L375">IsSet</a>
+				<h3 id="NullableTime.IsSet">func (NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L373">IsSet</a>
 					<a class="permalink" href="#NullableTime.IsSet">&#xb6;</a>
 					
 					
@@ -2177,7 +2243,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableTime.MarshalJSON">func (NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L391">MarshalJSON</a>
+				<h3 id="NullableTime.MarshalJSON">func (NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L389">MarshalJSON</a>
 					<a class="permalink" href="#NullableTime.MarshalJSON">&#xb6;</a>
 					
 					
@@ -2190,7 +2256,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableTime.Set">func (*NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L369">Set</a>
+				<h3 id="NullableTime.Set">func (*NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L367">Set</a>
 					<a class="permalink" href="#NullableTime.Set">&#xb6;</a>
 					
 					
@@ -2203,7 +2269,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableTime.UnmarshalJSON">func (*NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L396">UnmarshalJSON</a>
+				<h3 id="NullableTime.UnmarshalJSON">func (*NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L394">UnmarshalJSON</a>
 					<a class="permalink" href="#NullableTime.UnmarshalJSON">&#xb6;</a>
 					
 					
@@ -2216,7 +2282,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 				
 			
 				
-				<h3 id="NullableTime.Unset">func (*NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L380">Unset</a>
+				<h3 id="NullableTime.Unset">func (*NullableTime) <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L378">Unset</a>
 					<a class="permalink" href="#NullableTime.Unset">&#xb6;</a>
 					
 					
@@ -2231,7 +2297,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="PaginationResult">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L44">PaginationResult</a>
+			<h2 id="PaginationResult">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/utils.go#L42">PaginationResult</a>
 				<a class="permalink" href="#PaginationResult">&#xb6;</a>
 				
 				
@@ -2380,7 +2446,7 @@ Returns true if the operation is marked as unstable and thus was enabled/disable
 		
 			
 			
-			<h2 id="Service">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L54">Service</a>
+			<h2 id="Service">type <a href="https://github.com/DataDog/datadog-api-client-go/blob/master/api/datadog/client.go#L53">Service</a>
 				<a class="permalink" href="#Service">&#xb6;</a>
 				
 				

@@ -64,7 +64,7 @@
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	&#34;fmt&#34;
 <span id="L9" class="ln">     9  </span>
-<span id="L10" class="ln">    10  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// FormulaAndFunctionApmResourceStatName APM resource stat name.</span>
@@ -107,7 +107,7 @@
 <span id="L50" class="ln">    50  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L51" class="ln">    51  </span>func (v *FormulaAndFunctionApmResourceStatName) UnmarshalJSON(src []byte) error {
 <span id="L52" class="ln">    52  </span>	var value string
-<span id="L53" class="ln">    53  </span>	err := json.Unmarshal(src, &amp;value)
+<span id="L53" class="ln">    53  </span>	err := datadog.Unmarshal(src, &amp;value)
 <span id="L54" class="ln">    54  </span>	if err != nil {
 <span id="L55" class="ln">    55  </span>		return err
 <span id="L56" class="ln">    56  </span>	}

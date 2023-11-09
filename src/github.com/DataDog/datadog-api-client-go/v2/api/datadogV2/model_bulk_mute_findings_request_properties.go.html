@@ -64,7 +64,7 @@
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	&#34;fmt&#34;
 <span id="L9" class="ln">     9  </span>
-<span id="L10" class="ln">    10  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// BulkMuteFindingsRequestProperties Object containing the new mute properties of the findings.</span>
@@ -208,7 +208,7 @@
 <span id="L151" class="ln">   151  </span>func (o BulkMuteFindingsRequestProperties) MarshalJSON() ([]byte, error) {
 <span id="L152" class="ln">   152  </span>	toSerialize := map[string]interface{}{}
 <span id="L153" class="ln">   153  </span>	if o.UnparsedObject != nil {
-<span id="L154" class="ln">   154  </span>		return json.Marshal(o.UnparsedObject)
+<span id="L154" class="ln">   154  </span>		return datadog.Marshal(o.UnparsedObject)
 <span id="L155" class="ln">   155  </span>	}
 <span id="L156" class="ln">   156  </span>	if o.Description != nil {
 <span id="L157" class="ln">   157  </span>		toSerialize[&#34;description&#34;] = o.Description
@@ -218,7 +218,7 @@
 <span id="L161" class="ln">   161  </span>	}
 <span id="L162" class="ln">   162  </span>	toSerialize[&#34;muted&#34;] = o.Muted
 <span id="L163" class="ln">   163  </span>	toSerialize[&#34;reason&#34;] = o.Reason
-<span id="L164" class="ln">   164  </span>	return json.Marshal(toSerialize)
+<span id="L164" class="ln">   164  </span>	return datadog.Marshal(toSerialize)
 <span id="L165" class="ln">   165  </span>}
 <span id="L166" class="ln">   166  </span>
 <span id="L167" class="ln">   167  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
@@ -229,8 +229,8 @@
 <span id="L172" class="ln">   172  </span>		Muted          *bool              `json:&#34;muted&#34;`
 <span id="L173" class="ln">   173  </span>		Reason         *FindingMuteReason `json:&#34;reason&#34;`
 <span id="L174" class="ln">   174  </span>	}{}
-<span id="L175" class="ln">   175  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L176" class="ln">   176  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L175" class="ln">   175  </span>	if err = datadog.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L176" class="ln">   176  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L177" class="ln">   177  </span>	}
 <span id="L178" class="ln">   178  </span>	if all.Muted == nil {
 <span id="L179" class="ln">   179  </span>		return fmt.Errorf(&#34;required field muted missing&#34;)
@@ -250,7 +250,7 @@
 <span id="L193" class="ln">   193  </span>	}
 <span id="L194" class="ln">   194  </span>
 <span id="L195" class="ln">   195  </span>	if hasInvalidField {
-<span id="L196" class="ln">   196  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L196" class="ln">   196  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L197" class="ln">   197  </span>	}
 <span id="L198" class="ln">   198  </span>
 <span id="L199" class="ln">   199  </span>	return nil

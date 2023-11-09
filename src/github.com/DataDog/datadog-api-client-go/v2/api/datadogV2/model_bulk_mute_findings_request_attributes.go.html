@@ -64,7 +64,7 @@
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	&#34;fmt&#34;
 <span id="L9" class="ln">     9  </span>
-<span id="L10" class="ln">    10  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// BulkMuteFindingsRequestAttributes The mute properties to be updated.</span>
@@ -120,10 +120,10 @@
 <span id="L63" class="ln">    63  </span>func (o BulkMuteFindingsRequestAttributes) MarshalJSON() ([]byte, error) {
 <span id="L64" class="ln">    64  </span>	toSerialize := map[string]interface{}{}
 <span id="L65" class="ln">    65  </span>	if o.UnparsedObject != nil {
-<span id="L66" class="ln">    66  </span>		return json.Marshal(o.UnparsedObject)
+<span id="L66" class="ln">    66  </span>		return datadog.Marshal(o.UnparsedObject)
 <span id="L67" class="ln">    67  </span>	}
 <span id="L68" class="ln">    68  </span>	toSerialize[&#34;mute&#34;] = o.Mute
-<span id="L69" class="ln">    69  </span>	return json.Marshal(toSerialize)
+<span id="L69" class="ln">    69  </span>	return datadog.Marshal(toSerialize)
 <span id="L70" class="ln">    70  </span>}
 <span id="L71" class="ln">    71  </span>
 <span id="L72" class="ln">    72  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
@@ -131,8 +131,8 @@
 <span id="L74" class="ln">    74  </span>	all := struct {
 <span id="L75" class="ln">    75  </span>		Mute *BulkMuteFindingsRequestProperties `json:&#34;mute&#34;`
 <span id="L76" class="ln">    76  </span>	}{}
-<span id="L77" class="ln">    77  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L78" class="ln">    78  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L77" class="ln">    77  </span>	if err = datadog.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L78" class="ln">    78  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L79" class="ln">    79  </span>	}
 <span id="L80" class="ln">    80  </span>	if all.Mute == nil {
 <span id="L81" class="ln">    81  </span>		return fmt.Errorf(&#34;required field mute missing&#34;)
@@ -145,7 +145,7 @@
 <span id="L88" class="ln">    88  </span>	o.Mute = *all.Mute
 <span id="L89" class="ln">    89  </span>
 <span id="L90" class="ln">    90  </span>	if hasInvalidField {
-<span id="L91" class="ln">    91  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L91" class="ln">    91  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L92" class="ln">    92  </span>	}
 <span id="L93" class="ln">    93  </span>
 <span id="L94" class="ln">    94  </span>	return nil

@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV2
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// LogsAggregateBucketValueTimeseries A timeseries array</span>
@@ -94,24 +94,24 @@
 <span id="L37" class="ln">    37  </span>func (o LogsAggregateBucketValueTimeseries) MarshalJSON() ([]byte, error) {
 <span id="L38" class="ln">    38  </span>	toSerialize := make([]interface{}, len(o.Items))
 <span id="L39" class="ln">    39  </span>	if o.UnparsedObject != nil {
-<span id="L40" class="ln">    40  </span>		return json.Marshal(o.UnparsedObject)
+<span id="L40" class="ln">    40  </span>		return datadog.Marshal(o.UnparsedObject)
 <span id="L41" class="ln">    41  </span>	}
 <span id="L42" class="ln">    42  </span>	for i, item := range o.Items {
 <span id="L43" class="ln">    43  </span>		toSerialize[i] = item
 <span id="L44" class="ln">    44  </span>	}
-<span id="L45" class="ln">    45  </span>	return json.Marshal(toSerialize)
+<span id="L45" class="ln">    45  </span>	return datadog.Marshal(toSerialize)
 <span id="L46" class="ln">    46  </span>}
 <span id="L47" class="ln">    47  </span>
 <span id="L48" class="ln">    48  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L49" class="ln">    49  </span>func (o *LogsAggregateBucketValueTimeseries) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L50" class="ln">    50  </span>	if err = json.Unmarshal(bytes, &amp;o.Items); err != nil {
-<span id="L51" class="ln">    51  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L50" class="ln">    50  </span>	if err = datadog.Unmarshal(bytes, &amp;o.Items); err != nil {
+<span id="L51" class="ln">    51  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L52" class="ln">    52  </span>	}
 <span id="L53" class="ln">    53  </span>
 <span id="L54" class="ln">    54  </span>	if o.Items != nil &amp;&amp; len(o.Items) &gt; 0 {
 <span id="L55" class="ln">    55  </span>		for _, v := range o.Items {
 <span id="L56" class="ln">    56  </span>			if v.UnparsedObject != nil {
-<span id="L57" class="ln">    57  </span>				return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L57" class="ln">    57  </span>				return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L58" class="ln">    58  </span>			}
 <span id="L59" class="ln">    59  </span>		}
 <span id="L60" class="ln">    60  </span>	}

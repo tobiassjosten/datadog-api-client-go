@@ -64,7 +64,7 @@
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	&#34;fmt&#34;
 <span id="L9" class="ln">     9  </span>
-<span id="L10" class="ln">    10  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// NotebookMetadataType Metadata type of the notebook.</span>
@@ -95,7 +95,7 @@
 <span id="L38" class="ln">    38  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L39" class="ln">    39  </span>func (v *NotebookMetadataType) UnmarshalJSON(src []byte) error {
 <span id="L40" class="ln">    40  </span>	var value string
-<span id="L41" class="ln">    41  </span>	err := json.Unmarshal(src, &amp;value)
+<span id="L41" class="ln">    41  </span>	err := datadog.Unmarshal(src, &amp;value)
 <span id="L42" class="ln">    42  </span>	if err != nil {
 <span id="L43" class="ln">    43  </span>		return err
 <span id="L44" class="ln">    44  </span>	}
@@ -163,13 +163,13 @@
 <span id="L106" class="ln">   106  </span>
 <span id="L107" class="ln">   107  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
 <span id="L108" class="ln">   108  </span>func (v NullableNotebookMetadataType) MarshalJSON() ([]byte, error) {
-<span id="L109" class="ln">   109  </span>	return json.Marshal(v.value)
+<span id="L109" class="ln">   109  </span>	return datadog.Marshal(v.value)
 <span id="L110" class="ln">   110  </span>}
 <span id="L111" class="ln">   111  </span>
 <span id="L112" class="ln">   112  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
 <span id="L113" class="ln">   113  </span>func (v *NullableNotebookMetadataType) UnmarshalJSON(src []byte) error {
 <span id="L114" class="ln">   114  </span>	v.isSet = true
-<span id="L115" class="ln">   115  </span>	return json.Unmarshal(src, &amp;v.value)
+<span id="L115" class="ln">   115  </span>	return datadog.Unmarshal(src, &amp;v.value)
 <span id="L116" class="ln">   116  </span>}
 <span id="L117" class="ln">   117  </span>
 </pre><p></p>

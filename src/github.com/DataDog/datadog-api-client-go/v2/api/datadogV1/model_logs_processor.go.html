@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV1
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// LogsProcessor - Definition of a logs processor.</span>
@@ -173,10 +173,10 @@
 <span id="L116" class="ln">   116  </span>	var err error
 <span id="L117" class="ln">   117  </span>	match := 0
 <span id="L118" class="ln">   118  </span>	<span class="comment">// try to unmarshal data into LogsGrokParser</span>
-<span id="L119" class="ln">   119  </span>	err = json.Unmarshal(data, &amp;obj.LogsGrokParser)
+<span id="L119" class="ln">   119  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsGrokParser)
 <span id="L120" class="ln">   120  </span>	if err == nil {
 <span id="L121" class="ln">   121  </span>		if obj.LogsGrokParser != nil &amp;&amp; obj.LogsGrokParser.UnparsedObject == nil {
-<span id="L122" class="ln">   122  </span>			jsonLogsGrokParser, _ := json.Marshal(obj.LogsGrokParser)
+<span id="L122" class="ln">   122  </span>			jsonLogsGrokParser, _ := datadog.Marshal(obj.LogsGrokParser)
 <span id="L123" class="ln">   123  </span>			if string(jsonLogsGrokParser) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L124" class="ln">   124  </span>				obj.LogsGrokParser = nil
 <span id="L125" class="ln">   125  </span>			} else {
@@ -190,10 +190,10 @@
 <span id="L133" class="ln">   133  </span>	}
 <span id="L134" class="ln">   134  </span>
 <span id="L135" class="ln">   135  </span>	<span class="comment">// try to unmarshal data into LogsDateRemapper</span>
-<span id="L136" class="ln">   136  </span>	err = json.Unmarshal(data, &amp;obj.LogsDateRemapper)
+<span id="L136" class="ln">   136  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsDateRemapper)
 <span id="L137" class="ln">   137  </span>	if err == nil {
 <span id="L138" class="ln">   138  </span>		if obj.LogsDateRemapper != nil &amp;&amp; obj.LogsDateRemapper.UnparsedObject == nil {
-<span id="L139" class="ln">   139  </span>			jsonLogsDateRemapper, _ := json.Marshal(obj.LogsDateRemapper)
+<span id="L139" class="ln">   139  </span>			jsonLogsDateRemapper, _ := datadog.Marshal(obj.LogsDateRemapper)
 <span id="L140" class="ln">   140  </span>			if string(jsonLogsDateRemapper) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L141" class="ln">   141  </span>				obj.LogsDateRemapper = nil
 <span id="L142" class="ln">   142  </span>			} else {
@@ -207,10 +207,10 @@
 <span id="L150" class="ln">   150  </span>	}
 <span id="L151" class="ln">   151  </span>
 <span id="L152" class="ln">   152  </span>	<span class="comment">// try to unmarshal data into LogsStatusRemapper</span>
-<span id="L153" class="ln">   153  </span>	err = json.Unmarshal(data, &amp;obj.LogsStatusRemapper)
+<span id="L153" class="ln">   153  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsStatusRemapper)
 <span id="L154" class="ln">   154  </span>	if err == nil {
 <span id="L155" class="ln">   155  </span>		if obj.LogsStatusRemapper != nil &amp;&amp; obj.LogsStatusRemapper.UnparsedObject == nil {
-<span id="L156" class="ln">   156  </span>			jsonLogsStatusRemapper, _ := json.Marshal(obj.LogsStatusRemapper)
+<span id="L156" class="ln">   156  </span>			jsonLogsStatusRemapper, _ := datadog.Marshal(obj.LogsStatusRemapper)
 <span id="L157" class="ln">   157  </span>			if string(jsonLogsStatusRemapper) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L158" class="ln">   158  </span>				obj.LogsStatusRemapper = nil
 <span id="L159" class="ln">   159  </span>			} else {
@@ -224,10 +224,10 @@
 <span id="L167" class="ln">   167  </span>	}
 <span id="L168" class="ln">   168  </span>
 <span id="L169" class="ln">   169  </span>	<span class="comment">// try to unmarshal data into LogsServiceRemapper</span>
-<span id="L170" class="ln">   170  </span>	err = json.Unmarshal(data, &amp;obj.LogsServiceRemapper)
+<span id="L170" class="ln">   170  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsServiceRemapper)
 <span id="L171" class="ln">   171  </span>	if err == nil {
 <span id="L172" class="ln">   172  </span>		if obj.LogsServiceRemapper != nil &amp;&amp; obj.LogsServiceRemapper.UnparsedObject == nil {
-<span id="L173" class="ln">   173  </span>			jsonLogsServiceRemapper, _ := json.Marshal(obj.LogsServiceRemapper)
+<span id="L173" class="ln">   173  </span>			jsonLogsServiceRemapper, _ := datadog.Marshal(obj.LogsServiceRemapper)
 <span id="L174" class="ln">   174  </span>			if string(jsonLogsServiceRemapper) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L175" class="ln">   175  </span>				obj.LogsServiceRemapper = nil
 <span id="L176" class="ln">   176  </span>			} else {
@@ -241,10 +241,10 @@
 <span id="L184" class="ln">   184  </span>	}
 <span id="L185" class="ln">   185  </span>
 <span id="L186" class="ln">   186  </span>	<span class="comment">// try to unmarshal data into LogsMessageRemapper</span>
-<span id="L187" class="ln">   187  </span>	err = json.Unmarshal(data, &amp;obj.LogsMessageRemapper)
+<span id="L187" class="ln">   187  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsMessageRemapper)
 <span id="L188" class="ln">   188  </span>	if err == nil {
 <span id="L189" class="ln">   189  </span>		if obj.LogsMessageRemapper != nil &amp;&amp; obj.LogsMessageRemapper.UnparsedObject == nil {
-<span id="L190" class="ln">   190  </span>			jsonLogsMessageRemapper, _ := json.Marshal(obj.LogsMessageRemapper)
+<span id="L190" class="ln">   190  </span>			jsonLogsMessageRemapper, _ := datadog.Marshal(obj.LogsMessageRemapper)
 <span id="L191" class="ln">   191  </span>			if string(jsonLogsMessageRemapper) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L192" class="ln">   192  </span>				obj.LogsMessageRemapper = nil
 <span id="L193" class="ln">   193  </span>			} else {
@@ -258,10 +258,10 @@
 <span id="L201" class="ln">   201  </span>	}
 <span id="L202" class="ln">   202  </span>
 <span id="L203" class="ln">   203  </span>	<span class="comment">// try to unmarshal data into LogsAttributeRemapper</span>
-<span id="L204" class="ln">   204  </span>	err = json.Unmarshal(data, &amp;obj.LogsAttributeRemapper)
+<span id="L204" class="ln">   204  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsAttributeRemapper)
 <span id="L205" class="ln">   205  </span>	if err == nil {
 <span id="L206" class="ln">   206  </span>		if obj.LogsAttributeRemapper != nil &amp;&amp; obj.LogsAttributeRemapper.UnparsedObject == nil {
-<span id="L207" class="ln">   207  </span>			jsonLogsAttributeRemapper, _ := json.Marshal(obj.LogsAttributeRemapper)
+<span id="L207" class="ln">   207  </span>			jsonLogsAttributeRemapper, _ := datadog.Marshal(obj.LogsAttributeRemapper)
 <span id="L208" class="ln">   208  </span>			if string(jsonLogsAttributeRemapper) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L209" class="ln">   209  </span>				obj.LogsAttributeRemapper = nil
 <span id="L210" class="ln">   210  </span>			} else {
@@ -275,10 +275,10 @@
 <span id="L218" class="ln">   218  </span>	}
 <span id="L219" class="ln">   219  </span>
 <span id="L220" class="ln">   220  </span>	<span class="comment">// try to unmarshal data into LogsURLParser</span>
-<span id="L221" class="ln">   221  </span>	err = json.Unmarshal(data, &amp;obj.LogsURLParser)
+<span id="L221" class="ln">   221  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsURLParser)
 <span id="L222" class="ln">   222  </span>	if err == nil {
 <span id="L223" class="ln">   223  </span>		if obj.LogsURLParser != nil &amp;&amp; obj.LogsURLParser.UnparsedObject == nil {
-<span id="L224" class="ln">   224  </span>			jsonLogsURLParser, _ := json.Marshal(obj.LogsURLParser)
+<span id="L224" class="ln">   224  </span>			jsonLogsURLParser, _ := datadog.Marshal(obj.LogsURLParser)
 <span id="L225" class="ln">   225  </span>			if string(jsonLogsURLParser) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L226" class="ln">   226  </span>				obj.LogsURLParser = nil
 <span id="L227" class="ln">   227  </span>			} else {
@@ -292,10 +292,10 @@
 <span id="L235" class="ln">   235  </span>	}
 <span id="L236" class="ln">   236  </span>
 <span id="L237" class="ln">   237  </span>	<span class="comment">// try to unmarshal data into LogsUserAgentParser</span>
-<span id="L238" class="ln">   238  </span>	err = json.Unmarshal(data, &amp;obj.LogsUserAgentParser)
+<span id="L238" class="ln">   238  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsUserAgentParser)
 <span id="L239" class="ln">   239  </span>	if err == nil {
 <span id="L240" class="ln">   240  </span>		if obj.LogsUserAgentParser != nil &amp;&amp; obj.LogsUserAgentParser.UnparsedObject == nil {
-<span id="L241" class="ln">   241  </span>			jsonLogsUserAgentParser, _ := json.Marshal(obj.LogsUserAgentParser)
+<span id="L241" class="ln">   241  </span>			jsonLogsUserAgentParser, _ := datadog.Marshal(obj.LogsUserAgentParser)
 <span id="L242" class="ln">   242  </span>			if string(jsonLogsUserAgentParser) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L243" class="ln">   243  </span>				obj.LogsUserAgentParser = nil
 <span id="L244" class="ln">   244  </span>			} else {
@@ -309,10 +309,10 @@
 <span id="L252" class="ln">   252  </span>	}
 <span id="L253" class="ln">   253  </span>
 <span id="L254" class="ln">   254  </span>	<span class="comment">// try to unmarshal data into LogsCategoryProcessor</span>
-<span id="L255" class="ln">   255  </span>	err = json.Unmarshal(data, &amp;obj.LogsCategoryProcessor)
+<span id="L255" class="ln">   255  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsCategoryProcessor)
 <span id="L256" class="ln">   256  </span>	if err == nil {
 <span id="L257" class="ln">   257  </span>		if obj.LogsCategoryProcessor != nil &amp;&amp; obj.LogsCategoryProcessor.UnparsedObject == nil {
-<span id="L258" class="ln">   258  </span>			jsonLogsCategoryProcessor, _ := json.Marshal(obj.LogsCategoryProcessor)
+<span id="L258" class="ln">   258  </span>			jsonLogsCategoryProcessor, _ := datadog.Marshal(obj.LogsCategoryProcessor)
 <span id="L259" class="ln">   259  </span>			if string(jsonLogsCategoryProcessor) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L260" class="ln">   260  </span>				obj.LogsCategoryProcessor = nil
 <span id="L261" class="ln">   261  </span>			} else {
@@ -326,10 +326,10 @@
 <span id="L269" class="ln">   269  </span>	}
 <span id="L270" class="ln">   270  </span>
 <span id="L271" class="ln">   271  </span>	<span class="comment">// try to unmarshal data into LogsArithmeticProcessor</span>
-<span id="L272" class="ln">   272  </span>	err = json.Unmarshal(data, &amp;obj.LogsArithmeticProcessor)
+<span id="L272" class="ln">   272  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsArithmeticProcessor)
 <span id="L273" class="ln">   273  </span>	if err == nil {
 <span id="L274" class="ln">   274  </span>		if obj.LogsArithmeticProcessor != nil &amp;&amp; obj.LogsArithmeticProcessor.UnparsedObject == nil {
-<span id="L275" class="ln">   275  </span>			jsonLogsArithmeticProcessor, _ := json.Marshal(obj.LogsArithmeticProcessor)
+<span id="L275" class="ln">   275  </span>			jsonLogsArithmeticProcessor, _ := datadog.Marshal(obj.LogsArithmeticProcessor)
 <span id="L276" class="ln">   276  </span>			if string(jsonLogsArithmeticProcessor) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L277" class="ln">   277  </span>				obj.LogsArithmeticProcessor = nil
 <span id="L278" class="ln">   278  </span>			} else {
@@ -343,10 +343,10 @@
 <span id="L286" class="ln">   286  </span>	}
 <span id="L287" class="ln">   287  </span>
 <span id="L288" class="ln">   288  </span>	<span class="comment">// try to unmarshal data into LogsStringBuilderProcessor</span>
-<span id="L289" class="ln">   289  </span>	err = json.Unmarshal(data, &amp;obj.LogsStringBuilderProcessor)
+<span id="L289" class="ln">   289  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsStringBuilderProcessor)
 <span id="L290" class="ln">   290  </span>	if err == nil {
 <span id="L291" class="ln">   291  </span>		if obj.LogsStringBuilderProcessor != nil &amp;&amp; obj.LogsStringBuilderProcessor.UnparsedObject == nil {
-<span id="L292" class="ln">   292  </span>			jsonLogsStringBuilderProcessor, _ := json.Marshal(obj.LogsStringBuilderProcessor)
+<span id="L292" class="ln">   292  </span>			jsonLogsStringBuilderProcessor, _ := datadog.Marshal(obj.LogsStringBuilderProcessor)
 <span id="L293" class="ln">   293  </span>			if string(jsonLogsStringBuilderProcessor) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L294" class="ln">   294  </span>				obj.LogsStringBuilderProcessor = nil
 <span id="L295" class="ln">   295  </span>			} else {
@@ -360,10 +360,10 @@
 <span id="L303" class="ln">   303  </span>	}
 <span id="L304" class="ln">   304  </span>
 <span id="L305" class="ln">   305  </span>	<span class="comment">// try to unmarshal data into LogsPipelineProcessor</span>
-<span id="L306" class="ln">   306  </span>	err = json.Unmarshal(data, &amp;obj.LogsPipelineProcessor)
+<span id="L306" class="ln">   306  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsPipelineProcessor)
 <span id="L307" class="ln">   307  </span>	if err == nil {
 <span id="L308" class="ln">   308  </span>		if obj.LogsPipelineProcessor != nil &amp;&amp; obj.LogsPipelineProcessor.UnparsedObject == nil {
-<span id="L309" class="ln">   309  </span>			jsonLogsPipelineProcessor, _ := json.Marshal(obj.LogsPipelineProcessor)
+<span id="L309" class="ln">   309  </span>			jsonLogsPipelineProcessor, _ := datadog.Marshal(obj.LogsPipelineProcessor)
 <span id="L310" class="ln">   310  </span>			if string(jsonLogsPipelineProcessor) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L311" class="ln">   311  </span>				obj.LogsPipelineProcessor = nil
 <span id="L312" class="ln">   312  </span>			} else {
@@ -377,10 +377,10 @@
 <span id="L320" class="ln">   320  </span>	}
 <span id="L321" class="ln">   321  </span>
 <span id="L322" class="ln">   322  </span>	<span class="comment">// try to unmarshal data into LogsGeoIPParser</span>
-<span id="L323" class="ln">   323  </span>	err = json.Unmarshal(data, &amp;obj.LogsGeoIPParser)
+<span id="L323" class="ln">   323  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsGeoIPParser)
 <span id="L324" class="ln">   324  </span>	if err == nil {
 <span id="L325" class="ln">   325  </span>		if obj.LogsGeoIPParser != nil &amp;&amp; obj.LogsGeoIPParser.UnparsedObject == nil {
-<span id="L326" class="ln">   326  </span>			jsonLogsGeoIPParser, _ := json.Marshal(obj.LogsGeoIPParser)
+<span id="L326" class="ln">   326  </span>			jsonLogsGeoIPParser, _ := datadog.Marshal(obj.LogsGeoIPParser)
 <span id="L327" class="ln">   327  </span>			if string(jsonLogsGeoIPParser) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L328" class="ln">   328  </span>				obj.LogsGeoIPParser = nil
 <span id="L329" class="ln">   329  </span>			} else {
@@ -394,10 +394,10 @@
 <span id="L337" class="ln">   337  </span>	}
 <span id="L338" class="ln">   338  </span>
 <span id="L339" class="ln">   339  </span>	<span class="comment">// try to unmarshal data into LogsLookupProcessor</span>
-<span id="L340" class="ln">   340  </span>	err = json.Unmarshal(data, &amp;obj.LogsLookupProcessor)
+<span id="L340" class="ln">   340  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsLookupProcessor)
 <span id="L341" class="ln">   341  </span>	if err == nil {
 <span id="L342" class="ln">   342  </span>		if obj.LogsLookupProcessor != nil &amp;&amp; obj.LogsLookupProcessor.UnparsedObject == nil {
-<span id="L343" class="ln">   343  </span>			jsonLogsLookupProcessor, _ := json.Marshal(obj.LogsLookupProcessor)
+<span id="L343" class="ln">   343  </span>			jsonLogsLookupProcessor, _ := datadog.Marshal(obj.LogsLookupProcessor)
 <span id="L344" class="ln">   344  </span>			if string(jsonLogsLookupProcessor) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L345" class="ln">   345  </span>				obj.LogsLookupProcessor = nil
 <span id="L346" class="ln">   346  </span>			} else {
@@ -411,10 +411,10 @@
 <span id="L354" class="ln">   354  </span>	}
 <span id="L355" class="ln">   355  </span>
 <span id="L356" class="ln">   356  </span>	<span class="comment">// try to unmarshal data into ReferenceTableLogsLookupProcessor</span>
-<span id="L357" class="ln">   357  </span>	err = json.Unmarshal(data, &amp;obj.ReferenceTableLogsLookupProcessor)
+<span id="L357" class="ln">   357  </span>	err = datadog.Unmarshal(data, &amp;obj.ReferenceTableLogsLookupProcessor)
 <span id="L358" class="ln">   358  </span>	if err == nil {
 <span id="L359" class="ln">   359  </span>		if obj.ReferenceTableLogsLookupProcessor != nil &amp;&amp; obj.ReferenceTableLogsLookupProcessor.UnparsedObject == nil {
-<span id="L360" class="ln">   360  </span>			jsonReferenceTableLogsLookupProcessor, _ := json.Marshal(obj.ReferenceTableLogsLookupProcessor)
+<span id="L360" class="ln">   360  </span>			jsonReferenceTableLogsLookupProcessor, _ := datadog.Marshal(obj.ReferenceTableLogsLookupProcessor)
 <span id="L361" class="ln">   361  </span>			if string(jsonReferenceTableLogsLookupProcessor) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L362" class="ln">   362  </span>				obj.ReferenceTableLogsLookupProcessor = nil
 <span id="L363" class="ln">   363  </span>			} else {
@@ -428,10 +428,10 @@
 <span id="L371" class="ln">   371  </span>	}
 <span id="L372" class="ln">   372  </span>
 <span id="L373" class="ln">   373  </span>	<span class="comment">// try to unmarshal data into LogsTraceRemapper</span>
-<span id="L374" class="ln">   374  </span>	err = json.Unmarshal(data, &amp;obj.LogsTraceRemapper)
+<span id="L374" class="ln">   374  </span>	err = datadog.Unmarshal(data, &amp;obj.LogsTraceRemapper)
 <span id="L375" class="ln">   375  </span>	if err == nil {
 <span id="L376" class="ln">   376  </span>		if obj.LogsTraceRemapper != nil &amp;&amp; obj.LogsTraceRemapper.UnparsedObject == nil {
-<span id="L377" class="ln">   377  </span>			jsonLogsTraceRemapper, _ := json.Marshal(obj.LogsTraceRemapper)
+<span id="L377" class="ln">   377  </span>			jsonLogsTraceRemapper, _ := datadog.Marshal(obj.LogsTraceRemapper)
 <span id="L378" class="ln">   378  </span>			if string(jsonLogsTraceRemapper) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L379" class="ln">   379  </span>				obj.LogsTraceRemapper = nil
 <span id="L380" class="ln">   380  </span>			} else {
@@ -462,7 +462,7 @@
 <span id="L405" class="ln">   405  </span>		obj.LogsLookupProcessor = nil
 <span id="L406" class="ln">   406  </span>		obj.ReferenceTableLogsLookupProcessor = nil
 <span id="L407" class="ln">   407  </span>		obj.LogsTraceRemapper = nil
-<span id="L408" class="ln">   408  </span>		return json.Unmarshal(data, &amp;obj.UnparsedObject)
+<span id="L408" class="ln">   408  </span>		return datadog.Unmarshal(data, &amp;obj.UnparsedObject)
 <span id="L409" class="ln">   409  </span>	}
 <span id="L410" class="ln">   410  </span>	return nil <span class="comment">// exactly one match</span>
 <span id="L411" class="ln">   411  </span>}
@@ -470,71 +470,71 @@
 <span id="L413" class="ln">   413  </span><span class="comment">// MarshalJSON turns data from the first non-nil pointers in the struct to JSON.</span>
 <span id="L414" class="ln">   414  </span>func (obj LogsProcessor) MarshalJSON() ([]byte, error) {
 <span id="L415" class="ln">   415  </span>	if obj.LogsGrokParser != nil {
-<span id="L416" class="ln">   416  </span>		return json.Marshal(&amp;obj.LogsGrokParser)
+<span id="L416" class="ln">   416  </span>		return datadog.Marshal(&amp;obj.LogsGrokParser)
 <span id="L417" class="ln">   417  </span>	}
 <span id="L418" class="ln">   418  </span>
 <span id="L419" class="ln">   419  </span>	if obj.LogsDateRemapper != nil {
-<span id="L420" class="ln">   420  </span>		return json.Marshal(&amp;obj.LogsDateRemapper)
+<span id="L420" class="ln">   420  </span>		return datadog.Marshal(&amp;obj.LogsDateRemapper)
 <span id="L421" class="ln">   421  </span>	}
 <span id="L422" class="ln">   422  </span>
 <span id="L423" class="ln">   423  </span>	if obj.LogsStatusRemapper != nil {
-<span id="L424" class="ln">   424  </span>		return json.Marshal(&amp;obj.LogsStatusRemapper)
+<span id="L424" class="ln">   424  </span>		return datadog.Marshal(&amp;obj.LogsStatusRemapper)
 <span id="L425" class="ln">   425  </span>	}
 <span id="L426" class="ln">   426  </span>
 <span id="L427" class="ln">   427  </span>	if obj.LogsServiceRemapper != nil {
-<span id="L428" class="ln">   428  </span>		return json.Marshal(&amp;obj.LogsServiceRemapper)
+<span id="L428" class="ln">   428  </span>		return datadog.Marshal(&amp;obj.LogsServiceRemapper)
 <span id="L429" class="ln">   429  </span>	}
 <span id="L430" class="ln">   430  </span>
 <span id="L431" class="ln">   431  </span>	if obj.LogsMessageRemapper != nil {
-<span id="L432" class="ln">   432  </span>		return json.Marshal(&amp;obj.LogsMessageRemapper)
+<span id="L432" class="ln">   432  </span>		return datadog.Marshal(&amp;obj.LogsMessageRemapper)
 <span id="L433" class="ln">   433  </span>	}
 <span id="L434" class="ln">   434  </span>
 <span id="L435" class="ln">   435  </span>	if obj.LogsAttributeRemapper != nil {
-<span id="L436" class="ln">   436  </span>		return json.Marshal(&amp;obj.LogsAttributeRemapper)
+<span id="L436" class="ln">   436  </span>		return datadog.Marshal(&amp;obj.LogsAttributeRemapper)
 <span id="L437" class="ln">   437  </span>	}
 <span id="L438" class="ln">   438  </span>
 <span id="L439" class="ln">   439  </span>	if obj.LogsURLParser != nil {
-<span id="L440" class="ln">   440  </span>		return json.Marshal(&amp;obj.LogsURLParser)
+<span id="L440" class="ln">   440  </span>		return datadog.Marshal(&amp;obj.LogsURLParser)
 <span id="L441" class="ln">   441  </span>	}
 <span id="L442" class="ln">   442  </span>
 <span id="L443" class="ln">   443  </span>	if obj.LogsUserAgentParser != nil {
-<span id="L444" class="ln">   444  </span>		return json.Marshal(&amp;obj.LogsUserAgentParser)
+<span id="L444" class="ln">   444  </span>		return datadog.Marshal(&amp;obj.LogsUserAgentParser)
 <span id="L445" class="ln">   445  </span>	}
 <span id="L446" class="ln">   446  </span>
 <span id="L447" class="ln">   447  </span>	if obj.LogsCategoryProcessor != nil {
-<span id="L448" class="ln">   448  </span>		return json.Marshal(&amp;obj.LogsCategoryProcessor)
+<span id="L448" class="ln">   448  </span>		return datadog.Marshal(&amp;obj.LogsCategoryProcessor)
 <span id="L449" class="ln">   449  </span>	}
 <span id="L450" class="ln">   450  </span>
 <span id="L451" class="ln">   451  </span>	if obj.LogsArithmeticProcessor != nil {
-<span id="L452" class="ln">   452  </span>		return json.Marshal(&amp;obj.LogsArithmeticProcessor)
+<span id="L452" class="ln">   452  </span>		return datadog.Marshal(&amp;obj.LogsArithmeticProcessor)
 <span id="L453" class="ln">   453  </span>	}
 <span id="L454" class="ln">   454  </span>
 <span id="L455" class="ln">   455  </span>	if obj.LogsStringBuilderProcessor != nil {
-<span id="L456" class="ln">   456  </span>		return json.Marshal(&amp;obj.LogsStringBuilderProcessor)
+<span id="L456" class="ln">   456  </span>		return datadog.Marshal(&amp;obj.LogsStringBuilderProcessor)
 <span id="L457" class="ln">   457  </span>	}
 <span id="L458" class="ln">   458  </span>
 <span id="L459" class="ln">   459  </span>	if obj.LogsPipelineProcessor != nil {
-<span id="L460" class="ln">   460  </span>		return json.Marshal(&amp;obj.LogsPipelineProcessor)
+<span id="L460" class="ln">   460  </span>		return datadog.Marshal(&amp;obj.LogsPipelineProcessor)
 <span id="L461" class="ln">   461  </span>	}
 <span id="L462" class="ln">   462  </span>
 <span id="L463" class="ln">   463  </span>	if obj.LogsGeoIPParser != nil {
-<span id="L464" class="ln">   464  </span>		return json.Marshal(&amp;obj.LogsGeoIPParser)
+<span id="L464" class="ln">   464  </span>		return datadog.Marshal(&amp;obj.LogsGeoIPParser)
 <span id="L465" class="ln">   465  </span>	}
 <span id="L466" class="ln">   466  </span>
 <span id="L467" class="ln">   467  </span>	if obj.LogsLookupProcessor != nil {
-<span id="L468" class="ln">   468  </span>		return json.Marshal(&amp;obj.LogsLookupProcessor)
+<span id="L468" class="ln">   468  </span>		return datadog.Marshal(&amp;obj.LogsLookupProcessor)
 <span id="L469" class="ln">   469  </span>	}
 <span id="L470" class="ln">   470  </span>
 <span id="L471" class="ln">   471  </span>	if obj.ReferenceTableLogsLookupProcessor != nil {
-<span id="L472" class="ln">   472  </span>		return json.Marshal(&amp;obj.ReferenceTableLogsLookupProcessor)
+<span id="L472" class="ln">   472  </span>		return datadog.Marshal(&amp;obj.ReferenceTableLogsLookupProcessor)
 <span id="L473" class="ln">   473  </span>	}
 <span id="L474" class="ln">   474  </span>
 <span id="L475" class="ln">   475  </span>	if obj.LogsTraceRemapper != nil {
-<span id="L476" class="ln">   476  </span>		return json.Marshal(&amp;obj.LogsTraceRemapper)
+<span id="L476" class="ln">   476  </span>		return datadog.Marshal(&amp;obj.LogsTraceRemapper)
 <span id="L477" class="ln">   477  </span>	}
 <span id="L478" class="ln">   478  </span>
 <span id="L479" class="ln">   479  </span>	if obj.UnparsedObject != nil {
-<span id="L480" class="ln">   480  </span>		return json.Marshal(obj.UnparsedObject)
+<span id="L480" class="ln">   480  </span>		return datadog.Marshal(obj.UnparsedObject)
 <span id="L481" class="ln">   481  </span>	}
 <span id="L482" class="ln">   482  </span>	return nil, nil <span class="comment">// no data in oneOf schemas</span>
 <span id="L483" class="ln">   483  </span>}

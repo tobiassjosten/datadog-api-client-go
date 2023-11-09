@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV2
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// DowntimeScheduleResponse - The schedule that defines when the monitor starts, stops, and recurs. There are two types of schedules:</span>
@@ -91,10 +91,10 @@
 <span id="L34" class="ln">    34  </span>	var err error
 <span id="L35" class="ln">    35  </span>	match := 0
 <span id="L36" class="ln">    36  </span>	<span class="comment">// try to unmarshal data into DowntimeScheduleRecurrencesResponse</span>
-<span id="L37" class="ln">    37  </span>	err = json.Unmarshal(data, &amp;obj.DowntimeScheduleRecurrencesResponse)
+<span id="L37" class="ln">    37  </span>	err = datadog.Unmarshal(data, &amp;obj.DowntimeScheduleRecurrencesResponse)
 <span id="L38" class="ln">    38  </span>	if err == nil {
 <span id="L39" class="ln">    39  </span>		if obj.DowntimeScheduleRecurrencesResponse != nil &amp;&amp; obj.DowntimeScheduleRecurrencesResponse.UnparsedObject == nil {
-<span id="L40" class="ln">    40  </span>			jsonDowntimeScheduleRecurrencesResponse, _ := json.Marshal(obj.DowntimeScheduleRecurrencesResponse)
+<span id="L40" class="ln">    40  </span>			jsonDowntimeScheduleRecurrencesResponse, _ := datadog.Marshal(obj.DowntimeScheduleRecurrencesResponse)
 <span id="L41" class="ln">    41  </span>			if string(jsonDowntimeScheduleRecurrencesResponse) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L42" class="ln">    42  </span>				obj.DowntimeScheduleRecurrencesResponse = nil
 <span id="L43" class="ln">    43  </span>			} else {
@@ -108,10 +108,10 @@
 <span id="L51" class="ln">    51  </span>	}
 <span id="L52" class="ln">    52  </span>
 <span id="L53" class="ln">    53  </span>	<span class="comment">// try to unmarshal data into DowntimeScheduleOneTimeResponse</span>
-<span id="L54" class="ln">    54  </span>	err = json.Unmarshal(data, &amp;obj.DowntimeScheduleOneTimeResponse)
+<span id="L54" class="ln">    54  </span>	err = datadog.Unmarshal(data, &amp;obj.DowntimeScheduleOneTimeResponse)
 <span id="L55" class="ln">    55  </span>	if err == nil {
 <span id="L56" class="ln">    56  </span>		if obj.DowntimeScheduleOneTimeResponse != nil &amp;&amp; obj.DowntimeScheduleOneTimeResponse.UnparsedObject == nil {
-<span id="L57" class="ln">    57  </span>			jsonDowntimeScheduleOneTimeResponse, _ := json.Marshal(obj.DowntimeScheduleOneTimeResponse)
+<span id="L57" class="ln">    57  </span>			jsonDowntimeScheduleOneTimeResponse, _ := datadog.Marshal(obj.DowntimeScheduleOneTimeResponse)
 <span id="L58" class="ln">    58  </span>			if string(jsonDowntimeScheduleOneTimeResponse) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L59" class="ln">    59  </span>				obj.DowntimeScheduleOneTimeResponse = nil
 <span id="L60" class="ln">    60  </span>			} else {
@@ -128,7 +128,7 @@
 <span id="L71" class="ln">    71  </span>		<span class="comment">// reset to nil</span>
 <span id="L72" class="ln">    72  </span>		obj.DowntimeScheduleRecurrencesResponse = nil
 <span id="L73" class="ln">    73  </span>		obj.DowntimeScheduleOneTimeResponse = nil
-<span id="L74" class="ln">    74  </span>		return json.Unmarshal(data, &amp;obj.UnparsedObject)
+<span id="L74" class="ln">    74  </span>		return datadog.Unmarshal(data, &amp;obj.UnparsedObject)
 <span id="L75" class="ln">    75  </span>	}
 <span id="L76" class="ln">    76  </span>	return nil <span class="comment">// exactly one match</span>
 <span id="L77" class="ln">    77  </span>}
@@ -136,15 +136,15 @@
 <span id="L79" class="ln">    79  </span><span class="comment">// MarshalJSON turns data from the first non-nil pointers in the struct to JSON.</span>
 <span id="L80" class="ln">    80  </span>func (obj DowntimeScheduleResponse) MarshalJSON() ([]byte, error) {
 <span id="L81" class="ln">    81  </span>	if obj.DowntimeScheduleRecurrencesResponse != nil {
-<span id="L82" class="ln">    82  </span>		return json.Marshal(&amp;obj.DowntimeScheduleRecurrencesResponse)
+<span id="L82" class="ln">    82  </span>		return datadog.Marshal(&amp;obj.DowntimeScheduleRecurrencesResponse)
 <span id="L83" class="ln">    83  </span>	}
 <span id="L84" class="ln">    84  </span>
 <span id="L85" class="ln">    85  </span>	if obj.DowntimeScheduleOneTimeResponse != nil {
-<span id="L86" class="ln">    86  </span>		return json.Marshal(&amp;obj.DowntimeScheduleOneTimeResponse)
+<span id="L86" class="ln">    86  </span>		return datadog.Marshal(&amp;obj.DowntimeScheduleOneTimeResponse)
 <span id="L87" class="ln">    87  </span>	}
 <span id="L88" class="ln">    88  </span>
 <span id="L89" class="ln">    89  </span>	if obj.UnparsedObject != nil {
-<span id="L90" class="ln">    90  </span>		return json.Marshal(obj.UnparsedObject)
+<span id="L90" class="ln">    90  </span>		return datadog.Marshal(obj.UnparsedObject)
 <span id="L91" class="ln">    91  </span>	}
 <span id="L92" class="ln">    92  </span>	return nil, nil <span class="comment">// no data in oneOf schemas</span>
 <span id="L93" class="ln">    93  </span>}

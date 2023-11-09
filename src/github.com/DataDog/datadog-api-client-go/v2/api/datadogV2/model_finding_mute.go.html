@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV2
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// FindingMute Information about the mute status of this finding.</span>
@@ -272,7 +272,7 @@
 <span id="L215" class="ln">   215  </span>func (o FindingMute) MarshalJSON() ([]byte, error) {
 <span id="L216" class="ln">   216  </span>	toSerialize := map[string]interface{}{}
 <span id="L217" class="ln">   217  </span>	if o.UnparsedObject != nil {
-<span id="L218" class="ln">   218  </span>		return json.Marshal(o.UnparsedObject)
+<span id="L218" class="ln">   218  </span>		return datadog.Marshal(o.UnparsedObject)
 <span id="L219" class="ln">   219  </span>	}
 <span id="L220" class="ln">   220  </span>	if o.Description != nil {
 <span id="L221" class="ln">   221  </span>		toSerialize[&#34;description&#34;] = o.Description
@@ -292,7 +292,7 @@
 <span id="L235" class="ln">   235  </span>	if o.Uuid != nil {
 <span id="L236" class="ln">   236  </span>		toSerialize[&#34;uuid&#34;] = o.Uuid
 <span id="L237" class="ln">   237  </span>	}
-<span id="L238" class="ln">   238  </span>	return json.Marshal(toSerialize)
+<span id="L238" class="ln">   238  </span>	return datadog.Marshal(toSerialize)
 <span id="L239" class="ln">   239  </span>}
 <span id="L240" class="ln">   240  </span>
 <span id="L241" class="ln">   241  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
@@ -305,8 +305,8 @@
 <span id="L248" class="ln">   248  </span>		StartDate      *int64             `json:&#34;start_date,omitempty&#34;`
 <span id="L249" class="ln">   249  </span>		Uuid           *string            `json:&#34;uuid,omitempty&#34;`
 <span id="L250" class="ln">   250  </span>	}{}
-<span id="L251" class="ln">   251  </span>	if err = json.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L252" class="ln">   252  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L251" class="ln">   251  </span>	if err = datadog.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L252" class="ln">   252  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L253" class="ln">   253  </span>	}
 <span id="L254" class="ln">   254  </span>
 <span id="L255" class="ln">   255  </span>	hasInvalidField := false
@@ -322,7 +322,7 @@
 <span id="L265" class="ln">   265  </span>	o.Uuid = all.Uuid
 <span id="L266" class="ln">   266  </span>
 <span id="L267" class="ln">   267  </span>	if hasInvalidField {
-<span id="L268" class="ln">   268  </span>		return json.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L268" class="ln">   268  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
 <span id="L269" class="ln">   269  </span>	}
 <span id="L270" class="ln">   270  </span>
 <span id="L271" class="ln">   271  </span>	return nil

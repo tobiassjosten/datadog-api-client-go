@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV1
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// WidgetDefinition - [Definition of the widget](https://docs.datadoghq.com/dashboards/widgets/).</span>
@@ -281,10 +281,10 @@
 <span id="L224" class="ln">   224  </span>	var err error
 <span id="L225" class="ln">   225  </span>	match := 0
 <span id="L226" class="ln">   226  </span>	<span class="comment">// try to unmarshal data into AlertGraphWidgetDefinition</span>
-<span id="L227" class="ln">   227  </span>	err = json.Unmarshal(data, &amp;obj.AlertGraphWidgetDefinition)
+<span id="L227" class="ln">   227  </span>	err = datadog.Unmarshal(data, &amp;obj.AlertGraphWidgetDefinition)
 <span id="L228" class="ln">   228  </span>	if err == nil {
 <span id="L229" class="ln">   229  </span>		if obj.AlertGraphWidgetDefinition != nil &amp;&amp; obj.AlertGraphWidgetDefinition.UnparsedObject == nil {
-<span id="L230" class="ln">   230  </span>			jsonAlertGraphWidgetDefinition, _ := json.Marshal(obj.AlertGraphWidgetDefinition)
+<span id="L230" class="ln">   230  </span>			jsonAlertGraphWidgetDefinition, _ := datadog.Marshal(obj.AlertGraphWidgetDefinition)
 <span id="L231" class="ln">   231  </span>			if string(jsonAlertGraphWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L232" class="ln">   232  </span>				obj.AlertGraphWidgetDefinition = nil
 <span id="L233" class="ln">   233  </span>			} else {
@@ -298,10 +298,10 @@
 <span id="L241" class="ln">   241  </span>	}
 <span id="L242" class="ln">   242  </span>
 <span id="L243" class="ln">   243  </span>	<span class="comment">// try to unmarshal data into AlertValueWidgetDefinition</span>
-<span id="L244" class="ln">   244  </span>	err = json.Unmarshal(data, &amp;obj.AlertValueWidgetDefinition)
+<span id="L244" class="ln">   244  </span>	err = datadog.Unmarshal(data, &amp;obj.AlertValueWidgetDefinition)
 <span id="L245" class="ln">   245  </span>	if err == nil {
 <span id="L246" class="ln">   246  </span>		if obj.AlertValueWidgetDefinition != nil &amp;&amp; obj.AlertValueWidgetDefinition.UnparsedObject == nil {
-<span id="L247" class="ln">   247  </span>			jsonAlertValueWidgetDefinition, _ := json.Marshal(obj.AlertValueWidgetDefinition)
+<span id="L247" class="ln">   247  </span>			jsonAlertValueWidgetDefinition, _ := datadog.Marshal(obj.AlertValueWidgetDefinition)
 <span id="L248" class="ln">   248  </span>			if string(jsonAlertValueWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L249" class="ln">   249  </span>				obj.AlertValueWidgetDefinition = nil
 <span id="L250" class="ln">   250  </span>			} else {
@@ -315,10 +315,10 @@
 <span id="L258" class="ln">   258  </span>	}
 <span id="L259" class="ln">   259  </span>
 <span id="L260" class="ln">   260  </span>	<span class="comment">// try to unmarshal data into ChangeWidgetDefinition</span>
-<span id="L261" class="ln">   261  </span>	err = json.Unmarshal(data, &amp;obj.ChangeWidgetDefinition)
+<span id="L261" class="ln">   261  </span>	err = datadog.Unmarshal(data, &amp;obj.ChangeWidgetDefinition)
 <span id="L262" class="ln">   262  </span>	if err == nil {
 <span id="L263" class="ln">   263  </span>		if obj.ChangeWidgetDefinition != nil &amp;&amp; obj.ChangeWidgetDefinition.UnparsedObject == nil {
-<span id="L264" class="ln">   264  </span>			jsonChangeWidgetDefinition, _ := json.Marshal(obj.ChangeWidgetDefinition)
+<span id="L264" class="ln">   264  </span>			jsonChangeWidgetDefinition, _ := datadog.Marshal(obj.ChangeWidgetDefinition)
 <span id="L265" class="ln">   265  </span>			if string(jsonChangeWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L266" class="ln">   266  </span>				obj.ChangeWidgetDefinition = nil
 <span id="L267" class="ln">   267  </span>			} else {
@@ -332,10 +332,10 @@
 <span id="L275" class="ln">   275  </span>	}
 <span id="L276" class="ln">   276  </span>
 <span id="L277" class="ln">   277  </span>	<span class="comment">// try to unmarshal data into CheckStatusWidgetDefinition</span>
-<span id="L278" class="ln">   278  </span>	err = json.Unmarshal(data, &amp;obj.CheckStatusWidgetDefinition)
+<span id="L278" class="ln">   278  </span>	err = datadog.Unmarshal(data, &amp;obj.CheckStatusWidgetDefinition)
 <span id="L279" class="ln">   279  </span>	if err == nil {
 <span id="L280" class="ln">   280  </span>		if obj.CheckStatusWidgetDefinition != nil &amp;&amp; obj.CheckStatusWidgetDefinition.UnparsedObject == nil {
-<span id="L281" class="ln">   281  </span>			jsonCheckStatusWidgetDefinition, _ := json.Marshal(obj.CheckStatusWidgetDefinition)
+<span id="L281" class="ln">   281  </span>			jsonCheckStatusWidgetDefinition, _ := datadog.Marshal(obj.CheckStatusWidgetDefinition)
 <span id="L282" class="ln">   282  </span>			if string(jsonCheckStatusWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L283" class="ln">   283  </span>				obj.CheckStatusWidgetDefinition = nil
 <span id="L284" class="ln">   284  </span>			} else {
@@ -349,10 +349,10 @@
 <span id="L292" class="ln">   292  </span>	}
 <span id="L293" class="ln">   293  </span>
 <span id="L294" class="ln">   294  </span>	<span class="comment">// try to unmarshal data into DistributionWidgetDefinition</span>
-<span id="L295" class="ln">   295  </span>	err = json.Unmarshal(data, &amp;obj.DistributionWidgetDefinition)
+<span id="L295" class="ln">   295  </span>	err = datadog.Unmarshal(data, &amp;obj.DistributionWidgetDefinition)
 <span id="L296" class="ln">   296  </span>	if err == nil {
 <span id="L297" class="ln">   297  </span>		if obj.DistributionWidgetDefinition != nil &amp;&amp; obj.DistributionWidgetDefinition.UnparsedObject == nil {
-<span id="L298" class="ln">   298  </span>			jsonDistributionWidgetDefinition, _ := json.Marshal(obj.DistributionWidgetDefinition)
+<span id="L298" class="ln">   298  </span>			jsonDistributionWidgetDefinition, _ := datadog.Marshal(obj.DistributionWidgetDefinition)
 <span id="L299" class="ln">   299  </span>			if string(jsonDistributionWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L300" class="ln">   300  </span>				obj.DistributionWidgetDefinition = nil
 <span id="L301" class="ln">   301  </span>			} else {
@@ -366,10 +366,10 @@
 <span id="L309" class="ln">   309  </span>	}
 <span id="L310" class="ln">   310  </span>
 <span id="L311" class="ln">   311  </span>	<span class="comment">// try to unmarshal data into EventStreamWidgetDefinition</span>
-<span id="L312" class="ln">   312  </span>	err = json.Unmarshal(data, &amp;obj.EventStreamWidgetDefinition)
+<span id="L312" class="ln">   312  </span>	err = datadog.Unmarshal(data, &amp;obj.EventStreamWidgetDefinition)
 <span id="L313" class="ln">   313  </span>	if err == nil {
 <span id="L314" class="ln">   314  </span>		if obj.EventStreamWidgetDefinition != nil &amp;&amp; obj.EventStreamWidgetDefinition.UnparsedObject == nil {
-<span id="L315" class="ln">   315  </span>			jsonEventStreamWidgetDefinition, _ := json.Marshal(obj.EventStreamWidgetDefinition)
+<span id="L315" class="ln">   315  </span>			jsonEventStreamWidgetDefinition, _ := datadog.Marshal(obj.EventStreamWidgetDefinition)
 <span id="L316" class="ln">   316  </span>			if string(jsonEventStreamWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L317" class="ln">   317  </span>				obj.EventStreamWidgetDefinition = nil
 <span id="L318" class="ln">   318  </span>			} else {
@@ -383,10 +383,10 @@
 <span id="L326" class="ln">   326  </span>	}
 <span id="L327" class="ln">   327  </span>
 <span id="L328" class="ln">   328  </span>	<span class="comment">// try to unmarshal data into EventTimelineWidgetDefinition</span>
-<span id="L329" class="ln">   329  </span>	err = json.Unmarshal(data, &amp;obj.EventTimelineWidgetDefinition)
+<span id="L329" class="ln">   329  </span>	err = datadog.Unmarshal(data, &amp;obj.EventTimelineWidgetDefinition)
 <span id="L330" class="ln">   330  </span>	if err == nil {
 <span id="L331" class="ln">   331  </span>		if obj.EventTimelineWidgetDefinition != nil &amp;&amp; obj.EventTimelineWidgetDefinition.UnparsedObject == nil {
-<span id="L332" class="ln">   332  </span>			jsonEventTimelineWidgetDefinition, _ := json.Marshal(obj.EventTimelineWidgetDefinition)
+<span id="L332" class="ln">   332  </span>			jsonEventTimelineWidgetDefinition, _ := datadog.Marshal(obj.EventTimelineWidgetDefinition)
 <span id="L333" class="ln">   333  </span>			if string(jsonEventTimelineWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L334" class="ln">   334  </span>				obj.EventTimelineWidgetDefinition = nil
 <span id="L335" class="ln">   335  </span>			} else {
@@ -400,10 +400,10 @@
 <span id="L343" class="ln">   343  </span>	}
 <span id="L344" class="ln">   344  </span>
 <span id="L345" class="ln">   345  </span>	<span class="comment">// try to unmarshal data into FreeTextWidgetDefinition</span>
-<span id="L346" class="ln">   346  </span>	err = json.Unmarshal(data, &amp;obj.FreeTextWidgetDefinition)
+<span id="L346" class="ln">   346  </span>	err = datadog.Unmarshal(data, &amp;obj.FreeTextWidgetDefinition)
 <span id="L347" class="ln">   347  </span>	if err == nil {
 <span id="L348" class="ln">   348  </span>		if obj.FreeTextWidgetDefinition != nil &amp;&amp; obj.FreeTextWidgetDefinition.UnparsedObject == nil {
-<span id="L349" class="ln">   349  </span>			jsonFreeTextWidgetDefinition, _ := json.Marshal(obj.FreeTextWidgetDefinition)
+<span id="L349" class="ln">   349  </span>			jsonFreeTextWidgetDefinition, _ := datadog.Marshal(obj.FreeTextWidgetDefinition)
 <span id="L350" class="ln">   350  </span>			if string(jsonFreeTextWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L351" class="ln">   351  </span>				obj.FreeTextWidgetDefinition = nil
 <span id="L352" class="ln">   352  </span>			} else {
@@ -417,10 +417,10 @@
 <span id="L360" class="ln">   360  </span>	}
 <span id="L361" class="ln">   361  </span>
 <span id="L362" class="ln">   362  </span>	<span class="comment">// try to unmarshal data into FunnelWidgetDefinition</span>
-<span id="L363" class="ln">   363  </span>	err = json.Unmarshal(data, &amp;obj.FunnelWidgetDefinition)
+<span id="L363" class="ln">   363  </span>	err = datadog.Unmarshal(data, &amp;obj.FunnelWidgetDefinition)
 <span id="L364" class="ln">   364  </span>	if err == nil {
 <span id="L365" class="ln">   365  </span>		if obj.FunnelWidgetDefinition != nil &amp;&amp; obj.FunnelWidgetDefinition.UnparsedObject == nil {
-<span id="L366" class="ln">   366  </span>			jsonFunnelWidgetDefinition, _ := json.Marshal(obj.FunnelWidgetDefinition)
+<span id="L366" class="ln">   366  </span>			jsonFunnelWidgetDefinition, _ := datadog.Marshal(obj.FunnelWidgetDefinition)
 <span id="L367" class="ln">   367  </span>			if string(jsonFunnelWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L368" class="ln">   368  </span>				obj.FunnelWidgetDefinition = nil
 <span id="L369" class="ln">   369  </span>			} else {
@@ -434,10 +434,10 @@
 <span id="L377" class="ln">   377  </span>	}
 <span id="L378" class="ln">   378  </span>
 <span id="L379" class="ln">   379  </span>	<span class="comment">// try to unmarshal data into GeomapWidgetDefinition</span>
-<span id="L380" class="ln">   380  </span>	err = json.Unmarshal(data, &amp;obj.GeomapWidgetDefinition)
+<span id="L380" class="ln">   380  </span>	err = datadog.Unmarshal(data, &amp;obj.GeomapWidgetDefinition)
 <span id="L381" class="ln">   381  </span>	if err == nil {
 <span id="L382" class="ln">   382  </span>		if obj.GeomapWidgetDefinition != nil &amp;&amp; obj.GeomapWidgetDefinition.UnparsedObject == nil {
-<span id="L383" class="ln">   383  </span>			jsonGeomapWidgetDefinition, _ := json.Marshal(obj.GeomapWidgetDefinition)
+<span id="L383" class="ln">   383  </span>			jsonGeomapWidgetDefinition, _ := datadog.Marshal(obj.GeomapWidgetDefinition)
 <span id="L384" class="ln">   384  </span>			if string(jsonGeomapWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L385" class="ln">   385  </span>				obj.GeomapWidgetDefinition = nil
 <span id="L386" class="ln">   386  </span>			} else {
@@ -451,10 +451,10 @@
 <span id="L394" class="ln">   394  </span>	}
 <span id="L395" class="ln">   395  </span>
 <span id="L396" class="ln">   396  </span>	<span class="comment">// try to unmarshal data into GroupWidgetDefinition</span>
-<span id="L397" class="ln">   397  </span>	err = json.Unmarshal(data, &amp;obj.GroupWidgetDefinition)
+<span id="L397" class="ln">   397  </span>	err = datadog.Unmarshal(data, &amp;obj.GroupWidgetDefinition)
 <span id="L398" class="ln">   398  </span>	if err == nil {
 <span id="L399" class="ln">   399  </span>		if obj.GroupWidgetDefinition != nil &amp;&amp; obj.GroupWidgetDefinition.UnparsedObject == nil {
-<span id="L400" class="ln">   400  </span>			jsonGroupWidgetDefinition, _ := json.Marshal(obj.GroupWidgetDefinition)
+<span id="L400" class="ln">   400  </span>			jsonGroupWidgetDefinition, _ := datadog.Marshal(obj.GroupWidgetDefinition)
 <span id="L401" class="ln">   401  </span>			if string(jsonGroupWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L402" class="ln">   402  </span>				obj.GroupWidgetDefinition = nil
 <span id="L403" class="ln">   403  </span>			} else {
@@ -468,10 +468,10 @@
 <span id="L411" class="ln">   411  </span>	}
 <span id="L412" class="ln">   412  </span>
 <span id="L413" class="ln">   413  </span>	<span class="comment">// try to unmarshal data into HeatMapWidgetDefinition</span>
-<span id="L414" class="ln">   414  </span>	err = json.Unmarshal(data, &amp;obj.HeatMapWidgetDefinition)
+<span id="L414" class="ln">   414  </span>	err = datadog.Unmarshal(data, &amp;obj.HeatMapWidgetDefinition)
 <span id="L415" class="ln">   415  </span>	if err == nil {
 <span id="L416" class="ln">   416  </span>		if obj.HeatMapWidgetDefinition != nil &amp;&amp; obj.HeatMapWidgetDefinition.UnparsedObject == nil {
-<span id="L417" class="ln">   417  </span>			jsonHeatMapWidgetDefinition, _ := json.Marshal(obj.HeatMapWidgetDefinition)
+<span id="L417" class="ln">   417  </span>			jsonHeatMapWidgetDefinition, _ := datadog.Marshal(obj.HeatMapWidgetDefinition)
 <span id="L418" class="ln">   418  </span>			if string(jsonHeatMapWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L419" class="ln">   419  </span>				obj.HeatMapWidgetDefinition = nil
 <span id="L420" class="ln">   420  </span>			} else {
@@ -485,10 +485,10 @@
 <span id="L428" class="ln">   428  </span>	}
 <span id="L429" class="ln">   429  </span>
 <span id="L430" class="ln">   430  </span>	<span class="comment">// try to unmarshal data into HostMapWidgetDefinition</span>
-<span id="L431" class="ln">   431  </span>	err = json.Unmarshal(data, &amp;obj.HostMapWidgetDefinition)
+<span id="L431" class="ln">   431  </span>	err = datadog.Unmarshal(data, &amp;obj.HostMapWidgetDefinition)
 <span id="L432" class="ln">   432  </span>	if err == nil {
 <span id="L433" class="ln">   433  </span>		if obj.HostMapWidgetDefinition != nil &amp;&amp; obj.HostMapWidgetDefinition.UnparsedObject == nil {
-<span id="L434" class="ln">   434  </span>			jsonHostMapWidgetDefinition, _ := json.Marshal(obj.HostMapWidgetDefinition)
+<span id="L434" class="ln">   434  </span>			jsonHostMapWidgetDefinition, _ := datadog.Marshal(obj.HostMapWidgetDefinition)
 <span id="L435" class="ln">   435  </span>			if string(jsonHostMapWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L436" class="ln">   436  </span>				obj.HostMapWidgetDefinition = nil
 <span id="L437" class="ln">   437  </span>			} else {
@@ -502,10 +502,10 @@
 <span id="L445" class="ln">   445  </span>	}
 <span id="L446" class="ln">   446  </span>
 <span id="L447" class="ln">   447  </span>	<span class="comment">// try to unmarshal data into IFrameWidgetDefinition</span>
-<span id="L448" class="ln">   448  </span>	err = json.Unmarshal(data, &amp;obj.IFrameWidgetDefinition)
+<span id="L448" class="ln">   448  </span>	err = datadog.Unmarshal(data, &amp;obj.IFrameWidgetDefinition)
 <span id="L449" class="ln">   449  </span>	if err == nil {
 <span id="L450" class="ln">   450  </span>		if obj.IFrameWidgetDefinition != nil &amp;&amp; obj.IFrameWidgetDefinition.UnparsedObject == nil {
-<span id="L451" class="ln">   451  </span>			jsonIFrameWidgetDefinition, _ := json.Marshal(obj.IFrameWidgetDefinition)
+<span id="L451" class="ln">   451  </span>			jsonIFrameWidgetDefinition, _ := datadog.Marshal(obj.IFrameWidgetDefinition)
 <span id="L452" class="ln">   452  </span>			if string(jsonIFrameWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L453" class="ln">   453  </span>				obj.IFrameWidgetDefinition = nil
 <span id="L454" class="ln">   454  </span>			} else {
@@ -519,10 +519,10 @@
 <span id="L462" class="ln">   462  </span>	}
 <span id="L463" class="ln">   463  </span>
 <span id="L464" class="ln">   464  </span>	<span class="comment">// try to unmarshal data into ImageWidgetDefinition</span>
-<span id="L465" class="ln">   465  </span>	err = json.Unmarshal(data, &amp;obj.ImageWidgetDefinition)
+<span id="L465" class="ln">   465  </span>	err = datadog.Unmarshal(data, &amp;obj.ImageWidgetDefinition)
 <span id="L466" class="ln">   466  </span>	if err == nil {
 <span id="L467" class="ln">   467  </span>		if obj.ImageWidgetDefinition != nil &amp;&amp; obj.ImageWidgetDefinition.UnparsedObject == nil {
-<span id="L468" class="ln">   468  </span>			jsonImageWidgetDefinition, _ := json.Marshal(obj.ImageWidgetDefinition)
+<span id="L468" class="ln">   468  </span>			jsonImageWidgetDefinition, _ := datadog.Marshal(obj.ImageWidgetDefinition)
 <span id="L469" class="ln">   469  </span>			if string(jsonImageWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L470" class="ln">   470  </span>				obj.ImageWidgetDefinition = nil
 <span id="L471" class="ln">   471  </span>			} else {
@@ -536,10 +536,10 @@
 <span id="L479" class="ln">   479  </span>	}
 <span id="L480" class="ln">   480  </span>
 <span id="L481" class="ln">   481  </span>	<span class="comment">// try to unmarshal data into ListStreamWidgetDefinition</span>
-<span id="L482" class="ln">   482  </span>	err = json.Unmarshal(data, &amp;obj.ListStreamWidgetDefinition)
+<span id="L482" class="ln">   482  </span>	err = datadog.Unmarshal(data, &amp;obj.ListStreamWidgetDefinition)
 <span id="L483" class="ln">   483  </span>	if err == nil {
 <span id="L484" class="ln">   484  </span>		if obj.ListStreamWidgetDefinition != nil &amp;&amp; obj.ListStreamWidgetDefinition.UnparsedObject == nil {
-<span id="L485" class="ln">   485  </span>			jsonListStreamWidgetDefinition, _ := json.Marshal(obj.ListStreamWidgetDefinition)
+<span id="L485" class="ln">   485  </span>			jsonListStreamWidgetDefinition, _ := datadog.Marshal(obj.ListStreamWidgetDefinition)
 <span id="L486" class="ln">   486  </span>			if string(jsonListStreamWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L487" class="ln">   487  </span>				obj.ListStreamWidgetDefinition = nil
 <span id="L488" class="ln">   488  </span>			} else {
@@ -553,10 +553,10 @@
 <span id="L496" class="ln">   496  </span>	}
 <span id="L497" class="ln">   497  </span>
 <span id="L498" class="ln">   498  </span>	<span class="comment">// try to unmarshal data into LogStreamWidgetDefinition</span>
-<span id="L499" class="ln">   499  </span>	err = json.Unmarshal(data, &amp;obj.LogStreamWidgetDefinition)
+<span id="L499" class="ln">   499  </span>	err = datadog.Unmarshal(data, &amp;obj.LogStreamWidgetDefinition)
 <span id="L500" class="ln">   500  </span>	if err == nil {
 <span id="L501" class="ln">   501  </span>		if obj.LogStreamWidgetDefinition != nil &amp;&amp; obj.LogStreamWidgetDefinition.UnparsedObject == nil {
-<span id="L502" class="ln">   502  </span>			jsonLogStreamWidgetDefinition, _ := json.Marshal(obj.LogStreamWidgetDefinition)
+<span id="L502" class="ln">   502  </span>			jsonLogStreamWidgetDefinition, _ := datadog.Marshal(obj.LogStreamWidgetDefinition)
 <span id="L503" class="ln">   503  </span>			if string(jsonLogStreamWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L504" class="ln">   504  </span>				obj.LogStreamWidgetDefinition = nil
 <span id="L505" class="ln">   505  </span>			} else {
@@ -570,10 +570,10 @@
 <span id="L513" class="ln">   513  </span>	}
 <span id="L514" class="ln">   514  </span>
 <span id="L515" class="ln">   515  </span>	<span class="comment">// try to unmarshal data into MonitorSummaryWidgetDefinition</span>
-<span id="L516" class="ln">   516  </span>	err = json.Unmarshal(data, &amp;obj.MonitorSummaryWidgetDefinition)
+<span id="L516" class="ln">   516  </span>	err = datadog.Unmarshal(data, &amp;obj.MonitorSummaryWidgetDefinition)
 <span id="L517" class="ln">   517  </span>	if err == nil {
 <span id="L518" class="ln">   518  </span>		if obj.MonitorSummaryWidgetDefinition != nil &amp;&amp; obj.MonitorSummaryWidgetDefinition.UnparsedObject == nil {
-<span id="L519" class="ln">   519  </span>			jsonMonitorSummaryWidgetDefinition, _ := json.Marshal(obj.MonitorSummaryWidgetDefinition)
+<span id="L519" class="ln">   519  </span>			jsonMonitorSummaryWidgetDefinition, _ := datadog.Marshal(obj.MonitorSummaryWidgetDefinition)
 <span id="L520" class="ln">   520  </span>			if string(jsonMonitorSummaryWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L521" class="ln">   521  </span>				obj.MonitorSummaryWidgetDefinition = nil
 <span id="L522" class="ln">   522  </span>			} else {
@@ -587,10 +587,10 @@
 <span id="L530" class="ln">   530  </span>	}
 <span id="L531" class="ln">   531  </span>
 <span id="L532" class="ln">   532  </span>	<span class="comment">// try to unmarshal data into NoteWidgetDefinition</span>
-<span id="L533" class="ln">   533  </span>	err = json.Unmarshal(data, &amp;obj.NoteWidgetDefinition)
+<span id="L533" class="ln">   533  </span>	err = datadog.Unmarshal(data, &amp;obj.NoteWidgetDefinition)
 <span id="L534" class="ln">   534  </span>	if err == nil {
 <span id="L535" class="ln">   535  </span>		if obj.NoteWidgetDefinition != nil &amp;&amp; obj.NoteWidgetDefinition.UnparsedObject == nil {
-<span id="L536" class="ln">   536  </span>			jsonNoteWidgetDefinition, _ := json.Marshal(obj.NoteWidgetDefinition)
+<span id="L536" class="ln">   536  </span>			jsonNoteWidgetDefinition, _ := datadog.Marshal(obj.NoteWidgetDefinition)
 <span id="L537" class="ln">   537  </span>			if string(jsonNoteWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L538" class="ln">   538  </span>				obj.NoteWidgetDefinition = nil
 <span id="L539" class="ln">   539  </span>			} else {
@@ -604,10 +604,10 @@
 <span id="L547" class="ln">   547  </span>	}
 <span id="L548" class="ln">   548  </span>
 <span id="L549" class="ln">   549  </span>	<span class="comment">// try to unmarshal data into PowerpackWidgetDefinition</span>
-<span id="L550" class="ln">   550  </span>	err = json.Unmarshal(data, &amp;obj.PowerpackWidgetDefinition)
+<span id="L550" class="ln">   550  </span>	err = datadog.Unmarshal(data, &amp;obj.PowerpackWidgetDefinition)
 <span id="L551" class="ln">   551  </span>	if err == nil {
 <span id="L552" class="ln">   552  </span>		if obj.PowerpackWidgetDefinition != nil &amp;&amp; obj.PowerpackWidgetDefinition.UnparsedObject == nil {
-<span id="L553" class="ln">   553  </span>			jsonPowerpackWidgetDefinition, _ := json.Marshal(obj.PowerpackWidgetDefinition)
+<span id="L553" class="ln">   553  </span>			jsonPowerpackWidgetDefinition, _ := datadog.Marshal(obj.PowerpackWidgetDefinition)
 <span id="L554" class="ln">   554  </span>			if string(jsonPowerpackWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L555" class="ln">   555  </span>				obj.PowerpackWidgetDefinition = nil
 <span id="L556" class="ln">   556  </span>			} else {
@@ -621,10 +621,10 @@
 <span id="L564" class="ln">   564  </span>	}
 <span id="L565" class="ln">   565  </span>
 <span id="L566" class="ln">   566  </span>	<span class="comment">// try to unmarshal data into QueryValueWidgetDefinition</span>
-<span id="L567" class="ln">   567  </span>	err = json.Unmarshal(data, &amp;obj.QueryValueWidgetDefinition)
+<span id="L567" class="ln">   567  </span>	err = datadog.Unmarshal(data, &amp;obj.QueryValueWidgetDefinition)
 <span id="L568" class="ln">   568  </span>	if err == nil {
 <span id="L569" class="ln">   569  </span>		if obj.QueryValueWidgetDefinition != nil &amp;&amp; obj.QueryValueWidgetDefinition.UnparsedObject == nil {
-<span id="L570" class="ln">   570  </span>			jsonQueryValueWidgetDefinition, _ := json.Marshal(obj.QueryValueWidgetDefinition)
+<span id="L570" class="ln">   570  </span>			jsonQueryValueWidgetDefinition, _ := datadog.Marshal(obj.QueryValueWidgetDefinition)
 <span id="L571" class="ln">   571  </span>			if string(jsonQueryValueWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L572" class="ln">   572  </span>				obj.QueryValueWidgetDefinition = nil
 <span id="L573" class="ln">   573  </span>			} else {
@@ -638,10 +638,10 @@
 <span id="L581" class="ln">   581  </span>	}
 <span id="L582" class="ln">   582  </span>
 <span id="L583" class="ln">   583  </span>	<span class="comment">// try to unmarshal data into RunWorkflowWidgetDefinition</span>
-<span id="L584" class="ln">   584  </span>	err = json.Unmarshal(data, &amp;obj.RunWorkflowWidgetDefinition)
+<span id="L584" class="ln">   584  </span>	err = datadog.Unmarshal(data, &amp;obj.RunWorkflowWidgetDefinition)
 <span id="L585" class="ln">   585  </span>	if err == nil {
 <span id="L586" class="ln">   586  </span>		if obj.RunWorkflowWidgetDefinition != nil &amp;&amp; obj.RunWorkflowWidgetDefinition.UnparsedObject == nil {
-<span id="L587" class="ln">   587  </span>			jsonRunWorkflowWidgetDefinition, _ := json.Marshal(obj.RunWorkflowWidgetDefinition)
+<span id="L587" class="ln">   587  </span>			jsonRunWorkflowWidgetDefinition, _ := datadog.Marshal(obj.RunWorkflowWidgetDefinition)
 <span id="L588" class="ln">   588  </span>			if string(jsonRunWorkflowWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L589" class="ln">   589  </span>				obj.RunWorkflowWidgetDefinition = nil
 <span id="L590" class="ln">   590  </span>			} else {
@@ -655,10 +655,10 @@
 <span id="L598" class="ln">   598  </span>	}
 <span id="L599" class="ln">   599  </span>
 <span id="L600" class="ln">   600  </span>	<span class="comment">// try to unmarshal data into SLOListWidgetDefinition</span>
-<span id="L601" class="ln">   601  </span>	err = json.Unmarshal(data, &amp;obj.SLOListWidgetDefinition)
+<span id="L601" class="ln">   601  </span>	err = datadog.Unmarshal(data, &amp;obj.SLOListWidgetDefinition)
 <span id="L602" class="ln">   602  </span>	if err == nil {
 <span id="L603" class="ln">   603  </span>		if obj.SLOListWidgetDefinition != nil &amp;&amp; obj.SLOListWidgetDefinition.UnparsedObject == nil {
-<span id="L604" class="ln">   604  </span>			jsonSLOListWidgetDefinition, _ := json.Marshal(obj.SLOListWidgetDefinition)
+<span id="L604" class="ln">   604  </span>			jsonSLOListWidgetDefinition, _ := datadog.Marshal(obj.SLOListWidgetDefinition)
 <span id="L605" class="ln">   605  </span>			if string(jsonSLOListWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L606" class="ln">   606  </span>				obj.SLOListWidgetDefinition = nil
 <span id="L607" class="ln">   607  </span>			} else {
@@ -672,10 +672,10 @@
 <span id="L615" class="ln">   615  </span>	}
 <span id="L616" class="ln">   616  </span>
 <span id="L617" class="ln">   617  </span>	<span class="comment">// try to unmarshal data into SLOWidgetDefinition</span>
-<span id="L618" class="ln">   618  </span>	err = json.Unmarshal(data, &amp;obj.SLOWidgetDefinition)
+<span id="L618" class="ln">   618  </span>	err = datadog.Unmarshal(data, &amp;obj.SLOWidgetDefinition)
 <span id="L619" class="ln">   619  </span>	if err == nil {
 <span id="L620" class="ln">   620  </span>		if obj.SLOWidgetDefinition != nil &amp;&amp; obj.SLOWidgetDefinition.UnparsedObject == nil {
-<span id="L621" class="ln">   621  </span>			jsonSLOWidgetDefinition, _ := json.Marshal(obj.SLOWidgetDefinition)
+<span id="L621" class="ln">   621  </span>			jsonSLOWidgetDefinition, _ := datadog.Marshal(obj.SLOWidgetDefinition)
 <span id="L622" class="ln">   622  </span>			if string(jsonSLOWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L623" class="ln">   623  </span>				obj.SLOWidgetDefinition = nil
 <span id="L624" class="ln">   624  </span>			} else {
@@ -689,10 +689,10 @@
 <span id="L632" class="ln">   632  </span>	}
 <span id="L633" class="ln">   633  </span>
 <span id="L634" class="ln">   634  </span>	<span class="comment">// try to unmarshal data into ScatterPlotWidgetDefinition</span>
-<span id="L635" class="ln">   635  </span>	err = json.Unmarshal(data, &amp;obj.ScatterPlotWidgetDefinition)
+<span id="L635" class="ln">   635  </span>	err = datadog.Unmarshal(data, &amp;obj.ScatterPlotWidgetDefinition)
 <span id="L636" class="ln">   636  </span>	if err == nil {
 <span id="L637" class="ln">   637  </span>		if obj.ScatterPlotWidgetDefinition != nil &amp;&amp; obj.ScatterPlotWidgetDefinition.UnparsedObject == nil {
-<span id="L638" class="ln">   638  </span>			jsonScatterPlotWidgetDefinition, _ := json.Marshal(obj.ScatterPlotWidgetDefinition)
+<span id="L638" class="ln">   638  </span>			jsonScatterPlotWidgetDefinition, _ := datadog.Marshal(obj.ScatterPlotWidgetDefinition)
 <span id="L639" class="ln">   639  </span>			if string(jsonScatterPlotWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L640" class="ln">   640  </span>				obj.ScatterPlotWidgetDefinition = nil
 <span id="L641" class="ln">   641  </span>			} else {
@@ -706,10 +706,10 @@
 <span id="L649" class="ln">   649  </span>	}
 <span id="L650" class="ln">   650  </span>
 <span id="L651" class="ln">   651  </span>	<span class="comment">// try to unmarshal data into ServiceMapWidgetDefinition</span>
-<span id="L652" class="ln">   652  </span>	err = json.Unmarshal(data, &amp;obj.ServiceMapWidgetDefinition)
+<span id="L652" class="ln">   652  </span>	err = datadog.Unmarshal(data, &amp;obj.ServiceMapWidgetDefinition)
 <span id="L653" class="ln">   653  </span>	if err == nil {
 <span id="L654" class="ln">   654  </span>		if obj.ServiceMapWidgetDefinition != nil &amp;&amp; obj.ServiceMapWidgetDefinition.UnparsedObject == nil {
-<span id="L655" class="ln">   655  </span>			jsonServiceMapWidgetDefinition, _ := json.Marshal(obj.ServiceMapWidgetDefinition)
+<span id="L655" class="ln">   655  </span>			jsonServiceMapWidgetDefinition, _ := datadog.Marshal(obj.ServiceMapWidgetDefinition)
 <span id="L656" class="ln">   656  </span>			if string(jsonServiceMapWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L657" class="ln">   657  </span>				obj.ServiceMapWidgetDefinition = nil
 <span id="L658" class="ln">   658  </span>			} else {
@@ -723,10 +723,10 @@
 <span id="L666" class="ln">   666  </span>	}
 <span id="L667" class="ln">   667  </span>
 <span id="L668" class="ln">   668  </span>	<span class="comment">// try to unmarshal data into ServiceSummaryWidgetDefinition</span>
-<span id="L669" class="ln">   669  </span>	err = json.Unmarshal(data, &amp;obj.ServiceSummaryWidgetDefinition)
+<span id="L669" class="ln">   669  </span>	err = datadog.Unmarshal(data, &amp;obj.ServiceSummaryWidgetDefinition)
 <span id="L670" class="ln">   670  </span>	if err == nil {
 <span id="L671" class="ln">   671  </span>		if obj.ServiceSummaryWidgetDefinition != nil &amp;&amp; obj.ServiceSummaryWidgetDefinition.UnparsedObject == nil {
-<span id="L672" class="ln">   672  </span>			jsonServiceSummaryWidgetDefinition, _ := json.Marshal(obj.ServiceSummaryWidgetDefinition)
+<span id="L672" class="ln">   672  </span>			jsonServiceSummaryWidgetDefinition, _ := datadog.Marshal(obj.ServiceSummaryWidgetDefinition)
 <span id="L673" class="ln">   673  </span>			if string(jsonServiceSummaryWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L674" class="ln">   674  </span>				obj.ServiceSummaryWidgetDefinition = nil
 <span id="L675" class="ln">   675  </span>			} else {
@@ -740,10 +740,10 @@
 <span id="L683" class="ln">   683  </span>	}
 <span id="L684" class="ln">   684  </span>
 <span id="L685" class="ln">   685  </span>	<span class="comment">// try to unmarshal data into SplitGraphWidgetDefinition</span>
-<span id="L686" class="ln">   686  </span>	err = json.Unmarshal(data, &amp;obj.SplitGraphWidgetDefinition)
+<span id="L686" class="ln">   686  </span>	err = datadog.Unmarshal(data, &amp;obj.SplitGraphWidgetDefinition)
 <span id="L687" class="ln">   687  </span>	if err == nil {
 <span id="L688" class="ln">   688  </span>		if obj.SplitGraphWidgetDefinition != nil &amp;&amp; obj.SplitGraphWidgetDefinition.UnparsedObject == nil {
-<span id="L689" class="ln">   689  </span>			jsonSplitGraphWidgetDefinition, _ := json.Marshal(obj.SplitGraphWidgetDefinition)
+<span id="L689" class="ln">   689  </span>			jsonSplitGraphWidgetDefinition, _ := datadog.Marshal(obj.SplitGraphWidgetDefinition)
 <span id="L690" class="ln">   690  </span>			if string(jsonSplitGraphWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L691" class="ln">   691  </span>				obj.SplitGraphWidgetDefinition = nil
 <span id="L692" class="ln">   692  </span>			} else {
@@ -757,10 +757,10 @@
 <span id="L700" class="ln">   700  </span>	}
 <span id="L701" class="ln">   701  </span>
 <span id="L702" class="ln">   702  </span>	<span class="comment">// try to unmarshal data into SunburstWidgetDefinition</span>
-<span id="L703" class="ln">   703  </span>	err = json.Unmarshal(data, &amp;obj.SunburstWidgetDefinition)
+<span id="L703" class="ln">   703  </span>	err = datadog.Unmarshal(data, &amp;obj.SunburstWidgetDefinition)
 <span id="L704" class="ln">   704  </span>	if err == nil {
 <span id="L705" class="ln">   705  </span>		if obj.SunburstWidgetDefinition != nil &amp;&amp; obj.SunburstWidgetDefinition.UnparsedObject == nil {
-<span id="L706" class="ln">   706  </span>			jsonSunburstWidgetDefinition, _ := json.Marshal(obj.SunburstWidgetDefinition)
+<span id="L706" class="ln">   706  </span>			jsonSunburstWidgetDefinition, _ := datadog.Marshal(obj.SunburstWidgetDefinition)
 <span id="L707" class="ln">   707  </span>			if string(jsonSunburstWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L708" class="ln">   708  </span>				obj.SunburstWidgetDefinition = nil
 <span id="L709" class="ln">   709  </span>			} else {
@@ -774,10 +774,10 @@
 <span id="L717" class="ln">   717  </span>	}
 <span id="L718" class="ln">   718  </span>
 <span id="L719" class="ln">   719  </span>	<span class="comment">// try to unmarshal data into TableWidgetDefinition</span>
-<span id="L720" class="ln">   720  </span>	err = json.Unmarshal(data, &amp;obj.TableWidgetDefinition)
+<span id="L720" class="ln">   720  </span>	err = datadog.Unmarshal(data, &amp;obj.TableWidgetDefinition)
 <span id="L721" class="ln">   721  </span>	if err == nil {
 <span id="L722" class="ln">   722  </span>		if obj.TableWidgetDefinition != nil &amp;&amp; obj.TableWidgetDefinition.UnparsedObject == nil {
-<span id="L723" class="ln">   723  </span>			jsonTableWidgetDefinition, _ := json.Marshal(obj.TableWidgetDefinition)
+<span id="L723" class="ln">   723  </span>			jsonTableWidgetDefinition, _ := datadog.Marshal(obj.TableWidgetDefinition)
 <span id="L724" class="ln">   724  </span>			if string(jsonTableWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L725" class="ln">   725  </span>				obj.TableWidgetDefinition = nil
 <span id="L726" class="ln">   726  </span>			} else {
@@ -791,10 +791,10 @@
 <span id="L734" class="ln">   734  </span>	}
 <span id="L735" class="ln">   735  </span>
 <span id="L736" class="ln">   736  </span>	<span class="comment">// try to unmarshal data into TimeseriesWidgetDefinition</span>
-<span id="L737" class="ln">   737  </span>	err = json.Unmarshal(data, &amp;obj.TimeseriesWidgetDefinition)
+<span id="L737" class="ln">   737  </span>	err = datadog.Unmarshal(data, &amp;obj.TimeseriesWidgetDefinition)
 <span id="L738" class="ln">   738  </span>	if err == nil {
 <span id="L739" class="ln">   739  </span>		if obj.TimeseriesWidgetDefinition != nil &amp;&amp; obj.TimeseriesWidgetDefinition.UnparsedObject == nil {
-<span id="L740" class="ln">   740  </span>			jsonTimeseriesWidgetDefinition, _ := json.Marshal(obj.TimeseriesWidgetDefinition)
+<span id="L740" class="ln">   740  </span>			jsonTimeseriesWidgetDefinition, _ := datadog.Marshal(obj.TimeseriesWidgetDefinition)
 <span id="L741" class="ln">   741  </span>			if string(jsonTimeseriesWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L742" class="ln">   742  </span>				obj.TimeseriesWidgetDefinition = nil
 <span id="L743" class="ln">   743  </span>			} else {
@@ -808,10 +808,10 @@
 <span id="L751" class="ln">   751  </span>	}
 <span id="L752" class="ln">   752  </span>
 <span id="L753" class="ln">   753  </span>	<span class="comment">// try to unmarshal data into ToplistWidgetDefinition</span>
-<span id="L754" class="ln">   754  </span>	err = json.Unmarshal(data, &amp;obj.ToplistWidgetDefinition)
+<span id="L754" class="ln">   754  </span>	err = datadog.Unmarshal(data, &amp;obj.ToplistWidgetDefinition)
 <span id="L755" class="ln">   755  </span>	if err == nil {
 <span id="L756" class="ln">   756  </span>		if obj.ToplistWidgetDefinition != nil &amp;&amp; obj.ToplistWidgetDefinition.UnparsedObject == nil {
-<span id="L757" class="ln">   757  </span>			jsonToplistWidgetDefinition, _ := json.Marshal(obj.ToplistWidgetDefinition)
+<span id="L757" class="ln">   757  </span>			jsonToplistWidgetDefinition, _ := datadog.Marshal(obj.ToplistWidgetDefinition)
 <span id="L758" class="ln">   758  </span>			if string(jsonToplistWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L759" class="ln">   759  </span>				obj.ToplistWidgetDefinition = nil
 <span id="L760" class="ln">   760  </span>			} else {
@@ -825,10 +825,10 @@
 <span id="L768" class="ln">   768  </span>	}
 <span id="L769" class="ln">   769  </span>
 <span id="L770" class="ln">   770  </span>	<span class="comment">// try to unmarshal data into TopologyMapWidgetDefinition</span>
-<span id="L771" class="ln">   771  </span>	err = json.Unmarshal(data, &amp;obj.TopologyMapWidgetDefinition)
+<span id="L771" class="ln">   771  </span>	err = datadog.Unmarshal(data, &amp;obj.TopologyMapWidgetDefinition)
 <span id="L772" class="ln">   772  </span>	if err == nil {
 <span id="L773" class="ln">   773  </span>		if obj.TopologyMapWidgetDefinition != nil &amp;&amp; obj.TopologyMapWidgetDefinition.UnparsedObject == nil {
-<span id="L774" class="ln">   774  </span>			jsonTopologyMapWidgetDefinition, _ := json.Marshal(obj.TopologyMapWidgetDefinition)
+<span id="L774" class="ln">   774  </span>			jsonTopologyMapWidgetDefinition, _ := datadog.Marshal(obj.TopologyMapWidgetDefinition)
 <span id="L775" class="ln">   775  </span>			if string(jsonTopologyMapWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L776" class="ln">   776  </span>				obj.TopologyMapWidgetDefinition = nil
 <span id="L777" class="ln">   777  </span>			} else {
@@ -842,10 +842,10 @@
 <span id="L785" class="ln">   785  </span>	}
 <span id="L786" class="ln">   786  </span>
 <span id="L787" class="ln">   787  </span>	<span class="comment">// try to unmarshal data into TreeMapWidgetDefinition</span>
-<span id="L788" class="ln">   788  </span>	err = json.Unmarshal(data, &amp;obj.TreeMapWidgetDefinition)
+<span id="L788" class="ln">   788  </span>	err = datadog.Unmarshal(data, &amp;obj.TreeMapWidgetDefinition)
 <span id="L789" class="ln">   789  </span>	if err == nil {
 <span id="L790" class="ln">   790  </span>		if obj.TreeMapWidgetDefinition != nil &amp;&amp; obj.TreeMapWidgetDefinition.UnparsedObject == nil {
-<span id="L791" class="ln">   791  </span>			jsonTreeMapWidgetDefinition, _ := json.Marshal(obj.TreeMapWidgetDefinition)
+<span id="L791" class="ln">   791  </span>			jsonTreeMapWidgetDefinition, _ := datadog.Marshal(obj.TreeMapWidgetDefinition)
 <span id="L792" class="ln">   792  </span>			if string(jsonTreeMapWidgetDefinition) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L793" class="ln">   793  </span>				obj.TreeMapWidgetDefinition = nil
 <span id="L794" class="ln">   794  </span>			} else {
@@ -894,7 +894,7 @@
 <span id="L837" class="ln">   837  </span>		obj.ToplistWidgetDefinition = nil
 <span id="L838" class="ln">   838  </span>		obj.TopologyMapWidgetDefinition = nil
 <span id="L839" class="ln">   839  </span>		obj.TreeMapWidgetDefinition = nil
-<span id="L840" class="ln">   840  </span>		return json.Unmarshal(data, &amp;obj.UnparsedObject)
+<span id="L840" class="ln">   840  </span>		return datadog.Unmarshal(data, &amp;obj.UnparsedObject)
 <span id="L841" class="ln">   841  </span>	}
 <span id="L842" class="ln">   842  </span>	return nil <span class="comment">// exactly one match</span>
 <span id="L843" class="ln">   843  </span>}
@@ -902,143 +902,143 @@
 <span id="L845" class="ln">   845  </span><span class="comment">// MarshalJSON turns data from the first non-nil pointers in the struct to JSON.</span>
 <span id="L846" class="ln">   846  </span>func (obj WidgetDefinition) MarshalJSON() ([]byte, error) {
 <span id="L847" class="ln">   847  </span>	if obj.AlertGraphWidgetDefinition != nil {
-<span id="L848" class="ln">   848  </span>		return json.Marshal(&amp;obj.AlertGraphWidgetDefinition)
+<span id="L848" class="ln">   848  </span>		return datadog.Marshal(&amp;obj.AlertGraphWidgetDefinition)
 <span id="L849" class="ln">   849  </span>	}
 <span id="L850" class="ln">   850  </span>
 <span id="L851" class="ln">   851  </span>	if obj.AlertValueWidgetDefinition != nil {
-<span id="L852" class="ln">   852  </span>		return json.Marshal(&amp;obj.AlertValueWidgetDefinition)
+<span id="L852" class="ln">   852  </span>		return datadog.Marshal(&amp;obj.AlertValueWidgetDefinition)
 <span id="L853" class="ln">   853  </span>	}
 <span id="L854" class="ln">   854  </span>
 <span id="L855" class="ln">   855  </span>	if obj.ChangeWidgetDefinition != nil {
-<span id="L856" class="ln">   856  </span>		return json.Marshal(&amp;obj.ChangeWidgetDefinition)
+<span id="L856" class="ln">   856  </span>		return datadog.Marshal(&amp;obj.ChangeWidgetDefinition)
 <span id="L857" class="ln">   857  </span>	}
 <span id="L858" class="ln">   858  </span>
 <span id="L859" class="ln">   859  </span>	if obj.CheckStatusWidgetDefinition != nil {
-<span id="L860" class="ln">   860  </span>		return json.Marshal(&amp;obj.CheckStatusWidgetDefinition)
+<span id="L860" class="ln">   860  </span>		return datadog.Marshal(&amp;obj.CheckStatusWidgetDefinition)
 <span id="L861" class="ln">   861  </span>	}
 <span id="L862" class="ln">   862  </span>
 <span id="L863" class="ln">   863  </span>	if obj.DistributionWidgetDefinition != nil {
-<span id="L864" class="ln">   864  </span>		return json.Marshal(&amp;obj.DistributionWidgetDefinition)
+<span id="L864" class="ln">   864  </span>		return datadog.Marshal(&amp;obj.DistributionWidgetDefinition)
 <span id="L865" class="ln">   865  </span>	}
 <span id="L866" class="ln">   866  </span>
 <span id="L867" class="ln">   867  </span>	if obj.EventStreamWidgetDefinition != nil {
-<span id="L868" class="ln">   868  </span>		return json.Marshal(&amp;obj.EventStreamWidgetDefinition)
+<span id="L868" class="ln">   868  </span>		return datadog.Marshal(&amp;obj.EventStreamWidgetDefinition)
 <span id="L869" class="ln">   869  </span>	}
 <span id="L870" class="ln">   870  </span>
 <span id="L871" class="ln">   871  </span>	if obj.EventTimelineWidgetDefinition != nil {
-<span id="L872" class="ln">   872  </span>		return json.Marshal(&amp;obj.EventTimelineWidgetDefinition)
+<span id="L872" class="ln">   872  </span>		return datadog.Marshal(&amp;obj.EventTimelineWidgetDefinition)
 <span id="L873" class="ln">   873  </span>	}
 <span id="L874" class="ln">   874  </span>
 <span id="L875" class="ln">   875  </span>	if obj.FreeTextWidgetDefinition != nil {
-<span id="L876" class="ln">   876  </span>		return json.Marshal(&amp;obj.FreeTextWidgetDefinition)
+<span id="L876" class="ln">   876  </span>		return datadog.Marshal(&amp;obj.FreeTextWidgetDefinition)
 <span id="L877" class="ln">   877  </span>	}
 <span id="L878" class="ln">   878  </span>
 <span id="L879" class="ln">   879  </span>	if obj.FunnelWidgetDefinition != nil {
-<span id="L880" class="ln">   880  </span>		return json.Marshal(&amp;obj.FunnelWidgetDefinition)
+<span id="L880" class="ln">   880  </span>		return datadog.Marshal(&amp;obj.FunnelWidgetDefinition)
 <span id="L881" class="ln">   881  </span>	}
 <span id="L882" class="ln">   882  </span>
 <span id="L883" class="ln">   883  </span>	if obj.GeomapWidgetDefinition != nil {
-<span id="L884" class="ln">   884  </span>		return json.Marshal(&amp;obj.GeomapWidgetDefinition)
+<span id="L884" class="ln">   884  </span>		return datadog.Marshal(&amp;obj.GeomapWidgetDefinition)
 <span id="L885" class="ln">   885  </span>	}
 <span id="L886" class="ln">   886  </span>
 <span id="L887" class="ln">   887  </span>	if obj.GroupWidgetDefinition != nil {
-<span id="L888" class="ln">   888  </span>		return json.Marshal(&amp;obj.GroupWidgetDefinition)
+<span id="L888" class="ln">   888  </span>		return datadog.Marshal(&amp;obj.GroupWidgetDefinition)
 <span id="L889" class="ln">   889  </span>	}
 <span id="L890" class="ln">   890  </span>
 <span id="L891" class="ln">   891  </span>	if obj.HeatMapWidgetDefinition != nil {
-<span id="L892" class="ln">   892  </span>		return json.Marshal(&amp;obj.HeatMapWidgetDefinition)
+<span id="L892" class="ln">   892  </span>		return datadog.Marshal(&amp;obj.HeatMapWidgetDefinition)
 <span id="L893" class="ln">   893  </span>	}
 <span id="L894" class="ln">   894  </span>
 <span id="L895" class="ln">   895  </span>	if obj.HostMapWidgetDefinition != nil {
-<span id="L896" class="ln">   896  </span>		return json.Marshal(&amp;obj.HostMapWidgetDefinition)
+<span id="L896" class="ln">   896  </span>		return datadog.Marshal(&amp;obj.HostMapWidgetDefinition)
 <span id="L897" class="ln">   897  </span>	}
 <span id="L898" class="ln">   898  </span>
 <span id="L899" class="ln">   899  </span>	if obj.IFrameWidgetDefinition != nil {
-<span id="L900" class="ln">   900  </span>		return json.Marshal(&amp;obj.IFrameWidgetDefinition)
+<span id="L900" class="ln">   900  </span>		return datadog.Marshal(&amp;obj.IFrameWidgetDefinition)
 <span id="L901" class="ln">   901  </span>	}
 <span id="L902" class="ln">   902  </span>
 <span id="L903" class="ln">   903  </span>	if obj.ImageWidgetDefinition != nil {
-<span id="L904" class="ln">   904  </span>		return json.Marshal(&amp;obj.ImageWidgetDefinition)
+<span id="L904" class="ln">   904  </span>		return datadog.Marshal(&amp;obj.ImageWidgetDefinition)
 <span id="L905" class="ln">   905  </span>	}
 <span id="L906" class="ln">   906  </span>
 <span id="L907" class="ln">   907  </span>	if obj.ListStreamWidgetDefinition != nil {
-<span id="L908" class="ln">   908  </span>		return json.Marshal(&amp;obj.ListStreamWidgetDefinition)
+<span id="L908" class="ln">   908  </span>		return datadog.Marshal(&amp;obj.ListStreamWidgetDefinition)
 <span id="L909" class="ln">   909  </span>	}
 <span id="L910" class="ln">   910  </span>
 <span id="L911" class="ln">   911  </span>	if obj.LogStreamWidgetDefinition != nil {
-<span id="L912" class="ln">   912  </span>		return json.Marshal(&amp;obj.LogStreamWidgetDefinition)
+<span id="L912" class="ln">   912  </span>		return datadog.Marshal(&amp;obj.LogStreamWidgetDefinition)
 <span id="L913" class="ln">   913  </span>	}
 <span id="L914" class="ln">   914  </span>
 <span id="L915" class="ln">   915  </span>	if obj.MonitorSummaryWidgetDefinition != nil {
-<span id="L916" class="ln">   916  </span>		return json.Marshal(&amp;obj.MonitorSummaryWidgetDefinition)
+<span id="L916" class="ln">   916  </span>		return datadog.Marshal(&amp;obj.MonitorSummaryWidgetDefinition)
 <span id="L917" class="ln">   917  </span>	}
 <span id="L918" class="ln">   918  </span>
 <span id="L919" class="ln">   919  </span>	if obj.NoteWidgetDefinition != nil {
-<span id="L920" class="ln">   920  </span>		return json.Marshal(&amp;obj.NoteWidgetDefinition)
+<span id="L920" class="ln">   920  </span>		return datadog.Marshal(&amp;obj.NoteWidgetDefinition)
 <span id="L921" class="ln">   921  </span>	}
 <span id="L922" class="ln">   922  </span>
 <span id="L923" class="ln">   923  </span>	if obj.PowerpackWidgetDefinition != nil {
-<span id="L924" class="ln">   924  </span>		return json.Marshal(&amp;obj.PowerpackWidgetDefinition)
+<span id="L924" class="ln">   924  </span>		return datadog.Marshal(&amp;obj.PowerpackWidgetDefinition)
 <span id="L925" class="ln">   925  </span>	}
 <span id="L926" class="ln">   926  </span>
 <span id="L927" class="ln">   927  </span>	if obj.QueryValueWidgetDefinition != nil {
-<span id="L928" class="ln">   928  </span>		return json.Marshal(&amp;obj.QueryValueWidgetDefinition)
+<span id="L928" class="ln">   928  </span>		return datadog.Marshal(&amp;obj.QueryValueWidgetDefinition)
 <span id="L929" class="ln">   929  </span>	}
 <span id="L930" class="ln">   930  </span>
 <span id="L931" class="ln">   931  </span>	if obj.RunWorkflowWidgetDefinition != nil {
-<span id="L932" class="ln">   932  </span>		return json.Marshal(&amp;obj.RunWorkflowWidgetDefinition)
+<span id="L932" class="ln">   932  </span>		return datadog.Marshal(&amp;obj.RunWorkflowWidgetDefinition)
 <span id="L933" class="ln">   933  </span>	}
 <span id="L934" class="ln">   934  </span>
 <span id="L935" class="ln">   935  </span>	if obj.SLOListWidgetDefinition != nil {
-<span id="L936" class="ln">   936  </span>		return json.Marshal(&amp;obj.SLOListWidgetDefinition)
+<span id="L936" class="ln">   936  </span>		return datadog.Marshal(&amp;obj.SLOListWidgetDefinition)
 <span id="L937" class="ln">   937  </span>	}
 <span id="L938" class="ln">   938  </span>
 <span id="L939" class="ln">   939  </span>	if obj.SLOWidgetDefinition != nil {
-<span id="L940" class="ln">   940  </span>		return json.Marshal(&amp;obj.SLOWidgetDefinition)
+<span id="L940" class="ln">   940  </span>		return datadog.Marshal(&amp;obj.SLOWidgetDefinition)
 <span id="L941" class="ln">   941  </span>	}
 <span id="L942" class="ln">   942  </span>
 <span id="L943" class="ln">   943  </span>	if obj.ScatterPlotWidgetDefinition != nil {
-<span id="L944" class="ln">   944  </span>		return json.Marshal(&amp;obj.ScatterPlotWidgetDefinition)
+<span id="L944" class="ln">   944  </span>		return datadog.Marshal(&amp;obj.ScatterPlotWidgetDefinition)
 <span id="L945" class="ln">   945  </span>	}
 <span id="L946" class="ln">   946  </span>
 <span id="L947" class="ln">   947  </span>	if obj.ServiceMapWidgetDefinition != nil {
-<span id="L948" class="ln">   948  </span>		return json.Marshal(&amp;obj.ServiceMapWidgetDefinition)
+<span id="L948" class="ln">   948  </span>		return datadog.Marshal(&amp;obj.ServiceMapWidgetDefinition)
 <span id="L949" class="ln">   949  </span>	}
 <span id="L950" class="ln">   950  </span>
 <span id="L951" class="ln">   951  </span>	if obj.ServiceSummaryWidgetDefinition != nil {
-<span id="L952" class="ln">   952  </span>		return json.Marshal(&amp;obj.ServiceSummaryWidgetDefinition)
+<span id="L952" class="ln">   952  </span>		return datadog.Marshal(&amp;obj.ServiceSummaryWidgetDefinition)
 <span id="L953" class="ln">   953  </span>	}
 <span id="L954" class="ln">   954  </span>
 <span id="L955" class="ln">   955  </span>	if obj.SplitGraphWidgetDefinition != nil {
-<span id="L956" class="ln">   956  </span>		return json.Marshal(&amp;obj.SplitGraphWidgetDefinition)
+<span id="L956" class="ln">   956  </span>		return datadog.Marshal(&amp;obj.SplitGraphWidgetDefinition)
 <span id="L957" class="ln">   957  </span>	}
 <span id="L958" class="ln">   958  </span>
 <span id="L959" class="ln">   959  </span>	if obj.SunburstWidgetDefinition != nil {
-<span id="L960" class="ln">   960  </span>		return json.Marshal(&amp;obj.SunburstWidgetDefinition)
+<span id="L960" class="ln">   960  </span>		return datadog.Marshal(&amp;obj.SunburstWidgetDefinition)
 <span id="L961" class="ln">   961  </span>	}
 <span id="L962" class="ln">   962  </span>
 <span id="L963" class="ln">   963  </span>	if obj.TableWidgetDefinition != nil {
-<span id="L964" class="ln">   964  </span>		return json.Marshal(&amp;obj.TableWidgetDefinition)
+<span id="L964" class="ln">   964  </span>		return datadog.Marshal(&amp;obj.TableWidgetDefinition)
 <span id="L965" class="ln">   965  </span>	}
 <span id="L966" class="ln">   966  </span>
 <span id="L967" class="ln">   967  </span>	if obj.TimeseriesWidgetDefinition != nil {
-<span id="L968" class="ln">   968  </span>		return json.Marshal(&amp;obj.TimeseriesWidgetDefinition)
+<span id="L968" class="ln">   968  </span>		return datadog.Marshal(&amp;obj.TimeseriesWidgetDefinition)
 <span id="L969" class="ln">   969  </span>	}
 <span id="L970" class="ln">   970  </span>
 <span id="L971" class="ln">   971  </span>	if obj.ToplistWidgetDefinition != nil {
-<span id="L972" class="ln">   972  </span>		return json.Marshal(&amp;obj.ToplistWidgetDefinition)
+<span id="L972" class="ln">   972  </span>		return datadog.Marshal(&amp;obj.ToplistWidgetDefinition)
 <span id="L973" class="ln">   973  </span>	}
 <span id="L974" class="ln">   974  </span>
 <span id="L975" class="ln">   975  </span>	if obj.TopologyMapWidgetDefinition != nil {
-<span id="L976" class="ln">   976  </span>		return json.Marshal(&amp;obj.TopologyMapWidgetDefinition)
+<span id="L976" class="ln">   976  </span>		return datadog.Marshal(&amp;obj.TopologyMapWidgetDefinition)
 <span id="L977" class="ln">   977  </span>	}
 <span id="L978" class="ln">   978  </span>
 <span id="L979" class="ln">   979  </span>	if obj.TreeMapWidgetDefinition != nil {
-<span id="L980" class="ln">   980  </span>		return json.Marshal(&amp;obj.TreeMapWidgetDefinition)
+<span id="L980" class="ln">   980  </span>		return datadog.Marshal(&amp;obj.TreeMapWidgetDefinition)
 <span id="L981" class="ln">   981  </span>	}
 <span id="L982" class="ln">   982  </span>
 <span id="L983" class="ln">   983  </span>	if obj.UnparsedObject != nil {
-<span id="L984" class="ln">   984  </span>		return json.Marshal(obj.UnparsedObject)
+<span id="L984" class="ln">   984  </span>		return datadog.Marshal(obj.UnparsedObject)
 <span id="L985" class="ln">   985  </span>	}
 <span id="L986" class="ln">   986  </span>	return nil, nil <span class="comment">// no data in oneOf schemas</span>
 <span id="L987" class="ln">   987  </span>}

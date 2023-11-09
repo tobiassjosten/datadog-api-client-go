@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV1
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;github.com/goccy/go-json&#34;
+<span id="L8" class="ln">     8  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L9" class="ln">     9  </span>)
 <span id="L10" class="ln">    10  </span>
 <span id="L11" class="ln">    11  </span><span class="comment">// SyntheticsAssertion - Object describing the assertions type, their associated operator,</span>
@@ -96,10 +96,10 @@
 <span id="L39" class="ln">    39  </span>	var err error
 <span id="L40" class="ln">    40  </span>	match := 0
 <span id="L41" class="ln">    41  </span>	<span class="comment">// try to unmarshal data into SyntheticsAssertionTarget</span>
-<span id="L42" class="ln">    42  </span>	err = json.Unmarshal(data, &amp;obj.SyntheticsAssertionTarget)
+<span id="L42" class="ln">    42  </span>	err = datadog.Unmarshal(data, &amp;obj.SyntheticsAssertionTarget)
 <span id="L43" class="ln">    43  </span>	if err == nil {
 <span id="L44" class="ln">    44  </span>		if obj.SyntheticsAssertionTarget != nil &amp;&amp; obj.SyntheticsAssertionTarget.UnparsedObject == nil {
-<span id="L45" class="ln">    45  </span>			jsonSyntheticsAssertionTarget, _ := json.Marshal(obj.SyntheticsAssertionTarget)
+<span id="L45" class="ln">    45  </span>			jsonSyntheticsAssertionTarget, _ := datadog.Marshal(obj.SyntheticsAssertionTarget)
 <span id="L46" class="ln">    46  </span>			if string(jsonSyntheticsAssertionTarget) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L47" class="ln">    47  </span>				obj.SyntheticsAssertionTarget = nil
 <span id="L48" class="ln">    48  </span>			} else {
@@ -113,10 +113,10 @@
 <span id="L56" class="ln">    56  </span>	}
 <span id="L57" class="ln">    57  </span>
 <span id="L58" class="ln">    58  </span>	<span class="comment">// try to unmarshal data into SyntheticsAssertionJSONPathTarget</span>
-<span id="L59" class="ln">    59  </span>	err = json.Unmarshal(data, &amp;obj.SyntheticsAssertionJSONPathTarget)
+<span id="L59" class="ln">    59  </span>	err = datadog.Unmarshal(data, &amp;obj.SyntheticsAssertionJSONPathTarget)
 <span id="L60" class="ln">    60  </span>	if err == nil {
 <span id="L61" class="ln">    61  </span>		if obj.SyntheticsAssertionJSONPathTarget != nil &amp;&amp; obj.SyntheticsAssertionJSONPathTarget.UnparsedObject == nil {
-<span id="L62" class="ln">    62  </span>			jsonSyntheticsAssertionJSONPathTarget, _ := json.Marshal(obj.SyntheticsAssertionJSONPathTarget)
+<span id="L62" class="ln">    62  </span>			jsonSyntheticsAssertionJSONPathTarget, _ := datadog.Marshal(obj.SyntheticsAssertionJSONPathTarget)
 <span id="L63" class="ln">    63  </span>			if string(jsonSyntheticsAssertionJSONPathTarget) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L64" class="ln">    64  </span>				obj.SyntheticsAssertionJSONPathTarget = nil
 <span id="L65" class="ln">    65  </span>			} else {
@@ -130,10 +130,10 @@
 <span id="L73" class="ln">    73  </span>	}
 <span id="L74" class="ln">    74  </span>
 <span id="L75" class="ln">    75  </span>	<span class="comment">// try to unmarshal data into SyntheticsAssertionXPathTarget</span>
-<span id="L76" class="ln">    76  </span>	err = json.Unmarshal(data, &amp;obj.SyntheticsAssertionXPathTarget)
+<span id="L76" class="ln">    76  </span>	err = datadog.Unmarshal(data, &amp;obj.SyntheticsAssertionXPathTarget)
 <span id="L77" class="ln">    77  </span>	if err == nil {
 <span id="L78" class="ln">    78  </span>		if obj.SyntheticsAssertionXPathTarget != nil &amp;&amp; obj.SyntheticsAssertionXPathTarget.UnparsedObject == nil {
-<span id="L79" class="ln">    79  </span>			jsonSyntheticsAssertionXPathTarget, _ := json.Marshal(obj.SyntheticsAssertionXPathTarget)
+<span id="L79" class="ln">    79  </span>			jsonSyntheticsAssertionXPathTarget, _ := datadog.Marshal(obj.SyntheticsAssertionXPathTarget)
 <span id="L80" class="ln">    80  </span>			if string(jsonSyntheticsAssertionXPathTarget) == &#34;{}&#34; { <span class="comment">// empty struct</span>
 <span id="L81" class="ln">    81  </span>				obj.SyntheticsAssertionXPathTarget = nil
 <span id="L82" class="ln">    82  </span>			} else {
@@ -151,7 +151,7 @@
 <span id="L94" class="ln">    94  </span>		obj.SyntheticsAssertionTarget = nil
 <span id="L95" class="ln">    95  </span>		obj.SyntheticsAssertionJSONPathTarget = nil
 <span id="L96" class="ln">    96  </span>		obj.SyntheticsAssertionXPathTarget = nil
-<span id="L97" class="ln">    97  </span>		return json.Unmarshal(data, &amp;obj.UnparsedObject)
+<span id="L97" class="ln">    97  </span>		return datadog.Unmarshal(data, &amp;obj.UnparsedObject)
 <span id="L98" class="ln">    98  </span>	}
 <span id="L99" class="ln">    99  </span>	return nil <span class="comment">// exactly one match</span>
 <span id="L100" class="ln">   100  </span>}
@@ -159,19 +159,19 @@
 <span id="L102" class="ln">   102  </span><span class="comment">// MarshalJSON turns data from the first non-nil pointers in the struct to JSON.</span>
 <span id="L103" class="ln">   103  </span>func (obj SyntheticsAssertion) MarshalJSON() ([]byte, error) {
 <span id="L104" class="ln">   104  </span>	if obj.SyntheticsAssertionTarget != nil {
-<span id="L105" class="ln">   105  </span>		return json.Marshal(&amp;obj.SyntheticsAssertionTarget)
+<span id="L105" class="ln">   105  </span>		return datadog.Marshal(&amp;obj.SyntheticsAssertionTarget)
 <span id="L106" class="ln">   106  </span>	}
 <span id="L107" class="ln">   107  </span>
 <span id="L108" class="ln">   108  </span>	if obj.SyntheticsAssertionJSONPathTarget != nil {
-<span id="L109" class="ln">   109  </span>		return json.Marshal(&amp;obj.SyntheticsAssertionJSONPathTarget)
+<span id="L109" class="ln">   109  </span>		return datadog.Marshal(&amp;obj.SyntheticsAssertionJSONPathTarget)
 <span id="L110" class="ln">   110  </span>	}
 <span id="L111" class="ln">   111  </span>
 <span id="L112" class="ln">   112  </span>	if obj.SyntheticsAssertionXPathTarget != nil {
-<span id="L113" class="ln">   113  </span>		return json.Marshal(&amp;obj.SyntheticsAssertionXPathTarget)
+<span id="L113" class="ln">   113  </span>		return datadog.Marshal(&amp;obj.SyntheticsAssertionXPathTarget)
 <span id="L114" class="ln">   114  </span>	}
 <span id="L115" class="ln">   115  </span>
 <span id="L116" class="ln">   116  </span>	if obj.UnparsedObject != nil {
-<span id="L117" class="ln">   117  </span>		return json.Marshal(obj.UnparsedObject)
+<span id="L117" class="ln">   117  </span>		return datadog.Marshal(obj.UnparsedObject)
 <span id="L118" class="ln">   118  </span>	}
 <span id="L119" class="ln">   119  </span>	return nil, nil <span class="comment">// no data in oneOf schemas</span>
 <span id="L120" class="ln">   120  </span>}
