@@ -159,6 +159,56 @@
 <span id="L102" class="ln">   102  </span>	return nil
 <span id="L103" class="ln">   103  </span>}
 <span id="L104" class="ln">   104  </span>
+<span id="L105" class="ln">   105  </span><span class="comment">// NullableNullableRelationshipToUser handles when a null is used for NullableRelationshipToUser.</span>
+<span id="L106" class="ln">   106  </span>type NullableNullableRelationshipToUser struct {
+<span id="L107" class="ln">   107  </span>	value *NullableRelationshipToUser
+<span id="L108" class="ln">   108  </span>	isSet bool
+<span id="L109" class="ln">   109  </span>}
+<span id="L110" class="ln">   110  </span>
+<span id="L111" class="ln">   111  </span><span class="comment">// Get returns the associated value.</span>
+<span id="L112" class="ln">   112  </span>func (v NullableNullableRelationshipToUser) Get() *NullableRelationshipToUser {
+<span id="L113" class="ln">   113  </span>	return v.value
+<span id="L114" class="ln">   114  </span>}
+<span id="L115" class="ln">   115  </span>
+<span id="L116" class="ln">   116  </span><span class="comment">// Set changes the value and indicates it&#39;s been called.</span>
+<span id="L117" class="ln">   117  </span>func (v *NullableNullableRelationshipToUser) Set(val *NullableRelationshipToUser) {
+<span id="L118" class="ln">   118  </span>	v.value = val
+<span id="L119" class="ln">   119  </span>	v.isSet = true
+<span id="L120" class="ln">   120  </span>}
+<span id="L121" class="ln">   121  </span>
+<span id="L122" class="ln">   122  </span><span class="comment">// IsSet returns whether Set has been called.</span>
+<span id="L123" class="ln">   123  </span>func (v NullableNullableRelationshipToUser) IsSet() bool {
+<span id="L124" class="ln">   124  </span>	return v.isSet
+<span id="L125" class="ln">   125  </span>}
+<span id="L126" class="ln">   126  </span>
+<span id="L127" class="ln">   127  </span><span class="comment">// Unset sets the value to nil and resets the set flag/</span>
+<span id="L128" class="ln">   128  </span>func (v *NullableNullableRelationshipToUser) Unset() {
+<span id="L129" class="ln">   129  </span>	v.value = nil
+<span id="L130" class="ln">   130  </span>	v.isSet = false
+<span id="L131" class="ln">   131  </span>}
+<span id="L132" class="ln">   132  </span>
+<span id="L133" class="ln">   133  </span><span class="comment">// NewNullableNullableRelationshipToUser initializes the struct as if Set has been called.</span>
+<span id="L134" class="ln">   134  </span>func NewNullableNullableRelationshipToUser(val *NullableRelationshipToUser) *NullableNullableRelationshipToUser {
+<span id="L135" class="ln">   135  </span>	return &amp;NullableNullableRelationshipToUser{value: val, isSet: true}
+<span id="L136" class="ln">   136  </span>}
+<span id="L137" class="ln">   137  </span>
+<span id="L138" class="ln">   138  </span><span class="comment">// MarshalJSON serializes the associated value.</span>
+<span id="L139" class="ln">   139  </span>func (v NullableNullableRelationshipToUser) MarshalJSON() ([]byte, error) {
+<span id="L140" class="ln">   140  </span>	return datadog.Marshal(v.value)
+<span id="L141" class="ln">   141  </span>}
+<span id="L142" class="ln">   142  </span>
+<span id="L143" class="ln">   143  </span><span class="comment">// UnmarshalJSON deserializes the payload and sets the flag as if Set has been called.</span>
+<span id="L144" class="ln">   144  </span>func (v *NullableNullableRelationshipToUser) UnmarshalJSON(src []byte) error {
+<span id="L145" class="ln">   145  </span>	v.isSet = true
+<span id="L146" class="ln">   146  </span>
+<span id="L147" class="ln">   147  </span>	<span class="comment">// this object is nullable so check if the payload is null or empty string</span>
+<span id="L148" class="ln">   148  </span>	if string(src) == &#34;&#34; || string(src) == &#34;{}&#34; {
+<span id="L149" class="ln">   149  </span>		return nil
+<span id="L150" class="ln">   150  </span>	}
+<span id="L151" class="ln">   151  </span>
+<span id="L152" class="ln">   152  </span>	return datadog.Unmarshal(src, &amp;v.value)
+<span id="L153" class="ln">   153  </span>}
+<span id="L154" class="ln">   154  </span>
 </pre><p></p>
 
 <div id="footer">
