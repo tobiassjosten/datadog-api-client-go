@@ -344,7 +344,7 @@
 <span id="L287" class="ln">   287  </span>}
 <span id="L288" class="ln">   288  </span>
 <span id="L289" class="ln">   289  </span><span class="comment">// MuteHost Mute a host.</span>
-<span id="L290" class="ln">   290  </span><span class="comment">// Mute a host.</span>
+<span id="L290" class="ln">   290  </span><span class="comment">// Mute a host. **Note:** This creates a [Downtime V2](https://docs.datadoghq.com/api/latest/downtimes/#schedule-a-downtime) for the host.</span>
 <span id="L291" class="ln">   291  </span>func (a *HostsApi) MuteHost(ctx _context.Context, hostName string, body HostMuteSettings) (HostMuteResponse, *_nethttp.Response, error) {
 <span id="L292" class="ln">   292  </span>	var (
 <span id="L293" class="ln">   293  </span>		localVarHTTPMethod  = _nethttp.MethodPost
