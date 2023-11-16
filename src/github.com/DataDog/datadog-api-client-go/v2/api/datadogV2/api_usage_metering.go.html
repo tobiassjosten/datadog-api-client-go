@@ -579,54 +579,54 @@
 <span id="L522" class="ln">   522  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L523" class="ln">   523  </span>}
 <span id="L524" class="ln">   524  </span>
-<span id="L525" class="ln">   525  </span><span class="comment">// GetUsageApplicationSecurityMonitoringOptionalParameters holds optional parameters for GetUsageApplicationSecurityMonitoring.</span>
-<span id="L526" class="ln">   526  </span>type GetUsageApplicationSecurityMonitoringOptionalParameters struct {
-<span id="L527" class="ln">   527  </span>	EndHr *time.Time
+<span id="L525" class="ln">   525  </span><span class="comment">// GetProjectedCostOptionalParameters holds optional parameters for GetProjectedCost.</span>
+<span id="L526" class="ln">   526  </span>type GetProjectedCostOptionalParameters struct {
+<span id="L527" class="ln">   527  </span>	View *string
 <span id="L528" class="ln">   528  </span>}
 <span id="L529" class="ln">   529  </span>
-<span id="L530" class="ln">   530  </span><span class="comment">// NewGetUsageApplicationSecurityMonitoringOptionalParameters creates an empty struct for parameters.</span>
-<span id="L531" class="ln">   531  </span>func NewGetUsageApplicationSecurityMonitoringOptionalParameters() *GetUsageApplicationSecurityMonitoringOptionalParameters {
-<span id="L532" class="ln">   532  </span>	this := GetUsageApplicationSecurityMonitoringOptionalParameters{}
+<span id="L530" class="ln">   530  </span><span class="comment">// NewGetProjectedCostOptionalParameters creates an empty struct for parameters.</span>
+<span id="L531" class="ln">   531  </span>func NewGetProjectedCostOptionalParameters() *GetProjectedCostOptionalParameters {
+<span id="L532" class="ln">   532  </span>	this := GetProjectedCostOptionalParameters{}
 <span id="L533" class="ln">   533  </span>	return &amp;this
 <span id="L534" class="ln">   534  </span>}
 <span id="L535" class="ln">   535  </span>
-<span id="L536" class="ln">   536  </span><span class="comment">// WithEndHr sets the corresponding parameter name and returns the struct.</span>
-<span id="L537" class="ln">   537  </span>func (r *GetUsageApplicationSecurityMonitoringOptionalParameters) WithEndHr(endHr time.Time) *GetUsageApplicationSecurityMonitoringOptionalParameters {
-<span id="L538" class="ln">   538  </span>	r.EndHr = &amp;endHr
+<span id="L536" class="ln">   536  </span><span class="comment">// WithView sets the corresponding parameter name and returns the struct.</span>
+<span id="L537" class="ln">   537  </span>func (r *GetProjectedCostOptionalParameters) WithView(view string) *GetProjectedCostOptionalParameters {
+<span id="L538" class="ln">   538  </span>	r.View = &amp;view
 <span id="L539" class="ln">   539  </span>	return r
 <span id="L540" class="ln">   540  </span>}
 <span id="L541" class="ln">   541  </span>
-<span id="L542" class="ln">   542  </span><span class="comment">// GetUsageApplicationSecurityMonitoring Get hourly usage for application security.</span>
-<span id="L543" class="ln">   543  </span><span class="comment">// Get hourly usage for application security .</span>
-<span id="L544" class="ln">   544  </span><span class="comment">// **Note:** hourly usage data for all products is now available in the [Get hourly usage by product family API](https://docs.datadoghq.com/api/latest/usage-metering/#get-hourly-usage-by-product-family)</span>
-<span id="L545" class="ln">   545  </span>func (a *UsageMeteringApi) GetUsageApplicationSecurityMonitoring(ctx _context.Context, startHr time.Time, o ...GetUsageApplicationSecurityMonitoringOptionalParameters) (UsageApplicationSecurityMonitoringResponse, *_nethttp.Response, error) {
-<span id="L546" class="ln">   546  </span>	var (
-<span id="L547" class="ln">   547  </span>		localVarHTTPMethod  = _nethttp.MethodGet
-<span id="L548" class="ln">   548  </span>		localVarPostBody    interface{}
-<span id="L549" class="ln">   549  </span>		localVarReturnValue UsageApplicationSecurityMonitoringResponse
-<span id="L550" class="ln">   550  </span>		optionalParams      GetUsageApplicationSecurityMonitoringOptionalParameters
-<span id="L551" class="ln">   551  </span>	)
-<span id="L552" class="ln">   552  </span>
-<span id="L553" class="ln">   553  </span>	if len(o) &gt; 1 {
-<span id="L554" class="ln">   554  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetUsageApplicationSecurityMonitoringOptionalParameters is allowed&#34;)
-<span id="L555" class="ln">   555  </span>	}
-<span id="L556" class="ln">   556  </span>	if len(o) == 1 {
-<span id="L557" class="ln">   557  </span>		optionalParams = o[0]
-<span id="L558" class="ln">   558  </span>	}
-<span id="L559" class="ln">   559  </span>
-<span id="L560" class="ln">   560  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetUsageApplicationSecurityMonitoring&#34;)
-<span id="L561" class="ln">   561  </span>	if err != nil {
-<span id="L562" class="ln">   562  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L563" class="ln">   563  </span>	}
-<span id="L564" class="ln">   564  </span>
-<span id="L565" class="ln">   565  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/application_security&#34;
-<span id="L566" class="ln">   566  </span>
-<span id="L567" class="ln">   567  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L568" class="ln">   568  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L569" class="ln">   569  </span>	localVarFormParams := _neturl.Values{}
-<span id="L570" class="ln">   570  </span>	localVarQueryParams.Add(&#34;start_hr&#34;, datadog.ParameterToString(startHr, &#34;&#34;))
-<span id="L571" class="ln">   571  </span>	if optionalParams.EndHr != nil {
-<span id="L572" class="ln">   572  </span>		localVarQueryParams.Add(&#34;end_hr&#34;, datadog.ParameterToString(*optionalParams.EndHr, &#34;&#34;))
+<span id="L542" class="ln">   542  </span><span class="comment">// GetProjectedCost Get projected cost across your account.</span>
+<span id="L543" class="ln">   543  </span><span class="comment">// Get projected cost across multi-org and single root-org accounts.</span>
+<span id="L544" class="ln">   544  </span><span class="comment">// Projected cost data is only available for the current month and becomes available around the 12th of the month.</span>
+<span id="L545" class="ln">   545  </span><span class="comment">// This endpoint requires the usage_read authorization scope.</span>
+<span id="L546" class="ln">   546  </span>func (a *UsageMeteringApi) GetProjectedCost(ctx _context.Context, o ...GetProjectedCostOptionalParameters) (ProjectedCostResponse, *_nethttp.Response, error) {
+<span id="L547" class="ln">   547  </span>	var (
+<span id="L548" class="ln">   548  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L549" class="ln">   549  </span>		localVarPostBody    interface{}
+<span id="L550" class="ln">   550  </span>		localVarReturnValue ProjectedCostResponse
+<span id="L551" class="ln">   551  </span>		optionalParams      GetProjectedCostOptionalParameters
+<span id="L552" class="ln">   552  </span>	)
+<span id="L553" class="ln">   553  </span>
+<span id="L554" class="ln">   554  </span>	if len(o) &gt; 1 {
+<span id="L555" class="ln">   555  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetProjectedCostOptionalParameters is allowed&#34;)
+<span id="L556" class="ln">   556  </span>	}
+<span id="L557" class="ln">   557  </span>	if len(o) == 1 {
+<span id="L558" class="ln">   558  </span>		optionalParams = o[0]
+<span id="L559" class="ln">   559  </span>	}
+<span id="L560" class="ln">   560  </span>
+<span id="L561" class="ln">   561  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetProjectedCost&#34;)
+<span id="L562" class="ln">   562  </span>	if err != nil {
+<span id="L563" class="ln">   563  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L564" class="ln">   564  </span>	}
+<span id="L565" class="ln">   565  </span>
+<span id="L566" class="ln">   566  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/projected_cost&#34;
+<span id="L567" class="ln">   567  </span>
+<span id="L568" class="ln">   568  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L569" class="ln">   569  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L570" class="ln">   570  </span>	localVarFormParams := _neturl.Values{}
+<span id="L571" class="ln">   571  </span>	if optionalParams.View != nil {
+<span id="L572" class="ln">   572  </span>		localVarQueryParams.Add(&#34;view&#34;, datadog.ParameterToString(*optionalParams.View, &#34;&#34;))
 <span id="L573" class="ln">   573  </span>	}
 <span id="L574" class="ln">   574  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json;datetime-format=rfc3339&#34;
 <span id="L575" class="ln">   575  </span>
@@ -679,47 +679,47 @@
 <span id="L622" class="ln">   622  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L623" class="ln">   623  </span>}
 <span id="L624" class="ln">   624  </span>
-<span id="L625" class="ln">   625  </span><span class="comment">// GetUsageLambdaTracedInvocationsOptionalParameters holds optional parameters for GetUsageLambdaTracedInvocations.</span>
-<span id="L626" class="ln">   626  </span>type GetUsageLambdaTracedInvocationsOptionalParameters struct {
+<span id="L625" class="ln">   625  </span><span class="comment">// GetUsageApplicationSecurityMonitoringOptionalParameters holds optional parameters for GetUsageApplicationSecurityMonitoring.</span>
+<span id="L626" class="ln">   626  </span>type GetUsageApplicationSecurityMonitoringOptionalParameters struct {
 <span id="L627" class="ln">   627  </span>	EndHr *time.Time
 <span id="L628" class="ln">   628  </span>}
 <span id="L629" class="ln">   629  </span>
-<span id="L630" class="ln">   630  </span><span class="comment">// NewGetUsageLambdaTracedInvocationsOptionalParameters creates an empty struct for parameters.</span>
-<span id="L631" class="ln">   631  </span>func NewGetUsageLambdaTracedInvocationsOptionalParameters() *GetUsageLambdaTracedInvocationsOptionalParameters {
-<span id="L632" class="ln">   632  </span>	this := GetUsageLambdaTracedInvocationsOptionalParameters{}
+<span id="L630" class="ln">   630  </span><span class="comment">// NewGetUsageApplicationSecurityMonitoringOptionalParameters creates an empty struct for parameters.</span>
+<span id="L631" class="ln">   631  </span>func NewGetUsageApplicationSecurityMonitoringOptionalParameters() *GetUsageApplicationSecurityMonitoringOptionalParameters {
+<span id="L632" class="ln">   632  </span>	this := GetUsageApplicationSecurityMonitoringOptionalParameters{}
 <span id="L633" class="ln">   633  </span>	return &amp;this
 <span id="L634" class="ln">   634  </span>}
 <span id="L635" class="ln">   635  </span>
 <span id="L636" class="ln">   636  </span><span class="comment">// WithEndHr sets the corresponding parameter name and returns the struct.</span>
-<span id="L637" class="ln">   637  </span>func (r *GetUsageLambdaTracedInvocationsOptionalParameters) WithEndHr(endHr time.Time) *GetUsageLambdaTracedInvocationsOptionalParameters {
+<span id="L637" class="ln">   637  </span>func (r *GetUsageApplicationSecurityMonitoringOptionalParameters) WithEndHr(endHr time.Time) *GetUsageApplicationSecurityMonitoringOptionalParameters {
 <span id="L638" class="ln">   638  </span>	r.EndHr = &amp;endHr
 <span id="L639" class="ln">   639  </span>	return r
 <span id="L640" class="ln">   640  </span>}
 <span id="L641" class="ln">   641  </span>
-<span id="L642" class="ln">   642  </span><span class="comment">// GetUsageLambdaTracedInvocations Get hourly usage for lambda traced invocations.</span>
-<span id="L643" class="ln">   643  </span><span class="comment">// Get hourly usage for lambda traced invocations.</span>
+<span id="L642" class="ln">   642  </span><span class="comment">// GetUsageApplicationSecurityMonitoring Get hourly usage for application security.</span>
+<span id="L643" class="ln">   643  </span><span class="comment">// Get hourly usage for application security .</span>
 <span id="L644" class="ln">   644  </span><span class="comment">// **Note:** hourly usage data for all products is now available in the [Get hourly usage by product family API](https://docs.datadoghq.com/api/latest/usage-metering/#get-hourly-usage-by-product-family)</span>
-<span id="L645" class="ln">   645  </span>func (a *UsageMeteringApi) GetUsageLambdaTracedInvocations(ctx _context.Context, startHr time.Time, o ...GetUsageLambdaTracedInvocationsOptionalParameters) (UsageLambdaTracedInvocationsResponse, *_nethttp.Response, error) {
+<span id="L645" class="ln">   645  </span>func (a *UsageMeteringApi) GetUsageApplicationSecurityMonitoring(ctx _context.Context, startHr time.Time, o ...GetUsageApplicationSecurityMonitoringOptionalParameters) (UsageApplicationSecurityMonitoringResponse, *_nethttp.Response, error) {
 <span id="L646" class="ln">   646  </span>	var (
 <span id="L647" class="ln">   647  </span>		localVarHTTPMethod  = _nethttp.MethodGet
 <span id="L648" class="ln">   648  </span>		localVarPostBody    interface{}
-<span id="L649" class="ln">   649  </span>		localVarReturnValue UsageLambdaTracedInvocationsResponse
-<span id="L650" class="ln">   650  </span>		optionalParams      GetUsageLambdaTracedInvocationsOptionalParameters
+<span id="L649" class="ln">   649  </span>		localVarReturnValue UsageApplicationSecurityMonitoringResponse
+<span id="L650" class="ln">   650  </span>		optionalParams      GetUsageApplicationSecurityMonitoringOptionalParameters
 <span id="L651" class="ln">   651  </span>	)
 <span id="L652" class="ln">   652  </span>
 <span id="L653" class="ln">   653  </span>	if len(o) &gt; 1 {
-<span id="L654" class="ln">   654  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetUsageLambdaTracedInvocationsOptionalParameters is allowed&#34;)
+<span id="L654" class="ln">   654  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetUsageApplicationSecurityMonitoringOptionalParameters is allowed&#34;)
 <span id="L655" class="ln">   655  </span>	}
 <span id="L656" class="ln">   656  </span>	if len(o) == 1 {
 <span id="L657" class="ln">   657  </span>		optionalParams = o[0]
 <span id="L658" class="ln">   658  </span>	}
 <span id="L659" class="ln">   659  </span>
-<span id="L660" class="ln">   660  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetUsageLambdaTracedInvocations&#34;)
+<span id="L660" class="ln">   660  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetUsageApplicationSecurityMonitoring&#34;)
 <span id="L661" class="ln">   661  </span>	if err != nil {
 <span id="L662" class="ln">   662  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L663" class="ln">   663  </span>	}
 <span id="L664" class="ln">   664  </span>
-<span id="L665" class="ln">   665  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/lambda_traced_invocations&#34;
+<span id="L665" class="ln">   665  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/application_security&#34;
 <span id="L666" class="ln">   666  </span>
 <span id="L667" class="ln">   667  </span>	localVarHeaderParams := make(map[string]string)
 <span id="L668" class="ln">   668  </span>	localVarQueryParams := _neturl.Values{}
@@ -779,47 +779,47 @@
 <span id="L722" class="ln">   722  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L723" class="ln">   723  </span>}
 <span id="L724" class="ln">   724  </span>
-<span id="L725" class="ln">   725  </span><span class="comment">// GetUsageObservabilityPipelinesOptionalParameters holds optional parameters for GetUsageObservabilityPipelines.</span>
-<span id="L726" class="ln">   726  </span>type GetUsageObservabilityPipelinesOptionalParameters struct {
+<span id="L725" class="ln">   725  </span><span class="comment">// GetUsageLambdaTracedInvocationsOptionalParameters holds optional parameters for GetUsageLambdaTracedInvocations.</span>
+<span id="L726" class="ln">   726  </span>type GetUsageLambdaTracedInvocationsOptionalParameters struct {
 <span id="L727" class="ln">   727  </span>	EndHr *time.Time
 <span id="L728" class="ln">   728  </span>}
 <span id="L729" class="ln">   729  </span>
-<span id="L730" class="ln">   730  </span><span class="comment">// NewGetUsageObservabilityPipelinesOptionalParameters creates an empty struct for parameters.</span>
-<span id="L731" class="ln">   731  </span>func NewGetUsageObservabilityPipelinesOptionalParameters() *GetUsageObservabilityPipelinesOptionalParameters {
-<span id="L732" class="ln">   732  </span>	this := GetUsageObservabilityPipelinesOptionalParameters{}
+<span id="L730" class="ln">   730  </span><span class="comment">// NewGetUsageLambdaTracedInvocationsOptionalParameters creates an empty struct for parameters.</span>
+<span id="L731" class="ln">   731  </span>func NewGetUsageLambdaTracedInvocationsOptionalParameters() *GetUsageLambdaTracedInvocationsOptionalParameters {
+<span id="L732" class="ln">   732  </span>	this := GetUsageLambdaTracedInvocationsOptionalParameters{}
 <span id="L733" class="ln">   733  </span>	return &amp;this
 <span id="L734" class="ln">   734  </span>}
 <span id="L735" class="ln">   735  </span>
 <span id="L736" class="ln">   736  </span><span class="comment">// WithEndHr sets the corresponding parameter name and returns the struct.</span>
-<span id="L737" class="ln">   737  </span>func (r *GetUsageObservabilityPipelinesOptionalParameters) WithEndHr(endHr time.Time) *GetUsageObservabilityPipelinesOptionalParameters {
+<span id="L737" class="ln">   737  </span>func (r *GetUsageLambdaTracedInvocationsOptionalParameters) WithEndHr(endHr time.Time) *GetUsageLambdaTracedInvocationsOptionalParameters {
 <span id="L738" class="ln">   738  </span>	r.EndHr = &amp;endHr
 <span id="L739" class="ln">   739  </span>	return r
 <span id="L740" class="ln">   740  </span>}
 <span id="L741" class="ln">   741  </span>
-<span id="L742" class="ln">   742  </span><span class="comment">// GetUsageObservabilityPipelines Get hourly usage for observability pipelines.</span>
-<span id="L743" class="ln">   743  </span><span class="comment">// Get hourly usage for observability pipelines.</span>
+<span id="L742" class="ln">   742  </span><span class="comment">// GetUsageLambdaTracedInvocations Get hourly usage for lambda traced invocations.</span>
+<span id="L743" class="ln">   743  </span><span class="comment">// Get hourly usage for lambda traced invocations.</span>
 <span id="L744" class="ln">   744  </span><span class="comment">// **Note:** hourly usage data for all products is now available in the [Get hourly usage by product family API](https://docs.datadoghq.com/api/latest/usage-metering/#get-hourly-usage-by-product-family)</span>
-<span id="L745" class="ln">   745  </span>func (a *UsageMeteringApi) GetUsageObservabilityPipelines(ctx _context.Context, startHr time.Time, o ...GetUsageObservabilityPipelinesOptionalParameters) (UsageObservabilityPipelinesResponse, *_nethttp.Response, error) {
+<span id="L745" class="ln">   745  </span>func (a *UsageMeteringApi) GetUsageLambdaTracedInvocations(ctx _context.Context, startHr time.Time, o ...GetUsageLambdaTracedInvocationsOptionalParameters) (UsageLambdaTracedInvocationsResponse, *_nethttp.Response, error) {
 <span id="L746" class="ln">   746  </span>	var (
 <span id="L747" class="ln">   747  </span>		localVarHTTPMethod  = _nethttp.MethodGet
 <span id="L748" class="ln">   748  </span>		localVarPostBody    interface{}
-<span id="L749" class="ln">   749  </span>		localVarReturnValue UsageObservabilityPipelinesResponse
-<span id="L750" class="ln">   750  </span>		optionalParams      GetUsageObservabilityPipelinesOptionalParameters
+<span id="L749" class="ln">   749  </span>		localVarReturnValue UsageLambdaTracedInvocationsResponse
+<span id="L750" class="ln">   750  </span>		optionalParams      GetUsageLambdaTracedInvocationsOptionalParameters
 <span id="L751" class="ln">   751  </span>	)
 <span id="L752" class="ln">   752  </span>
 <span id="L753" class="ln">   753  </span>	if len(o) &gt; 1 {
-<span id="L754" class="ln">   754  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetUsageObservabilityPipelinesOptionalParameters is allowed&#34;)
+<span id="L754" class="ln">   754  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetUsageLambdaTracedInvocationsOptionalParameters is allowed&#34;)
 <span id="L755" class="ln">   755  </span>	}
 <span id="L756" class="ln">   756  </span>	if len(o) == 1 {
 <span id="L757" class="ln">   757  </span>		optionalParams = o[0]
 <span id="L758" class="ln">   758  </span>	}
 <span id="L759" class="ln">   759  </span>
-<span id="L760" class="ln">   760  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetUsageObservabilityPipelines&#34;)
+<span id="L760" class="ln">   760  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetUsageLambdaTracedInvocations&#34;)
 <span id="L761" class="ln">   761  </span>	if err != nil {
 <span id="L762" class="ln">   762  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L763" class="ln">   763  </span>	}
 <span id="L764" class="ln">   764  </span>
-<span id="L765" class="ln">   765  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/observability_pipelines&#34;
+<span id="L765" class="ln">   765  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/lambda_traced_invocations&#34;
 <span id="L766" class="ln">   766  </span>
 <span id="L767" class="ln">   767  </span>	localVarHeaderParams := make(map[string]string)
 <span id="L768" class="ln">   768  </span>	localVarQueryParams := _neturl.Values{}
@@ -879,13 +879,113 @@
 <span id="L822" class="ln">   822  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L823" class="ln">   823  </span>}
 <span id="L824" class="ln">   824  </span>
-<span id="L825" class="ln">   825  </span><span class="comment">// NewUsageMeteringApi Returns NewUsageMeteringApi.</span>
-<span id="L826" class="ln">   826  </span>func NewUsageMeteringApi(client *datadog.APIClient) *UsageMeteringApi {
-<span id="L827" class="ln">   827  </span>	return &amp;UsageMeteringApi{
-<span id="L828" class="ln">   828  </span>		Client: client,
-<span id="L829" class="ln">   829  </span>	}
-<span id="L830" class="ln">   830  </span>}
-<span id="L831" class="ln">   831  </span>
+<span id="L825" class="ln">   825  </span><span class="comment">// GetUsageObservabilityPipelinesOptionalParameters holds optional parameters for GetUsageObservabilityPipelines.</span>
+<span id="L826" class="ln">   826  </span>type GetUsageObservabilityPipelinesOptionalParameters struct {
+<span id="L827" class="ln">   827  </span>	EndHr *time.Time
+<span id="L828" class="ln">   828  </span>}
+<span id="L829" class="ln">   829  </span>
+<span id="L830" class="ln">   830  </span><span class="comment">// NewGetUsageObservabilityPipelinesOptionalParameters creates an empty struct for parameters.</span>
+<span id="L831" class="ln">   831  </span>func NewGetUsageObservabilityPipelinesOptionalParameters() *GetUsageObservabilityPipelinesOptionalParameters {
+<span id="L832" class="ln">   832  </span>	this := GetUsageObservabilityPipelinesOptionalParameters{}
+<span id="L833" class="ln">   833  </span>	return &amp;this
+<span id="L834" class="ln">   834  </span>}
+<span id="L835" class="ln">   835  </span>
+<span id="L836" class="ln">   836  </span><span class="comment">// WithEndHr sets the corresponding parameter name and returns the struct.</span>
+<span id="L837" class="ln">   837  </span>func (r *GetUsageObservabilityPipelinesOptionalParameters) WithEndHr(endHr time.Time) *GetUsageObservabilityPipelinesOptionalParameters {
+<span id="L838" class="ln">   838  </span>	r.EndHr = &amp;endHr
+<span id="L839" class="ln">   839  </span>	return r
+<span id="L840" class="ln">   840  </span>}
+<span id="L841" class="ln">   841  </span>
+<span id="L842" class="ln">   842  </span><span class="comment">// GetUsageObservabilityPipelines Get hourly usage for observability pipelines.</span>
+<span id="L843" class="ln">   843  </span><span class="comment">// Get hourly usage for observability pipelines.</span>
+<span id="L844" class="ln">   844  </span><span class="comment">// **Note:** hourly usage data for all products is now available in the [Get hourly usage by product family API](https://docs.datadoghq.com/api/latest/usage-metering/#get-hourly-usage-by-product-family)</span>
+<span id="L845" class="ln">   845  </span>func (a *UsageMeteringApi) GetUsageObservabilityPipelines(ctx _context.Context, startHr time.Time, o ...GetUsageObservabilityPipelinesOptionalParameters) (UsageObservabilityPipelinesResponse, *_nethttp.Response, error) {
+<span id="L846" class="ln">   846  </span>	var (
+<span id="L847" class="ln">   847  </span>		localVarHTTPMethod  = _nethttp.MethodGet
+<span id="L848" class="ln">   848  </span>		localVarPostBody    interface{}
+<span id="L849" class="ln">   849  </span>		localVarReturnValue UsageObservabilityPipelinesResponse
+<span id="L850" class="ln">   850  </span>		optionalParams      GetUsageObservabilityPipelinesOptionalParameters
+<span id="L851" class="ln">   851  </span>	)
+<span id="L852" class="ln">   852  </span>
+<span id="L853" class="ln">   853  </span>	if len(o) &gt; 1 {
+<span id="L854" class="ln">   854  </span>		return localVarReturnValue, nil, datadog.ReportError(&#34;only one argument of type GetUsageObservabilityPipelinesOptionalParameters is allowed&#34;)
+<span id="L855" class="ln">   855  </span>	}
+<span id="L856" class="ln">   856  </span>	if len(o) == 1 {
+<span id="L857" class="ln">   857  </span>		optionalParams = o[0]
+<span id="L858" class="ln">   858  </span>	}
+<span id="L859" class="ln">   859  </span>
+<span id="L860" class="ln">   860  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.UsageMeteringApi.GetUsageObservabilityPipelines&#34;)
+<span id="L861" class="ln">   861  </span>	if err != nil {
+<span id="L862" class="ln">   862  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L863" class="ln">   863  </span>	}
+<span id="L864" class="ln">   864  </span>
+<span id="L865" class="ln">   865  </span>	localVarPath := localBasePath + &#34;/api/v2/usage/observability_pipelines&#34;
+<span id="L866" class="ln">   866  </span>
+<span id="L867" class="ln">   867  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L868" class="ln">   868  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L869" class="ln">   869  </span>	localVarFormParams := _neturl.Values{}
+<span id="L870" class="ln">   870  </span>	localVarQueryParams.Add(&#34;start_hr&#34;, datadog.ParameterToString(startHr, &#34;&#34;))
+<span id="L871" class="ln">   871  </span>	if optionalParams.EndHr != nil {
+<span id="L872" class="ln">   872  </span>		localVarQueryParams.Add(&#34;end_hr&#34;, datadog.ParameterToString(*optionalParams.EndHr, &#34;&#34;))
+<span id="L873" class="ln">   873  </span>	}
+<span id="L874" class="ln">   874  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json;datetime-format=rfc3339&#34;
+<span id="L875" class="ln">   875  </span>
+<span id="L876" class="ln">   876  </span>	datadog.SetAuthKeys(
+<span id="L877" class="ln">   877  </span>		ctx,
+<span id="L878" class="ln">   878  </span>		&amp;localVarHeaderParams,
+<span id="L879" class="ln">   879  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L880" class="ln">   880  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L881" class="ln">   881  </span>	)
+<span id="L882" class="ln">   882  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L883" class="ln">   883  </span>	if err != nil {
+<span id="L884" class="ln">   884  </span>		return localVarReturnValue, nil, err
+<span id="L885" class="ln">   885  </span>	}
+<span id="L886" class="ln">   886  </span>
+<span id="L887" class="ln">   887  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L888" class="ln">   888  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L889" class="ln">   889  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L890" class="ln">   890  </span>	}
+<span id="L891" class="ln">   891  </span>
+<span id="L892" class="ln">   892  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L893" class="ln">   893  </span>	if err != nil {
+<span id="L894" class="ln">   894  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L895" class="ln">   895  </span>	}
+<span id="L896" class="ln">   896  </span>
+<span id="L897" class="ln">   897  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L898" class="ln">   898  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L899" class="ln">   899  </span>			ErrorBody:    localVarBody,
+<span id="L900" class="ln">   900  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L901" class="ln">   901  </span>		}
+<span id="L902" class="ln">   902  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L903" class="ln">   903  </span>			var v APIErrorResponse
+<span id="L904" class="ln">   904  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L905" class="ln">   905  </span>			if err != nil {
+<span id="L906" class="ln">   906  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L907" class="ln">   907  </span>			}
+<span id="L908" class="ln">   908  </span>			newErr.ErrorModel = v
+<span id="L909" class="ln">   909  </span>		}
+<span id="L910" class="ln">   910  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L911" class="ln">   911  </span>	}
+<span id="L912" class="ln">   912  </span>
+<span id="L913" class="ln">   913  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L914" class="ln">   914  </span>	if err != nil {
+<span id="L915" class="ln">   915  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L916" class="ln">   916  </span>			ErrorBody:    localVarBody,
+<span id="L917" class="ln">   917  </span>			ErrorMessage: err.Error(),
+<span id="L918" class="ln">   918  </span>		}
+<span id="L919" class="ln">   919  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L920" class="ln">   920  </span>	}
+<span id="L921" class="ln">   921  </span>
+<span id="L922" class="ln">   922  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L923" class="ln">   923  </span>}
+<span id="L924" class="ln">   924  </span>
+<span id="L925" class="ln">   925  </span><span class="comment">// NewUsageMeteringApi Returns NewUsageMeteringApi.</span>
+<span id="L926" class="ln">   926  </span>func NewUsageMeteringApi(client *datadog.APIClient) *UsageMeteringApi {
+<span id="L927" class="ln">   927  </span>	return &amp;UsageMeteringApi{
+<span id="L928" class="ln">   928  </span>		Client: client,
+<span id="L929" class="ln">   929  </span>	}
+<span id="L930" class="ln">   930  </span>}
+<span id="L931" class="ln">   931  </span>
 </pre><p></p>
 
 <div id="footer">
