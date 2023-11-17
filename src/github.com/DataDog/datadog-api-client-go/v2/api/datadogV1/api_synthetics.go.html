@@ -1828,168 +1828,168 @@
 <span id="L1771" class="ln">  1771  </span>	return items, cancel
 <span id="L1772" class="ln">  1772  </span>}
 <span id="L1773" class="ln">  1773  </span>
-<span id="L1774" class="ln">  1774  </span><span class="comment">// TriggerCITests Trigger tests from CI/CD pipelines.</span>
-<span id="L1775" class="ln">  1775  </span><span class="comment">// Trigger a set of Synthetic tests for continuous integration.</span>
-<span id="L1776" class="ln">  1776  </span>func (a *SyntheticsApi) TriggerCITests(ctx _context.Context, body SyntheticsCITestBody) (SyntheticsTriggerCITestsResponse, *_nethttp.Response, error) {
+<span id="L1774" class="ln">  1774  </span><span class="comment">// PatchTest Patch a Synthetic test.</span>
+<span id="L1775" class="ln">  1775  </span><span class="comment">// Patch the configuration of a Synthetic test with partial data.</span>
+<span id="L1776" class="ln">  1776  </span>func (a *SyntheticsApi) PatchTest(ctx _context.Context, publicId string, body SyntheticsPatchTestBody) (SyntheticsTestDetails, *_nethttp.Response, error) {
 <span id="L1777" class="ln">  1777  </span>	var (
-<span id="L1778" class="ln">  1778  </span>		localVarHTTPMethod  = _nethttp.MethodPost
+<span id="L1778" class="ln">  1778  </span>		localVarHTTPMethod  = _nethttp.MethodPatch
 <span id="L1779" class="ln">  1779  </span>		localVarPostBody    interface{}
-<span id="L1780" class="ln">  1780  </span>		localVarReturnValue SyntheticsTriggerCITestsResponse
+<span id="L1780" class="ln">  1780  </span>		localVarReturnValue SyntheticsTestDetails
 <span id="L1781" class="ln">  1781  </span>	)
 <span id="L1782" class="ln">  1782  </span>
-<span id="L1783" class="ln">  1783  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.TriggerCITests&#34;)
+<span id="L1783" class="ln">  1783  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.PatchTest&#34;)
 <span id="L1784" class="ln">  1784  </span>	if err != nil {
 <span id="L1785" class="ln">  1785  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L1786" class="ln">  1786  </span>	}
 <span id="L1787" class="ln">  1787  </span>
-<span id="L1788" class="ln">  1788  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/trigger/ci&#34;
-<span id="L1789" class="ln">  1789  </span>
-<span id="L1790" class="ln">  1790  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1791" class="ln">  1791  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1792" class="ln">  1792  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1793" class="ln">  1793  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L1794" class="ln">  1794  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1795" class="ln">  1795  </span>
-<span id="L1796" class="ln">  1796  </span>	<span class="comment">// body params</span>
-<span id="L1797" class="ln">  1797  </span>	localVarPostBody = &amp;body
-<span id="L1798" class="ln">  1798  </span>	datadog.SetAuthKeys(
-<span id="L1799" class="ln">  1799  </span>		ctx,
-<span id="L1800" class="ln">  1800  </span>		&amp;localVarHeaderParams,
-<span id="L1801" class="ln">  1801  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1802" class="ln">  1802  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1803" class="ln">  1803  </span>	)
-<span id="L1804" class="ln">  1804  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1805" class="ln">  1805  </span>	if err != nil {
-<span id="L1806" class="ln">  1806  </span>		return localVarReturnValue, nil, err
-<span id="L1807" class="ln">  1807  </span>	}
-<span id="L1808" class="ln">  1808  </span>
-<span id="L1809" class="ln">  1809  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1810" class="ln">  1810  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1811" class="ln">  1811  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1812" class="ln">  1812  </span>	}
-<span id="L1813" class="ln">  1813  </span>
-<span id="L1814" class="ln">  1814  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1815" class="ln">  1815  </span>	if err != nil {
-<span id="L1816" class="ln">  1816  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1817" class="ln">  1817  </span>	}
-<span id="L1818" class="ln">  1818  </span>
-<span id="L1819" class="ln">  1819  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1820" class="ln">  1820  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1821" class="ln">  1821  </span>			ErrorBody:    localVarBody,
-<span id="L1822" class="ln">  1822  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1823" class="ln">  1823  </span>		}
-<span id="L1824" class="ln">  1824  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1825" class="ln">  1825  </span>			var v APIErrorResponse
-<span id="L1826" class="ln">  1826  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1827" class="ln">  1827  </span>			if err != nil {
-<span id="L1828" class="ln">  1828  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1829" class="ln">  1829  </span>			}
-<span id="L1830" class="ln">  1830  </span>			newErr.ErrorModel = v
-<span id="L1831" class="ln">  1831  </span>		}
-<span id="L1832" class="ln">  1832  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1833" class="ln">  1833  </span>	}
-<span id="L1834" class="ln">  1834  </span>
-<span id="L1835" class="ln">  1835  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1836" class="ln">  1836  </span>	if err != nil {
-<span id="L1837" class="ln">  1837  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1838" class="ln">  1838  </span>			ErrorBody:    localVarBody,
-<span id="L1839" class="ln">  1839  </span>			ErrorMessage: err.Error(),
-<span id="L1840" class="ln">  1840  </span>		}
-<span id="L1841" class="ln">  1841  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1842" class="ln">  1842  </span>	}
-<span id="L1843" class="ln">  1843  </span>
-<span id="L1844" class="ln">  1844  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1845" class="ln">  1845  </span>}
-<span id="L1846" class="ln">  1846  </span>
-<span id="L1847" class="ln">  1847  </span><span class="comment">// TriggerTests Trigger Synthetic tests.</span>
-<span id="L1848" class="ln">  1848  </span><span class="comment">// Trigger a set of Synthetic tests.</span>
-<span id="L1849" class="ln">  1849  </span>func (a *SyntheticsApi) TriggerTests(ctx _context.Context, body SyntheticsTriggerBody) (SyntheticsTriggerCITestsResponse, *_nethttp.Response, error) {
-<span id="L1850" class="ln">  1850  </span>	var (
-<span id="L1851" class="ln">  1851  </span>		localVarHTTPMethod  = _nethttp.MethodPost
-<span id="L1852" class="ln">  1852  </span>		localVarPostBody    interface{}
-<span id="L1853" class="ln">  1853  </span>		localVarReturnValue SyntheticsTriggerCITestsResponse
-<span id="L1854" class="ln">  1854  </span>	)
-<span id="L1855" class="ln">  1855  </span>
-<span id="L1856" class="ln">  1856  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.TriggerTests&#34;)
-<span id="L1857" class="ln">  1857  </span>	if err != nil {
-<span id="L1858" class="ln">  1858  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1859" class="ln">  1859  </span>	}
-<span id="L1860" class="ln">  1860  </span>
-<span id="L1861" class="ln">  1861  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/trigger&#34;
-<span id="L1862" class="ln">  1862  </span>
-<span id="L1863" class="ln">  1863  </span>	localVarHeaderParams := make(map[string]string)
-<span id="L1864" class="ln">  1864  </span>	localVarQueryParams := _neturl.Values{}
-<span id="L1865" class="ln">  1865  </span>	localVarFormParams := _neturl.Values{}
-<span id="L1866" class="ln">  1866  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
-<span id="L1867" class="ln">  1867  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
-<span id="L1868" class="ln">  1868  </span>
-<span id="L1869" class="ln">  1869  </span>	<span class="comment">// body params</span>
-<span id="L1870" class="ln">  1870  </span>	localVarPostBody = &amp;body
-<span id="L1871" class="ln">  1871  </span>	datadog.SetAuthKeys(
-<span id="L1872" class="ln">  1872  </span>		ctx,
-<span id="L1873" class="ln">  1873  </span>		&amp;localVarHeaderParams,
-<span id="L1874" class="ln">  1874  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
-<span id="L1875" class="ln">  1875  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
-<span id="L1876" class="ln">  1876  </span>	)
-<span id="L1877" class="ln">  1877  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
-<span id="L1878" class="ln">  1878  </span>	if err != nil {
-<span id="L1879" class="ln">  1879  </span>		return localVarReturnValue, nil, err
-<span id="L1880" class="ln">  1880  </span>	}
-<span id="L1881" class="ln">  1881  </span>
-<span id="L1882" class="ln">  1882  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
-<span id="L1883" class="ln">  1883  </span>	if err != nil || localVarHTTPResponse == nil {
-<span id="L1884" class="ln">  1884  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1885" class="ln">  1885  </span>	}
-<span id="L1886" class="ln">  1886  </span>
-<span id="L1887" class="ln">  1887  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
-<span id="L1888" class="ln">  1888  </span>	if err != nil {
-<span id="L1889" class="ln">  1889  </span>		return localVarReturnValue, localVarHTTPResponse, err
-<span id="L1890" class="ln">  1890  </span>	}
-<span id="L1891" class="ln">  1891  </span>
-<span id="L1892" class="ln">  1892  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
-<span id="L1893" class="ln">  1893  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1894" class="ln">  1894  </span>			ErrorBody:    localVarBody,
-<span id="L1895" class="ln">  1895  </span>			ErrorMessage: localVarHTTPResponse.Status,
-<span id="L1896" class="ln">  1896  </span>		}
-<span id="L1897" class="ln">  1897  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 429 {
-<span id="L1898" class="ln">  1898  </span>			var v APIErrorResponse
-<span id="L1899" class="ln">  1899  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1900" class="ln">  1900  </span>			if err != nil {
-<span id="L1901" class="ln">  1901  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1902" class="ln">  1902  </span>			}
-<span id="L1903" class="ln">  1903  </span>			newErr.ErrorModel = v
-<span id="L1904" class="ln">  1904  </span>		}
-<span id="L1905" class="ln">  1905  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1906" class="ln">  1906  </span>	}
-<span id="L1907" class="ln">  1907  </span>
-<span id="L1908" class="ln">  1908  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
-<span id="L1909" class="ln">  1909  </span>	if err != nil {
-<span id="L1910" class="ln">  1910  </span>		newErr := datadog.GenericOpenAPIError{
-<span id="L1911" class="ln">  1911  </span>			ErrorBody:    localVarBody,
-<span id="L1912" class="ln">  1912  </span>			ErrorMessage: err.Error(),
-<span id="L1913" class="ln">  1913  </span>		}
-<span id="L1914" class="ln">  1914  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
-<span id="L1915" class="ln">  1915  </span>	}
-<span id="L1916" class="ln">  1916  </span>
-<span id="L1917" class="ln">  1917  </span>	return localVarReturnValue, localVarHTTPResponse, nil
-<span id="L1918" class="ln">  1918  </span>}
-<span id="L1919" class="ln">  1919  </span>
-<span id="L1920" class="ln">  1920  </span><span class="comment">// UpdateAPITest Edit an API test.</span>
-<span id="L1921" class="ln">  1921  </span><span class="comment">// Edit the configuration of a Synthetic API test.</span>
-<span id="L1922" class="ln">  1922  </span>func (a *SyntheticsApi) UpdateAPITest(ctx _context.Context, publicId string, body SyntheticsAPITest) (SyntheticsAPITest, *_nethttp.Response, error) {
-<span id="L1923" class="ln">  1923  </span>	var (
-<span id="L1924" class="ln">  1924  </span>		localVarHTTPMethod  = _nethttp.MethodPut
-<span id="L1925" class="ln">  1925  </span>		localVarPostBody    interface{}
-<span id="L1926" class="ln">  1926  </span>		localVarReturnValue SyntheticsAPITest
-<span id="L1927" class="ln">  1927  </span>	)
-<span id="L1928" class="ln">  1928  </span>
-<span id="L1929" class="ln">  1929  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdateAPITest&#34;)
-<span id="L1930" class="ln">  1930  </span>	if err != nil {
-<span id="L1931" class="ln">  1931  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
-<span id="L1932" class="ln">  1932  </span>	}
-<span id="L1933" class="ln">  1933  </span>
-<span id="L1934" class="ln">  1934  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/api/{public_id}&#34;
-<span id="L1935" class="ln">  1935  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;public_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(publicId, &#34;&#34;)), -1)
+<span id="L1788" class="ln">  1788  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/{public_id}&#34;
+<span id="L1789" class="ln">  1789  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;public_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(publicId, &#34;&#34;)), -1)
+<span id="L1790" class="ln">  1790  </span>
+<span id="L1791" class="ln">  1791  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1792" class="ln">  1792  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1793" class="ln">  1793  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1794" class="ln">  1794  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1795" class="ln">  1795  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1796" class="ln">  1796  </span>
+<span id="L1797" class="ln">  1797  </span>	<span class="comment">// body params</span>
+<span id="L1798" class="ln">  1798  </span>	localVarPostBody = &amp;body
+<span id="L1799" class="ln">  1799  </span>	datadog.SetAuthKeys(
+<span id="L1800" class="ln">  1800  </span>		ctx,
+<span id="L1801" class="ln">  1801  </span>		&amp;localVarHeaderParams,
+<span id="L1802" class="ln">  1802  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1803" class="ln">  1803  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1804" class="ln">  1804  </span>	)
+<span id="L1805" class="ln">  1805  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1806" class="ln">  1806  </span>	if err != nil {
+<span id="L1807" class="ln">  1807  </span>		return localVarReturnValue, nil, err
+<span id="L1808" class="ln">  1808  </span>	}
+<span id="L1809" class="ln">  1809  </span>
+<span id="L1810" class="ln">  1810  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1811" class="ln">  1811  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1812" class="ln">  1812  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1813" class="ln">  1813  </span>	}
+<span id="L1814" class="ln">  1814  </span>
+<span id="L1815" class="ln">  1815  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1816" class="ln">  1816  </span>	if err != nil {
+<span id="L1817" class="ln">  1817  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1818" class="ln">  1818  </span>	}
+<span id="L1819" class="ln">  1819  </span>
+<span id="L1820" class="ln">  1820  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1821" class="ln">  1821  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1822" class="ln">  1822  </span>			ErrorBody:    localVarBody,
+<span id="L1823" class="ln">  1823  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1824" class="ln">  1824  </span>		}
+<span id="L1825" class="ln">  1825  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1826" class="ln">  1826  </span>			var v APIErrorResponse
+<span id="L1827" class="ln">  1827  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1828" class="ln">  1828  </span>			if err != nil {
+<span id="L1829" class="ln">  1829  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1830" class="ln">  1830  </span>			}
+<span id="L1831" class="ln">  1831  </span>			newErr.ErrorModel = v
+<span id="L1832" class="ln">  1832  </span>		}
+<span id="L1833" class="ln">  1833  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1834" class="ln">  1834  </span>	}
+<span id="L1835" class="ln">  1835  </span>
+<span id="L1836" class="ln">  1836  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1837" class="ln">  1837  </span>	if err != nil {
+<span id="L1838" class="ln">  1838  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1839" class="ln">  1839  </span>			ErrorBody:    localVarBody,
+<span id="L1840" class="ln">  1840  </span>			ErrorMessage: err.Error(),
+<span id="L1841" class="ln">  1841  </span>		}
+<span id="L1842" class="ln">  1842  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1843" class="ln">  1843  </span>	}
+<span id="L1844" class="ln">  1844  </span>
+<span id="L1845" class="ln">  1845  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1846" class="ln">  1846  </span>}
+<span id="L1847" class="ln">  1847  </span>
+<span id="L1848" class="ln">  1848  </span><span class="comment">// TriggerCITests Trigger tests from CI/CD pipelines.</span>
+<span id="L1849" class="ln">  1849  </span><span class="comment">// Trigger a set of Synthetic tests for continuous integration.</span>
+<span id="L1850" class="ln">  1850  </span>func (a *SyntheticsApi) TriggerCITests(ctx _context.Context, body SyntheticsCITestBody) (SyntheticsTriggerCITestsResponse, *_nethttp.Response, error) {
+<span id="L1851" class="ln">  1851  </span>	var (
+<span id="L1852" class="ln">  1852  </span>		localVarHTTPMethod  = _nethttp.MethodPost
+<span id="L1853" class="ln">  1853  </span>		localVarPostBody    interface{}
+<span id="L1854" class="ln">  1854  </span>		localVarReturnValue SyntheticsTriggerCITestsResponse
+<span id="L1855" class="ln">  1855  </span>	)
+<span id="L1856" class="ln">  1856  </span>
+<span id="L1857" class="ln">  1857  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.TriggerCITests&#34;)
+<span id="L1858" class="ln">  1858  </span>	if err != nil {
+<span id="L1859" class="ln">  1859  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1860" class="ln">  1860  </span>	}
+<span id="L1861" class="ln">  1861  </span>
+<span id="L1862" class="ln">  1862  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/trigger/ci&#34;
+<span id="L1863" class="ln">  1863  </span>
+<span id="L1864" class="ln">  1864  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L1865" class="ln">  1865  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L1866" class="ln">  1866  </span>	localVarFormParams := _neturl.Values{}
+<span id="L1867" class="ln">  1867  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L1868" class="ln">  1868  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L1869" class="ln">  1869  </span>
+<span id="L1870" class="ln">  1870  </span>	<span class="comment">// body params</span>
+<span id="L1871" class="ln">  1871  </span>	localVarPostBody = &amp;body
+<span id="L1872" class="ln">  1872  </span>	datadog.SetAuthKeys(
+<span id="L1873" class="ln">  1873  </span>		ctx,
+<span id="L1874" class="ln">  1874  </span>		&amp;localVarHeaderParams,
+<span id="L1875" class="ln">  1875  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L1876" class="ln">  1876  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L1877" class="ln">  1877  </span>	)
+<span id="L1878" class="ln">  1878  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L1879" class="ln">  1879  </span>	if err != nil {
+<span id="L1880" class="ln">  1880  </span>		return localVarReturnValue, nil, err
+<span id="L1881" class="ln">  1881  </span>	}
+<span id="L1882" class="ln">  1882  </span>
+<span id="L1883" class="ln">  1883  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L1884" class="ln">  1884  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L1885" class="ln">  1885  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1886" class="ln">  1886  </span>	}
+<span id="L1887" class="ln">  1887  </span>
+<span id="L1888" class="ln">  1888  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L1889" class="ln">  1889  </span>	if err != nil {
+<span id="L1890" class="ln">  1890  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L1891" class="ln">  1891  </span>	}
+<span id="L1892" class="ln">  1892  </span>
+<span id="L1893" class="ln">  1893  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L1894" class="ln">  1894  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1895" class="ln">  1895  </span>			ErrorBody:    localVarBody,
+<span id="L1896" class="ln">  1896  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L1897" class="ln">  1897  </span>		}
+<span id="L1898" class="ln">  1898  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1899" class="ln">  1899  </span>			var v APIErrorResponse
+<span id="L1900" class="ln">  1900  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1901" class="ln">  1901  </span>			if err != nil {
+<span id="L1902" class="ln">  1902  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1903" class="ln">  1903  </span>			}
+<span id="L1904" class="ln">  1904  </span>			newErr.ErrorModel = v
+<span id="L1905" class="ln">  1905  </span>		}
+<span id="L1906" class="ln">  1906  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1907" class="ln">  1907  </span>	}
+<span id="L1908" class="ln">  1908  </span>
+<span id="L1909" class="ln">  1909  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L1910" class="ln">  1910  </span>	if err != nil {
+<span id="L1911" class="ln">  1911  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L1912" class="ln">  1912  </span>			ErrorBody:    localVarBody,
+<span id="L1913" class="ln">  1913  </span>			ErrorMessage: err.Error(),
+<span id="L1914" class="ln">  1914  </span>		}
+<span id="L1915" class="ln">  1915  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L1916" class="ln">  1916  </span>	}
+<span id="L1917" class="ln">  1917  </span>
+<span id="L1918" class="ln">  1918  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L1919" class="ln">  1919  </span>}
+<span id="L1920" class="ln">  1920  </span>
+<span id="L1921" class="ln">  1921  </span><span class="comment">// TriggerTests Trigger Synthetic tests.</span>
+<span id="L1922" class="ln">  1922  </span><span class="comment">// Trigger a set of Synthetic tests.</span>
+<span id="L1923" class="ln">  1923  </span>func (a *SyntheticsApi) TriggerTests(ctx _context.Context, body SyntheticsTriggerBody) (SyntheticsTriggerCITestsResponse, *_nethttp.Response, error) {
+<span id="L1924" class="ln">  1924  </span>	var (
+<span id="L1925" class="ln">  1925  </span>		localVarHTTPMethod  = _nethttp.MethodPost
+<span id="L1926" class="ln">  1926  </span>		localVarPostBody    interface{}
+<span id="L1927" class="ln">  1927  </span>		localVarReturnValue SyntheticsTriggerCITestsResponse
+<span id="L1928" class="ln">  1928  </span>	)
+<span id="L1929" class="ln">  1929  </span>
+<span id="L1930" class="ln">  1930  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.TriggerTests&#34;)
+<span id="L1931" class="ln">  1931  </span>	if err != nil {
+<span id="L1932" class="ln">  1932  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L1933" class="ln">  1933  </span>	}
+<span id="L1934" class="ln">  1934  </span>
+<span id="L1935" class="ln">  1935  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/trigger&#34;
 <span id="L1936" class="ln">  1936  </span>
 <span id="L1937" class="ln">  1937  </span>	localVarHeaderParams := make(map[string]string)
 <span id="L1938" class="ln">  1938  </span>	localVarQueryParams := _neturl.Values{}
@@ -2025,7 +2025,7 @@
 <span id="L1968" class="ln">  1968  </span>			ErrorBody:    localVarBody,
 <span id="L1969" class="ln">  1969  </span>			ErrorMessage: localVarHTTPResponse.Status,
 <span id="L1970" class="ln">  1970  </span>		}
-<span id="L1971" class="ln">  1971  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L1971" class="ln">  1971  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 429 {
 <span id="L1972" class="ln">  1972  </span>			var v APIErrorResponse
 <span id="L1973" class="ln">  1973  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
 <span id="L1974" class="ln">  1974  </span>			if err != nil {
@@ -2048,21 +2048,21 @@
 <span id="L1991" class="ln">  1991  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L1992" class="ln">  1992  </span>}
 <span id="L1993" class="ln">  1993  </span>
-<span id="L1994" class="ln">  1994  </span><span class="comment">// UpdateBrowserTest Edit a browser test.</span>
-<span id="L1995" class="ln">  1995  </span><span class="comment">// Edit the configuration of a Synthetic browser test.</span>
-<span id="L1996" class="ln">  1996  </span>func (a *SyntheticsApi) UpdateBrowserTest(ctx _context.Context, publicId string, body SyntheticsBrowserTest) (SyntheticsBrowserTest, *_nethttp.Response, error) {
+<span id="L1994" class="ln">  1994  </span><span class="comment">// UpdateAPITest Edit an API test.</span>
+<span id="L1995" class="ln">  1995  </span><span class="comment">// Edit the configuration of a Synthetic API test.</span>
+<span id="L1996" class="ln">  1996  </span>func (a *SyntheticsApi) UpdateAPITest(ctx _context.Context, publicId string, body SyntheticsAPITest) (SyntheticsAPITest, *_nethttp.Response, error) {
 <span id="L1997" class="ln">  1997  </span>	var (
 <span id="L1998" class="ln">  1998  </span>		localVarHTTPMethod  = _nethttp.MethodPut
 <span id="L1999" class="ln">  1999  </span>		localVarPostBody    interface{}
-<span id="L2000" class="ln">  2000  </span>		localVarReturnValue SyntheticsBrowserTest
+<span id="L2000" class="ln">  2000  </span>		localVarReturnValue SyntheticsAPITest
 <span id="L2001" class="ln">  2001  </span>	)
 <span id="L2002" class="ln">  2002  </span>
-<span id="L2003" class="ln">  2003  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdateBrowserTest&#34;)
+<span id="L2003" class="ln">  2003  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdateAPITest&#34;)
 <span id="L2004" class="ln">  2004  </span>	if err != nil {
 <span id="L2005" class="ln">  2005  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L2006" class="ln">  2006  </span>	}
 <span id="L2007" class="ln">  2007  </span>
-<span id="L2008" class="ln">  2008  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/browser/{public_id}&#34;
+<span id="L2008" class="ln">  2008  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/api/{public_id}&#34;
 <span id="L2009" class="ln">  2009  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;public_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(publicId, &#34;&#34;)), -1)
 <span id="L2010" class="ln">  2010  </span>
 <span id="L2011" class="ln">  2011  </span>	localVarHeaderParams := make(map[string]string)
@@ -2122,22 +2122,22 @@
 <span id="L2065" class="ln">  2065  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L2066" class="ln">  2066  </span>}
 <span id="L2067" class="ln">  2067  </span>
-<span id="L2068" class="ln">  2068  </span><span class="comment">// UpdatePrivateLocation Edit a private location.</span>
-<span id="L2069" class="ln">  2069  </span><span class="comment">// Edit a Synthetic private location.</span>
-<span id="L2070" class="ln">  2070  </span>func (a *SyntheticsApi) UpdatePrivateLocation(ctx _context.Context, locationId string, body SyntheticsPrivateLocation) (SyntheticsPrivateLocation, *_nethttp.Response, error) {
+<span id="L2068" class="ln">  2068  </span><span class="comment">// UpdateBrowserTest Edit a browser test.</span>
+<span id="L2069" class="ln">  2069  </span><span class="comment">// Edit the configuration of a Synthetic browser test.</span>
+<span id="L2070" class="ln">  2070  </span>func (a *SyntheticsApi) UpdateBrowserTest(ctx _context.Context, publicId string, body SyntheticsBrowserTest) (SyntheticsBrowserTest, *_nethttp.Response, error) {
 <span id="L2071" class="ln">  2071  </span>	var (
 <span id="L2072" class="ln">  2072  </span>		localVarHTTPMethod  = _nethttp.MethodPut
 <span id="L2073" class="ln">  2073  </span>		localVarPostBody    interface{}
-<span id="L2074" class="ln">  2074  </span>		localVarReturnValue SyntheticsPrivateLocation
+<span id="L2074" class="ln">  2074  </span>		localVarReturnValue SyntheticsBrowserTest
 <span id="L2075" class="ln">  2075  </span>	)
 <span id="L2076" class="ln">  2076  </span>
-<span id="L2077" class="ln">  2077  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdatePrivateLocation&#34;)
+<span id="L2077" class="ln">  2077  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdateBrowserTest&#34;)
 <span id="L2078" class="ln">  2078  </span>	if err != nil {
 <span id="L2079" class="ln">  2079  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L2080" class="ln">  2080  </span>	}
 <span id="L2081" class="ln">  2081  </span>
-<span id="L2082" class="ln">  2082  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/private-locations/{location_id}&#34;
-<span id="L2083" class="ln">  2083  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;location_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(locationId, &#34;&#34;)), -1)
+<span id="L2082" class="ln">  2082  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/browser/{public_id}&#34;
+<span id="L2083" class="ln">  2083  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;public_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(publicId, &#34;&#34;)), -1)
 <span id="L2084" class="ln">  2084  </span>
 <span id="L2085" class="ln">  2085  </span>	localVarHeaderParams := make(map[string]string)
 <span id="L2086" class="ln">  2086  </span>	localVarQueryParams := _neturl.Values{}
@@ -2173,7 +2173,7 @@
 <span id="L2116" class="ln">  2116  </span>			ErrorBody:    localVarBody,
 <span id="L2117" class="ln">  2117  </span>			ErrorMessage: localVarHTTPResponse.Status,
 <span id="L2118" class="ln">  2118  </span>		}
-<span id="L2119" class="ln">  2119  </span>		if localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L2119" class="ln">  2119  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
 <span id="L2120" class="ln">  2120  </span>			var v APIErrorResponse
 <span id="L2121" class="ln">  2121  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
 <span id="L2122" class="ln">  2122  </span>			if err != nil {
@@ -2196,22 +2196,22 @@
 <span id="L2139" class="ln">  2139  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L2140" class="ln">  2140  </span>}
 <span id="L2141" class="ln">  2141  </span>
-<span id="L2142" class="ln">  2142  </span><span class="comment">// UpdateTestPauseStatus Pause or start a test.</span>
-<span id="L2143" class="ln">  2143  </span><span class="comment">// Pause or start a Synthetic test by changing the status.</span>
-<span id="L2144" class="ln">  2144  </span>func (a *SyntheticsApi) UpdateTestPauseStatus(ctx _context.Context, publicId string, body SyntheticsUpdateTestPauseStatusPayload) (bool, *_nethttp.Response, error) {
+<span id="L2142" class="ln">  2142  </span><span class="comment">// UpdatePrivateLocation Edit a private location.</span>
+<span id="L2143" class="ln">  2143  </span><span class="comment">// Edit a Synthetic private location.</span>
+<span id="L2144" class="ln">  2144  </span>func (a *SyntheticsApi) UpdatePrivateLocation(ctx _context.Context, locationId string, body SyntheticsPrivateLocation) (SyntheticsPrivateLocation, *_nethttp.Response, error) {
 <span id="L2145" class="ln">  2145  </span>	var (
 <span id="L2146" class="ln">  2146  </span>		localVarHTTPMethod  = _nethttp.MethodPut
 <span id="L2147" class="ln">  2147  </span>		localVarPostBody    interface{}
-<span id="L2148" class="ln">  2148  </span>		localVarReturnValue bool
+<span id="L2148" class="ln">  2148  </span>		localVarReturnValue SyntheticsPrivateLocation
 <span id="L2149" class="ln">  2149  </span>	)
 <span id="L2150" class="ln">  2150  </span>
-<span id="L2151" class="ln">  2151  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdateTestPauseStatus&#34;)
+<span id="L2151" class="ln">  2151  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdatePrivateLocation&#34;)
 <span id="L2152" class="ln">  2152  </span>	if err != nil {
 <span id="L2153" class="ln">  2153  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
 <span id="L2154" class="ln">  2154  </span>	}
 <span id="L2155" class="ln">  2155  </span>
-<span id="L2156" class="ln">  2156  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/{public_id}/status&#34;
-<span id="L2157" class="ln">  2157  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;public_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(publicId, &#34;&#34;)), -1)
+<span id="L2156" class="ln">  2156  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/private-locations/{location_id}&#34;
+<span id="L2157" class="ln">  2157  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;location_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(locationId, &#34;&#34;)), -1)
 <span id="L2158" class="ln">  2158  </span>
 <span id="L2159" class="ln">  2159  </span>	localVarHeaderParams := make(map[string]string)
 <span id="L2160" class="ln">  2160  </span>	localVarQueryParams := _neturl.Values{}
@@ -2247,7 +2247,7 @@
 <span id="L2190" class="ln">  2190  </span>			ErrorBody:    localVarBody,
 <span id="L2191" class="ln">  2191  </span>			ErrorMessage: localVarHTTPResponse.Status,
 <span id="L2192" class="ln">  2192  </span>		}
-<span id="L2193" class="ln">  2193  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L2193" class="ln">  2193  </span>		if localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
 <span id="L2194" class="ln">  2194  </span>			var v APIErrorResponse
 <span id="L2195" class="ln">  2195  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
 <span id="L2196" class="ln">  2196  </span>			if err != nil {
@@ -2270,13 +2270,87 @@
 <span id="L2213" class="ln">  2213  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L2214" class="ln">  2214  </span>}
 <span id="L2215" class="ln">  2215  </span>
-<span id="L2216" class="ln">  2216  </span><span class="comment">// NewSyntheticsApi Returns NewSyntheticsApi.</span>
-<span id="L2217" class="ln">  2217  </span>func NewSyntheticsApi(client *datadog.APIClient) *SyntheticsApi {
-<span id="L2218" class="ln">  2218  </span>	return &amp;SyntheticsApi{
-<span id="L2219" class="ln">  2219  </span>		Client: client,
-<span id="L2220" class="ln">  2220  </span>	}
-<span id="L2221" class="ln">  2221  </span>}
-<span id="L2222" class="ln">  2222  </span>
+<span id="L2216" class="ln">  2216  </span><span class="comment">// UpdateTestPauseStatus Pause or start a test.</span>
+<span id="L2217" class="ln">  2217  </span><span class="comment">// Pause or start a Synthetic test by changing the status.</span>
+<span id="L2218" class="ln">  2218  </span>func (a *SyntheticsApi) UpdateTestPauseStatus(ctx _context.Context, publicId string, body SyntheticsUpdateTestPauseStatusPayload) (bool, *_nethttp.Response, error) {
+<span id="L2219" class="ln">  2219  </span>	var (
+<span id="L2220" class="ln">  2220  </span>		localVarHTTPMethod  = _nethttp.MethodPut
+<span id="L2221" class="ln">  2221  </span>		localVarPostBody    interface{}
+<span id="L2222" class="ln">  2222  </span>		localVarReturnValue bool
+<span id="L2223" class="ln">  2223  </span>	)
+<span id="L2224" class="ln">  2224  </span>
+<span id="L2225" class="ln">  2225  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v1.SyntheticsApi.UpdateTestPauseStatus&#34;)
+<span id="L2226" class="ln">  2226  </span>	if err != nil {
+<span id="L2227" class="ln">  2227  </span>		return localVarReturnValue, nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L2228" class="ln">  2228  </span>	}
+<span id="L2229" class="ln">  2229  </span>
+<span id="L2230" class="ln">  2230  </span>	localVarPath := localBasePath + &#34;/api/v1/synthetics/tests/{public_id}/status&#34;
+<span id="L2231" class="ln">  2231  </span>	localVarPath = strings.Replace(localVarPath, &#34;{&#34;+&#34;public_id&#34;+&#34;}&#34;, _neturl.PathEscape(datadog.ParameterToString(publicId, &#34;&#34;)), -1)
+<span id="L2232" class="ln">  2232  </span>
+<span id="L2233" class="ln">  2233  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L2234" class="ln">  2234  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L2235" class="ln">  2235  </span>	localVarFormParams := _neturl.Values{}
+<span id="L2236" class="ln">  2236  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L2237" class="ln">  2237  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;application/json&#34;
+<span id="L2238" class="ln">  2238  </span>
+<span id="L2239" class="ln">  2239  </span>	<span class="comment">// body params</span>
+<span id="L2240" class="ln">  2240  </span>	localVarPostBody = &amp;body
+<span id="L2241" class="ln">  2241  </span>	datadog.SetAuthKeys(
+<span id="L2242" class="ln">  2242  </span>		ctx,
+<span id="L2243" class="ln">  2243  </span>		&amp;localVarHeaderParams,
+<span id="L2244" class="ln">  2244  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L2245" class="ln">  2245  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L2246" class="ln">  2246  </span>	)
+<span id="L2247" class="ln">  2247  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L2248" class="ln">  2248  </span>	if err != nil {
+<span id="L2249" class="ln">  2249  </span>		return localVarReturnValue, nil, err
+<span id="L2250" class="ln">  2250  </span>	}
+<span id="L2251" class="ln">  2251  </span>
+<span id="L2252" class="ln">  2252  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L2253" class="ln">  2253  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L2254" class="ln">  2254  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L2255" class="ln">  2255  </span>	}
+<span id="L2256" class="ln">  2256  </span>
+<span id="L2257" class="ln">  2257  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L2258" class="ln">  2258  </span>	if err != nil {
+<span id="L2259" class="ln">  2259  </span>		return localVarReturnValue, localVarHTTPResponse, err
+<span id="L2260" class="ln">  2260  </span>	}
+<span id="L2261" class="ln">  2261  </span>
+<span id="L2262" class="ln">  2262  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L2263" class="ln">  2263  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L2264" class="ln">  2264  </span>			ErrorBody:    localVarBody,
+<span id="L2265" class="ln">  2265  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L2266" class="ln">  2266  </span>		}
+<span id="L2267" class="ln">  2267  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L2268" class="ln">  2268  </span>			var v APIErrorResponse
+<span id="L2269" class="ln">  2269  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L2270" class="ln">  2270  </span>			if err != nil {
+<span id="L2271" class="ln">  2271  </span>				return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L2272" class="ln">  2272  </span>			}
+<span id="L2273" class="ln">  2273  </span>			newErr.ErrorModel = v
+<span id="L2274" class="ln">  2274  </span>		}
+<span id="L2275" class="ln">  2275  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L2276" class="ln">  2276  </span>	}
+<span id="L2277" class="ln">  2277  </span>
+<span id="L2278" class="ln">  2278  </span>	err = a.Client.Decode(&amp;localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L2279" class="ln">  2279  </span>	if err != nil {
+<span id="L2280" class="ln">  2280  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L2281" class="ln">  2281  </span>			ErrorBody:    localVarBody,
+<span id="L2282" class="ln">  2282  </span>			ErrorMessage: err.Error(),
+<span id="L2283" class="ln">  2283  </span>		}
+<span id="L2284" class="ln">  2284  </span>		return localVarReturnValue, localVarHTTPResponse, newErr
+<span id="L2285" class="ln">  2285  </span>	}
+<span id="L2286" class="ln">  2286  </span>
+<span id="L2287" class="ln">  2287  </span>	return localVarReturnValue, localVarHTTPResponse, nil
+<span id="L2288" class="ln">  2288  </span>}
+<span id="L2289" class="ln">  2289  </span>
+<span id="L2290" class="ln">  2290  </span><span class="comment">// NewSyntheticsApi Returns NewSyntheticsApi.</span>
+<span id="L2291" class="ln">  2291  </span>func NewSyntheticsApi(client *datadog.APIClient) *SyntheticsApi {
+<span id="L2292" class="ln">  2292  </span>	return &amp;SyntheticsApi{
+<span id="L2293" class="ln">  2293  </span>		Client: client,
+<span id="L2294" class="ln">  2294  </span>	}
+<span id="L2295" class="ln">  2295  </span>}
+<span id="L2296" class="ln">  2296  </span>
 </pre><p></p>
 
 <div id="footer">
