@@ -69,7 +69,7 @@
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// DORAIncidentRequestAttributes Attributes to create a DORA incident event.</span>
 <span id="L14" class="ln">    14  </span>type DORAIncidentRequestAttributes struct {
-<span id="L15" class="ln">    15  </span>	<span class="comment">// Unix timestamp in nanoseconds when the deployment finished. It should not be older than 3 hours.</span>
+<span id="L15" class="ln">    15  </span>	<span class="comment">// Unix timestamp in nanoseconds when the incident finished. It should not be older than 3 hours.</span>
 <span id="L16" class="ln">    16  </span>	FinishedAt *int64 `json:&#34;finished_at,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// Git info for DORA Metrics events.</span>
 <span id="L18" class="ln">    18  </span>	Git *DORAGitInfo `json:&#34;git,omitempty&#34;`
@@ -81,7 +81,7 @@
 <span id="L24" class="ln">    24  </span>	Service string `json:&#34;service&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// Incident severity.</span>
 <span id="L26" class="ln">    26  </span>	Severity *string `json:&#34;severity,omitempty&#34;`
-<span id="L27" class="ln">    27  </span>	<span class="comment">// Unix timestamp in nanoseconds when the deployment started.</span>
+<span id="L27" class="ln">    27  </span>	<span class="comment">// Unix timestamp in nanoseconds when the incident started.</span>
 <span id="L28" class="ln">    28  </span>	StartedAt int64 `json:&#34;started_at&#34;`
 <span id="L29" class="ln">    29  </span>	<span class="comment">// Version to correlate with [APM Deployment Tracking](https://docs.datadoghq.com/tracing/services/deployment_tracking/).</span>
 <span id="L30" class="ln">    30  </span>	Version *string `json:&#34;version,omitempty&#34;`
