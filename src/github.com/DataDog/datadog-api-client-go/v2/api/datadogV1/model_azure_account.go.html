@@ -79,7 +79,7 @@
 <span id="L22" class="ln">    22  </span>	<span class="comment">// Limit the Azure container apps that are pulled into Datadog using tags.</span>
 <span id="L23" class="ln">    23  </span>	<span class="comment">// Only container apps that match one of the defined tags are imported into Datadog.</span>
 <span id="L24" class="ln">    24  </span>	ContainerAppFilters *string `json:&#34;container_app_filters,omitempty&#34;`
-<span id="L25" class="ln">    25  </span>	<span class="comment">// When enabled, Datadog’s Cloud Security Management product will scan resource configurations monitored by this app registration.</span>
+<span id="L25" class="ln">    25  </span>	<span class="comment">// When enabled, Datadog’s Cloud Security Management product scans resource configurations monitored by this app registration.</span>
 <span id="L26" class="ln">    26  </span>	<span class="comment">// Note: This requires resource_collection_enabled to be set to true.</span>
 <span id="L27" class="ln">    27  </span>	CspmEnabled *bool `json:&#34;cspm_enabled,omitempty&#34;`
 <span id="L28" class="ln">    28  </span>	<span class="comment">// Enable custom metrics for your organization.</span>
