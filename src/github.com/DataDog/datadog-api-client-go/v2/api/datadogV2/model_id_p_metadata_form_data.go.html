@@ -62,7 +62,7 @@
 <span id="L5" class="ln">     5  </span>package datadogV2
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
-<span id="L8" class="ln">     8  </span>	&#34;os&#34;
+<span id="L8" class="ln">     8  </span>	_io &#34;io&#34;
 <span id="L9" class="ln">     9  </span>
 <span id="L10" class="ln">    10  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
 <span id="L11" class="ln">    11  </span>)
@@ -70,7 +70,7 @@
 <span id="L13" class="ln">    13  </span><span class="comment">// IdPMetadataFormData The form data submitted to upload IdP metadata</span>
 <span id="L14" class="ln">    14  </span>type IdPMetadataFormData struct {
 <span id="L15" class="ln">    15  </span>	<span class="comment">// The IdP metadata XML file</span>
-<span id="L16" class="ln">    16  </span>	IdpFile **os.File `json:&#34;idp_file,omitempty&#34;`
+<span id="L16" class="ln">    16  </span>	IdpFile *_io.Reader `json:&#34;idp_file,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L18" class="ln">    18  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
 <span id="L19" class="ln">    19  </span>	AdditionalProperties map[string]interface{}
@@ -94,9 +94,9 @@
 <span id="L37" class="ln">    37  </span>}
 <span id="L38" class="ln">    38  </span>
 <span id="L39" class="ln">    39  </span><span class="comment">// GetIdpFile returns the IdpFile field value if set, zero value otherwise.</span>
-<span id="L40" class="ln">    40  </span>func (o *IdPMetadataFormData) GetIdpFile() *os.File {
+<span id="L40" class="ln">    40  </span>func (o *IdPMetadataFormData) GetIdpFile() _io.Reader {
 <span id="L41" class="ln">    41  </span>	if o == nil || o.IdpFile == nil {
-<span id="L42" class="ln">    42  </span>		var ret *os.File
+<span id="L42" class="ln">    42  </span>		var ret _io.Reader
 <span id="L43" class="ln">    43  </span>		return ret
 <span id="L44" class="ln">    44  </span>	}
 <span id="L45" class="ln">    45  </span>	return *o.IdpFile
@@ -104,7 +104,7 @@
 <span id="L47" class="ln">    47  </span>
 <span id="L48" class="ln">    48  </span><span class="comment">// GetIdpFileOk returns a tuple with the IdpFile field value if set, nil otherwise</span>
 <span id="L49" class="ln">    49  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L50" class="ln">    50  </span>func (o *IdPMetadataFormData) GetIdpFileOk() (**os.File, bool) {
+<span id="L50" class="ln">    50  </span>func (o *IdPMetadataFormData) GetIdpFileOk() (*_io.Reader, bool) {
 <span id="L51" class="ln">    51  </span>	if o == nil || o.IdpFile == nil {
 <span id="L52" class="ln">    52  </span>		return nil, false
 <span id="L53" class="ln">    53  </span>	}
@@ -116,8 +116,8 @@
 <span id="L59" class="ln">    59  </span>	return o != nil &amp;&amp; o.IdpFile != nil
 <span id="L60" class="ln">    60  </span>}
 <span id="L61" class="ln">    61  </span>
-<span id="L62" class="ln">    62  </span><span class="comment">// SetIdpFile gets a reference to the given *os.File and assigns it to the IdpFile field.</span>
-<span id="L63" class="ln">    63  </span>func (o *IdPMetadataFormData) SetIdpFile(v *os.File) {
+<span id="L62" class="ln">    62  </span><span class="comment">// SetIdpFile gets a reference to the given _io.Reader and assigns it to the IdpFile field.</span>
+<span id="L63" class="ln">    63  </span>func (o *IdPMetadataFormData) SetIdpFile(v _io.Reader) {
 <span id="L64" class="ln">    64  </span>	o.IdpFile = &amp;v
 <span id="L65" class="ln">    65  </span>}
 <span id="L66" class="ln">    66  </span>
@@ -140,7 +140,7 @@
 <span id="L83" class="ln">    83  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
 <span id="L84" class="ln">    84  </span>func (o *IdPMetadataFormData) UnmarshalJSON(bytes []byte) (err error) {
 <span id="L85" class="ln">    85  </span>	all := struct {
-<span id="L86" class="ln">    86  </span>		IdpFile **os.File `json:&#34;idp_file,omitempty&#34;`
+<span id="L86" class="ln">    86  </span>		IdpFile *_io.Reader `json:&#34;idp_file,omitempty&#34;`
 <span id="L87" class="ln">    87  </span>	}{}
 <span id="L88" class="ln">    88  </span>	if err = datadog.Unmarshal(bytes, &amp;all); err != nil {
 <span id="L89" class="ln">    89  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)

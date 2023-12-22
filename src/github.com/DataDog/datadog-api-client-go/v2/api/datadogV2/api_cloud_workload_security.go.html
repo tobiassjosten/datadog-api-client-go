@@ -63,9 +63,9 @@
 <span id="L6" class="ln">     6  </span>
 <span id="L7" class="ln">     7  </span>import (
 <span id="L8" class="ln">     8  </span>	_context &#34;context&#34;
-<span id="L9" class="ln">     9  </span>	_nethttp &#34;net/http&#34;
-<span id="L10" class="ln">    10  </span>	_neturl &#34;net/url&#34;
-<span id="L11" class="ln">    11  </span>	&#34;os&#34;
+<span id="L9" class="ln">     9  </span>	_io &#34;io&#34;
+<span id="L10" class="ln">    10  </span>	_nethttp &#34;net/http&#34;
+<span id="L11" class="ln">    11  </span>	_neturl &#34;net/url&#34;
 <span id="L12" class="ln">    12  </span>	&#34;strings&#34;
 <span id="L13" class="ln">    13  </span>
 <span id="L14" class="ln">    14  </span>	&#34;github.com/DataDog/datadog-api-client-go/v2/api/datadog&#34;
@@ -212,11 +212,11 @@
 <span id="L155" class="ln">   155  </span><span class="comment">// The download endpoint generates a Cloud Workload Security policy file from your currently active</span>
 <span id="L156" class="ln">   156  </span><span class="comment">// Cloud Workload Security rules, and downloads them as a .policy file. This file can then be deployed to</span>
 <span id="L157" class="ln">   157  </span><span class="comment">// your Agents to update the policy running in your environment.</span>
-<span id="L158" class="ln">   158  </span>func (a *CloudWorkloadSecurityApi) DownloadCloudWorkloadPolicyFile(ctx _context.Context) (*os.File, *_nethttp.Response, error) {
+<span id="L158" class="ln">   158  </span>func (a *CloudWorkloadSecurityApi) DownloadCloudWorkloadPolicyFile(ctx _context.Context) (_io.Reader, *_nethttp.Response, error) {
 <span id="L159" class="ln">   159  </span>	var (
 <span id="L160" class="ln">   160  </span>		localVarHTTPMethod  = _nethttp.MethodGet
 <span id="L161" class="ln">   161  </span>		localVarPostBody    interface{}
-<span id="L162" class="ln">   162  </span>		localVarReturnValue *os.File
+<span id="L162" class="ln">   162  </span>		localVarReturnValue _io.Reader
 <span id="L163" class="ln">   163  </span>	)
 <span id="L164" class="ln">   164  </span>
 <span id="L165" class="ln">   165  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.CloudWorkloadSecurityApi.DownloadCloudWorkloadPolicyFile&#34;)
