@@ -76,7 +76,7 @@
 <span id="L19" class="ln">    19  </span>	<span class="comment">// Ending time of the correction in epoch seconds.</span>
 <span id="L20" class="ln">    20  </span>	End *int64 `json:&#34;end,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// The recurrence rules as defined in the iCalendar RFC 5545. The supported rules for SLO corrections</span>
-<span id="L22" class="ln">    22  </span>	<span class="comment">// are `FREQ`, `INTERVAL`, `COUNT`, and `UNTIL`.</span>
+<span id="L22" class="ln">    22  </span>	<span class="comment">// are `FREQ`, `INTERVAL`, `COUNT`, `UNTIL` and `BYDAY`.</span>
 <span id="L23" class="ln">    23  </span>	Rrule *string `json:&#34;rrule,omitempty&#34;`
 <span id="L24" class="ln">    24  </span>	<span class="comment">// Starting time of the correction in epoch seconds.</span>
 <span id="L25" class="ln">    25  </span>	Start *int64 `json:&#34;start,omitempty&#34;`
