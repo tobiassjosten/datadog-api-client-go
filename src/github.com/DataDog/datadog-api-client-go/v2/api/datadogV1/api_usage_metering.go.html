@@ -2272,8 +2272,8 @@
 <span id="L2215" class="ln">  2215  </span>	return r
 <span id="L2216" class="ln">  2216  </span>}
 <span id="L2217" class="ln">  2217  </span>
-<span id="L2218" class="ln">  2218  </span><span class="comment">// GetUsageLambda Get hourly usage for lambda.</span>
-<span id="L2219" class="ln">  2219  </span><span class="comment">// Get hourly usage for lambda.</span>
+<span id="L2218" class="ln">  2218  </span><span class="comment">// GetUsageLambda Get hourly usage for Lambda.</span>
+<span id="L2219" class="ln">  2219  </span><span class="comment">// Get hourly usage for Lambda.</span>
 <span id="L2220" class="ln">  2220  </span><span class="comment">// **Note:** hourly usage data for all products is now available in the [Get hourly usage by product family API](https://docs.datadoghq.com/api/latest/usage-metering/#get-hourly-usage-by-product-family). Refer to [Migrating from the V1 Hourly Usage APIs to V2](https://docs.datadoghq.com/account_management/guide/hourly-usage-migration/) for the associated migration guide.</span>
 <span id="L2221" class="ln">  2221  </span>func (a *UsageMeteringApi) GetUsageLambda(ctx _context.Context, startHr time.Time, o ...GetUsageLambdaOptionalParameters) (UsageLambdaResponse, *_nethttp.Response, error) {
 <span id="L2222" class="ln">  2222  </span>	var (
