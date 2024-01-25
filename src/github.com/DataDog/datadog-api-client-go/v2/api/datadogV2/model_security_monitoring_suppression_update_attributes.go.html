@@ -71,8 +71,8 @@
 <span id="L14" class="ln">    14  </span>	Description *string `json:&#34;description,omitempty&#34;`
 <span id="L15" class="ln">    15  </span>	<span class="comment">// Whether the suppression rule is enabled.</span>
 <span id="L16" class="ln">    16  </span>	Enabled *bool `json:&#34;enabled,omitempty&#34;`
-<span id="L17" class="ln">    17  </span>	<span class="comment">// A Unix millisecond timestamp giving an expiration date for the suppression rule. After this date, it won&#39;t suppress signals anymore.</span>
-<span id="L18" class="ln">    18  </span>	ExpirationDate *int64 `json:&#34;expiration_date,omitempty&#34;`
+<span id="L17" class="ln">    17  </span>	<span class="comment">// A Unix millisecond timestamp giving an expiration date for the suppression rule. After this date, it won&#39;t suppress signals anymore. If unset, the expiration date of the suppression rule is left untouched. If set to `null`, the expiration date is removed.</span>
+<span id="L18" class="ln">    18  </span>	ExpirationDate datadog.NullableInt64 `json:&#34;expiration_date,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// The name of the suppression rule.</span>
 <span id="L20" class="ln">    20  </span>	Name *string `json:&#34;name,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// The rule query of the suppression rule, with the same syntax as the search bar for detection rules.</span>
@@ -159,215 +159,226 @@
 <span id="L102" class="ln">   102  </span>	o.Enabled = &amp;v
 <span id="L103" class="ln">   103  </span>}
 <span id="L104" class="ln">   104  </span>
-<span id="L105" class="ln">   105  </span><span class="comment">// GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise.</span>
+<span id="L105" class="ln">   105  </span><span class="comment">// GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise (both if not set or set to explicit null).</span>
 <span id="L106" class="ln">   106  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetExpirationDate() int64 {
-<span id="L107" class="ln">   107  </span>	if o == nil || o.ExpirationDate == nil {
+<span id="L107" class="ln">   107  </span>	if o == nil || o.ExpirationDate.Get() == nil {
 <span id="L108" class="ln">   108  </span>		var ret int64
 <span id="L109" class="ln">   109  </span>		return ret
 <span id="L110" class="ln">   110  </span>	}
-<span id="L111" class="ln">   111  </span>	return *o.ExpirationDate
+<span id="L111" class="ln">   111  </span>	return *o.ExpirationDate.Get()
 <span id="L112" class="ln">   112  </span>}
 <span id="L113" class="ln">   113  </span>
 <span id="L114" class="ln">   114  </span><span class="comment">// GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise</span>
 <span id="L115" class="ln">   115  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L116" class="ln">   116  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetExpirationDateOk() (*int64, bool) {
-<span id="L117" class="ln">   117  </span>	if o == nil || o.ExpirationDate == nil {
-<span id="L118" class="ln">   118  </span>		return nil, false
-<span id="L119" class="ln">   119  </span>	}
-<span id="L120" class="ln">   120  </span>	return o.ExpirationDate, true
-<span id="L121" class="ln">   121  </span>}
-<span id="L122" class="ln">   122  </span>
-<span id="L123" class="ln">   123  </span><span class="comment">// HasExpirationDate returns a boolean if a field has been set.</span>
-<span id="L124" class="ln">   124  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasExpirationDate() bool {
-<span id="L125" class="ln">   125  </span>	return o != nil &amp;&amp; o.ExpirationDate != nil
-<span id="L126" class="ln">   126  </span>}
-<span id="L127" class="ln">   127  </span>
-<span id="L128" class="ln">   128  </span><span class="comment">// SetExpirationDate gets a reference to the given int64 and assigns it to the ExpirationDate field.</span>
-<span id="L129" class="ln">   129  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetExpirationDate(v int64) {
-<span id="L130" class="ln">   130  </span>	o.ExpirationDate = &amp;v
-<span id="L131" class="ln">   131  </span>}
-<span id="L132" class="ln">   132  </span>
-<span id="L133" class="ln">   133  </span><span class="comment">// GetName returns the Name field value if set, zero value otherwise.</span>
-<span id="L134" class="ln">   134  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetName() string {
-<span id="L135" class="ln">   135  </span>	if o == nil || o.Name == nil {
-<span id="L136" class="ln">   136  </span>		var ret string
-<span id="L137" class="ln">   137  </span>		return ret
-<span id="L138" class="ln">   138  </span>	}
-<span id="L139" class="ln">   139  </span>	return *o.Name
-<span id="L140" class="ln">   140  </span>}
-<span id="L141" class="ln">   141  </span>
-<span id="L142" class="ln">   142  </span><span class="comment">// GetNameOk returns a tuple with the Name field value if set, nil otherwise</span>
-<span id="L143" class="ln">   143  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L144" class="ln">   144  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetNameOk() (*string, bool) {
-<span id="L145" class="ln">   145  </span>	if o == nil || o.Name == nil {
-<span id="L146" class="ln">   146  </span>		return nil, false
-<span id="L147" class="ln">   147  </span>	}
-<span id="L148" class="ln">   148  </span>	return o.Name, true
-<span id="L149" class="ln">   149  </span>}
-<span id="L150" class="ln">   150  </span>
-<span id="L151" class="ln">   151  </span><span class="comment">// HasName returns a boolean if a field has been set.</span>
-<span id="L152" class="ln">   152  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasName() bool {
-<span id="L153" class="ln">   153  </span>	return o != nil &amp;&amp; o.Name != nil
-<span id="L154" class="ln">   154  </span>}
-<span id="L155" class="ln">   155  </span>
-<span id="L156" class="ln">   156  </span><span class="comment">// SetName gets a reference to the given string and assigns it to the Name field.</span>
-<span id="L157" class="ln">   157  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetName(v string) {
-<span id="L158" class="ln">   158  </span>	o.Name = &amp;v
-<span id="L159" class="ln">   159  </span>}
-<span id="L160" class="ln">   160  </span>
-<span id="L161" class="ln">   161  </span><span class="comment">// GetRuleQuery returns the RuleQuery field value if set, zero value otherwise.</span>
-<span id="L162" class="ln">   162  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetRuleQuery() string {
-<span id="L163" class="ln">   163  </span>	if o == nil || o.RuleQuery == nil {
-<span id="L164" class="ln">   164  </span>		var ret string
-<span id="L165" class="ln">   165  </span>		return ret
-<span id="L166" class="ln">   166  </span>	}
-<span id="L167" class="ln">   167  </span>	return *o.RuleQuery
-<span id="L168" class="ln">   168  </span>}
-<span id="L169" class="ln">   169  </span>
-<span id="L170" class="ln">   170  </span><span class="comment">// GetRuleQueryOk returns a tuple with the RuleQuery field value if set, nil otherwise</span>
-<span id="L171" class="ln">   171  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L172" class="ln">   172  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetRuleQueryOk() (*string, bool) {
-<span id="L173" class="ln">   173  </span>	if o == nil || o.RuleQuery == nil {
-<span id="L174" class="ln">   174  </span>		return nil, false
-<span id="L175" class="ln">   175  </span>	}
-<span id="L176" class="ln">   176  </span>	return o.RuleQuery, true
-<span id="L177" class="ln">   177  </span>}
-<span id="L178" class="ln">   178  </span>
-<span id="L179" class="ln">   179  </span><span class="comment">// HasRuleQuery returns a boolean if a field has been set.</span>
-<span id="L180" class="ln">   180  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasRuleQuery() bool {
-<span id="L181" class="ln">   181  </span>	return o != nil &amp;&amp; o.RuleQuery != nil
-<span id="L182" class="ln">   182  </span>}
-<span id="L183" class="ln">   183  </span>
-<span id="L184" class="ln">   184  </span><span class="comment">// SetRuleQuery gets a reference to the given string and assigns it to the RuleQuery field.</span>
-<span id="L185" class="ln">   185  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetRuleQuery(v string) {
-<span id="L186" class="ln">   186  </span>	o.RuleQuery = &amp;v
-<span id="L187" class="ln">   187  </span>}
-<span id="L188" class="ln">   188  </span>
-<span id="L189" class="ln">   189  </span><span class="comment">// GetSuppressionQuery returns the SuppressionQuery field value if set, zero value otherwise.</span>
-<span id="L190" class="ln">   190  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetSuppressionQuery() string {
-<span id="L191" class="ln">   191  </span>	if o == nil || o.SuppressionQuery == nil {
-<span id="L192" class="ln">   192  </span>		var ret string
-<span id="L193" class="ln">   193  </span>		return ret
-<span id="L194" class="ln">   194  </span>	}
-<span id="L195" class="ln">   195  </span>	return *o.SuppressionQuery
-<span id="L196" class="ln">   196  </span>}
-<span id="L197" class="ln">   197  </span>
-<span id="L198" class="ln">   198  </span><span class="comment">// GetSuppressionQueryOk returns a tuple with the SuppressionQuery field value if set, nil otherwise</span>
-<span id="L199" class="ln">   199  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L200" class="ln">   200  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetSuppressionQueryOk() (*string, bool) {
-<span id="L201" class="ln">   201  </span>	if o == nil || o.SuppressionQuery == nil {
-<span id="L202" class="ln">   202  </span>		return nil, false
-<span id="L203" class="ln">   203  </span>	}
-<span id="L204" class="ln">   204  </span>	return o.SuppressionQuery, true
-<span id="L205" class="ln">   205  </span>}
-<span id="L206" class="ln">   206  </span>
-<span id="L207" class="ln">   207  </span><span class="comment">// HasSuppressionQuery returns a boolean if a field has been set.</span>
-<span id="L208" class="ln">   208  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasSuppressionQuery() bool {
-<span id="L209" class="ln">   209  </span>	return o != nil &amp;&amp; o.SuppressionQuery != nil
-<span id="L210" class="ln">   210  </span>}
-<span id="L211" class="ln">   211  </span>
-<span id="L212" class="ln">   212  </span><span class="comment">// SetSuppressionQuery gets a reference to the given string and assigns it to the SuppressionQuery field.</span>
-<span id="L213" class="ln">   213  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetSuppressionQuery(v string) {
-<span id="L214" class="ln">   214  </span>	o.SuppressionQuery = &amp;v
-<span id="L215" class="ln">   215  </span>}
-<span id="L216" class="ln">   216  </span>
-<span id="L217" class="ln">   217  </span><span class="comment">// GetVersion returns the Version field value if set, zero value otherwise.</span>
-<span id="L218" class="ln">   218  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetVersion() int32 {
-<span id="L219" class="ln">   219  </span>	if o == nil || o.Version == nil {
-<span id="L220" class="ln">   220  </span>		var ret int32
-<span id="L221" class="ln">   221  </span>		return ret
-<span id="L222" class="ln">   222  </span>	}
-<span id="L223" class="ln">   223  </span>	return *o.Version
-<span id="L224" class="ln">   224  </span>}
-<span id="L225" class="ln">   225  </span>
-<span id="L226" class="ln">   226  </span><span class="comment">// GetVersionOk returns a tuple with the Version field value if set, nil otherwise</span>
-<span id="L227" class="ln">   227  </span><span class="comment">// and a boolean to check if the value has been set.</span>
-<span id="L228" class="ln">   228  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetVersionOk() (*int32, bool) {
-<span id="L229" class="ln">   229  </span>	if o == nil || o.Version == nil {
-<span id="L230" class="ln">   230  </span>		return nil, false
-<span id="L231" class="ln">   231  </span>	}
-<span id="L232" class="ln">   232  </span>	return o.Version, true
-<span id="L233" class="ln">   233  </span>}
-<span id="L234" class="ln">   234  </span>
-<span id="L235" class="ln">   235  </span><span class="comment">// HasVersion returns a boolean if a field has been set.</span>
-<span id="L236" class="ln">   236  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasVersion() bool {
-<span id="L237" class="ln">   237  </span>	return o != nil &amp;&amp; o.Version != nil
-<span id="L238" class="ln">   238  </span>}
-<span id="L239" class="ln">   239  </span>
-<span id="L240" class="ln">   240  </span><span class="comment">// SetVersion gets a reference to the given int32 and assigns it to the Version field.</span>
-<span id="L241" class="ln">   241  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetVersion(v int32) {
-<span id="L242" class="ln">   242  </span>	o.Version = &amp;v
-<span id="L243" class="ln">   243  </span>}
-<span id="L244" class="ln">   244  </span>
-<span id="L245" class="ln">   245  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
-<span id="L246" class="ln">   246  </span>func (o SecurityMonitoringSuppressionUpdateAttributes) MarshalJSON() ([]byte, error) {
-<span id="L247" class="ln">   247  </span>	toSerialize := map[string]interface{}{}
-<span id="L248" class="ln">   248  </span>	if o.UnparsedObject != nil {
-<span id="L249" class="ln">   249  </span>		return datadog.Marshal(o.UnparsedObject)
-<span id="L250" class="ln">   250  </span>	}
-<span id="L251" class="ln">   251  </span>	if o.Description != nil {
-<span id="L252" class="ln">   252  </span>		toSerialize[&#34;description&#34;] = o.Description
-<span id="L253" class="ln">   253  </span>	}
-<span id="L254" class="ln">   254  </span>	if o.Enabled != nil {
-<span id="L255" class="ln">   255  </span>		toSerialize[&#34;enabled&#34;] = o.Enabled
-<span id="L256" class="ln">   256  </span>	}
-<span id="L257" class="ln">   257  </span>	if o.ExpirationDate != nil {
-<span id="L258" class="ln">   258  </span>		toSerialize[&#34;expiration_date&#34;] = o.ExpirationDate
-<span id="L259" class="ln">   259  </span>	}
-<span id="L260" class="ln">   260  </span>	if o.Name != nil {
-<span id="L261" class="ln">   261  </span>		toSerialize[&#34;name&#34;] = o.Name
-<span id="L262" class="ln">   262  </span>	}
-<span id="L263" class="ln">   263  </span>	if o.RuleQuery != nil {
-<span id="L264" class="ln">   264  </span>		toSerialize[&#34;rule_query&#34;] = o.RuleQuery
-<span id="L265" class="ln">   265  </span>	}
-<span id="L266" class="ln">   266  </span>	if o.SuppressionQuery != nil {
-<span id="L267" class="ln">   267  </span>		toSerialize[&#34;suppression_query&#34;] = o.SuppressionQuery
-<span id="L268" class="ln">   268  </span>	}
-<span id="L269" class="ln">   269  </span>	if o.Version != nil {
-<span id="L270" class="ln">   270  </span>		toSerialize[&#34;version&#34;] = o.Version
-<span id="L271" class="ln">   271  </span>	}
-<span id="L272" class="ln">   272  </span>
-<span id="L273" class="ln">   273  </span>	for key, value := range o.AdditionalProperties {
-<span id="L274" class="ln">   274  </span>		toSerialize[key] = value
-<span id="L275" class="ln">   275  </span>	}
-<span id="L276" class="ln">   276  </span>	return datadog.Marshal(toSerialize)
-<span id="L277" class="ln">   277  </span>}
-<span id="L278" class="ln">   278  </span>
-<span id="L279" class="ln">   279  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
-<span id="L280" class="ln">   280  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) UnmarshalJSON(bytes []byte) (err error) {
-<span id="L281" class="ln">   281  </span>	all := struct {
-<span id="L282" class="ln">   282  </span>		Description      *string `json:&#34;description,omitempty&#34;`
-<span id="L283" class="ln">   283  </span>		Enabled          *bool   `json:&#34;enabled,omitempty&#34;`
-<span id="L284" class="ln">   284  </span>		ExpirationDate   *int64  `json:&#34;expiration_date,omitempty&#34;`
-<span id="L285" class="ln">   285  </span>		Name             *string `json:&#34;name,omitempty&#34;`
-<span id="L286" class="ln">   286  </span>		RuleQuery        *string `json:&#34;rule_query,omitempty&#34;`
-<span id="L287" class="ln">   287  </span>		SuppressionQuery *string `json:&#34;suppression_query,omitempty&#34;`
-<span id="L288" class="ln">   288  </span>		Version          *int32  `json:&#34;version,omitempty&#34;`
-<span id="L289" class="ln">   289  </span>	}{}
-<span id="L290" class="ln">   290  </span>	if err = datadog.Unmarshal(bytes, &amp;all); err != nil {
-<span id="L291" class="ln">   291  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
-<span id="L292" class="ln">   292  </span>	}
-<span id="L293" class="ln">   293  </span>	additionalProperties := make(map[string]interface{})
-<span id="L294" class="ln">   294  </span>	if err = datadog.Unmarshal(bytes, &amp;additionalProperties); err == nil {
-<span id="L295" class="ln">   295  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;description&#34;, &#34;enabled&#34;, &#34;expiration_date&#34;, &#34;name&#34;, &#34;rule_query&#34;, &#34;suppression_query&#34;, &#34;version&#34;})
-<span id="L296" class="ln">   296  </span>	} else {
-<span id="L297" class="ln">   297  </span>		return err
-<span id="L298" class="ln">   298  </span>	}
-<span id="L299" class="ln">   299  </span>	o.Description = all.Description
-<span id="L300" class="ln">   300  </span>	o.Enabled = all.Enabled
-<span id="L301" class="ln">   301  </span>	o.ExpirationDate = all.ExpirationDate
-<span id="L302" class="ln">   302  </span>	o.Name = all.Name
-<span id="L303" class="ln">   303  </span>	o.RuleQuery = all.RuleQuery
-<span id="L304" class="ln">   304  </span>	o.SuppressionQuery = all.SuppressionQuery
-<span id="L305" class="ln">   305  </span>	o.Version = all.Version
-<span id="L306" class="ln">   306  </span>
-<span id="L307" class="ln">   307  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L308" class="ln">   308  </span>		o.AdditionalProperties = additionalProperties
+<span id="L116" class="ln">   116  </span><span class="comment">// NOTE: If the value is an explicit nil, `nil, true` will be returned.</span>
+<span id="L117" class="ln">   117  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetExpirationDateOk() (*int64, bool) {
+<span id="L118" class="ln">   118  </span>	if o == nil {
+<span id="L119" class="ln">   119  </span>		return nil, false
+<span id="L120" class="ln">   120  </span>	}
+<span id="L121" class="ln">   121  </span>	return o.ExpirationDate.Get(), o.ExpirationDate.IsSet()
+<span id="L122" class="ln">   122  </span>}
+<span id="L123" class="ln">   123  </span>
+<span id="L124" class="ln">   124  </span><span class="comment">// HasExpirationDate returns a boolean if a field has been set.</span>
+<span id="L125" class="ln">   125  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasExpirationDate() bool {
+<span id="L126" class="ln">   126  </span>	return o != nil &amp;&amp; o.ExpirationDate.IsSet()
+<span id="L127" class="ln">   127  </span>}
+<span id="L128" class="ln">   128  </span>
+<span id="L129" class="ln">   129  </span><span class="comment">// SetExpirationDate gets a reference to the given datadog.NullableInt64 and assigns it to the ExpirationDate field.</span>
+<span id="L130" class="ln">   130  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetExpirationDate(v int64) {
+<span id="L131" class="ln">   131  </span>	o.ExpirationDate.Set(&amp;v)
+<span id="L132" class="ln">   132  </span>}
+<span id="L133" class="ln">   133  </span>
+<span id="L134" class="ln">   134  </span><span class="comment">// SetExpirationDateNil sets the value for ExpirationDate to be an explicit nil.</span>
+<span id="L135" class="ln">   135  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetExpirationDateNil() {
+<span id="L136" class="ln">   136  </span>	o.ExpirationDate.Set(nil)
+<span id="L137" class="ln">   137  </span>}
+<span id="L138" class="ln">   138  </span>
+<span id="L139" class="ln">   139  </span><span class="comment">// UnsetExpirationDate ensures that no value is present for ExpirationDate, not even an explicit nil.</span>
+<span id="L140" class="ln">   140  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) UnsetExpirationDate() {
+<span id="L141" class="ln">   141  </span>	o.ExpirationDate.Unset()
+<span id="L142" class="ln">   142  </span>}
+<span id="L143" class="ln">   143  </span>
+<span id="L144" class="ln">   144  </span><span class="comment">// GetName returns the Name field value if set, zero value otherwise.</span>
+<span id="L145" class="ln">   145  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetName() string {
+<span id="L146" class="ln">   146  </span>	if o == nil || o.Name == nil {
+<span id="L147" class="ln">   147  </span>		var ret string
+<span id="L148" class="ln">   148  </span>		return ret
+<span id="L149" class="ln">   149  </span>	}
+<span id="L150" class="ln">   150  </span>	return *o.Name
+<span id="L151" class="ln">   151  </span>}
+<span id="L152" class="ln">   152  </span>
+<span id="L153" class="ln">   153  </span><span class="comment">// GetNameOk returns a tuple with the Name field value if set, nil otherwise</span>
+<span id="L154" class="ln">   154  </span><span class="comment">// and a boolean to check if the value has been set.</span>
+<span id="L155" class="ln">   155  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetNameOk() (*string, bool) {
+<span id="L156" class="ln">   156  </span>	if o == nil || o.Name == nil {
+<span id="L157" class="ln">   157  </span>		return nil, false
+<span id="L158" class="ln">   158  </span>	}
+<span id="L159" class="ln">   159  </span>	return o.Name, true
+<span id="L160" class="ln">   160  </span>}
+<span id="L161" class="ln">   161  </span>
+<span id="L162" class="ln">   162  </span><span class="comment">// HasName returns a boolean if a field has been set.</span>
+<span id="L163" class="ln">   163  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasName() bool {
+<span id="L164" class="ln">   164  </span>	return o != nil &amp;&amp; o.Name != nil
+<span id="L165" class="ln">   165  </span>}
+<span id="L166" class="ln">   166  </span>
+<span id="L167" class="ln">   167  </span><span class="comment">// SetName gets a reference to the given string and assigns it to the Name field.</span>
+<span id="L168" class="ln">   168  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetName(v string) {
+<span id="L169" class="ln">   169  </span>	o.Name = &amp;v
+<span id="L170" class="ln">   170  </span>}
+<span id="L171" class="ln">   171  </span>
+<span id="L172" class="ln">   172  </span><span class="comment">// GetRuleQuery returns the RuleQuery field value if set, zero value otherwise.</span>
+<span id="L173" class="ln">   173  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetRuleQuery() string {
+<span id="L174" class="ln">   174  </span>	if o == nil || o.RuleQuery == nil {
+<span id="L175" class="ln">   175  </span>		var ret string
+<span id="L176" class="ln">   176  </span>		return ret
+<span id="L177" class="ln">   177  </span>	}
+<span id="L178" class="ln">   178  </span>	return *o.RuleQuery
+<span id="L179" class="ln">   179  </span>}
+<span id="L180" class="ln">   180  </span>
+<span id="L181" class="ln">   181  </span><span class="comment">// GetRuleQueryOk returns a tuple with the RuleQuery field value if set, nil otherwise</span>
+<span id="L182" class="ln">   182  </span><span class="comment">// and a boolean to check if the value has been set.</span>
+<span id="L183" class="ln">   183  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetRuleQueryOk() (*string, bool) {
+<span id="L184" class="ln">   184  </span>	if o == nil || o.RuleQuery == nil {
+<span id="L185" class="ln">   185  </span>		return nil, false
+<span id="L186" class="ln">   186  </span>	}
+<span id="L187" class="ln">   187  </span>	return o.RuleQuery, true
+<span id="L188" class="ln">   188  </span>}
+<span id="L189" class="ln">   189  </span>
+<span id="L190" class="ln">   190  </span><span class="comment">// HasRuleQuery returns a boolean if a field has been set.</span>
+<span id="L191" class="ln">   191  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasRuleQuery() bool {
+<span id="L192" class="ln">   192  </span>	return o != nil &amp;&amp; o.RuleQuery != nil
+<span id="L193" class="ln">   193  </span>}
+<span id="L194" class="ln">   194  </span>
+<span id="L195" class="ln">   195  </span><span class="comment">// SetRuleQuery gets a reference to the given string and assigns it to the RuleQuery field.</span>
+<span id="L196" class="ln">   196  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetRuleQuery(v string) {
+<span id="L197" class="ln">   197  </span>	o.RuleQuery = &amp;v
+<span id="L198" class="ln">   198  </span>}
+<span id="L199" class="ln">   199  </span>
+<span id="L200" class="ln">   200  </span><span class="comment">// GetSuppressionQuery returns the SuppressionQuery field value if set, zero value otherwise.</span>
+<span id="L201" class="ln">   201  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetSuppressionQuery() string {
+<span id="L202" class="ln">   202  </span>	if o == nil || o.SuppressionQuery == nil {
+<span id="L203" class="ln">   203  </span>		var ret string
+<span id="L204" class="ln">   204  </span>		return ret
+<span id="L205" class="ln">   205  </span>	}
+<span id="L206" class="ln">   206  </span>	return *o.SuppressionQuery
+<span id="L207" class="ln">   207  </span>}
+<span id="L208" class="ln">   208  </span>
+<span id="L209" class="ln">   209  </span><span class="comment">// GetSuppressionQueryOk returns a tuple with the SuppressionQuery field value if set, nil otherwise</span>
+<span id="L210" class="ln">   210  </span><span class="comment">// and a boolean to check if the value has been set.</span>
+<span id="L211" class="ln">   211  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetSuppressionQueryOk() (*string, bool) {
+<span id="L212" class="ln">   212  </span>	if o == nil || o.SuppressionQuery == nil {
+<span id="L213" class="ln">   213  </span>		return nil, false
+<span id="L214" class="ln">   214  </span>	}
+<span id="L215" class="ln">   215  </span>	return o.SuppressionQuery, true
+<span id="L216" class="ln">   216  </span>}
+<span id="L217" class="ln">   217  </span>
+<span id="L218" class="ln">   218  </span><span class="comment">// HasSuppressionQuery returns a boolean if a field has been set.</span>
+<span id="L219" class="ln">   219  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasSuppressionQuery() bool {
+<span id="L220" class="ln">   220  </span>	return o != nil &amp;&amp; o.SuppressionQuery != nil
+<span id="L221" class="ln">   221  </span>}
+<span id="L222" class="ln">   222  </span>
+<span id="L223" class="ln">   223  </span><span class="comment">// SetSuppressionQuery gets a reference to the given string and assigns it to the SuppressionQuery field.</span>
+<span id="L224" class="ln">   224  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetSuppressionQuery(v string) {
+<span id="L225" class="ln">   225  </span>	o.SuppressionQuery = &amp;v
+<span id="L226" class="ln">   226  </span>}
+<span id="L227" class="ln">   227  </span>
+<span id="L228" class="ln">   228  </span><span class="comment">// GetVersion returns the Version field value if set, zero value otherwise.</span>
+<span id="L229" class="ln">   229  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetVersion() int32 {
+<span id="L230" class="ln">   230  </span>	if o == nil || o.Version == nil {
+<span id="L231" class="ln">   231  </span>		var ret int32
+<span id="L232" class="ln">   232  </span>		return ret
+<span id="L233" class="ln">   233  </span>	}
+<span id="L234" class="ln">   234  </span>	return *o.Version
+<span id="L235" class="ln">   235  </span>}
+<span id="L236" class="ln">   236  </span>
+<span id="L237" class="ln">   237  </span><span class="comment">// GetVersionOk returns a tuple with the Version field value if set, nil otherwise</span>
+<span id="L238" class="ln">   238  </span><span class="comment">// and a boolean to check if the value has been set.</span>
+<span id="L239" class="ln">   239  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) GetVersionOk() (*int32, bool) {
+<span id="L240" class="ln">   240  </span>	if o == nil || o.Version == nil {
+<span id="L241" class="ln">   241  </span>		return nil, false
+<span id="L242" class="ln">   242  </span>	}
+<span id="L243" class="ln">   243  </span>	return o.Version, true
+<span id="L244" class="ln">   244  </span>}
+<span id="L245" class="ln">   245  </span>
+<span id="L246" class="ln">   246  </span><span class="comment">// HasVersion returns a boolean if a field has been set.</span>
+<span id="L247" class="ln">   247  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) HasVersion() bool {
+<span id="L248" class="ln">   248  </span>	return o != nil &amp;&amp; o.Version != nil
+<span id="L249" class="ln">   249  </span>}
+<span id="L250" class="ln">   250  </span>
+<span id="L251" class="ln">   251  </span><span class="comment">// SetVersion gets a reference to the given int32 and assigns it to the Version field.</span>
+<span id="L252" class="ln">   252  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) SetVersion(v int32) {
+<span id="L253" class="ln">   253  </span>	o.Version = &amp;v
+<span id="L254" class="ln">   254  </span>}
+<span id="L255" class="ln">   255  </span>
+<span id="L256" class="ln">   256  </span><span class="comment">// MarshalJSON serializes the struct using spec logic.</span>
+<span id="L257" class="ln">   257  </span>func (o SecurityMonitoringSuppressionUpdateAttributes) MarshalJSON() ([]byte, error) {
+<span id="L258" class="ln">   258  </span>	toSerialize := map[string]interface{}{}
+<span id="L259" class="ln">   259  </span>	if o.UnparsedObject != nil {
+<span id="L260" class="ln">   260  </span>		return datadog.Marshal(o.UnparsedObject)
+<span id="L261" class="ln">   261  </span>	}
+<span id="L262" class="ln">   262  </span>	if o.Description != nil {
+<span id="L263" class="ln">   263  </span>		toSerialize[&#34;description&#34;] = o.Description
+<span id="L264" class="ln">   264  </span>	}
+<span id="L265" class="ln">   265  </span>	if o.Enabled != nil {
+<span id="L266" class="ln">   266  </span>		toSerialize[&#34;enabled&#34;] = o.Enabled
+<span id="L267" class="ln">   267  </span>	}
+<span id="L268" class="ln">   268  </span>	if o.ExpirationDate.IsSet() {
+<span id="L269" class="ln">   269  </span>		toSerialize[&#34;expiration_date&#34;] = o.ExpirationDate.Get()
+<span id="L270" class="ln">   270  </span>	}
+<span id="L271" class="ln">   271  </span>	if o.Name != nil {
+<span id="L272" class="ln">   272  </span>		toSerialize[&#34;name&#34;] = o.Name
+<span id="L273" class="ln">   273  </span>	}
+<span id="L274" class="ln">   274  </span>	if o.RuleQuery != nil {
+<span id="L275" class="ln">   275  </span>		toSerialize[&#34;rule_query&#34;] = o.RuleQuery
+<span id="L276" class="ln">   276  </span>	}
+<span id="L277" class="ln">   277  </span>	if o.SuppressionQuery != nil {
+<span id="L278" class="ln">   278  </span>		toSerialize[&#34;suppression_query&#34;] = o.SuppressionQuery
+<span id="L279" class="ln">   279  </span>	}
+<span id="L280" class="ln">   280  </span>	if o.Version != nil {
+<span id="L281" class="ln">   281  </span>		toSerialize[&#34;version&#34;] = o.Version
+<span id="L282" class="ln">   282  </span>	}
+<span id="L283" class="ln">   283  </span>
+<span id="L284" class="ln">   284  </span>	for key, value := range o.AdditionalProperties {
+<span id="L285" class="ln">   285  </span>		toSerialize[key] = value
+<span id="L286" class="ln">   286  </span>	}
+<span id="L287" class="ln">   287  </span>	return datadog.Marshal(toSerialize)
+<span id="L288" class="ln">   288  </span>}
+<span id="L289" class="ln">   289  </span>
+<span id="L290" class="ln">   290  </span><span class="comment">// UnmarshalJSON deserializes the given payload.</span>
+<span id="L291" class="ln">   291  </span>func (o *SecurityMonitoringSuppressionUpdateAttributes) UnmarshalJSON(bytes []byte) (err error) {
+<span id="L292" class="ln">   292  </span>	all := struct {
+<span id="L293" class="ln">   293  </span>		Description      *string               `json:&#34;description,omitempty&#34;`
+<span id="L294" class="ln">   294  </span>		Enabled          *bool                 `json:&#34;enabled,omitempty&#34;`
+<span id="L295" class="ln">   295  </span>		ExpirationDate   datadog.NullableInt64 `json:&#34;expiration_date,omitempty&#34;`
+<span id="L296" class="ln">   296  </span>		Name             *string               `json:&#34;name,omitempty&#34;`
+<span id="L297" class="ln">   297  </span>		RuleQuery        *string               `json:&#34;rule_query,omitempty&#34;`
+<span id="L298" class="ln">   298  </span>		SuppressionQuery *string               `json:&#34;suppression_query,omitempty&#34;`
+<span id="L299" class="ln">   299  </span>		Version          *int32                `json:&#34;version,omitempty&#34;`
+<span id="L300" class="ln">   300  </span>	}{}
+<span id="L301" class="ln">   301  </span>	if err = datadog.Unmarshal(bytes, &amp;all); err != nil {
+<span id="L302" class="ln">   302  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L303" class="ln">   303  </span>	}
+<span id="L304" class="ln">   304  </span>	additionalProperties := make(map[string]interface{})
+<span id="L305" class="ln">   305  </span>	if err = datadog.Unmarshal(bytes, &amp;additionalProperties); err == nil {
+<span id="L306" class="ln">   306  </span>		datadog.DeleteKeys(additionalProperties, &amp;[]string{&#34;description&#34;, &#34;enabled&#34;, &#34;expiration_date&#34;, &#34;name&#34;, &#34;rule_query&#34;, &#34;suppression_query&#34;, &#34;version&#34;})
+<span id="L307" class="ln">   307  </span>	} else {
+<span id="L308" class="ln">   308  </span>		return err
 <span id="L309" class="ln">   309  </span>	}
-<span id="L310" class="ln">   310  </span>
-<span id="L311" class="ln">   311  </span>	return nil
-<span id="L312" class="ln">   312  </span>}
-<span id="L313" class="ln">   313  </span>
+<span id="L310" class="ln">   310  </span>	o.Description = all.Description
+<span id="L311" class="ln">   311  </span>	o.Enabled = all.Enabled
+<span id="L312" class="ln">   312  </span>	o.ExpirationDate = all.ExpirationDate
+<span id="L313" class="ln">   313  </span>	o.Name = all.Name
+<span id="L314" class="ln">   314  </span>	o.RuleQuery = all.RuleQuery
+<span id="L315" class="ln">   315  </span>	o.SuppressionQuery = all.SuppressionQuery
+<span id="L316" class="ln">   316  </span>	o.Version = all.Version
+<span id="L317" class="ln">   317  </span>
+<span id="L318" class="ln">   318  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L319" class="ln">   319  </span>		o.AdditionalProperties = additionalProperties
+<span id="L320" class="ln">   320  </span>	}
+<span id="L321" class="ln">   321  </span>
+<span id="L322" class="ln">   322  </span>	return nil
+<span id="L323" class="ln">   323  </span>}
+<span id="L324" class="ln">   324  </span>
 </pre><p></p>
 
 <div id="footer">
