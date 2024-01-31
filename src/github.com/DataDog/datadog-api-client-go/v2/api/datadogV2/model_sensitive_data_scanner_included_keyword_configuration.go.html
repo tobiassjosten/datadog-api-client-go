@@ -76,7 +76,7 @@
 <span id="L19" class="ln">    19  </span>	<span class="comment">// `character_count` should be greater than the maximum length of a keyword defined for a rule.</span>
 <span id="L20" class="ln">    20  </span>	CharacterCount int64 `json:&#34;character_count&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// Keyword list that will be checked during scanning in order to validate a match.</span>
-<span id="L22" class="ln">    22  </span>	<span class="comment">// The number of keywords in the list must be less than or equal to 20.</span>
+<span id="L22" class="ln">    22  </span>	<span class="comment">// The number of keywords in the list must be less than or equal to 30.</span>
 <span id="L23" class="ln">    23  </span>	Keywords []string `json:&#34;keywords&#34;`
 <span id="L24" class="ln">    24  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L25" class="ln">    25  </span>	UnparsedObject       map[string]interface{} `json:&#34;-&#34;`
