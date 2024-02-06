@@ -71,14 +71,14 @@
 <span id="L14" class="ln">    14  </span><span class="comment">//</span>
 <span id="L15" class="ln">    15  </span><span class="comment">// This is not included in responses for `monitor` based SLOs.</span>
 <span id="L16" class="ln">    16  </span>type SLOHistoryMetrics struct {
-<span id="L17" class="ln">    17  </span>	<span class="comment">// A representation of `metric` based SLO time series for the provided queries.</span>
+<span id="L17" class="ln">    17  </span>	<span class="comment">// A representation of `metric` based SLO timeseries for the provided queries.</span>
 <span id="L18" class="ln">    18  </span>	<span class="comment">// This is the same response type from `batch_query` endpoint.</span>
 <span id="L19" class="ln">    19  </span>	Denominator SLOHistoryMetricsSeries `json:&#34;denominator&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// The aggregated query interval for the series data. It&#39;s implicit based on the query time window.</span>
 <span id="L21" class="ln">    21  </span>	Interval int64 `json:&#34;interval&#34;`
 <span id="L22" class="ln">    22  </span>	<span class="comment">// Optional message if there are specific query issues/warnings.</span>
 <span id="L23" class="ln">    23  </span>	Message *string `json:&#34;message,omitempty&#34;`
-<span id="L24" class="ln">    24  </span>	<span class="comment">// A representation of `metric` based SLO time series for the provided queries.</span>
+<span id="L24" class="ln">    24  </span>	<span class="comment">// A representation of `metric` based SLO timeseries for the provided queries.</span>
 <span id="L25" class="ln">    25  </span>	<span class="comment">// This is the same response type from `batch_query` endpoint.</span>
 <span id="L26" class="ln">    26  </span>	Numerator SLOHistoryMetricsSeries `json:&#34;numerator&#34;`
 <span id="L27" class="ln">    27  </span>	<span class="comment">// The combined numerator and denominator query CSV.</span>

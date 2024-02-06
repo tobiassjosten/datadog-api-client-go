@@ -74,7 +74,7 @@
 <span id="L17" class="ln">    17  </span>	Errors []SLOHistoryResponseErrorWithType `json:&#34;errors,omitempty&#34;`
 <span id="L18" class="ln">    18  </span>	<span class="comment">// For groups in a grouped SLO, this is the group name.</span>
 <span id="L19" class="ln">    19  </span>	Group *string `json:&#34;group,omitempty&#34;`
-<span id="L20" class="ln">    20  </span>	<span class="comment">// For `monitor` based SLOs, this includes the aggregated history as arrays that include time series and uptime data where `0=monitor` is in `OK` state and `1=monitor` is in `alert` state.</span>
+<span id="L20" class="ln">    20  </span>	<span class="comment">// For `monitor` based SLOs, this includes the aggregated history as arrays that include timeseries and uptime data where `0=monitor` is in `OK` state and `1=monitor` is in `alert` state.</span>
 <span id="L21" class="ln">    21  </span>	History [][]float64 `json:&#34;history,omitempty&#34;`
 <span id="L22" class="ln">    22  </span>	<span class="comment">// For `monitor` based SLOs, this is the last modified timestamp in epoch seconds of the monitor.</span>
 <span id="L23" class="ln">    23  </span>	MonitorModified *int64 `json:&#34;monitor_modified,omitempty&#34;`
