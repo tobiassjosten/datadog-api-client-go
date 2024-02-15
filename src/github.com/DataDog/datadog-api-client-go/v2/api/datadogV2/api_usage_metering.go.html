@@ -76,7 +76,7 @@
 <span id="L19" class="ln">    19  </span>type UsageMeteringApi datadog.Service
 <span id="L20" class="ln">    20  </span>
 <span id="L21" class="ln">    21  </span><span class="comment">// GetActiveBillingDimensions Get active billing dimensions for cost attribution.</span>
-<span id="L22" class="ln">    22  </span><span class="comment">// Get active billing dimensions for cost attribution. Cost data for a given month becomes available no later than the 17th of the following month.</span>
+<span id="L22" class="ln">    22  </span><span class="comment">// Get active billing dimensions for cost attribution. Cost data for a given month becomes available no later than the 19th of the following month.</span>
 <span id="L23" class="ln">    23  </span>func (a *UsageMeteringApi) GetActiveBillingDimensions(ctx _context.Context) (ActiveBillingDimensionsResponse, *_nethttp.Response, error) {
 <span id="L24" class="ln">    24  </span>	var (
 <span id="L25" class="ln">    25  </span>		localVarHTTPMethod  = _nethttp.MethodGet
@@ -705,7 +705,7 @@
 <span id="L648" class="ln">   648  </span>
 <span id="L649" class="ln">   649  </span><span class="comment">// GetMonthlyCostAttribution Get Monthly Cost Attribution.</span>
 <span id="L650" class="ln">   650  </span><span class="comment">// Get monthly cost attribution by tag across multi-org and single root-org accounts.</span>
-<span id="L651" class="ln">   651  </span><span class="comment">// Cost Attribution data for a given month becomes available no later than the 17th of the following month.</span>
+<span id="L651" class="ln">   651  </span><span class="comment">// Cost Attribution data for a given month becomes available no later than the 19th of the following month.</span>
 <span id="L652" class="ln">   652  </span><span class="comment">// This API endpoint is paginated. To make sure you receive all records, check if the value of `next_record_id` is</span>
 <span id="L653" class="ln">   653  </span><span class="comment">// set in the response. If it is, make another request and pass `next_record_id` as a parameter.</span>
 <span id="L654" class="ln">   654  </span><span class="comment">// Pseudo code example:</span>
