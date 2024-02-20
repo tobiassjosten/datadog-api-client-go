@@ -78,7 +78,7 @@
 <span id="L21" class="ln">    21  </span>	Limit *int64 `json:&#34;limit,omitempty&#34;`
 <span id="L22" class="ln">    22  </span>	<span class="comment">// The value to use for logs that don&#39;t have the facet used to group-by.</span>
 <span id="L23" class="ln">    23  </span>	Missing *CIAppGroupByMissing `json:&#34;missing,omitempty&#34;`
-<span id="L24" class="ln">    24  </span>	<span class="comment">// A sort rule.</span>
+<span id="L24" class="ln">    24  </span>	<span class="comment">// A sort rule. The `aggregation` field is required when `type` is `measure`.</span>
 <span id="L25" class="ln">    25  </span>	Sort *CIAppAggregateSort `json:&#34;sort,omitempty&#34;`
 <span id="L26" class="ln">    26  </span>	<span class="comment">// A resulting object to put the given computes in over all the matching records.</span>
 <span id="L27" class="ln">    27  </span>	Total *CIAppGroupByTotal `json:&#34;total,omitempty&#34;`
