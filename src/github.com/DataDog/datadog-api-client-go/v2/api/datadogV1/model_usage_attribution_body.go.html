@@ -83,7 +83,7 @@
 <span id="L26" class="ln">    26  </span>	<span class="comment">// configured for usage attribution](https://docs.datadoghq.com/account_management/billing/usage_attribution/#getting-started).</span>
 <span id="L27" class="ln">    27  </span>	<span class="comment">// In this scenario the API returns the total usage, not broken down by tags.</span>
 <span id="L28" class="ln">    28  </span>	Tags map[string][]string `json:&#34;tags,omitempty&#34;`
-<span id="L29" class="ln">    29  </span>	<span class="comment">// Shows the the most recent hour in the current months for all organizations for which all usages were calculated.</span>
+<span id="L29" class="ln">    29  </span>	<span class="comment">// Shows the the most recent hour in the current month for all organizations for which all usages were calculated.</span>
 <span id="L30" class="ln">    30  </span>	UpdatedAt *string `json:&#34;updated_at,omitempty&#34;`
 <span id="L31" class="ln">    31  </span>	<span class="comment">// Fields in Usage Summary by tag(s).</span>
 <span id="L32" class="ln">    32  </span>	Values *UsageAttributionValues `json:&#34;values,omitempty&#34;`
