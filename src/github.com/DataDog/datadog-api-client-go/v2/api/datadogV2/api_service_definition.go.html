@@ -435,52 +435,50 @@
 <span id="L378" class="ln">   378  </span>		pageSize_ = *o[0].PageSize
 <span id="L379" class="ln">   379  </span>	}
 <span id="L380" class="ln">   380  </span>	o[0].PageSize = &amp;pageSize_
-<span id="L381" class="ln">   381  </span>
-<span id="L382" class="ln">   382  </span>	items := make(chan datadog.PaginationResult[ServiceDefinitionData], pageSize_)
-<span id="L383" class="ln">   383  </span>	go func() {
-<span id="L384" class="ln">   384  </span>		for {
-<span id="L385" class="ln">   385  </span>			resp, _, err := a.ListServiceDefinitions(ctx, o...)
-<span id="L386" class="ln">   386  </span>			if err != nil {
-<span id="L387" class="ln">   387  </span>				var returnItem ServiceDefinitionData
-<span id="L388" class="ln">   388  </span>				items &lt;- datadog.PaginationResult[ServiceDefinitionData]{Item: returnItem, Error: err}
-<span id="L389" class="ln">   389  </span>				break
-<span id="L390" class="ln">   390  </span>			}
-<span id="L391" class="ln">   391  </span>			respData, ok := resp.GetDataOk()
-<span id="L392" class="ln">   392  </span>			if !ok {
-<span id="L393" class="ln">   393  </span>				break
-<span id="L394" class="ln">   394  </span>			}
-<span id="L395" class="ln">   395  </span>			results := *respData
-<span id="L396" class="ln">   396  </span>
-<span id="L397" class="ln">   397  </span>			for _, item := range results {
-<span id="L398" class="ln">   398  </span>				select {
-<span id="L399" class="ln">   399  </span>				case items &lt;- datadog.PaginationResult[ServiceDefinitionData]{Item: item, Error: nil}:
-<span id="L400" class="ln">   400  </span>				case &lt;-ctx.Done():
-<span id="L401" class="ln">   401  </span>					close(items)
-<span id="L402" class="ln">   402  </span>					return
-<span id="L403" class="ln">   403  </span>				}
-<span id="L404" class="ln">   404  </span>			}
-<span id="L405" class="ln">   405  </span>			if len(results) &lt; int(pageSize_) {
-<span id="L406" class="ln">   406  </span>				break
-<span id="L407" class="ln">   407  </span>			}
-<span id="L408" class="ln">   408  </span>			if o[0].PageNumber == nil {
-<span id="L409" class="ln">   409  </span>				o[0].PageNumber = &amp;pageSize_
-<span id="L410" class="ln">   410  </span>			} else {
-<span id="L411" class="ln">   411  </span>				pageOffset_ := *o[0].PageNumber + pageSize_
-<span id="L412" class="ln">   412  </span>				o[0].PageNumber = &amp;pageOffset_
-<span id="L413" class="ln">   413  </span>			}
-<span id="L414" class="ln">   414  </span>		}
-<span id="L415" class="ln">   415  </span>		close(items)
-<span id="L416" class="ln">   416  </span>	}()
-<span id="L417" class="ln">   417  </span>	return items, cancel
-<span id="L418" class="ln">   418  </span>}
-<span id="L419" class="ln">   419  </span>
-<span id="L420" class="ln">   420  </span><span class="comment">// NewServiceDefinitionApi Returns NewServiceDefinitionApi.</span>
-<span id="L421" class="ln">   421  </span>func NewServiceDefinitionApi(client *datadog.APIClient) *ServiceDefinitionApi {
-<span id="L422" class="ln">   422  </span>	return &amp;ServiceDefinitionApi{
-<span id="L423" class="ln">   423  </span>		Client: client,
-<span id="L424" class="ln">   424  </span>	}
-<span id="L425" class="ln">   425  </span>}
-<span id="L426" class="ln">   426  </span>
+<span id="L381" class="ln">   381  </span>	page_ := int64(0)
+<span id="L382" class="ln">   382  </span>	o[0].PageNumber = &amp;page_
+<span id="L383" class="ln">   383  </span>
+<span id="L384" class="ln">   384  </span>	items := make(chan datadog.PaginationResult[ServiceDefinitionData], pageSize_)
+<span id="L385" class="ln">   385  </span>	go func() {
+<span id="L386" class="ln">   386  </span>		for {
+<span id="L387" class="ln">   387  </span>			resp, _, err := a.ListServiceDefinitions(ctx, o...)
+<span id="L388" class="ln">   388  </span>			if err != nil {
+<span id="L389" class="ln">   389  </span>				var returnItem ServiceDefinitionData
+<span id="L390" class="ln">   390  </span>				items &lt;- datadog.PaginationResult[ServiceDefinitionData]{Item: returnItem, Error: err}
+<span id="L391" class="ln">   391  </span>				break
+<span id="L392" class="ln">   392  </span>			}
+<span id="L393" class="ln">   393  </span>			respData, ok := resp.GetDataOk()
+<span id="L394" class="ln">   394  </span>			if !ok {
+<span id="L395" class="ln">   395  </span>				break
+<span id="L396" class="ln">   396  </span>			}
+<span id="L397" class="ln">   397  </span>			results := *respData
+<span id="L398" class="ln">   398  </span>
+<span id="L399" class="ln">   399  </span>			for _, item := range results {
+<span id="L400" class="ln">   400  </span>				select {
+<span id="L401" class="ln">   401  </span>				case items &lt;- datadog.PaginationResult[ServiceDefinitionData]{Item: item, Error: nil}:
+<span id="L402" class="ln">   402  </span>				case &lt;-ctx.Done():
+<span id="L403" class="ln">   403  </span>					close(items)
+<span id="L404" class="ln">   404  </span>					return
+<span id="L405" class="ln">   405  </span>				}
+<span id="L406" class="ln">   406  </span>			}
+<span id="L407" class="ln">   407  </span>			if len(results) &lt; int(pageSize_) {
+<span id="L408" class="ln">   408  </span>				break
+<span id="L409" class="ln">   409  </span>			}
+<span id="L410" class="ln">   410  </span>			pageOffset_ := *o[0].PageNumber + 1
+<span id="L411" class="ln">   411  </span>			o[0].PageNumber = &amp;pageOffset_
+<span id="L412" class="ln">   412  </span>		}
+<span id="L413" class="ln">   413  </span>		close(items)
+<span id="L414" class="ln">   414  </span>	}()
+<span id="L415" class="ln">   415  </span>	return items, cancel
+<span id="L416" class="ln">   416  </span>}
+<span id="L417" class="ln">   417  </span>
+<span id="L418" class="ln">   418  </span><span class="comment">// NewServiceDefinitionApi Returns NewServiceDefinitionApi.</span>
+<span id="L419" class="ln">   419  </span>func NewServiceDefinitionApi(client *datadog.APIClient) *ServiceDefinitionApi {
+<span id="L420" class="ln">   420  </span>	return &amp;ServiceDefinitionApi{
+<span id="L421" class="ln">   421  </span>		Client: client,
+<span id="L422" class="ln">   422  </span>	}
+<span id="L423" class="ln">   423  </span>}
+<span id="L424" class="ln">   424  </span>
 </pre><p></p>
 
 <div id="footer">
