@@ -2325,13 +2325,76 @@
 <span id="L2268" class="ln">  2268  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L2269" class="ln">  2269  </span>}
 <span id="L2270" class="ln">  2270  </span>
-<span id="L2271" class="ln">  2271  </span><span class="comment">// NewSecurityMonitoringApi Returns NewSecurityMonitoringApi.</span>
-<span id="L2272" class="ln">  2272  </span>func NewSecurityMonitoringApi(client *datadog.APIClient) *SecurityMonitoringApi {
-<span id="L2273" class="ln">  2273  </span>	return &amp;SecurityMonitoringApi{
-<span id="L2274" class="ln">  2274  </span>		Client: client,
-<span id="L2275" class="ln">  2275  </span>	}
-<span id="L2276" class="ln">  2276  </span>}
-<span id="L2277" class="ln">  2277  </span>
+<span id="L2271" class="ln">  2271  </span><span class="comment">// ValidateSecurityMonitoringRule Validate a detection rule.</span>
+<span id="L2272" class="ln">  2272  </span><span class="comment">// Validate a detection rule.</span>
+<span id="L2273" class="ln">  2273  </span>func (a *SecurityMonitoringApi) ValidateSecurityMonitoringRule(ctx _context.Context, body SecurityMonitoringRuleCreatePayload) (*_nethttp.Response, error) {
+<span id="L2274" class="ln">  2274  </span>	var (
+<span id="L2275" class="ln">  2275  </span>		localVarHTTPMethod = _nethttp.MethodPost
+<span id="L2276" class="ln">  2276  </span>		localVarPostBody   interface{}
+<span id="L2277" class="ln">  2277  </span>	)
+<span id="L2278" class="ln">  2278  </span>
+<span id="L2279" class="ln">  2279  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.SecurityMonitoringApi.ValidateSecurityMonitoringRule&#34;)
+<span id="L2280" class="ln">  2280  </span>	if err != nil {
+<span id="L2281" class="ln">  2281  </span>		return nil, datadog.GenericOpenAPIError{ErrorMessage: err.Error()}
+<span id="L2282" class="ln">  2282  </span>	}
+<span id="L2283" class="ln">  2283  </span>
+<span id="L2284" class="ln">  2284  </span>	localVarPath := localBasePath + &#34;/api/v2/security_monitoring/rules/validation&#34;
+<span id="L2285" class="ln">  2285  </span>
+<span id="L2286" class="ln">  2286  </span>	localVarHeaderParams := make(map[string]string)
+<span id="L2287" class="ln">  2287  </span>	localVarQueryParams := _neturl.Values{}
+<span id="L2288" class="ln">  2288  </span>	localVarFormParams := _neturl.Values{}
+<span id="L2289" class="ln">  2289  </span>	localVarHeaderParams[&#34;Content-Type&#34;] = &#34;application/json&#34;
+<span id="L2290" class="ln">  2290  </span>	localVarHeaderParams[&#34;Accept&#34;] = &#34;*/*&#34;
+<span id="L2291" class="ln">  2291  </span>
+<span id="L2292" class="ln">  2292  </span>	<span class="comment">// body params</span>
+<span id="L2293" class="ln">  2293  </span>	localVarPostBody = &amp;body
+<span id="L2294" class="ln">  2294  </span>	datadog.SetAuthKeys(
+<span id="L2295" class="ln">  2295  </span>		ctx,
+<span id="L2296" class="ln">  2296  </span>		&amp;localVarHeaderParams,
+<span id="L2297" class="ln">  2297  </span>		[2]string{&#34;apiKeyAuth&#34;, &#34;DD-API-KEY&#34;},
+<span id="L2298" class="ln">  2298  </span>		[2]string{&#34;appKeyAuth&#34;, &#34;DD-APPLICATION-KEY&#34;},
+<span id="L2299" class="ln">  2299  </span>	)
+<span id="L2300" class="ln">  2300  </span>	req, err := a.Client.PrepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, nil)
+<span id="L2301" class="ln">  2301  </span>	if err != nil {
+<span id="L2302" class="ln">  2302  </span>		return nil, err
+<span id="L2303" class="ln">  2303  </span>	}
+<span id="L2304" class="ln">  2304  </span>
+<span id="L2305" class="ln">  2305  </span>	localVarHTTPResponse, err := a.Client.CallAPI(req)
+<span id="L2306" class="ln">  2306  </span>	if err != nil || localVarHTTPResponse == nil {
+<span id="L2307" class="ln">  2307  </span>		return localVarHTTPResponse, err
+<span id="L2308" class="ln">  2308  </span>	}
+<span id="L2309" class="ln">  2309  </span>
+<span id="L2310" class="ln">  2310  </span>	localVarBody, err := datadog.ReadBody(localVarHTTPResponse)
+<span id="L2311" class="ln">  2311  </span>	if err != nil {
+<span id="L2312" class="ln">  2312  </span>		return localVarHTTPResponse, err
+<span id="L2313" class="ln">  2313  </span>	}
+<span id="L2314" class="ln">  2314  </span>
+<span id="L2315" class="ln">  2315  </span>	if localVarHTTPResponse.StatusCode &gt;= 300 {
+<span id="L2316" class="ln">  2316  </span>		newErr := datadog.GenericOpenAPIError{
+<span id="L2317" class="ln">  2317  </span>			ErrorBody:    localVarBody,
+<span id="L2318" class="ln">  2318  </span>			ErrorMessage: localVarHTTPResponse.Status,
+<span id="L2319" class="ln">  2319  </span>		}
+<span id="L2320" class="ln">  2320  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L2321" class="ln">  2321  </span>			var v APIErrorResponse
+<span id="L2322" class="ln">  2322  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
+<span id="L2323" class="ln">  2323  </span>			if err != nil {
+<span id="L2324" class="ln">  2324  </span>				return localVarHTTPResponse, newErr
+<span id="L2325" class="ln">  2325  </span>			}
+<span id="L2326" class="ln">  2326  </span>			newErr.ErrorModel = v
+<span id="L2327" class="ln">  2327  </span>		}
+<span id="L2328" class="ln">  2328  </span>		return localVarHTTPResponse, newErr
+<span id="L2329" class="ln">  2329  </span>	}
+<span id="L2330" class="ln">  2330  </span>
+<span id="L2331" class="ln">  2331  </span>	return localVarHTTPResponse, nil
+<span id="L2332" class="ln">  2332  </span>}
+<span id="L2333" class="ln">  2333  </span>
+<span id="L2334" class="ln">  2334  </span><span class="comment">// NewSecurityMonitoringApi Returns NewSecurityMonitoringApi.</span>
+<span id="L2335" class="ln">  2335  </span>func NewSecurityMonitoringApi(client *datadog.APIClient) *SecurityMonitoringApi {
+<span id="L2336" class="ln">  2336  </span>	return &amp;SecurityMonitoringApi{
+<span id="L2337" class="ln">  2337  </span>		Client: client,
+<span id="L2338" class="ln">  2338  </span>	}
+<span id="L2339" class="ln">  2339  </span>}
+<span id="L2340" class="ln">  2340  </span>
 </pre><p></p>
 
 <div id="footer">
