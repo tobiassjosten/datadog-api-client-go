@@ -71,7 +71,7 @@
 <span id="L14" class="ln">    14  </span>type SecurityMonitoringStandardRuleCreatePayload struct {
 <span id="L15" class="ln">    15  </span>	<span class="comment">// Cases for generating signals.</span>
 <span id="L16" class="ln">    16  </span>	Cases []SecurityMonitoringRuleCaseCreate `json:&#34;cases&#34;`
-<span id="L17" class="ln">    17  </span>	<span class="comment">// Additional queries to filter matched events before they are processed.</span>
+<span id="L17" class="ln">    17  </span>	<span class="comment">// Additional queries to filter matched events before they are processed. This field is deprecated for log detection, signal correlation, and workload security rules.</span>
 <span id="L18" class="ln">    18  </span>	Filters []SecurityMonitoringFilter `json:&#34;filters,omitempty&#34;`
 <span id="L19" class="ln">    19  </span>	<span class="comment">// Whether the notifications include the triggering group-by values in their title.</span>
 <span id="L20" class="ln">    20  </span>	HasExtendedTitle *bool `json:&#34;hasExtendedTitle,omitempty&#34;`

@@ -77,7 +77,7 @@
 <span id="L20" class="ln">    20  </span>	CreationAuthorId *int64 `json:&#34;creationAuthorId,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// When the rule will be deprecated, timestamp in milliseconds.</span>
 <span id="L22" class="ln">    22  </span>	DeprecationDate *int64 `json:&#34;deprecationDate,omitempty&#34;`
-<span id="L23" class="ln">    23  </span>	<span class="comment">// Additional queries to filter matched events before they are processed.</span>
+<span id="L23" class="ln">    23  </span>	<span class="comment">// Additional queries to filter matched events before they are processed. This field is deprecated for log detection, signal correlation, and workload security rules.</span>
 <span id="L24" class="ln">    24  </span>	Filters []SecurityMonitoringFilter `json:&#34;filters,omitempty&#34;`
 <span id="L25" class="ln">    25  </span>	<span class="comment">// Whether the notifications include the triggering group-by values in their title.</span>
 <span id="L26" class="ln">    26  </span>	HasExtendedTitle *bool `json:&#34;hasExtendedTitle,omitempty&#34;`
