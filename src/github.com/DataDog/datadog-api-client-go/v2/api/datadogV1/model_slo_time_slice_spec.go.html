@@ -70,7 +70,7 @@
 <span id="L13" class="ln">    13  </span><span class="comment">// SLOTimeSliceSpec A time-slice SLI specification.</span>
 <span id="L14" class="ln">    14  </span>type SLOTimeSliceSpec struct {
 <span id="L15" class="ln">    15  </span>	<span class="comment">// The time-slice condition, composed of 3 parts: 1. the metric timeseries query, 2. the comparator,</span>
-<span id="L16" class="ln">    16  </span>	<span class="comment">// and 3. the threshold.</span>
+<span id="L16" class="ln">    16  </span>	<span class="comment">// and 3. the threshold. Optionally, a fourth part, the query interval, can be provided.</span>
 <span id="L17" class="ln">    17  </span>	TimeSlice SLOTimeSliceCondition `json:&#34;time_slice&#34;`
 <span id="L18" class="ln">    18  </span>	<span class="comment">// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct</span>
 <span id="L19" class="ln">    19  </span>	UnparsedObject map[string]interface{} `json:&#34;-&#34;`
