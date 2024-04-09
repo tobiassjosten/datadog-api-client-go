@@ -73,7 +73,7 @@
 <span id="L16" class="ln">    16  </span>	Attributes *AuthNMappingUpdateAttributes `json:&#34;attributes,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// ID of the AuthN Mapping.</span>
 <span id="L18" class="ln">    18  </span>	Id string `json:&#34;id&#34;`
-<span id="L19" class="ln">    19  </span>	<span class="comment">// Relationship of AuthN Mapping update object to Role.</span>
+<span id="L19" class="ln">    19  </span>	<span class="comment">// Relationship of AuthN Mapping update object to a Role or Team.</span>
 <span id="L20" class="ln">    20  </span>	Relationships *AuthNMappingUpdateRelationships `json:&#34;relationships,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// AuthN Mappings resource type.</span>
 <span id="L22" class="ln">    22  </span>	Type AuthNMappingsType `json:&#34;type&#34;`
@@ -256,27 +256,24 @@
 <span id="L199" class="ln">   199  </span>	}
 <span id="L200" class="ln">   200  </span>	o.Attributes = all.Attributes
 <span id="L201" class="ln">   201  </span>	o.Id = *all.Id
-<span id="L202" class="ln">   202  </span>	if all.Relationships != nil &amp;&amp; all.Relationships.UnparsedObject != nil &amp;&amp; o.UnparsedObject == nil {
-<span id="L203" class="ln">   203  </span>		hasInvalidField = true
-<span id="L204" class="ln">   204  </span>	}
-<span id="L205" class="ln">   205  </span>	o.Relationships = all.Relationships
-<span id="L206" class="ln">   206  </span>	if !all.Type.IsValid() {
-<span id="L207" class="ln">   207  </span>		hasInvalidField = true
-<span id="L208" class="ln">   208  </span>	} else {
-<span id="L209" class="ln">   209  </span>		o.Type = *all.Type
-<span id="L210" class="ln">   210  </span>	}
-<span id="L211" class="ln">   211  </span>
-<span id="L212" class="ln">   212  </span>	if len(additionalProperties) &gt; 0 {
-<span id="L213" class="ln">   213  </span>		o.AdditionalProperties = additionalProperties
-<span id="L214" class="ln">   214  </span>	}
-<span id="L215" class="ln">   215  </span>
-<span id="L216" class="ln">   216  </span>	if hasInvalidField {
-<span id="L217" class="ln">   217  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
-<span id="L218" class="ln">   218  </span>	}
+<span id="L202" class="ln">   202  </span>	o.Relationships = all.Relationships
+<span id="L203" class="ln">   203  </span>	if !all.Type.IsValid() {
+<span id="L204" class="ln">   204  </span>		hasInvalidField = true
+<span id="L205" class="ln">   205  </span>	} else {
+<span id="L206" class="ln">   206  </span>		o.Type = *all.Type
+<span id="L207" class="ln">   207  </span>	}
+<span id="L208" class="ln">   208  </span>
+<span id="L209" class="ln">   209  </span>	if len(additionalProperties) &gt; 0 {
+<span id="L210" class="ln">   210  </span>		o.AdditionalProperties = additionalProperties
+<span id="L211" class="ln">   211  </span>	}
+<span id="L212" class="ln">   212  </span>
+<span id="L213" class="ln">   213  </span>	if hasInvalidField {
+<span id="L214" class="ln">   214  </span>		return datadog.Unmarshal(bytes, &amp;o.UnparsedObject)
+<span id="L215" class="ln">   215  </span>	}
+<span id="L216" class="ln">   216  </span>
+<span id="L217" class="ln">   217  </span>	return nil
+<span id="L218" class="ln">   218  </span>}
 <span id="L219" class="ln">   219  </span>
-<span id="L220" class="ln">   220  </span>	return nil
-<span id="L221" class="ln">   221  </span>}
-<span id="L222" class="ln">   222  </span>
 </pre><p></p>
 
 <div id="footer">
