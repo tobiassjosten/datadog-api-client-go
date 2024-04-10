@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span>type Series struct {
 <span id="L16" class="ln">    16  </span>	<span class="comment">// The name of the host that produced the metric.</span>
 <span id="L17" class="ln">    17  </span>	Host *string `json:&#34;host,omitempty&#34;`
-<span id="L18" class="ln">    18  </span>	<span class="comment">// If the type of the metric is rate or count, define the corresponding interval.</span>
+<span id="L18" class="ln">    18  </span>	<span class="comment">// If the type of the metric is rate or count, define the corresponding interval in seconds.</span>
 <span id="L19" class="ln">    19  </span>	Interval datadog.NullableInt64 `json:&#34;interval,omitempty&#34;`
 <span id="L20" class="ln">    20  </span>	<span class="comment">// The name of the timeseries.</span>
 <span id="L21" class="ln">    21  </span>	Metric string `json:&#34;metric&#34;`
