@@ -78,11 +78,11 @@
 <span id="L21" class="ln">    21  </span><span class="comment">// Returns the retention filter definition when the request is successful.</span>
 <span id="L22" class="ln">    22  </span><span class="comment">//</span>
 <span id="L23" class="ln">    23  </span><span class="comment">// Default filters with types spans-errors-sampling-processor and spans-appsec-sampling-processor cannot be created.</span>
-<span id="L24" class="ln">    24  </span>func (a *APMRetentionFiltersApi) CreateApmRetentionFilter(ctx _context.Context, body RetentionFilterCreateRequest) (RetentionFilterResponse, *_nethttp.Response, error) {
+<span id="L24" class="ln">    24  </span>func (a *APMRetentionFiltersApi) CreateApmRetentionFilter(ctx _context.Context, body RetentionFilterCreateRequest) (RetentionFilterCreateResponse, *_nethttp.Response, error) {
 <span id="L25" class="ln">    25  </span>	var (
 <span id="L26" class="ln">    26  </span>		localVarHTTPMethod  = _nethttp.MethodPost
 <span id="L27" class="ln">    27  </span>		localVarPostBody    interface{}
-<span id="L28" class="ln">    28  </span>		localVarReturnValue RetentionFilterResponse
+<span id="L28" class="ln">    28  </span>		localVarReturnValue RetentionFilterCreateResponse
 <span id="L29" class="ln">    29  </span>	)
 <span id="L30" class="ln">    30  </span>
 <span id="L31" class="ln">    31  </span>	localBasePath, err := a.Client.Cfg.ServerURLWithContext(ctx, &#34;v2.APMRetentionFiltersApi.CreateApmRetentionFilter&#34;)
