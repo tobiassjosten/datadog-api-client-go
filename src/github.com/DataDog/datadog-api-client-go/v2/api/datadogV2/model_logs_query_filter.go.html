@@ -73,7 +73,7 @@
 <span id="L16" class="ln">    16  </span>	Indexes []string `json:&#34;indexes,omitempty&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// The search query - following the log search syntax.</span>
 <span id="L18" class="ln">    18  </span>	Query *string `json:&#34;query,omitempty&#34;`
-<span id="L19" class="ln">    19  </span>	<span class="comment">// Specifies storage type as indexes or online-archives</span>
+<span id="L19" class="ln">    19  </span>	<span class="comment">// Specifies storage type as indexes, online-archives or flex</span>
 <span id="L20" class="ln">    20  </span>	StorageTier *LogsStorageTier `json:&#34;storage_tier,omitempty&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// The maximum time for the requested logs, supports date math and regular timestamps (milliseconds).</span>
 <span id="L22" class="ln">    22  </span>	To *string `json:&#34;to,omitempty&#34;`
